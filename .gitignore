@@ -1,0 +1,14 @@
+.DS_Store
+/.idea
+/node_modules
+/.next
+/.env
+/dist
+/src/utils/dataIcons/data.ts
+
+server.js
+server.cert
+server.key
+info.log
+error.log
+winston.log
