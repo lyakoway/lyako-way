@@ -19,9 +19,9 @@ const MyApp = observer(({ Component, pageProps }) => {
       </Head>
       <GlobalStyles />
       <ThemeProvider theme={theme}>
+        <GlobalStyles />
         <Component {...pageProps} />
       </ThemeProvider>
-      <div>1111</div>
     </>
   );
 });
