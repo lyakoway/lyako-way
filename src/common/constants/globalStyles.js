@@ -450,6 +450,32 @@ const GlobalStyles = createGlobalStyle`
   .react-pdf__Page__canvas {
     margin: 0 auto;
   }
+
+  /* Основная ширина полосы прокрутки. */
+  body::-webkit-scrollbar {
+    width: 16px;
+    -webkit-appearance: none;
+  }
+
+  /* Цвет дорожки, по которой двигается бегунок прокрутки. */
+  body::-webkit-scrollbar-track {
+    background: #2b3037;
+    background-clip: content-box;
+    /* opacity: 0;
+    background-color: transparent; */
+  }
+
+  /* Размер и цвет бегунка. */
+  body::-webkit-scrollbar-thumb {
+    background: #ff8560;
+    border: 6px solid #2b3037;
+    border-radius: 10px;
+  }
+  /* Размер бегунка при наведении на него курсора. */
+  body::-webkit-scrollbar-thumb:hover {
+    border: 4px solid #ffff;
+  }
+
 `;
 
 export default GlobalStyles;

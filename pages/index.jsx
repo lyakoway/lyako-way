@@ -4,7 +4,7 @@ export default function About() {
   return (
     <>
       <ProgressBar />
-      <div>О нас</div>
+      <div style={{ height: "100vh", marginBottom: "200px" }}>О нас</div>
     </>
   );
 }

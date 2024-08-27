@@ -1,6 +1,6 @@
 import React, { useEffect, useLayoutEffect } from "react";
 
-// import "./style.css";
+import styles from "./progress.module.css";
 import {
   getMobileOperatingSystem,
   isAndroid,
@@ -26,10 +26,10 @@ const ProgressBar = () => {
 
   useEffect(() => {
     const progressBar = () => {
-      const progressTop = document.querySelector(".progress-top");
-      const progressRight = document.querySelector(".progress-right");
-      const progressBottom = document.querySelector(".progress-bottom");
-      const progressLeft = document.querySelector(".progress-left");
+      const progressTop = document.getElementById("progressTop");
+      const progressRight = document.getElementById("progressRight");
+      const progressBottom = document.getElementById("progressBottom");
+      const progressLeft = document.getElementById("progressLeft");
 
       let windowScroll =
         document.body.scrollTop || document.documentElement.scrollTop;
@@ -83,10 +83,10 @@ const ProgressBar = () => {
   });
   return (
     <>
-      <div className="progress-top"></div>
-      <div className="progress-right"></div>
-      <div className="progress-bottom"></div>
-      <div className="progress-left"></div>
+      <div id={"progressTop"} className={styles.progressTop}></div>
+      <div id={"progressRight"} className={styles.progressRight}></div>
+      <div id={"progressBottom"} className={styles.progressBottom}></div>
+      <div id={"progressLeft"} className={styles.progressLeft}></div>
     </>
   );
 };

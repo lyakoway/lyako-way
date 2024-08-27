@@ -1,0 +1,39 @@
+.progressTop,
+.progressRight,
+.progressBottom,
+.progressLeft {
+  position: fixed;
+  z-index: 999;
+
+  background-color: #707980;
+}
+
+.progressTop,
+.progressBottom {
+  height: 0.35em;
+}
+
+.progressRight,
+.progressLeft {
+  width: 0.35em;
+}
+
+.progressTop,
+.progressRight {
+  top: 0;
+}
+
+.progressTop,
+.progressLeft {
+  left: 0;
+}
+
+.progressBottom,
+.progressLeft {
+  bottom: 0;
+}
+
+.progressBottom,
+.progressRight {
+  right: 0;
+}
