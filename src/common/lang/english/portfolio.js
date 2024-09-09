@@ -1,4 +1,4 @@
-import PortfolioImgUrl1 from "../../../common/icon/icon-blog/PortfolioImgUrl.png";
+import PortfolioImgUrl1 from "src/common/icon/icon-blog/PortfolioImgUrl.png";
 
 export const portfolio = {
   title: "Newly developed",

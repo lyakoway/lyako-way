@@ -1,11 +1,11 @@
-import { ReactComponent as PriceIcon } from "../../icon/PriceIcon.svg";
-import { ReactComponent as ExperienceIcon } from "../../icon/ExperienceIcon.svg";
-import { ReactComponent as TermIcon } from "../../icon/TermIcon.svg";
-import { ReactComponent as TechnologiesIcon } from "../../icon/TechnologiesIcon.svg";
-import { ReactComponent as LayoutIcon } from "../../icon/LayoutIcon.svg";
-import { ReactComponent as SupportIcon } from "../../icon/SupportIcon.svg";
+import { ReactComponent as PriceIcon } from "src/common/icon/PriceIcon.svg";
+import { ReactComponent as ExperienceIcon } from "src/common/icon/ExperienceIcon.svg";
+import { ReactComponent as TermIcon } from "src/common/icon/TermIcon.svg";
+import { ReactComponent as TechnologiesIcon } from "src/common/icon/TechnologiesIcon.svg";
+import { ReactComponent as LayoutIcon } from "src/common/icon/LayoutIcon.svg";
+import { ReactComponent as SupportIcon } from "src/common/icon/SupportIcon.svg";
 
-import { dataYear } from "../../../common/constants";
+import { dataYear } from "src/common/constants";
 
 export const advantagesText = "Преимущества";
 

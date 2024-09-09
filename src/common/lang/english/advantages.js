@@ -6,14 +6,14 @@ import Image from "next/image";
 // or as a component
 <Logo /> */
 }
-import { ReactComponent as PriceIcon } from "@/common/icon/PriceIcon.svg";
-import { ReactComponent as ExperienceIcon } from "@/common/icon/ExperienceIcon.svg";
-import { ReactComponent as TermIcon } from "@/common/icon/TermIcon.svg";
-import { ReactComponent as TechnologiesIcon } from "@/common/icon/TechnologiesIcon.svg";
-import { ReactComponent as LayoutIcon } from "@/common/icon/LayoutIcon.svg";
-import { ReactComponent as SupportIcon } from "@/common/icon/SupportIcon.svg";
+import { ReactComponent as PriceIcon } from "src/common/icon/PriceIcon.svg";
+import { ReactComponent as ExperienceIcon } from "src/common/icon/ExperienceIcon.svg";
+import { ReactComponent as TermIcon } from "src/common/icon/TermIcon.svg";
+import { ReactComponent as TechnologiesIcon } from "src/common/icon/TechnologiesIcon.svg";
+import { ReactComponent as LayoutIcon } from "src/common/icon/LayoutIcon.svg";
+import { ReactComponent as SupportIcon } from "src/common/icon/SupportIcon.svg";
 
-import { dataYear } from "@/common/constants";
+import { dataYear } from "src/common/constants";
 
 export const advantagesText = "Advantages";
 

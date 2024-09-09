@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
-import { LIGHT_THEME, DARK_THEME } from "@/common/themes";
-import { RUSSIAN_LANGUAGE, ENGLISH_LANGUAGE } from "@/common/lang";
+import { LIGHT_THEME, DARK_THEME } from "src/common/themes";
+import { RUSSIAN_LANGUAGE, ENGLISH_LANGUAGE } from "src/common/lang";
 
 class Store {
   opendToast = false;

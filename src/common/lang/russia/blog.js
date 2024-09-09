@@ -1,11 +1,11 @@
-import JavaScript from "@/common/icon/icon-blog/JavaScript.png";
-import React from "@/common/icon/icon-blog/React.png";
-import NextJs from "@/common/icon/icon-blog/NextJs.png";
-import TypeScript from "@/common/icon/icon-blog/TypeScript.png";
-import ReactNative from "@/common/icon/icon-blog/ReactNative.jpeg";
-import NodeJs from "@/common/icon/icon-blog/NodeJs.png";
-import Redux from "@/common/icon/icon-blog/Redux.png";
-import Git from "@/common/icon/icon-blog/Git.png";
+import JavaScript from "src/common/icon/icon-blog/JavaScript.png";
+import React from "src/common/icon/icon-blog/React.png";
+import NextJs from "src/common/icon/icon-blog/NextJs.png";
+import TypeScript from "src/common/icon/icon-blog/TypeScript.png";
+import ReactNative from "src/common/icon/icon-blog/ReactNative.jpeg";
+import NodeJs from "src/common/icon/icon-blog/NodeJs.png";
+import Redux from "src/common/icon/icon-blog/Redux.png";
+import Git from "src/common/icon/icon-blog/Git.png";
 
 export const blog = {
   title: "Мой блог",

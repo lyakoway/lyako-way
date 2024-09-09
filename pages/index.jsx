@@ -1,10 +1,11 @@
-import ProgressBar from "@/common/ProgressBar";
+// import ProgressBar from "src/ui/ProgressBar";
+import Header from "src/widgets/Header";
 
 export default function About() {
   return (
     <>
-      <ProgressBar />
-      <div style={{ height: "100vh", marginBottom: "200px" }}>О нас</div>
+      {/* <ProgressBar /> */}
+      <Header />
     </>
   );
 }

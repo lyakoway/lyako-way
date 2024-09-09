@@ -1,11 +1,7 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 
 import styles from "./progress.module.css";
-import {
-  getMobileOperatingSystem,
-  isAndroid,
-  isIos,
-} from "@/common/utils/helpers";
+import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";
 
 const ProgressBar = () => {
   function getProductsHref() {

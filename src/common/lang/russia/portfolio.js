@@ -1,4 +1,4 @@
-import PortfolioImgUrl1 from "../../../common/icon/icon-blog/PortfolioImgUrl.png";
+import PortfolioImgUrl1 from "src/common/icon/icon-blog/PortfolioImgUrl.png";
 // import webdev from './icon/webdev.png';
 
 export const portfolio = {
