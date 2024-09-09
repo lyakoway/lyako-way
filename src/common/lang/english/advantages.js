@@ -6,12 +6,12 @@ import Image from "next/image";
 // or as a component
 <Logo /> */
 }
-import { ReactComponent as PriceIcon } from "src/common/icon/PriceIcon.svg";
-import { ReactComponent as ExperienceIcon } from "src/common/icon/ExperienceIcon.svg";
-import { ReactComponent as TermIcon } from "src/common/icon/TermIcon.svg";
-import { ReactComponent as TechnologiesIcon } from "src/common/icon/TechnologiesIcon.svg";
-import { ReactComponent as LayoutIcon } from "src/common/icon/LayoutIcon.svg";
-import { ReactComponent as SupportIcon } from "src/common/icon/SupportIcon.svg";
+import { ReactComponent as PriceIcon } from "src/common/icon/advantages/PriceIcon.svg";
+import { ReactComponent as ExperienceIcon } from "src/common/icon/advantages/ExperienceIcon.svg";
+import { ReactComponent as TermIcon } from "src/common/icon/advantages/TermIcon.svg";
+import { ReactComponent as TechnologiesIcon } from "src/common/icon/advantages/TechnologiesIcon.svg";
+import { ReactComponent as LayoutIcon } from "src/common/icon/advantages/LayoutIcon.svg";
+import { ReactComponent as SupportIcon } from "src/common/icon/advantages/SupportIcon.svg";
 
 import { dataYear } from "src/common/constants";
 

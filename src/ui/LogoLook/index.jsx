@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Logo, LogoSign, LaykoWayWrapper } from "./style";
-import { ReactComponent as LaykoWayLightIcon } from "src/common/icon/LaykoWayLightIcon.svg";
+import { ReactComponent as LaykoWayLightIcon } from "src/common/icon/logo/LaykoWayLightIcon.svg";
 import Link from "src/ui/Link";
 
 const LogoLook = () => (

@@ -1,10 +1,10 @@
-import { ReactComponent as ResumeIcon } from "src/common/icon/ResumeIcon.svg";
-import { ReactComponent as PortfolioIcon } from "src/common/icon/PortfolioIcon.svg";
-import { ReactComponent as ServicesIcon } from "src/common/icon/ServicesIcon.svg";
-import { ReactComponent as СooperationIcon } from "src/common/icon/СooperationIcon.svg";
-import { ReactComponent as PersonIcon } from "src/common/icon/PersonIcon.svg";
-import { ReactComponent as BlogIcon } from "src/common/icon/BlogLightIcon.svg";
-import { ReactComponent as СontactsIcon } from "src/common/icon/СontactsIcon.svg";
+import { ReactComponent as ResumeIcon } from "src/common/icon/resume/ResumeIcon.svg";
+import { ReactComponent as PortfolioIcon } from "src/common/icon/portfolio/PortfolioIcon.svg";
+import { ReactComponent as ServicesIcon } from "src/common/icon/services/ServicesIcon.svg";
+import { ReactComponent as СooperationIcon } from "src/common/icon/contacts/СooperationIcon.svg";
+import { ReactComponent as PersonIcon } from "src/common/icon/profile/PersonIcon.svg";
+import { ReactComponent as BlogIcon } from "src/common/icon/blog/BlogLightIcon.svg";
+import { ReactComponent as СontactsIcon } from "src/common/icon/contacts/СontactsIcon.svg";
 
 import styled from "styled-components";
 
