@@ -1,0 +1,11 @@
+/.jest
+/.next
+/.vscode
+/static
+/*.js
+components/atoms/Icon/icons.registry.json
+components/atoms/Icon/images/*/*
+components/atoms/Icon/images/*
+*.bundle*.js
+/.bank-cards/dist/*
+/.src/utils/headerBundles/*
