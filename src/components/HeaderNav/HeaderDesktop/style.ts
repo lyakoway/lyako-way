@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TABLET_1024, MOBILE_660 } from "src/common/constants/media";
+import { TABLET_1024, MOBILE_660 } from "src/common/lib/media";
 
 export const HeaderTopWrapper = styled.div`
   display: flex;

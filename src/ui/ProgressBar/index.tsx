@@ -11,7 +11,7 @@ const ProgressBar = () => {
       return true;
     }
 
-    if (isIos(userAgent) && !window?.MSStream) {
+    if (isIos(userAgent)) {
       return true;
     }
 

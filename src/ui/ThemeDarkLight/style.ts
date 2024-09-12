@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
-import { MOBILE_660 } from "src/common/constants/media";
+import { MOBILE_660 } from "src/common/lib/media";
 
-export const ThemeDarkLightWrapper = styled.div<{$positionStyle: boolean}>`
+export const ThemeDarkLightWrapper = styled.div<{ $positionStyle: boolean }>`
   text-align: center;
   padding: ${({ $positionStyle }) =>
     $positionStyle ? "0 1rem 0 1rem" : "webpack.config.js.5rem 0 0 0"};
@@ -12,7 +12,7 @@ export const ThemeDarkLightWrapper = styled.div<{$positionStyle: boolean}>`
   }
 `;
 
-export const ThemeDarkLightChecked = styled.div<{$opened: boolean}>`
+export const ThemeDarkLightChecked = styled.div<{ $opened: boolean }>`
   background-color: ${({ $opened }) =>
     $opened ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0.45)"};
   border-radius: 0.75em;
@@ -39,7 +39,8 @@ export const ThemeDarkLightChecked = styled.div<{$opened: boolean}>`
   }
 
   &:before {
-    background-color: ${({ $opened }) => ($opened ? "#d7d7d7" : "currentColor")};
+    background-color: ${({ $opened }) =>
+      $opened ? "#d7d7d7" : "currentColor"};
     border-radius: 50%;
     width: 1.2em;
     height: 1.2em;

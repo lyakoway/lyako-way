@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-import { MOBILE_660 } from "src/common/constants/media";
+import { MOBILE_660 } from "src/common/lib/media";
 import { store } from "src/store";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 

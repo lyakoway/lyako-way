@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { MOBILE_660, MOBILE_480 } from "src/common/constants/media";
+import { MOBILE_660, MOBILE_480 } from "src/common/lib/media";
 
 export const Logo = styled.div`
   display: flex;

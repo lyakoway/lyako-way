@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { MOBILE_660 } from "src/common/constants/media";
+import { MOBILE_660 } from "src/common/lib/media";
 import Link from "src/ui/Link";
 
 const spin = keyframes`

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { MOBILE_660 } from "src/common/constants/media";
+import { MOBILE_660 } from "src/common/lib/media";
 
 import { ReactComponent as LangEnglishIcon } from "src/common/icon/lang/gb.svg";
 import { ReactComponent as LangRussiaIcon } from "src/common/icon/lang/ru.svg";

@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import { MOBILE_660 } from "src/common/constants/media";
+import { MOBILE_660 } from "src/common/lib/media";
 
 export const PopupWrapper = styled.div<{ $positionStyle: boolean }>`
   display: flex;
-  flex-direction: ${({ $positionStyle }) => ($positionStyle ? "row" : "column")};
+  flex-direction: ${({ $positionStyle }) =>
+    $positionStyle ? "row" : "column"};
   align-items: center;
   position: absolute;
   inset: 0px auto auto 0px;

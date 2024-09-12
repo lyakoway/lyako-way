@@ -9,7 +9,7 @@ import { AppProps } from "next/app";
 import { ThemeProvider } from "styled-components";
 
 import getAppHeadContent from "src/common/utils/getAppHeadContent";
-import GlobalStyles from "src/common/constants/globalStyles";
+import GlobalStyles from "src/common/lib/globalStyles";
 
 const MyApp = observer(({ Component, pageProps }: AppProps) => {
   const theme = store.getToggleTheme();
@@ -20,7 +20,7 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
         {getAppHeadContent()}
       </Head>
       <ThemeProvider theme={theme}>
-         <GlobalStyles />
+        <GlobalStyles />
         <Component {...pageProps} />
       </ThemeProvider>
     </>
