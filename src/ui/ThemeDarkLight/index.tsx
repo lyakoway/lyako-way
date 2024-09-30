@@ -1,21 +1,18 @@
 import React from "react";
 
-import { ThemeDarkLightWrapper, ThemeDarkLightChecked } from "./style";
+import { ThemeDarkLightChecked } from "./style";
 
 interface IThemeDarkLightProps {
   opened: boolean;
   handleClick: () => void;
-  positionStyle: boolean;
 }
-const ThemeDarkLight = ({
-  opened,
-  handleClick,
-  positionStyle,
-}: IThemeDarkLightProps) => {
+const ThemeDarkLight = ({ opened, handleClick }: IThemeDarkLightProps) => {
   return (
-    <ThemeDarkLightWrapper id="themeDarkLight" $positionStyle={positionStyle}>
-      <ThemeDarkLightChecked $opened={opened} onClick={handleClick} />
-    </ThemeDarkLightWrapper>
+    <ThemeDarkLightChecked
+      id="themeDarkLight"
+      $opened={opened}
+      onClick={handleClick}
+    />
   );
 };
 

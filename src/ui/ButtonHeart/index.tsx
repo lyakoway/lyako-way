@@ -5,12 +5,11 @@ import { MOBILE_660 } from "src/common/lib/media";
 import { store } from "src/store";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 
-const ButtonWrapper = styled.button<{ $positionStyle: boolean }>`
+const ButtonWrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: ${({ $positionStyle }) => ($positionStyle ? "10px" : "0")};
-  margin-top: ${({ $positionStyle }) => ($positionStyle ? "0" : "10px")};
+  margin: 10px;
 
   -webkit-tap-highlight-color: transparent;
 
@@ -76,7 +75,7 @@ const Label = styled.div`
   margin-top: 30px;
 `;
 
-const ButtonHeart = ({ positionStyle }: { positionStyle: boolean }) => {
+const ButtonHeart = () => {
   const [counter, setСounter] = useState<number>(20);
   // const handleClickOpen = () => {
   //   store.setOpenToast(true);
@@ -138,8 +137,7 @@ const ButtonHeart = ({ positionStyle }: { positionStyle: boolean }) => {
 
   return (
     <>
-      <ButtonWrapper onClick={handleClick} $positionStyle={positionStyle}>
-        {/* <Icon name="heart" color="red" size="large" /> */}
+      <ButtonWrapper onClick={handleClick}>
         <HeartIcon />
         <Label>{counter}</Label>
       </ButtonWrapper>

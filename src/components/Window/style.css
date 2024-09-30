@@ -1,0 +1,594 @@
+@keyframes day-to-night {
+  from {
+    background: #0c2233;
+  }
+  25% {
+    background: #88bef5;
+  }
+  75% {
+    background: #0c2233;
+  }
+  to {
+    background: #0c2233;
+  }
+}
+
+@keyframes light-off {
+  from {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes hotspot-off {
+  from {
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes cloud-move {
+  from {
+    left: -50px;
+    opacity: 0.4;
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    left: 270px;
+    opacity: 0.4;
+  }
+  to {
+    left: 270px;
+    opacity: 0.4;
+  }
+}
+
+@keyframes heavenly-body-move {
+  from {
+    top: 55px;
+    left: -60px;
+  }
+  15% {
+    top: 45px;
+  }
+  33% {
+    top: 30px;
+  }
+  40% {
+    top: 25px;
+  }
+  50% {
+    top: 20px;
+  }
+  60% {
+    top: 25px;
+  }
+  66% {
+    top: 30px;
+  }
+  85% {
+    top: 45px;
+  }
+  to {
+    top: 55px;
+    left: 270px;
+  }
+}
+
+@keyframes tree-shadow-move {
+  from {
+    background-image: linear-gradient(-45deg, #02947c 40%, #00a388 40%);
+  }
+  33% {
+    background-image: linear-gradient(-22deg, #02947c 40%, #00a388 40%);
+  }
+  50% {
+    background-image: linear-gradient(0deg, #02947c 40%, #00a388 40%);
+  }
+  66% {
+    background-image: linear-gradient(22deg, #02947c 40%, #00a388 40%);
+  }
+  to {
+    background-image: linear-gradient(45deg, #02947c 40%, #00a388 40%);
+  }
+}
+
+@keyframes stars-off {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes change-background {
+  from {
+    background: #025982;
+  }
+  25% {
+    background: #0278ae;
+  }
+  50% {
+    background: #025982;
+  }
+  to {
+    background: #025982;
+  }
+}
+
+/* body {
+  background: #0278ae;
+  animation-name: change-background;
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+} */
+
+.popupSetting {
+  background: #464a53 !important;
+}
+
+.popupSetting:before {
+  background: #464a53 !important;
+}
+
+.window-scene {
+  position: relative;
+  width: 260px;
+  height: 340px;
+  /* margin: 50px auto 0; */
+}
+
+.window {
+  position: relative;
+  width: 260px;
+  height: 340px;
+  background: #fff;
+  /* //filter: drop-shadow(0 5px 0 #046896); */
+  z-index: 2;
+}
+
+/* window shadow */
+.window:after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 13px;
+  width: 236px;
+  height: 300px;
+  background: #e4e4e4;
+  z-index: 0;
+}
+
+/* window shadow */
+.window:before {
+  content: "";
+  position: absolute;
+  top: 320px;
+  left: 5px;
+  width: 252px;
+  height: 8px;
+  background: #e4e4e4;
+  z-index: 1;
+}
+
+.window-light {
+  position: absolute;
+  top: 11px;
+  width: 135px;
+  height: 395px;
+  z-index: 1;
+  animation-name: light-off;
+  animation-duration: 8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+.window-light-left {
+  left: -72px;
+  transform: rotate(20deg);
+  background-image: linear-gradient(
+    20deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.window-light-right {
+  left: 198px;
+  transform: rotate(-20deg);
+  background-image: linear-gradient(
+    -20deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0.5)
+  );
+}
+
+.window-frame {
+  position: absolute;
+  top: 20px;
+  left: 126px;
+  width: 10px;
+  height: 300px;
+  background: #e4e4e4;
+  z-index: 3;
+}
+
+.window-frame:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 3px;
+  width: 4px;
+  height: 300px;
+  background: #fff;
+  z-index: 0;
+}
+
+.window-view {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 222px;
+  height: 300px;
+  background: #88bef5;
+  z-index: 1;
+  overflow: hidden;
+  animation-name: day-to-night;
+  animation-duration: 8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+.window-hotspot {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 2;
+  width: 220px;
+  height: 300px;
+  background: transparent;
+  background-image: linear-gradient(
+    to right top,
+    transparent 60%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(255, 255, 255, 0.1) 70%,
+    transparent 70%,
+    transparent 73%,
+    rgba(255, 255, 255, 0.1) 73%,
+    rgba(255, 255, 255, 0.1) 76%,
+    transparent 76%
+  );
+  animation-name: hotspot-off;
+  animation-duration: 8s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+.window-sill {
+  position: absolute;
+  bottom: 0;
+  left: -20px;
+  width: 300px;
+  height: 20px;
+  background: #fff;
+}
+
+/* .heavenly-body {
+  position: absolute;
+  left: -60px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  animation-name: heavenly-body-move;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+} */
+
+.sun {
+  background: #fff82f;
+  box-shadow: 0 0 10px 2px #fff82f;
+}
+
+.moon {
+  background: #fff;
+  box-shadow: 0 0 10px 2px #fff;
+}
+
+.cloud {
+  position: absolute;
+  left: -50px;
+  width: 25px;
+  height: 8px;
+  border-radius: 5px;
+  background: #f5f5f5;
+  animation-name: cloud-move;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.cloud:after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 8px;
+  width: 25px;
+  height: 8px;
+  border-radius: 5px;
+  background: #f5f5f5;
+}
+
+.cloud-1 {
+  top: 80px;
+  transform: scale(1.2);
+  animation-delay: 0.8s;
+  animation-duration: 8s;
+}
+
+.cloud-2 {
+  top: 160px;
+  animation-delay: 1.5s;
+  animation-duration: 8s;
+}
+
+.cloud-3 {
+  top: 110px;
+  transform: scale(1.2);
+  animation-delay: 2s;
+  animation-duration: 8s;
+}
+
+.cloud-4 {
+  top: 140px;
+  animation-delay: 0.5s;
+  animation-duration: 8s;
+}
+
+.cloud-5 {
+  top: 130px;
+  transform: scale(0.8);
+  animation-delay: 1.2s;
+  animation-duration: 8s;
+}
+
+.star {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0;
+  animation-name: stars-off;
+  animation-duration: 8s;
+  animation-delay: 1s;
+  animation-iteration-count: infinite;
+}
+
+.star-1 {
+  top: 100px;
+  left: 70px;
+}
+
+.star-2 {
+  top: 80px;
+  left: 110px;
+  transform: scale(0.8);
+}
+
+.star-3 {
+  top: 140px;
+  left: 100px;
+}
+
+.star-4 {
+  top: 110px;
+  left: 140px;
+}
+
+.star-5 {
+  top: 90px;
+  left: 180px;
+  transform: scale(1.2);
+}
+
+.star-6 {
+  top: 135px;
+  left: 160px;
+  transform: scale(0.8);
+}
+
+.star-7 {
+  top: 120px;
+  left: 200px;
+}
+
+.ground {
+  position: absolute;
+  bottom: -30px;
+  left: -30px;
+  width: 320px;
+  height: 100px;
+  border-radius: 50%;
+  background: #6dc995;
+}
+
+.ground-light {
+  position: absolute;
+  bottom: -26px;
+  left: -15px;
+  width: 290px;
+  height: 100px;
+  border-radius: 50%;
+  background: #7bdea6;
+  box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.2);
+}
+
+.tree {
+  position: absolute;
+  background: #00a388;
+  background-image: linear-gradient(45deg, #02947c 40%, #00a388 40%);
+  animation-name: tree-shadow-move;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+}
+
+.tree-big {
+  bottom: 30px;
+  left: 20px;
+  width: 40px;
+  height: 60px;
+  border-radius: 30px;
+}
+
+.tree-big:after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 16px;
+  width: 8px;
+  height: 15px;
+  background: #a75265;
+  background-image: linear-gradient(#884252 30%, #a75265 30%);
+}
+
+.tree-small {
+  width: 20px;
+  height: 40px;
+  border-radius: 10px;
+  background: #00a388;
+}
+
+.tree-small:after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 8px;
+  width: 4px;
+  height: 8px;
+  background: #a75265;
+  background-image: linear-gradient(#884252 30%, #a75265 30%);
+}
+
+.tree-small-1 {
+  bottom: 50px;
+  left: 90px;
+}
+
+.tree-small-2 {
+  bottom: 15px;
+  right: 80px;
+}
+
+.tree-long {
+  bottom: 40px;
+  right: 30px;
+  width: 20px;
+  height: 70px;
+  border-radius: 50% 50% 10px 10px;
+}
+
+.tree-long:after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 8px;
+  width: 4px;
+  height: 15px;
+  background: #a75265;
+  background-image: linear-gradient(#884252 30%, #a75265 30%);
+}
+
+.sun {
+  width: 50px;
+  height: 50px;
+  z-index: 30;
+  border-radius: 50%;
+  box-shadow: 0px 0px 50px #fdb813, 0px 0px 50px #fdb813, 0px 0px 50px #fdb813;
+  margin: 0 auto;
+  background-image: radial-gradient(#ffb813 10%, #fdb813 90%);
+  border: none;
+  animation-name: rotate;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  transform-origin: 50% 1000%;
+  animation-delay: 0.3s;
+}
+.container {
+  height: 100%;
+  /* padding-top: 5%; */
+  /* background: #000; */
+  overflow: hidden;
+  /* animation-name: backgr; */
+  animation-duration: 4s;
+  animation-delay: 2.3s;
+  animation-iteration-count: infinite;
+  /* background: #0c1317; */
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.moon {
+  width: 50px;
+  height: 50px;
+  z-index: 20;
+  border-radius: 50%;
+  box-shadow: 0px 0px 35px #fff, 0px 0px 35px #fff, 0px 0px 30px #fff;
+  margin: 0 auto;
+  background-color: #fff;
+  border: none;
+  animation-name: rotate;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-delay: 2.3s;
+  transform-origin: 50% 1000%;
+  margin-top: -50px;
+}
+@keyframes backgr {
+  50% {
+    background: rgb(126, 192, 238);
+  }
+  100% {
+    background: #0c1317;
+  }
+}

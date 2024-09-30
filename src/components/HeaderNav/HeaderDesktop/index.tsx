@@ -3,7 +3,6 @@ import { observer } from "mobx-react";
 
 import { store } from "src/store";
 
-// import { Link } from "react-router-dom";
 import LogoLook from "src/ui/LogoLook";
 
 // import anime from "animejs/lib/anime.es.js";

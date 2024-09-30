@@ -1,16 +1,4 @@
 import styled, { css } from "styled-components";
-import { MOBILE_660 } from "src/common/lib/media";
-
-export const ThemeDarkLightWrapper = styled.div<{ $positionStyle: boolean }>`
-  text-align: center;
-  padding: ${({ $positionStyle }) =>
-    $positionStyle ? "0 1rem 0 1rem" : "webpack.config.js.5rem 0 0 0"};
-
-  @media ${MOBILE_660} {
-    padding: 1.5rem 0 0 0;
-    text-align: center;
-  }
-`;
 
 export const ThemeDarkLightChecked = styled.div<{ $opened: boolean }>`
   background-color: ${({ $opened }) =>

@@ -12,20 +12,54 @@ import { PopupWrapper, ContentWrapper } from "./style";
 
 interface IAccordionProps {
   positionValue?: string;
-  handleClickPopup?: () => void;
   openedPopup?: boolean;
+  popupRef?: any;
 }
 
+type Position = "top" | "bottom" | "right";
+
+interface PositionDataItem {
+  positionStyle: boolean;
+  topStyle: string;
+  leftStyle: string;
+  leftArrowStyle: string;
+  topArrowStyle: string;
+  rotateArrowStyle: string;
+}
+
+type PositionDataItems = Record<Position, PositionDataItem>;
+
+const positionDataPopup: PositionDataItems = {
+  top: {
+    positionStyle: true,
+    topStyle: "-8.6rem",
+    leftStyle: "-146px",
+    leftArrowStyle: "170px",
+    topArrowStyle: "4em",
+    rotateArrowStyle: "225deg",
+  },
+  bottom: {
+    positionStyle: true,
+    topStyle: "-0.3rem",
+    leftStyle: "0",
+    leftArrowStyle: "50%",
+    topArrowStyle: "-0.32em",
+    rotateArrowStyle: "45deg",
+  },
+  right: {
+    positionStyle: false,
+    topStyle: "-4rem",
+    leftStyle: "56px",
+    leftArrowStyle: "0",
+    topArrowStyle: "20px",
+    rotateArrowStyle: "315deg",
+  },
+};
+
 const Popup: FC<PropsWithChildren<IAccordionProps>> = observer(
-  ({
-    children,
-    positionValue = "top right",
-    handleClickPopup = () => {},
-    openedPopup = false,
-  }) => {
+  ({ children, positionValue = "top", openedPopup = false, popupRef }) => {
     const [openedTheme, setOpenedTheme] = useState(false);
     const [openedEnglish, setOpenedEnglish] = useState(false);
-    const positionStyle = positionValue === "top right";
 
     const time = store.getTime();
     const dayTime = getDayTime(time).dayTime;
@@ -39,24 +73,35 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = observer(
       store.setToggleTheme(!openedTheme);
     };
 
+    const {
+      positionStyle,
+      topStyle,
+      leftStyle,
+      leftArrowStyle,
+      topArrowStyle,
+      rotateArrowStyle,
+    } = positionDataPopup[positionValue];
+
     return (
-      <ContentWrapper>
+      <ContentWrapper ref={popupRef}>
         {children}
         {openedPopup && (
           <PopupWrapper
             $positionStyle={positionStyle}
-            onClick={handleClickPopup}
+            $topStyle={topStyle}
+            $leftStyle={leftStyle}
+            $topArrowStyle={topArrowStyle}
+            $leftArrowStyle={leftArrowStyle}
+            $rotateArrowStyle={rotateArrowStyle}
           >
-            <ButtonHeart positionStyle={positionStyle} />
+            <ButtonHeart />
             <ThemeDarkLight
               opened={openedTheme}
               handleClick={handleClickTheme}
-              positionStyle={positionStyle}
             />
             <ButtonElement
               opened={openedEnglish}
               handleClick={() => setOpenedEnglish(!openedEnglish)}
-              positionStyle={positionStyle}
             />
           </PopupWrapper>
         )}

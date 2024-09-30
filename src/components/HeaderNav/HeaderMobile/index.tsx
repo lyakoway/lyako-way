@@ -1,7 +1,7 @@
 import React, {
   FC,
-  Fragment,
   PropsWithChildren,
+  useCallback,
   useEffect,
   useState,
 } from "react";
@@ -91,12 +91,13 @@ const HeaderMobile: FC<PropsWithChildren<HeaderMobileProps>> = observer(
     const onBlur = (e) => {
       if (!e.currentTarget.contains(e.relatedTarget)) {
         setOpened(false);
+        setOpenedPopup(false);
       }
     };
 
-    const handleClickPopup = () => {
+    const handleClickPopup = useCallback(() => {
       setOpenedPopup(!openedPopup);
-    };
+    }, [openedPopup, setOpenedPopup]);
 
     useEffect(() => {
       opened
@@ -120,7 +121,7 @@ const HeaderMobile: FC<PropsWithChildren<HeaderMobileProps>> = observer(
                 opened={opened}
                 handleClick={() => setOpened(!opened)}
               />
-              <Popup positionValue="bottom center" openedPopup={openedPopup}>
+              <Popup positionValue="bottom" openedPopup={openedPopup}>
                 <ContainerWrapper onClick={handleClickPopup}>
                   <ProfileWrapper>
                     <ProfileIcon fill="white" />

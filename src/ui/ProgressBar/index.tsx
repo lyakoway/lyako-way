@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useIsomorphicLayoutEffect } from "src/features/customHooks/useIsomorphicLayoutEffect";
 
 import styles from "./progress.module.css";
 import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";
@@ -20,7 +21,7 @@ const ProgressBar = () => {
 
   const productsHref = getProductsHref();
 
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const progressBar = () => {
       const progressTop = document.getElementById("progressTop");
       const progressRight = document.getElementById("progressRight");
