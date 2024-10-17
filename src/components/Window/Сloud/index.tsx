@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { observer } from "mobx-react";
-
-// import { store } from '../../../../store';
 
 import WeatherRain from "./WeatherRain";
 import PuffCloud from "./PuffCloud";
 
 import { CloudWrapper } from "./style";
-// import "./style.css";
-import { getRandomArra } from "../../../../common/utils";
+import { getRandomArra } from "src/common/utils";
 import { propsClimateСontrol } from "./constants";
-// import { identity } from "lodash";
+import { IPropsClimateСontrol } from "./constants";
 
-const Cloud = observer(({ сlimateСontrol }) => {
-  const [dataClimateСontrol, setDataClimateСontrol] = useState({});
+interface CloudProps {
+  сlimateСontrol: string;
+}
+
+const Cloud: FC<CloudProps> = observer(({ сlimateСontrol }) => {
+  const [dataClimateСontrol, setDataClimateСontrol] =
+    useState<IPropsClimateСontrol>(null);
 
   useEffect(() => {
     const propsClimateСontrolValue = propsClimateСontrol.find(
@@ -21,6 +23,10 @@ const Cloud = observer(({ сlimateСontrol }) => {
     );
     setDataClimateСontrol(propsClimateСontrolValue);
   }, [сlimateСontrol]);
+
+  if (!dataClimateСontrol) {
+    return null;
+  }
 
   const {
     id,
@@ -40,7 +46,6 @@ const Cloud = observer(({ сlimateСontrol }) => {
     timeMinRandomRain,
     timeMaxRandomRain,
   } = dataClimateСontrol;
-  console.log("!!!dataClimateСontrol", dataClimateСontrol);
 
   return getRandomArra(
     cloudAmount,
@@ -49,7 +54,6 @@ const Cloud = observer(({ сlimateСontrol }) => {
     timeMinRandomMovements,
     timeMaxRandomMovements
   ).map((item, index) => {
-    console.log("top", item.top);
     let colorCloud = 100;
     let colorBorder = 50;
     if (
@@ -75,12 +79,13 @@ const Cloud = observer(({ сlimateСontrol }) => {
       colorCloud = 50;
       colorBorder = 12;
     }
+
     return (
       <CloudWrapper
         key={index}
-        top={item.top}
-        left={item.left}
-        animationDuration={item.animationDuration}
+        $top={item.top}
+        $left={item.left}
+        $duration={item.animationDuration}
       >
         <PuffCloud
           dropAmount={numberCloudLayers}
@@ -88,8 +93,6 @@ const Cloud = observer(({ сlimateСontrol }) => {
           max={maxRandomTopAndLeftLocationCloudLayers}
           fallTimeMin={timeMinRandomCloudLayers}
           fallTimeMax={timeMaxRandomCloudLayers}
-          // nameClimateСontrol={id}
-          // top={item.top}
           colorCloud={colorCloud}
           colorBorder={colorBorder}
         />

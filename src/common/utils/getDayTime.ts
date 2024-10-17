@@ -1,6 +1,6 @@
 import SunCalc from "suncalc";
 
-export const getDayTime = (time: any) => {
+export const getDayTime = (time: { hourValue: number; minValue: number }) => {
   // координы Москвы широта и долгота
   const coordinatesLatitude = 55.7522;
   const coordinatesLongitude = 37.6156;

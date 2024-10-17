@@ -32,7 +32,7 @@ import {
 
 import { Modal } from "src/ui/Modal";
 import Clock from "src/components/Clock";
-// import Window from "src/components/Window";
+import Window from "src/components/Window";
 
 import { useClickOutside } from "src/features/customHooks/useClickOutside";
 
@@ -86,24 +86,24 @@ const HeaderSection = observer(() => {
     setOpened(false);
   };
 
-  useIsomorphicLayoutEffect(() => {
-    const portfolioTextData = Array.from(
-      document?.querySelectorAll<HTMLElement>("[data-parallax]")
-    );
-    const parallax = (e: { clientX: number; clientY: number }) => {
-      const speedDay = portfolioTextData[0].getAttribute("data-parallax");
-      const biasXDay = (e.clientX * Number(speedDay)) / 1000;
-      portfolioTextData[0].style.backgroundPosition = `${-biasXDay}px 12px`;
-      const speedSun = portfolioTextData[1].getAttribute("data-parallax");
-      const biasXSun = (e.clientX * Number(speedSun)) / 1000;
-      const biasYSun = (e.clientY * Number(speedSun)) / 1000;
-      portfolioTextData[1].style.transform = `translateX(${-biasXSun}px) translateY(${-biasYSun}px)`;
-    };
-    document.addEventListener("mousemove", parallax);
-    return () => {
-      document.removeEventListener("mousemove", parallax);
-    };
-  });
+  // useIsomorphicLayoutEffect(() => {
+  //   const portfolioTextData = Array.from(
+  //     document?.querySelectorAll<HTMLElement>("[data-parallax]")
+  //   );
+  //   const parallax = (e: { clientX: number; clientY: number }) => {
+  //     const speedDay = portfolioTextData[0]?.getAttribute("data-parallax");
+  //     const biasXDay = (e.clientX * Number(speedDay)) / 1000;
+  //     portfolioTextData[0].style.backgroundPosition = `${-biasXDay}px 12px`;
+  //     const speedSun = portfolioTextData[1].getAttribute("data-parallax");
+  //     const biasXSun = (e.clientX * Number(speedSun)) / 1000;
+  //     const biasYSun = (e.clientY * Number(speedSun)) / 1000;
+  //     portfolioTextData[1].style.transform = `translateX(${-biasXSun}px) translateY(${-biasYSun}px)`;
+  //   };
+  //   document.addEventListener("mousemove", parallax);
+  //   return () => {
+  //     document.removeEventListener("mousemove", parallax);
+  //   };
+  // });
 
   return (
     <HeaderSectionWrapper>
@@ -128,13 +128,13 @@ const HeaderSection = observer(() => {
           </SettingWrapper>
         </IconComp>
         <IconMap theme={name} />
-        {/* <Window theme={name} time={time} checkedTheme={checkedTheme} /> */}
+        <Window theme={name} time={time} checkedTheme={checkedTheme} />
         <Clock />
-        <WindowWrapper>
+        {/* <WindowWrapper>
           <IconWindow theme={name} />
           <IconDay theme={name} data-parallax="80" />
           <IconSun theme={name} data-parallax="20" />
-        </WindowWrapper>
+        </WindowWrapper> */}
         <IconBook theme={name} />
         <IconPicture theme={name} />
       </HeaderSectionFon>

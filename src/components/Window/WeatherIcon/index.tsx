@@ -10,7 +10,13 @@ import WeatherIconClearNight from "./ClearNight";
 // import WeatherIconSunnyWithWind from "./SunnyWithWind";
 import WeatherIconSnowy from "./Snowy";
 
-const WeatherIcon = ({ сlimateСontrol, theme }) => {
+const WeatherIcon = ({
+  сlimateСontrol,
+  theme,
+}: {
+  сlimateСontrol: string;
+  theme: string;
+}) => {
   if (сlimateСontrol === "sunnyMoon" && theme === "light") {
     return <WeatherIconSunny />;
   }

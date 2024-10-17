@@ -1,5 +1,4 @@
 import styled, { keyframes } from "styled-components";
-// import { TABLET_1024, MOBILE_660 } from '../../../../common/media';
 
 const falling = keyframes`
   100% {
@@ -7,8 +6,8 @@ const falling = keyframes`
   }
 `;
 
-export const RainWrapper = styled.div`
-  display: ${({ show }) => (show ? "flex" : "none")};
+export const RainWrapper = styled.div<{ $show: boolean }>`
+  display: ${({ $show }) => ($show ? "flex" : "none")};
   width: 32px;
   height: 400px;
   margin-left: auto;
@@ -24,10 +23,10 @@ export const Rain = styled.div`
   height: 100%;
 `;
 
-export const Drop = styled.div`
+export const Drop = styled.div<{ $left: number; $animationDuration: number }>`
   width: 1px;
   height: 80px;
-  left: ${({ left }) => left}px;
+  left: ${({ $left }) => $left}px;
   position: absolute;
   background: linear-gradient(transparent, #d3f4ff);
 
@@ -35,5 +34,5 @@ export const Drop = styled.div`
 
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  animation-duration: ${({ animationDuration }) => animationDuration}s;
+  animation-duration: ${({ $animationDuration }) => $animationDuration}s;
 `;

@@ -51,7 +51,7 @@ export const Modal: FC<PropsWithChildren<IModalProps>> = ({
         onClick={(e) => e.stopPropagation()}
       >
         <Header>
-          {titleIcon && <i className="material-icons">shopping_cart</i>}
+          {/* {titleIcon && <i className="material-icons">shopping_cart</i>} */}
           <HeaderText>{titleText}</HeaderText>
           <IconClose onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />

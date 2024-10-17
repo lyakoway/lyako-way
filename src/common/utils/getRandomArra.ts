@@ -1,14 +1,14 @@
 import { getRandomNumber } from "./getRandomNumber";
 
 export const getRandomArra = (
-  lengthArr: any,
-  min: any,
-  max: any,
-  timeMin: any,
-  timeMax: any
+  lengthArr: number,
+  min: number,
+  max: number,
+  timeMin: number,
+  timeMax: number
 ) =>
   Array(lengthArr)
-    .fill()
+    .fill(null)
     .map(() => {
       return {
         top: getRandomNumber(min, max),

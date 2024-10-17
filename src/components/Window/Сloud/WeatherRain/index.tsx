@@ -1,18 +1,32 @@
 import React from "react";
 import { observer } from "mobx-react";
 
-// import { store } from '../../../../store';
-
-import { getRandomArra } from "../../../../../common/utils";
+import { getRandomArra } from "src/common/utils";
 
 import { RainWrapper, Rain, Drop } from "./style";
 
+interface WeatherRainProps {
+  dropAmount: number;
+  leftMin: number;
+  leftMax: number;
+  fallTimeMin: number;
+  fallTimeMax: number;
+  top: number;
+}
+
 const WeatherRain = observer(
-  ({ dropAmount, leftMin, leftMax, fallTimeMin, fallTimeMax, top }) => {
+  ({
+    dropAmount,
+    leftMin,
+    leftMax,
+    fallTimeMin,
+    fallTimeMax,
+    top,
+  }: WeatherRainProps) => {
     const show = top > 60;
 
     return (
-      <RainWrapper data-rain-wrapper show={show}>
+      <RainWrapper data-rain-wrapper $show={show}>
         <Rain data-rain>
           {getRandomArra(
             dropAmount,
@@ -23,8 +37,8 @@ const WeatherRain = observer(
           ).map((itemDrop, i) => (
             <Drop
               key={i}
-              left={itemDrop.left}
-              animationDuration={itemDrop.animationDuration / 10}
+              $left={itemDrop.left}
+              $animationDuration={itemDrop.animationDuration / 10}
             />
           ))}
         </Rain>

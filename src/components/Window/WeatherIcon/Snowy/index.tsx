@@ -1,41 +1,28 @@
 import React from "react";
-// import { observer } from "mobx-react";
 
-// import { store } from '../../../../store';
-
-// import { CloudWrapper } from "./style";
-import "./style.css";
+import { ContainerWeather } from "../style";
 
 const WeatherIconSnowy = () => (
-  <div className="containerSnowy">
+  <ContainerWeather>
     <svg
       version="1.1"
       id="Layer_1"
       xmlns="http://www.w3.org/2000/svg"
-      // xmlns:xlink="http://www.w3.org/1999/xlink"
       x="0px"
       y="0px"
       viewBox="0 0 55.1 52.5"
-      // style="enable-background:new 0 0 55.1 52.5;"
-      // xml:space="preserve"
     >
       <g id="Cloud_7">
         <g id="White_cloud_7">
           <path
             id="XMLID_8_"
-            className="white"
+            fill="#ffffff"
             d="M47.2,34.5H7.9c-4.3,0-7.9-3.5-7.9-7.9l0,0c0-4.3,3.5-7.9,7.9-7.9h39.4c4.3,0,7.9,3.5,7.9,7.9 v0C55.1,30.9,51.6,34.5,47.2,34.5z"
           />
-          <circle id="XMLID_5_" className="white" cx="17.4" cy="17.3" r="9.3" />
-          <circle
-            id="XMLID_1_"
-            className="white"
-            cx="34.5"
-            cy="15.6"
-            r="15.6"
-          />
+          <circle id="XMLID_5_" fill="#ffffff" cx="17.4" cy="17.3" r="9.3" />
+          <circle id="XMLID_1_" fill="#ffffff" cx="34.5" cy="15.6" r="15.6" />
         </g>
-        <circle className="white" cx="37" cy="43.5" r="3">
+        <circle fill="#ffffff" cx="37" cy="43.5" r="3">
           <animateTransform
             attributeName="transform"
             attributeType="XML"
@@ -47,7 +34,7 @@ const WeatherIconSnowy = () => (
             calcMode="linear"
           ></animateTransform>
         </circle>
-        <circle className="white" cx="27" cy="43.5" r="3">
+        <circle fill="#ffffff" cx="27" cy="43.5" r="3">
           <animateTransform
             attributeName="transform"
             attributeType="XML"
@@ -59,7 +46,7 @@ const WeatherIconSnowy = () => (
             calcMode="linear"
           ></animateTransform>
         </circle>
-        <circle className="white" cx="17" cy="43.5" r="3">
+        <circle fill="#ffffff" cx="17" cy="43.5" r="3">
           <animateTransform
             attributeName="transform"
             attributeType="XML"
@@ -73,7 +60,7 @@ const WeatherIconSnowy = () => (
         </circle>
       </g>
     </svg>
-  </div>
+  </ContainerWeather>
 );
 
 export default WeatherIconSnowy;

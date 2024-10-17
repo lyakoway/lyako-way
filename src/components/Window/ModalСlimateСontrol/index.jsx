@@ -26,10 +26,10 @@ import {
 
 import "./style.css";
 
-import { getwindowInnerWidth } from "../../../../common/utils/getwindowInnerWidth";
+import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
 
-import { ReactComponent as CloseOutline } from "../../../../common/icon/CloseOutline.svg";
-import { ReactComponent as FooterMailIcon } from "../../../../common/icon/MailDarkIcon.svg";
+import { ReactComponent as CloseOutline } from "src/common/icon/CloseOutline.svg";
+import { ReactComponent as FooterMailIcon } from "src/common/icon/contacts/MailDarkIcon.svg";
 
 import { CLIMATE_CONTROL } from "./constants";
 

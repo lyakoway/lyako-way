@@ -240,6 +240,7 @@ export const Skype = styled(Phones)`
 
 export const HeaderSectionFon = styled.div`
   position: relitive;
+  display: flex;
 
   @media ${TABLET_959} {
     display: flex;

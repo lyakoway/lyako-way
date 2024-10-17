@@ -1,4 +1,23 @@
-export const propsClimateСontrol = [
+export interface IPropsClimateСontrol {
+  id: string;
+  cloudAmount: number;
+  minRandomTopAndLeft: number;
+  maxRandomTopAndLeft: number;
+  timeMinRandomMovements: number;
+  timeMaxRandomMovements: number;
+  numberCloudLayers: number;
+  minRandomTopAndLeftLocationCloudLayers: number;
+  maxRandomTopAndLeftLocationCloudLayers: number;
+  timeMinRandomCloudLayers: number;
+  timeMaxRandomCloudLayers: number;
+  amountRainClouds?: number;
+  minRandomLeftRain?: number;
+  maxRandomLeftRain?: number;
+  timeMinRandomRain?: number;
+  timeMaxRandomRain?: number;
+}
+
+export const propsClimateСontrol: IPropsClimateСontrol[] = [
   {
     id: "sunnyMoon",
     cloudAmount: 2,

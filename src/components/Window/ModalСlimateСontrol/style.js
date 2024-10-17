@@ -4,7 +4,7 @@ import {
   MOBILE_660,
   MOBILE_560,
   MOBILE_480,
-} from "../../../../common/media";
+} from "src/common/lib/media";
 
 import {
   PADDING,
