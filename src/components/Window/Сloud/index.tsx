@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-import { observer } from "mobx-react";
 
 import WeatherRain from "./WeatherRain";
 import PuffCloud from "./PuffCloud";
@@ -13,7 +12,7 @@ interface CloudProps {
   сlimateСontrol: string;
 }
 
-const Cloud: FC<CloudProps> = observer(({ сlimateСontrol }) => {
+const Cloud: FC<CloudProps> = ({ сlimateСontrol }) => {
   const [dataClimateСontrol, setDataClimateСontrol] =
     useState<IPropsClimateСontrol>(null);
 
@@ -109,6 +108,6 @@ const Cloud: FC<CloudProps> = observer(({ сlimateСontrol }) => {
       </CloudWrapper>
     );
   });
-});
+};
 
 export default Cloud;

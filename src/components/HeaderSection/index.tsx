@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { observer } from "mobx-react";
+import { useSelectorTyped } from "src/store";
 
 import {
   HeaderSectionWrapper,
@@ -50,9 +50,14 @@ import { getMobile } from "src/common/utils";
 
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
 import { useIsomorphicLayoutEffect } from "src/features/customHooks/useIsomorphicLayoutEffect";
-import { store } from "src/store";
 
-const HeaderSection = observer(() => {
+const HeaderSection = () => {
+  const {
+    theme: { name },
+  } = useSelectorTyped(({ theme }) => theme);
+  const {
+    lang: { headerHouse, toast, modal },
+  } = useSelectorTyped(({ lang }) => lang);
   const [openedPopup, setOpenedPopup] = useState(false);
   const [opened, setOpened] = useState(false);
   const [positionValue, setPositionValue] = useState("top");
@@ -64,12 +69,8 @@ const HeaderSection = observer(() => {
     }
   });
 
-  const { headerHouse, toast } = store.getToggleLang();
-  const openToastValue = store.getOpenToast();
-  const { name } = store.getToggleTheme();
-  const { modal } = store.getToggleLang();
-  const time = store.getTime();
-  const checkedTheme = store.getCheckedTheme();
+  // const openToastValue = store.getOpenToast();
+  // const checkedTheme = store.getCheckedTheme();
 
   const handleClickPopup = () => {
     setOpenedPopup(!openedPopup);
@@ -128,7 +129,8 @@ const HeaderSection = observer(() => {
           </SettingWrapper>
         </IconComp>
         <IconMap theme={name} />
-        <Window theme={name} time={time} checkedTheme={checkedTheme} />
+        {/* Window checkedTheme={checkedTheme} */}
+        <Window theme={name} />
         <Clock />
         {/* <WindowWrapper>
           <IconWindow theme={name} />
@@ -200,6 +202,6 @@ const HeaderSection = observer(() => {
       </HeaderContactWrapper>
     </HeaderSectionWrapper>
   );
-});
+};
 
 export default HeaderSection;

@@ -1,3 +1,5 @@
+import { ThemeColor } from "src/common/types/theme";
+
 const BASIC = {
   primary: "#0D69F2",
   secondary: "#2B313B",
@@ -72,7 +74,7 @@ const SPECIAL = {
   softViolet: "#F0E7FD",
 };
 
-export const COLOR = {
+export const COLOR: ThemeColor = {
   basic: BASIC,
   background: BACKGROUND,
   text: TEXT,

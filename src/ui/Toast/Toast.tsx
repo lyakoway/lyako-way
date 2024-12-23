@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 import {
   Container,
@@ -9,19 +9,19 @@ import {
   Wrapper,
   WrapperClose,
   Content,
-} from './style';
-import { getToastIcon } from '../Icon';
-import ButtonDelete from '../ButtonDelete';
-import { useAppDispatch, useSelectorTyped } from '../../../store';
-import { setToastList } from '../../../reducers/toast-slice';
-import { useToastListItem } from '../../../common/hooks/use-toast-list';
+} from "./style";
+import { getToastIcon } from "../Icon";
+import ButtonDelete from "../ButtonDelete";
+import { useDispatchTyped, useSelectorTyped } from "../../../store";
+import { setToastList } from "../../../reducers/toast-slice";
+import { useToastListItem } from "../../../common/hooks/use-toast-list";
 
 export interface Person {
   id: number;
   title: string;
   text: string;
   backgroundColor: string;
-  type?: 'info' | 'success' | 'error';
+  type?: "info" | "success" | "error";
 }
 
 const ToastMap = (
@@ -29,7 +29,7 @@ const ToastMap = (
   id: number,
   deleteToast: (value: number) => void
 ) => {
-  const Icon = getToastIcon(toast?.type ? toast.type : 'error');
+  const Icon = getToastIcon(toast?.type ? toast.type : "error");
   return (
     <Notification key={id} backgroundColor={toast.backgroundColor}>
       <Icon />
@@ -48,7 +48,7 @@ const ToastMap = (
 
 export const Toast = () => {
   const { toastList } = useSelectorTyped(({ toast }) => toast);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatchTyped();
   const deleteToast = useToastListItem();
 
   useEffect(() => {

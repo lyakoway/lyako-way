@@ -1,12 +1,8 @@
-import React, { useState, useEffect, FC, PropsWithChildren } from "react";
-import { observer } from "mobx-react";
-import { store } from "src/store";
+import React, { FC, PropsWithChildren } from "react";
 
 import ButtonElement from "src/ui/ButtonElement";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
-
-import { getDayTime } from "src/common/utils";
 
 import { PopupWrapper, ContentWrapper } from "./style";
 
@@ -56,58 +52,40 @@ const positionDataPopup: PositionDataItems = {
   },
 };
 
-const Popup: FC<PropsWithChildren<IAccordionProps>> = observer(
-  ({ children, positionValue = "top", openedPopup = false, popupRef }) => {
-    const [openedTheme, setOpenedTheme] = useState(false);
-    const [openedEnglish, setOpenedEnglish] = useState(false);
+const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
+  children,
+  positionValue = "top",
+  openedPopup = false,
+  popupRef,
+}) => {
+  const {
+    positionStyle,
+    topStyle,
+    leftStyle,
+    leftArrowStyle,
+    topArrowStyle,
+    rotateArrowStyle,
+  } = positionDataPopup[positionValue];
 
-    const time = store.getTime();
-    const dayTime = getDayTime(time).dayTime;
-    useEffect(() => {
-      setOpenedTheme(!dayTime);
-    }, [dayTime]);
-
-    const handleClickTheme = () => {
-      setOpenedTheme(!openedTheme);
-      store.setCheckedTheme(dayTime ? !openedTheme : openedTheme);
-      store.setToggleTheme(!openedTheme);
-    };
-
-    const {
-      positionStyle,
-      topStyle,
-      leftStyle,
-      leftArrowStyle,
-      topArrowStyle,
-      rotateArrowStyle,
-    } = positionDataPopup[positionValue];
-
-    return (
-      <ContentWrapper ref={popupRef}>
-        {children}
-        {openedPopup && (
-          <PopupWrapper
-            $positionStyle={positionStyle}
-            $topStyle={topStyle}
-            $leftStyle={leftStyle}
-            $topArrowStyle={topArrowStyle}
-            $leftArrowStyle={leftArrowStyle}
-            $rotateArrowStyle={rotateArrowStyle}
-          >
-            <ButtonHeart />
-            <ThemeDarkLight
-              opened={openedTheme}
-              handleClick={handleClickTheme}
-            />
-            <ButtonElement
-              opened={openedEnglish}
-              handleClick={() => setOpenedEnglish(!openedEnglish)}
-            />
-          </PopupWrapper>
-        )}
-      </ContentWrapper>
-    );
-  }
-);
+  return (
+    <ContentWrapper ref={popupRef}>
+      {children}
+      {openedPopup && (
+        <PopupWrapper
+          $positionStyle={positionStyle}
+          $topStyle={topStyle}
+          $leftStyle={leftStyle}
+          $topArrowStyle={topArrowStyle}
+          $leftArrowStyle={leftArrowStyle}
+          $rotateArrowStyle={rotateArrowStyle}
+        >
+          <ButtonHeart />
+          <ThemeDarkLight />
+          <ButtonElement />
+        </PopupWrapper>
+      )}
+    </ContentWrapper>
+  );
+};
 
 export default Popup;

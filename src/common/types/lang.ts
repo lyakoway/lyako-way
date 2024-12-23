@@ -193,21 +193,25 @@ export interface ListBlogProps {
   value: string | ListBlogSecondProps[];
 }
 
-// export type LanguageProps = Record<
-//   | keyof HeaderTopMenuProps
-//   | keyof AdvantagesProps
-//   | keyof BlogProps
-//   | keyof PortfolioListBlogProps
-//   | keyof FooterProps
-//   | keyof HeaderHouseProps
-//   | keyof ModalProps
-//   | keyof OrderProps
-//   | keyof PersonalProps
-//   | keyof PortfolioProps
-//   | keyof PortfolioListProps
-//   | keyof PortfolioHeaderProps
-//   | keyof ResumeProps
-//   | keyof ServiceProps
-//   | keyof ToastProps,
-//   string | null
-// >;
+export interface LanguageProps {
+  propsPortfolioListBlog: PortfolioListBlogProps[];
+  portfolioDevelopment: ListBlogProps[];
+  propsPortfolioList: PortfolioListProps[];
+  propsHeaderTopMenu: HeaderTopMenuProps[];
+  portfolioListBlog: ListBlogProps[];
+  propsAdvantages: AdvantagesProps[];
+  portfolioHeader: PortfolioHeaderProps;
+  advantagesText: string;
+  cooperation: CooperationProps;
+  headerHouse: HeaderHouseProps;
+  portfolio: PortfolioProps;
+  personal: PersonalProps;
+  service: ServiceProps;
+  resume: ResumeProps;
+  footer: FooterProps;
+  toast: ToastProps;
+  order: OrderProps;
+  modal: ModalProps;
+  blog: BlogProps;
+  name: "russia" | "english";
+}

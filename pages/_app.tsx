@@ -1,8 +1,7 @@
 import React, { FC, useEffect } from "react";
 import Head from "next/head";
 
-import { observer } from "mobx-react";
-import { store } from "src/store";
+import { useSelectorTyped } from "src/store";
 
 import { AppProps } from "next/app";
 
@@ -11,18 +10,22 @@ import { ThemeProvider } from "styled-components";
 import getAppHeadContent from "src/common/utils/getAppHeadContent";
 import GlobalStyles from "src/common/lib/globalStyles";
 import { getDayTime } from "src/common/utils";
+import { useTime } from "src/features/customHooks/useTime";
+import { useDispatchTyped, wrapper } from "src/store";
+import { setThemeList } from "src/reducers/theme-slice";
 
-const MyApp = observer(({ Component, pageProps }: AppProps) => {
-  const theme = store.getToggleTheme();
-  const time = store.getTime();
-  const dayTime = getDayTime(time).dayTime;
+const MyApp: FC = ({ Component, pageProps }: AppProps) => {
+  const { theme } = useSelectorTyped(({ theme }) => theme);
+  const dispatch = useDispatchTyped();
+  useTime();
+  const dayTime = getDayTime().dayTime;
 
   useEffect(() => {
-    store.setToggleTheme(!dayTime);
+    dispatch(setThemeList(!dayTime));
   }, [dayTime]);
 
   return (
-    <>
+    <React.StrictMode>
       <Head>
         <title>LYAKOWAY</title>
         {getAppHeadContent()}
@@ -31,8 +34,8 @@ const MyApp = observer(({ Component, pageProps }: AppProps) => {
         <GlobalStyles />
         <Component {...pageProps} />
       </ThemeProvider>
-    </>
+    </React.StrictMode>
   );
-});
+};
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

@@ -5,9 +5,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { observer } from "mobx-react";
 
-import { store } from "src/store";
+import { useSelectorTyped } from "src/store";
 
 import MenuBurger from "src/ui/MenuBurger";
 import ButtonLink from "src/ui/ButtonLink";
@@ -70,61 +69,58 @@ interface MenuNavProps {
   navMenuLink?: string;
 }
 
-const MenuNav: FC<PropsWithChildren<MenuNavProps>> = observer(
-  ({
-    children,
-    propsList = [],
-    setPortfoliosValue = () => {},
-    header = false,
-    navMenuLink = "",
-  }) => {
-    const [opened, setOpened] = useState(false);
+const MenuNav: FC<PropsWithChildren<MenuNavProps>> = ({
+  children,
+  propsList = [],
+  setPortfoliosValue = () => {},
+  header = false,
+  navMenuLink = "",
+}) => {
+  const [opened, setOpened] = useState(false);
 
-    const { blog } = store.getToggleLang();
+  const {
+    lang: { blog },
+  } = useSelectorTyped(({ lang }) => lang);
 
-    const onBlur = (e) => {
-      if (!e.currentTarget.contains(e.relatedTarget)) {
-        setOpened(false);
-      }
-    };
+  const onBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setOpened(false);
+    }
+  };
 
-    useEffect(() => {
-      opened
-        ? (document.body.style.overflow = "hidden")
-        : (document.body.style.overflow = "");
-    }, [opened]);
+  useEffect(() => {
+    opened
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "");
+  }, [opened]);
 
-    return (
-      <>
-        <Overlay data-close-border $opened={opened} />
-        <HeaderTopWrapper
-          data-close-modal
-          $header={header}
-          onBlur={onBlur}
-          tabIndex={1}
-        >
-          <MenuWrapper $header={header}>
-            {children}
-            <MenuBurger
-              opened={opened}
-              handleClick={() => setOpened(!opened)}
-            />
-          </MenuWrapper>
-          <HeaderMenu $opened={opened}>
-            <Ul>
-              {MenuNavLi(
-                propsList,
-                setPortfoliosValue,
-                setOpened,
-                navMenuLink,
-                blog.all
-              )}
-            </Ul>
-          </HeaderMenu>
-        </HeaderTopWrapper>
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <Overlay data-close-border $opened={opened} />
+      <HeaderTopWrapper
+        data-close-modal
+        $header={header}
+        onBlur={onBlur}
+        tabIndex={1}
+      >
+        <MenuWrapper $header={header}>
+          {children}
+          <MenuBurger opened={opened} handleClick={() => setOpened(!opened)} />
+        </MenuWrapper>
+        <HeaderMenu $opened={opened}>
+          <Ul>
+            {MenuNavLi(
+              propsList,
+              setPortfoliosValue,
+              setOpened,
+              navMenuLink,
+              blog.all
+            )}
+          </Ul>
+        </HeaderMenu>
+      </HeaderTopWrapper>
+    </>
+  );
+};
 
 export default MenuNav;

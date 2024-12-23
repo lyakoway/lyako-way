@@ -14,8 +14,9 @@ import { footer } from "./footer";
 import { modal } from "./modal";
 import { portfolioListBlog } from "src/common/lang/english/portfolioListBlog";
 import { portfolioDevelopment } from "src/common/lang/english/portfolioDevelopment";
+import { LanguageProps } from "src/common/types/lang";
 
-export const ENGLISH_LANGUAGE = {
+export const ENGLISH_LANGUAGE: LanguageProps = {
   propsPortfolioListBlog,
   portfolioDevelopment,
   propsPortfolioList,

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { observer } from "mobx-react";
 import styled from "styled-components";
 
-import { store } from "src/store";
 import WeatherIcon from "../WeatherIcon";
+import { useDispatchTyped } from "src/store";
+import { closeModal, setClimateСontrol } from "src/slices";
 
 // import ModalAnimation from "../ModalAnimation";
 
@@ -33,83 +33,83 @@ import { ReactComponent as FooterMailIcon } from "src/common/icon/contacts/MailD
 
 import { CLIMATE_CONTROL } from "./constants";
 
-const ModalСlimateСontrol = observer(
-  ({ opened = false, onRequestClose, theme, сlimateСontrol }) => {
-    // const [isClimateСontro, setIsClimateСontrol] = useState("sunnyMoon");
+const ModalСlimateСontrol = ({
+  opened = false,
+  onRequestClose,
+  theme,
+  сlimateСontrol,
+}) => {
+  // const [isClimateСontro, setIsClimateСontrol] = useState("sunnyMoon");
+  const dispatch = useDispatchTyped();
 
-    useEffect(() => {
+  useEffect(() => {
+    if (opened) {
+      dispatch(closeModal());
+    }
+  }, [opened]);
+
+  // useEffect(() => {
+  //   store.setClimateСontrol(isClimateСontro);
+  // }, [isClimateСontro]);
+
+  const handleClose = (e) => {
+    e.stopPropagation();
+    onRequestClose && onRequestClose();
+  };
+
+  const handleOverlayClick = (e) => {
+    if (
+      opened &&
+      e.target.closest("[data-close-border]") &&
+      !e.target.closest("[data-close-modal]")
+    ) {
+      handleClose(e);
+    }
+  };
+
+  useEffect(() => {
+    const positionValueWidth = getwindowInnerWidth() < 659;
+    if (positionValueWidth) {
       if (opened) {
-        store.setOpenToastModal(false);
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
       }
-    }, [opened]);
+    }
+  }, [opened]);
 
-    // useEffect(() => {
-    //   store.setClimateСontrol(isClimateСontro);
-    // }, [isClimateСontro]);
-
-    const handleClose = (e) => {
-      e.stopPropagation();
-      onRequestClose && onRequestClose();
-    };
-
-    const handleOverlayClick = (e) => {
-      if (
-        opened &&
-        e.target.closest("[data-close-border]") &&
-        !e.target.closest("[data-close-modal]")
-      ) {
-        handleClose(e);
-      }
-    };
-
-    useEffect(() => {
-      const positionValueWidth = getwindowInnerWidth() < 659;
-      if (positionValueWidth) {
-        if (opened) {
-          document.body.style.overflow = "hidden";
-        } else {
-          document.body.style.overflow = "";
-        }
-      }
-    }, [opened]);
-
-    return (
-      opened && (
-        <Overlay
-          data-close-border
-          $opened={opened}
-          onClick={handleOverlayClick}
-        >
-          <ModalComponent data-close-modal>
-            <Header>
-              <FooterMailIcon
-                width={24}
-                height={24}
-                fill={theme === "light" ? "#2b3037" : "#fff"}
-              />
-              <HeaderText>Погодные условия</HeaderText>
-            </Header>
-            <IconClose onClick={handleClose}>
-              <CloseOutline width={24} height={24} />
-            </IconClose>
-            <ModalSectionWrapper>
-              <ModalSection>
-                {CLIMATE_CONTROL.map((item) => (
-                  <WeatherIconWrapper
-                    active={item === сlimateСontrol}
-                    key={item}
-                    onClick={() => store.setClimateСontrol(item)}
-                  >
-                    <WeatherIcon сlimateСontrol={item} theme={theme} />
-                  </WeatherIconWrapper>
-                ))}
-              </ModalSection>
-            </ModalSectionWrapper>
-          </ModalComponent>
-        </Overlay>
-      )
-    );
-  }
-);
+  return (
+    opened && (
+      <Overlay data-close-border $opened={opened} onClick={handleOverlayClick}>
+        <ModalComponent data-close-modal>
+          <Header>
+            <FooterMailIcon
+              width={24}
+              height={24}
+              fill={theme === "light" ? "#2b3037" : "#fff"}
+            />
+            <HeaderText>Погодные условия</HeaderText>
+          </Header>
+          <IconClose onClick={handleClose}>
+            <CloseOutline width={24} height={24} />
+          </IconClose>
+          <ModalSectionWrapper>
+            <ModalSection>
+              {CLIMATE_CONTROL.map((item) => (
+                <WeatherIconWrapper
+                  active={item === сlimateСontrol}
+                  key={item}
+                  onClick={() => dispatch(setClimateСontrol(item))}
+                >
+                  <WeatherIcon сlimateСontrol={item} theme={theme} />
+                </WeatherIconWrapper>
+              ))}
+            </ModalSection>
+          </ModalSectionWrapper>
+        </ModalComponent>
+      </Overlay>
+    )
+  );
+};
 
 export default ModalСlimateСontrol;

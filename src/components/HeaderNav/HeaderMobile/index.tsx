@@ -5,9 +5,8 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { observer } from "mobx-react";
 
-import { store } from "src/store";
+import { useSelectorTyped } from "src/store";
 
 import MenuBurger from "src/ui/MenuBurger";
 import Popup from "src/ui/Popup";
@@ -81,65 +80,66 @@ interface HeaderMobileProps {
   header?: boolean;
 }
 
-const HeaderMobile: FC<PropsWithChildren<HeaderMobileProps>> = observer(
-  ({ children, propsList = [], header = false }) => {
-    const [openedPopup, setOpenedPopup] = useState(false);
-    const [opened, setOpened] = useState(false);
+const HeaderMobile: FC<PropsWithChildren<HeaderMobileProps>> = ({
+  children,
+  propsList = [],
+  header = false,
+}) => {
+  const { routeLink } = useSelectorTyped(({ link }) => link);
+  const [openedPopup, setOpenedPopup] = useState(false);
+  const [opened, setOpened] = useState(false);
 
-    const routeLink = store.getRouteLink();
+  const onBlur = (e) => {
+    if (!e.currentTarget.contains(e.relatedTarget)) {
+      setOpened(false);
+      setOpenedPopup(false);
+    }
+  };
 
-    const onBlur = (e) => {
-      if (!e.currentTarget.contains(e.relatedTarget)) {
-        setOpened(false);
-        setOpenedPopup(false);
-      }
-    };
+  const handleClickPopup = useCallback(() => {
+    setOpenedPopup(!openedPopup);
+  }, [openedPopup, setOpenedPopup]);
 
-    const handleClickPopup = useCallback(() => {
-      setOpenedPopup(!openedPopup);
-    }, [openedPopup, setOpenedPopup]);
+  useEffect(() => {
+    opened
+      ? (document.body.style.overflow = "hidden")
+      : (document.body.style.overflow = "");
+  }, [opened]);
 
-    useEffect(() => {
-      opened
-        ? (document.body.style.overflow = "hidden")
-        : (document.body.style.overflow = "");
-    }, [opened]);
-
-    return (
-      <>
-        <Overlay data-close-border $opened={opened} />
-        <HeaderTopWrapper
-          data-close-modal
-          $header={header}
-          onBlur={onBlur}
-          tabIndex={1}
-        >
-          <MenuWrapper $header={header}>
-            {children}
-            <ContainerWrapper>
-              <MenuBurger
-                opened={opened}
-                handleClick={() => setOpened(!opened)}
-              />
-              <Popup positionValue="bottom" openedPopup={openedPopup}>
-                <ContainerWrapper onClick={handleClickPopup}>
-                  <ProfileWrapper>
-                    <ProfileIcon fill="white" />
-                  </ProfileWrapper>
-                  <SettingWrapper>
-                    <SettingIcon fill="white" />
-                  </SettingWrapper>
-                </ContainerWrapper>
-              </Popup>
-            </ContainerWrapper>
-          </MenuWrapper>
-          <HeaderMenu $opened={opened}>
-            <Ul>{HeaderMenuLi(propsList, setOpened, header, routeLink)}</Ul>
-          </HeaderMenu>
-        </HeaderTopWrapper>
-      </>
-    );
-  }
-);
+  return (
+    <>
+      <Overlay data-close-border $opened={opened} />
+      <HeaderTopWrapper
+        data-close-modal
+        $header={header}
+        onBlur={onBlur}
+        tabIndex={1}
+      >
+        <MenuWrapper $header={header}>
+          {children}
+          <ContainerWrapper>
+            <MenuBurger
+              opened={opened}
+              handleClick={() => setOpened(!opened)}
+            />
+            <Popup positionValue="bottom" openedPopup={openedPopup}>
+              <ContainerWrapper onClick={handleClickPopup}>
+                <ProfileWrapper>
+                  <ProfileIcon fill="white" />
+                </ProfileWrapper>
+                <SettingWrapper>
+                  <SettingIcon fill="white" />
+                </SettingWrapper>
+              </ContainerWrapper>
+            </Popup>
+          </ContainerWrapper>
+        </MenuWrapper>
+        <HeaderMenu $opened={opened}>
+          <Ul>{HeaderMenuLi(propsList, setOpened, header, routeLink)}</Ul>
+        </HeaderMenu>
+      </HeaderTopWrapper>
+    </>
+  );
+};
 
 export default HeaderMobile;

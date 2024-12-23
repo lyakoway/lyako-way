@@ -1,7 +1,6 @@
 import React from "react";
-import { observer } from "mobx-react";
 
-import { store } from "src/store";
+import { useSelectorTyped } from "src/store";
 
 import LogoLook from "src/ui/LogoLook";
 
@@ -76,29 +75,29 @@ const HeaderMenuLi = (arrPropsList) => {
   ));
 };
 
-const HeaderDesktop = observer(
-  ({ propsList = [] }: { propsList: HeaderTopMenuProps[] }) => {
-    const propsListDecstop = propsList.slice(1);
-    const routeLink = store.getRouteLink();
-    const routeLinkBlog = routeLink.startsWith("blog");
-    const routeLinkPortfolio = routeLink.startsWith("portfolio");
-    const arrPropsList =
-      routeLinkBlog || routeLinkPortfolio
-        ? propsListDecstop
-            .slice(-3)
-            .filter((i) => !routeLink.startsWith(i.href))
-        : propsListDecstop;
-    return (
-      <>
-        <HeaderTopWrapper>
-          <LogoLook />
-          <HeaderMenu>
-            <Ul>{HeaderMenuLi(arrPropsList)}</Ul>
-          </HeaderMenu>
-        </HeaderTopWrapper>
-      </>
-    );
-  }
-);
+const HeaderDesktop = ({
+  propsList = [],
+}: {
+  propsList: HeaderTopMenuProps[];
+}) => {
+  const propsListDecstop = propsList.slice(1);
+  const { routeLink } = useSelectorTyped(({ link }) => link);
+  const routeLinkBlog = routeLink.startsWith("blog");
+  const routeLinkPortfolio = routeLink.startsWith("portfolio");
+  const arrPropsList =
+    routeLinkBlog || routeLinkPortfolio
+      ? propsListDecstop.slice(-3).filter((i) => !routeLink.startsWith(i.href))
+      : propsListDecstop;
+  return (
+    <>
+      <HeaderTopWrapper>
+        <LogoLook />
+        <HeaderMenu>
+          <Ul>{HeaderMenuLi(arrPropsList)}</Ul>
+        </HeaderMenu>
+      </HeaderTopWrapper>
+    </>
+  );
+};
 
 export default HeaderDesktop;

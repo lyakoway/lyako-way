@@ -1,4 +1,6 @@
-export const shadow = {
+import { ThemeShadow } from "src/common/types/theme";
+
+export const shadow: ThemeShadow = {
   ClickableActive: `
   box-shadow: 0 2px 4px rgba(138, 150, 168, 0.4), 0px -2px 2px rgba(138, 150, 168, 0.08);
 `,

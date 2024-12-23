@@ -9,13 +9,14 @@ import WeatherIconCloudyWithRainAndLightning from "./CloudyWithRainAndLightning"
 import WeatherIconClearNight from "./ClearNight";
 // import WeatherIconSunnyWithWind from "./SunnyWithWind";
 import WeatherIconSnowy from "./Snowy";
+import { ClimateType } from "src/common/types/climat";
 
 const WeatherIcon = ({
   сlimateСontrol,
   theme,
 }: {
-  сlimateСontrol: string;
-  theme: string;
+  сlimateСontrol: ClimateType;
+  theme: "light" | "dark";
 }) => {
   if (сlimateСontrol === "sunnyMoon" && theme === "light") {
     return <WeatherIconSunny />;
