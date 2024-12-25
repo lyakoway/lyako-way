@@ -30,14 +30,14 @@ import { useDayTime } from "src/features/customHooks";
 // import { ReactComponent as CloseOutline } from "../../../common/icon/CloseOutline.svg";
 
 interface WindowLightProps {
-  theme: string;
-  checkedTheme?: boolean;
+  themeLight?: boolean;
 }
 
-const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
-  const { climat } = useSelectorTyped(({ climat }) => climat);
-  const { sunriseStr, sunsetStr, timesHouse } = useDayTime();
-  const [animationClikTeme, setAnimationClikTeme] = useState<boolean>(false);
+const Window: FC<WindowLightProps> = ({ themeLight }) => {
+  const { climate } = useSelectorTyped(({ climate }) => climate);
+  const { sunriseTime, sunsetTime, timesHouse } = useDayTime();
+  const [animationClickTheme, setAnimationClickTheme] =
+    useState<boolean>(false);
   const [animationCheckedTheme, setAnimationCheckedTheme] =
     useState<boolean>(true);
   const [timeLeftSunMoon, setTimeLeftSunMoon] = useState<number>(0);
@@ -56,57 +56,58 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
 
   const winter = false;
 
-  const climateControl = climat;
+  const climateControl = climate;
 
   // сколько процентов осталось до захода солнца от дна
   const percentRemainingSunValue = Math.round(
-    ((sunsetStr - timesHouse) * 100) / (sunsetStr - sunriseStr)
+    ((sunsetTime - timesHouse) * 100) / (sunsetTime - sunriseTime)
   );
 
   // сколько времени осталось до захода солца в секундах
-  const timesSunsetStr = Math.abs(sunsetStr - timesHouse);
+  const timesRemainingSunset = Math.abs(sunsetTime - timesHouse);
 
   // констатнта для добавления расчтета сикунда анимации для определения продолжительности (пока вынуждено так для учета времени если перевалило за 24:00)
-  const timeDeltaMoon = Math.abs(86400 - sunsetStr);
+  const timeDeltaMoon = Math.abs(86400 - sunsetTime);
   // сколько времени осталось до захода луны
   const timesMoon =
-    timesHouse <= sunriseStr
-      ? Math.abs(sunriseStr - timesHouse)
-      : Math.abs(86400 - timesHouse + sunriseStr);
-  // 86400 - timesHouse + sunriseStr
+    timesHouse <= sunriseTime
+      ? Math.abs(sunriseTime - timesHouse)
+      : Math.abs(86400 - timesHouse + sunriseTime);
+  // 86400 - timesHouse + sunriseTime
   // сколько процентов осталось до захода луны
   const percentRemainingMoonValue = Math.round(
-    (timesMoon * 100) / (sunriseStr + timeDeltaMoon)
+    (timesMoon * 100) / (sunriseTime + timeDeltaMoon)
   );
 
   // сколько в процентах пути прошло солце и луна
-  const lenghtLeftSunMoon = 100 - percentRemainingSunMoon;
+  const lengthLeftSunMoon = 100 - percentRemainingSunMoon;
 
   // сколько прошло солце или луна
-  // const lightOff = Math.round((lenghtLeftSunMoon * 120) / 100);
+  // const lightOff = Math.round((lengthLeftSunMoon * 120) / 100);
   // сколько прошло солце или луна от полного круга 360deg в прроцентах (всего 33%)
   // const lightOffPercent = Math.round((lightOff * 100) / 360);
 
   useEffect(() => {
-    setAnimationCheckedTheme(theme === "light");
-    setAnimationClikTeme(true);
-  }, [theme]);
+    setAnimationCheckedTheme(themeLight);
+    setAnimationClickTheme(true);
+  }, [themeLight]);
 
   useEffect(() => {
-    setAnimationClikTeme(false);
+    setAnimationClickTheme(false);
   }, []);
 
   useEffect(() => {
-    if (theme === "light") {
-      setTimeLeftSunMoon(timesSunsetStr);
+    if (themeLight) {
+      setTimeLeftSunMoon(timesRemainingSunset);
       setPercentRemainingSunMoon(percentRemainingSunValue);
     } else {
       setTimeLeftSunMoon(timesMoon);
       setPercentRemainingSunMoon(percentRemainingMoonValue);
     }
 
-    const lightOffOpacityValue =
-      theme === "light" ? lightOffOpacitySun : lightOffOpacityMoon;
+    const lightOffOpacityValue = themeLight
+      ? lightOffOpacitySun
+      : lightOffOpacityMoon;
 
     setLightOffOpacity(lightOffOpacityValue);
 
@@ -117,27 +118,27 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
       // расположение солнца или луны в градусах от левого края окна
       // длина пройденного пути в грудах = 120 по ширине окна
       // расчет сколько крадусов прошел от левого края в соотношения процентов ко времени половины дня (так как значение должно быть отрицательно и уменьшатся от -60 в первую половину дня и потом до 60)
-      if (lenghtLeftSunMoon <= 50) {
-        const leftRotate = Math.round((60 * lenghtLeftSunMoon) / 50) - 60;
+      if (lengthLeftSunMoon <= 50) {
+        const leftRotate = Math.round((60 * lengthLeftSunMoon) / 50) - 60;
         setLeftRotateWindowSunMoon(leftRotate);
         //какую яркость задать от пройденного процента по кругу 360deg для 1
-        if (theme === "light") {
-          setLightOffOpacitySun(lenghtLeftSunMoon / 50);
+        if (themeLight) {
+          setLightOffOpacitySun(lengthLeftSunMoon / 50);
         } else {
           // для 0.4
-          setLightOffOpacityMoon((lenghtLeftSunMoon * 0.4) / 50);
+          setLightOffOpacityMoon((lengthLeftSunMoon * 0.4) / 50);
         }
       } else {
         const leftRotate = Math.abs(
-          60 - Math.round((60 * lenghtLeftSunMoon) / 50)
+          60 - Math.round((60 * lengthLeftSunMoon) / 50)
         );
         setLeftRotateWindowSunMoon(leftRotate);
         //какую яркость задать от пройденного процента по кругу 360deg для 1
-        if (theme === "light") {
-          setLightOffOpacitySun(2 - lenghtLeftSunMoon / 50);
+        if (themeLight) {
+          setLightOffOpacitySun(2 - lengthLeftSunMoon / 50);
         } else {
           // для 0.4
-          setLightOffOpacityMoon(0.8 - (lenghtLeftSunMoon * 0.4) / 50);
+          setLightOffOpacityMoon(0.8 - (lengthLeftSunMoon * 0.4) / 50);
         }
       }
     }
@@ -146,31 +147,30 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
     percentRemainingSunMoon,
     percentRemainingSunValue,
     timesMoon,
-    timesSunsetStr,
-    theme,
-    lenghtLeftSunMoon,
+    timesRemainingSunset,
+    themeLight,
+    lengthLeftSunMoon,
     lightOffOpacitySun,
     lightOffOpacityMoon,
   ]);
 
   useEffect(() => {
-    if (climateControl === "rainy" && theme === "light") {
+    if (climateControl === "rainy" && themeLight) {
       setDayToNightColor("rgb(29, 120, 147)");
-      setAnimationClikTeme(false);
-    } else if (
-      climateControl === "cloudyWithRainAndLightning" &&
-      theme === "light"
-    ) {
+      setAnimationClickTheme(false);
+    } else if (climateControl === "cloudyWithRainAndLightning" && themeLight) {
       setDayToNightColor("rgb(0, 53, 71)");
-      setAnimationClikTeme(false);
-    } else if (climateControl === "cloudy" && theme === "light") {
+      setAnimationClickTheme(false);
+    } else if (climateControl === "cloudy" && themeLight) {
       setDayToNightColor("rgb(109, 177, 198)");
-      setAnimationClikTeme(false);
+      setAnimationClickTheme(false);
     } else {
-      const dayToNightColorValue = theme === "light" ? "#88bef5" : "#0c2233";
+      const dayToNightColorValue = themeLight ? "#88bef5" : "#0c2233";
       setDayToNightColor(dayToNightColorValue);
     }
-  }, [theme, climateControl, checkedTheme, setAnimationClikTeme]);
+  }, [themeLight, climateControl, setAnimationClickTheme, setDayToNightColor]);
+
+  console.log(55555555);
 
   return (
     <WindowWrapper>
@@ -178,17 +178,17 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
         data-window-view
         $dayToNightColor={dayToNightColor}
         $timeLeftSunMoon={timeLeftSunMoon}
-        $animationCheckedTheme={theme === "light"}
-        $animationClikTeme={animationClikTeme}
+        $animationCheckedTheme={themeLight}
+        $animationClickTheme={animationClickTheme}
       >
         {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
           <HeavenlyBody
             data-heavenly-body
-            theme={theme}
+            $themeLight={themeLight}
             $timeLeftSunMoon={timeLeftSunMoon}
             $leftRotateWindowSunMoon={leftRotateWindowSunMoon}
-            $animationClikTeme={animationClikTeme}
-            $animationCheckedTheme={theme === "light"}
+            $animationClickTheme={animationClickTheme}
+            $animationCheckedTheme={themeLight}
           />
         )}
         <Cloud climateControl={climateControl} />
@@ -197,10 +197,10 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
         <WindowHotspot
           $lightOffOpacity={lightOffOpacity}
           $timeLeftSunMoon={timeLeftSunMoon}
-          $animationCheckedTheme={theme === "light"}
+          $animationCheckedTheme={themeLight}
           $lightOffOpacitySun={lightOffOpacitySun}
           $lightOffOpacityMoon={lightOffOpacityMoon}
-          $animationClikTeme={animationClikTeme}
+          $animationClickTheme={animationClickTheme}
         />
       )}
       <WindowFrame />
@@ -210,25 +210,25 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
         <WindowLightLeft
           $lightOffOpacity={lightOffOpacity}
           $timeLeftSunMoon={timeLeftSunMoon}
-          $animationCheckedTheme={theme === "light"}
+          $animationCheckedTheme={themeLight}
           $lightOffOpacitySun={lightOffOpacitySun}
           $lightOffOpacityMoon={lightOffOpacityMoon}
-          $animationClikTeme={animationClikTeme}
+          $animationClickTheme={animationClickTheme}
         />
       )}
       {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
         <WindowLightRight
           $lightOffOpacity={lightOffOpacity}
           $timeLeftSunMoon={timeLeftSunMoon}
-          $animationCheckedTheme={theme === "light"}
+          $animationCheckedTheme={themeLight}
           $lightOffOpacitySun={lightOffOpacitySun}
           $lightOffOpacityMoon={lightOffOpacityMoon}
-          $animationClikTeme={animationClikTeme}
+          $animationClickTheme={animationClickTheme}
         />
       )}
 
       <WeatherIconWrapper onClick={() => setIsOpen(!isOpen)}>
-        <WeatherIcon climateControl={climateControl} theme={theme} />
+        <WeatherIcon climateControl={climateControl} themeLight={themeLight} />
       </WeatherIconWrapper>
     </WindowWrapper>
   );

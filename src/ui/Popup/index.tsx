@@ -1,10 +1,11 @@
-import React, { FC, PropsWithChildren } from "react";
+import React, { FC, PropsWithChildren, useEffect, useState } from "react";
 
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
 
 import { PopupWrapper, ContentWrapper } from "./style";
+import { useSelectorTyped } from "src/store";
 
 interface IAccordionProps {
   positionValue?: string;
@@ -59,6 +60,10 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
   popupRef,
 }) => {
   const {
+    theme: { name },
+  } = useSelectorTyped(({ theme }) => theme);
+  const [openedTheme, setOpenedTheme] = useState(false);
+  const {
     positionStyle,
     topStyle,
     leftStyle,
@@ -66,6 +71,10 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
     topArrowStyle,
     rotateArrowStyle,
   } = positionDataPopup[positionValue];
+
+  useEffect(() => {
+    setOpenedTheme(name === "light");
+  }, [name]);
 
   return (
     <ContentWrapper ref={popupRef}>
@@ -80,7 +89,10 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
           $rotateArrowStyle={rotateArrowStyle}
         >
           <ButtonHeart />
-          <ThemeDarkLight />
+          <ThemeDarkLight
+            setOpenedTheme={setOpenedTheme}
+            openedTheme={openedTheme}
+          />
           <ButtonLang />
         </PopupWrapper>
       )}

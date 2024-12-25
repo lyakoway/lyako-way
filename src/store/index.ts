@@ -91,7 +91,7 @@ import {
   getDefaultMiddleware,
 } from "@reduxjs/toolkit";
 import {
-  climatReducer,
+  climateReducer,
   modalReducer,
   themeReducer,
   toastReducer,
@@ -102,7 +102,7 @@ import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 const rootReducer = combineReducers({
-  climat: climatReducer,
+  climate: climateReducer,
   modal: modalReducer,
   theme: themeReducer,
   toast: toastReducer,

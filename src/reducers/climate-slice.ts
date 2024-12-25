@@ -2,23 +2,23 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ClimateType } from "src/common/types/climat";
 
 type IState = {
-  climat: ClimateType;
+  climate: ClimateType;
 };
 
 const initialState: IState = {
-  climat: "sunnyMoon",
+  climate: "sunnyMoon",
 };
 
-const climat = createSlice({
-  name: "climat",
+const climate = createSlice({
+  name: "climate",
   initialState,
   reducers: {
     setClimateControl: (state, action: PayloadAction<ClimateType>) => {
-      state.climat = action.payload;
+      state.climate = action.payload;
     },
   },
 });
 
-export const { setClimateControl } = climat.actions;
+export const { setClimateControl } = climate.actions;
 
-export const climatReducer = climat.reducer;
+export const climateReducer = climate.reducer;

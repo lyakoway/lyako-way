@@ -1,4 +1,4 @@
-export * from "./climat-slice";
+export * from "./climate-slice";
 export * from "./modal-slice";
 export * from "./theme-slice";
 export * from "./toast-slice";

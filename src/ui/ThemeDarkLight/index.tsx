@@ -1,30 +1,28 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback } from "react";
 
-import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { useDispatchTyped } from "src/store";
 import { setThemeList } from "src/reducers";
 
 import { ThemeDarkLightChecked } from "./style";
 
-const ThemeDarkLight = () => {
-  const {
-    theme: { name },
-  } = useSelectorTyped(({ theme }) => theme);
-  const [opened, setOpened] = useState(false);
+const ThemeDarkLight = ({
+  setOpenedTheme,
+  openedTheme,
+}: {
+  setOpenedTheme: (value: boolean) => void;
+  openedTheme: boolean;
+}) => {
   const dispatch = useDispatchTyped();
 
   const handleClickTheme = useCallback(() => {
-    setOpened(!opened);
-    dispatch(setThemeList(!opened));
-  }, [setOpened, dispatch, opened]);
-
-  useEffect(() => {
-    setOpened(name === "light");
-  }, [name]);
+    setOpenedTheme(!openedTheme);
+    dispatch(setThemeList(!openedTheme));
+  }, [setOpenedTheme, dispatch, openedTheme]);
 
   return (
     <ThemeDarkLightChecked
       id="themeDarkLight"
-      $opened={opened}
+      $opened={openedTheme}
       onClick={handleClickTheme}
     />
   );

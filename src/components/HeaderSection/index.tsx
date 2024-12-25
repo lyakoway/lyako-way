@@ -62,6 +62,7 @@ const HeaderSection = () => {
   const [opened, setOpened] = useState(false);
   const [positionValue, setPositionValue] = useState("top");
   const popupRef = useRef<HTMLDivElement>(null);
+  const themeLight = name === "light";
 
   useClickOutside(popupRef, () => {
     if (openedPopup) {
@@ -115,7 +116,7 @@ const HeaderSection = () => {
         timer={10000}
       /> */}
       <HeaderSectionFon>
-        <IconComp theme={name}>
+        <IconComp themeLight={themeLight}>
           <SettingWrapper>
             <Popup
               positionValue={positionValue}
@@ -128,17 +129,17 @@ const HeaderSection = () => {
             </Popup>
           </SettingWrapper>
         </IconComp>
-        <IconMap theme={name} />
+        <IconMap themeLight={themeLight} />
         {/* Window checkedTheme={checkedTheme} */}
-        <Window theme={name} />
+        <Window themeLight={themeLight} />
         <Clock />
         {/* <WindowWrapper>
           <IconWindow theme={name} />
           <IconDay theme={name} data-parallax="80" />
           <IconSun theme={name} data-parallax="20" />
         </WindowWrapper> */}
-        <IconBook theme={name} />
-        <IconPicture theme={name} />
+        <IconBook themeLight={themeLight} />
+        <IconPicture themeLight={themeLight} />
       </HeaderSectionFon>
 
       <HeaderContactWrapper>

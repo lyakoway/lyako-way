@@ -5,8 +5,8 @@ import SunCalc from "suncalc";
 import { useTime } from "src/features/customHooks/useTime";
 
 export const useDayTime = (): {
-  sunriseStr: number;
-  sunsetStr: number;
+  sunriseTime: number;
+  sunsetTime: number;
   timesHouse: number;
   dayTime: boolean;
 } => {
@@ -15,33 +15,23 @@ export const useDayTime = (): {
   const [hour, min] = useTime(timeout3Hour);
 
   // координы Москвы широта и долгота
-  const coordinatesLatitude = 55.7522;
-  const coordinatesLongitude = 37.6156;
+  const latitude = 55.7522;
+  const longitude = 37.6156;
 
   const date = new Date();
-  const sunTimes = SunCalc.getTimes(
-    date,
-    coordinatesLatitude,
-    coordinatesLongitude
-  );
-
-  // const mounTimes = SunCalc.getMounTimes(
-  //   date,
-  //   coordinatesLatitude,
-  //   coordinatesLongitude
-  // );
+  const sunTimes = SunCalc.getTimes(date, latitude, longitude);
 
   // восход в секундах
-  const sunriseStr =
+  const sunriseTime =
     (sunTimes.sunrise.getHours() * 60 + sunTimes.sunrise.getMinutes()) * 60;
 
   // закат в секундах
-  const sunsetStr =
+  const sunsetTime =
     (sunTimes.sunset.getHours() * 60 + sunTimes.sunset.getMinutes()) * 60;
   // текущее время в секундах
   const timesHouse = (hour * 60 + min) * 60;
 
-  const dayTime = sunriseStr < timesHouse && timesHouse < sunsetStr;
+  const dayTime = sunriseTime < timesHouse && timesHouse < sunsetTime;
 
-  return { sunriseStr, sunsetStr, timesHouse, dayTime };
+  return { sunriseTime, sunsetTime, timesHouse, dayTime };
 };

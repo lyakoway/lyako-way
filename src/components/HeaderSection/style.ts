@@ -254,9 +254,9 @@ export const HeaderSectionFon = styled.div`
   }
 `;
 
-export const IconComp = styled.div<{ theme?: string }>`
-  ${({ theme }) =>
-    theme === "light"
+export const IconComp = styled.div<{ themeLight?: boolean }>`
+  ${({ themeLight }) =>
+    themeLight
       ? css`
           background: url(${myIconComp.src}) 100% 100% no-repeat;
         `
@@ -308,9 +308,9 @@ export const SettingWrapper = styled.div`
   }
 `;
 
-export const IconMap = styled.div<{ theme?: string }>`
-  ${({ theme }) =>
-    theme === "light"
+export const IconMap = styled.div<{ themeLight?: boolean }>`
+  ${({ themeLight }) =>
+    themeLight
       ? css`
           background: url(${myIconMap.src}) no-repeat;
         `
@@ -325,9 +325,9 @@ export const IconMap = styled.div<{ theme?: string }>`
   left: -299px;
 `;
 
-export const IconBook = styled.div<{ theme?: string }>`
-  ${({ theme }) =>
-    theme === "light"
+export const IconBook = styled.div<{ themeLight?: boolean }>`
+  ${({ themeLight }) =>
+    themeLight
       ? css`
           background: url(${myIconBook.src}) no-repeat;
         `
@@ -350,9 +350,9 @@ export const IconBook = styled.div<{ theme?: string }>`
   }
 `;
 
-export const IconPicture = styled.div<{ theme?: string }>`
-  ${({ theme }) =>
-    theme === "light"
+export const IconPicture = styled.div<{ themeLight?: boolean }>`
+  ${({ themeLight }) =>
+    themeLight
       ? css`
           background: url(${myIconPicture.src}) no-repeat;
         `

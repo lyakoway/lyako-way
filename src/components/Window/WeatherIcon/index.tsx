@@ -13,21 +13,21 @@ import { ClimateType } from "src/common/types/climat";
 
 const WeatherIcon = ({
   climateControl,
-  theme,
+  themeLight,
 }: {
   climateControl: ClimateType;
-  theme: "light" | "dark";
+  themeLight: boolean;
 }) => {
-  if (climateControl === "sunnyMoon" && theme === "light") {
+  if (climateControl === "sunnyMoon" && themeLight) {
     return <WeatherIconSunny />;
   }
-  if (climateControl === "sunnyMoon" && theme !== "light") {
+  if (climateControl === "sunnyMoon" && !themeLight) {
     return <WeatherIconClearNight />;
   }
-  if (climateControl === "cloudyWithSunMoon" && theme === "light") {
+  if (climateControl === "cloudyWithSunMoon" && themeLight) {
     return <WeatherIconCloudyWithSun />;
   }
-  if (climateControl === "cloudyWithSunMoon" && theme !== "light") {
+  if (climateControl === "cloudyWithSunMoon" && !themeLight) {
     return <WeatherIconCloudyWithMoon />;
   }
   if (climateControl === "cloudy") {

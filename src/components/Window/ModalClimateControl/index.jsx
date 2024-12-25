@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import WeatherIcon from "../WeatherIcon";
 import { useDispatchTyped } from "src/store";
-import { closeModal, setClimateControl } from "src/slices";
+import { closeModal, setClimateControl } from "src/reducers";
 
 // import ModalAnimation from "../ModalAnimation";
 
@@ -36,8 +36,8 @@ import { CLIMATE_CONTROL } from "./constants";
 const ModalClimateControl = ({
   opened = false,
   onRequestClose,
-  theme,
-                               climateControl,
+  themeLight,
+  climateControl,
 }) => {
   // const [isClimateControl, setIsClimateControl] = useState("sunnyMoon");
   const dispatch = useDispatchTyped();
@@ -86,7 +86,7 @@ const ModalClimateControl = ({
             <FooterMailIcon
               width={24}
               height={24}
-              fill={theme === "light" ? "#2b3037" : "#fff"}
+              fill={themeLight ? "#2b3037" : "#fff"}
             />
             <HeaderText>Погодные условия</HeaderText>
           </Header>
@@ -101,7 +101,7 @@ const ModalClimateControl = ({
                   key={item}
                   onClick={() => dispatch(setClimateControl(item))}
                 >
-                  <WeatherIcon climateControl={item} theme={theme} />
+                  <WeatherIcon climateControl={item} themeLight={themeLight} />
                 </WeatherIconWrapper>
               ))}
             </ModalSection>
