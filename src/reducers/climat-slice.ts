@@ -13,12 +13,12 @@ const climat = createSlice({
   name: "climat",
   initialState,
   reducers: {
-    setClimateСontrol: (state, action: PayloadAction<ClimateType>) => {
+    setClimateControl: (state, action: PayloadAction<ClimateType>) => {
       state.climat = action.payload;
     },
   },
 });
 
-export const { setClimateСontrol } = climat.actions;
+export const { setClimateControl } = climat.actions;
 
 export const climatReducer = climat.reducer;

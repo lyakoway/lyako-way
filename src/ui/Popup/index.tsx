@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren } from "react";
 
-import ButtonElement from "src/ui/ButtonElement";
+import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
 
@@ -81,7 +81,7 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
         >
           <ButtonHeart />
           <ThemeDarkLight />
-          <ButtonElement />
+          <ButtonLang />
         </PopupWrapper>
       )}
     </ContentWrapper>

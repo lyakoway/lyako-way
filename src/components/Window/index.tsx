@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState, FC } from "react";
 
-import { getDayTime } from "src/common/utils";
 import { useSelectorTyped } from "src/store";
 
 import {
@@ -20,10 +19,11 @@ import {
   // Title,
 } from "./style";
 
-// import ModalСlimateСontrol from "./ModalСlimateСontrol";
+// import ModalClimateControl from "./ModalClimateControl";
 
 import Cloud from "./Сloud";
 import WeatherIcon from "./WeatherIcon";
+import { useDayTime } from "src/features/customHooks";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -36,6 +36,7 @@ interface WindowLightProps {
 
 const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
   const { climat } = useSelectorTyped(({ climat }) => climat);
+  const { sunriseStr, sunsetStr, timesHouse } = useDayTime();
   const [animationClikTeme, setAnimationClikTeme] = useState<boolean>(false);
   const [animationCheckedTheme, setAnimationCheckedTheme] =
     useState<boolean>(true);
@@ -50,21 +51,12 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
   const [lightOffOpacity, setLightOffOpacity] = useState<number>(0);
   const [dayToNightColor, setDayToNightColor] = useState<string>("#0c2233");
   const [weather, setWeather] = useState<number>(2);
-  // const [сlimateСontrol, setСlimateСontrol] = useState("sunnyMoon");
+  // const [climateControl, setClimateControl] = useState("sunnyMoon");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const winter = false;
 
-  // проверка что день
-  const dayTime = getDayTime().dayTime;
-  // восход в секунадх
-  const sunriseStr = getDayTime().sunriseStr;
-  // закат в секундах
-  const sunsetStr = getDayTime().sunsetStr;
-  // текущее время в секундах
-  const timesHouse = getDayTime().timesHouse;
-
-  const сlimateСontrol = climat;
+  const climateControl = climat;
 
   // сколько процентов осталось до захода солнца от дна
   const percentRemainingSunValue = Math.round(
@@ -96,16 +88,16 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
   // const lightOffPercent = Math.round((lightOff * 100) / 360);
 
   useEffect(() => {
-    setAnimationCheckedTheme(dayTime ? checkedTheme : !checkedTheme);
+    setAnimationCheckedTheme(theme === "light");
     setAnimationClikTeme(true);
-  }, [checkedTheme, dayTime]);
+  }, [theme]);
 
   useEffect(() => {
     setAnimationClikTeme(false);
   }, []);
 
   useEffect(() => {
-    if (dayTime) {
+    if (theme === "light") {
       setTimeLeftSunMoon(timesSunsetStr);
       setPercentRemainingSunMoon(percentRemainingSunValue);
     } else {
@@ -155,7 +147,6 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
     percentRemainingSunValue,
     timesMoon,
     timesSunsetStr,
-    dayTime,
     theme,
     lenghtLeftSunMoon,
     lightOffOpacitySun,
@@ -163,24 +154,23 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
   ]);
 
   useEffect(() => {
-    if (сlimateСontrol === "rainy" && theme === "light") {
+    if (climateControl === "rainy" && theme === "light") {
       setDayToNightColor("rgb(29, 120, 147)");
       setAnimationClikTeme(false);
     } else if (
-      сlimateСontrol === "cloudyWithRainAndLightning" &&
+      climateControl === "cloudyWithRainAndLightning" &&
       theme === "light"
     ) {
       setDayToNightColor("rgb(0, 53, 71)");
       setAnimationClikTeme(false);
-    } else if (сlimateСontrol === "cloudy" && theme === "light") {
+    } else if (climateControl === "cloudy" && theme === "light") {
       setDayToNightColor("rgb(109, 177, 198)");
       setAnimationClikTeme(false);
     } else {
       const dayToNightColorValue = theme === "light" ? "#88bef5" : "#0c2233";
       setDayToNightColor(dayToNightColorValue);
-      setAnimationClikTeme(true);
     }
-  }, [theme, сlimateСontrol, checkedTheme, setAnimationClikTeme]);
+  }, [theme, climateControl, checkedTheme, setAnimationClikTeme]);
 
   return (
     <WindowWrapper>
@@ -188,26 +178,26 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
         data-window-view
         $dayToNightColor={dayToNightColor}
         $timeLeftSunMoon={timeLeftSunMoon}
-        $animationCheckedTheme={animationCheckedTheme}
+        $animationCheckedTheme={theme === "light"}
         $animationClikTeme={animationClikTeme}
       >
-        {["sunnyMoon", "cloudyWithSunMoon"].includes(сlimateСontrol) && (
+        {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
           <HeavenlyBody
             data-heavenly-body
             theme={theme}
             $timeLeftSunMoon={timeLeftSunMoon}
             $leftRotateWindowSunMoon={leftRotateWindowSunMoon}
             $animationClikTeme={animationClikTeme}
-            $animationCheckedTheme={animationCheckedTheme}
+            $animationCheckedTheme={theme === "light"}
           />
         )}
-        <Cloud сlimateСontrol={сlimateСontrol} />
+        <Cloud climateControl={climateControl} />
       </WindowView>
-      {["sunnyMoon", "cloudyWithSunMoon"].includes(сlimateСontrol) && (
+      {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
         <WindowHotspot
           $lightOffOpacity={lightOffOpacity}
           $timeLeftSunMoon={timeLeftSunMoon}
-          $animationCheckedTheme={animationCheckedTheme}
+          $animationCheckedTheme={theme === "light"}
           $lightOffOpacitySun={lightOffOpacitySun}
           $lightOffOpacityMoon={lightOffOpacityMoon}
           $animationClikTeme={animationClikTeme}
@@ -216,21 +206,21 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
       <WindowFrame />
       <WindowSill />
 
-      {["sunnyMoon", "cloudyWithSunMoon"].includes(сlimateСontrol) && (
+      {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
         <WindowLightLeft
           $lightOffOpacity={lightOffOpacity}
           $timeLeftSunMoon={timeLeftSunMoon}
-          $animationCheckedTheme={animationCheckedTheme}
+          $animationCheckedTheme={theme === "light"}
           $lightOffOpacitySun={lightOffOpacitySun}
           $lightOffOpacityMoon={lightOffOpacityMoon}
           $animationClikTeme={animationClikTeme}
         />
       )}
-      {["sunnyMoon", "cloudyWithSunMoon"].includes(сlimateСontrol) && (
+      {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
         <WindowLightRight
           $lightOffOpacity={lightOffOpacity}
           $timeLeftSunMoon={timeLeftSunMoon}
-          $animationCheckedTheme={animationCheckedTheme}
+          $animationCheckedTheme={theme === "light"}
           $lightOffOpacitySun={lightOffOpacitySun}
           $lightOffOpacityMoon={lightOffOpacityMoon}
           $animationClikTeme={animationClikTeme}
@@ -238,7 +228,7 @@ const Window: FC<WindowLightProps> = ({ theme, checkedTheme }) => {
       )}
 
       <WeatherIconWrapper onClick={() => setIsOpen(!isOpen)}>
-        <WeatherIcon сlimateСontrol={сlimateСontrol} theme={theme} />
+        <WeatherIcon climateControl={climateControl} theme={theme} />
       </WeatherIconWrapper>
     </WindowWrapper>
   );

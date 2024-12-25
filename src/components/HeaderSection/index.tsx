@@ -34,7 +34,7 @@ import { Modal } from "src/ui/Modal";
 import Clock from "src/components/Clock";
 import Window from "src/components/Window";
 
-import { useClickOutside } from "src/features/customHooks/useClickOutside";
+import { useClickOutside } from "src/features/customHooks";
 
 import { ReactComponent as RocketGetsiteIcon } from "src/common/icon/rocket/RocketIcon.svg";
 import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
@@ -49,7 +49,7 @@ import Popup from "src/ui/Popup";
 import { getMobile } from "src/common/utils";
 
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
-import { useIsomorphicLayoutEffect } from "src/features/customHooks/useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "src/features/customHooks";
 
 const HeaderSection = () => {
   const {

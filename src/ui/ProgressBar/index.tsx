@@ -1,5 +1,5 @@
 import React from "react";
-import { useIsomorphicLayoutEffect } from "src/features/customHooks/useIsomorphicLayoutEffect";
+import { useIsomorphicLayoutEffect } from "src/features/customHooks";
 
 import styles from "./progress.module.css";
 import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";

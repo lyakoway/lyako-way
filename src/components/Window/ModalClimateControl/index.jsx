@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import WeatherIcon from "../WeatherIcon";
 import { useDispatchTyped } from "src/store";
-import { closeModal, setClimateСontrol } from "src/slices";
+import { closeModal, setClimateControl } from "src/slices";
 
 // import ModalAnimation from "../ModalAnimation";
 
@@ -33,13 +33,13 @@ import { ReactComponent as FooterMailIcon } from "src/common/icon/contacts/MailD
 
 import { CLIMATE_CONTROL } from "./constants";
 
-const ModalСlimateСontrol = ({
+const ModalClimateControl = ({
   opened = false,
   onRequestClose,
   theme,
-  сlimateСontrol,
+                               climateControl,
 }) => {
-  // const [isClimateСontro, setIsClimateСontrol] = useState("sunnyMoon");
+  // const [isClimateControl, setIsClimateControl] = useState("sunnyMoon");
   const dispatch = useDispatchTyped();
 
   useEffect(() => {
@@ -49,8 +49,8 @@ const ModalСlimateСontrol = ({
   }, [opened]);
 
   // useEffect(() => {
-  //   store.setClimateСontrol(isClimateСontro);
-  // }, [isClimateСontro]);
+  //   store.setClimateControl(isClimateControl);
+  // }, [isClimateControl]);
 
   const handleClose = (e) => {
     e.stopPropagation();
@@ -97,11 +97,11 @@ const ModalСlimateСontrol = ({
             <ModalSection>
               {CLIMATE_CONTROL.map((item) => (
                 <WeatherIconWrapper
-                  active={item === сlimateСontrol}
+                  active={item === climateControl}
                   key={item}
-                  onClick={() => dispatch(setClimateСontrol(item))}
+                  onClick={() => dispatch(setClimateControl(item))}
                 >
-                  <WeatherIcon сlimateСontrol={item} theme={theme} />
+                  <WeatherIcon climateControl={item} theme={theme} />
                 </WeatherIconWrapper>
               ))}
             </ModalSection>
@@ -112,4 +112,4 @@ const ModalСlimateСontrol = ({
   );
 };
 
-export default ModalСlimateСontrol;
+export default ModalClimateControl;

@@ -12,34 +12,34 @@ import WeatherIconSnowy from "./Snowy";
 import { ClimateType } from "src/common/types/climat";
 
 const WeatherIcon = ({
-  сlimateСontrol,
+  climateControl,
   theme,
 }: {
-  сlimateСontrol: ClimateType;
+  climateControl: ClimateType;
   theme: "light" | "dark";
 }) => {
-  if (сlimateСontrol === "sunnyMoon" && theme === "light") {
+  if (climateControl === "sunnyMoon" && theme === "light") {
     return <WeatherIconSunny />;
   }
-  if (сlimateСontrol === "sunnyMoon" && theme !== "light") {
+  if (climateControl === "sunnyMoon" && theme !== "light") {
     return <WeatherIconClearNight />;
   }
-  if (сlimateСontrol === "cloudyWithSunMoon" && theme === "light") {
+  if (climateControl === "cloudyWithSunMoon" && theme === "light") {
     return <WeatherIconCloudyWithSun />;
   }
-  if (сlimateСontrol === "cloudyWithSunMoon" && theme !== "light") {
+  if (climateControl === "cloudyWithSunMoon" && theme !== "light") {
     return <WeatherIconCloudyWithMoon />;
   }
-  if (сlimateСontrol === "cloudy") {
+  if (climateControl === "cloudy") {
     return <WeatherIconCloudy />;
   }
-  if (сlimateСontrol === "rainy") {
+  if (climateControl === "rainy") {
     return <WeatherIconRainy />;
   }
-  if (сlimateСontrol === "cloudyWithRainAndLightning") {
+  if (climateControl === "cloudyWithRainAndLightning") {
     return <WeatherIconCloudyWithRainAndLightning />;
   }
-  if (сlimateСontrol === "snowy") {
+  if (climateControl === "snowy") {
     return <WeatherIconSnowy />;
   }
 };

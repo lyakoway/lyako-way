@@ -8,10 +8,12 @@ import HeaderNav from "src/components/HeaderNav";
 import HeaderSection from "src/components/HeaderSection";
 
 const Header = () => {
-  const { lang } = useSelectorTyped(({ lang }) => lang);
+  const {
+    lang: { propsHeaderTopMenu },
+  } = useSelectorTyped(({ lang }) => lang);
   return (
     <HeaderWrapper>
-      <HeaderNav propsList={lang.propsHeaderTopMenu} />
+      <HeaderNav propsList={propsHeaderTopMenu} />
       <HeaderSection />
     </HeaderWrapper>
   );

@@ -173,8 +173,8 @@ export const HeavenlyBody = styled.div<{
     $animationClikTeme
       ? css`
           animation-name: ${$animationCheckedTheme
-            ? heavenlyBodyMoveClikMoon($leftRotateWindowSunMoon)
-            : heavenlyBodyMoveClikSun($leftRotateWindowSunMoon)};
+            ? heavenlyBodyMoveClikSun($leftRotateWindowSunMoon)
+            : heavenlyBodyMoveClikMoon($leftRotateWindowSunMoon)};
         `
       : css`
           animation-name: ${heavenlyBodyMove($leftRotateWindowSunMoon)};
@@ -366,8 +366,8 @@ export const WindowView = styled.div<{
     $animationClikTeme
       ? css`
           animation-name: ${$animationCheckedTheme
-            ? dayToNightSun
-            : dayToNightMoon};
+            ? dayToNightMoon
+            : dayToNightSun};
         `
       : css`
           animation-name: ${dayToNight($dayToNightColor)};

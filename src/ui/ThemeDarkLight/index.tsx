@@ -1,28 +1,25 @@
 import React, { useCallback, useState, useEffect } from "react";
 
-import { useDispatchTyped } from "src/store";
-import { setThemeList } from "src/reducers/theme-slice";
-
-import { getDayTime } from "src/common/utils";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { setThemeList } from "src/reducers";
 
 import { ThemeDarkLightChecked } from "./style";
 
 const ThemeDarkLight = () => {
+  const {
+    theme: { name },
+  } = useSelectorTyped(({ theme }) => theme);
   const [opened, setOpened] = useState(false);
   const dispatch = useDispatchTyped();
 
   const handleClickTheme = useCallback(() => {
     setOpened(!opened);
-    // store.setCheckedTheme(dayTime ? !openedTheme : openedTheme);
-    // store.setToggleTheme(!openedTheme);
     dispatch(setThemeList(!opened));
-  }, []);
+  }, [setOpened, dispatch, opened]);
 
-  const dayTime = getDayTime().dayTime;
   useEffect(() => {
-    setOpened(!dayTime);
-    dispatch(setThemeList(!dayTime));
-  }, [dayTime]);
+    setOpened(name === "light");
+  }, [name]);
 
   return (
     <ThemeDarkLightChecked

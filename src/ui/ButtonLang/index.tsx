@@ -28,14 +28,14 @@ const ButtonWrapper = styled.button`
   }
 `;
 
-const ButtonElement = () => {
+const ButtonLang = () => {
   const [opened, setOpened] = useState(false);
   const dispatch = useDispatchTyped();
 
   const handleClick = useCallback(() => {
     setOpened(!opened);
     dispatch(setLang(!opened));
-  }, []);
+  }, [setOpened, opened, dispatch]);
 
   const Icon = opened ? LangRussiaIcon : LangEnglishIcon;
 
@@ -46,4 +46,4 @@ const ButtonElement = () => {
   );
 };
 
-export default ButtonElement;
+export default ButtonLang;

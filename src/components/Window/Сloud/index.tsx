@@ -5,25 +5,25 @@ import PuffCloud from "./PuffCloud";
 
 import { CloudWrapper } from "./style";
 import { getRandomArra } from "src/common/utils";
-import { propsClimateСontrol } from "./constants";
-import { IPropsClimateСontrol } from "./constants";
+import { propsClimateControl } from "./constants";
+import { IPropsClimateControl } from "./constants";
 
 interface CloudProps {
-  сlimateСontrol: string;
+  climateControl: string;
 }
 
-const Cloud: FC<CloudProps> = ({ сlimateСontrol }) => {
-  const [dataClimateСontrol, setDataClimateСontrol] =
-    useState<IPropsClimateСontrol>(null);
+const Cloud: FC<CloudProps> = ({ climateControl }) => {
+  const [dataClimateControl, setDataClimateControl] =
+    useState<IPropsClimateControl>(null);
 
   useEffect(() => {
-    const propsClimateСontrolValue = propsClimateСontrol.find(
-      (item) => item.id === сlimateСontrol
+    const propsClimateControlValue = propsClimateControl.find(
+      (item) => item.id === climateControl
     );
-    setDataClimateСontrol(propsClimateСontrolValue);
-  }, [сlimateСontrol]);
+    setDataClimateControl(propsClimateControlValue);
+  }, [climateControl]);
 
-  if (!dataClimateСontrol) {
+  if (!dataClimateControl) {
     return null;
   }
 
@@ -44,7 +44,7 @@ const Cloud: FC<CloudProps> = ({ сlimateСontrol }) => {
     maxRandomLeftRain,
     timeMinRandomRain,
     timeMaxRandomRain,
-  } = dataClimateСontrol;
+  } = dataClimateControl;
 
   return getRandomArra(
     cloudAmount,

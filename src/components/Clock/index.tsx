@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useSelectorTyped } from "src/store";
 
 import { ClockWrapper, Hour, Min, Sec } from "./style";
+import { useTime } from "src/features/customHooks";
 
 const Clock = () => {
-  const {
-    time: { hour, min, sec },
-  } = useSelectorTyped(({ theme }) => theme);
+  const [hour, min, sec] = useTime();
   const [hourClock, setHourClock] = useState(0);
   const [minClock, setMinClock] = useState(0);
   const [secClock, setSecClock] = useState(0);

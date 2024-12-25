@@ -11,7 +11,7 @@ import { RUSSIAN_LANGUAGE, ENGLISH_LANGUAGE } from "src/common/lang";
 //   routeLink = "";
 //   time = { hourValue: 0, minValue: 0 };
 //   toggleTheme = false;
-//   climateСontrol = "sunnyMoon";
+//   climateControl = "sunnyMoon";
 
 //   constructor() {
 //     makeAutoObservable(this);
@@ -73,18 +73,23 @@ import { RUSSIAN_LANGUAGE, ENGLISH_LANGUAGE } from "src/common/lang";
 //     return this.time;
 //   }
 
-//   setClimateСontrol(climateСontrolValue) {
-//     this.climateСontrol = climateСontrolValue;
+//   setClimateControl(ClimateControlValue) {
+//     this.climateControl = climateControlValue;
 //   }
 
-//   getClimateСontrol() {
-//     return this.climateСontrol;
+//   getClimateControl() {
+//     return this.climateControl;
 //   }
 // }
 
 // export const store = new Store();
 
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import {
+  AnyAction,
+  combineReducers,
+  configureStore,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
 import {
   climatReducer,
   modalReducer,
@@ -93,7 +98,7 @@ import {
   langReducer,
   linkReducer,
 } from "src/reducers";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 const rootReducer = combineReducers({
@@ -124,6 +129,10 @@ const reducer: RootReducer = (
 export const makeStore = () =>
   configureStore({
     reducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: false,
+      }),
   });
 
 // export const store = configureStore({
