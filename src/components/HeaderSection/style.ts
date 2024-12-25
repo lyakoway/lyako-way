@@ -114,7 +114,7 @@ export const HeaderSectionContacts = styled.div`
   top: 30px;
   text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
   color: #fff;
-  right: 0px;
+  right: 0;
 
   @media ${TABLET_1024} {
     right: 20px;
@@ -254,9 +254,9 @@ export const HeaderSectionFon = styled.div`
   }
 `;
 
-export const IconComp = styled.div<{ themeLight?: boolean }>`
-  ${({ themeLight }) =>
-    themeLight
+export const IconComp = styled.div<{ $themeLight?: boolean }>`
+  ${({ $themeLight }) =>
+    $themeLight
       ? css`
           background: url(${myIconComp.src}) 100% 100% no-repeat;
         `
@@ -267,7 +267,7 @@ export const IconComp = styled.div<{ themeLight?: boolean }>`
   width: 697px;
   height: 321px;
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   left: 115px;
   z-index: 10;
 
@@ -308,9 +308,9 @@ export const SettingWrapper = styled.div`
   }
 `;
 
-export const IconMap = styled.div<{ themeLight?: boolean }>`
-  ${({ themeLight }) =>
-    themeLight
+export const IconMap = styled.div<{ $themeLight?: boolean }>`
+  ${({ $themeLight }) =>
+    $themeLight
       ? css`
           background: url(${myIconMap.src}) no-repeat;
         `
@@ -325,9 +325,9 @@ export const IconMap = styled.div<{ themeLight?: boolean }>`
   left: -299px;
 `;
 
-export const IconBook = styled.div<{ themeLight?: boolean }>`
-  ${({ themeLight }) =>
-    themeLight
+export const IconBook = styled.div<{ $themeLight?: boolean }>`
+  ${({ $themeLight }) =>
+    $themeLight
       ? css`
           background: url(${myIconBook.src}) no-repeat;
         `
@@ -339,7 +339,7 @@ export const IconBook = styled.div<{ themeLight?: boolean }>`
   height: 96px;
   position: absolute;
   top: 220px;
-  right: 0px;
+  right: 0;
 
   @media ${TABLET_1024} {
     right: 20px;
@@ -350,9 +350,9 @@ export const IconBook = styled.div<{ themeLight?: boolean }>`
   }
 `;
 
-export const IconPicture = styled.div<{ themeLight?: boolean }>`
-  ${({ themeLight }) =>
-    themeLight
+export const IconPicture = styled.div<{ $themeLight?: boolean }>`
+  ${({ $themeLight }) =>
+    $themeLight
       ? css`
           background: url(${myIconPicture.src}) no-repeat;
         `
@@ -411,7 +411,7 @@ export const IconDay = styled.div<{ theme: string }>`
   height: 307px;
   position: absolute;
   // top: 45px;
-  left: 0px;
+  left: 0;
   overflow: hidden;
 `;
 
@@ -429,7 +429,7 @@ export const IconSun = styled.div<{ theme: string }>`
   display: block;
   position: absolute;
   margin: 0 auto;
-  right: 0px;
+  right: 0;
   transition: none !important;
   z-index: 2;
   margin-top: 26px;

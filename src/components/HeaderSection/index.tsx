@@ -116,7 +116,7 @@ const HeaderSection = () => {
         timer={10000}
       /> */}
       <HeaderSectionFon>
-        <IconComp themeLight={themeLight}>
+        <IconComp $themeLight={themeLight}>
           <SettingWrapper>
             <Popup
               positionValue={positionValue}
@@ -129,7 +129,7 @@ const HeaderSection = () => {
             </Popup>
           </SettingWrapper>
         </IconComp>
-        <IconMap themeLight={themeLight} />
+        <IconMap $themeLight={themeLight} />
         {/* Window checkedTheme={checkedTheme} */}
         <Window themeLight={themeLight} />
         <Clock />
@@ -138,8 +138,8 @@ const HeaderSection = () => {
           <IconDay theme={name} data-parallax="80" />
           <IconSun theme={name} data-parallax="20" />
         </WindowWrapper> */}
-        <IconBook themeLight={themeLight} />
-        <IconPicture themeLight={themeLight} />
+        <IconBook $themeLight={themeLight} />
+        <IconPicture $themeLight={themeLight} />
       </HeaderSectionFon>
 
       <HeaderContactWrapper>

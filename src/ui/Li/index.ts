@@ -16,7 +16,7 @@ const Li = styled.li<{ $header?: boolean }>`
     content: "";
     width: calc(100% + (1px * 2));
     height: 2px;
-    bottom: 0px;
+    bottom: 0;
     background: #ff8560;
   }
 

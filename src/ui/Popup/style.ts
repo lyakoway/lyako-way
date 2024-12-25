@@ -14,7 +14,7 @@ export const PopupWrapper = styled.div<{
     $positionStyle ? "row" : "column"};
   align-items: center;
   position: absolute;
-  inset: 0px auto auto 0px;
+  inset: 0 auto auto 0;
   z-index: 1900;
   transform: translate(-6px, 56px);
   border: 1px solid #d4d4d5;

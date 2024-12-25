@@ -19,11 +19,11 @@ const ButtonWrapper = styled.button`
   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   &:hover {
-    box-shadow: 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
+    box-shadow: 0 15px 25px -5px rgba(darken(dodgerblue, 40%));
     transform: scale(1.03);
   }
   &:active {
-    box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
+    box-shadow: 0 4px 8px rgba(darken(dodgerblue, 30%));
     transform: scale(0.98);
   }
 `;

@@ -174,8 +174,8 @@ export const ModalComponent = styled.div`
 
   width: 470px;
   background-color: ${({ theme }) => theme.color.background.modal};
-  box-shadow: 0px 1.2px 18px rgba(0, 0, 0, 0.08),
-    0px 6.4px 29px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1.2px 18px rgba(0, 0, 0, 0.08),
+    0 6.4px 29px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
 
   @media ${TABLET_959} {
@@ -186,7 +186,7 @@ export const ModalComponent = styled.div`
     width: 100%;
     height: 100%;
     max-height: calc(100vh);
-    border-radius: 0px;
+    border-radius: 0;
   }
 `;
 
@@ -249,7 +249,7 @@ export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  inset: 0px;
+  inset: 0;
   z-index: 1000;
   width: 100%;
   height: 100%;
@@ -261,8 +261,8 @@ export const WeatherIconWrapper = styled.div`
   display: flex;
   // position: absolute;
   z-index: 1000;
-  bottom: 0px;
-  left: 0px;
+  bottom: 0;
+  left: 0;
   border: solid 4px #ffff;
   cursor: pointer;
   background: linear-gradient(to bottom, #57c1eb 0%, #246fa8 100%);

@@ -47,8 +47,8 @@ export const Overlay = styled.div<{ $opened: boolean }>`
 export const ModalComponent = styled.div<{ $opened: boolean }>`
   width: 824px;
   background-color: rgb(255, 255, 255);
-  box-shadow: 0px 1.2px 18px rgba(0, 0, 0, 0.08),
-    0px 6.4px 29px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1.2px 18px rgba(0, 0, 0, 0.08),
+    0 6.4px 29px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
 
   @media ${TABLET_959} {
@@ -58,7 +58,7 @@ export const ModalComponent = styled.div<{ $opened: boolean }>`
   @media ${MOBILE_660} {
     height: 100vh;
     width: 100vw;
-    border-radius: 0px;
+    border-radius: 0;
   }
 
   ${({ $opened }) =>

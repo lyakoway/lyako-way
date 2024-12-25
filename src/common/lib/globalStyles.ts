@@ -78,7 +78,7 @@ const GlobalStyles = createGlobalStyle`
     --font-weight-medium: 500;
     --font-weight-regular: 400;
     --font-family-base: sans-serif;
-    --grid-m-breakpoint: 0px;
+    --grid-m-breakpoint: 0;
     --grid-m-columns: 2;
     --grid-m-gutter: 12px;
     --grid-m-margin: 20px;
