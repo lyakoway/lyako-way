@@ -219,8 +219,8 @@ export const WindowLight = styled.div<WindowLightProps>`
     $animationClickTheme
       ? css`
           animation-name: ${$animationCheckedTheme
-            ? lightOffMoon($lightOffOpacitySun, $lightOffOpacityMoon)
-            : lightOffSun($lightOffOpacitySun, $lightOffOpacityMoon)};
+            ? lightOffSun($lightOffOpacitySun, $lightOffOpacityMoon)
+            : lightOffMoon($lightOffOpacitySun, $lightOffOpacityMoon)};
         `
       : css`
           animation-name: ${lightOff($lightOffOpacity)};
