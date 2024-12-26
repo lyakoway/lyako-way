@@ -12,11 +12,7 @@ export const usePositionSunAndMoon = ({
   lightOffOpacitySun: number;
   lightOffOpacityMoon: number;
 } => {
-  const { sunriseTime, sunsetTime, timesHouse } = useDayTime();
-  // console.log(111, sunriseTime, sunsetTime, timesHouse)
-  // const sunriseTime = 32400
-  // const sunsetTime = 57720
-  // const timesHouse = 55980
+  const { sunriseTime, sunsetTime, timesHouse, dayTime } = useDayTime();
   const [timeLeftSunMoon, setTimeLeftSunMoon] = useState<number>(0);
   const [lightOffOpacitySun, setLightOffOpacitySun] = useState<number>(0);
   const [lightOffOpacityMoon, setLightOffOpacityMoon] = useState<number>(0);
@@ -55,7 +51,7 @@ export const usePositionSunAndMoon = ({
   // const lightOffPercent = Math.round((lightOff * 100) / 360);
 
   useEffect(() => {
-    if (themeLight) {
+    if (dayTime) {
       setTimeLeftSunMoon(timesRemainingSunset);
       setPercentRemainingSunMoon(percentRemainingSunValue);
       setLightOffOpacity(lightOffOpacitySun);
@@ -65,7 +61,7 @@ export const usePositionSunAndMoon = ({
       setLightOffOpacity(lightOffOpacityMoon);
     }
   }, [
-    themeLight,
+    dayTime,
     timesRemainingSunset,
     percentRemainingSunValue,
     percentRemainingMoonValue,

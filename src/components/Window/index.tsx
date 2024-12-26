@@ -79,8 +79,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     }
   }, [themeLight, climateControl, setAnimationClickTheme, setDayToNightColor]);
 
-  console.log(55555555);
-
   return (
     <WindowWrapper>
       <WindowView

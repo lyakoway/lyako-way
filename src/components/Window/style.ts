@@ -10,7 +10,9 @@ interface WindowLightProps {
   $animationClickTheme: boolean;
 }
 
-const heavenlyBodyMoveClikSun = ($leftRotateWindowSunMoon: number) => keyframes`
+const heavenlyBodyMoveClickSun = (
+  $leftRotateWindowSunMoon: number
+) => keyframes`
   from {
     transform: rotate(${$leftRotateWindowSunMoon}deg);
     background: #fff;
@@ -31,7 +33,7 @@ const heavenlyBodyMoveClikSun = ($leftRotateWindowSunMoon: number) => keyframes`
   }
 `;
 
-const heavenlyBodyMoveClikMoon = (
+const heavenlyBodyMoveClickMoon = (
   $leftRotateWindowSunMoon: number
 ) => keyframes`
   from {
@@ -173,15 +175,15 @@ export const HeavenlyBody = styled.div<{
     $animationClickTheme
       ? css`
           animation-name: ${$animationCheckedTheme
-            ? heavenlyBodyMoveClikSun($leftRotateWindowSunMoon)
-            : heavenlyBodyMoveClikMoon($leftRotateWindowSunMoon)};
+            ? heavenlyBodyMoveClickSun($leftRotateWindowSunMoon)
+            : heavenlyBodyMoveClickMoon($leftRotateWindowSunMoon)};
         `
       : css`
           animation-name: ${heavenlyBodyMove($leftRotateWindowSunMoon)};
         `};
   animation-timing-function: linear;
-  animation-iteration-count: ${($animationClikTeme) =>
-    $animationClikTeme ? 1 : "infinite"};
+  animation-iteration-count: ${($animationClickTheme) =>
+    $animationClickTheme ? 1 : "infinite"};
 
   // в случае переключение темы
   animation-fill-mode: forwards;
@@ -226,8 +228,8 @@ export const WindowLight = styled.div<WindowLightProps>`
   animation-duration: ${({ $animationClickTheme, $timeLeftSunMoon }) =>
     $animationClickTheme ? "4s" : $timeLeftSunMoon + "s"};
   animation-timing-function: linear;
-  animation-iteration-count: ${($animationClikTeme) =>
-    $animationClikTeme ? 1 : "infinite"};
+  animation-iteration-count: ${($animationClickTheme) =>
+    $animationClickTheme ? 1 : "infinite"};
   animation-fill-mode: forwards;
 
   // в случае переключение темы
@@ -273,6 +275,7 @@ export const WindowHotspot = styled.div<WindowLightProps>`
     rgba(255, 255, 255, 0.1) 76%,
     transparent 76%
   );
+
   ${({
     $animationClickTheme,
     $animationCheckedTheme,
@@ -292,8 +295,8 @@ export const WindowHotspot = styled.div<WindowLightProps>`
   animation-duration: ${({ $animationClickTheme, $timeLeftSunMoon }) =>
     $animationClickTheme ? "4s" : $timeLeftSunMoon + "s"};
   animation-timing-function: linear;
-  animation-iteration-count: ${($animationClikTeme) =>
-    $animationClikTeme ? 1 : "infinite"};
+  animation-iteration-count: ${($animationClickTheme) =>
+    $animationClickTheme ? 1 : "infinite"};
   animation-fill-mode: forwards;
 `;
 
@@ -375,8 +378,8 @@ export const WindowView = styled.div<{
   animation-duration: ${({ $animationClickTheme, $timeLeftSunMoon }) =>
     $animationClickTheme ? "4s" : $timeLeftSunMoon + "s"};
   animation-timing-function: linear;
-  animation-iteration-count: ${($animationClikTeme) =>
-    $animationClikTeme ? 1 : "infinite"};
+  animation-iteration-count: ${($animationClickTheme) =>
+    $animationClickTheme ? 1 : "infinite"};
   animation-fill-mode: forwards;
 `;
 
