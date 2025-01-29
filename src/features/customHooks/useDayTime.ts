@@ -10,8 +10,8 @@ export const useDayTime = (): {
   timesHouse: number;
   dayTime: boolean;
 } => {
-  // Обновить тему с интревалом 3 часа;
-  const timeout3Hour = 3 * 60 * 60;
+  // Обновить тему с интревалом 10 минут;
+  const timeout3Hour = 600;
   const [hour, min] = useTime(timeout3Hour);
 
   // координы Москвы широта и долгота
