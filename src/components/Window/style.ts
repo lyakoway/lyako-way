@@ -2,27 +2,131 @@ import styled, { css, keyframes } from "styled-components";
 import { TABLET_959 } from "src/common/lib/media";
 
 interface WindowLightProps {
-  $lightOffOpacity: number;
   $timeLeftSunMoon: number;
-  $animationCheckedTheme: boolean;
   $lightOffOpacitySun: number;
   $lightOffOpacityMoon: number;
-  $animationClickTheme: boolean;
+  $themeLight: boolean;
+  $moonOrSunColor?: string;
 }
 
-const heavenlyBodyMoveClickSun = (
-  $leftRotateWindowSunMoon: number
+const heavenlyBodyMoveSun = (
+  $leftRotateWindowSunMoon: number,
+  $moonOrSunColor: string
 ) => keyframes`
   from {
     transform: rotate(${$leftRotateWindowSunMoon}deg);
     background: #fff;
     box-shadow: 0 0 10px 2px #fff;
   }
-  25% {
+  16% {
     background: #fff;
     box-shadow: 0 0 10px 2px #fff;
   }
-  50% {
+  33% {
+    background: #fff;
+    box-shadow: 0 0 10px 2px #fff;
+  }
+  70% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  85% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  to {
+    transform: rotate(${360 + $leftRotateWindowSunMoon}deg);
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+`;
+
+const heavenlyBodyMoveSunTime = (
+  $leftRotateWindowSunMoon: number,
+  $moonOrSunColor: string
+) => keyframes`
+  from {
+    transform: rotate(${$leftRotateWindowSunMoon}deg);
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  16% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  33% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  70% {
+    background: #fff;
+    box-shadow: 0 0 10px 2px #fff;
+  }
+  85% {
+    background: #fff;
+    box-shadow: 0 0 10px 2px #fff;
+  }
+  to {
+    transform: rotate(${360 + $leftRotateWindowSunMoon}deg);
+    background: #fff;
+    box-shadow: 0 0 10px 2px #fff;
+  }
+`;
+
+const heavenlyBodyMoveMoon = (
+  $leftRotateWindowSunMoon: number,
+  $moonOrSunColor: string
+) => keyframes`
+  from {
+    transform: rotate(${$leftRotateWindowSunMoon}deg);
+    background: #fff82f;
+    box-shadow: 0 0 10px 2px #fff82f;
+  }
+  16% {
+    background: #fff82f;
+    box-shadow: 0 0 10px 2px #fff82f;
+  }
+  33% {
+    background: #fff82f;
+    box-shadow: 0 0 10px 2px #fff82f;
+  }
+  70% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  85% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  to {
+    transform: rotate(${360 + $leftRotateWindowSunMoon}deg);
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+`;
+
+const heavenlyBodyMoveMoonTime = (
+  $leftRotateWindowSunMoon: number,
+  $moonOrSunColor: string
+) => keyframes`
+  from {
+    transform: rotate(${$leftRotateWindowSunMoon}deg);
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  16% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  33% {
+    background: ${$moonOrSunColor};
+    box-shadow: 0 0 10px 2px ${$moonOrSunColor};
+  }
+  70% {
+    background: #fff82f;
+    box-shadow: 0 0 10px 2px #fff82f;
+  }
+  85% {
     background: #fff82f;
     box-shadow: 0 0 10px 2px #fff82f;
   }
@@ -30,38 +134,6 @@ const heavenlyBodyMoveClickSun = (
     transform: rotate(${360 + $leftRotateWindowSunMoon}deg);
     background: #fff82f;
     box-shadow: 0 0 10px 2px #fff82f;
-  }
-`;
-
-const heavenlyBodyMoveClickMoon = (
-  $leftRotateWindowSunMoon: number
-) => keyframes`
-  from {
-    transform: rotate(${$leftRotateWindowSunMoon}deg);
-    background: #fff82f;
-    box-shadow: 0 0 10px 2px #fff82f;
-  }
-  25% {
-    background: #fff82f;
-    box-shadow: 0 0 10px 2px #fff82f;
-  }
-  50% {
-    background: #fff;
-    box-shadow: 0 0 10px 2px #fff;
-  }
-  to {
-    transform: rotate(${360 + $leftRotateWindowSunMoon}deg);
-    background: #fff;
-    box-shadow: 0 0 10px 2px #fff;
-  }
-`;
-
-const heavenlyBodyMove = ($leftRotateWindowSunMoon: number) => keyframes`
-  from {
-    transform: rotate(${$leftRotateWindowSunMoon}deg);
-  }
-  to {
-    transform: rotate(60deg);
   }
 `;
 
@@ -78,14 +150,21 @@ const lightOffSun = (
   $lightOffOpacitySun: number,
   $lightOffOpacityMoon: number
 ) => keyframes`
-  from { 
+  from {
     opacity: ${$lightOffOpacityMoon};
   }
-  33% {
-    opacity: 0;
+  50% {opacity: 0}
+  to {
+    opacity: ${$lightOffOpacitySun};
   }
-  70% {
-    opacity: 0;
+`;
+
+const lightOffSunTime = (
+  $lightOffOpacitySun: number,
+  $lightOffOpacityMoon: number
+) => keyframes`
+  from { 
+    opacity: ${$lightOffOpacitySun};
   }
   to {
     opacity: ${$lightOffOpacitySun};
@@ -99,11 +178,18 @@ const lightOffMoon = (
   from {
     opacity: ${$lightOffOpacitySun};
   }
-  33% {
-    opacity: 0;
+  50% {opacity: 0}
+  to {
+    opacity: ${$lightOffOpacityMoon};
   }
-  70% {
-    opacity: 0;
+`;
+
+const lightOffMoonTime = (
+  $lightOffOpacitySun: number,
+  $lightOffOpacityMoon: number
+) => keyframes`
+  from {
+    opacity: ${$lightOffOpacityMoon};
   }
   to {
     opacity: ${$lightOffOpacityMoon};
@@ -153,53 +239,40 @@ export const WindowWrapper = styled.div`
 `;
 
 export const HeavenlyBody = styled.div<{
-  $themeLight: boolean;
-  $timeLeftSunMoon: number;
   $leftRotateWindowSunMoon: number;
-  $animationClickTheme: boolean;
-  $animationCheckedTheme: boolean;
+  $timeLeftSunMoon: number;
+  $themeLight: boolean;
+  $moonOrSunColor: string;
 }>`
   position: absolute;
   left: 86px;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-
-  animation-duration: ${({ $animationClickTheme, $timeLeftSunMoon }) =>
-    $animationClickTheme ? "4s" : $timeLeftSunMoon + "s"};
-  ${({
-    $animationClickTheme,
-    $animationCheckedTheme,
-    $leftRotateWindowSunMoon,
-  }) =>
-    $animationClickTheme
-      ? css`
-          animation-name: ${$animationCheckedTheme
-            ? heavenlyBodyMoveClickSun($leftRotateWindowSunMoon)
-            : heavenlyBodyMoveClickMoon($leftRotateWindowSunMoon)};
-        `
-      : css`
-          animation-name: ${heavenlyBodyMove($leftRotateWindowSunMoon)};
-        `};
-  animation-timing-function: linear;
-  animation-iteration-count: ${($animationClickTheme) =>
-    $animationClickTheme ? 1 : "infinite"};
-
-  // в случае переключение темы
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in-out;
-
   background: #fff;
   box-shadow: 0 0 10px 2px #fff;
 
   transform-origin: 50% 400%;
   margin-top: 5%;
 
-  ${({ $themeLight }) =>
-    $themeLight &&
+  ${({
+    $themeLight,
+    $timeLeftSunMoon,
+    $leftRotateWindowSunMoon,
+    $moonOrSunColor,
+  }) =>
     css`
-      background: #fff82f;
-      box-shadow: 0 0 10px 2px #fff82f;
+      animation: ${$themeLight
+            ? heavenlyBodyMoveSun($leftRotateWindowSunMoon, $moonOrSunColor)
+            : heavenlyBodyMoveMoon($leftRotateWindowSunMoon, $moonOrSunColor)}
+          4s infinite normal ease-in-out forwards,
+        ${$themeLight
+            ? heavenlyBodyMoveSunTime($leftRotateWindowSunMoon, $moonOrSunColor)
+            : heavenlyBodyMoveMoonTime(
+                $leftRotateWindowSunMoon,
+                $moonOrSunColor
+              )}
+          ${$timeLeftSunMoon}s infinite normal ease-in-out forwards 4s;
     `}
 `;
 
@@ -209,31 +282,23 @@ export const WindowLight = styled.div<WindowLightProps>`
   width: 135px;
   height: 395px;
   z-index: 1;
+
   ${({
-    $animationClickTheme,
-    $animationCheckedTheme,
+    $themeLight,
+    $timeLeftSunMoon,
     $lightOffOpacitySun,
     $lightOffOpacityMoon,
-    $lightOffOpacity,
   }) =>
-    $animationClickTheme
-      ? css`
-          animation-name: ${$animationCheckedTheme
+    css`
+      animation: ${$themeLight
             ? lightOffSun($lightOffOpacitySun, $lightOffOpacityMoon)
-            : lightOffMoon($lightOffOpacitySun, $lightOffOpacityMoon)};
-        `
-      : css`
-          animation-name: ${lightOff($lightOffOpacity)};
-        `};
-  animation-duration: ${({ $animationClickTheme, $timeLeftSunMoon }) =>
-    $animationClickTheme ? "4s" : $timeLeftSunMoon + "s"};
-  animation-timing-function: linear;
-  animation-iteration-count: ${($animationClickTheme) =>
-    $animationClickTheme ? 1 : "infinite"};
-  animation-fill-mode: forwards;
-
-  // в случае переключение темы
-  -webkit-animation-timing-function: ease-in-out;
+            : lightOffMoon($lightOffOpacitySun, $lightOffOpacityMoon)}
+          4s infinite normal linear forwards,
+        ${$themeLight
+            ? lightOffSunTime($lightOffOpacitySun, $lightOffOpacityMoon)
+            : lightOffMoonTime($lightOffOpacitySun, $lightOffOpacityMoon)}
+          ${$timeLeftSunMoon}s infinite normal linear forwards 4s;
+    `}
 `;
 
 export const WindowLightLeft = styled(WindowLight)<WindowLightProps>`
@@ -277,27 +342,21 @@ export const WindowHotspot = styled.div<WindowLightProps>`
   );
 
   ${({
-    $animationClickTheme,
-    $animationCheckedTheme,
+    $themeLight,
+    $timeLeftSunMoon,
     $lightOffOpacitySun,
     $lightOffOpacityMoon,
-    $lightOffOpacity,
   }) =>
-    $animationClickTheme
-      ? css`
-          animation-name: ${$animationCheckedTheme
-            ? lightOffMoon($lightOffOpacitySun, $lightOffOpacityMoon)
-            : lightOffSun($lightOffOpacitySun, $lightOffOpacityMoon)};
-        `
-      : css`
-          animation-name: ${lightOff($lightOffOpacity)};
-        `};
-  animation-duration: ${({ $animationClickTheme, $timeLeftSunMoon }) =>
-    $animationClickTheme ? "4s" : $timeLeftSunMoon + "s"};
-  animation-timing-function: linear;
-  animation-iteration-count: ${($animationClickTheme) =>
-    $animationClickTheme ? 1 : "infinite"};
-  animation-fill-mode: forwards;
+    css`
+      animation: ${$themeLight
+            ? lightOffSun($lightOffOpacitySun, $lightOffOpacityMoon)
+            : lightOffMoon($lightOffOpacitySun, $lightOffOpacityMoon)}
+          4s infinite normal linear forwards,
+        ${$themeLight
+            ? lightOffSunTime($lightOffOpacitySun, $lightOffOpacityMoon)
+            : lightOffMoonTime($lightOffOpacitySun, $lightOffOpacityMoon)}
+          ${$timeLeftSunMoon}s infinite normal linear forwards 4s;
+    `}
 `;
 
 const dayToNight = ($dayToNightColor: string) => keyframes`
@@ -309,15 +368,36 @@ const dayToNight = ($dayToNightColor: string) => keyframes`
   }
 `;
 
-const dayToNightSun = keyframes`
+const dayToNightWindow = ($dayToNightColor: string) => keyframes`
   from { 
-    background: #88bef5;
+    background: #0c2233;
   }
   16% {
-    background: #88bef5;
+    background: #0c2233;
   }
   33% {
-    background: #88bef5;
+    background: #0c2233;
+  }
+  70% {
+    background: ${$dayToNightColor};
+  }
+  85% {
+    background: ${$dayToNightColor};
+  }
+  to {
+    background: ${$dayToNightColor};
+  }
+`;
+
+const dayToNightWindowTime = ($dayToNightColor: string) => keyframes`
+  from { 
+    background: ${$dayToNightColor};
+  }
+  16% {
+    background: ${$dayToNightColor};
+  }
+  33% {
+    background: ${$dayToNightColor};
   }
   70% {
     background: #0c2233;
@@ -330,15 +410,36 @@ const dayToNightSun = keyframes`
   }
 `;
 
-const dayToNightMoon = keyframes`
+const nightToDayWindow = ($dayToNightColor: string) => keyframes`
   from { 
-    background: #0c2233;
+    background: #88bef5;
   }
   16% {
-    background: #0c2233;
+    background: #88bef5;
   }
   33% {
-    background: #0c2233;
+    background: #88bef5;
+  }
+  70% {
+    background: ${$dayToNightColor};
+  }
+  85% {
+    background: ${$dayToNightColor};
+  }
+  to {
+    background: ${$dayToNightColor};
+  }
+`;
+
+const nightToDayWindowTime = ($dayToNightColor: string) => keyframes`
+  from { 
+    background: ${$dayToNightColor};
+  }
+  16% {
+    background: ${$dayToNightColor};
+  }
+  33% {
+    background: ${$dayToNightColor};
   }
   70% {
     background: #88bef5;
@@ -352,10 +453,9 @@ const dayToNightMoon = keyframes`
 `;
 
 export const WindowView = styled.div<{
-  $animationCheckedTheme: boolean;
-  $animationClickTheme: boolean;
   $dayToNightColor: string;
   $timeLeftSunMoon: number;
+  $themeLight: boolean;
 }>`
   position: absolute;
   left: 20px;
@@ -365,22 +465,18 @@ export const WindowView = styled.div<{
   background: #88bef5;
   z-index: 2;
   overflow: hidden;
-  ${({ $animationClickTheme, $animationCheckedTheme, $dayToNightColor }) =>
-    $animationClickTheme
-      ? css`
-          animation-name: ${$animationCheckedTheme
-            ? dayToNightMoon
-            : dayToNightSun};
-        `
-      : css`
-          animation-name: ${dayToNight($dayToNightColor)};
-        `};
-  animation-duration: ${({ $animationClickTheme, $timeLeftSunMoon }) =>
-    $animationClickTheme ? "4s" : $timeLeftSunMoon + "s"};
-  animation-timing-function: linear;
-  animation-iteration-count: ${($animationClickTheme) =>
-    $animationClickTheme ? 1 : "infinite"};
-  animation-fill-mode: forwards;
+
+  ${({ $themeLight, $timeLeftSunMoon, $dayToNightColor }) =>
+    css`
+      animation: ${$themeLight
+            ? dayToNightWindow($dayToNightColor)
+            : nightToDayWindow($dayToNightColor)}
+          4s infinite normal linear forwards,
+        ${$themeLight
+            ? dayToNightWindowTime($dayToNightColor)
+            : nightToDayWindowTime($dayToNightColor)}
+          ${$timeLeftSunMoon}s infinite normal linear forwards 4s;
+    `}
 `;
 
 const weatherIconBorder = keyframes`

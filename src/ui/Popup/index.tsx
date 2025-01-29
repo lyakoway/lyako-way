@@ -1,11 +1,18 @@
-import React, { FC, PropsWithChildren, useEffect, useState } from "react";
+import React, {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
 
 import { PopupWrapper, ContentWrapper } from "./style";
-import { useSelectorTyped } from "src/store";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { setThemeList } from "src/reducers";
 
 interface IAccordionProps {
   positionValue?: string;
@@ -63,6 +70,7 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
   const [openedTheme, setOpenedTheme] = useState(false);
+  const dispatch = useDispatchTyped();
   const {
     positionStyle,
     topStyle,
@@ -71,6 +79,11 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
     topArrowStyle,
     rotateArrowStyle,
   } = positionDataPopup[positionValue];
+
+  const handleClickTheme = useCallback(() => {
+    setOpenedTheme(!openedTheme);
+    dispatch(setThemeList(!openedTheme));
+  }, [setOpenedTheme, dispatch, openedTheme]);
 
   useEffect(() => {
     setOpenedTheme(name === "light");
@@ -90,7 +103,7 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
         >
           <ButtonHeart />
           <ThemeDarkLight
-            setOpenedTheme={setOpenedTheme}
+            handleClickTheme={handleClickTheme}
             openedTheme={openedTheme}
           />
           <ButtonLang />
