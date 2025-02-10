@@ -5,3 +5,4 @@ export { animate } from "./animate";
 export { getMobile } from "./getMobile";
 export { getRandomNumber } from "./getRandomNumber";
 export { getRandomArra } from "./getRandomArra";
+export { getParallax } from "./getParallax";

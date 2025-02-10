@@ -41,7 +41,7 @@ export const PuffCloudPattern = styled.div<{
     hsl(180deg 50% ${({ $colorBorder }) => $colorBorder}%)
   );
   background-size: auto 30px;
-  background-position: 50% 0%;
+  background-position: 50% 0;
   z-index: 100;
 
   animation: ${({ $leftRandom, $topRandom, $left, $top }) =>

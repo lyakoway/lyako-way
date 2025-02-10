@@ -3,14 +3,12 @@ import React, { useCallback, useEffect, useState, FC } from "react";
 import { useSelectorTyped } from "src/store";
 
 import {
-  HeavenlyBody,
   WindowWrapper,
   WindowFrame,
   WindowSill,
   WindowLightLeft,
   WindowLightRight,
   WindowHotspot,
-  WindowView,
   WeatherIconWrapper,
   HeavenlyBodyParallax,
   // WeatherConditionsWrapper,
@@ -22,13 +20,16 @@ import {
 
 // import ModalClimateControl from "./ModalClimateControl";
 
-import Cloud from "./Сloud";
-import WeatherIcon from "./WeatherIcon";
+import Cloud from "src/components/Window/Сloud";
+import WeatherIcon from "src/components/Window/WeatherIcon";
 import {
   useDayTime,
   useIsomorphicLayoutEffect,
   usePositionSunAndMoon,
 } from "src/features/customHooks";
+import { getParallax } from "src/common/utils";
+import WindowView from "src/components/Window/WindowView";
+import HeavenlyBody from "src/components/Window/HeavenlyBody";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -79,27 +80,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     }
   }, [themeLight, climateControl, setDayToNightColor, setMoonOrSunColor]);
 
-  const getParallax = (
-    e: { clientX: number; clientY: number },
-    dataName: string
-  ) => {
-    const dataParallax = Array.from(
-      document?.querySelectorAll<HTMLElement>(`[${dataName}]`)
-    );
-    if (dataParallax) {
-      const speedSun = dataParallax?.[0]?.getAttribute(dataName);
-      const biasXSun = (e.clientX * Number(speedSun)) / 1000;
-      const biasYSun = (e.clientY * Number(speedSun)) / 1000;
-      if (dataParallax?.[0]) {
-        dataParallax[0].style.transform = `translateX(${biasXSun}px) translateY(${biasYSun}px)`;
-      }
-    }
-  };
-
   useIsomorphicLayoutEffect(() => {
-    const dataParallaxSun = Array.from(
-      document?.querySelectorAll<HTMLElement>("[data-parallax-sun]")
-    );
     const parallax = (e: { clientX: number; clientY: number }) => {
       getParallax(e, "data-parallax-sun");
       getParallax(e, "data-parallax-cloud");
