@@ -10,7 +10,7 @@ export const getParallax = (
     const biasXSun = (e.clientX * Number(speedSun)) / 1000;
     const biasYSun = (e.clientY * Number(speedSun)) / 1000;
     if (dataParallax?.[0]) {
-      dataParallax[0].style.transform = `translateX(${biasXSun}px) translateY(${biasYSun}px)`;
+      dataParallax[0].style.transform = `translateX(${-biasXSun}px) translateY(${-biasYSun}px)`;
     }
   }
 };

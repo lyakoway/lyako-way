@@ -263,6 +263,7 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconCompn.src}) 100% 100% no-repeat;
         `};
+  transition: background 4s ease;
   display: flex;
   width: 697px;
   height: 321px;
@@ -317,6 +318,7 @@ export const IconMap = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconMapn.src}) no-repeat;
         `};
+  transition: background 4s ease;
   display: flex;
   width: 183px;
   height: 140px;
@@ -334,6 +336,7 @@ export const IconBook = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconBookn.src}) no-repeat;
         `};
+  transition: background 4s ease;
   display: flex;
   width: 212px;
   height: 96px;
@@ -359,6 +362,7 @@ export const IconPicture = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconPicturen.src}) no-repeat;
         `};
+  transition: background 4s ease;
   display: flex;
   width: 233px;
   height: 107px;
