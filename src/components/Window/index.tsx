@@ -12,6 +12,7 @@ import {
   WindowHotspot,
   WindowView,
   WeatherIconWrapper,
+  HeavenlyBodyParallax,
   // WeatherConditionsWrapper,
   // WeatherConditions,
   // WeatherConditionsText,
@@ -23,7 +24,11 @@ import {
 
 import Cloud from "./Сloud";
 import WeatherIcon from "./WeatherIcon";
-import { useDayTime, usePositionSunAndMoon } from "src/features/customHooks";
+import {
+  useDayTime,
+  useIsomorphicLayoutEffect,
+  usePositionSunAndMoon,
+} from "src/features/customHooks";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -55,16 +60,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   const climateControl = climate;
 
-  // useEffect(() => {
-  //   if ((!dayTime && themeLight)) {
-  //     setAnimationClickTheme(true);
-  //   }
-  // }, [themeLight, dayTime]);
-
-  // useEffect(() => {
-  //   // setAnimationClickTheme(false);
-  // }, []);
-
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
     setMoonOrSunColor(moonOrSunColorValue);
@@ -84,6 +79,37 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     }
   }, [themeLight, climateControl, setDayToNightColor, setMoonOrSunColor]);
 
+  const getParallax = (
+    e: { clientX: number; clientY: number },
+    dataName: string
+  ) => {
+    const dataParallax = Array.from(
+      document?.querySelectorAll<HTMLElement>(`[${dataName}]`)
+    );
+    if (dataParallax) {
+      const speedSun = dataParallax?.[0]?.getAttribute(dataName);
+      const biasXSun = (e.clientX * Number(speedSun)) / 1000;
+      const biasYSun = (e.clientY * Number(speedSun)) / 1000;
+      if (dataParallax?.[0]) {
+        dataParallax[0].style.transform = `translateX(${biasXSun}px) translateY(${biasYSun}px)`;
+      }
+    }
+  };
+
+  useIsomorphicLayoutEffect(() => {
+    const dataParallaxSun = Array.from(
+      document?.querySelectorAll<HTMLElement>("[data-parallax-sun]")
+    );
+    const parallax = (e: { clientX: number; clientY: number }) => {
+      getParallax(e, "data-parallax-sun");
+      getParallax(e, "data-parallax-cloud");
+    };
+    document.addEventListener("mousemove", parallax);
+    return () => {
+      document.removeEventListener("mousemove", parallax);
+    };
+  });
+
   return (
     <WindowWrapper>
       <WindowView
@@ -93,15 +119,19 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $themeLight={themeLight}
       >
         {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
-          <HeavenlyBody
-            data-heavenly-body
-            $leftRotateWindowSunMoon={leftRotateWindowSunMoon}
-            $timeLeftSunMoon={timeLeftSunMoon}
-            $themeLight={themeLight}
-            $moonOrSunColor={moonOrSunColor}
-          />
+          <HeavenlyBodyParallax data-parallax-sun="15">
+            <HeavenlyBody
+              data-heavenly-body
+              $leftRotateWindowSunMoon={leftRotateWindowSunMoon}
+              $timeLeftSunMoon={timeLeftSunMoon}
+              $themeLight={themeLight}
+              $moonOrSunColor={moonOrSunColor}
+            />
+          </HeavenlyBodyParallax>
         )}
-        <Cloud climateControl={climateControl} />
+        <HeavenlyBodyParallax data-parallax-cloud="30">
+          <Cloud climateControl={climateControl} />
+        </HeavenlyBodyParallax>
       </WindowView>
       {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
         <WindowHotspot

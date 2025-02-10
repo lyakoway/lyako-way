@@ -238,6 +238,14 @@ export const WindowWrapper = styled.div`
   }
 `;
 
+export const HeavenlyBodyParallax = styled.div`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const HeavenlyBody = styled.div<{
   $leftRotateWindowSunMoon: number;
   $timeLeftSunMoon: number;
