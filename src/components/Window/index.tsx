@@ -30,6 +30,7 @@ import {
 import { getParallax } from "src/common/utils";
 import WindowView from "src/components/Window/WindowView";
 import HeavenlyBody from "src/components/Window/HeavenlyBody";
+import Star from "src/components/Window/Star";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -113,6 +114,8 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         <HeavenlyBodyParallax data-parallax-cloud="30">
           <Cloud climateControl={climateControl} />
         </HeavenlyBodyParallax>
+        {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) &&
+          !themeLight && <Star />}
       </WindowView>
       {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
         <WindowHotspot
