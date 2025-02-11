@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 const shining = keyframes`
     0% {
@@ -44,22 +44,37 @@ const shooting = keyframes`
 
 export const SkyContainer = styled.div`
   position: absolute;
-  width: 200px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   transform: rotateZ(45deg);
+  top: -30px;
+  left: -30px;
 `;
 
-export const Star = styled.div`
+export const StarWrapper = styled.div`
+  display: flex;
+`;
+
+export const Star = styled.div<{
+  $top: number;
+  $left: number;
+  $animationDuration: number;
+  $animationDelay: number;
+}>`
   position: absolute;
-  top: 20%;
-  left: 20%;
+  top: ${({ $top }) => $top}%;
+  left: ${({ $left }) => $left}%;
   width: 0;
   height: 1px;
   background: linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0));
   filter: drop-shadow(0 0 5px #2557bb);
-  animation: ${tail} 9s ease-in-out infinite,
-    ${shooting} 9s ease-in-out infinite;
-  animation-delay: 5s;
+
+  ${({ $animationDuration, $animationDelay }) =>
+    css`
+      animation: ${tail} ${$animationDuration}s ease-in-out infinite,
+        ${shooting} ${$animationDuration}s ease-in-out infinite;
+      animation-delay: ${$animationDelay}s;
+    `}
 
   &:before,
   &:after {
@@ -77,8 +92,12 @@ export const Star = styled.div`
     );
     border-radius: 100%;
     transform: translateX(50%) rotateZ(45deg);
-    animation: ${shining} 9s ease-in-out infinite;
-    animation-delay: 5s;
+
+    ${({ $animationDuration, $animationDelay }) =>
+      css`
+        animation: ${shining} ${$animationDuration}s ease-in-out infinite;
+        animation-delay: ${$animationDelay}s;
+      `}
   }
 
   &:after {
