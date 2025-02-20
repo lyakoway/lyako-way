@@ -7,11 +7,7 @@ import {
 import { propsStar } from "src/components/Window/Star/constants";
 import { getRandomArra } from "src/common/utils";
 
-interface CloudProps {
-  climateControl?: string;
-}
-
-const ShootingStar: FC<CloudProps> = ({ climateControl }) => {
+const ShootingStar: FC = () => {
   const {
     starAmount,
     minRandomTopAndLeft,
