@@ -1,4 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
+import React, { FC } from "react";
+import Moon from "src/components/Window/HeavenlyBody/Moon";
 
 const heavenlyBodyMoveSun = (
   $leftRotateWindowSunMoon: number,
@@ -128,7 +130,7 @@ const heavenlyBodyMoveMoonTime = (
   }
 `;
 
-export const HeavenlyBody = styled.div<{
+const HeavenlyBodyContainer = styled.div<{
   $leftRotateWindowSunMoon: number;
   $timeLeftSunMoon: number;
   $themeLight: boolean;
@@ -140,7 +142,8 @@ export const HeavenlyBody = styled.div<{
   height: 50px;
   border-radius: 50%;
   background: #fff;
-  box-shadow: 0 0 10px 2px #fff;
+  //box-shadow: 0 0 10px 2px #fff;
+  box-shadow: 0 0 60px 19px #f1f1f1;
 
   transform-origin: 50% 400%;
   margin-top: 5%;
@@ -165,5 +168,30 @@ export const HeavenlyBody = styled.div<{
           ${$timeLeftSunMoon}s infinite normal ease-in-out forwards 4s;
     `}
 `;
+
+interface HeavenlyBodyProps {
+  leftRotateWindowSunMoon: number;
+  timeLeftSunMoon: number;
+  themeLight: boolean;
+  moonOrSunColor: string;
+}
+
+const HeavenlyBody: FC<HeavenlyBodyProps> = ({
+  leftRotateWindowSunMoon,
+  timeLeftSunMoon,
+  themeLight,
+  moonOrSunColor,
+}) => {
+  return (
+    <HeavenlyBodyContainer
+      $leftRotateWindowSunMoon={leftRotateWindowSunMoon}
+      $timeLeftSunMoon={timeLeftSunMoon}
+      $themeLight={themeLight}
+      $moonOrSunColor={moonOrSunColor}
+    >
+      <Moon themeLight={themeLight} />
+    </HeavenlyBodyContainer>
+  );
+};
 
 export default HeavenlyBody;

@@ -29,8 +29,8 @@ import {
 } from "src/features/customHooks";
 import { getParallax } from "src/common/utils";
 import WindowView from "src/components/Window/WindowView";
-import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import Star from "src/components/Window/Star";
+import HeavenlyBody from "src/components/Window/HeavenlyBody";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -104,10 +104,10 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
           <HeavenlyBodyParallax data-parallax-sun="15">
             <HeavenlyBody
               data-heavenly-body
-              $leftRotateWindowSunMoon={leftRotateWindowSunMoon}
-              $timeLeftSunMoon={timeLeftSunMoon}
-              $themeLight={themeLight}
-              $moonOrSunColor={moonOrSunColor}
+              leftRotateWindowSunMoon={leftRotateWindowSunMoon}
+              timeLeftSunMoon={timeLeftSunMoon}
+              themeLight={themeLight}
+              moonOrSunColor={moonOrSunColor}
             />
           </HeavenlyBodyParallax>
         )}
