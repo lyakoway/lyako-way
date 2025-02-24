@@ -1,14 +1,8 @@
-import React, { FC, useEffect, useState } from "react";
-import {
-  SkyContainer,
-  Star,
-  StarWrapper,
-} from "src/components/Window/Star/StarrySky/style";
-import { getRandomArra } from "src/common/utils";
-import { propsStar, starValue } from "src/components/Window/Star/constants";
+import React, { FC } from "react";
+import { SkyContainer, Star } from "src/components/Window/Star/StarrySky/style";
+import { starValue } from "src/components/Window/Star/constants";
 
 const StarrySky: FC = () => {
-  console.log("starValue", starValue);
   return (
     <SkyContainer>
       {starValue.map((item) => {
