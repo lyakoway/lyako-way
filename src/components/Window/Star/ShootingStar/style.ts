@@ -66,8 +66,8 @@ export const Star = styled.div<{
   left: ${({ $left }) => $left}%;
   width: 0;
   height: 1px;
-  background: linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0));
-  filter: drop-shadow(0 0 5px #2557bb);
+  background: linear-gradient(-45deg, #ffffff, rgba(0, 0, 255, 0));
+  filter: drop-shadow(0 0 5px #ffffff);
 
   ${({ $animationDuration, $animationDelay }) =>
     css`
@@ -87,7 +87,7 @@ export const Star = styled.div<{
     background: linear-gradient(
       -45deg,
       rgba(0, 0, 255, 0),
-      #5f91ff,
+      #ffffff,
       rgba(0, 0, 255, 0)
     );
     border-radius: 100%;

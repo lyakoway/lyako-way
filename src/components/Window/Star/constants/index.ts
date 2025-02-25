@@ -79,7 +79,7 @@ export const starValue: IPropsStarValue[] = [
     top: 20,
     animationDelay: 6.2,
     animationDuration: 1.6,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star6",
@@ -98,7 +98,7 @@ export const starValue: IPropsStarValue[] = [
     top: 30,
     animationDelay: 5.8,
     animationDuration: 1.2,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star8",
@@ -120,7 +120,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 0.9,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star10",
@@ -128,10 +128,10 @@ export const starValue: IPropsStarValue[] = [
     top: 10,
     animationDelay: 6,
     animationDuration: 1.5,
-    width: 5,
-    height: 5,
+    width: 4,
+    height: 4,
     opacity: 0.9,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star11",
@@ -150,7 +150,7 @@ export const starValue: IPropsStarValue[] = [
     top: 80,
     animationDelay: 6.6,
     animationDuration: 1.2,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star13",
@@ -172,7 +172,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star14",
@@ -180,7 +180,7 @@ export const starValue: IPropsStarValue[] = [
     top: 40,
     animationDelay: 7.4,
     animationDuration: 2.2,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star19",
@@ -188,7 +188,7 @@ export const starValue: IPropsStarValue[] = [
     top: 10,
     animationDelay: 6.4,
     animationDuration: 2.4,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star15",
@@ -226,10 +226,10 @@ export const starValue: IPropsStarValue[] = [
     top: 50,
     animationDelay: 6.1,
     animationDuration: 3,
-    width: 5,
-    height: 5,
+    width: 4,
+    height: 4,
     opacity: 0.8,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star17",
@@ -237,10 +237,10 @@ export const starValue: IPropsStarValue[] = [
     top: 50,
     animationDelay: 6.7,
     animationDuration: 3.2,
-    width: 5,
-    height: 5,
+    width: 4,
+    height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star22",
@@ -251,7 +251,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star23",
@@ -259,10 +259,10 @@ export const starValue: IPropsStarValue[] = [
     top: 40,
     animationDelay: 5.4,
     animationDuration: 2.6,
-    width: 5,
-    height: 5,
+    width: 4,
+    height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star24",
@@ -270,10 +270,10 @@ export const starValue: IPropsStarValue[] = [
     top: 80,
     animationDelay: 5,
     animationDuration: 3,
-    width: 5,
-    height: 5,
+    width: 4,
+    height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star41",
@@ -284,7 +284,7 @@ export const starValue: IPropsStarValue[] = [
     width: 3,
     height: 3,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star42",
@@ -292,10 +292,10 @@ export const starValue: IPropsStarValue[] = [
     top: 65,
     animationDelay: 4.5,
     animationDuration: 2.4,
-    width: 6,
-    height: 6,
+    width: 4,
+    height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star43",
@@ -306,7 +306,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star38",
@@ -317,7 +317,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star25",
@@ -328,7 +328,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star39",
@@ -339,7 +339,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star26",
@@ -350,7 +350,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star27",
@@ -361,7 +361,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star40",
@@ -372,7 +372,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star28",
@@ -383,7 +383,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star29",
@@ -394,7 +394,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star30",
@@ -405,7 +405,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star31",
@@ -416,7 +416,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star32",
@@ -427,7 +427,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star33",
@@ -438,7 +438,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star34",
@@ -449,7 +449,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star35",
@@ -460,7 +460,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star36",
@@ -471,7 +471,7 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
   {
     id: "Star37",
@@ -482,6 +482,6 @@ export const starValue: IPropsStarValue[] = [
     width: 4,
     height: 4,
     opacity: 1,
-    background: "linear-gradient(-45deg, #5f91ff, rgba(0, 0, 255, 0))",
+    background: "#ffffff",
   },
 ];
