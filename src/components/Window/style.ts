@@ -116,6 +116,8 @@ export const HeavenlyBodyParallax = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  z-index: 1;
 `;
 
 export const WindowLight = styled.div<WindowLightProps>`
