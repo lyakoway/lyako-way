@@ -16,7 +16,7 @@ const ani1 = keyframes`
   0% {
     opacity: 0;
   }
-  99%{
+  75%{
     opacity: 0;
   }
   100% {

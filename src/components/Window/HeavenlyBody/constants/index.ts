@@ -43,7 +43,7 @@ export const craterValue: IPropsCraterValue[] = [
     left: 40,
   },
   {
-    id: "Crater5",
+    id: "Crater6",
     width: 5,
     height: 5,
     top: 10,

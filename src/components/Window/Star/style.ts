@@ -30,6 +30,7 @@ export const StarWrapper = styled.div<{ $themeLight: boolean }>`
   width: 100%;
   top: 0;
   display: flex;
+  z-index: 1;
   ${({ $themeLight }) =>
     css`
       animation: ${$themeLight ? ani : ani1} 4s forwards;

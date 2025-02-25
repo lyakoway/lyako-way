@@ -31,6 +31,7 @@ import { getParallax } from "src/common/utils";
 import WindowView from "src/components/Window/WindowView";
 import Star from "src/components/Window/Star";
 import HeavenlyBody from "src/components/Window/HeavenlyBody";
+import WindowSky from "src/components/Window/WindowSky";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -76,7 +77,9 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
       setDayToNightColor("rgb(109, 177, 198)");
       // setAnimationClickTheme(false);
     } else {
-      const dayToNightColorValue = themeLight ? "#88bef5" : "#0c2233";
+      const dayToNightColorValue = themeLight
+        ? "-webkit-linear-gradient(bottom, rgba(249, 251, 240, 1) 10%, rgba(215, 253, 254, 1) 20%, rgba(167, 222, 253, 1) 40%, rgba(110, 175, 255, 1) 100%);"
+        : "#0c2233";
       setDayToNightColor(dayToNightColorValue);
     }
   }, [themeLight, climateControl, setDayToNightColor, setMoonOrSunColor]);
@@ -100,6 +103,12 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $timeLeftSunMoon={timeLeftSunMoon}
         $themeLight={themeLight}
       >
+        <WindowSky
+          dayToNightColor={dayToNightColor}
+          timeLeftSunMoon={timeLeftSunMoon}
+          themeLight={themeLight}
+          lightOffOpacitySun={lightOffOpacitySun}
+        />
         {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
           <HeavenlyBodyParallax data-parallax-sun="15">
             <HeavenlyBody
