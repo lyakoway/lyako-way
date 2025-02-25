@@ -34,7 +34,7 @@ export const MoonContainer = styled.div<{ $themeLight: boolean }>`
   //box-shadow: 0 0 60px 19px #f1f1f1;
   ${({ $themeLight }) =>
     css`
-      animation: ${$themeLight ? ani : ani1} 3s forwards;
+      animation: ${$themeLight ? ani : ani1} 4s forwards;
     `};
 `;
 

@@ -4,12 +4,12 @@ import StarrySky from "src/components/Window/Star/StarrySky";
 import ShootingStar from "src/components/Window/Star/ShootingStar";
 
 interface CloudProps {
-  climateControl?: string;
+  themeLight?: boolean;
 }
 
-const Star: FC<CloudProps> = ({ climateControl }) => {
+const Star: FC<CloudProps> = ({ themeLight }) => {
   return (
-    <StarWrapper>
+    <StarWrapper $themeLight={themeLight}>
       <StarrySky />
       <ShootingStar />
     </StarWrapper>

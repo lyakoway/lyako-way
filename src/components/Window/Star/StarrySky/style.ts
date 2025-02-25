@@ -28,10 +28,6 @@ export const SkyContainer = styled.div`
   height: 170px;
 `;
 
-export const StarWrapper = styled.div`
-  display: flex;
-`;
-
 export const Star = styled.div<{
   $top: number;
   $left: number;
