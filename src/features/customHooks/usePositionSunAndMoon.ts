@@ -10,6 +10,7 @@ export const usePositionSunAndMoon = ({
   leftRotateWindowSunMoon: number;
   lightOffOpacitySun: number;
   lightOffOpacityMoon: number;
+  sunsetSunrise: boolean;
 } => {
   const { sunriseTime, sunsetTime, timesHouse, dayTime } = useDayTime();
   const [timeLeftSunMoon, setTimeLeftSunMoon] = useState<number>(0);
@@ -19,6 +20,7 @@ export const usePositionSunAndMoon = ({
     useState<number>(-60);
   const [percentRemainingSunMoon, setPercentRemainingSunMoon] =
     useState<number>(0);
+  const [sunsetSunrise, setSunsetSunrise] = useState<boolean>(false);
 
   // сколько процентов осталось до захода солнца от дна
   const percentRemainingSunValue = Math.round(
@@ -42,33 +44,6 @@ export const usePositionSunAndMoon = ({
 
   // сколько в процентах пути прошло солце и луна
   const lengthLeftSunMoon = 100 - percentRemainingSunMoon;
-
-  // сколько прошло солце или луна
-  // const lightOff = Math.round((lengthLeftSunMoon * 120) / 100);
-  // сколько прошло солце или луна от полного круга 360deg в прроцентах (всего 33%)
-  // const lightOffPercent = Math.round((lightOff * 100) / 360);
-
-  useEffect(() => {
-    if (dayTime) {
-      setTimeLeftSunMoon(timesRemainingSunset);
-      setPercentRemainingSunMoon(percentRemainingSunValue);
-      setLightOffOpacitySun(lengthLeftSunMoon / 50);
-    } else {
-      setTimeLeftSunMoon(timesMoon);
-      setPercentRemainingSunMoon(percentRemainingMoonValue);
-      setLightOffOpacityMoon((lengthLeftSunMoon * 0.4) / 50);
-    }
-  }, [
-    dayTime,
-    timesRemainingSunset,
-    percentRemainingSunValue,
-    percentRemainingMoonValue,
-    lightOffOpacityMoon,
-    lightOffOpacitySun,
-    setTimeLeftSunMoon,
-    setPercentRemainingSunMoon,
-    lengthLeftSunMoon,
-  ]);
 
   useEffect(() => {
     const windowView = document?.querySelector("[data-window-view]");
@@ -109,10 +84,42 @@ export const usePositionSunAndMoon = ({
     setLightOffOpacityMoon,
   ]);
 
+  // сколько прошло солце или луна
+  // const lightOff = Math.round((lengthLeftSunMoon * 120) / 100);
+  // сколько прошло солце или луна от полного круга 360deg в прроцентах (всего 33%)
+  // const lightOffPercent = Math.round((lightOff * 100) / 360);
+
+  useEffect(() => {
+    if (dayTime) {
+      setTimeLeftSunMoon(timesRemainingSunset);
+      setPercentRemainingSunMoon(percentRemainingSunValue);
+      // setLightOffOpacitySun(lengthLeftSunMoon / 50);
+    } else {
+      setTimeLeftSunMoon(timesMoon);
+      setPercentRemainingSunMoon(percentRemainingMoonValue);
+      // setLightOffOpacityMoon((lengthLeftSunMoon * 0.4) / 50);
+    }
+    const isSunsetSunrise =
+      (lightOffOpacitySun < 0.1 || lightOffOpacityMoon < 0.1) &&
+      lightOffOpacitySun !== 0 &&
+      lightOffOpacityMoon !== 0;
+    setSunsetSunrise(isSunsetSunrise);
+  }, [
+    dayTime,
+    timesRemainingSunset,
+    percentRemainingSunValue,
+    percentRemainingMoonValue,
+    lightOffOpacitySun,
+    lightOffOpacityMoon,
+    timesMoon,
+    themeLight,
+  ]);
+
   return {
     timeLeftSunMoon,
     leftRotateWindowSunMoon,
     lightOffOpacitySun,
     lightOffOpacityMoon,
+    sunsetSunrise,
   };
 };

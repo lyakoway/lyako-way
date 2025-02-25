@@ -33,7 +33,7 @@ const dayToNightWindowTime = (
 ) => keyframes`
   from { 
     background: ${$dayToNightColor};
-    opacity: ${$lightOffOpacitySun + 0.1};
+    opacity: ${$lightOffOpacitySun};
   }
   16% {
     background: ${$dayToNightColor};
@@ -49,7 +49,7 @@ const dayToNightWindowTime = (
   }
   to {
     background: #0c2233;
-    opacity: ${$lightOffOpacitySun + 0.1};
+    opacity: ${$lightOffOpacitySun};
   }
 `;
 
@@ -86,7 +86,7 @@ const nightToDayWindowTime = (
 ) => keyframes`
   from { 
     background: ${$dayToNightColor};
-    opacity: ${$lightOffOpacitySun + 0.1};
+    opacity: ${$lightOffOpacitySun};
   }
   16% {
     background: ${$dayToNightColor};
@@ -102,7 +102,7 @@ const nightToDayWindowTime = (
   }
   to {
     background: -webkit-linear-gradient(bottom, rgba(249, 251, 240, 1) 10%, rgba(215, 253, 254, 1) 20%, rgba(167, 222, 253, 1) 40%, rgba(110, 175, 255, 1) 100%);
-    opacity: ${$lightOffOpacitySun + 0.1};
+    opacity: ${$lightOffOpacitySun};
   }
 `;
 

@@ -23,11 +23,11 @@ const lightOffSun = (
   $lightOffOpacityMoon: number
 ) => keyframes`
   from {
-    opacity: ${$lightOffOpacityMoon};
+    opacity: 0.3;
   }
   50% {opacity: 0}
   to {
-    opacity: ${$lightOffOpacitySun};
+    opacity: 0.8;
   }
 `;
 
@@ -36,10 +36,10 @@ const lightOffSunTime = (
   $lightOffOpacityMoon: number
 ) => keyframes`
   from { 
-    opacity: ${$lightOffOpacitySun};
+    opacity: 0.8;
   }
   to {
-    opacity: ${$lightOffOpacitySun};
+    opacity: 0.8;
   }
 `;
 
@@ -48,11 +48,11 @@ const lightOffMoon = (
   $lightOffOpacityMoon: number
 ) => keyframes`
   from {
-    opacity: ${$lightOffOpacitySun};
+    opacity: 0.8;
   }
   50% {opacity: 0}
   to {
-    opacity: ${$lightOffOpacityMoon};
+    opacity: 0.3;
   }
 `;
 
@@ -61,10 +61,10 @@ const lightOffMoonTime = (
   $lightOffOpacityMoon: number
 ) => keyframes`
   from {
-    opacity: ${$lightOffOpacityMoon};
+    opacity: 0.3;
   }
   to {
-    opacity: ${$lightOffOpacityMoon};
+    opacity: 0.3;
   }
 `;
 

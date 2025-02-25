@@ -9,6 +9,7 @@ interface CloudProps {
   timeLeftSunMoon: number;
   themeLight: boolean;
   lightOffOpacitySun: number;
+  sunsetSunrise: boolean;
 }
 
 const WindowSky: FC<CloudProps> = ({
@@ -16,6 +17,7 @@ const WindowSky: FC<CloudProps> = ({
   timeLeftSunMoon,
   themeLight,
   lightOffOpacitySun,
+  sunsetSunrise,
 }) => {
   return (
     <WindowSkyWrapper>
@@ -25,7 +27,7 @@ const WindowSky: FC<CloudProps> = ({
         $themeLight={themeLight}
         $lightOffOpacitySun={lightOffOpacitySun}
       />
-      <HorizonNight $themeLight={themeLight} />
+      <HorizonNight $themeLight={themeLight} $sunsetSunrise={sunsetSunrise} />
       {/*<HorizonNightMoon $themeLight={themeLight} />*/}
     </WindowSkyWrapper>
   );

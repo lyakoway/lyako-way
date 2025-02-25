@@ -10,7 +10,7 @@ export const WindowView = styled.div<{
   top: 20px;
   width: 222px;
   height: 300px;
-  background: #88bef5;
+  background: ${({ $themeLight }) => ($themeLight ? "#88bef5" : "#0c2233")};
   z-index: 2;
   overflow: hidden;
   border: 1px solid rgba(167, 222, 253, 1);
