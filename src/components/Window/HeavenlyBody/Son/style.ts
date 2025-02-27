@@ -35,9 +35,6 @@ const ani = keyframes`
 
 const ani1 = keyframes`
   0% {
-    opacity: 0;
-  }
-  20%{
     opacity: 1;
     box-shadow: -0px -10px 50px 50px rgb(242, 248, 247),
     -0px -10px 50px 50px rgb(249, 249, 28, 0.33),
@@ -46,7 +43,7 @@ const ani1 = keyframes`
     -0px -40px 100px 80px rgb(201, 165, 132, 0.06);
   }
   25%{
-    opacity: 1;
+    opacity: 0.8;
     box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
     -0px -10px 50px 50px rgba(236, 255, 0, 0.8),
     -0px -20px 70px 60px rgba(253, 50, 41, 0.5),
@@ -54,7 +51,7 @@ const ani1 = keyframes`
     -0px -40px 100px 80px rgba(93, 0, 0, 0.04);
   }
   35%{
-    opacity: 1;
+    opacity: 0.6;
     box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
     -0px -10px 50px 50px rgba(236, 255, 0, 35),
     -0px -20px 70px 60px rgba(253, 50, 41, 17),
