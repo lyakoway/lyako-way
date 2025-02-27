@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import React, { FC } from "react";
 import Moon from "src/components/Window/HeavenlyBody/Moon";
+import Son from "src/components/Window/HeavenlyBody/Son";
 
 const heavenlyBodyMoveSun = (
   $leftRotateWindowSunMoon: number,
@@ -138,8 +139,8 @@ const HeavenlyBodyContainer = styled.div<{
 }>`
   position: absolute;
   left: 86px;
-  width: 50px;
-  height: 50px;
+  //width: 50px;
+  //height: 50px;
   border-radius: 50%;
   background: #fff;
   //box-shadow: 0 0 10px 2px #fff;
@@ -174,6 +175,7 @@ interface HeavenlyBodyProps {
   timeLeftSunMoon: number;
   themeLight: boolean;
   moonOrSunColor: string;
+  sunsetSunrise: boolean;
 }
 
 const HeavenlyBody: FC<HeavenlyBodyProps> = ({
@@ -181,6 +183,7 @@ const HeavenlyBody: FC<HeavenlyBodyProps> = ({
   timeLeftSunMoon,
   themeLight,
   moonOrSunColor,
+  sunsetSunrise,
 }) => {
   return (
     <HeavenlyBodyContainer
@@ -189,6 +192,7 @@ const HeavenlyBody: FC<HeavenlyBodyProps> = ({
       $themeLight={themeLight}
       $moonOrSunColor={moonOrSunColor}
     >
+      <Son sunsetSunrise={sunsetSunrise} themeLight={themeLight} />
       <Moon themeLight={themeLight} />
     </HeavenlyBodyContainer>
   );

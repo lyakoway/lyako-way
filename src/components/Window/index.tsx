@@ -119,6 +119,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
               timeLeftSunMoon={timeLeftSunMoon}
               themeLight={themeLight}
               moonOrSunColor={moonOrSunColor}
+              sunsetSunrise={sunsetSunrise}
             />
           </HeavenlyBodyParallax>
         )}
