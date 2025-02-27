@@ -100,9 +100,7 @@ export const usePositionSunAndMoon = ({
       // setLightOffOpacityMoon((lengthLeftSunMoon * 0.4) / 50);
     }
     const isSunsetSunrise =
-      lightOffOpacitySun <= 0.2 &&
-      lightOffOpacitySun !== 0 &&
-      lightOffOpacityMoon !== 0;
+      lightOffOpacitySun <= 0.12 && lightOffOpacitySun !== 0;
     setSunsetSunrise(isSunsetSunrise);
   }, [
     dayTime,
