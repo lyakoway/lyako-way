@@ -57,7 +57,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     leftRotateWindowSunMoon,
     lightOffOpacitySun,
     lightOffOpacityMoon,
-    sunsetSunrise,
   } = usePositionSunAndMoon({ themeLight });
 
   const winter = false;
@@ -109,7 +108,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
           timeLeftSunMoon={timeLeftSunMoon}
           themeLight={themeLight}
           lightOffOpacitySun={lightOffOpacitySun}
-          sunsetSunrise={sunsetSunrise}
         />
         {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
           <HeavenlyBodyParallax data-parallax-sun="15">
@@ -119,7 +117,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
               timeLeftSunMoon={timeLeftSunMoon}
               themeLight={themeLight}
               moonOrSunColor={moonOrSunColor}
-              sunsetSunrise={sunsetSunrise}
+              lightOffOpacitySun={lightOffOpacitySun}
             />
           </HeavenlyBodyParallax>
         )}

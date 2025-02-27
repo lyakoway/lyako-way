@@ -175,7 +175,7 @@ interface HeavenlyBodyProps {
   timeLeftSunMoon: number;
   themeLight: boolean;
   moonOrSunColor: string;
-  sunsetSunrise: boolean;
+  lightOffOpacitySun: number;
 }
 
 const HeavenlyBody: FC<HeavenlyBodyProps> = ({
@@ -183,7 +183,7 @@ const HeavenlyBody: FC<HeavenlyBodyProps> = ({
   timeLeftSunMoon,
   themeLight,
   moonOrSunColor,
-  sunsetSunrise,
+  lightOffOpacitySun,
 }) => {
   return (
     <HeavenlyBodyContainer
@@ -192,7 +192,7 @@ const HeavenlyBody: FC<HeavenlyBodyProps> = ({
       $themeLight={themeLight}
       $moonOrSunColor={moonOrSunColor}
     >
-      <Son sunsetSunrise={sunsetSunrise} themeLight={themeLight} />
+      <Son lightOffOpacitySun={lightOffOpacitySun} themeLight={themeLight} />
       <Moon themeLight={themeLight} />
     </HeavenlyBodyContainer>
   );

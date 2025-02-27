@@ -10,7 +10,6 @@ export const usePositionSunAndMoon = ({
   leftRotateWindowSunMoon: number;
   lightOffOpacitySun: number;
   lightOffOpacityMoon: number;
-  sunsetSunrise: boolean;
 } => {
   const { sunriseTime, sunsetTime, timesHouse, dayTime } = useDayTime();
   const [timeLeftSunMoon, setTimeLeftSunMoon] = useState<number>(0);
@@ -20,7 +19,6 @@ export const usePositionSunAndMoon = ({
     useState<number>(-60);
   const [percentRemainingSunMoon, setPercentRemainingSunMoon] =
     useState<number>(0);
-  const [sunsetSunrise, setSunsetSunrise] = useState<boolean>(false);
 
   // сколько процентов осталось до захода солнца от дна
   const percentRemainingSunValue = Math.round(
@@ -99,9 +97,6 @@ export const usePositionSunAndMoon = ({
       setPercentRemainingSunMoon(percentRemainingMoonValue);
       // setLightOffOpacityMoon((lengthLeftSunMoon * 0.4) / 50);
     }
-    const isSunsetSunrise =
-      lightOffOpacitySun <= 0.12 && lightOffOpacitySun !== 0;
-    setSunsetSunrise(isSunsetSunrise);
   }, [
     dayTime,
     timesRemainingSunset,
@@ -118,6 +113,5 @@ export const usePositionSunAndMoon = ({
     leftRotateWindowSunMoon,
     lightOffOpacitySun,
     lightOffOpacityMoon,
-    sunsetSunrise,
   };
 };

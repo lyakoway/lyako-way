@@ -9,7 +9,6 @@ interface CloudProps {
   timeLeftSunMoon: number;
   themeLight: boolean;
   lightOffOpacitySun: number;
-  sunsetSunrise: boolean;
 }
 
 const WindowSky: FC<CloudProps> = ({
@@ -17,8 +16,8 @@ const WindowSky: FC<CloudProps> = ({
   timeLeftSunMoon,
   themeLight,
   lightOffOpacitySun,
-  sunsetSunrise,
 }) => {
+  const sunsetSunrise = lightOffOpacitySun <= 0.12 && lightOffOpacitySun !== 0;
   return (
     <WindowSkyWrapper>
       <Sky

@@ -42,7 +42,7 @@ const ani1 = keyframes`
     -0px -30px 90px 70px rgb(248, 200, 95, 0.11),
     -0px -40px 100px 80px rgb(201, 165, 132, 0.06);
   }
-  25%{
+  40%{
     opacity: 0.8;
     box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
     -0px -10px 50px 50px rgba(236, 255, 0, 0.8),
@@ -50,7 +50,7 @@ const ani1 = keyframes`
     -0px -30px 90px 70px rgba(243, 0, 0, 0.1),
     -0px -40px 100px 80px rgba(93, 0, 0, 0.04);
   }
-  35%{
+  45%{
     opacity: 0.6;
     box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
     -0px -10px 50px 50px rgba(236, 255, 0, 35),
@@ -95,7 +95,8 @@ const ani3 = keyframes`
     -0px -30px 90px 70px rgba(243, 0, 0, 0.1),
     -0px -40px 100px 80px rgba(93, 0, 0, 0.04);
   }
-  25%{opacity: 0.3;
+  25%{
+    opacity: 0.3;
     box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
     -0px -10px 50px 50px rgba(236, 255, 0, 0.8),
     -0px -20px 70px 60px rgba(253, 50, 41, 0.5),
