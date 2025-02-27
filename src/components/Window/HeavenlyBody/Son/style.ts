@@ -89,36 +89,29 @@ const ani2 = keyframes`
   }
 `;
 
-// const ani3 = keyframes`
-//   0% {
-//     opacity: 1;
-//     box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
-//     -0px -10px 50px 50px rgba(236, 255, 0, 0.8),
-//     -0px -20px 70px 60px rgba(253, 50, 41, 0.5),
-//     -0px -30px 90px 70px rgba(243, 0, 0, 0.1),
-//     -0px -40px 100px 80px rgba(93, 0, 0, 0.04);
-//   }
-//   3%{opacity: 0.3;
-//     box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
-//     -0px -10px 50px 50px rgba(236, 255, 0, 0.8),
-//     -0px -20px 70px 60px rgba(253, 50, 41, 0.5),
-//     -0px -30px 90px 70px rgba(243, 0, 0, 0.1),
-//     -0px -40px 100px 80px rgba(93, 0, 0, 0.04);}
-//   15%{
-//     opacity: 0;
-//     //box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
-//     //-0px -10px 50px 50px rgba(236, 255, 0, 35),
-//     //-0px -20px 70px 60px rgba(253, 50, 41, 17),
-//     //-0px -30px 90px 70px rgba(243, 0, 0, 0.13),
-//     //-0px -40px 100px 80px rgba(93, 0, 0, 0.08);
-//   }
-//   50%{
-//     opacity: 0;
-//   }
-//   100% {
-//     opacity: 0;
-//   }
-// `;
+const ani3 = keyframes`
+  0% {
+    opacity: 1;
+    box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
+    -0px -10px 50px 50px rgba(236, 255, 0, 0.8),
+    -0px -20px 70px 60px rgba(253, 50, 41, 0.5),
+    -0px -30px 90px 70px rgba(243, 0, 0, 0.1),
+    -0px -40px 100px 80px rgba(93, 0, 0, 0.04);
+  }
+  25%{opacity: 0.3;
+    box-shadow: -0px -10px 50px 50px rgba(254, 255, 255, 0.8),
+    -0px -10px 50px 50px rgba(236, 255, 0, 0.8),
+    -0px -20px 70px 60px rgba(253, 50, 41, 0.5),
+    -0px -30px 90px 70px rgba(243, 0, 0, 0.1),
+    -0px -40px 100px 80px rgba(93, 0, 0, 0.04);
+  }
+  50%{
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
 
 export const SonContainer = styled.div<{
   $themeLight: boolean;
@@ -137,8 +130,7 @@ export const SonContainer = styled.div<{
     `};
   ${({ $sunsetSunrise, $themeLight }) =>
     $sunsetSunrise &&
-    $themeLight &&
     css`
-      animation: ${ani2} 4s forwards;
+      animation: ${$themeLight ? ani2 : ani3} 4s forwards;
     `};
 `;

@@ -73,6 +73,29 @@ const ani2 = keyframes`
   }
 `;
 
+const ani3 = keyframes`
+  0% {
+    opacity: 1;
+    box-shadow: -0px -10px 50px 50px rgba(255, 153, 0, 0.25),
+    -0px -20px 70px 60px rgba(246, 149, 52, 0.5), -0px -30px 90px 70px #93e6f3,
+    -0px -40px 100px 80px rgba(24, 75, 106, 0);
+  }
+  25%{
+    opacity: 0.3;
+    box-shadow: -0px -10px 50px 50px rgba(255, 153, 0, 0.25),
+    -0px -20px 70px 60px rgba(246, 149, 52, 0.5), -0px -30px 90px 70px #93e6f3,
+    -0px -40px 100px 80px rgba(24, 75, 106, 0);
+  }
+  75%{
+    opacity: 0.4;
+    box-shadow: -0px -10px 20px 10px #93e6f3, -0px -20px 40px 20px rgba(57, 167, 255, 1), -0px -30px 60px 30px rgba(13, 98, 245, 1), -0px -40px 80px 40px rgba(57, 167, 255, 0.65);
+  }
+  100% {
+    opacity: 0.8;
+    box-shadow: -0px -10px 20px 10px #93e6f3, -0px -20px 40px 20px rgba(57, 167, 255, 1), -0px -30px 60px 30px rgba(13, 98, 245, 1), -0px -40px 80px 40px rgba(57, 167, 255, 0.65);
+  }
+`;
+
 export const HorizonNight = styled.div<{
   $themeLight: boolean;
   $sunsetSunrise: boolean;
@@ -82,16 +105,8 @@ export const HorizonNight = styled.div<{
   width: 100%;
   height: 50%;
   top: 100%;
-  //box-shadow: -0px -10px 20px 10px #93e6f3,
-  //  -0px -20px 40px 20px rgba(57, 167, 255, 1),
-  //  -0px -30px 60px 30px rgba(13, 98, 245, 1),
-  //  -0px -40px 80px 40px rgba(57, 167, 255, 0.65);
 
   z-index: 2;
-
-  //box-shadow: -0px -10px 20px 10px rgba(255, 153, 0, 0.25),
-  //  -0px -20px 40px 30px rgba(246, 149, 52, 0.8), -0px -30px 60px 40px #93e6f3,
-  //  -0px -40px 80px 50px rgba(24, 75, 106, 0);
 
   ${({ $themeLight }) =>
     css`
@@ -99,9 +114,8 @@ export const HorizonNight = styled.div<{
     `};
   ${({ $sunsetSunrise, $themeLight }) =>
     $sunsetSunrise &&
-    $themeLight &&
     css`
-      animation: ${ani2} 4s forwards;
+      animation: ${$themeLight ? ani2 : ani3} 4s forwards;
     `};
 `;
 
