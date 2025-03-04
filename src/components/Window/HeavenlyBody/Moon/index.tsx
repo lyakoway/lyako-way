@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import {
   MoonContainer,
   Crater,
+  MoonPhase,
 } from "src/components/Window/HeavenlyBody/Moon/style";
 import { craterValue } from "src/components/Window/HeavenlyBody/constants";
 
@@ -11,6 +12,7 @@ interface MoonProps {
 const Moon: FC<MoonProps> = ({ themeLight }) => {
   return (
     <MoonContainer $themeLight={themeLight}>
+      <MoonPhase $themeLight={themeLight} />
       {craterValue.map((item) => {
         return (
           <Crater
