@@ -42,6 +42,24 @@ const phase2 = keyframes`
   }
 `;
 
+const ani2 = keyframes`
+  0% {
+    opacity: 0.08;
+  }
+  15% {
+         opacity: 0.3;
+       }
+  50% {
+    opacity: 1;
+  }
+  85% {
+         opacity: 0.3;
+       }
+  100% {
+    opacity: 0.08;
+  }
+`;
+
 export const MoonContainer = styled.div<{ $themeLight: boolean }>`
   width: 50px;
   height: 50px;
@@ -116,6 +134,7 @@ export const Crater = styled.div<{
   $left: number;
   $width: number;
   $height: number;
+  $timeMoonPhase: number;
 }>`
   position: absolute;
   z-index: 101;
@@ -126,4 +145,8 @@ export const Crater = styled.div<{
   height: ${({ $height }) => $height}px;
   top: ${({ $top }) => $top}%;
   left: ${({ $left }) => $left}%;
+  ${({ $timeMoonPhase }) =>
+    css`
+      animation: ${ani2} ${3.2 * $timeMoonPhase}s infinite;
+    `};
 `;
