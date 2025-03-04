@@ -10,9 +10,11 @@ interface MoonProps {
   themeLight: boolean;
 }
 const Moon: FC<MoonProps> = ({ themeLight }) => {
+  // 16секунд поворот луны анимация
+  const timeMoonPhase = 10;
   return (
     <MoonContainer $themeLight={themeLight}>
-      <MoonPhase $themeLight={themeLight} />
+      <MoonPhase $themeLight={themeLight} timeMoonPhase={timeMoonPhase} />
       {craterValue.map((item) => {
         return (
           <Crater

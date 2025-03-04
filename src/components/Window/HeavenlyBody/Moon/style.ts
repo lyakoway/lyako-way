@@ -56,7 +56,10 @@ export const MoonContainer = styled.div<{ $themeLight: boolean }>`
     `};
 `;
 
-export const MoonPhase = styled.div<{ $themeLight: boolean }>`
+export const MoonPhase = styled.div<{
+  $themeLight: boolean;
+  timeMoonPhase: number;
+}>`
   width: 50px;
   height: 50px;
   //background-color: red;
@@ -66,13 +69,14 @@ export const MoonPhase = styled.div<{ $themeLight: boolean }>`
   border-radius: 50%;
   position: absolute;
   z-index: 100;
-  //box-shadow: 0 0 60px 19px #f1f1f1;
+  box-shadow: 0 0 60px 19px #f1f1f1;
   counter-increment: phase;
-  ${({ $themeLight }) =>
+  ${({ $themeLight, timeMoonPhase }) =>
     css`
-      animation: ${$themeLight ? phase1 : phase2} 3.2s infinite;
+      animation: ${$themeLight ? phase1 : phase2} ${3.2 * timeMoonPhase}s
+        infinite;
     `};
-  animation-delay: -0.4s;
+  animation-delay: ${({ timeMoonPhase }) => -0.4 * timeMoonPhase}s;
   animation-timing-function: steps(2);
 
   &:before,
@@ -84,11 +88,12 @@ export const MoonPhase = styled.div<{ $themeLight: boolean }>`
     border-radius: 50%;
     backface-visibility: hidden;
 
-    ${({ $themeLight }) =>
+    ${({ $themeLight, timeMoonPhase }) =>
       css`
-        animation: ${$themeLight ? phase1 : phase2} 3.2s infinite;
+        animation: ${$themeLight ? phase1 : phase2} ${3.2 * timeMoonPhase}s
+          infinite;
       `};
-    animation-delay: -0.4s;
+    animation-delay: ${({ timeMoonPhase }) => -0.4 * timeMoonPhase}s;
     animation-timing-function: linear;
   }
 
@@ -97,7 +102,7 @@ export const MoonPhase = styled.div<{ $themeLight: boolean }>`
   }
 
   &:after {
-    animation-delay: -2s;
+    animation-delay: ${({ timeMoonPhase }) => -2 * timeMoonPhase}s;
     background: linear-gradient(
       to right,
       #f1f1f1 calc(50% + 1px),
@@ -113,7 +118,7 @@ export const Crater = styled.div<{
   $height: number;
 }>`
   position: absolute;
-  z-index: 99;
+  z-index: 101;
   background: #e6e6e6;
   border-radius: 50%;
   box-shadow: inset -2px 2px 5px 0 rgba(0, 0, 0, 0.3);
