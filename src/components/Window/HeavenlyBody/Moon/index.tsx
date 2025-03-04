@@ -14,7 +14,7 @@ const Moon: FC<MoonProps> = ({ themeLight }) => {
   const timeMoonPhase = 10;
   return (
     <MoonContainer $themeLight={themeLight}>
-      <MoonPhase $themeLight={themeLight} timeMoonPhase={timeMoonPhase} />
+      <MoonPhase $themeLight={themeLight} $timeMoonPhase={timeMoonPhase} />
       {craterValue.map((item) => {
         return (
           <Crater

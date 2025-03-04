@@ -58,7 +58,7 @@ export const MoonContainer = styled.div<{ $themeLight: boolean }>`
 
 export const MoonPhase = styled.div<{
   $themeLight: boolean;
-  timeMoonPhase: number;
+  $timeMoonPhase: number;
 }>`
   width: 50px;
   height: 50px;
@@ -71,12 +71,12 @@ export const MoonPhase = styled.div<{
   z-index: 100;
   box-shadow: 0 0 60px 19px #f1f1f1;
   counter-increment: phase;
-  ${({ $themeLight, timeMoonPhase }) =>
+  ${({ $themeLight, $timeMoonPhase }) =>
     css`
-      animation: ${$themeLight ? phase1 : phase2} ${3.2 * timeMoonPhase}s
+      animation: ${$themeLight ? phase1 : phase2} ${3.2 * $timeMoonPhase}s
         infinite;
     `};
-  animation-delay: ${({ timeMoonPhase }) => -0.4 * timeMoonPhase}s;
+  animation-delay: ${({ $timeMoonPhase }) => -0.4 * $timeMoonPhase}s;
   animation-timing-function: steps(2);
 
   &:before,
@@ -88,12 +88,12 @@ export const MoonPhase = styled.div<{
     border-radius: 50%;
     backface-visibility: hidden;
 
-    ${({ $themeLight, timeMoonPhase }) =>
+    ${({ $themeLight, $timeMoonPhase }) =>
       css`
-        animation: ${$themeLight ? phase1 : phase2} ${3.2 * timeMoonPhase}s
+        animation: ${$themeLight ? phase1 : phase2} ${3.2 * $timeMoonPhase}s
           infinite;
       `};
-    animation-delay: ${({ timeMoonPhase }) => -0.4 * timeMoonPhase}s;
+    animation-delay: ${({ $timeMoonPhase }) => -0.4 * $timeMoonPhase}s;
     animation-timing-function: linear;
   }
 
@@ -102,7 +102,7 @@ export const MoonPhase = styled.div<{
   }
 
   &:after {
-    animation-delay: ${({ timeMoonPhase }) => -2 * timeMoonPhase}s;
+    animation-delay: ${({ $timeMoonPhase }) => -2 * $timeMoonPhase}s;
     background: linear-gradient(
       to right,
       #f1f1f1 calc(50% + 1px),
