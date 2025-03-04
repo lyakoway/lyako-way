@@ -46,15 +46,24 @@ const ani2 = keyframes`
   0% {
     opacity: 0.08;
   }
-  15% {
+  20% {
          opacity: 0.3;
        }
   50% {
     opacity: 1;
   }
-  85% {
+  80% {
          opacity: 0.3;
        }
+  100% {
+    opacity: 0.08;
+  }
+`;
+
+const ani3 = keyframes`
+  0% {
+    opacity: 0.08;
+  }
   100% {
     opacity: 0.08;
   }
@@ -134,6 +143,7 @@ export const Crater = styled.div<{
   $left: number;
   $width: number;
   $height: number;
+  $themeLight: boolean;
   $timeMoonPhase: number;
 }>`
   position: absolute;
@@ -145,8 +155,8 @@ export const Crater = styled.div<{
   height: ${({ $height }) => $height}px;
   top: ${({ $top }) => $top}%;
   left: ${({ $left }) => $left}%;
-  ${({ $timeMoonPhase }) =>
+  ${({ $themeLight, $timeMoonPhase }) =>
     css`
-      animation: ${ani2} ${3.2 * $timeMoonPhase}s infinite;
+      animation: ${$themeLight ? ani3 : ani2} ${3.2 * $timeMoonPhase}s infinite;
     `};
 `;

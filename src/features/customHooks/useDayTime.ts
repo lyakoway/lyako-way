@@ -20,9 +20,9 @@ export const useDayTime = (): {
 
   const date = new Date();
   const sunTimes = SunCalc.getTimes(date, latitude, longitude);
-  const moonIllumination = SunCalc.getMoonIllumination(date);
-
-  console.log("phase", moonIllumination.phase);
+  // const moonIllumination = SunCalc.getMoonIllumination(date);
+  //
+  // console.log("phase", moonIllumination.phase);
 
   // восход в секундах
   const sunriseTime =
