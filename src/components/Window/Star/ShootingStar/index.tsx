@@ -30,17 +30,15 @@ const ShootingStar: FC = () => {
   return (
     <SkyContainer>
       {randomStar.length &&
-        randomStar.map((item, index) => {
-          return (
-            <Star
-              key={index}
-              $top={item.top}
-              $left={item.left}
-              $animationDuration={item.animationDuration}
-              $animationDelay={item.animationDuration - 2}
-            />
-          );
-        })}
+        randomStar.map((item, index) => (
+          <Star
+            key={index}
+            $top={item.top}
+            $left={item.left}
+            $animationDuration={item.animationDuration}
+            $animationDelay={item.animationDuration - 2}
+          />
+        ))}
     </SkyContainer>
   );
 };

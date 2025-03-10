@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { getRandomArra, getRandomNumber } from "src/common/utils";
+import { getRandomArra } from "src/common/utils";
 
 import { PuffCloudPattern } from "./style";
 
@@ -38,22 +38,16 @@ const PuffCloud = ({
 
   return (
     randomPuffCloud.length &&
-    randomPuffCloud.map((itemPuff, i) => {
-      const leftRandom = getRandomNumber(itemPuff.top, itemPuff.left);
-      const topRandom = getRandomNumber(itemPuff.top, itemPuff.left);
-      return (
-        <PuffCloudPattern
-          key={i}
-          $top={itemPuff.top}
-          $left={itemPuff.left}
-          $animationDuration={itemPuff.animationDuration}
-          $leftRandom={leftRandom}
-          $topRandom={topRandom}
-          $colorCloud={colorCloud}
-          $colorBorder={colorBorder}
-        />
-      );
-    })
+    randomPuffCloud.map((itemPuff, i) => (
+      <PuffCloudPattern
+        key={i}
+        $top={itemPuff.top}
+        $left={itemPuff.left}
+        $animationDuration={itemPuff.animationDuration}
+        $colorCloud={colorCloud}
+        $colorBorder={colorBorder}
+      />
+    ))
   );
 };
 

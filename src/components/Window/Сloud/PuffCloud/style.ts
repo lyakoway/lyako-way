@@ -1,19 +1,21 @@
 import styled, { keyframes } from "styled-components";
 
-const wind = ({
-  $leftRandom,
-  $topRandom,
-  $left,
-  $top,
-}: {
-  $leftRandom: number;
-  $topRandom: number;
-  $left: number;
-  $top: number;
-}) => keyframes`
+const wind = ({ $left, $top }: { $left: number; $top: number }) => keyframes`
+  0% {
+    left: ${$left}px;
+    top: ${$top}px;
+  }
+  25% {
+    left: ${$left + 1}px;
+    top: ${$top + 1}px;
+  }
   50% {
-    left: ${$leftRandom}px;
-    top: ${$topRandom}px;
+    left: ${$left}px;
+    top: ${$top}px;
+  }
+  75% {
+    left: ${$left - 1}px;
+    top: ${$top - 1}px;
   }
   100% {
     left: ${$left}px;
@@ -27,8 +29,6 @@ export const PuffCloudPattern = styled.div<{
   $colorCloud: number;
   $colorBorder: number;
   $animationDuration: number | null;
-  $leftRandom: number;
-  $topRandom: number;
 }>`
   width: 22px;
   height: 22px;
@@ -44,8 +44,7 @@ export const PuffCloudPattern = styled.div<{
   background-position: 50% 0;
   z-index: 100;
 
-  animation: ${({ $leftRandom, $topRandom, $left, $top }) =>
-      wind({ $leftRandom, $topRandom, $left, $top })}
+  animation: ${({ $left, $top }) => wind({ $left, $top })}
     ${({ $animationDuration }) => $animationDuration}s linear
     ${({ $animationDuration }) => $animationDuration}s infinite;
   animation-delay: 3s;
