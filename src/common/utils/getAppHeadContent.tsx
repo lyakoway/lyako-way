@@ -22,7 +22,7 @@ const getAppHeadContent = () => (
     {/*  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"*/}
     {/*  rel="stylesheet"*/}
     {/*/>*/}
-    {/* <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> */}
+    <link rel="icon" href="/static/favicons/favicon.ico" />
     <link
       rel="apple-touch-icon"
       sizes="57x57"
