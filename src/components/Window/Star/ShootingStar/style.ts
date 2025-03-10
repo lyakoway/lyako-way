@@ -51,10 +51,6 @@ export const SkyContainer = styled.div`
   left: -30px;
 `;
 
-export const StarWrapper = styled.div`
-  display: flex;
-`;
-
 export const Star = styled.div<{
   $top: number;
   $left: number;

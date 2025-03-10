@@ -7,6 +7,7 @@ import { propsStar } from "src/components/Window/Star/constants";
 import { getRandomArra } from "src/common/utils";
 
 const ShootingStar: FC = () => {
+  const [randomStar, setRandomStar] = useState([]);
   const {
     starAmount,
     minRandomTopAndLeft,
@@ -15,25 +16,31 @@ const ShootingStar: FC = () => {
     timeMaxRandomAnimationDelay,
   } = propsStar;
 
+  useEffect(() => {
+    const randomStarValue = getRandomArra(
+      starAmount,
+      minRandomTopAndLeft,
+      maxRandomTopAndLeft,
+      timeMinRandomAnimationDelay,
+      timeMaxRandomAnimationDelay
+    );
+    setRandomStar(randomStarValue);
+  }, []);
+
   return (
     <SkyContainer>
-      {getRandomArra(
-        starAmount,
-        minRandomTopAndLeft,
-        maxRandomTopAndLeft,
-        timeMinRandomAnimationDelay,
-        timeMaxRandomAnimationDelay
-      ).map((item, index) => {
-        return (
-          <Star
-            key={index}
-            $top={item.top}
-            $left={item.left}
-            $animationDuration={item.animationDuration}
-            $animationDelay={item.animationDuration - 2}
-          />
-        );
-      })}
+      {randomStar.length &&
+        randomStar.map((item, index) => {
+          return (
+            <Star
+              key={index}
+              $top={item.top}
+              $left={item.left}
+              $animationDuration={item.animationDuration}
+              $animationDelay={item.animationDuration - 2}
+            />
+          );
+        })}
     </SkyContainer>
   );
 };
