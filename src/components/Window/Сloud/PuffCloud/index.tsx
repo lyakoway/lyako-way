@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { getRandomArra, getRandomNumber } from "src/common/utils";
 
@@ -23,8 +23,22 @@ const PuffCloud = ({
   colorCloud,
   colorBorder,
 }: PuffCloudProps) => {
-  return getRandomArra(dropAmount, min, max, fallTimeMin, fallTimeMax).map(
-    (itemPuff, i) => {
+  const [randomPuffCloud, setRandomPuffCloud] = useState([]);
+
+  useEffect(() => {
+    const randomPuffCloudValue = getRandomArra(
+      dropAmount,
+      min,
+      max,
+      fallTimeMin,
+      fallTimeMax
+    );
+    setRandomPuffCloud(randomPuffCloudValue);
+  }, []);
+
+  return (
+    randomPuffCloud.length &&
+    randomPuffCloud.map((itemPuff, i) => {
       const leftRandom = getRandomNumber(itemPuff.top, itemPuff.left);
       const topRandom = getRandomNumber(itemPuff.top, itemPuff.left);
       return (
@@ -39,7 +53,7 @@ const PuffCloud = ({
           $colorBorder={colorBorder}
         />
       );
-    }
+    })
   );
 };
 
