@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const CityWrapper = styled.div`
   position: absolute;
-  height: 100%;
-  width: 100%;
+  width: 500px;
+  height: 300px;
   top: 0;
-  display: flex;
+  left: 0;
   z-index: 1;
 `;
