@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { HousesWrapper } from "src/components/Window/City/Houses/style";
 import House1 from "src/components/Window/City/Houses/Hause1";
 import House2 from "src/components/Window/City/Houses/Hause2";
+import House3 from "src/components/Window/City/Houses/Hause3";
 
 interface HousesProps {
   themeLight?: boolean;
@@ -12,6 +13,7 @@ const Houses: FC<HousesProps> = ({ themeLight }) => {
     <HousesWrapper>
       <House1 />
       <House2 />
+      <House3 />
     </HousesWrapper>
   );
 };
