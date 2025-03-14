@@ -114,7 +114,7 @@ export const Sky = styled.div<{
 }>`
   position: absolute;
   width: 222px;
-  height: 300px;
+  height: 222px;
   background: #88bef5;
   z-index: 1;
   overflow: hidden;

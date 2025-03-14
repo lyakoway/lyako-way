@@ -5,7 +5,7 @@ export const CityWrapper = styled.div`
   width: 500px;
   height: 300px;
   top: 0;
-  left: 0;
+  left: -14px;
   z-index: 1;
 
   &:before {

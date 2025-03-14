@@ -89,7 +89,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     const parallax = (e: { clientX: number; clientY: number }) => {
       getParallax(e, "data-parallax-sun", 1000, 1000);
       getParallax(e, "data-parallax-cloud", 1000, 1000);
-      getParallax(e, "data-parallax-city", 1000, 1800);
+      getParallax(e, "data-parallax-city", 1000, 2800);
     };
     document.addEventListener("mousemove", parallax);
     return () => {

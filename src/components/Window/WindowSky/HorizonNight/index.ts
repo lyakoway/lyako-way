@@ -104,7 +104,7 @@ export const HorizonNight = styled.div<{
   left: 0;
   width: 100%;
   height: 50%;
-  top: 100%;
+  top: 80%;
 
   z-index: 2;
 

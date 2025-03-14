@@ -17,7 +17,7 @@ export const Skyscraper1 = styled.div`
   border-top: 12px solid transparent;
   border-bottom: none;
   border-right: 66px solid #d6d6d6;
-  height: 97px;
+  height: 160px;
   position: relative;
 
   &:before {
