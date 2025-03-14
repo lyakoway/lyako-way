@@ -4,6 +4,7 @@ import House1 from "src/components/Window/City/Houses/Hause1";
 import House2 from "src/components/Window/City/Houses/Hause2";
 import House3 from "src/components/Window/City/Houses/Hause3";
 import House4 from "src/components/Window/City/Houses/Hause4";
+import House5 from "src/components/Window/City/Houses/Hause5";
 
 interface HousesProps {
   themeLight?: boolean;
@@ -16,6 +17,7 @@ const Houses: FC<HousesProps> = ({ themeLight }) => {
       <House2 />
       <House3 />
       <House4 />
+      <House5 />
     </HousesWrapper>
   );
 };
