@@ -1,11 +1,19 @@
 import styled from "styled-components";
 
+export const CityWrapper = styled.div`
+  position: absolute;
+  width: 600px;
+  height: 300px;
+  top: 0;
+  left: -14px;
+  z-index: 1;
+`;
+
 export const SkyscrapersWrapper = styled.div`
   position: absolute;
   height: auto;
   width: 100%;
   left: 0;
-  //bottom: 10px;
   bottom: -60px;
   display: flex;
   justify-content: center;
@@ -126,5 +134,53 @@ export const Skyscraper6 = styled.div`
     background-color: #d6d6d6;
     top: -37px;
     left: 6px;
+  }
+`;
+
+export const Skyscraper7 = styled.div`
+  border-top: 12px solid transparent;
+  border-bottom: none;
+  border-right: 66px solid #d6d6d6;
+  height: 130px;
+  position: relative;
+  margin-left: 4px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    border-top: 15px solid transparent;
+    border-bottom: none;
+    border-right: 45px solid #d6d6d6;
+    height: 30px;
+    transform: scaleX(-1);
+    top: -30px;
+    left: 7px;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 24px;
+    background-color: #d6d6d6;
+    top: -50px;
+    left: 15px;
+  }
+`;
+
+export const Skyscraper8 = styled.div`
+  background-color: #d6d6d6;
+  width: 80px;
+  height: 150px;
+  margin-left: 4px;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 24px;
+    background-color: #d6d6d6;
+    top: -24px;
+    left: 7px;
   }
 `;

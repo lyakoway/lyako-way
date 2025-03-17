@@ -33,6 +33,7 @@ import Star from "src/components/Window/Star";
 import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
+import Skyscrapers from "src/components/Window/City/Skyscrapers";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -89,7 +90,8 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     const parallax = (e: { clientX: number; clientY: number }) => {
       getParallax(e, "data-parallax-sun", 1000, 1000);
       getParallax(e, "data-parallax-cloud", 1000, 1000);
-      getParallax(e, "data-parallax-city", 1000, 2800);
+      getParallax(e, "data-parallax-skyscrapers", 1000, 2500);
+      getParallax(e, "data-parallax-city", 1600, 2800);
     };
     document.addEventListener("mousemove", parallax);
     return () => {
@@ -129,6 +131,9 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
           <Star themeLight={themeLight} />
         )}
+        <HeavenlyBodyParallax data-parallax-skyscrapers="120">
+          <Skyscrapers />
+        </HeavenlyBodyParallax>
         <HeavenlyBodyParallax data-parallax-city="220">
           <City />
         </HeavenlyBodyParallax>

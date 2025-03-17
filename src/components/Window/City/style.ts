@@ -11,7 +11,7 @@ export const CityWrapper = styled.div`
   &:before {
     content: "";
     position: absolute;
-    width: 100%;
+    width: 800px;
     height: 120px;
     background-color: #918686;
     bottom: -180px;
