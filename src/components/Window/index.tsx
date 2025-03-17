@@ -129,7 +129,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
           <Star themeLight={themeLight} />
         )}
-        <HeavenlyBodyParallax data-parallax-city="200">
+        <HeavenlyBodyParallax data-parallax-city="220">
           <City />
         </HeavenlyBodyParallax>
       </WindowView>
