@@ -12,7 +12,7 @@ interface TreeProps {
 const Streetlamp: FC<TreeProps> = ({ themeLight, left }) => {
   return (
     <StreetlampWrapper left={left}>
-      <StreetlampGlow />
+      <StreetlampGlow $themeLight={themeLight} />
     </StreetlampWrapper>
   );
 };

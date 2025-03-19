@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 export const StreetlampWrapper = styled.div<{ left: string }>`
   position: absolute;
@@ -35,15 +35,37 @@ export const StreetlampWrapper = styled.div<{ left: string }>`
   }
 `;
 
-export const StreetlampGlow = styled.div`
+const ani = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
+const ani1 = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+export const StreetlampGlow = styled.div<{ $themeLight: boolean }>`
   position: absolute;
   z-index: 102;
-  width: 12px;
-  height: 12px;
-  top: -10px;
-  left: -4px;
+  width: 6px;
+  height: 6px;
+  top: -5px;
+  left: -2px;
   border-radius: 50%;
   background-color: #fff;
-  box-shadow: 0 0 60px 30px #fff;
+  box-shadow: 0 0 30px 15px #fff;
   opacity: 0;
+  ${({ $themeLight }) =>
+    css`
+      animation: ${$themeLight ? ani : ani1} 2s forwards;
+    `};
 `;

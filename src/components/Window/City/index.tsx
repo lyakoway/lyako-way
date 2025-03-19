@@ -14,8 +14,8 @@ const City: FC<CloudProps> = ({ themeLight }) => {
       <Houses themeLight={themeLight} />
       <Tree left="12px" />
       <Tree left="448px" />
-      <Streetlamp left="38px" />
-      <Streetlamp left="213px" />
+      <Streetlamp left="38px" themeLight={themeLight} />
+      <Streetlamp left="213px" themeLight={themeLight} />
     </CityWrapper>
   );
 };
