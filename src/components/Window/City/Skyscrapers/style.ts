@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const CityWrapper = styled.div`
   position: absolute;
@@ -21,12 +21,40 @@ export const SkyscrapersWrapper = styled.div`
   z-index: 1;
 `;
 
+export const SkyscraperWindowsWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8px, 1fr));
+  gap: 0.2rem;
+  margin: 10px 4px 4px 4px;
+`;
+
+export const SkyscraperWindowsWrapper7 = styled.div`
+  width: 58px;
+  position: absolute;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8px, 1fr));
+  gap: 0.2rem;
+  margin: 10px 4px 4px 4px;
+`;
+
+export const SkyscraperWindows = styled.div<{ $themeLight: boolean }>`
+  width: 8px;
+  height: 12px;
+  position: relative;
+  border: 1px solid #88bef5;
+  background-color: ${({ $themeLight }) =>
+    $themeLight ? "#d6e5fc" : "#FFE9AB"};
+  transition: background 2s ease;
+  opacity: 0.4;
+`;
+
 export const Skyscraper1 = styled.div<{ $color: string }>`
   border-top: 12px solid transparent;
   border-bottom: none;
   border-right: ${({ $color }) => $color} 66px solid;
   transition: border-right 2s ease;
   height: 160px;
+  width: 50px;
   position: relative;
 
   &:before {
