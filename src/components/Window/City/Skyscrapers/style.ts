@@ -21,10 +21,11 @@ export const SkyscrapersWrapper = styled.div`
   z-index: 1;
 `;
 
-export const Skyscraper1 = styled.div`
+export const Skyscraper1 = styled.div<{ $color: string }>`
   border-top: 12px solid transparent;
   border-bottom: none;
-  border-right: 66px solid #d6d6d6;
+  border-right: ${({ $color }) => $color} 66px solid;
+  transition: border-right 2s ease;
   height: 160px;
   position: relative;
 
@@ -33,7 +34,8 @@ export const Skyscraper1 = styled.div`
     position: absolute;
     border-top: 15px solid transparent;
     border-bottom: none;
-    border-right: 45px solid #d6d6d6;
+    border-right: ${({ $color }) => $color} 45px solid;
+    transition: border-right 2s ease;
     height: 30px;
     transform: scaleX(-1);
     top: -30px;
@@ -44,14 +46,16 @@ export const Skyscraper1 = styled.div`
     position: absolute;
     width: 2px;
     height: 24px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -50px;
     left: 15px;
   }
 `;
 
-export const Skyscraper2 = styled.div`
-  background-color: #d6d6d6;
+export const Skyscraper2 = styled.div<{ $color: string }>`
+  background-color: ${({ $color }) => $color};
+  transition: background 2s ease;
   width: 50px;
   height: 183px;
   margin-left: 33px;
@@ -62,13 +66,15 @@ export const Skyscraper2 = styled.div`
     position: absolute;
     width: 2px;
     height: 24px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -24px;
     left: 7px;
   }
 `;
-export const Skyscraper3 = styled.div`
-  background-color: #d6d6d6;
+export const Skyscraper3 = styled.div<{ $color: string }>`
+  background-color: ${({ $color }) => $color};
+  transition: background 2s ease;
   width: 70px;
   height: 240px;
   margin-left: 39px;
@@ -79,21 +85,24 @@ export const Skyscraper3 = styled.div`
     position: absolute;
     width: 8px;
     height: 4px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -4px;
   }
 `;
 
-export const Skyscraper4 = styled.div`
-  background-color: #d6d6d6;
+export const Skyscraper4 = styled.div<{ $color: string }>`
+  background-color: ${({ $color }) => $color};
+  transition: background 2s ease;
   width: 47px;
   height: 175px;
   margin-left: 10px;
   position: relative;
 `;
 
-export const Skyscraper5 = styled.div`
-  background-color: #d6d6d6;
+export const Skyscraper5 = styled.div<{ $color: string }>`
+  background-color: ${({ $color }) => $color};
+  transition: background 2s ease;
   width: 47px;
   height: 211px;
   margin-left: 5px;
@@ -104,14 +113,16 @@ export const Skyscraper5 = styled.div`
     position: absolute;
     width: 6px;
     height: 2px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -2px;
     right: 5px;
   }
 `;
 
-export const Skyscraper6 = styled.div`
-  background-color: #d6d6d6;
+export const Skyscraper6 = styled.div<{ $color: string }>`
+  background-color: ${({ $color }) => $color};
+  transition: background 2s ease;
   width: 70px;
   height: 189px;
   margin-left: 38px;
@@ -122,7 +133,8 @@ export const Skyscraper6 = styled.div`
     position: absolute;
     width: 5px;
     height: 11px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -8px;
     left: 6px;
   }
@@ -131,16 +143,18 @@ export const Skyscraper6 = styled.div`
     position: absolute;
     width: 2px;
     height: 30px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -37px;
     left: 6px;
   }
 `;
 
-export const Skyscraper7 = styled.div`
+export const Skyscraper7 = styled.div<{ $color: string }>`
   border-top: 12px solid transparent;
   border-bottom: none;
-  border-right: 66px solid #d6d6d6;
+  border-right: ${({ $color }) => $color} 66px solid;
+  transition: border-right 2s ease;
   height: 130px;
   position: relative;
   margin-left: 4px;
@@ -150,7 +164,8 @@ export const Skyscraper7 = styled.div`
     position: absolute;
     border-top: 15px solid transparent;
     border-bottom: none;
-    border-right: 45px solid #d6d6d6;
+    border-right: ${({ $color }) => $color} 45px solid;
+    transition: border-right 2s ease;
     height: 30px;
     transform: scaleX(-1);
     top: -30px;
@@ -161,14 +176,16 @@ export const Skyscraper7 = styled.div`
     position: absolute;
     width: 2px;
     height: 24px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -50px;
     left: 15px;
   }
 `;
 
-export const Skyscraper8 = styled.div`
-  background-color: #d6d6d6;
+export const Skyscraper8 = styled.div<{ $color: string }>`
+  background-color: ${({ $color }) => $color};
+  transition: background 2s ease;
   width: 80px;
   height: 150px;
   margin-left: 4px;
@@ -179,7 +196,8 @@ export const Skyscraper8 = styled.div`
     position: absolute;
     width: 2px;
     height: 24px;
-    background-color: #d6d6d6;
+    background-color: ${({ $color }) => $color};
+    transition: background 2s ease;
     top: -24px;
     left: 7px;
   }
