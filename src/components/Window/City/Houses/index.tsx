@@ -13,11 +13,11 @@ interface HousesProps {
 const Houses: FC<HousesProps> = ({ themeLight }) => {
   return (
     <HousesWrapper>
-      <House1 />
-      <House2 />
-      <House3 />
-      <House4 />
-      <House5 />
+      <House1 themeLight={themeLight} />
+      <House2 themeLight={themeLight} />
+      <House3 themeLight={themeLight} />
+      <House4 themeLight={themeLight} />
+      <House5 themeLight={themeLight} />
     </HousesWrapper>
   );
 };

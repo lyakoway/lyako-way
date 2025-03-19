@@ -11,7 +11,7 @@ interface CloudProps {
 const City: FC<CloudProps> = ({ themeLight }) => {
   return (
     <CityWrapper>
-      <Houses />
+      <Houses themeLight={themeLight} />
       <Tree left="12px" />
       <Tree left="448px" />
       <Streetlamp left="38px" />

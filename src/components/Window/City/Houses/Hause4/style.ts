@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
   background: linear-gradient(
@@ -37,15 +37,22 @@ export const Wrapper = styled.div`
 `;
 //
 
-export const HouseWindowCircle = styled.div`
+export const HouseWindowCircle = styled.div<{ $themeLight: boolean }>`
   width: 15px;
   height: 15px;
-  background-color: #cde1fe;
   border-radius: 50%;
   border: 3px solid #5a6666;
   position: relative;
   left: 16px;
   top: -20px;
+  background-color: ${({ $themeLight }) =>
+    $themeLight ? "#cde1fe" : "#FFE9AB"};
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      box-shadow: inset 0 0 5px 1px #3f6b91;
+    `}
+  transition: background 4s ease;
 
   &:before {
     content: "";
@@ -75,13 +82,21 @@ export const HousesWindowsRow = styled.div`
   align-items: center;
 `;
 
-export const HousesWindows = styled.div`
+export const HousesWindows = styled.div<{ $themeLight: boolean }>`
   position: relative;
   width: 25px;
   height: 25px;
-  background-color: #cce1ff;
   border: 3px solid #5a6666;
   margin: 6px;
+
+  background-color: ${({ $themeLight }) =>
+    $themeLight ? "#cce1ff" : "#FFE9AB"};
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      box-shadow: inset 0 0 5px 1px #3f6b91;
+    `}
+  transition: background 4s ease;
 
   &:before {
     content: "";

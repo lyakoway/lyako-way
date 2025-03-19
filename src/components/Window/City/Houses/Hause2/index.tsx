@@ -11,7 +11,10 @@ import {
   House2Rack,
 } from "src/components/Window/City/Houses/Hause2/style";
 
-const House2: FC = () => {
+interface HousesProps {
+  themeLight?: boolean;
+}
+const House2: FC<HousesProps> = ({ themeLight }) => {
   return (
     <Wrapper>
       <Tank>
@@ -21,19 +24,19 @@ const House2: FC = () => {
 
       <Houses2Windows>
         <HousesWindowsRow>
-          <HousesWindows />
-          <HousesWindows />
-          <HousesWindows />
+          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows $themeLight={themeLight} />
         </HousesWindowsRow>
         <HousesWindowsRow>
-          <HousesWindows />
-          <HousesWindows />
-          <HousesWindows />
+          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows $themeLight={themeLight} />
         </HousesWindowsRow>
         <HousesWindowsRow>
           <HousesDoor />
-          <HousesWindows />
-          <HousesWindows />
+          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows $themeLight={themeLight} />
         </HousesWindowsRow>
       </Houses2Windows>
 

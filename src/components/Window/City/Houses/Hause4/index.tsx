@@ -11,13 +11,16 @@ import {
   HouseDoorRail,
 } from "src/components/Window/City/Houses/Hause4/style";
 
-const House4: FC = () => {
+interface HousesProps {
+  themeLight?: boolean;
+}
+const House4: FC<HousesProps> = ({ themeLight }) => {
   return (
     <Wrapper>
-      <HouseWindowCircle />
+      <HouseWindowCircle $themeLight={themeLight} />
       <Houses4Windows>
         <HousesWindowsRow>
-          <HousesWindows>
+          <HousesWindows $themeLight={themeLight}>
             <HouseWindowFrame />
           </HousesWindows>
         </HousesWindowsRow>

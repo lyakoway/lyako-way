@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Wrapper = styled.div`
   background-color: #edc181;
@@ -28,18 +28,26 @@ export const HousesWindowsRow = styled.div`
   align-items: center;
 `;
 
-export const HousesWindows = styled.div`
+export const HousesWindows = styled.div<{ $themeLight: boolean }>`
   width: 16px;
   height: 28px;
   position: relative;
-  background-color: #b2c7e6;
   border: 3px solid #666961;
   margin: 6px;
+  background-color: ${({ $themeLight }) =>
+    $themeLight ? "#b2c7e6" : "#FFE9AB"};
+
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      box-shadow: inset 0 0 5px 1px #3f6b91;
+    `}
+  transition: background 4s ease;
 
   &:before {
     content: "";
     position: absolute;
-    width: 10px;
+    width: 11px;
     height: 2px;
     background-color: #666961;
     bottom: 50%;

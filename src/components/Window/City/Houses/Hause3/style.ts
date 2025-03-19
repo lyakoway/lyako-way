@@ -143,8 +143,7 @@ export const SmokeR = styled.span<{
     `}
 `;
 
-export const House3RoofWindow = styled.div`
-  background-color: #cce1ff;
+export const House3RoofWindow = styled.div<{ $themeLight: boolean }>`
   border: 3px solid #d16465;
   position: absolute;
   top: -31px;
@@ -152,6 +151,14 @@ export const House3RoofWindow = styled.div`
   left: 25px;
   height: 24px;
   width: 16px;
+  background-color: ${({ $themeLight }) =>
+    $themeLight ? "#cce1ff" : "#FFE9AB"};
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      box-shadow: inset 0 0 5px 1px #3f6b91;
+    `}
+  transition: background 4s ease;
 
   &:before {
     content: "";
@@ -177,7 +184,25 @@ export const House3RoofWindow = styled.div`
   }
 `;
 
-export const House3WindowShades = styled.div`
+const ani = keyframes`
+  0% {
+    height: 60%;
+  }
+  100% {
+    height: 0;
+  }
+`;
+
+const ani1 = keyframes`
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 60%;
+  }
+`;
+
+export const House3WindowShades = styled.div<{ $themeLight: boolean }>`
   background: linear-gradient(
     to bottom,
     #d6e5fc,
@@ -189,6 +214,10 @@ export const House3WindowShades = styled.div`
   width: 100%;
   height: 60%;
   border-bottom: 1px solid #72bcd4;
+  ${({ $themeLight }) =>
+    css`
+      animation: ${$themeLight ? ani : ani1} 2s forwards;
+    `};
 `;
 
 export const Houses3Windows = styled.div`
@@ -200,13 +229,20 @@ export const HousesWindowsRow = styled.div`
   align-items: center;
 `;
 
-export const HousesWindows = styled.div`
+export const HousesWindows = styled.div<{ $themeLight: boolean }>`
   width: 16px;
   position: relative;
-  background-color: #b2c7e6;
   border: 3px solid #964a43;
   margin: 7px;
   height: 24px;
+  background-color: ${({ $themeLight }) =>
+    $themeLight ? "#b2c7e6" : "#FFE9AB"};
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      box-shadow: inset 0 0 5px 1px #3f6b91;
+    `}
+  transition: background 4s ease;
 
   &:before {
     content: "";

@@ -7,21 +7,24 @@ import {
   HousesDoor,
 } from "src/components/Window/City/Houses/Hause1/style";
 
-const House1: FC = () => {
+interface HousesProps {
+  themeLight?: boolean;
+}
+const House1: FC<HousesProps> = ({ themeLight }) => {
   return (
     <Wrapper>
       <Houses1Windows>
         <HousesWindowsRow>
-          <HousesWindows />
-          <HousesWindows />
+          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows $themeLight={themeLight} />
         </HousesWindowsRow>
         <HousesWindowsRow>
-          <HousesWindows />
-          <HousesWindows />
+          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows $themeLight={themeLight} />
         </HousesWindowsRow>
         <HousesWindowsRow>
           <HousesDoor />
-          <HousesWindows />
+          <HousesWindows $themeLight={themeLight} />
         </HousesWindowsRow>
       </Houses1Windows>
     </Wrapper>
