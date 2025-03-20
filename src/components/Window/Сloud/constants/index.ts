@@ -20,7 +20,7 @@ export interface IPropsClimateControl {
 export const propsClimateControl: IPropsClimateControl[] = [
   {
     id: "sunnyMoon",
-    cloudAmount: 2,
+    cloudAmount: 3,
     minRandomTopAndLeft: 10,
     maxRandomTopAndLeft: 120,
     timeMinRandomMovements: 26,
