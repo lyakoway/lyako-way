@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 
-export const StreetlampWrapper = styled.div<{ left: string }>`
+export const StreetlampWrapper = styled.div<{ $left: string }>`
   position: absolute;
   bottom: -60px;
   width: 2px;
@@ -9,7 +9,7 @@ export const StreetlampWrapper = styled.div<{ left: string }>`
   margin: 0 85px;
   cursor: pointer;
   z-index: 200;
-  left: ${({ left }) => left};
+  left: ${({ $left }) => $left};
   display: flex;
 
   &:before {

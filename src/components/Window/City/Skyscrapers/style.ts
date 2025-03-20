@@ -37,17 +37,6 @@ export const SkyscraperWindowsWrapper7 = styled.div`
   margin: 10px 4px 4px 4px;
 `;
 
-export const SkyscraperWindows = styled.div<{ $themeLight: boolean }>`
-  width: 8px;
-  height: 12px;
-  position: relative;
-  border: 1px solid #88bef5;
-  background-color: ${({ $themeLight }) =>
-    $themeLight ? "#d6e5fc" : "#FFE9AB"};
-  transition: background 2s ease;
-  opacity: 0.4;
-`;
-
 export const Skyscraper1 = styled.div<{ $color: string }>`
   border-top: 12px solid transparent;
   border-bottom: none;

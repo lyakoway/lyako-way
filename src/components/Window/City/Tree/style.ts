@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const TreeWrapper = styled.div<{ left: string }>`
+export const TreeWrapper = styled.div<{ $left: string }>`
   position: absolute;
   width: 37px;
   height: 74px;
   z-index: 200;
   bottom: -60px;
-  left: ${({ left }) => left};
+  left: ${({ $left }) => $left};
   display: flex;
 `;
 

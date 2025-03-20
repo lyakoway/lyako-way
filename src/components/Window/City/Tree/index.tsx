@@ -15,7 +15,7 @@ interface TreeProps {
 
 const Tree: FC<TreeProps> = ({ themeLight, left }) => {
   return (
-    <TreeWrapper left={left}>
+    <TreeWrapper $left={left}>
       <TreeTrunk>
         <Leaf1 />
         <Leaf2 />
