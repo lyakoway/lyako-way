@@ -14,7 +14,7 @@ export const RainWrapper = styled.div`
   height: 400px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30px;
+  margin-top: -50px;
   overflow: hidden;
   z-index: 300;
 `;

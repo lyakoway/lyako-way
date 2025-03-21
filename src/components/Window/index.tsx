@@ -35,6 +35,8 @@ import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
 import Rain from "src/components/Window/Rain";
+import Snow from "src/components/Window/Snow";
+import Snow1 from "src/components/Window/Snow1";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -109,6 +111,8 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $themeLight={themeLight}
       >
         {/*<Rain climateControl={climateControl} />*/}
+        {/*<Snow climateControl={climateControl} />*/}
+        <Snow1 climateControl={climateControl} />
         <WindowSky
           dayToNightColor={dayToNightColor}
           timeLeftSunMoon={timeLeftSunMoon}
