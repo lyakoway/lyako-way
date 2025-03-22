@@ -66,7 +66,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   const winter = false;
 
-  const climateControl = climate;
+  const climateControl = "rainy";
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
@@ -110,8 +110,8 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $timeLeftSunMoon={timeLeftSunMoon}
         $themeLight={themeLight}
       >
-        {/*<Rain climateControl={climateControl} />*/}
-        <Snow climateControl={climateControl} />
+        {climateControl === "rainy" && <Rain climateControl={climateControl} />}
+        {/*<Snow climateControl={climateControl} />*/}
         <WindowSky
           dayToNightColor={dayToNightColor}
           timeLeftSunMoon={timeLeftSunMoon}
