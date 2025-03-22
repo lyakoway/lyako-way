@@ -111,8 +111,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $themeLight={themeLight}
       >
         {/*<Rain climateControl={climateControl} />*/}
-        {/*<Snow climateControl={climateControl} />*/}
-        <Snow1 climateControl={climateControl} />
+        <Snow climateControl={climateControl} />
         <WindowSky
           dayToNightColor={dayToNightColor}
           timeLeftSunMoon={timeLeftSunMoon}

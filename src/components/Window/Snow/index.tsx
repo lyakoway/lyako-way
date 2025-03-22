@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { SnowWrapper, SnowFlake } from "./style";
+import { SnowWrapper, SnowFlake, SnowFlakeL, SnowFlakeR } from "./style";
 import { getRandomArra } from "src/common/utils";
 interface SnowProps {
   climateControl: string;
@@ -28,8 +28,6 @@ const Snow: FC<SnowProps> = ({ climateControl }) => {
     setRandomSnow(randomSnowValue);
   }, []);
 
-  console.log(randomSnow);
-
   return (
     <SnowWrapper>
       {randomSnow.map((itemDrop, i) => (
@@ -43,6 +41,36 @@ const Snow: FC<SnowProps> = ({ climateControl }) => {
           $size={itemDrop.animationDuration / 8}
         />
       ))}
+      <SnowFlakeL $left={10} $animationDelay={0.5} $animationDuration={6}>
+        ❅
+      </SnowFlakeL>
+      <SnowFlakeR $left={20} $animationDelay={2} $animationDuration={7}>
+        ❅
+      </SnowFlakeR>
+      <SnowFlakeL $left={30} $animationDelay={4} $animationDuration={8}>
+        ❆
+      </SnowFlakeL>
+      <SnowFlakeR $left={40} $animationDelay={3} $animationDuration={6}>
+        ❄
+      </SnowFlakeR>
+      <SnowFlakeL $left={50} $animationDelay={4} $animationDuration={9}>
+        ❅
+      </SnowFlakeL>
+      <SnowFlakeR $left={60} $animationDelay={3} $animationDuration={8}>
+        ❆
+      </SnowFlakeR>
+      <SnowFlakeL $left={70} $animationDelay={2} $animationDuration={10}>
+        ❄
+      </SnowFlakeL>
+      <SnowFlakeR $left={80} $animationDelay={2} $animationDuration={7}>
+        ❅
+      </SnowFlakeR>
+      <SnowFlakeL $left={90} $animationDelay={5} $animationDuration={8}>
+        ❆
+      </SnowFlakeL>
+      <SnowFlakeR $left={55} $animationDelay={4} $animationDuration={7}>
+        ❄
+      </SnowFlakeR>
     </SnowWrapper>
   );
 };
