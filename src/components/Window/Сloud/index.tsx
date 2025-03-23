@@ -7,6 +7,7 @@ import { CloudWrapper } from "./style";
 import { getRandomArra } from "src/common/utils";
 import { propsClimateControl } from "./constants";
 import { IPropsClimateControl } from "./constants";
+import Snowy from "src/components/Window/Сloud/Snowy";
 
 interface CloudProps {
   climateControl: string;
@@ -92,6 +93,17 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
           dataClimateControl?.id === "cloudyWithRainAndLightning") &&
           dataClimateControl?.amountRainClouds && (
             <WeatherRain
+              dropAmount={dataClimateControl?.amountRainClouds}
+              leftMin={dataClimateControl?.minRandomLeftRain}
+              leftMax={dataClimateControl?.maxRandomLeftRain}
+              fallTimeMin={dataClimateControl?.timeMinRandomRain}
+              fallTimeMax={dataClimateControl?.timeMaxRandomRain}
+              top={item.top}
+            />
+          )}
+        {dataClimateControl?.id === "snowy" &&
+          dataClimateControl?.amountRainClouds && (
+            <Snowy
               dropAmount={dataClimateControl?.amountRainClouds}
               leftMin={dataClimateControl?.minRandomLeftRain}
               leftMax={dataClimateControl?.maxRandomLeftRain}
