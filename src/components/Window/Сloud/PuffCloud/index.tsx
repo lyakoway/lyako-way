@@ -10,8 +10,8 @@ interface PuffCloudProps {
   max: number;
   fallTimeMin: number;
   fallTimeMax: number;
-  colorCloud: number;
-  colorBorder: number;
+  top: number;
+  idType: string;
 }
 
 const PuffCloud = ({
@@ -20,10 +20,12 @@ const PuffCloud = ({
   max,
   fallTimeMin,
   fallTimeMax,
-  colorCloud,
-  colorBorder,
+  top,
+  idType,
 }: PuffCloudProps) => {
   const [randomPuffCloud, setRandomPuffCloud] = useState([]);
+  const [colorCloud, setColorCloud] = useState(100);
+  const [colorBorder, setColorBorder] = useState(50);
 
   useEffect(() => {
     const randomPuffCloudValue = getRandomArra(
@@ -34,6 +36,30 @@ const PuffCloud = ({
       fallTimeMax
     );
     setRandomPuffCloud(randomPuffCloudValue);
+
+    if (
+      idType === "sunnyMoon" ||
+      (top < 40 && (idType === "cloudyWithSunMoon" || idType === "cloudy"))
+    ) {
+      setColorCloud(100);
+      setColorBorder(70);
+    }
+    if (top > 40 && (idType === "cloudyWithSunMoon" || idType === "cloudy")) {
+      setColorCloud(80);
+      setColorBorder(50);
+    }
+    if (top < 40 && idType === "rainy") {
+      setColorCloud(80);
+      setColorBorder(50);
+    }
+    if (top > 40 && idType === "rainy") {
+      setColorCloud(60);
+      setColorBorder(30);
+    }
+    if (idType === "cloudyWithRainAndLightning") {
+      setColorCloud(50);
+      setColorBorder(12);
+    }
   }, []);
 
   return (

@@ -41,38 +41,6 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
   }
 
   return randomCloud.map((item, index) => {
-    let colorCloud = 100;
-    let colorBorder = 50;
-    if (
-      dataClimateControl?.id === "sunnyMoon" ||
-      (item.top < 40 &&
-        (dataClimateControl?.id === "cloudyWithSunMoon" ||
-          dataClimateControl?.id === "cloudy"))
-    ) {
-      colorCloud = 100;
-      colorBorder = 70;
-    }
-    if (
-      item.top > 40 &&
-      (dataClimateControl?.id === "cloudyWithSunMoon" ||
-        dataClimateControl?.id === "cloudy")
-    ) {
-      colorCloud = 80;
-      colorBorder = 50;
-    }
-    if (item.top < 40 && dataClimateControl?.id === "rainy") {
-      colorCloud = 80;
-      colorBorder = 50;
-    }
-    if (item.top > 40 && dataClimateControl?.id === "rainy") {
-      colorCloud = 60;
-      colorBorder = 30;
-    }
-    if (dataClimateControl?.id === "cloudyWithRainAndLightning") {
-      colorCloud = 50;
-      colorBorder = 12;
-    }
-
     return (
       <CloudWrapper
         key={index}
@@ -86,8 +54,8 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
           max={dataClimateControl?.maxRandomTopAndLeftLocationCloudLayers}
           fallTimeMin={dataClimateControl?.timeMinRandomCloudLayers}
           fallTimeMax={dataClimateControl?.timeMaxRandomCloudLayers}
-          colorCloud={colorCloud}
-          colorBorder={colorBorder}
+          top={item.top}
+          idType={dataClimateControl?.id}
         />
         {(dataClimateControl?.id === "rainy" ||
           dataClimateControl?.id === "cloudyWithRainAndLightning") &&
