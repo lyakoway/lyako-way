@@ -6,22 +6,22 @@ const falling = keyframes`
         transform: translateX(0px);
     }
     25% {
-        transform: translateX(5px);
+        transform: translateX(3px);
     }
     20% {
-        transform: translateX(-5px);
+        transform: translateX(-3px);
     }
     30% {
-        transform: translateX(5px);
+        transform: translateX(3px);
     }
     40% {
-        transform: translateX(-5px);
+        transform: translateX(-3px);
     }
     50% {
-        transform: translateX(-5px);
+        transform: translateX(3px);
     }
     75% {
-        transform: translateX(10px);
+        transform: translateX(-3px);
     }
     100% {
         margin-top: 200px;
@@ -51,14 +51,11 @@ export const SnowFlake = styled.div<{
   $animationDelay: number;
   $animationDuration: number;
 }>`
-  width: 3px;
-  height: 3px;
   left: ${({ $left }) => $left}px;
   position: absolute;
-  background: #d7fdfe;
-  //background: #a7defd;
-  //background: #cfebeb;
-  border-radius: 50%;
+
+  color: #d7fdfe;
+  font-size: 0.4em;
 
   ${({ $animationDelay, $animationDuration }) =>
     css`

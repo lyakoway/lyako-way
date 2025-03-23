@@ -44,7 +44,9 @@ const Snowy = ({
             $left={itemDrop.left}
             $animationDelay={itemDrop.animationDuration / 8}
             $animationDuration={itemDrop.animationDuration}
-          />
+          >
+            ❄
+          </SnowFlake>
         ))}
       </Rain>
     </SnowyWrapper>

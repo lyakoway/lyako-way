@@ -18,10 +18,10 @@ const falling = keyframes`
     transform: translateX(-5px);
   }
   50% {
-    transform: translateX(-5px);
+    transform: translateX(5px);
   }
   75% {
-    transform: translateX(10px);
+    transform: translateX(-5px);
   }
   100% {
     margin-top: 400px;
