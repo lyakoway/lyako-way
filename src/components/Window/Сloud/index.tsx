@@ -15,6 +15,7 @@ interface CloudProps {
 const Cloud: FC<CloudProps> = ({ climateControl }) => {
   const [dataClimateControl, setDataClimateControl] =
     useState<IPropsClimateControl>(null);
+  const [randomCloud, setRandomCloud] = useState([]);
 
   useEffect(() => {
     const propsClimateControlValue = propsClimateControl.find(
@@ -23,58 +24,50 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
     setDataClimateControl(propsClimateControlValue);
   }, [climateControl]);
 
+  useEffect(() => {
+    const randomCloudValue = getRandomArra(
+      dataClimateControl?.cloudAmount,
+      dataClimateControl?.minRandomTopAndLeft,
+      dataClimateControl?.maxRandomTopAndLeft,
+      dataClimateControl?.timeMinRandomMovements,
+      dataClimateControl?.timeMaxRandomMovements
+    );
+    setRandomCloud(randomCloudValue);
+  }, [dataClimateControl]);
+
   if (!dataClimateControl) {
     return null;
   }
 
-  const {
-    id,
-    cloudAmount,
-    minRandomTopAndLeft,
-    maxRandomTopAndLeft,
-    timeMinRandomMovements,
-    timeMaxRandomMovements,
-    numberCloudLayers,
-    minRandomTopAndLeftLocationCloudLayers,
-    maxRandomTopAndLeftLocationCloudLayers,
-    timeMinRandomCloudLayers,
-    timeMaxRandomCloudLayers,
-    amountRainClouds,
-    minRandomLeftRain,
-    maxRandomLeftRain,
-    timeMinRandomRain,
-    timeMaxRandomRain,
-  } = dataClimateControl;
-
-  return getRandomArra(
-    cloudAmount,
-    minRandomTopAndLeft,
-    maxRandomTopAndLeft,
-    timeMinRandomMovements,
-    timeMaxRandomMovements
-  ).map((item, index) => {
+  return randomCloud.map((item, index) => {
     let colorCloud = 100;
     let colorBorder = 50;
     if (
-      id === "sunnyMoon" ||
-      (item.top < 60 && (id === "cloudyWithSunMoon" || id === "cloudy"))
+      dataClimateControl?.id === "sunnyMoon" ||
+      (item.top < 40 &&
+        (dataClimateControl?.id === "cloudyWithSunMoon" ||
+          dataClimateControl?.id === "cloudy"))
     ) {
       colorCloud = 100;
       colorBorder = 70;
     }
-    if (item.top > 60 && (id === "cloudyWithSunMoon" || id === "cloudy")) {
+    if (
+      item.top > 40 &&
+      (dataClimateControl?.id === "cloudyWithSunMoon" ||
+        dataClimateControl?.id === "cloudy")
+    ) {
       colorCloud = 80;
       colorBorder = 50;
     }
-    if (item.top < 60 && id === "rainy") {
+    if (item.top < 40 && dataClimateControl?.id === "rainy") {
       colorCloud = 80;
       colorBorder = 50;
     }
-    if (item.top > 60 && id === "rainy") {
+    if (item.top > 40 && dataClimateControl?.id === "rainy") {
       colorCloud = 60;
       colorBorder = 30;
     }
-    if (id === "cloudyWithRainAndLightning") {
+    if (dataClimateControl?.id === "cloudyWithRainAndLightning") {
       colorCloud = 50;
       colorBorder = 12;
     }
@@ -87,24 +80,26 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
         $duration={item.animationDuration}
       >
         <PuffCloud
-          dropAmount={numberCloudLayers}
-          min={minRandomTopAndLeftLocationCloudLayers}
-          max={maxRandomTopAndLeftLocationCloudLayers}
-          fallTimeMin={timeMinRandomCloudLayers}
-          fallTimeMax={timeMaxRandomCloudLayers}
+          dropAmount={dataClimateControl?.numberCloudLayers}
+          min={dataClimateControl?.minRandomTopAndLeftLocationCloudLayers}
+          max={dataClimateControl?.maxRandomTopAndLeftLocationCloudLayers}
+          fallTimeMin={dataClimateControl?.timeMinRandomCloudLayers}
+          fallTimeMax={dataClimateControl?.timeMaxRandomCloudLayers}
           colorCloud={colorCloud}
           colorBorder={colorBorder}
         />
-        {amountRainClouds && (
-          <WeatherRain
-            dropAmount={amountRainClouds}
-            leftMin={minRandomLeftRain}
-            leftMax={maxRandomLeftRain}
-            fallTimeMin={timeMinRandomRain}
-            fallTimeMax={timeMaxRandomRain}
-            top={item.top}
-          />
-        )}
+        {(dataClimateControl?.id === "rainy" ||
+          dataClimateControl?.id === "cloudyWithRainAndLightning") &&
+          dataClimateControl?.amountRainClouds && (
+            <WeatherRain
+              dropAmount={dataClimateControl?.amountRainClouds}
+              leftMin={dataClimateControl?.minRandomLeftRain}
+              leftMax={dataClimateControl?.maxRandomLeftRain}
+              fallTimeMin={dataClimateControl?.timeMinRandomRain}
+              fallTimeMax={dataClimateControl?.timeMaxRandomRain}
+              top={item.top}
+            />
+          )}
       </CloudWrapper>
     );
   });

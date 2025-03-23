@@ -22,7 +22,7 @@ const WeatherRain = ({
   top,
 }: WeatherRainProps) => {
   const [randomSnow, setRandomSnow] = useState([]);
-  const show = top > 60;
+  const show = top > 40;
 
   useEffect(() => {
     const randomSnowValue = getRandomArra(
