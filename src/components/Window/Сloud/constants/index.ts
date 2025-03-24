@@ -33,7 +33,7 @@ export const propsClimateControl: IPropsClimateControl[] = [
   },
   {
     id: "cloudyWithSunMoon",
-    cloudAmount: 4,
+    cloudAmount: 12,
     minRandomTopAndLeft: 10,
     maxRandomTopAndLeft: 80,
     timeMinRandomMovements: 26,
@@ -46,7 +46,7 @@ export const propsClimateControl: IPropsClimateControl[] = [
   },
   {
     id: "cloudy",
-    cloudAmount: 4,
+    cloudAmount: 12,
     minRandomTopAndLeft: 10,
     maxRandomTopAndLeft: 100,
     timeMinRandomMovements: 26,
@@ -59,7 +59,7 @@ export const propsClimateControl: IPropsClimateControl[] = [
   },
   {
     id: "rainy",
-    cloudAmount: 8,
+    cloudAmount: 12,
     minRandomTopAndLeft: 10,
     maxRandomTopAndLeft: 70,
     timeMinRandomMovements: 26,

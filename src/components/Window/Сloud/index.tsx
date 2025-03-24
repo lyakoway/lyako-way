@@ -34,7 +34,7 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
       dataClimateControl?.timeMaxRandomMovements
     );
     setRandomCloud(randomCloudValue);
-  }, [dataClimateControl]);
+  }, [dataClimateControl, climateControl]);
 
   if (!dataClimateControl) {
     return null;
