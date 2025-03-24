@@ -36,7 +36,7 @@ import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
 import Rain from "src/components/Window/Rain";
 import Snow from "src/components/Window/Snow";
-import Snow1 from "src/components/Window/Snow1";
+import Lightning from "src/components/Window/Lightning";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -66,7 +66,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   const winter = false;
 
-  const climateControl = "rainy";
+  const climateControl = "cloudyWithRainAndLightning";
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
@@ -114,6 +114,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
           climateControl === "cloudyWithRainAndLightning") && (
           <Rain climateControl={climateControl} />
         )}
+        {climateControl === "cloudyWithRainAndLightning" && <Lightning />}
         {climateControl === "snowy" && <Snow climateControl={climateControl} />}
         <WindowSky
           dayToNightColor={dayToNightColor}

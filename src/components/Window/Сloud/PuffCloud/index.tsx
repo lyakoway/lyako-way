@@ -39,7 +39,7 @@ const PuffCloud = ({
 
     if (
       idType === "sunnyMoon" ||
-      (top < 40 && (idType === "cloudyWithSunMoon" || idType === "cloudy"))
+      (top <= 40 && (idType === "cloudyWithSunMoon" || idType === "cloudy"))
     ) {
       setColorCloud(100);
       setColorBorder(70);
@@ -48,7 +48,7 @@ const PuffCloud = ({
       setColorCloud(80);
       setColorBorder(50);
     }
-    if (top < 40 && idType === "rainy") {
+    if (top <= 40 && idType === "rainy") {
       setColorCloud(80);
       setColorBorder(50);
     }
@@ -56,11 +56,17 @@ const PuffCloud = ({
       setColorCloud(60);
       setColorBorder(30);
     }
-    if (idType === "cloudyWithRainAndLightning") {
+
+    if (top <= 40 && idType === "cloudyWithRainAndLightning") {
+      setColorCloud(60);
+      setColorBorder(30);
+    }
+    if (top > 40 && idType === "cloudyWithRainAndLightning") {
+      console.log(111, idType);
       setColorCloud(50);
       setColorBorder(12);
     }
-  }, []);
+  }, [idType]);
 
   return (
     randomPuffCloud.length &&
