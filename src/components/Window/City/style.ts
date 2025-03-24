@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CityWrapper = styled.div`
+export const CityWrapper = styled.div<{ $climateControl: string }>`
   position: absolute;
   width: 500px;
   height: 300px;
@@ -13,7 +13,9 @@ export const CityWrapper = styled.div`
     position: absolute;
     width: 800px;
     height: 120px;
-    background-color: #918686;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#918686"};
+    transition: background 4s ease;
     bottom: -180px;
     border-radius: 10px;
     z-index: 200;

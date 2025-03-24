@@ -16,11 +16,12 @@ import {
 
 interface HousesProps {
   themeLight?: boolean;
+  climateControl: string;
 }
-const House3: FC<HousesProps> = ({ themeLight }) => {
+const House3: FC<HousesProps> = ({ themeLight, climateControl }) => {
   return (
     <Container>
-      <Wrapper>
+      <Wrapper $climateControl={climateControl}>
         <House3Chimney>
           <Smoke>
             <SmokeL $animationDelay={0} />
@@ -36,7 +37,10 @@ const House3: FC<HousesProps> = ({ themeLight }) => {
           </Smoke>
         </House3Chimney>
 
-        <House3RoofWindow $themeLight={themeLight}>
+        <House3RoofWindow
+          $themeLight={themeLight}
+          $climateControl={climateControl}
+        >
           <House3WindowShades $themeLight={themeLight} />
         </House3RoofWindow>
 

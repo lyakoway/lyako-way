@@ -7,16 +7,25 @@ import MailTruck from "src/components/Window/City/MailTruck";
 
 interface CloudProps {
   themeLight?: boolean;
+  climateControl: string;
 }
 
-const City: FC<CloudProps> = ({ themeLight }) => {
+const City: FC<CloudProps> = ({ themeLight, climateControl }) => {
   return (
-    <CityWrapper>
-      <Houses themeLight={themeLight} />
-      <Tree left="12px" />
-      <Tree left="448px" />
-      <Streetlamp left="38px" themeLight={themeLight} />
-      <Streetlamp left="213px" themeLight={themeLight} />
+    <CityWrapper $climateControl={climateControl}>
+      <Houses themeLight={themeLight} climateControl={climateControl} />
+      <Tree left="12px" climateControl={climateControl} />
+      <Tree left="448px" climateControl={climateControl} />
+      <Streetlamp
+        left="38px"
+        themeLight={themeLight}
+        climateControl={climateControl}
+      />
+      <Streetlamp
+        left="213px"
+        themeLight={themeLight}
+        climateControl={climateControl}
+      />
       <MailTruck />
     </CityWrapper>
   );

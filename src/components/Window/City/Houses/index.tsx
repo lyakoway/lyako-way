@@ -8,16 +8,17 @@ import House5 from "src/components/Window/City/Houses/Hause5";
 
 interface HousesProps {
   themeLight?: boolean;
+  climateControl: string;
 }
 
-const Houses: FC<HousesProps> = ({ themeLight }) => {
+const Houses: FC<HousesProps> = ({ themeLight, climateControl }) => {
   return (
     <HousesWrapper>
-      <House1 themeLight={themeLight} />
-      <House2 themeLight={themeLight} />
-      <House3 themeLight={themeLight} />
-      <House4 themeLight={themeLight} />
-      <House5 themeLight={themeLight} />
+      <House1 themeLight={themeLight} climateControl={climateControl} />
+      <House2 themeLight={themeLight} climateControl={climateControl} />
+      <House3 themeLight={themeLight} climateControl={climateControl} />
+      <House4 themeLight={themeLight} climateControl={climateControl} />
+      <House5 themeLight={themeLight} climateControl={climateControl} />
     </HousesWrapper>
   );
 };

@@ -16,13 +16,14 @@ import { House3WindowShades } from "src/components/Window/City/Houses/Hause3/sty
 
 interface HousesProps {
   themeLight?: boolean;
+  climateControl: string;
 }
-const House5: FC<HousesProps> = ({ themeLight }) => {
+const House5: FC<HousesProps> = ({ themeLight, climateControl }) => {
   return (
-    <Wrapper>
-      <HouseRoof>
-        <Tank>
-          <TankDetails />
+    <Wrapper $climateControl={climateControl}>
+      <HouseRoof $climateControl={climateControl}>
+        <Tank $climateControl={climateControl}>
+          <TankDetails $climateControl={climateControl} />
         </Tank>
       </HouseRoof>
       <Houses5Windows>

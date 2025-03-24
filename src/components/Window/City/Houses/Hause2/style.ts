@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $climateControl: string }>`
   background-color: #ceae99;
   width: 101px;
   height: 165px;
@@ -10,7 +10,9 @@ export const Wrapper = styled.div`
   &:before {
     content: "";
     position: absolute;
-    background-color: #997071;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#997071"};
+    transition: background 4s ease;
     width: 109px;
     height: 7px;
     top: -11px;
@@ -22,7 +24,9 @@ export const Wrapper = styled.div`
   &:after {
     content: "";
     position: absolute;
-    background-color: #997071;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#997071"};
+    transition: background 4s ease;
     width: 113px;
     height: 7px;
     top: -21px;
@@ -30,10 +34,12 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Tank = styled.div`
+export const Tank = styled.div<{ $climateControl }>`
   width: 24px;
   height: 27px;
-  background-color: #eadadb;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#eadadb"};
+  transition: background 4s ease;
   position: relative;
   top: -52px;
   left: 7px;
@@ -60,10 +66,12 @@ export const Tank = styled.div`
   }
 `;
 
-export const TankDetails = styled.div`
+export const TankDetails = styled.div<{ $climateControl: string }>`
   width: 11px;
   height: 3px;
-  background-color: #ccbebf;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#ccbebf"};
+  transition: background 4s ease;
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
   left: 6px;
@@ -92,11 +100,13 @@ export const TankDetails = styled.div`
   }
 `;
 
-export const House2Sign = styled.div`
+export const House2Sign = styled.div<{ $climateControl: string }>`
   width: 11px;
   height: 50px;
   border-radius: 5px;
-  background-color: #8d8f8c;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#8d8f8c"};
+  transition: background 4s ease;
   border: 3px solid #caccc8;
   position: absolute;
   right: -14px;

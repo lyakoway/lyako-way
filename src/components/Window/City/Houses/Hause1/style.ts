@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $climateControl: string }>`
   background-color: #edc181;
   width: 72px;
   height: 138px;
@@ -11,7 +11,9 @@ export const Wrapper = styled.div`
   &:before {
     content: "";
     position: absolute;
-    background-color: #666961;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#666961"};
+    transition: background 4s ease;
     height: 6px;
     width: 74px;
     right: -3px;

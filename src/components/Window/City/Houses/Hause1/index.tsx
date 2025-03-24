@@ -10,10 +10,11 @@ import { House3WindowShades } from "src/components/Window/City/Houses/Hause3/sty
 
 interface HousesProps {
   themeLight?: boolean;
+  climateControl: string;
 }
-const House1: FC<HousesProps> = ({ themeLight }) => {
+const House1: FC<HousesProps> = ({ themeLight, climateControl }) => {
   return (
-    <Wrapper>
+    <Wrapper $climateControl={climateControl}>
       <Houses1Windows>
         <HousesWindowsRow>
           <HousesWindows $themeLight={themeLight} />

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $climateControl: string }>`
   background: linear-gradient(
     to bottom,
     #babdb0,
@@ -19,8 +19,12 @@ export const Wrapper = styled.div`
     position: absolute;
     width: 54px;
     height: 25px;
-    border-top: 3px solid #5a6666;
-    border-bottom: 3px solid #5a6666;
+    border-top: 3px solid
+      ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#5a6666"};
+    border-bottom: 3px solid
+      ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#5a6666"};
     top: -25px;
     left: -2px;
   }
@@ -31,7 +35,9 @@ export const Wrapper = styled.div`
     height: 0;
     border-left: 25px solid transparent;
     border-right: 25px solid transparent;
-    border-bottom: 11px solid #738282;
+    border-bottom: 11px solid
+      ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#738282"};
     top: -36px;
   }
 `;

@@ -7,11 +7,12 @@ import {
 interface TreeProps {
   themeLight?: boolean;
   left: string;
+  climateControl: string;
 }
 
-const Streetlamp: FC<TreeProps> = ({ themeLight, left }) => {
+const Streetlamp: FC<TreeProps> = ({ themeLight, left, climateControl }) => {
   return (
-    <StreetlampWrapper $left={left}>
+    <StreetlampWrapper $left={left} $climateControl={climateControl}>
       <StreetlampGlow $themeLight={themeLight} />
     </StreetlampWrapper>
   );

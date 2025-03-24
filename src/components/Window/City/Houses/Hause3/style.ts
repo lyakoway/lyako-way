@@ -6,7 +6,7 @@ export const Container = styled.div`
   position: relative;
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $climateControl: string }>`
   width: 72px;
   height: 80px;
   background-color: #ea8a85;
@@ -28,13 +28,11 @@ export const Wrapper = styled.div`
   &:after {
     content: "";
     position: absolute;
-    background: linear-gradient(
-      to bottom,
-      #b65951,
-      #b65951 50%,
-      #964a43 50%,
-      #964a43
-    );
+    background: ${({ $climateControl }) =>
+      $climateControl === "snowy"
+        ? "linear-gradient(to bottom, #fff, #fff 50%, #fff 50%, #fff)"
+        : "linear-gradient(to bottom, #b65951, #b65951 50%, #964a43 50%, #964a43)"};
+    transition: background 4s ease;
     background-size: 100% 8px;
     width: 72px;
     height: 28px;
@@ -143,7 +141,10 @@ export const SmokeR = styled.span<{
     `}
 `;
 
-export const House3RoofWindow = styled.div<{ $themeLight: boolean }>`
+export const House3RoofWindow = styled.div<{
+  $themeLight: boolean;
+  $climateControl: string;
+}>`
   border: 3px solid #d16465;
   position: absolute;
   top: -31px;
@@ -169,7 +170,9 @@ export const House3RoofWindow = styled.div<{ $themeLight: boolean }>`
     height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
-    border-bottom: 7px solid #e86e6f;
+    border-bottom: ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#e86e6f"}
+      7px solid;
   }
 
   &:after {
@@ -180,7 +183,9 @@ export const House3RoofWindow = styled.div<{ $themeLight: boolean }>`
     bottom: -1px;
     left: -5px;
     background-color: #e86e6f;
-    border-top: 1px solid #ff7a81;
+    border-top: ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#ff7a81"}
+      1px solid;
   }
 `;
 

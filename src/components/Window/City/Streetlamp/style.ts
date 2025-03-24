@@ -1,6 +1,9 @@
 import styled, { css, keyframes } from "styled-components";
 
-export const StreetlampWrapper = styled.div<{ $left: string }>`
+export const StreetlampWrapper = styled.div<{
+  $left: string;
+  $climateControl: string;
+}>`
   position: absolute;
   bottom: -60px;
   width: 2px;
@@ -28,7 +31,9 @@ export const StreetlampWrapper = styled.div<{ $left: string }>`
     position: absolute;
     width: 6px;
     height: 6px;
-    background-color: #809191;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#809191"};
+    transition: background 4s ease;
     border-radius: 50%;
     left: -2px;
     top: -5px;

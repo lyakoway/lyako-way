@@ -13,10 +13,11 @@ import {
 
 interface HousesProps {
   themeLight?: boolean;
+  climateControl: string;
 }
-const House4: FC<HousesProps> = ({ themeLight }) => {
+const House4: FC<HousesProps> = ({ themeLight, climateControl }) => {
   return (
-    <Wrapper>
+    <Wrapper $climateControl={climateControl}>
       <HouseWindowCircle $themeLight={themeLight} />
       <Houses4Windows>
         <HousesWindowsRow>

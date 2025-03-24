@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ $climateControl: string }>`
   width: 108px;
   height: 80px;
   background-color: #8a6259;
@@ -11,7 +11,9 @@ export const Wrapper = styled.div`
   &:before {
     content: "";
     position: absolute;
-    background-color: #61453e;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#61453e"};
+    transition: background 4s ease;
     width: 110px;
     height: 4px;
     top: -7px;
@@ -29,9 +31,11 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const HouseRoof = styled.div`
+export const HouseRoof = styled.div<{ $climateControl: string }>`
   position: absolute;
-  background-color: #6e615d;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#6e615d"};
+  transition: background 4s ease;
   width: 101px;
   height: 4px;
   top: -61px;
@@ -40,7 +44,9 @@ export const HouseRoof = styled.div`
   &:before {
     content: "";
     position: absolute;
-    background-color: #c7baba;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#c7baba"};
+    transition: background 4s ease;
     width: 21px;
     height: 15px;
     top: -15px;
@@ -49,7 +55,9 @@ export const HouseRoof = styled.div`
   &:after {
     content: "";
     position: absolute;
-    border-top: 3px solid #c7baba;
+    border-top: 3px solid
+      ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#c7baba"};
     width: 24px;
     height: 15px;
     background: repeating-linear-gradient(
@@ -64,8 +72,10 @@ export const HouseRoof = styled.div`
   }
 `;
 
-export const Tank = styled.div`
-  background-color: #eadadb;
+export const Tank = styled.div<{ $climateControl: string }>`
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#eadadb"};
+  transition: background 4s ease;
   position: relative;
   top: -27px;
   left: 62px;
@@ -92,10 +102,12 @@ export const Tank = styled.div`
   }
 `;
 
-export const TankDetails = styled.div`
+export const TankDetails = styled.div<{ $climateControl: string }>`
   width: 15px;
   height: 3px;
-  background-color: #ccbebf;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#ccbebf"};
+  transition: background 4s ease;
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
   left: 7px;

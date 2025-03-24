@@ -10,7 +10,7 @@ export const TreeWrapper = styled.div<{ $left: string }>`
   display: flex;
 `;
 
-export const TreeTrunk = styled.div`
+export const TreeTrunk = styled.div<{ $climateControl: string }>`
   width: 5px;
   height: 37px;
   background-color: #936161;
@@ -23,7 +23,9 @@ export const TreeTrunk = styled.div`
   &:before {
     content: "";
     position: absolute;
-    background-color: #91dba6;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#91dba6"};
+    transition: background 4s ease;
     width: 37px;
     height: 20px;
     border-top-left-radius: 30px;
@@ -36,7 +38,9 @@ export const TreeTrunk = styled.div`
   &:after {
     content: "";
     position: absolute;
-    background-color: #91dba6;
+    background-color: ${({ $climateControl }) =>
+      $climateControl === "snowy" ? "#fff" : "#91dba6"};
+    transition: background 4s ease;
     width: 20px;
     height: 30px;
     border-top-left-radius: 30px;
@@ -51,32 +55,38 @@ export const TreeTrunk = styled.div`
   }
 `;
 
-export const Leaf1 = styled.div`
+export const Leaf1 = styled.div<{ $climateControl: string }>`
   position: absolute;
   width: 5px;
   height: 1px;
-  background-color: #91dba6;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#91dba6"};
+  transition: background 4s ease;
   border-radius: 50%;
   margin-top: -5px;
   left: -5px;
 `;
 
-export const Leaf2 = styled.div`
+export const Leaf2 = styled.div<{ $climateControl: string }>`
   position: absolute;
   width: 5px;
   height: 1px;
-  background-color: #91dba6;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#91dba6"};
+  transition: background 4s ease;
   border-radius: 50%;
   margin-top: -5px;
   left: 1px;
   animation-duration: 0.8s;
 `;
 
-export const Leaf3 = styled.div`
+export const Leaf3 = styled.div<{ $climateControl: string }>`
   position: absolute;
   width: 5px;
   height: 1px;
-  background-color: #91dba6;
+  background-color: ${({ $climateControl }) =>
+    $climateControl === "snowy" ? "#fff" : "#91dba6"};
+  transition: background 4s ease;
   border-radius: 50%;
   margin-top: -5px;
   left: 12px;
