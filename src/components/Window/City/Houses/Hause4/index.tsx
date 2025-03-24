@@ -21,7 +21,10 @@ const House4: FC<HousesProps> = ({ themeLight, climateControl }) => {
       <HouseWindowCircle $themeLight={themeLight} />
       <Houses4Windows>
         <HousesWindowsRow>
-          <HousesWindows $themeLight={themeLight}>
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          >
             <HouseWindowFrame />
           </HousesWindows>
         </HousesWindowsRow>

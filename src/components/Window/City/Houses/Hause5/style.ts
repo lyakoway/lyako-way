@@ -149,7 +149,10 @@ export const HousesWindowsRowTop = styled.div`
   left: 5px;
 `;
 
-export const HousesWindowsTop = styled.div<{ $themeLight: boolean }>`
+export const HousesWindowsTop = styled.div<{
+  $themeLight: boolean;
+  $climateControl: string;
+}>`
   position: relative;
   width: 16px;
   margin: 7px;
@@ -182,7 +185,9 @@ export const HousesWindowsTop = styled.div<{ $themeLight: boolean }>`
     bottom: -1px;
     left: -5px;
     background-color: #857570;
-    border-top: 1px solid #9c8984;
+    border-top: 1px solid
+      ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#9c8984"};
   }
 `;
 
@@ -226,7 +231,10 @@ export const HousesWindowsRow = styled.div`
   align-items: center;
 `;
 
-export const HousesWindows = styled.div<{ $themeLight: boolean }>`
+export const HousesWindows = styled.div<{
+  $themeLight: boolean;
+  $climateControl: string;
+}>`
   width: 16px;
   height: 24px;
   position: relative;
@@ -259,7 +267,9 @@ export const HousesWindows = styled.div<{ $themeLight: boolean }>`
     bottom: -1px;
     left: -5px;
     background-color: #705048;
-    border-top: 1px solid #7a574f;
+    border-top: 1px solid
+      ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#7a574f"};
   }
 `;
 

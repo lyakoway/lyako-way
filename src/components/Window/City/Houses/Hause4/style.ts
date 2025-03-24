@@ -88,7 +88,10 @@ export const HousesWindowsRow = styled.div`
   align-items: center;
 `;
 
-export const HousesWindows = styled.div<{ $themeLight: boolean }>`
+export const HousesWindows = styled.div<{
+  $themeLight: boolean;
+  $climateControl: string;
+}>`
   position: relative;
   width: 25px;
   height: 25px;
@@ -116,7 +119,9 @@ export const HousesWindows = styled.div<{ $themeLight: boolean }>`
     content: "";
     position: absolute;
     background-color: #738282;
-    border-top: 1px solid #8b9e9e;
+    border-top: 1px solid
+      ${({ $climateControl }) =>
+        $climateControl === "snowy" ? "#fff" : "#8b9e9e"};
     width: 29px;
     height: 4px;
     bottom: -1px;

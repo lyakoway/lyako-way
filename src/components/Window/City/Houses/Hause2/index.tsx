@@ -26,23 +26,47 @@ const House2: FC<HousesProps> = ({ themeLight, climateControl }) => {
 
       <Houses2Windows>
         <HousesWindowsRow>
-          <HousesWindows $themeLight={themeLight} />
-          <HousesWindows $themeLight={themeLight} />
-          <HousesWindows $themeLight={themeLight}>
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          />
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          />
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          >
             <House3WindowShades $themeLight={themeLight} />
           </HousesWindows>
         </HousesWindowsRow>
         <HousesWindowsRow>
-          <HousesWindows $themeLight={themeLight} />
-          <HousesWindows $themeLight={themeLight}>
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          />
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          >
             <House3WindowShades $themeLight={themeLight} />
           </HousesWindows>
-          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          />
         </HousesWindowsRow>
         <HousesWindowsRow>
           <HousesDoor />
-          <HousesWindows $themeLight={themeLight} />
-          <HousesWindows $themeLight={themeLight} />
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          />
+          <HousesWindows
+            $themeLight={themeLight}
+            $climateControl={climateControl}
+          />
         </HousesWindowsRow>
       </Houses2Windows>
 
