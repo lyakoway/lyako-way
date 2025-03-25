@@ -1,87 +1,76 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 
 import { LightningWrapper } from "./style";
 
-const Lightning: FC = () => {
-  // const [context, setContext] = useState(null);
-  // const [canvasHeight, setCanvasHeight] = useState(0);
-  // const [canvasWidth, setCanvasWidth] = useState(0);
+const getRandomFloat = (min: number, max: number) =>
+  Math.random() * (max - min + 1) + min;
 
-  const isBrowser = typeof window !== "undefined";
+const createVector = (x: number, y: number) => {
+  return { x, y };
+};
 
-  // const canvas =
-  //   isBrowser && (document?.getElementById("canvas") as HTMLCanvasElement);
+interface CloudProps {
+  climateControl: string;
+}
 
-  // useEffect(() => {
-  //   const contextValue = canvas?.getContext("2d");
-  //   const canvasHeightValue = canvas?.height;
-  //   const canvasWidthValue = canvas?.width;
-  //   setContext(contextValue);
-  //   setCanvasHeight(canvasHeightValue);
-  //   setCanvasWidth(canvasWidthValue);
-  // }, [canvas]);
+const Lightning: FC<CloudProps> = ({ climateControl }) => {
+  const [context, setContext] = useState(null);
 
-  if (!isBrowser) {
-    return null;
-  }
-
-  // const height = document.body.offsetHeight;
-  // const width = document.body.offsetWidth;
-  const cvs = document.getElementById("canvas");
-  cvs?.setAttribute("height", "400");
-  cvs?.setAttribute("width", "222");
-
-  const canvas = document?.getElementById("canvas") as HTMLCanvasElement;
-  console.log("canvas", canvas);
-  const context = canvas?.getContext("2d");
+  const canvasHeight = 400;
+  const canvasWidth = 222;
   const lightningStrikeOffset = 5;
   const lightningStrikeLength = 100;
   const lightningBoltLength = 5;
   const lightningThickness = 4;
-  const canvasHeight = canvas?.height;
-  const canvasWidth = canvas?.width;
+  const interval = 3000;
 
-  console.log("canvasHeight", canvasHeight);
-  console.log("canvasWidth", canvasWidth);
-
-  const createVector = function (x, y) {
-    return { x, y };
-  };
-
-  const getRandomFloat = function (min, max) {
-    const random = Math.random() * (max - min + 1) + min;
-    return random;
-  };
-
-  const getRandomInteger = function (min, max) {
-    return Math.floor(getRandomFloat(min, max));
-  };
-
-  const clearCanvas = function (x, y, height, width) {
-    const rectX = x || 0;
-    const rectY = y || 0;
-    const rectHeight = height || canvasHeight;
-    const rectWidth = width || canvasWidth;
-    context?.clearRect(rectX, rectY, rectWidth, rectHeight);
-    context?.beginPath();
-  };
-
-  const line = function (start, end, thickness, opacity) {
-    if (context) {
-      context.beginPath();
-      context.moveTo(start.x, start.y);
-      context.lineTo(end.x, end.y);
-      context.lineWidth = thickness;
-      context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-      context.shadowBlur = 30;
-      context.shadowColor = "#bd9df2";
-      context.stroke();
-      context.closePath();
+  useEffect(() => {
+    if (document?.getElementById("canvas")) {
+      const cvs = document?.getElementById("canvas");
+      cvs?.setAttribute("height", `${canvasHeight}`);
+      cvs?.setAttribute("width", `${canvasWidth}`);
+      const canvas = document?.getElementById("canvas") as HTMLCanvasElement;
+      const contextValue = canvas?.getContext("2d");
+      setContext(contextValue);
     }
-  };
+  }, [setContext]);
+
+  const getRandomInteger = (min: number, max: number) =>
+    Math.floor(getRandomFloat(min, max));
+
+  const clearCanvas = useCallback(() => {
+    if (context) {
+      context?.clearRect(0, 0, canvasWidth, canvasHeight);
+      context?.beginPath();
+    }
+  }, [context]);
+
+  const line = useCallback(
+    (start: number, end: number, thickness: number, opacity: number) => {
+      if (context) {
+        context.beginPath();
+        context.moveTo(start.x, start.y);
+        context.lineTo(end.x, end.y);
+        context.lineWidth = thickness;
+        context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+        context.shadowBlur = 30;
+        context.shadowColor = "#bd9df2";
+        context.stroke();
+        context.closePath();
+      }
+    },
+    [context]
+  );
 
   class Lightning {
-    constructor(x1, y1, x2, y2, thickness, opacity) {
+    constructor(
+      x1: number,
+      y1: number,
+      x2: number,
+      y2: number,
+      thickness: number,
+      opacity: number
+    ) {
       this.start = createVector(x1, y1);
       this.end = createVector(x2, y2);
       this.thickness = thickness;
@@ -92,14 +81,9 @@ const Lightning: FC = () => {
     }
   }
 
-  const interval = 3000;
-  // const lightningStrikeOffset = 5;
-  // const lightningStrikeLength = 100;
-  // const lightningBoltLength = Math.random() * 10;
-  // const lightningThickness = 4;
   let lightning = [];
 
-  const createLightning = function () {
+  const createLightning = useCallback(() => {
     lightning = [];
     let lightningX1 = getRandomInteger(2, canvasWidth - 2);
     let lightningX2 = getRandomInteger(
@@ -132,16 +116,16 @@ const Lightning: FC = () => {
         )
       );
     }
-  };
+  }, [getRandomInteger, context]);
 
-  const setup = function () {
+  const setup = useCallback(() => {
     createLightning();
     for (let i = 0; i < lightning.length; i++) {
       lightning[i].draw();
     }
-  };
+  }, [createLightning]);
 
-  const animate = function () {
+  const animate = useCallback(() => {
     clearCanvas();
 
     for (let i = 0; i < lightning.length; i++) {
@@ -154,13 +138,17 @@ const Lightning: FC = () => {
     }
 
     requestAnimationFrame(animate);
-  };
+  }, [lightning, clearCanvas]);
 
-  setup();
-  requestAnimationFrame(animate);
-  setInterval(function () {
-    createLightning();
-  }, interval);
+  useEffect(() => {
+    setup();
+    requestAnimationFrame(animate);
+    const timer = setInterval(() => {
+      createLightning();
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, [context]);
 
   return (
     <LightningWrapper>

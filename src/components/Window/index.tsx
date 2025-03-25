@@ -114,7 +114,9 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
           climateControl === "cloudyWithRainAndLightning") && (
           <Rain climateControl={climateControl} />
         )}
-        {climateControl === "cloudyWithRainAndLightning" && <Lightning />}
+        {climateControl === "cloudyWithRainAndLightning" && (
+          <Lightning climateControl={climateControl} />
+        )}
         {climateControl === "snowy" && <Snow climateControl={climateControl} />}
         <WindowSky
           dayToNightColor={dayToNightColor}
