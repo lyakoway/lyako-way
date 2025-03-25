@@ -52,7 +52,7 @@ export const HousesWindows = styled.div<{
   &:before {
     content: "";
     position: absolute;
-    width: 11px;
+    width: 12px;
     height: 2px;
     background-color: #666961;
     bottom: 50%;

@@ -64,18 +64,18 @@ export const HouseWindowCircle = styled.div<{ $themeLight: boolean }>`
     content: "";
     position: absolute;
     width: 2px;
-    height: 9px;
+    height: 12px;
     background-color: #5a6666;
-    left: 3px;
+    left: 4px;
   }
 
   &:after {
     content: "";
     position: absolute;
-    width: 9px;
+    width: 12px;
     height: 2px;
     background-color: #5a6666;
-    top: 3px;
+    top: 4px;
   }
 `;
 

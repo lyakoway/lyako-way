@@ -55,7 +55,7 @@ export const House3Chimney = styled.div`
     content: "";
     position: absolute;
     background-color: #eadadb;
-    width: 11px;
+    width: 12px;
     height: 3px;
     top: -3px;
     left: -1px;
