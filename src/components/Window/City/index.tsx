@@ -26,7 +26,7 @@ const City: FC<CloudProps> = ({ themeLight, climateControl }) => {
         themeLight={themeLight}
         climateControl={climateControl}
       />
-      <MailTruck />
+      <MailTruck themeLight={themeLight} climateControl={climateControl} />
     </CityWrapper>
   );
 };

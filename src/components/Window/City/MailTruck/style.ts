@@ -40,7 +40,7 @@ export const MailTruckWrapper = styled.div`
     background-color: #e9ebea;
     width: 15px;
     height: 30px;
-    bottom: 0px;
+    bottom: 0;
     right: -15px;
     border-top-right-radius: 2px;
     border-left: 1px solid #4d4d4b;

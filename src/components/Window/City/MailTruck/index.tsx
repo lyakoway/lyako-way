@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import {
   MailTruckWrapper,
   MailTruckLetter,
@@ -10,11 +10,18 @@ import {
 
 interface MailTruckProps {
   themeLight?: boolean;
+  climateControl: string;
 }
 
-const MailTruck: FC<MailTruckProps> = ({ themeLight }) => {
+const MailTruck: FC<MailTruckProps> = ({ themeLight, climateControl }) => {
+  useEffect(() => {
+    const animatedElement = document.getElementById("animation-reset");
+    const clonedElement = animatedElement.cloneNode(true);
+    animatedElement.parentNode.replaceChild(clonedElement, animatedElement);
+  }, [themeLight, climateControl]);
+
   return (
-    <MailTruckWrapper>
+    <MailTruckWrapper id="animation-reset">
       <MailTruckLetter>
         <Letter />
       </MailTruckLetter>

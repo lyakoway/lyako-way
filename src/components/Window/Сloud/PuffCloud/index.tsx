@@ -62,7 +62,6 @@ const PuffCloud = ({
       setColorBorder(30);
     }
     if (top > 40 && idType === "cloudyWithRainAndLightning") {
-      console.log(111, idType);
       setColorCloud(50);
       setColorBorder(12);
     }
