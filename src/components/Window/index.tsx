@@ -68,7 +68,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   const winter = false;
 
-  const climateControl = "cloudyWithRainAndLightning";
+  const climateControl = "cloudy";
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
