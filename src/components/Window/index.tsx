@@ -11,6 +11,8 @@ import {
   WindowHotspot,
   WeatherIconWrapper,
   HeavenlyBodyParallax,
+  WindowLightLeftLightning,
+  WindowLightRightLightning,
   // WeatherConditionsWrapper,
   // WeatherConditions,
   // WeatherConditionsText,
@@ -161,20 +163,27 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
       <WindowSill />
 
       {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
-        <WindowLightLeft
-          $timeLeftSunMoon={timeLeftSunMoon}
-          $lightOffOpacitySun={lightOffOpacitySun}
-          $lightOffOpacityMoon={lightOffOpacityMoon}
-          $themeLight={themeLight}
-        />
+        <>
+          <WindowLightLeft
+            $timeLeftSunMoon={timeLeftSunMoon}
+            $lightOffOpacitySun={lightOffOpacitySun}
+            $lightOffOpacityMoon={lightOffOpacityMoon}
+            $themeLight={themeLight}
+          />
+          <WindowLightRight
+            $timeLeftSunMoon={timeLeftSunMoon}
+            $lightOffOpacitySun={lightOffOpacitySun}
+            $lightOffOpacityMoon={lightOffOpacityMoon}
+            $themeLight={themeLight}
+          />
+        </>
       )}
-      {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
-        <WindowLightRight
-          $timeLeftSunMoon={timeLeftSunMoon}
-          $lightOffOpacitySun={lightOffOpacitySun}
-          $lightOffOpacityMoon={lightOffOpacityMoon}
-          $themeLight={themeLight}
-        />
+
+      {climateControl === "cloudyWithRainAndLightning" && (
+        <>
+          <WindowLightLeftLightning />
+          <WindowLightRightLightning />
+        </>
       )}
 
       <WeatherIconWrapper onClick={() => setIsOpen(!isOpen)}>

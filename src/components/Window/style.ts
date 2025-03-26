@@ -9,6 +9,30 @@ interface WindowLightProps {
   $moonOrSunColor?: string;
 }
 
+const lightning = keyframes`
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  25% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
 const lightOff = ($lightOffOpacity: number) => keyframes`
   from { 
     opacity: ${$lightOffOpacity};
@@ -156,6 +180,35 @@ export const WindowLightLeft = styled(WindowLight)<WindowLightProps>`
 `;
 
 export const WindowLightRight = styled(WindowLight)<WindowLightProps>`
+  left: 198px;
+  transform: rotate(-20deg);
+  background-image: linear-gradient(
+    -20deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0.5)
+  );
+`;
+
+export const WindowLightLightning = styled.div`
+  position: absolute;
+  top: 11px;
+  width: 135px;
+  height: 395px;
+  z-index: 1;
+  animation: ${lightning} 3s infinite;
+`;
+
+export const WindowLightLeftLightning = styled(WindowLightLightning)`
+  left: -72px;
+  transform: rotate(20deg);
+  background-image: linear-gradient(
+    20deg,
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0.5)
+  );
+`;
+
+export const WindowLightRightLightning = styled(WindowLightLightning)`
   left: 198px;
   transform: rotate(-20deg);
   background-image: linear-gradient(
