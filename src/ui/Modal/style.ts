@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import { TABLET_959, MOBILE_660, MOBILE_560 } from "src/common/lib/media";
 import { Z_INDEX_MODAL } from "src/common/constants/zIndex";
+import myIconComp from "src/common/icon/modal/fonIt.png";
 
 const modalAnimation = keyframes`
   from {
@@ -29,7 +30,8 @@ export const Overlay = styled.div<{ $opened: boolean }>`
   width: 100vw;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.4);
+  background: url(${myIconComp.src}) no-repeat center;
+  background-size: cover;
   align-items: center;
   justify-content: center;
 
@@ -47,8 +49,7 @@ export const Overlay = styled.div<{ $opened: boolean }>`
 export const ModalComponent = styled.div<{ $opened: boolean }>`
   width: 824px;
   background-color: rgb(255, 255, 255);
-  box-shadow: 0 1.2px 18px rgba(0, 0, 0, 0.08),
-    0 6.4px 29px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1.2px 18px rgba(0, 0, 0, 0.08), 0 6.4px 29px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
 
   @media ${TABLET_959} {
