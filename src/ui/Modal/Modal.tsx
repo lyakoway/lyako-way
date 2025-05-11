@@ -1,67 +1,42 @@
-import { FC, PropsWithChildren, useEffect } from "react";
+import { FC, useCallback, useEffect } from "react";
 
-import {
-  Overlay,
-  Header,
-  HeaderText,
-  IconClose,
-  Content,
-  Footer,
-  ModalComponent,
-} from "./style";
+import { Overlay, IconClose, Content, ModalComponent } from "./style";
 
 import { ReactComponent as CloseOutline } from "src/common/icon/close.svg";
 
 import Button from "src/ui/Button";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { closeModal } from "src/reducers";
 
-interface IModalProps {
-  contentScroll?: boolean;
-  titleIcon?: boolean;
-  titleText: string;
-  buttonText: string;
-  openedModal: boolean;
-  onCloseModal: () => void;
-  onApply: () => void;
-}
+export const Modal: FC = () => {
+  const { isOpened, content } = useSelectorTyped(({ modal }) => modal);
+  const dispatch = useDispatchTyped();
 
-export const Modal: FC<PropsWithChildren<IModalProps>> = ({
-  contentScroll,
-  titleIcon,
-  titleText,
-  buttonText,
-  openedModal,
-  onCloseModal,
-  onApply,
-  children,
-}) => {
+  const onCloseModal = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
+
   useEffect(() => {
-    if (openedModal) {
+    if (isOpened) {
       document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
     } else {
       document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
     }
-  }, [openedModal]);
+  }, [isOpened]);
 
-  return (
-    <Overlay $opened={openedModal} onClick={onCloseModal}>
-      <ModalComponent
-        $opened={openedModal}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Header>
-          {/* {titleIcon && <i className="material-icons">shopping_cart</i>} */}
-          <HeaderText>{titleText}</HeaderText>
+  if (isOpened && content) {
+    return (
+      <Overlay onClick={onCloseModal}>
+        <ModalComponent onClick={(e) => e.stopPropagation()}>
           <IconClose onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />
           </IconClose>
-        </Header>
-        <Content contentScroll={contentScroll}>{children}</Content>
-        <Footer>
-          <Button title={buttonText} handleClick={onApply} />
-        </Footer>
-      </ModalComponent>
-    </Overlay>
-  );
+          {content}
+        </ModalComponent>
+      </Overlay>
+    );
+  }
+  return null;
 };

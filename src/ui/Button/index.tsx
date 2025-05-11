@@ -10,12 +10,12 @@ const ButtonWrapper = styled.button<{
   justify-content: center;
   -webkit-tap-highlight-color: transparent;
   align-items: center;
+  gap: 6px;
   margin: ${({ $modal }) => ($modal ? "0" : "0 auto")};
-  margin-top: 20px;
-  width: ${({ $modal }) => ($modal ? "200px" : "260px")};
+  padding: 0 20px;
   height: 44px;
   background-color: ${({ theme, $modal }) =>
-    $modal ? "#6a6f7c" : theme.color.background.button};
+    $modal ? "black" : theme.color.background.button};
   border-radius: 8px;
   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -56,8 +56,6 @@ const Label = styled.div`
   font-family: "Exo 2", sans-serif;
   text-transform: uppercase;
   text-align: center;
-  margin-left: 12px;
-  margin-top: 5px;
 `;
 
 interface ButtonProps {

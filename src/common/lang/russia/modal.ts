@@ -1,7 +1,7 @@
 import { ModalProps } from "src/common/types/lang";
 
 export const modal: ModalProps = {
-  title: "Вы готовы сделать заказ?",
+  title: "Вы готовы сделать заказ ?",
   buttonText: "Отправить",
   fullName: "Представьтесь, пожалуйста *",
   fullNameLabel: "Ф.И.О.",

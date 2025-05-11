@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useSelectorTyped } from "src/store";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import {
   HeaderSectionWrapper,
@@ -20,14 +20,10 @@ import {
   Skype,
   IconComp,
   IconMap,
-  IconWindow,
   IconBook,
   IconPicture,
-  IconDay,
-  IconSun,
   SettingWrapper,
   SettingIconWrapper,
-  WindowWrapper,
 } from "./style";
 
 import { Modal } from "src/ui/Modal";
@@ -49,7 +45,8 @@ import Popup from "src/ui/Popup";
 import { getMobile } from "src/common/utils";
 
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
-import { useIsomorphicLayoutEffect } from "src/features/customHooks";
+import { showModal } from "src/reducers";
+import ContactForm from "src/components/ContactForm";
 
 const HeaderSection = () => {
   const {
@@ -63,6 +60,8 @@ const HeaderSection = () => {
   const [positionValue, setPositionValue] = useState("top");
   const popupRef = useRef<HTMLDivElement>(null);
   const themeLight = name === "light";
+
+  const dispatch = useDispatchTyped();
 
   useClickOutside(popupRef, () => {
     if (openedPopup) {
@@ -88,24 +87,13 @@ const HeaderSection = () => {
     setOpened(false);
   };
 
-  // useIsomorphicLayoutEffect(() => {
-  //   const portfolioTextData = Array.from(
-  //     document?.querySelectorAll<HTMLElement>("[data-parallax]")
-  //   );
-  //   const parallax = (e: { clientX: number; clientY: number }) => {
-  //     const speedDay = portfolioTextData[0]?.getAttribute("data-parallax");
-  //     const biasXDay = (e.clientX * Number(speedDay)) / 1000;
-  //     portfolioTextData[0].style.backgroundPosition = `${-biasXDay}px 12px`;
-  //     const speedSun = portfolioTextData[1].getAttribute("data-parallax");
-  //     const biasXSun = (e.clientX * Number(speedSun)) / 1000;
-  //     const biasYSun = (e.clientY * Number(speedSun)) / 1000;
-  //     portfolioTextData[1].style.transform = `translateX(${-biasXSun}px) translateY(${-biasYSun}px)`;
-  //   };
-  //   document.addEventListener("mousemove", parallax);
-  //   return () => {
-  //     document.removeEventListener("mousemove", parallax);
-  //   };
-  // });
+  const handleClickModal = () => {
+    dispatch(
+      showModal({
+        content: <ContactForm />,
+      })
+    );
+  };
 
   return (
     <HeaderSectionWrapper>
@@ -123,21 +111,18 @@ const HeaderSection = () => {
               openedPopup={openedPopup}
               popupRef={popupRef}
             >
-              <SettingIconWrapper onClick={handleClickPopup}>
+              <SettingIconWrapper
+                onClick={handleClickPopup}
+                openedPopup={openedPopup}
+              >
                 <SettingIcon fill="white" />
               </SettingIconWrapper>
             </Popup>
           </SettingWrapper>
         </IconComp>
         <IconMap $themeLight={themeLight} />
-        {/* Window checkedTheme={checkedTheme} */}
         <Window themeLight={themeLight} />
         <Clock />
-        {/* <WindowWrapper>
-          <IconWindow theme={name} />
-          <IconDay theme={name} data-parallax="80" />
-          <IconSun theme={name} data-parallax="20" />
-        </WindowWrapper> */}
         <IconBook $themeLight={themeLight} />
         <IconPicture $themeLight={themeLight} />
       </HeaderSectionFon>
@@ -148,19 +133,19 @@ const HeaderSection = () => {
             <Button
               title={headerHouse.buttonText}
               toOrderHeader
-              handleClick={() => setOpened(!opened)}
+              handleClick={handleClickModal}
             >
               <RocketGetsiteIcon />
             </Button>
-            <Modal
-              titleText={modal.title}
-              buttonText={modal.buttonText}
-              openedModal={opened}
-              onCloseModal={() => setOpened(false)}
-              onApply={notify}
-            >
-              111
-            </Modal>
+            {/*<Modal*/}
+            {/*  titleText={modal.title}*/}
+            {/*  buttonText={modal.buttonText}*/}
+            {/*  openedModal={opened}*/}
+            {/*  onCloseModal={() => setOpened(false)}*/}
+            {/*  onApply={notify}*/}
+            {/*>*/}
+            {/*  111*/}
+            {/*</Modal>*/}
             <HeaderSectionLabel>
               {headerHouse.buttonTextAddition}
             </HeaderSectionLabel>

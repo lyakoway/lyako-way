@@ -1,7 +1,7 @@
 import { ModalProps } from "src/common/types/lang";
 
 export const modal: ModalProps = {
-  title: "You are ready to place an order?",
+  title: "You are ready to place an order ?",
   buttonText: "Send",
   fullName: "Please introduce yourself *",
   fullNameLabel: "Full name",

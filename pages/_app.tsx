@@ -12,6 +12,7 @@ import GlobalStyles from "src/common/lib/globalStyles";
 import { wrapper } from "src/store";
 import { setThemeList } from "src/reducers";
 import { useDayTime } from "src/features/customHooks";
+import { Modal } from "src/ui/Modal";
 
 const MyApp: FC = ({ Component, pageProps }: AppProps) => {
   const { theme } = useSelectorTyped(({ theme }) => theme);
@@ -31,6 +32,7 @@ const MyApp: FC = ({ Component, pageProps }: AppProps) => {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <Component {...pageProps} />
+        <Modal />
       </ThemeProvider>
     </React.StrictMode>
   );

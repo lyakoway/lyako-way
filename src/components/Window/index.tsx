@@ -56,7 +56,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
   const [dayToNightColor, setDayToNightColor] = useState<string>("#0c2233");
   const [moonOrSunColor, setMoonOrSunColor] = useState<string>("#fff");
   const [weather, setWeather] = useState<number>(2);
-  // const [climateControl, setClimateControl] = useState("sunnyMoon");
+  const [climateControl, setClimateControl] = useState("sunnyMoon");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const {
@@ -68,7 +68,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   const winter = false;
 
-  const climateControl = "snowy";
+  // const climateControl = "snowy";
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";

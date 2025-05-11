@@ -10,16 +10,10 @@ import myIconComp from "src/common/icon/icon-header/comp.png";
 import myIconCompn from "src/common/icon/icon-header/compn.png";
 import myIconMap from "src/common/icon/icon-header/map.png";
 import myIconMapn from "src/common/icon/icon-header/mapn.png";
-import myIconWindow from "src/common/icon/icon-header/window.png";
-import myIconWindown from "src/common/icon/icon-header/windown.png";
 import myIconBook from "src/common/icon/icon-header/books.png";
 import myIconBookn from "src/common/icon/icon-header/booksn.png";
 import myIconPicture from "src/common/icon/icon-header/image.png";
 import myIconPicturen from "src/common/icon/icon-header/imagen.png";
-import myIconDay from "src/common/icon/icon-header/day.jpg";
-import myIconNight from "src/common/icon/icon-header/night.jpg";
-import myIconSun from "src/common/icon/icon-header/sun.png";
-import myIconMoon from "src/common/icon/icon-header/moon.png";
 
 const spin = keyframes`
   0% {
@@ -27,6 +21,15 @@ const spin = keyframes`
   }
   100% {
     transform: rotate(360deg);
+  }
+`;
+
+const spinBack = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
   }
 `;
 
@@ -283,10 +286,26 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
   }
 `;
 
-export const SettingIconWrapper = styled.div`
+export const SettingIconWrapper = styled.div<{ openedPopup: boolean }>`
   display: flex;
   -webkit-tap-highlight-color: transparent;
   animation: ${spin} 10s linear infinite;
+
+  &:hover {
+    animation: ${spinBack} 10s linear infinite;
+    & svg {
+      fill: #ff8560;
+    }
+  }
+
+  ${({ openedPopup }) =>
+    openedPopup &&
+    css`
+      animation: ${spinBack} 10s linear infinite;
+      & svg {
+        fill: #ff8560;
+      }
+    `}
 `;
 
 export const SettingWrapper = styled.div`
@@ -297,12 +316,6 @@ export const SettingWrapper = styled.div`
   margin-top: 12px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-
-  &:hover {
-    & svg {
-      fill: #ff8560;
-    }
-  }
 
   @media ${MOBILE_660} {
     display: none;
@@ -369,74 +382,4 @@ export const IconPicture = styled.div<{ $themeLight?: boolean }>`
   position: absolute;
   top: 160px;
   right: -341px;
-`;
-
-export const IconWindow = styled.div<{ theme: string }>`
-  ${({ theme }) =>
-    theme === "light"
-      ? css`
-          background: url(${myIconWindow.src}) no-repeat;
-        `
-      : css`
-          background: url(${myIconWindown.src}) no-repeat;
-        `};
-  display: flex;
-  width: 248px;
-  height: 307px;
-  margin-left: -1px;
-  z-index: 5;
-  position: relative;
-`;
-
-export const WindowWrapper = styled.div`
-  display: flex;
-  position: relative;
-
-  @media ${TABLET_1024} {
-    left: 20px;
-  }
-
-  @media ${TABLET_959} {
-    display: none;
-  }
-`;
-
-export const IconDay = styled.div<{ theme: string }>`
-  ${({ theme }) =>
-    theme === "light"
-      ? css`
-          background: url(${myIconDay.src}) 50% 50% no-repeat;
-        `
-      : css`
-          background: url(${myIconNight.src}) 50% 50% no-repeat;
-        `};
-  transition: none !important;
-  width: 245px;
-  height: 307px;
-  position: absolute;
-  // top: 45px;
-  left: 0;
-  overflow: hidden;
-`;
-
-export const IconSun = styled.div<{ theme: string }>`
-  ${({ theme }) =>
-    theme === "light"
-      ? css`
-          background: url(${myIconSun.src}) no-repeat;
-        `
-      : css`
-          background: url(${myIconMoon.src}) no-repeat;
-        `};
-  width: 91px;
-  height: 94px;
-  display: block;
-  position: absolute;
-  margin: 0 auto;
-  right: 0;
-  transition: none !important;
-  z-index: 2;
-  margin-top: 26px;
-  left: 76px;
-  top: 10px;
 `;
