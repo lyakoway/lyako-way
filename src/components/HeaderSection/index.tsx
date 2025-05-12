@@ -113,7 +113,7 @@ const HeaderSection = () => {
             >
               <SettingIconWrapper
                 onClick={handleClickPopup}
-                openedPopup={openedPopup}
+                $openedPopup={openedPopup}
               >
                 <SettingIcon fill="white" />
               </SettingIconWrapper>

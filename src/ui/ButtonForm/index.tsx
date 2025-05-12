@@ -50,14 +50,14 @@ export const Wrapper = styled.div`
     0 1px 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 1px 1px rgba(0, 0, 0, 0.1);
 `;
 
-export const Result = styled.div<{ status?: string }>`
+export const Result = styled.div<{ $status?: string }>`
   display: flex;
   width: 100%;
   height: 100%;
   justify-content: center;
   align-items: center;
-  background-color: ${({ status }) =>
-    status === "success" ? "#4caf50" : "#ec3b03"};
+  background-color: ${({ $status }) =>
+    $status === "success" ? "#4caf50" : "#ec3b03"};
 
   transition: background-color 0.35s ease;
   animation: ${ani1} 1s forwards;
@@ -69,8 +69,8 @@ export const Result = styled.div<{ status?: string }>`
     content: "\\2718";
     animation: ${ani} 1s forwards;
 
-    ${({ status }) =>
-      status === "success" &&
+    ${({ $status }) =>
+      $status === "success" &&
       css`
         color: #ffffff;
         content: "\\2713";
@@ -151,11 +151,11 @@ interface IButtonProps {
 }
 
 const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
-  title,
-  handleClick,
+  title = "",
+  handleClick = () => {},
   children,
-  loading,
-  status,
+  loading = false,
+  status = null,
 }) => {
   const [statusRequest, setStatusRequest] = useState<
     "success" | "error" | null
@@ -184,7 +184,7 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
     return (
       <ButtonWrapper>
         <Wrapper>
-          <Result status={statusRequest} />
+          <Result $status={statusRequest} />
         </Wrapper>
       </ButtonWrapper>
     );
@@ -207,13 +207,6 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
       </ButtonContent>
     </ButtonWrapper>
   );
-};
-
-ButtonForm.defaultProps = {
-  loading: false,
-  title: "",
-  status: null,
-  handleClick: () => {},
 };
 
 export default ButtonForm;

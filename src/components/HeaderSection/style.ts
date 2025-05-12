@@ -286,7 +286,7 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
   }
 `;
 
-export const SettingIconWrapper = styled.div<{ openedPopup: boolean }>`
+export const SettingIconWrapper = styled.div<{ $openedPopup: boolean }>`
   display: flex;
   -webkit-tap-highlight-color: transparent;
   animation: ${spin} 10s linear infinite;
@@ -298,8 +298,8 @@ export const SettingIconWrapper = styled.div<{ openedPopup: boolean }>`
     }
   }
 
-  ${({ openedPopup }) =>
-    openedPopup &&
+  ${({ $openedPopup }) =>
+    $openedPopup &&
     css`
       animation: ${spinBack} 10s linear infinite;
       & svg {

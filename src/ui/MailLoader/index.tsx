@@ -34,30 +34,30 @@ const mailMove = keyframes`
   }
 `;
 
-const mailLine = (item: IPropsMailLine) => keyframes`
+const mailLine = ($itemLine: IPropsMailLine) => keyframes`
   0% {
-    transform: translateX(${item.X0});
+    transform: translateX(${$itemLine.X0});
   }
   20% {
-    transform: translateX(${item.X20});
+    transform: translateX(${$itemLine.X20});
   }
   20.0001% {
-    transform: translateX(${item.X21});
+    transform: translateX(${$itemLine.X21});
   }
   40% {
-    transform: translateX(${item.X40});
+    transform: translateX(${$itemLine.X40});
   }
   60% {
-    transform: translateX(${item.X60});
+    transform: translateX(${$itemLine.X60});
   }
   80% {
-    transform: translateX(${item.X80});
+    transform: translateX(${$itemLine.X80});
   }
   80.1% {
-    transform: translateX(${item.X81});
+    transform: translateX(${$itemLine.X81});
   }
   100% {
-    transform: translateX(${item.X100});
+    transform: translateX(${$itemLine.X100});
   }
 `;
 
@@ -76,16 +76,16 @@ const LineContainer = styled.div`
   overflow: hidden;
 `;
 
-const Line = styled.div<{ itemLine: IPropsMailLine }>`
+const Line = styled.div<{ $itemLine: IPropsMailLine }>`
   margin-top: 4px;
   width: 70px;
   height: 4px;
   background: ${({ theme }) => theme.color.background.inversion};
   border-radius: 6px;
 
-  ${({ itemLine }) =>
+  ${({ $itemLine }) =>
     css`
-      animation: ${mailLine(itemLine)} 3s infinite;
+      animation: ${mailLine($itemLine)} 3s infinite;
     `}
 `;
 
@@ -184,7 +184,7 @@ const MailLoader: FC = () => {
     <MailContainer>
       <LineContainer>
         {propsMailLine.map((item) => (
-          <Line key={item.id} itemLine={item}></Line>
+          <Line key={item.id} $itemLine={item}></Line>
         ))}
       </LineContainer>
       <Mail />
