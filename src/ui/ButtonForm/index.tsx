@@ -1,12 +1,38 @@
-import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
-import styled, { css } from "styled-components";
-import { Spinner } from "src/ui/Spinner";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
+import styled, { css, keyframes } from "styled-components";
+import MailLoader from "src/ui/MailLoader";
+
+const ani = keyframes`
+  0% {
+    opacity: 0;
+    transform: rotate(0);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(720deg);
+  }
+`;
+
+const ani1 = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
 
 export const ButtonWrapper = styled.div`
   width: 120px;
   height: 40px;
   position: relative;
   background-color: ${({ theme }) => theme.color.background.button};
+`;
+
+export const MailLoaderWrapper = styled.div`
+  height: 40px;
+  width: 100%;
+  position: relative;
 `;
 
 export const Wrapper = styled.div`
@@ -34,12 +60,14 @@ export const Result = styled.div<{ status?: string }>`
     status === "success" ? "#4caf50" : "#ec3b03"};
 
   transition: background-color 0.35s ease;
+  animation: ${ani1} 1s forwards;
 
   &:before {
     font-weight: 900;
     font-size: 24px;
     color: #ffffff;
     content: "\\2718";
+    animation: ${ani} 1s forwards;
 
     ${({ status }) =>
       status === "success" &&
@@ -145,11 +173,9 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
 
   if (loading) {
     return (
-      <ButtonWrapper>
-        <Wrapper>
-          <Spinner size="medium" color="#ff8560" />
-        </Wrapper>
-      </ButtonWrapper>
+      <MailLoaderWrapper>
+        <MailLoader />
+      </MailLoaderWrapper>
     );
   }
 

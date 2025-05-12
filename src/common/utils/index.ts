@@ -6,3 +6,4 @@ export { getMobile } from "./getMobile";
 export { getRandomNumber } from "./getRandomNumber";
 export { getRandomArra } from "./getRandomArra";
 export { getParallax } from "./getParallax";
+import { wait } from "src/common/utils/wait";
