@@ -159,17 +159,18 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
 }) => {
   const [statusRequest, setStatusRequest] = useState<
     "success" | "error" | null
-  >(status);
+  >(null);
 
   useEffect(() => {
-    if (statusRequest) {
+    setStatusRequest(status);
+    if (status) {
       const timeoutId = setTimeout(() => {
         setStatusRequest(null);
       }, 2000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [statusRequest]);
+  }, [status]);
 
   if (loading) {
     return (
