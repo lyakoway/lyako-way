@@ -1,10 +1,11 @@
 import { FC, useCallback, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
-import { Form, Header, Content, Footer } from "./style";
+import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
+import { Input } from "src/ui/Input";
 
 const ContactForm: FC = () => {
   const {
@@ -30,7 +31,12 @@ const ContactForm: FC = () => {
   return (
     <Form>
       <Header>{modal.title}</Header>
-      <Content>111</Content>
+      <Content>
+        <InputWrapper>
+          <Input />
+          <Input />
+        </InputWrapper>
+      </Content>
       <Footer>
         <ButtonForm
           title={modal.buttonText}

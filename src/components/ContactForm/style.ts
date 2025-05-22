@@ -20,7 +20,7 @@ export const Header = styled.div`
   text-transform: uppercase;
   border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
 
-  padding: 20px 24px 20px 24px;
+  padding: 20px;
 
   @media ${MOBILE_560} {
     flex-direction: column;
@@ -35,6 +35,8 @@ export const Content = styled.form`
   overflow-y: auto;
   overflow-x: hidden;
   max-height: calc(100vh - 160px);
+  padding: 20px;
+  gap: 20px;
 
   background-color: #d4d4d559;
 
@@ -69,13 +71,19 @@ export const Content = styled.form`
   }
 `;
 
+export const InputWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+`;
+
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 
-  padding: 12px;
+  padding: 20px;
 
   border-top: 2px solid ${({ theme }) => theme.color.basic.borderModal};
 
