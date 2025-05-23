@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
 import { Z_INDEX_TOAST } from "src/common/constants/zIndex";
 
@@ -8,37 +8,116 @@ export const SelectContainer = styled.div<{
 }>`
   position: relative;
   height: 40px;
-  border: 2px solid
-    ${({ theme, $boxShadow }) =>
-      $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
+  // border: 2px solid
+  //   {({ theme, $boxShadow }) =>
+  //     $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
   display: flex;
   align-items: center;
   gap: 0.5em;
-  border-radius: 12px;
+  //border-radius: 12px;
   outline: none;
   cursor: pointer;
   background-color: ${({ theme }) => theme.color.background.modal};
+
+  box-shadow: inset 0 0 0 2px
+    ${({ theme, $boxShadow }) =>
+      $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
 
   @media ${MOBILE_660} {
     margin-left: 0;
   }
 
   &:hover {
-    transition: 0.3s ease-in-out;
-    box-shadow: 0 0 4px 1px #ff8560;
+    //transition: 0.3s ease-in-out;
+    //box-shadow: 0 0 4px 1px #ff8560;
+    ${({ $boxShadow }) =>
+      $boxShadow &&
+      css`
+        box-shadow: inset 0 0 2px 2px #ff8560;
+      `}
   }
   &:active {
     transition: 0.3s ease-in-out;
-    border-color: #ff8560;
+    //border-color: #ff8560;
+    box-shadow: inset 0 0 0 2px
+      ${({ theme, $boxShadow }) =>
+        $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
   }
+
+  &:before {
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: center;
+    border-top: 2px solid #ff8560;
+    border-bottom: 2px solid #ff8560;
+    transform: scale3d(0, 1, 1);
+
+    //transition: all 0.2s linear;
+    //transition-duration: 0.4s;
+  }
+  &:after {
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: center;
+    border-left: 2px solid #ff8560;
+    border-right: 2px solid #ff8560;
+    transform: scale3d(1, 0, 1);
+
+    //transition: all 0.2s linear;
+    //transition-duration: 0.4s;
+  }
+  //&:hover::before,
+  //&:hover::after {
+  //  transform: scale3d(1, 1, 1); // Show full-size
+  //  transition: transform 0.5s;
+  //}
+
+  //&:active::before,
+  //&:active::after {
+  //  transform: scale3d(1, 1, 1); // Show full-size
+  //  transition: transform 0.5s;
+  //}
+
+  ${({ $boxShadow }) =>
+    !$boxShadow &&
+    css`
+      &:before {
+        transition: all 0.2s linear;
+        transition-duration: 0.4s;
+      }
+      &:after {
+        transition: all 0.2s linear;
+        transition-duration: 0.4s;
+      }
+      &:hover::before,
+      &:hover::after {
+        transform: scale3d(1, 1, 1); // Show full-size
+        transition: transform 0.5s;
+      }
+      &:active::before,
+      &:active::after {
+        transform: scale3d(1, 1, 1); // Show full-size
+        transition: transform 0.5s;
+      }
+    `}
 `;
 
 export const InputWrapper = styled.div`
   position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  padding: 6px 8px 6px 12px;
   color: #626c77;
 
   input {
@@ -106,11 +185,11 @@ export const InputStyle = styled.input`
   outline: none !important;
   border: none !important;
   margin: 0 !important;
-  height: auto !important;
+  height: 100% !important;
   box-shadow: none !important;
   color: ${({ theme }) => theme.color.text.primary};
   width: 100%;
-  padding: 0 30px 2px 0 !important;
+  padding: 0 30px 0 12px !important;
 
   white-space: nowrap;
   overflow: hidden;
