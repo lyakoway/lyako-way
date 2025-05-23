@@ -17,10 +17,7 @@ import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";
 
 export const Input = () => {
   const [searchQuery, setSearchQuery] = useState("");
-
   // const dispatch = useAppDispatch();
-
-  console.log("searchQuery", searchQuery);
 
   const getSearchQuery = (valueInput: string) => {
     const searchQueryValue = valueInput.toLowerCase();
