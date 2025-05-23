@@ -17,7 +17,6 @@ import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";
 
 export const Input = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  // const [activeInput, setActiveInput] = useState(false);
 
   // const dispatch = useAppDispatch();
 
@@ -26,7 +25,6 @@ export const Input = () => {
   const getSearchQuery = (valueInput: string) => {
     const searchQueryValue = valueInput.toLowerCase();
     setSearchQuery(searchQueryValue);
-    // setActiveInput(!activeInput);
     // dispatch(setSearchShopFilter(searchQueryValue));
   };
 
@@ -34,8 +32,6 @@ export const Input = () => {
     setSearchQuery("");
     // dispatch(setSearchShopFilter(''));
   };
-
-  // console.log("activeInput", activeInput);
 
   useEffect(() => {
     const labels = document.querySelectorAll("label");

@@ -8,13 +8,9 @@ export const SelectContainer = styled.div<{
 }>`
   position: relative;
   height: 40px;
-  // border: 2px solid
-  //   {({ theme, $boxShadow }) =>
-  //     $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
   display: flex;
   align-items: center;
   gap: 0.5em;
-  //border-radius: 12px;
   outline: none;
   cursor: pointer;
   background-color: ${({ theme }) => theme.color.background.modal};
@@ -33,12 +29,12 @@ export const SelectContainer = styled.div<{
     ${({ $boxShadow }) =>
       $boxShadow &&
       css`
-        box-shadow: inset 0 0 2px 2px #ff8560;
+        box-shadow: inset 0 0 0 3px #ff8560;
       `}
   }
+
   &:active {
     transition: 0.3s ease-in-out;
-    //border-color: #ff8560;
     box-shadow: inset 0 0 0 2px
       ${({ theme, $boxShadow }) =>
         $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
@@ -57,9 +53,10 @@ export const SelectContainer = styled.div<{
     border-bottom: 2px solid #ff8560;
     transform: scale3d(0, 1, 1);
 
-    //transition: all 0.2s linear;
-    //transition-duration: 0.4s;
+    transition: all 0.2s linear;
+    transition-duration: 0.4s;
   }
+
   &:after {
     box-sizing: inherit;
     content: "";
@@ -73,43 +70,21 @@ export const SelectContainer = styled.div<{
     border-right: 2px solid #ff8560;
     transform: scale3d(1, 0, 1);
 
-    //transition: all 0.2s linear;
-    //transition-duration: 0.4s;
+    transition: all 0.2s linear;
+    transition-duration: 0.4s;
   }
-  //&:hover::before,
-  //&:hover::after {
-  //  transform: scale3d(1, 1, 1); // Show full-size
-  //  transition: transform 0.5s;
-  //}
 
-  //&:active::before,
-  //&:active::after {
-  //  transform: scale3d(1, 1, 1); // Show full-size
-  //  transition: transform 0.5s;
-  //}
+  &:hover::before,
+  &:hover::after {
+    transform: scale3d(1, 1, 1); // Show full-size
+    transition: transform 0.5s;
+  }
 
-  ${({ $boxShadow }) =>
-    !$boxShadow &&
-    css`
-      &:before {
-        transition: all 0.2s linear;
-        transition-duration: 0.4s;
-      }
-      &:after {
-        transition: all 0.2s linear;
-        transition-duration: 0.4s;
-      }
-      &:hover::before,
-      &:hover::after {
-        transform: scale3d(1, 1, 1); // Show full-size
-        transition: transform 0.5s;
-      }
-      &:active::before,
-      &:active::after {
-        transform: scale3d(1, 1, 1); // Show full-size
-        transition: transform 0.5s;
-      }
-    `}
+  &:active::before,
+  &:active::after {
+    transform: scale3d(1, 1, 1); // Show full-size
+    transition: transform 0.5s;
+  }
 `;
 
 export const InputWrapper = styled.div`
