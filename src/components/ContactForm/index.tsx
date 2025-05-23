@@ -33,8 +33,10 @@ const ContactForm: FC = () => {
       <Header>{modal.title}</Header>
       <Content>
         <InputWrapper>
-          <Input />
-          <Input />
+          <Input label={modal.fullName} placeholder={modal.fullNameLabel} />
+          <Input label={modal.phone} placeholder={modal.fullNameLabel} />
+          <Input label={modal.mail} placeholder={modal.fullNameLabel} />
+          <Input label={modal.services} placeholder={modal.fullNameLabel} />
         </InputWrapper>
       </Content>
       <Footer>

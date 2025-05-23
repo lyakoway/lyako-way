@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { TABLET_959, MOBILE_660, MOBILE_560 } from "src/common/lib/media";
 
-export const Form = styled.div`
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -28,7 +28,7 @@ export const Header = styled.div`
   }
 `;
 
-export const Content = styled.form`
+export const Content = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -41,12 +41,12 @@ export const Content = styled.form`
   background-color: #d4d4d559;
 
   /* Основная ширина полосы прокрутки. */
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 16px;
   }
 
   /* Цвет дорожки, по которой двигается бегунок прокрутки. */
-  ::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     background: #464a5352;
     border-radius: 10px;
     background-clip: content-box;
@@ -55,13 +55,13 @@ export const Content = styled.form`
   }
 
   /* Размер и цвет бегунка. */
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     background: #464a53;
     border: 6px solid #f1f1f1;
     border-radius: 10px;
   }
   /* Размер бегунка при наведении на него курсора. */
-  ::-webkit-scrollbar-thumb:hover {
+  &::-webkit-scrollbar-thumb:hover {
     border: 4px solid #ffff;
   }
 

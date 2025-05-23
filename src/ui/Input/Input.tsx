@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 import {
   SelectContainer,
@@ -15,7 +15,12 @@ import {
 import { ReactComponent as SearchIcon } from "src/common/icon/search.svg";
 import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";
 
-export const Input = () => {
+interface IInputProps {
+  label?: string;
+  placeholder?: string;
+}
+
+export const Input: FC<IInputProps> = ({ label = "", placeholder = "" }) => {
   const [searchQuery, setSearchQuery] = useState("");
   // const dispatch = useAppDispatch();
 
@@ -50,11 +55,11 @@ export const Input = () => {
           required
           type="text"
           className="prp-products-input"
-          placeholder="Быстрый поиск"
+          placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => getSearchQuery(e.target.value)}
         />
-        <Text>Password</Text>
+        {label && <Text>{label}</Text>}
         {searchQuery && (
           <DeleteIconWrapper onClick={handleClickDelete}>
             <DeleteIcon />
