@@ -6,6 +6,7 @@ import { closeModal } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
 import { Input } from "src/ui/Input";
+import { Textarea } from "src/ui/Textarea";
 
 const ContactForm: FC = () => {
   const {
@@ -33,11 +34,28 @@ const ContactForm: FC = () => {
       <Header>{modal.title}</Header>
       <Content>
         <InputWrapper>
-          <Input label={modal.fullName} placeholder={modal.fullNameLabel} />
-          <Input label={modal.phone} placeholder={modal.fullNameLabel} />
-          <Input label={modal.mail} placeholder={modal.fullNameLabel} />
-          <Input label={modal.services} placeholder={modal.fullNameLabel} />
+          <Input
+            label={modal.fullName}
+            placeholder={modal.fullNameLabel}
+            type="text"
+          />
+          <Input
+            label={modal.phone}
+            placeholder={modal.phoneLabel}
+            type="text"
+          />
+          <Input
+            label={modal.mail}
+            placeholder={modal.mailLabel}
+            type="email"
+          />
+          <Input
+            label={modal.services}
+            placeholder={modal.servicesNull}
+            type="tel"
+          />
         </InputWrapper>
+        <Textarea label={modal.textLabel} placeholder={modal.text} />
       </Content>
       <Footer>
         <ButtonForm

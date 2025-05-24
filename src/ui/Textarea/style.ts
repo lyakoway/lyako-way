@@ -1,12 +1,13 @@
 import styled, { css } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
 import { Z_INDEX_TOAST } from "src/common/constants/zIndex";
+import { Textarea } from "src/ui/Textarea/Textarea";
 
 export const SelectContainer = styled.div<{
   $boxShadow: boolean;
 }>`
   position: relative;
-  height: 40px;
+  height: auto;
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -85,7 +86,7 @@ export const SelectContainer = styled.div<{
     transition: transform 0.5s;
   }
 
-  input {
+  textarea {
     &:focus + label,
     &:valid + label {
       span {
@@ -109,65 +110,22 @@ export const SelectContainer = styled.div<{
   }
 `;
 
-export const InputWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  color: #626c77;
-`;
-
-export const SearchIconWrapper = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1;
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-`;
-
-export const DeleteIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 4px;
-  cursor: pointer;
-  position: absolute;
-  right: 6px;
-  z-index: ${Z_INDEX_TOAST};
-
-  svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  &:hover {
-    border-radius: 8px;
-    background-color: #f2f3f7;
-    box-shadow: 0 0 6px 2px #9e9e9e;
-  }
-`;
-
-export const InputStyle = styled.input`
+export const TextareaStyle = styled.textarea`
   all: unset;
   outline: none !important;
   border: none !important;
-  margin: 0 !important;
-  height: 100% !important;
   box-shadow: none !important;
   color: ${({ theme }) => theme.color.text.primary};
+  background-color: ${({ theme }) => theme.color.background.modal};
   width: 100%;
-  padding: 0 30px 0 12px !important;
+  margin: 3px;
+  padding: 9px;
 
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-height: 100px;
+  resize: vertical;
+  overflow-y: auto;
+  overflow-x: hidden;
+
   z-index: 2;
 
   &:focus {
@@ -179,6 +137,8 @@ export const InputStyle = styled.input`
 export const Text = styled.label`
   position: absolute;
   left: 12px;
+  top: 12px;
+  z-index: 2;
 
   span {
     display: inline-block;

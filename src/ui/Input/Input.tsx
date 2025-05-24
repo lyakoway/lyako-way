@@ -18,9 +18,14 @@ import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";
 interface IInputProps {
   label?: string;
   placeholder?: string;
+  type?: "text" | "email" | "submit" | "password" | "tel";
 }
 
-export const Input: FC<IInputProps> = ({ label = "", placeholder = "" }) => {
+export const Input: FC<IInputProps> = ({
+  label = "",
+  placeholder = "",
+  type = "text",
+}) => {
   const [searchQuery, setSearchQuery] = useState("");
   // const dispatch = useAppDispatch();
 
@@ -49,11 +54,13 @@ export const Input: FC<IInputProps> = ({ label = "", placeholder = "" }) => {
   }, []);
 
   return (
-    <SelectContainer $boxShadow={!!searchQuery} id="input">
+    <SelectContainer $boxShadow={!!searchQuery}>
       <InputWrapper>
         <InputStyle
           required
-          type="text"
+          id={type}
+          type={type}
+          name={type}
           className="prp-products-input"
           placeholder={placeholder}
           value={searchQuery}
