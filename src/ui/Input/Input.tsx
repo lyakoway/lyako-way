@@ -61,7 +61,6 @@ export const Input: FC<IInputProps> = ({
           id={type}
           type={type}
           name={type}
-          className="prp-products-input"
           placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => getSearchQuery(e.target.value)}

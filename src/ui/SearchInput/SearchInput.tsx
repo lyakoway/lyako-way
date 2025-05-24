@@ -40,7 +40,6 @@ export const SearchInput = () => {
         </SearchIconWrapper>
         <Input
           type="text"
-          className="prp-products-input"
           placeholder="Быстрый поиск"
           value={searchQuery}
           onChange={(e) => getSearchQuery(e.target.value)}
