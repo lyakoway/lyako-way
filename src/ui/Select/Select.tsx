@@ -51,15 +51,16 @@ const getInputMultipleText = (
     return value.map((item, i: number) => (
       <Fragment key={item.value}>
         <ChipsItem>{setCounterChip(value.length - i)}</ChipsItem>
-        <Chips
-          onClick={(e) => {
-            e.stopPropagation();
-            getSelectOption(item);
-          }}
-          data-is-chip
-        >
+        <Chips data-is-chip>
           {item.label}
-          <ChipsClose>&times;</ChipsClose>
+          <ChipsClose
+            onClick={(e) => {
+              e.stopPropagation();
+              getSelectOption(item);
+            }}
+          >
+            &times;
+          </ChipsClose>
         </Chips>
       </Fragment>
     ));
@@ -170,6 +171,7 @@ export const Select = ({
 
   return (
     <SelectContainer
+      $boxShadow={value.length !== 0}
       ref={containerRef}
       onBlur={() => setIsOpen(false)}
       onClick={() => setIsOpen((prev) => !prev)}

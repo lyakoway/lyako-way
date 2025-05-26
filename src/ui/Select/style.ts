@@ -10,9 +10,10 @@ const dropdownListAnimation = keyframes`
   }
 `;
 
-export const SelectContainer = styled.div`
+export const SelectContainer = styled.div<{
+  $boxShadow: boolean;
+}>`
   position: relative;
-  //max-width: 20em;
   height: 50px;
   width: 100%;
   min-height: 1.5em;
@@ -20,17 +21,77 @@ export const SelectContainer = styled.div`
   align-items: center;
   gap: 0.5em;
   padding: 0.5em;
-  //border-radius: 0.25em;
   outline: none;
   cursor: pointer;
-  background: #fff;
-  border: solid 2px #000;
+  //background: #fff;
+  //border: solid 2px #000;
+  background-color: ${({ theme }) => theme.color.background.modal};
+
+  box-shadow: inset 0 0 0 2px
+    ${({ theme, $boxShadow }) =>
+      $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
 
   &:hover {
-    box-shadow: 0 0 4px #fff;
+    //transition: 0.3s ease-in-out;
+    //box-shadow: 0 0 4px 1px #ff8560;
+    ${({ $boxShadow }) =>
+      $boxShadow &&
+      css`
+        box-shadow: inset 0 0 0 3px #ff8560;
+      `}
   }
-  &:focus {
-    box-shadow: 0 0 8px #fff;
+
+  &:active {
+    transition: 0.3s ease-in-out;
+    box-shadow: inset 0 0 0 2px
+      ${({ theme, $boxShadow }) =>
+        $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
+  }
+
+  &:before {
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: center;
+    border-top: 2px solid #ff8560;
+    border-bottom: 2px solid #ff8560;
+    transform: scale3d(0, 1, 1);
+
+    transition: all 0.2s linear;
+    transition-duration: 0.4s;
+  }
+
+  &:after {
+    box-sizing: inherit;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    transform-origin: center;
+    border-left: 2px solid #ff8560;
+    border-right: 2px solid #ff8560;
+    transform: scale3d(1, 0, 1);
+
+    transition: all 0.2s linear;
+    transition-duration: 0.4s;
+  }
+
+  &:hover::before,
+  &:hover::after {
+    transform: scale3d(1, 1, 1); // Show full-size
+    transition: transform 0.5s;
+  }
+
+  &:active::before,
+  &:active::after {
+    transform: scale3d(1, 1, 1); // Show full-size
+    transition: transform 0.5s;
   }
 `;
 
@@ -53,10 +114,11 @@ export const Chips = styled.button`
   cursor: pointer;
   background: none;
   outline: none;
-  margin: 2px 4px 2px 8px;
+  margin: 2px 4px 2px 4px;
   height: 28px;
   background: rgb(81, 92, 102);
   color: white;
+  z-index: 2;
 
   &:hover {
     background-color: #ffffff;
@@ -109,6 +171,7 @@ export const NotChosen = styled.div`
 export const ChipsClose = styled.span`
   font-size: 1.25em;
   color: white;
+  padding-bottom: 0.1em;
 `;
 
 export const InputDelete = styled.button`
@@ -120,6 +183,7 @@ export const InputDelete = styled.button`
   padding: 0;
   font-size: 1.25em;
   position: relative;
+  z-index: 2;
 
   display: flex;
   justify-content: center;
