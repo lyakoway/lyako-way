@@ -226,6 +226,7 @@ export const Divider = styled.div`
 
 export const Caret = styled.div<{ $isOpen?: boolean }>`
   transform: translate(0, ${({ $isOpen }) => ($isOpen ? 0 : "50%")});
+  transition: transform 0.5s;
   border: 0.35em solid transparent;
   border-top-color: ${({ $isOpen, theme }) =>
     $isOpen ? "none" : theme.color.basic.borderModal};
