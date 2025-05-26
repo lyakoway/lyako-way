@@ -158,7 +158,6 @@ export const Chips = styled.button`
     }
   }
 
-  //transition: all 0.3s ease-in-out;
   animation: ${dropdownListAnimation} 1s 1; /* Указываем название анимации, её время и количество повторов*/
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 `;
