@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import {
@@ -87,13 +87,13 @@ const HeaderSection = () => {
     setOpened(false);
   };
 
-  const handleClickModal = () => {
+  const handleClickModal = useCallback(() => {
     dispatch(
       showModal({
         content: <ContactForm />,
       })
     );
-  };
+  }, [dispatch]);
 
   return (
     <HeaderSectionWrapper>

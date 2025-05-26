@@ -6,7 +6,7 @@ export const SelectContainer = styled.div<{
   $boxShadow: boolean;
 }>`
   position: relative;
-  height: 40px;
+  height: 50px;
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -89,7 +89,7 @@ export const SelectContainer = styled.div<{
     &:focus + label,
     &:valid + label {
       span {
-        transform: translateY(-1.875rem);
+        transform: translateY(-2.2rem);
         font-size: 10px;
         font-weight: 500;
       }
