@@ -66,7 +66,9 @@ const getInputMultipleText = (
     <>
       {value.map((item, i: number) => (
         <Fragment key={item.value}>
-          <ChipsItem>{setCounterChip(value.length - i)}</ChipsItem>
+          {value.length !== 1 && (
+            <ChipsItem>{setCounterChip(value.length - i)}</ChipsItem>
+          )}
           <Chips data-is-chip>
             {item.label}
             <ChipsClose

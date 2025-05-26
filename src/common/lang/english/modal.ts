@@ -8,7 +8,7 @@ export const modal: ModalProps = {
   phone: "Phone*",
   phoneLabel: "Enter phone number",
   services: "Service",
-  servicesNull: "Select...",
+  servicesNull: "Work...",
   services1: "Development from scratch",
   services2: "Project finalization",
   services3: "Module development",

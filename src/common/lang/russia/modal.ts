@@ -8,7 +8,7 @@ export const modal: ModalProps = {
   phone: "Телефон*",
   phoneLabel: "Введите номер телефон",
   services: "Услуги",
-  servicesNull: "Выберите...",
+  servicesNull: "Работа...",
   services1: "Разработка с нуля",
   services2: "Доработка проекта",
   services3: "Разработка модуля",

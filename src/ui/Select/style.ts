@@ -123,7 +123,7 @@ export const Chips = styled.button`
   align-items: center;
   border-radius: 0.25em;
   padding: 0.15em 0.25em 0.16em 0.15em;
-  gap: 0.25em;
+  gap: 6px;
   cursor: pointer;
   background: none;
   outline: none;
@@ -157,6 +157,10 @@ export const Chips = styled.button`
       font-weight: 700;
     }
   }
+
+  //transition: all 0.3s ease-in-out;
+  animation: ${dropdownListAnimation} 1s 1; /* Указываем название анимации, её время и количество повторов*/
+  animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 `;
 
 export const ChipsItem = styled.button`
@@ -171,6 +175,9 @@ export const ChipsItem = styled.button`
   gap: 0.25em;
   background: rgb(81, 92, 102);
   color: white;
+
+  animation: ${dropdownListAnimation} 1s 1; /* Указываем название анимации, её время и количество повторов*/
+  animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 `;
 
 export const NotChosen = styled.label<{ $moveText?: boolean }>`
