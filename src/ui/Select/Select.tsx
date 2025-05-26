@@ -72,14 +72,14 @@ const getInputMultipleText = (
           )}
           <Chips data-is-chip>
             <TextChips>{item.label}</TextChips>
-            <ChipsClose
-              onClick={(e) => {
-                e.stopPropagation();
-                getSelectOption(item);
-              }}
-            >
-              &times;
-            </ChipsClose>
+            {/*<ChipsClose*/}
+            {/*  onClick={(e) => {*/}
+            {/*    e.stopPropagation();*/}
+            {/*    getSelectOption(item);*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  &times;*/}
+            {/*</ChipsClose>*/}
           </Chips>
         </Fragment>
       ))}
@@ -115,7 +115,7 @@ export const Select = ({
 
   const clearOptions = useCallback(
     (e: MouseEvent<HTMLElement>) => {
-      e.stopPropagation();
+      // e.stopPropagation(); блокирует закрытие dropdownList
       multiple ? onChange([]) : onChange(undefined);
     },
     [onChange]
@@ -126,6 +126,10 @@ export const Select = ({
       if (multiple) {
         if (value?.includes(option)) {
           onChange(value?.filter((o) => o !== option));
+          // setIsOpen(true);
+          // if (value.length === 1) {
+          //   setIsOpen(false);
+          // }
         } else {
           onChange([...value, option]);
         }

@@ -129,44 +129,44 @@ export const Chips = styled.button`
   border-radius: 0.25em;
   padding: 0.15em 0.25em 0.16em 0.15em;
   gap: 6px;
-  cursor: pointer;
+  //cursor: pointer;
   background: none;
   outline: none;
   margin: 2px 4px 2px 4px;
   height: 28px;
   background: rgb(81, 92, 102);
   color: white;
-  z-index: 2;
+  //z-index: 2;
   overflow: hidden;
 
   @media ${MOBILE_660} {
     max-width: 180px;
   }
 
-  &:hover {
-    background-color: #ffffff;
-    color: black;
-
-    span {
-      color: red;
-    }
-  }
-
-  &:active {
-    background-color: hsl(0, 100%, 90%);
-    color: white;
-
-    span {
-      font-weight: 700;
-    }
-  }
-
-  span {
-    &:hover {
-      color: hsl(0, 100%, 50%);
-      font-weight: 700;
-    }
-  }
+  //&:hover {
+  //  background-color: #ffffff;
+  //  color: black;
+  //
+  //  span {
+  //    color: red;
+  //  }
+  //}
+  //
+  //&:active {
+  //  background-color: hsl(0, 100%, 90%);
+  //  color: white;
+  //
+  //  span {
+  //    font-weight: 700;
+  //  }
+  //}
+  //
+  //span {
+  //  &:hover {
+  //    color: hsl(0, 100%, 50%);
+  //    font-weight: 700;
+  //  }
+  //}
 
   animation: ${dropdownListAnimation} 1s 1; /* Указываем название анимации, её время и количество повторов*/
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
@@ -214,6 +214,7 @@ export const ChipsClose = styled.span`
   font-size: 1.25em;
   color: white;
   padding-bottom: 0.1em;
+  cursor: pointer;
 `;
 
 export const Divider = styled.div`
@@ -230,6 +231,8 @@ export const Caret = styled.div<{ $isOpen?: boolean }>`
     $isOpen ? "none" : theme.color.basic.borderModal};
   border-bottom-color: ${({ $isOpen, theme }) =>
     $isOpen ? theme.color.basic.borderModal : "none"};
+  cursor: pointer;
+  z-index: 2;
 `;
 
 export const DropdownList = styled.ul<{ $isOpen?: boolean }>`
