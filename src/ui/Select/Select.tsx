@@ -13,15 +13,17 @@ import {
   Chips,
   ChipsItem,
   ChipsClose,
-  InputDelete,
   Divider,
   Caret,
   DropdownList,
   ListOption,
   NotChosen,
   CheckboxIcon,
+  DeleteIconWrapper,
 } from "./style";
 import { ISelectOption } from "src/common/types/select";
+
+import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";
 
 type MultipleSelectProps = {
   multiple: true;
@@ -47,25 +49,40 @@ const getInputMultipleText = (
 ) => {
   const setCounterChip = (index: number) => " + " + index;
 
-  if (value.length !== 0) {
-    return value.map((item, i: number) => (
-      <Fragment key={item.value}>
-        <ChipsItem>{setCounterChip(value.length - i)}</ChipsItem>
-        <Chips data-is-chip>
-          {item.label}
-          <ChipsClose
-            onClick={(e) => {
-              e.stopPropagation();
-              getSelectOption(item);
-            }}
-          >
-            &times;
-          </ChipsClose>
-        </Chips>
-      </Fragment>
-    ));
-  }
-  return <NotChosen>{defaultText}</NotChosen>;
+  useEffect(() => {
+    const labels = document.querySelectorAll("label");
+    labels.forEach((label) => {
+      label.innerHTML = label.innerText
+        .split("")
+        .map(
+          (letter, idx) =>
+            `<span style="transition-delay:${idx * 50}ms">${letter}</span>`
+        )
+        .join("");
+    });
+  }, []);
+
+  return (
+    <>
+      {value.map((item, i: number) => (
+        <Fragment key={item.value}>
+          <ChipsItem>{setCounterChip(value.length - i)}</ChipsItem>
+          <Chips data-is-chip>
+            {item.label}
+            <ChipsClose
+              onClick={(e) => {
+                e.stopPropagation();
+                getSelectOption(item);
+              }}
+            >
+              &times;
+            </ChipsClose>
+          </Chips>
+        </Fragment>
+      ))}
+      <NotChosen $moveText={value.length !== 0}>{defaultText}</NotChosen>
+    </>
+  );
 };
 
 const getInputTextSelect = (
@@ -183,7 +200,9 @@ export const Select = ({
           : getInputTextSelect(value, defaultText)}
       </InputText>
       {showInputDelete && (
-        <InputDelete onClick={(e) => clearOptions(e)}>&times;</InputDelete>
+        <DeleteIconWrapper onClick={(e) => clearOptions(e)}>
+          <DeleteIcon />
+        </DeleteIconWrapper>
       )}
       <Divider />
       <Caret $isOpen={isOpen} />

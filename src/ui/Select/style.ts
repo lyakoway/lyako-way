@@ -1,5 +1,8 @@
 import styled, { css, keyframes } from "styled-components";
-import { Z_INDEX_DROPDOWN_LIST_SELECT } from "src/common/constants/zIndex";
+import {
+  Z_INDEX_DROPDOWN_LIST_SELECT,
+  Z_INDEX_TOAST,
+} from "src/common/constants/zIndex";
 
 const dropdownListAnimation = keyframes`
   from {
@@ -93,9 +96,18 @@ export const SelectContainer = styled.div<{
     transform: scale3d(1, 1, 1); // Show full-size
     transition: transform 0.5s;
   }
+
+  &:focus + label,
+  &:valid + label {
+    span {
+      transform: translateY(-2.2rem);
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
 `;
 
-export const InputText = styled.span`
+export const InputText = styled.div`
   flex-grow: 1;
   display: flex;
   gap: 0.5em;
@@ -103,6 +115,7 @@ export const InputText = styled.span`
   overflow: hidden;
   padding-right: 44px;
   height: 32px;
+  align-items: center;
 `;
 
 export const Chips = styled.button`
@@ -160,12 +173,25 @@ export const ChipsItem = styled.button`
   color: white;
 `;
 
-export const NotChosen = styled.div`
-  margin: 2px 4px 2px 2px;
-  display: flex;
-  align-items: center;
-  color: #000;
-  white-space: nowrap;
+export const NotChosen = styled.label<{ $moveText?: boolean }>`
+  position: absolute;
+  left: 12px;
+
+  span {
+    display: inline-block;
+    color: ${({ theme }) => theme.color.text.primary};
+    transition: 0.3s cubic-bezier(0.53, 0.246, 0.265, 1.66);
+  }
+
+  ${({ $moveText }) =>
+    $moveText &&
+    css`
+      span {
+        transform: translateY(-2.2rem);
+        font-size: 10px;
+        font-weight: 500;
+      }
+    `}
 `;
 
 export const ChipsClose = styled.span`
@@ -174,56 +200,9 @@ export const ChipsClose = styled.span`
   padding-bottom: 0.1em;
 `;
 
-export const InputDelete = styled.button`
-  background: none;
-  color: #000;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: 1.25em;
-  position: relative;
-  z-index: 2;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 16px;
-  height: 16px;
-  min-width: 16px;
-  font-weight: 400;
-
-  background: none;
-  border: none;
-
-  cursor: pointer;
-
-  &:hover:before {
-    content: "";
-    position: absolute;
-    top: -3px;
-    left: -4px;
-    bottom: -6px;
-    right: -4px;
-    border-radius: 50%;
-    background-color: rgba(98, 108, 119, 0.25);
-    box-shadow: 0 0 6px #fff;
-  }
-
-  color: #000;
-
-  &:hover {
-    color: red;
-    font-weight: 700;
-  }
-  &:active {
-    color: #fff;
-    font-weight: 700;
-  }
-`;
-
 export const Divider = styled.div`
-  background-color: #000;
+  background-color: ${({ theme }) => theme.color.basic.borderModal};
+
   align-self: stretch;
   width: 0.05em;
 `;
@@ -231,8 +210,10 @@ export const Divider = styled.div`
 export const Caret = styled.div<{ $isOpen?: boolean }>`
   transform: translate(0, ${({ $isOpen }) => ($isOpen ? 0 : "50%")});
   border: 0.35em solid transparent;
-  border-top-color: ${({ $isOpen }) => ($isOpen ? "none" : "#000")};
-  border-bottom-color: ${({ $isOpen }) => ($isOpen ? "#000" : "none")};
+  border-top-color: ${({ $isOpen, theme }) =>
+    $isOpen ? "none" : theme.color.basic.borderModal};
+  border-bottom-color: ${({ $isOpen, theme }) =>
+    $isOpen ? theme.color.basic.borderModal : "none"};
 `;
 
 export const DropdownList = styled.ul<{ $isOpen?: boolean }>`
@@ -308,5 +289,25 @@ export const CheckboxIcon = styled.div<{ checked: boolean }>`
         transform: rotate(-360deg);
         transition: transform 0.3s ease-in-out;
       `};
+  }
+`;
+
+export const DeleteIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+  z-index: ${Z_INDEX_TOAST};
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    border-radius: 8px;
+    background-color: #f2f3f7;
+    box-shadow: 0 0 6px 2px #9e9e9e;
   }
 `;
