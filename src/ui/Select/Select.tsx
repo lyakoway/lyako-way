@@ -20,6 +20,7 @@ import {
   NotChosen,
   CheckboxIcon,
   DeleteIconWrapper,
+  TextChips,
 } from "./style";
 import { ISelectOption } from "src/common/types/select";
 
@@ -70,7 +71,7 @@ const getInputMultipleText = (
             <ChipsItem>{setCounterChip(value.length - i)}</ChipsItem>
           )}
           <Chips data-is-chip>
-            {item.label}
+            <TextChips>{item.label}</TextChips>
             <ChipsClose
               onClick={(e) => {
                 e.stopPropagation();

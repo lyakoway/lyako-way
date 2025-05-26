@@ -3,6 +3,7 @@ import {
   Z_INDEX_DROPDOWN_LIST_SELECT,
   Z_INDEX_TOAST,
 } from "src/common/constants/zIndex";
+import { MOBILE_660 } from "src/common/lib/media";
 
 const dropdownListAnimation = keyframes`
   from {
@@ -26,8 +27,6 @@ export const SelectContainer = styled.div<{
   padding: 0.5em;
   outline: none;
   cursor: pointer;
-  //background: #fff;
-  //border: solid 2px #000;
   background-color: ${({ theme }) => theme.color.background.modal};
 
   box-shadow: inset 0 0 0 2px
@@ -118,6 +117,12 @@ export const InputText = styled.div`
   align-items: center;
 `;
 
+export const TextChips = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
 export const Chips = styled.button`
   display: flex;
   align-items: center;
@@ -132,6 +137,11 @@ export const Chips = styled.button`
   background: rgb(81, 92, 102);
   color: white;
   z-index: 2;
+  overflow: hidden;
+
+  @media ${MOBILE_660} {
+    max-width: 180px;
+  }
 
   &:hover {
     background-color: #ffffff;

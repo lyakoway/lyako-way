@@ -20,7 +20,7 @@ export const Header = styled.div`
   text-transform: uppercase;
   border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
 
-  padding: 20px;
+  padding: 20px 50px 20px 20px;
 
   @media ${MOBILE_560} {
     flex-direction: column;
