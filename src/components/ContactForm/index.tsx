@@ -9,7 +9,6 @@ import { Input, InputPhone } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
 import { Select } from "src/ui/Select";
 import { ISelectOption } from "src/common/types/select";
-import { InputPhoneEn } from "src/ui/Input/InputPhoneEn";
 
 const ContactForm: FC = () => {
   const {
@@ -77,13 +76,6 @@ const ContactForm: FC = () => {
             phone={phone}
             langName={langName}
           />
-          {/*<InputPhoneEn*/}
-          {/*  label={modal.phone}*/}
-          {/*  placeholder={modal.phoneLabel}*/}
-          {/*  type="text"*/}
-          {/*  setPhone={setPhone}*/}
-          {/*  phone={phone}*/}
-          {/*/>*/}
           <Input
             label={modal.mail}
             placeholder={modal.mailLabel}

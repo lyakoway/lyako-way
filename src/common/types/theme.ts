@@ -36,6 +36,7 @@ export interface ThemeColor {
     staticWhite: string;
     staticBlack: string;
     data: string;
+    negative: string;
   };
   status: {
     warn: string;

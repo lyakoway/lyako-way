@@ -30,7 +30,9 @@ const getValidateErrorTextPhone = (
   const clearedPhone = getPhoneRaw(changePhone);
   const isNotEmpty = Boolean(clearedPhone);
   if (isNotEmpty && clearedPhone.length < 10) {
-    return "Номер введён не полностью";
+    return langName === "russia"
+      ? "Номер введён не полностью"
+      : "The number is not entered completely";
   }
   if (
     clearedPhone.length === 10 &&

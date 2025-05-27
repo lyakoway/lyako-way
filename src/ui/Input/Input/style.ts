@@ -186,3 +186,12 @@ export const Text = styled.label`
     transition: 0.3s cubic-bezier(0.53, 0.246, 0.265, 1.66);
   }
 `;
+
+export const TextDescription = styled.div`
+  position: absolute;
+  transform: translateY(-2.1rem);
+  color: ${({ theme }) => theme.color.text.negative};
+  left: 12px;
+  font-size: 10px;
+  font-weight: 500;
+`;

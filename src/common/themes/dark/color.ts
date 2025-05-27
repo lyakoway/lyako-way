@@ -40,6 +40,7 @@ const TEXT = {
   staticWhite: "#FFFFFF",
   staticBlack: "#2B313B",
   data: "#FFFFFF",
+  negative: "#fad67d",
 };
 
 const STATUS = {

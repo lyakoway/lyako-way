@@ -7,6 +7,7 @@ import {
   DeleteIconWrapper,
   InputStyle,
   Text,
+  TextDescription,
 } from "./style";
 // import { getCommonIcon } from '../Icon';
 // import { useAppDispatch } from '../../../store';
@@ -86,7 +87,8 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
             onBlur={onBlurHandler}
             ref={ref}
           />
-          {(label || description) && <Text>{description || label}</Text>}
+          {label && !description && <Text>{label}</Text>}
+          {description && <TextDescription>{description}</TextDescription>}
           {value && (
             <DeleteIconWrapper onClick={handleClickDelete}>
               <DeleteIcon />
