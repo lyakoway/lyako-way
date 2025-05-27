@@ -23,13 +23,20 @@ const isOperatorExist = (phone: string): boolean => {
   return interval !== undefined;
 };
 
-const getValidateErrorTextPhone = (changePhone?: string): string => {
+const getValidateErrorTextPhone = (
+  changePhone?: string,
+  langName?: string
+): string => {
   const clearedPhone = getPhoneRaw(changePhone);
   const isNotEmpty = Boolean(clearedPhone);
   if (isNotEmpty && clearedPhone.length < 10) {
     return "Номер введён не полностью";
   }
-  if (clearedPhone.length === 10 && !isOperatorExist(clearedPhone)) {
+  if (
+    clearedPhone.length === 10 &&
+    !isOperatorExist(clearedPhone) &&
+    langName === "russia"
+  ) {
     return "Неверный формат номера";
   }
   return "";
@@ -37,6 +44,7 @@ const getValidateErrorTextPhone = (changePhone?: string): string => {
 
 getValidateErrorTextPhone.defaultProps = {
   changePhone: "",
+  langName: "russia",
 };
 
 export default getValidateErrorTextPhone;

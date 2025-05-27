@@ -1,4 +1,4 @@
-export const formatPhone = (input: string): string => {
+export const getFormatPhone = (input: string): string => {
   const digits = input.replace(/\D/g, "").replace(/^8|^7/, "");
 
   let result = "+7";
@@ -8,4 +8,19 @@ export const formatPhone = (input: string): string => {
   if (digits.length >= 9) result += "-" + digits.slice(8, 10);
 
   return result.slice(0, 18); // ограничим длину
+};
+
+export const getFormatPhoneEn = (input: string): string => {
+  let clearedPhone = input || "";
+  clearedPhone = clearedPhone.replace(/[^\d+]/g, "");
+
+  // Убираем все плюсы, кроме первого
+  clearedPhone = clearedPhone.replace(/\+(?=.+\+)/g, "");
+
+  // Гарантируем, что плюс только в начале
+  if (clearedPhone.length > 0 && clearedPhone[0] !== "+") {
+    clearedPhone = "+" + clearedPhone.replace(/\+/g, "");
+  }
+
+  return clearedPhone;
 };

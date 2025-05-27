@@ -16,10 +16,6 @@ import { Input } from "src/ui/Input";
 import getPhoneRaw from "src/common/utils/getPhoneRaw";
 import getValidateErrorTextPhone from "src/common/utils/getValidateErrorTextPhone";
 import { getMobileOperatingSystem, isIos } from "src/common/utils";
-import {
-  getFormatPhone,
-  getFormatPhoneEn,
-} from "src/common/utils/getFormatPhone";
 
 interface IInputPhoneProps {
   label?: string;
@@ -27,36 +23,36 @@ interface IInputPhoneProps {
   type?: "text" | "email" | "submit" | "password" | "tel";
   setPhone?: (value: string) => void;
   phone?: string;
-  langName?: string;
 }
 
-const changeHandlerFormatPhone = (valueInput: string): string => {
-  const clearedPhone = valueInput ? getPhoneRaw(valueInput) : "";
-  const standardPhoneLength =
-    clearedPhone?.length > 10 ? clearedPhone.substring(0, 10) : clearedPhone;
-
-  return getFormatPhone(standardPhoneLength);
-};
-
-export const InputPhone: FC<IInputPhoneProps> = ({
+export const InputPhoneEn: FC<IInputPhoneProps> = ({
   label = "",
   placeholder = "",
   type = "text",
   setPhone = () => {},
   phone = "",
-  langName = "russia",
 }) => {
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
 
   const changeHandler = (valueInput: string) => {
-    const inputPhone =
-      langName === "russia"
-        ? changeHandlerFormatPhone(valueInput)
-        : getFormatPhoneEn(valueInput);
+    let clearedPhone = valueInput || "";
+    clearedPhone = clearedPhone.replace(/[^\d+]/g, "");
 
-    setPhone(inputPhone);
-    if (!!valueInput && valueInput !== "+" && valueInput?.trim() !== "+7") {
+    // Убираем все плюсы, кроме первого
+    clearedPhone = clearedPhone.replace(/\+(?=.+\+)/g, "");
+
+    // Гарантируем, что плюс только в начале
+    if (clearedPhone.length > 0 && clearedPhone[0] !== "+") {
+      clearedPhone = "+" + clearedPhone.replace(/\+/g, "");
+    }
+
+    setPhone(clearedPhone);
+    if (
+      !!clearedPhone &&
+      clearedPhone !== "+" &&
+      clearedPhone?.trim() !== "+7"
+    ) {
       setErrorDescription("");
     }
   };
@@ -65,10 +61,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
     (changePhoneValue: string) => {
       let validatorErrorTextPhone = "";
       if (changePhoneValue?.length) {
-        validatorErrorTextPhone = getValidateErrorTextPhone(
-          changePhoneValue,
-          langName
-        );
+        validatorErrorTextPhone = getValidateErrorTextPhone(changePhoneValue);
 
         if (validatorErrorTextPhone) {
           setErrorDescription(validatorErrorTextPhone);
@@ -117,7 +110,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
       ref={fieldRef}
       description={errorDescription}
       label={label}
-      placeholder={langName === "russia" ? "+7 (___) ___-__-__" : placeholder}
+      placeholder={placeholder}
       type={type}
       changeHandler={changeHandler}
       value={phone}
