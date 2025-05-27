@@ -5,7 +5,7 @@ import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
-import { Input } from "src/ui/Input";
+import { Input, InputPhone } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
 import { Select } from "src/ui/Select";
 import { ISelectOption } from "src/common/types/select";
@@ -22,7 +22,16 @@ const ContactForm: FC = () => {
   const [selectOptionMultiple, setSelectOptionMultiple] = useState<
     ISelectOption[]
   >([]);
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
   const [selectOptions, useSelectOptions] = useState<ISelectOption[]>([]);
+  const [message, setMessage] = useState("");
+
+  const changeHandlerName = (valueInput: string) => {
+    const searchQueryValue = valueInput.toLowerCase();
+    setName(searchQueryValue);
+  };
 
   useEffect(() => {
     const selectList = [
@@ -55,18 +64,23 @@ const ContactForm: FC = () => {
             label={modal.fullName}
             placeholder={modal.fullNameLabel}
             type="text"
+            changeHandler={changeHandlerName}
+            value={name}
+            handleClickDelete={() => setName("")}
           />
-          <Input
+          <InputPhone
             label={modal.phone}
             placeholder={modal.phoneLabel}
             type="text"
+            setPhone={setPhone}
+            phone={phone}
           />
           <Input
             label={modal.mail}
             placeholder={modal.mailLabel}
             type="email"
           />
-          {/*<Input*/}
+          {/*<Index*/}
           {/*  label={modal.services}*/}
           {/*  placeholder={modal.servicesNull}*/}
           {/*  type="tel"*/}
