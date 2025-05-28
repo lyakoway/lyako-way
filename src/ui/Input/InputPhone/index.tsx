@@ -16,6 +16,7 @@ interface IInputPhoneProps {
   setPhone?: (value: string) => void;
   phone?: string;
   langName?: string;
+  description?: string;
 }
 
 const changeHandlerFormatPhone = (valueInput: string): string => {
@@ -33,9 +34,14 @@ export const InputPhone: FC<IInputPhoneProps> = ({
   setPhone = () => {},
   phone = "",
   langName = "russia",
+  description = "",
 }) => {
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
+
+  useEffect(() => {
+    setErrorDescription(description);
+  }, [description]);
 
   const changeHandler = (valueInput: string) => {
     const inputPhone =

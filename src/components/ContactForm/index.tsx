@@ -27,6 +27,10 @@ const ContactForm: FC = () => {
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState(null);
 
+  const [formDescriptionName, setFormDescriptionName] = useState("");
+  const [formDescriptionEmail, setFormDescriptionEmail] = useState("");
+  const [formDescriptionPhone, setFormDescriptionPhone] = useState("");
+
   const changeHandlerName = (valueInput: string) => {
     const searchQueryValue = valueInput.toLowerCase();
     setName(searchQueryValue);
@@ -62,15 +66,42 @@ const ContactForm: FC = () => {
   }, [name, email, phone, typesWork, message]);
 
   const handleCloseButton = useCallback(async () => {
-    setLoading(true);
-    await wait(3000);
-    setLoading(false);
-    setStatusRequest("success");
-    await wait(2000);
-    // if (statusRequest === "success") {
-    dispatch(closeModal());
-    // }
-  }, [dispatch, statusRequest, wait, setStatusRequest, setLoading]);
+    if (!name) {
+      setFormDescriptionName("Заполите свое имя");
+    }
+    if (!email) {
+      setFormDescriptionEmail("Заполите свою почту");
+    }
+    if (!phone) {
+      setFormDescriptionPhone("Заполите свой телефон");
+    }
+    if (name && email && phone) {
+      setFormDescriptionName("");
+      setFormDescriptionEmail("");
+      setFormDescriptionPhone("");
+
+      setLoading(true);
+      await wait(3000);
+      setLoading(false);
+      setStatusRequest("success");
+      await wait(2000);
+      // if (statusRequest === "success") {
+      dispatch(closeModal());
+      // }
+    }
+  }, [
+    name,
+    email,
+    phone,
+    dispatch,
+    statusRequest,
+    wait,
+    setStatusRequest,
+    setLoading,
+    setFormDescriptionName,
+    setFormDescriptionEmail,
+    setFormDescriptionPhone,
+  ]);
 
   return (
     <Form>
@@ -84,6 +115,7 @@ const ContactForm: FC = () => {
             setName={setName}
             name={name}
             langName={langName}
+            description={formDescriptionName}
           />
           <InputPhone
             label={modal.phone}
@@ -92,12 +124,15 @@ const ContactForm: FC = () => {
             setPhone={setPhone}
             phone={phone}
             langName={langName}
+            description={formDescriptionPhone}
           />
           <InputEmail
             label={modal.mail}
             type="email"
             setEmail={setEmail}
             email={email}
+            langName={langName}
+            description={formDescriptionEmail}
           />
           <Select
             multiple

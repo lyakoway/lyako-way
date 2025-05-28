@@ -11,6 +11,7 @@ interface IInputEmailProps {
   setEmail?: (value: string) => void;
   email?: string;
   langName?: string;
+  description?: string;
 }
 
 export const InputEmail: FC<IInputEmailProps> = ({
@@ -19,9 +20,14 @@ export const InputEmail: FC<IInputEmailProps> = ({
   setEmail = () => {},
   email = "",
   langName = "russia",
+  description = "",
 }) => {
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
+
+  useEffect(() => {
+    setErrorDescription(description);
+  }, [description]);
 
   const changeHandler = (valueInput: string) => {
     setEmail(valueInput);

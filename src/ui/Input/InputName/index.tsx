@@ -10,6 +10,7 @@ interface IInputNameProps {
   setName?: (value: string) => void;
   name?: string;
   langName?: string;
+  description?: string;
 }
 
 export const InputName: FC<IInputNameProps> = ({
@@ -19,9 +20,14 @@ export const InputName: FC<IInputNameProps> = ({
   setName = () => {},
   name = "",
   langName = "russia",
+  description = "",
 }) => {
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
+
+  useEffect(() => {
+    setErrorDescription(description);
+  }, [description]);
 
   const changeHandler = (valueInput: string) => {
     setName(valueInput.replace(/[^a-zA-ZА-Яа-яЁё\s\-]/g, ""));
@@ -32,7 +38,7 @@ export const InputName: FC<IInputNameProps> = ({
 
   const validateData = useCallback(
     (changeValue: string) => {
-      if (changeValue?.length < 3) {
+      if (changeValue?.length < 3 && changeValue) {
         const textError =
           langName === "russia"
             ? "Введите имя полностью"
@@ -74,7 +80,7 @@ export const InputName: FC<IInputNameProps> = ({
     return () => {
       document.removeEventListener("keydown", listener);
     };
-  }, [validateData]);
+  }, [validateData, name]);
 
   return (
     <Input
