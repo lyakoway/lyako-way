@@ -26,6 +26,7 @@ const ContactForm: FC = () => {
   const [phone, setPhone] = useState("");
   const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const [message, setMessage] = useState("");
+  const [formData, setFormData] = useState(null);
 
   const changeHandlerName = (valueInput: string) => {
     const searchQueryValue = valueInput.toLowerCase();
@@ -42,6 +43,24 @@ const ContactForm: FC = () => {
     ];
     useSelectOptions(selectList);
   }, [modal, useSelectOptions]);
+
+  useEffect(() => {
+    const typesWorkValue = typesWork.length
+      ? typesWork.map((item) => item.label).join(", ")
+      : "";
+    const formDataValue = [
+      { id: "name", name: "Имя", value: name },
+      { id: "email", name: "Почта", value: email },
+      { id: "phone", name: "Телефон", value: phone },
+      {
+        id: "typesWork",
+        name: "Список выполняемых работ",
+        value: typesWorkValue,
+      },
+      { id: "message", name: "Сообщение", value: message },
+    ];
+    setFormData(formDataValue);
+  }, [name, email, phone, typesWork, message]);
 
   const handleCloseButton = useCallback(async () => {
     setLoading(true);
