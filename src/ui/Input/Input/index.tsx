@@ -3,15 +3,11 @@ import { FC, forwardRef, useEffect, useState } from "react";
 import {
   SelectContainer,
   InputWrapper,
-  SearchIconWrapper,
   DeleteIconWrapper,
   InputStyle,
   Text,
   TextDescription,
 } from "./style";
-// import { getCommonIcon } from '../Icon';
-// import { useAppDispatch } from '../../../store';
-// import { setSearchShopFilter } from '../../../reducers/sort-slice';
 
 import { ReactComponent as SearchIcon } from "src/common/icon/search.svg";
 import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";

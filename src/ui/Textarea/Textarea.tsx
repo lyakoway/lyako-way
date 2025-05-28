@@ -6,20 +6,19 @@ interface ITextareaProps {
   label?: string;
   placeholder?: string;
   type?: "text" | "email" | "submit" | "password";
+  setMessage?: (value: string) => void;
+  message?: string;
 }
 
 export const Textarea: FC<ITextareaProps> = ({
   label = "",
   placeholder = "",
   type = "text",
+  setMessage = () => {},
+  message = "",
 }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  // const dispatch = useAppDispatch();
-
-  const getSearchQuery = (valueInput: string) => {
-    const searchQueryValue = valueInput.toLowerCase();
-    setSearchQuery(searchQueryValue);
-    // dispatch(setSearchShopFilter(searchQueryValue));
+  const handleClick = (valueInput: string) => {
+    setMessage(valueInput);
   };
 
   useEffect(() => {
@@ -36,13 +35,13 @@ export const Textarea: FC<ITextareaProps> = ({
   }, []);
 
   return (
-    <SelectContainer $boxShadow={!!searchQuery}>
+    <SelectContainer $boxShadow={!!message}>
       <TextareaStyle
         required
         id={type}
         name={type}
         placeholder={placeholder}
-        onChange={(e) => getSearchQuery(e.target.value)}
+        onChange={(e) => handleClick(e.target.value)}
       />
       {label && <Text>{label}</Text>}
     </SelectContainer>

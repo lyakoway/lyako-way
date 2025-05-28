@@ -1,70 +1,54 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import { Input } from "src/ui/Input";
-import getPhoneRaw from "src/common/utils/getPhoneRaw";
 import getValidateErrorTextPhone from "src/common/utils/getValidateErrorTextPhone";
 import { getMobileOperatingSystem, isIos } from "src/common/utils";
-import {
-  getFormatPhone,
-  getFormatPhoneEn,
-} from "src/common/utils/getFormatPhone";
+import getValidateErrorTextMail from "src/common/utils/getValidateErrorTextMail";
 
-interface IInputPhoneProps {
+interface IInputEmailProps {
   label?: string;
-  placeholder?: string;
   type?: "text" | "email" | "submit" | "password" | "tel";
-  setPhone?: (value: string) => void;
-  phone?: string;
+  setEmail?: (value: string) => void;
+  email?: string;
   langName?: string;
 }
 
-const changeHandlerFormatPhone = (valueInput: string): string => {
-  const clearedPhone = valueInput ? getPhoneRaw(valueInput) : "";
-  const standardPhoneLength =
-    clearedPhone?.length > 10 ? clearedPhone.substring(0, 10) : clearedPhone;
-
-  return getFormatPhone(standardPhoneLength);
-};
-
-export const InputPhone: FC<IInputPhoneProps> = ({
+export const InputEmail: FC<IInputEmailProps> = ({
   label = "",
-  placeholder = "",
   type = "text",
-  setPhone = () => {},
-  phone = "",
+  setEmail = () => {},
+  email = "",
   langName = "russia",
 }) => {
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
 
   const changeHandler = (valueInput: string) => {
-    const inputPhone =
-      langName === "russia"
-        ? changeHandlerFormatPhone(valueInput)
-        : getFormatPhoneEn(valueInput);
-
-    setPhone(inputPhone);
-    if (!!valueInput && valueInput !== "+" && valueInput?.trim() !== "+7") {
+    setEmail(valueInput);
+    if (valueInput) {
       setErrorDescription("");
     }
   };
 
   const validateData = useCallback(
-    (changePhoneValue: string) => {
-      let validatorErrorTextPhone = "";
-      if (changePhoneValue?.length) {
-        validatorErrorTextPhone = getValidateErrorTextPhone(
-          changePhoneValue,
+    (changeMailValue: string) => {
+      const changeMailValidate = changeMailValue?.length
+        ? changeMailValue?.trimEnd()
+        : "";
+      let validatorErrorTextMail = "";
+      if (changeMailValidate) {
+        validatorErrorTextMail = getValidateErrorTextMail(
+          changeMailValidate,
           langName
         );
 
-        if (validatorErrorTextPhone) {
-          setErrorDescription(validatorErrorTextPhone);
+        if (validatorErrorTextMail) {
+          setErrorDescription(validatorErrorTextMail);
         }
       }
-      return !validatorErrorTextPhone ? changePhoneValue : "";
+      return !validatorErrorTextMail ? changeMailValidate : "";
     },
-    [setErrorDescription, getValidateErrorTextPhone]
+    [setErrorDescription, getValidateErrorTextPhone, langName]
   );
 
   const onFocusHandler = () => {
@@ -72,9 +56,9 @@ export const InputPhone: FC<IInputPhoneProps> = ({
   };
 
   const handleClickDelete = useCallback(() => {
-    setPhone("");
+    setEmail("");
     setErrorDescription("");
-  }, [setPhone, setErrorDescription]);
+  }, [setEmail, setErrorDescription]);
 
   // useEffect(() => {
   //   if (fieldRef.current) {
@@ -90,7 +74,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
         !isIos(userAgent)
       ) {
         event.preventDefault();
-        validateData(phone);
+        validateData(email);
         fieldRef.current?.blur();
       }
     };
@@ -105,11 +89,11 @@ export const InputPhone: FC<IInputPhoneProps> = ({
       ref={fieldRef}
       description={errorDescription}
       label={label}
-      placeholder={langName === "russia" ? "+7 (___) ___-__-__" : placeholder}
+      placeholder={"yours@email.com"}
       type={type}
       changeHandler={changeHandler}
-      value={phone}
-      onBlurHandler={() => validateData(phone)}
+      value={email}
+      onBlurHandler={() => validateData(email)}
       onFocusHandler={onFocusHandler}
       handleClickDelete={handleClickDelete}
       valid={!errorDescription}

@@ -118,20 +118,6 @@ export const InputWrapper = styled.div`
   color: #626c77;
 `;
 
-export const SearchIconWrapper = styled.div`
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 1;
-
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-`;
-
 export const DeleteIconWrapper = styled.div`
   display: flex;
   align-items: center;

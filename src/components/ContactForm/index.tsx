@@ -9,6 +9,7 @@ import { Input, InputPhone } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
 import { Select } from "src/ui/Select";
 import { ISelectOption } from "src/common/types/select";
+import { InputEmail } from "src/ui/Input/InputEmail";
 
 const ContactForm: FC = () => {
   const {
@@ -19,13 +20,11 @@ const ContactForm: FC = () => {
     "success" | "error" | null
   >(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectOptionMultiple, setSelectOptionMultiple] = useState<
-    ISelectOption[]
-  >([]);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
   const [selectOptions, useSelectOptions] = useState<ISelectOption[]>([]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const [message, setMessage] = useState("");
 
   const changeHandlerName = (valueInput: string) => {
@@ -76,25 +75,26 @@ const ContactForm: FC = () => {
             phone={phone}
             langName={langName}
           />
-          <Input
+          <InputEmail
             label={modal.mail}
-            placeholder={modal.mailLabel}
             type="email"
+            setEmail={setEmail}
+            email={email}
           />
-          {/*<Index*/}
-          {/*  label={modal.services}*/}
-          {/*  placeholder={modal.servicesNull}*/}
-          {/*  type="tel"*/}
-          {/*/>*/}
           <Select
             multiple
             options={selectOptions}
-            value={selectOptionMultiple}
-            onChange={(o) => setSelectOptionMultiple(o)}
+            value={typesWork}
+            onChange={(o) => setTypesWork(o)}
             defaultText={modal.servicesNull}
           />
         </InputWrapper>
-        <Textarea label={modal.textLabel} placeholder={modal.text} />
+        <Textarea
+          label={modal.textLabel}
+          placeholder={modal.text}
+          setMessage={setMessage}
+          message={message}
+        />
       </Content>
       <Footer>
         <ButtonForm
