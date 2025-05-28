@@ -5,11 +5,10 @@ import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
-import { Input, InputPhone } from "src/ui/Input";
+import { InputPhone, InputEmail, InputName } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
 import { Select } from "src/ui/Select";
 import { ISelectOption } from "src/common/types/select";
-import { InputEmail } from "src/ui/Input/InputEmail";
 
 const ContactForm: FC = () => {
   const {
@@ -78,13 +77,13 @@ const ContactForm: FC = () => {
       <Header>{modal.title}</Header>
       <Content>
         <InputWrapper>
-          <Input
+          <InputName
             label={modal.fullName}
             placeholder={modal.fullNameLabel}
             type="text"
-            changeHandler={changeHandlerName}
-            value={name}
-            handleClickDelete={() => setName("")}
+            setName={setName}
+            name={name}
+            langName={langName}
           />
           <InputPhone
             label={modal.phone}
