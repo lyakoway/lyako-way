@@ -23,6 +23,7 @@ interface IInputProps {
   onBlurHandler?: () => void;
   changeHandler?: (value: string) => void;
   handleClickDelete?: () => void;
+  customValidity?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>(
@@ -38,6 +39,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
       onBlurHandler = () => {},
       changeHandler = () => {},
       handleClickDelete = () => {},
+      customValidity = "Это поле обязательно!",
     },
     ref
   ) => {
@@ -82,6 +84,8 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
             onFocus={onFocusHandler}
             onBlur={onBlurHandler}
             ref={ref}
+            onInvalid={(e) => e.target.setCustomValidity(customValidity)}
+            onInput={(e) => e.target.setCustomValidity("")}
           />
           {label && !description && <Text>{label}</Text>}
           {description && <TextDescription>{description}</TextDescription>}

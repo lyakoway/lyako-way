@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import { Input } from "src/ui/Input";
 import { getMobileOperatingSystem, isIos } from "src/common/utils";
+import { useSelectorTyped } from "src/store";
 
 interface IInputNameProps {
   label?: string;
@@ -9,7 +10,6 @@ interface IInputNameProps {
   type?: "text" | "email" | "submit" | "password" | "tel";
   setName?: (value: string) => void;
   name?: string;
-  langName?: string;
   description?: string;
 }
 
@@ -19,9 +19,11 @@ export const InputName: FC<IInputNameProps> = ({
   type = "text",
   setName = () => {},
   name = "",
-  langName = "russia",
   description = "",
 }) => {
+  const {
+    lang: { contactForm },
+  } = useSelectorTyped(({ lang }) => lang);
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
 
@@ -39,14 +41,10 @@ export const InputName: FC<IInputNameProps> = ({
   const validateData = useCallback(
     (changeValue: string) => {
       if (changeValue?.length < 3 && changeValue) {
-        const textError =
-          langName === "russia"
-            ? "Введите имя полностью"
-            : "The number is not entered completely";
-        setErrorDescription(textError);
+        setErrorDescription(contactForm.errorDescriptionName);
       }
     },
-    [setErrorDescription]
+    [setErrorDescription, contactForm]
   );
 
   const onFocusHandler = () => {
@@ -95,6 +93,7 @@ export const InputName: FC<IInputNameProps> = ({
       onFocusHandler={onFocusHandler}
       handleClickDelete={handleClickDelete}
       valid={!errorDescription}
+      customValidity={contactForm.customValidityName}
     />
   );
 };

@@ -12,7 +12,7 @@ import { ISelectOption } from "src/common/types/select";
 
 const ContactForm: FC = () => {
   const {
-    lang: { modal, name: langName },
+    lang: { contactForm },
   } = useSelectorTyped(({ lang }) => lang);
   const dispatch = useDispatchTyped();
   const [statusRequest, setStatusRequest] = useState<
@@ -38,14 +38,14 @@ const ContactForm: FC = () => {
 
   useEffect(() => {
     const selectList = [
-      { label: modal.services1, value: "services1" },
-      { label: modal.services2, value: "services2" },
-      { label: modal.services3, value: "services3" },
-      { label: modal.services4, value: "services4" },
-      { label: modal.services5, value: "services5" },
+      { label: contactForm.services1, value: "services1" },
+      { label: contactForm.services2, value: "services2" },
+      { label: contactForm.services3, value: "services3" },
+      { label: contactForm.services4, value: "services4" },
+      { label: contactForm.services5, value: "services5" },
     ];
     useSelectOptions(selectList);
-  }, [modal, useSelectOptions]);
+  }, [contactForm, useSelectOptions]);
 
   useEffect(() => {
     const typesWorkValue = typesWork.length
@@ -67,13 +67,13 @@ const ContactForm: FC = () => {
 
   const handleCloseButton = useCallback(async () => {
     if (!name) {
-      setFormDescriptionName("Заполите свое имя");
+      setFormDescriptionName(contactForm.formDescriptionName);
     }
     if (!email) {
-      setFormDescriptionEmail("Заполите свою почту");
+      setFormDescriptionEmail(contactForm.formDescriptionEmail);
     }
     if (!phone) {
-      setFormDescriptionPhone("Заполите свой телефон");
+      setFormDescriptionPhone(contactForm.formDescriptionPhone);
     }
     if (name && email && phone) {
       setFormDescriptionName("");
@@ -105,33 +105,30 @@ const ContactForm: FC = () => {
 
   return (
     <Form>
-      <Header>{modal.title}</Header>
+      <Header>{contactForm.title}</Header>
       <Content>
         <InputWrapper>
           <InputName
-            label={modal.fullName}
-            placeholder={modal.fullNameLabel}
+            label={contactForm.fullName}
+            placeholder={contactForm.placeholderName}
             type="text"
             setName={setName}
             name={name}
-            langName={langName}
             description={formDescriptionName}
           />
           <InputPhone
-            label={modal.phone}
-            placeholder={modal.phoneLabel}
+            label={contactForm.phone}
+            placeholder={contactForm.placeholderPhone}
             type="text"
             setPhone={setPhone}
             phone={phone}
-            langName={langName}
             description={formDescriptionPhone}
           />
           <InputEmail
-            label={modal.mail}
+            label={contactForm.mail}
             type="email"
             setEmail={setEmail}
             email={email}
-            langName={langName}
             description={formDescriptionEmail}
           />
           <Select
@@ -139,19 +136,19 @@ const ContactForm: FC = () => {
             options={selectOptions}
             value={typesWork}
             onChange={(o) => setTypesWork(o)}
-            defaultText={modal.servicesNull}
+            defaultText={contactForm.services}
           />
         </InputWrapper>
         <Textarea
-          label={modal.textLabel}
-          placeholder={modal.text}
+          label={contactForm.message}
+          placeholder={contactForm.placeholderMessage}
           setMessage={setMessage}
           message={message}
         />
       </Content>
       <Footer>
         <ButtonForm
-          title={modal.buttonText}
+          title={contactForm.buttonText}
           handleClick={handleCloseButton}
           loading={loading}
           status={statusRequest}

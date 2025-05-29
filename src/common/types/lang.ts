@@ -1,4 +1,5 @@
 import PortfolioImgUrl1 from "src/common/icon/icon-blog/PortfolioImgUrl.png";
+import ContactForm from "src/components/ContactForm";
 
 export interface HeaderTopMenuProps {
   id: string;
@@ -65,6 +66,36 @@ export interface HeaderHouseProps {
   buttonText: string;
   buttonTextAddition: string;
   callText: string;
+}
+
+export interface ContactFormProps {
+  title: string;
+  buttonText: string;
+  fullName: string;
+  placeholderName: string;
+  phone: string;
+  placeholderPhone: string;
+  mail: string;
+  placeholderMail: string;
+  message: string;
+  placeholderMessage: string;
+  services: string;
+  services1: string;
+  services2: string;
+  services3: string;
+  services4: string;
+  services5: string;
+  formDescriptionName: string;
+  formDescriptionEmail: string;
+  formDescriptionPhone: string;
+  errorDescriptionName: string;
+  errorDescriptionPhoneLength: string;
+  errorDescriptionPhoneOperator: string;
+  errorDescriptionEmailLength: string;
+  errorDescriptionEmailValidate: string;
+  customValidityName: string;
+  customValidityPhone: string;
+  customValidityEmail: string;
 }
 
 export interface ModalProps {
@@ -202,6 +233,7 @@ export interface LanguageProps {
   propsAdvantages: AdvantagesProps[];
   portfolioHeader: PortfolioHeaderProps;
   advantagesText: string;
+  contactForm: ContactFormProps;
   cooperation: CooperationProps;
   headerHouse: HeaderHouseProps;
   portfolio: PortfolioProps;

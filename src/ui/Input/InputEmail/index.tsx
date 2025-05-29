@@ -4,13 +4,13 @@ import { Input } from "src/ui/Input";
 import getValidateErrorTextPhone from "src/common/utils/getValidateErrorTextPhone";
 import { getMobileOperatingSystem, isIos } from "src/common/utils";
 import getValidateErrorTextMail from "src/common/utils/getValidateErrorTextMail";
+import { useSelectorTyped } from "src/store";
 
 interface IInputEmailProps {
   label?: string;
   type?: "text" | "email" | "submit" | "password" | "tel";
   setEmail?: (value: string) => void;
   email?: string;
-  langName?: string;
   description?: string;
 }
 
@@ -19,9 +19,11 @@ export const InputEmail: FC<IInputEmailProps> = ({
   type = "text",
   setEmail = () => {},
   email = "",
-  langName = "russia",
   description = "",
 }) => {
+  const {
+    lang: { contactForm },
+  } = useSelectorTyped(({ lang }) => lang);
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
 
@@ -45,7 +47,7 @@ export const InputEmail: FC<IInputEmailProps> = ({
       if (changeMailValidate) {
         validatorErrorTextMail = getValidateErrorTextMail(
           changeMailValidate,
-          langName
+          contactForm
         );
 
         if (validatorErrorTextMail) {
@@ -54,7 +56,7 @@ export const InputEmail: FC<IInputEmailProps> = ({
       }
       return !validatorErrorTextMail ? changeMailValidate : "";
     },
-    [setErrorDescription, getValidateErrorTextPhone, langName]
+    [setErrorDescription, getValidateErrorTextPhone, contactForm]
   );
 
   const onFocusHandler = () => {
@@ -103,6 +105,7 @@ export const InputEmail: FC<IInputEmailProps> = ({
       onFocusHandler={onFocusHandler}
       handleClickDelete={handleClickDelete}
       valid={!errorDescription}
+      customValidity={contactForm.customValidityEmail}
     />
   );
 };

@@ -1,6 +1,8 @@
+import { ContactFormProps } from "src/common/types/lang";
+
 const getValidateErrorTextMail = (
   changeMail?: string,
-  langName?: string
+  contactForm?: ContactFormProps
 ): string => {
   const validateParamsPatternShortMail =
     /^\s*([a-z0-9_.-]+\.)*[a-z0-9_.-]*([a-z0-9]\b)+(@[a-z0-9_-]{2,})+(\.([a-z0-9_-]{2,})+)*\.[a-z]{2,}\s*$/i;
@@ -19,12 +21,10 @@ const getValidateErrorTextMail = (
     changeMail?.split("@")?.pop()?.split(".")?.length < 4;
 
   if (!changeInputValidate || !eMailDomainLevel) {
-    return langName === "russia" ? "Проверьте Email" : "Check Email";
+    return contactForm.errorDescriptionEmailValidate;
   }
   if (!lengthSymbolsLimit) {
-    return langName === "russia"
-      ? "Электронная почта слишком длинная"
-      : "The email is too long";
+    return contactForm.errorDescriptionEmailLength;
   }
   return "";
 };

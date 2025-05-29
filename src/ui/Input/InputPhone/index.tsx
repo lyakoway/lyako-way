@@ -8,6 +8,7 @@ import {
   getFormatPhone,
   getFormatPhoneEn,
 } from "src/common/utils/getFormatPhone";
+import { useSelectorTyped } from "src/store";
 
 interface IInputPhoneProps {
   label?: string;
@@ -15,7 +16,6 @@ interface IInputPhoneProps {
   type?: "text" | "email" | "submit" | "password" | "tel";
   setPhone?: (value: string) => void;
   phone?: string;
-  langName?: string;
   description?: string;
 }
 
@@ -33,9 +33,11 @@ export const InputPhone: FC<IInputPhoneProps> = ({
   type = "text",
   setPhone = () => {},
   phone = "",
-  langName = "russia",
   description = "",
 }) => {
+  const {
+    lang: { name: langName, contactForm },
+  } = useSelectorTyped(({ lang }) => lang);
   const fieldRef = useRef<HTMLInputElement>(null);
   const [errorDescription, setErrorDescription] = useState<string>("");
 
@@ -61,7 +63,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
       if (changePhoneValue?.length) {
         validatorErrorTextPhone = getValidateErrorTextPhone(
           changePhoneValue,
-          langName
+          contactForm
         );
 
         if (validatorErrorTextPhone) {
@@ -70,7 +72,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
       }
       return !validatorErrorTextPhone ? changePhoneValue : "";
     },
-    [setErrorDescription, getValidateErrorTextPhone]
+    [setErrorDescription, getValidateErrorTextPhone, contactForm]
   );
 
   const onFocusHandler = () => {
@@ -111,7 +113,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
       ref={fieldRef}
       description={errorDescription}
       label={label}
-      placeholder={langName === "russia" ? "+7 (___) ___-__-__" : placeholder}
+      placeholder={placeholder}
       type={type}
       changeHandler={changeHandler}
       value={phone}
@@ -119,6 +121,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
       onFocusHandler={onFocusHandler}
       handleClickDelete={handleClickDelete}
       valid={!errorDescription}
+      customValidity={contactForm.customValidityPhone}
     />
   );
 };

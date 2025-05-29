@@ -1,4 +1,5 @@
 import getPhoneRaw from "src/common/utils/getPhoneRaw";
+import { ContactFormProps } from "src/common/types/lang";
 
 const existedOperatorCodes = [
   "900-906",
@@ -25,21 +26,19 @@ const isOperatorExist = (phone: string): boolean => {
 
 const getValidateErrorTextPhone = (
   changePhone?: string,
-  langName?: string
+  contactForm?: ContactFormProps
 ): string => {
   const clearedPhone = getPhoneRaw(changePhone);
   const isNotEmpty = Boolean(clearedPhone);
   if (isNotEmpty && clearedPhone.length < 10) {
-    return langName === "russia"
-      ? "Номер введён не полностью"
-      : "The number is not entered completely";
+    return contactForm.errorDescriptionPhoneLength;
   }
   if (
     clearedPhone.length === 10 &&
     !isOperatorExist(clearedPhone) &&
-    langName === "russia"
+    contactForm.errorDescriptionPhoneOperator
   ) {
-    return "Неверный формат номера";
+    return contactForm.errorDescriptionPhoneOperator;
   }
   return "";
 };

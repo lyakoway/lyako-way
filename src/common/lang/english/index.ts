@@ -12,6 +12,7 @@ import { propsPortfolioListBlog, blog } from "./blog";
 import { order } from "./order";
 import { footer } from "./footer";
 import { modal } from "./modal";
+import { contactForm } from "./contactForm";
 import { portfolioListBlog } from "src/common/lang/english/portfolioListBlog";
 import { portfolioDevelopment } from "src/common/lang/english/portfolioDevelopment";
 import { LanguageProps } from "src/common/types/lang";
@@ -25,6 +26,7 @@ export const ENGLISH_LANGUAGE: LanguageProps = {
   propsAdvantages,
   portfolioHeader,
   advantagesText,
+  contactForm,
   cooperation,
   headerHouse,
   portfolio,
