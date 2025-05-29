@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, MouseEvent, PropsWithChildren, useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import MailLoader from "src/ui/MailLoader";
 
@@ -145,7 +145,7 @@ const Label = styled.div`
 
 interface IButtonProps {
   title?: string;
-  handleClick?: () => void;
+  handleClick?: (value: MouseEvent<HTMLElement>) => void;
   loading?: boolean;
   status?: "success" | "error" | null;
 }
@@ -192,7 +192,7 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
 
   return (
     <ButtonWrapper>
-      <ButtonContent type="submit" onClick={handleClick}>
+      <ButtonContent onClick={(e) => handleClick(e)}>
         <svg
           width="120px"
           height="40px"

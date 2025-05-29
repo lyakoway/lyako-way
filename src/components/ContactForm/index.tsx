@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, MouseEvent, useCallback, useEffect, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import { Form, Header, Content, Footer, InputWrapper } from "./style";
@@ -30,6 +30,13 @@ const ContactForm: FC = () => {
   const [formDescriptionName, setFormDescriptionName] = useState("");
   const [formDescriptionEmail, setFormDescriptionEmail] = useState("");
   const [formDescriptionPhone, setFormDescriptionPhone] = useState("");
+
+  const [validName, setValidName] = useState(false);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPhone, setValidPhone] = useState(false);
+
+  console.log("valid", validName && validEmail && validPhone);
+  console.log("formDescriptionName", formDescriptionName);
 
   const changeHandlerName = (valueInput: string) => {
     const searchQueryValue = valueInput.toLowerCase();
@@ -65,43 +72,53 @@ const ContactForm: FC = () => {
     setFormData(formDataValue);
   }, [name, email, phone, typesWork, message]);
 
-  const handleCloseButton = useCallback(async () => {
-    if (!name) {
-      setFormDescriptionName(contactForm.formDescriptionName);
-    }
-    if (!email) {
-      setFormDescriptionEmail(contactForm.formDescriptionEmail);
-    }
-    if (!phone) {
-      setFormDescriptionPhone(contactForm.formDescriptionPhone);
-    }
-    if (name && email && phone) {
-      setFormDescriptionName("");
-      setFormDescriptionEmail("");
-      setFormDescriptionPhone("");
+  console.log("name", name);
 
-      setLoading(true);
-      await wait(3000);
-      setLoading(false);
-      setStatusRequest("success");
-      await wait(2000);
-      // if (statusRequest === "success") {
-      dispatch(closeModal());
-      // }
-    }
-  }, [
-    name,
-    email,
-    phone,
-    dispatch,
-    statusRequest,
-    wait,
-    setStatusRequest,
-    setLoading,
-    setFormDescriptionName,
-    setFormDescriptionEmail,
-    setFormDescriptionPhone,
-  ]);
+  const handleCloseButton = useCallback(
+    async (e) => {
+      e.preventDefault();
+      console.log(111, name);
+      if (!name) {
+        console.log(2222, name);
+        setFormDescriptionName(contactForm.formDescriptionName);
+      }
+      if (!email) {
+        setFormDescriptionEmail(contactForm.formDescriptionEmail);
+      }
+      if (!phone) {
+        setFormDescriptionPhone(contactForm.formDescriptionPhone);
+      }
+      if (name && email && phone && validName && validEmail && validPhone) {
+        console.log("!!!valid", validName && validEmail && validPhone);
+        setFormDescriptionName("");
+        setFormDescriptionEmail("");
+        setFormDescriptionPhone("");
+
+        setLoading(true);
+        await wait(3000);
+        setLoading(false);
+        setStatusRequest("success");
+        await wait(2000);
+        // if (statusRequest === "success") {
+        dispatch(closeModal());
+        // }
+      }
+    },
+    [
+      name,
+      email,
+      phone,
+      dispatch,
+      statusRequest,
+      wait,
+      setStatusRequest,
+      setLoading,
+      setFormDescriptionName,
+      setFormDescriptionEmail,
+      setFormDescriptionPhone,
+      validName,
+    ]
+  );
 
   return (
     <Form>
@@ -115,6 +132,7 @@ const ContactForm: FC = () => {
             setName={setName}
             name={name}
             description={formDescriptionName}
+            setValid={setValidName}
           />
           <InputPhone
             label={contactForm.phone}
@@ -123,6 +141,7 @@ const ContactForm: FC = () => {
             setPhone={setPhone}
             phone={phone}
             description={formDescriptionPhone}
+            setValid={setValidPhone}
           />
           <InputEmail
             label={contactForm.mail}
@@ -130,6 +149,7 @@ const ContactForm: FC = () => {
             setEmail={setEmail}
             email={email}
             description={formDescriptionEmail}
+            setValid={setValidEmail}
           />
           <Select
             multiple

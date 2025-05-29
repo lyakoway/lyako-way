@@ -12,6 +12,7 @@ interface IInputEmailProps {
   setEmail?: (value: string) => void;
   email?: string;
   description?: string;
+  setValid: (value: boolean) => void;
 }
 
 export const InputEmail: FC<IInputEmailProps> = ({
@@ -20,6 +21,7 @@ export const InputEmail: FC<IInputEmailProps> = ({
   setEmail = () => {},
   email = "",
   description = "",
+  setValid,
 }) => {
   const {
     lang: { contactForm },
@@ -29,13 +31,17 @@ export const InputEmail: FC<IInputEmailProps> = ({
 
   useEffect(() => {
     setErrorDescription(description);
-  }, [description]);
+  }, [description, setErrorDescription]);
+
+  useEffect(() => {
+    setValid(!errorDescription);
+  }, [errorDescription, setValid]);
+
+  // console.log("!!!errorDescription", errorDescription);
 
   const changeHandler = (valueInput: string) => {
     setEmail(valueInput);
-    if (valueInput) {
-      setErrorDescription("");
-    }
+    setErrorDescription("");
   };
 
   const validateData = useCallback(

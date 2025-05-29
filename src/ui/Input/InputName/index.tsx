@@ -11,6 +11,7 @@ interface IInputNameProps {
   setName?: (value: string) => void;
   name?: string;
   description?: string;
+  setValid: (value: boolean) => void;
 }
 
 export const InputName: FC<IInputNameProps> = ({
@@ -20,6 +21,7 @@ export const InputName: FC<IInputNameProps> = ({
   setName = () => {},
   name = "",
   description = "",
+  setValid,
 }) => {
   const {
     lang: { contactForm },
@@ -29,13 +31,17 @@ export const InputName: FC<IInputNameProps> = ({
 
   useEffect(() => {
     setErrorDescription(description);
-  }, [description]);
+  }, [description, setErrorDescription]);
+
+  useEffect(() => {
+    setValid(!errorDescription);
+  }, [errorDescription, setValid]);
+
+  console.log("???errorDescription", errorDescription);
 
   const changeHandler = (valueInput: string) => {
     setName(valueInput.replace(/[^a-zA-ZА-Яа-яЁё\s\-]/g, ""));
-    if (valueInput) {
-      setErrorDescription("");
-    }
+    setErrorDescription("");
   };
 
   const validateData = useCallback(
@@ -57,10 +63,10 @@ export const InputName: FC<IInputNameProps> = ({
   }, [setName, setErrorDescription]);
 
   // useEffect(() => {
-  //   if (fieldRef.current) {
+  //   if (fieldRef.current && errorDescription) {
   //     fieldRef.current.focus();
   //   }
-  // }, []);
+  // }, [errorDescription]);
 
   useEffect(() => {
     const listener = async (event) => {
