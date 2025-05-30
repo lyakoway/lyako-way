@@ -1,5 +1,6 @@
-import { FC, MouseEvent, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
+import emailjs from "emailjs-com";
 
 import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal } from "src/reducers";
@@ -25,7 +26,7 @@ const ContactForm: FC = () => {
   const [phone, setPhone] = useState("");
   const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const [message, setMessage] = useState("");
-  const [formData, setFormData] = useState(null);
+  // const [formData, setFormData] = useState(null);
 
   const [formDescriptionName, setFormDescriptionName] = useState("");
   const [formDescriptionEmail, setFormDescriptionEmail] = useState("");
@@ -52,21 +53,20 @@ const ContactForm: FC = () => {
   }, [contactForm, useSelectOptions]);
 
   useEffect(() => {
-    const typesWorkValue = typesWork.length
-      ? typesWork.map((item) => item.label).join(", ")
-      : "";
-    const formDataValue = [
-      { id: "name", name: "Имя", value: name },
-      { id: "email", name: "Почта", value: email },
-      { id: "phone", name: "Телефон", value: phone },
-      {
-        id: "typesWork",
-        name: "Список выполняемых работ",
-        value: typesWorkValue,
-      },
-      { id: "message", name: "Сообщение", value: message },
-    ];
-    setFormData(formDataValue);
+    // const typesWorkValue = typesWork.length
+    //   ? typesWork.map((item) => item.label).join(", ")
+    //   : "";
+    // const formDataValue = [
+    //   { id: "name", name: "Имя", value: name },
+    //   { id: "email", name: "Почта", value: email },
+    //   { id: "phone", name: "Телефон", value: phone },
+    //   {
+    //     id: "typesWork",
+    //     name: "Список выполняемых работ",
+    //     value: typesWorkValue,
+    //   },
+    //   { id: "message", name: "Сообщение", value: message },
+    //  ];
   }, [name, email, phone, typesWork, message]);
 
   const handleCloseButton = useCallback(
@@ -82,19 +82,44 @@ const ContactForm: FC = () => {
         setFormDescriptionPhone(contactForm.formDescriptionPhone);
       }
       if (name && email && phone && validName && validEmail && validPhone) {
-        console.log("!!!valid", validName && validEmail && validPhone);
         setFormDescriptionName("");
         setFormDescriptionEmail("");
         setFormDescriptionPhone("");
 
+        const typesWorkValue = typesWork.length
+          ? typesWork.map((item) => item.label).join(", ")
+          : "";
+        const dataForm = {
+          user_name: name,
+          user_email: email,
+          user_phone: phone,
+          typesWork: typesWorkValue,
+          message: message,
+        };
+
+        // https://dashboard.emailjs.com/admin/templates/ipok92p/content - шаблон
         setLoading(true);
-        await wait(3000);
-        setLoading(false);
-        setStatusRequest("success");
-        await wait(2000);
-        // if (statusRequest === "success") {
-        dispatch(closeModal());
-        // }
+        await emailjs
+          .send(
+            "service_t0637ri",
+            "template_hksctsh",
+            dataForm,
+            "E3IoCn9xU4A9XR0GB"
+          )
+          .then(
+            async () => {
+              await wait(2000);
+              setLoading(false);
+              setStatusRequest("success");
+              await wait(2000);
+              dispatch(closeModal());
+            },
+            async (error) => {
+              console.error("Ошибка при отправке:", error.text);
+              await wait(2000);
+              setLoading(false);
+            }
+          );
       }
     },
     [
