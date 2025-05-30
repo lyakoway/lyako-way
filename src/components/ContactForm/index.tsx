@@ -35,9 +35,6 @@ const ContactForm: FC = () => {
   const [validEmail, setValidEmail] = useState(false);
   const [validPhone, setValidPhone] = useState(false);
 
-  console.log("valid", validName && validEmail && validPhone);
-  console.log("formDescriptionName", formDescriptionName);
-
   const changeHandlerName = (valueInput: string) => {
     const searchQueryValue = valueInput.toLowerCase();
     setName(searchQueryValue);
@@ -77,9 +74,7 @@ const ContactForm: FC = () => {
   const handleCloseButton = useCallback(
     async (e) => {
       e.preventDefault();
-      console.log(111, name);
       if (!name) {
-        console.log(2222, name);
         setFormDescriptionName(contactForm.formDescriptionName);
       }
       if (!email) {
@@ -108,6 +103,9 @@ const ContactForm: FC = () => {
       name,
       email,
       phone,
+      validName,
+      validEmail,
+      validPhone,
       dispatch,
       statusRequest,
       wait,
@@ -116,7 +114,6 @@ const ContactForm: FC = () => {
       setFormDescriptionName,
       setFormDescriptionEmail,
       setFormDescriptionPhone,
-      validName,
     ]
   );
 
@@ -133,6 +130,7 @@ const ContactForm: FC = () => {
             name={name}
             description={formDescriptionName}
             setValid={setValidName}
+            setFormDescriptionName={setFormDescriptionName}
           />
           <InputPhone
             label={contactForm.phone}
@@ -142,6 +140,7 @@ const ContactForm: FC = () => {
             phone={phone}
             description={formDescriptionPhone}
             setValid={setValidPhone}
+            setFormDescriptionPhone={setFormDescriptionPhone}
           />
           <InputEmail
             label={contactForm.mail}
@@ -150,6 +149,7 @@ const ContactForm: FC = () => {
             email={email}
             description={formDescriptionEmail}
             setValid={setValidEmail}
+            setFormDescriptionEmail={setFormDescriptionEmail}
           />
           <Select
             multiple

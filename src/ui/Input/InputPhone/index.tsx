@@ -18,6 +18,7 @@ interface IInputPhoneProps {
   phone?: string;
   description?: string;
   setValid: (value: boolean) => void;
+  setFormDescriptionPhone: (value: string) => void;
 }
 
 const changeHandlerFormatPhone = (valueInput: string): string => {
@@ -36,6 +37,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
   phone = "",
   description = "",
   setValid,
+  setFormDescriptionPhone,
 }) => {
   const {
     lang: { name: langName, contactForm },
@@ -45,11 +47,11 @@ export const InputPhone: FC<IInputPhoneProps> = ({
 
   useEffect(() => {
     setErrorDescription(description);
-  }, [description]);
+  }, [description, setErrorDescription]);
 
   useEffect(() => {
     setValid(!errorDescription);
-  }, [errorDescription]);
+  }, [errorDescription, setValid]);
 
   const changeHandler = (valueInput: string) => {
     const inputPhone =
@@ -58,6 +60,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
         : getFormatPhoneEn(valueInput);
 
     setPhone(inputPhone);
+    setFormDescriptionPhone("");
     if (!!valueInput && valueInput !== "+" && valueInput?.trim() !== "+7") {
       setErrorDescription("");
     }
@@ -88,7 +91,8 @@ export const InputPhone: FC<IInputPhoneProps> = ({
   const handleClickDelete = useCallback(() => {
     setPhone("");
     setErrorDescription("");
-  }, [setPhone, setErrorDescription]);
+    setFormDescriptionPhone("");
+  }, [setPhone, setErrorDescription, setFormDescriptionPhone]);
 
   // useEffect(() => {
   //   if (fieldRef.current) {
