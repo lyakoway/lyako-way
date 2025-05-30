@@ -4,6 +4,7 @@ import { Z_INDEX_TOAST } from "src/common/constants/zIndex";
 
 export const SelectContainer = styled.div<{
   $boxShadow: boolean;
+  $valid: boolean;
 }>`
   position: relative;
   height: 50px;
@@ -38,6 +39,12 @@ export const SelectContainer = styled.div<{
       ${({ theme, $boxShadow }) =>
         $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
   }
+
+  ${({ $valid }) =>
+    !$valid &&
+    css`
+      box-shadow: inset 0 0 0 2px ${({ theme }) => theme.color.text.negative};
+    `}
 
   &:before {
     box-sizing: inherit;
@@ -97,6 +104,12 @@ export const SelectContainer = styled.div<{
 
     &::placeholder {
       opacity: 0;
+      ${({ $valid }) =>
+        !$valid &&
+        css`
+          opacity: 0.5;
+          color: ${({ theme }) => theme.color.text.primary};
+        `}
     }
 
     &:focus {

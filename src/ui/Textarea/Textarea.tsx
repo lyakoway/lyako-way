@@ -37,6 +37,7 @@ export const Textarea: FC<ITextareaProps> = ({
   return (
     <SelectContainer $boxShadow={!!message}>
       <TextareaStyle
+        required
         id={type}
         name={type}
         placeholder={placeholder}

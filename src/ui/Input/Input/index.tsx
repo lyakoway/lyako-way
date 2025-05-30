@@ -71,7 +71,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
     }, [description]);
 
     return (
-      <SelectContainer $boxShadow={!!value}>
+      <SelectContainer $boxShadow={!!value} $valid={valid}>
         <InputWrapper>
           <InputStyle
             required
