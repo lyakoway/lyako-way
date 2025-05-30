@@ -126,6 +126,8 @@ const ContactForm: FC = () => {
       name,
       email,
       phone,
+      message,
+      typesWork,
       validName,
       validEmail,
       validPhone,
