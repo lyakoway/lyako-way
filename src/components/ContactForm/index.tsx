@@ -69,8 +69,6 @@ const ContactForm: FC = () => {
     setFormData(formDataValue);
   }, [name, email, phone, typesWork, message]);
 
-  console.log("name", name);
-
   const handleCloseButton = useCallback(
     async (e) => {
       e.preventDefault();

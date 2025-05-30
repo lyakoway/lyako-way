@@ -39,8 +39,6 @@ export const InputEmail: FC<IInputEmailProps> = ({
     setValid(!errorDescription);
   }, [errorDescription, setValid]);
 
-  console.log("!!!errorDescription", errorDescription);
-
   const changeHandler = (valueInput: string) => {
     setEmail(valueInput);
     setErrorDescription("");
