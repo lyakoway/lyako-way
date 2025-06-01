@@ -32,7 +32,6 @@ export const Container = styled.div`
 export const Notification = styled.div<{ $borderColor?: string }>`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
   border-radius: 4px;
   box-shadow: 0 0 10px ${({ $borderColor }) => $borderColor};
   color: #000;
@@ -115,6 +114,9 @@ export const Content = styled.div`
   max-height: calc(100vh - 160px);
   overflow: hidden auto;
   padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   /* Основная ширина полосы прокрутки. */
   ::-webkit-scrollbar {
