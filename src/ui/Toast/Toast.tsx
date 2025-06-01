@@ -20,7 +20,7 @@ export interface Person {
   id: number;
   title: string;
   text: string;
-  backgroundColor: string;
+  borderColor: string;
   type?: "info" | "success" | "error";
 }
 
@@ -31,7 +31,7 @@ const ToastMap = (
 ) => {
   const Icon = getToastIcon(toast?.type ? toast.type : "error");
   return (
-    <Notification key={id} $backgroundColor={toast.backgroundColor}>
+    <Notification key={id} $borderColor={toast.borderColor}>
       <Icon />
       <TextWrapper>
         <Title>{toast.title}</Title>

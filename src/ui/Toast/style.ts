@@ -29,19 +29,20 @@ export const Container = styled.div`
   }
 `;
 
-export const Notification = styled.div<{ $backgroundColor?: string }>`
+export const Notification = styled.div<{ $borderColor?: string }>`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
   border-radius: 4px;
-  box-shadow: 0 0 10px #999;
+  box-shadow: 0 0 10px ${({ $borderColor }) => $borderColor};
   color: #000;
   transition: 0.3s ease;
 
   width: 365px;
   color: #fff;
   padding: 12px 40px 12px 12px;
-  background-color: ${({ $backgroundColor }) => $backgroundColor};
+  background-color: #5a5a5a;
+  border: 1px solid ${({ $borderColor }) => $borderColor};
   position: relative;
 
   //transition: 1s; /*Скорость перехода состояния элемента*/
@@ -54,7 +55,7 @@ export const Notification = styled.div<{ $backgroundColor?: string }>`
   }
 
   &:hover {
-    box-shadow: 0 0 12px #fff;
+    border: 2px solid ${({ $borderColor }) => $borderColor};
   }
 
   svg {
