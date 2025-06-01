@@ -13,6 +13,7 @@ import { wrapper } from "src/store";
 import { setThemeList } from "src/reducers";
 import { useDayTime } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
+import { Toast } from "src/ui/Toast";
 
 const MyApp: FC = ({ Component, pageProps }: AppProps) => {
   const { theme } = useSelectorTyped(({ theme }) => theme);
@@ -33,6 +34,7 @@ const MyApp: FC = ({ Component, pageProps }: AppProps) => {
         <GlobalStyles />
         <Component {...pageProps} />
         <Modal />
+        <Toast />
       </ThemeProvider>
     </React.StrictMode>
   );

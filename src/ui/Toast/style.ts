@@ -1,6 +1,6 @@
-import styled, { keyframes } from 'styled-components';
-import { MOBILE_480, MOBILE_660 } from '../../../common/media';
-import { Z_INDEX_TOAST } from '../../../common/constants/zIndex';
+import styled, { keyframes } from "styled-components";
+import { MOBILE_480, MOBILE_660 } from "src/common/lib/media";
+import { Z_INDEX_TOAST } from "src/common/constants/zIndex";
 
 const toastInRight = keyframes`
   from {
@@ -29,7 +29,7 @@ export const Container = styled.div`
   }
 `;
 
-export const Notification = styled.div<{ backgroundColor?: string }>`
+export const Notification = styled.div<{ $backgroundColor?: string }>`
   display: flex;
   align-items: center;
   margin-bottom: 1rem;
@@ -41,7 +41,7 @@ export const Notification = styled.div<{ backgroundColor?: string }>`
   width: 365px;
   color: #fff;
   padding: 12px 40px 12px 12px;
-  background-color: ${({ backgroundColor }) => backgroundColor};
+  background-color: ${({ $backgroundColor }) => $backgroundColor};
   position: relative;
 
   //transition: 1s; /*Скорость перехода состояния элемента*/

@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { MOBILE_660 } from "src/common/lib/media";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
+import { useToastNotify } from "src/features/customHooks/use-toast-notify";
+import { useSelectorTyped } from "src/store";
 
 const ButtonWrapper = styled.button`
   display: flex;
@@ -75,10 +77,11 @@ const Label = styled.div`
 `;
 
 const ButtonHeart = () => {
-  const [counter, setСounter] = useState<number>(20);
-  // const handleClickOpen = () => {
-  //   store.setOpenToast(true);
-  // };
+  const {
+    lang: { toast },
+  } = useSelectorTyped(({ lang }) => lang);
+  const [counter, setCounter] = useState<number>(20);
+  const toastNotify = useToastNotify();
 
   // Функция для определения "мобильности" браузера
   function MobileDetect() {
@@ -94,9 +97,9 @@ const ButtonHeart = () => {
     const url = window.document.location; //Адрес Вашего сайта
     const title = window.document.title; //Название Вашего сайта
 
-    setСounter(counter + 1);
+    setCounter(counter + 1);
 
-    // store.setOpenToast(true);
+    toastNotify({ title: toast.textHeart, type: "success" });
 
     if (!MobileDetect()) {
       try {
@@ -105,7 +108,6 @@ const ButtonHeart = () => {
         try {
           window.sidebar.addPanel(title, url, "");
         } catch (e) {
-          // handleClickOpen();
           console.log("");
         }
       }

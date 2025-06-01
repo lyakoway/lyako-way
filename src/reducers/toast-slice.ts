@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Tost } from "src/common/types/tost";
+import { Toast } from "src/common/types/toast";
 
 type IState = {
-  toastList: Tost[];
+  toastList: Toast[];
 };
 
 const initialState: IState = {
@@ -13,7 +13,7 @@ const toast = createSlice({
   name: "toast",
   initialState,
   reducers: {
-    setToastList: (state, action: PayloadAction<Tost[]>) => {
+    setToastList: (state, action: PayloadAction<Toast[]>) => {
       state.toastList = action.payload;
     },
   },

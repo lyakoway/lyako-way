@@ -207,9 +207,9 @@ export interface ServiceProps {
 }
 
 export interface ToastProps {
-  desktopText: string;
-  mobileText: string;
+  textHeart: string;
   messageText: string;
+  textError: string;
 }
 
 export interface ListBlogSecondProps {

@@ -1,4 +1,4 @@
-export interface Tost {
+export interface Toast {
   id: number;
   title: string;
   text: string;

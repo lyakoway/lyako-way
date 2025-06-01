@@ -10,10 +10,11 @@ import { InputPhone, InputEmail, InputName } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
 import { Select } from "src/ui/Select";
 import { ISelectOption } from "src/common/types/select";
+import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 
 const ContactForm: FC = () => {
   const {
-    lang: { contactForm },
+    lang: { contactForm, toast },
   } = useSelectorTyped(({ lang }) => lang);
   const dispatch = useDispatchTyped();
   const [statusRequest, setStatusRequest] = useState<
@@ -27,6 +28,7 @@ const ContactForm: FC = () => {
   const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const [message, setMessage] = useState("");
   // const [formData, setFormData] = useState(null);
+  const toastNotify = useToastNotify();
 
   const [formDescriptionName, setFormDescriptionName] = useState("");
   const [formDescriptionEmail, setFormDescriptionEmail] = useState("");
@@ -113,11 +115,16 @@ const ContactForm: FC = () => {
               setStatusRequest("success");
               await wait(2000);
               dispatch(closeModal());
+              toastNotify({ title: toast.messageText, type: "success" });
             },
             async (error) => {
               console.error("Ошибка при отправке:", error.text);
               await wait(2000);
               setLoading(false);
+              toastNotify({
+                title: toast.textError,
+                type: "error",
+              });
             }
           );
       }

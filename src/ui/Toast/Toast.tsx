@@ -10,11 +10,11 @@ import {
   WrapperClose,
   Content,
 } from "./style";
-import { getToastIcon } from "../Icon";
-import ButtonDelete from "../ButtonDelete";
-import { useDispatchTyped, useSelectorTyped } from "../../../store";
-import { setToastList } from "../../../reducers/toast-slice";
-import { useToastListItem } from "../../../common/hooks/use-toast-list";
+import { getToastIcon } from "src/ui/Icon";
+import ButtonDelete from "src/ui/ButtonDelete";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { setToastList } from "src/reducers";
+import { useToastListItem } from "src/features/customHooks/use-toast-list";
 
 export interface Person {
   id: number;
@@ -31,7 +31,7 @@ const ToastMap = (
 ) => {
   const Icon = getToastIcon(toast?.type ? toast.type : "error");
   return (
-    <Notification key={id} backgroundColor={toast.backgroundColor}>
+    <Notification key={id} $backgroundColor={toast.backgroundColor}>
       <Icon />
       <TextWrapper>
         <Title>{toast.title}</Title>
