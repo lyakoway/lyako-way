@@ -29,6 +29,7 @@ import {
 import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setting.svg";
 import { ReactComponent as ProfileIcon } from "src/common/icon/icon-header/profile.svg";
 import { HeaderTopMenuProps } from "src/common/types/lang";
+import PagesSettings from "src/components/PagesSettings";
 
 const HeaderMenuLi = (
   propsList: HeaderTopMenuProps[],
@@ -122,16 +123,21 @@ const HeaderMobile: FC<PropsWithChildren<HeaderMobileProps>> = ({
               opened={opened}
               handleClick={() => setOpened(!opened)}
             />
-            <Popup positionValue="bottom" openedPopup={openedPopup}>
-              <ContainerWrapper onClick={handleClickPopup}>
-                <ProfileWrapper>
-                  <ProfileIcon fill="white" />
-                </ProfileWrapper>
-                <SettingWrapper>
-                  <SettingIcon fill="white" />
-                </SettingWrapper>
-              </ContainerWrapper>
-            </Popup>
+            <Popup
+              positionValue="bottom"
+              openedPopup={openedPopup}
+              content={<PagesSettings />}
+              trigger={
+                <ContainerWrapper onClick={handleClickPopup}>
+                  <ProfileWrapper>
+                    <ProfileIcon fill="white" />
+                  </ProfileWrapper>
+                  <SettingWrapper>
+                    <SettingIcon fill="white" />
+                  </SettingWrapper>
+                </ContainerWrapper>
+              }
+            />
           </ContainerWrapper>
         </MenuWrapper>
         <HeaderMenu $opened={opened}>

@@ -1,23 +1,13 @@
-import React, {
-  FC,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-
-import ButtonLang from "src/ui/ButtonLang";
-import ButtonHeart from "src/ui/ButtonHeart";
-import ThemeDarkLight from "src/ui/ThemeDarkLight";
+import React, { FC, ReactElement } from "react";
 
 import { PopupWrapper, ContentWrapper } from "./style";
-import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { setThemeList } from "src/reducers";
 
 interface IAccordionProps {
   positionValue?: string;
   openedPopup?: boolean;
   popupRef?: any;
+  content?: ReactElement | null;
+  trigger?: ReactElement | null;
 }
 
 type Position = "top" | "bottom" | "right";
@@ -60,17 +50,13 @@ const positionDataPopup: PositionDataItems = {
   },
 };
 
-const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
-  children,
+const Popup: FC<IAccordionProps> = ({
   positionValue = "top",
   openedPopup = false,
   popupRef,
+  content = null,
+  trigger = null,
 }) => {
-  const {
-    theme: { name },
-  } = useSelectorTyped(({ theme }) => theme);
-  const [openedTheme, setOpenedTheme] = useState(false);
-  const dispatch = useDispatchTyped();
   const {
     positionStyle,
     topStyle,
@@ -80,19 +66,10 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
     rotateArrowStyle,
   } = positionDataPopup[positionValue];
 
-  const handleClickTheme = useCallback(() => {
-    setOpenedTheme(!openedTheme);
-    dispatch(setThemeList(!openedTheme));
-  }, [setOpenedTheme, dispatch, openedTheme]);
-
-  useEffect(() => {
-    setOpenedTheme(name === "light");
-  }, [name]);
-
   return (
     <ContentWrapper ref={popupRef}>
-      {children}
-      {openedPopup && (
+      {trigger}
+      {openedPopup && content && (
         <PopupWrapper
           $positionStyle={positionStyle}
           $topStyle={topStyle}
@@ -101,12 +78,7 @@ const Popup: FC<PropsWithChildren<IAccordionProps>> = ({
           $leftArrowStyle={leftArrowStyle}
           $rotateArrowStyle={rotateArrowStyle}
         >
-          <ButtonHeart />
-          <ThemeDarkLight
-            handleClickTheme={handleClickTheme}
-            openedTheme={openedTheme}
-          />
-          <ButtonLang />
+          {content}
         </PopupWrapper>
       )}
     </ContentWrapper>

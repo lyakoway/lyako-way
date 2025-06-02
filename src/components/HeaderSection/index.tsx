@@ -47,6 +47,7 @@ import { getMobile } from "src/common/utils";
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
 import { showModal } from "src/reducers";
 import ContactForm from "src/components/ContactForm";
+import PagesSettings from "src/components/PagesSettings";
 
 const HeaderSection = () => {
   const {
@@ -110,14 +111,16 @@ const HeaderSection = () => {
               positionValue={positionValue}
               openedPopup={openedPopup}
               popupRef={popupRef}
-            >
-              <SettingIconWrapper
-                onClick={handleClickPopup}
-                $openedPopup={openedPopup}
-              >
-                <SettingIcon fill="white" />
-              </SettingIconWrapper>
-            </Popup>
+              content={<PagesSettings />}
+              trigger={
+                <SettingIconWrapper
+                  onClick={handleClickPopup}
+                  $openedPopup={openedPopup}
+                >
+                  <SettingIcon fill="white" />
+                </SettingIconWrapper>
+              }
+            />
           </SettingWrapper>
         </IconComp>
         <IconMap $themeLight={themeLight} />
@@ -137,15 +140,6 @@ const HeaderSection = () => {
             >
               <RocketGetsiteIcon />
             </Button>
-            {/*<Modal*/}
-            {/*  titleText={modal.title}*/}
-            {/*  buttonText={modal.buttonText}*/}
-            {/*  openedModal={opened}*/}
-            {/*  onCloseModal={() => setOpened(false)}*/}
-            {/*  onApply={notify}*/}
-            {/*>*/}
-            {/*  111*/}
-            {/*</Modal>*/}
             <HeaderSectionLabel>
               {headerHouse.buttonTextAddition}
             </HeaderSectionLabel>

@@ -49,7 +49,7 @@ export const Notification = styled.div<{ $borderColor?: string }>`
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
   //animation-delay: 1s; /* Задержка перед началом */
 
-  @media ${MOBILE_480} {
+  @media ${MOBILE_660} {
     width: 100%;
   }
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, FC } from "react";
+import React, { useCallback, useEffect, useState, FC, useRef } from "react";
 
 import { useSelectorTyped } from "src/store";
 
@@ -25,6 +25,7 @@ import {
 import Cloud from "src/components/Window/Сloud";
 import WeatherIcon from "src/components/Window/WeatherIcon";
 import {
+  useClickOutside,
   useDayTime,
   useIsomorphicLayoutEffect,
   usePositionSunAndMoon,
@@ -39,6 +40,15 @@ import Skyscrapers from "src/components/Window/City/Skyscrapers";
 import Rain from "src/components/Window/Rain";
 import Snow from "src/components/Window/Snow";
 import Lightning from "src/components/Window/Lightning";
+import { SettingIconWrapper } from "src/components/HeaderSection/style";
+import Popup from "src/ui/Popup";
+import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
+import PagesSettings from "src/components/PagesSettings";
+import {
+  ContainerWrapper,
+  ProfileWrapper,
+  SettingWrapper,
+} from "src/components/HeaderNav/HeaderMobile/style";
 
 // import { Popup } from "semantic-ui-react";
 
@@ -59,6 +69,10 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
   const [climateControl, setClimateControl] = useState("sunnyMoon");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const [positionValue, setPositionValue] = useState("top");
+  const [openedPopup, setOpenedPopup] = useState(false);
+  const popupRef = useRef<HTMLDivElement>(null);
+
   const {
     timeLeftSunMoon,
     leftRotateWindowSunMoon,
@@ -69,6 +83,18 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
   const winter = false;
 
   // const climateControl = "snowy";
+
+  useClickOutside(popupRef, () => {
+    if (openedPopup) {
+      setOpenedPopup(false);
+    }
+  });
+
+  const handleClickPopup = () => {
+    setOpenedPopup(!openedPopup);
+    const positionValueWidth = getwindowInnerWidth() > 959;
+    setPositionValue(positionValueWidth ? "top" : "right");
+  };
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
@@ -186,9 +212,19 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         </>
       )}
 
-      <WeatherIconWrapper onClick={() => setIsOpen(!isOpen)}>
-        <WeatherIcon climateControl={climateControl} themeLight={themeLight} />
-      </WeatherIconWrapper>
+      <Popup
+        positionValue="bottom"
+        openedPopup={openedPopup}
+        content={<PagesSettings />}
+        trigger={
+          <WeatherIconWrapper onClick={() => setIsOpen(!isOpen)}>
+            <WeatherIcon
+              climateControl={climateControl}
+              themeLight={themeLight}
+            />
+          </WeatherIconWrapper>
+        }
+      />
     </WindowWrapper>
   );
 };
