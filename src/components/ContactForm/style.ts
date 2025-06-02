@@ -38,7 +38,7 @@ export const Content = styled.div`
   padding: 20px;
   gap: 20px;
 
-  background-color: #d4d4d559;
+  background-color: ${({ theme }) => theme.color.background.form};
 
   /* Основная ширина полосы прокрутки. */
   &::-webkit-scrollbar {

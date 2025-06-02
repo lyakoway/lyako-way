@@ -26,6 +26,7 @@ export interface ThemeColor {
     surfaceSuccess: string;
     inversion: string;
     shadow: string;
+    form: string;
   };
   text: {
     primary: string;

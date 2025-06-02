@@ -29,6 +29,7 @@ const BACKGROUND = {
   surfaceSuccess: "#252A32",
   inversion: "#E2E5E9",
   shadow: "#000000",
+  form: "#d4d4d559",
 };
 
 const TEXT = {
