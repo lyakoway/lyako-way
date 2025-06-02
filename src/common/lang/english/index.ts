@@ -16,6 +16,7 @@ import { contactForm } from "./contactForm";
 import { portfolioListBlog } from "src/common/lang/english/portfolioListBlog";
 import { portfolioDevelopment } from "src/common/lang/english/portfolioDevelopment";
 import { LanguageProps } from "src/common/types/lang";
+import { climateLang } from "src/common/lang/english/climateLang";
 
 export const ENGLISH_LANGUAGE: LanguageProps = {
   propsPortfolioListBlog,
@@ -32,6 +33,7 @@ export const ENGLISH_LANGUAGE: LanguageProps = {
   portfolio,
   personal,
   service,
+  climateLang,
   resume,
   footer,
   toast,

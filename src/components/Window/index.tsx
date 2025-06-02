@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState, FC, useRef } from "react";
+import React, { useCallback, useEffect, useState, FC } from "react";
 
-import { useSelectorTyped } from "src/store";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import {
   WindowWrapper,
@@ -13,20 +13,11 @@ import {
   HeavenlyBodyParallax,
   WindowLightLeftLightning,
   WindowLightRightLightning,
-  // WeatherConditionsWrapper,
-  // WeatherConditions,
-  // WeatherConditionsText,
-  // IconClose,
-  // Title,
 } from "./style";
-
-// import ModalClimateControl from "./ModalClimateControl";
 
 import Cloud from "src/components/Window/Сloud";
 import WeatherIcon from "src/components/Window/WeatherIcon";
 import {
-  useClickOutside,
-  useDayTime,
   useIsomorphicLayoutEffect,
   usePositionSunAndMoon,
 } from "src/features/customHooks";
@@ -40,19 +31,8 @@ import Skyscrapers from "src/components/Window/City/Skyscrapers";
 import Rain from "src/components/Window/Rain";
 import Snow from "src/components/Window/Snow";
 import Lightning from "src/components/Window/Lightning";
-import { SettingIconWrapper } from "src/components/HeaderSection/style";
-import Popup from "src/ui/Popup";
-import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
-import PagesSettings from "src/components/PagesSettings";
-import {
-  ContainerWrapper,
-  ProfileWrapper,
-  SettingWrapper,
-} from "src/components/HeaderNav/HeaderMobile/style";
-
-// import { Popup } from "semantic-ui-react";
-
-// import { ReactComponent as CloseOutline } from "../../../common/icon/CloseOutline.svg";
+import { showModal } from "src/reducers";
+import ClimateControl from "src/components/Window/ClimateControl";
 
 interface WindowLightProps {
   themeLight?: boolean;
@@ -60,18 +40,8 @@ interface WindowLightProps {
 
 const Window: FC<WindowLightProps> = ({ themeLight }) => {
   const { climate } = useSelectorTyped(({ climate }) => climate);
-  // const [animationClickTheme, setAnimationClickTheme] =
-  //   useState<boolean>(false);
-  // const [leftWindowSunMoon, setLeftWindowSunMoon] = useState(-60);
   const [dayToNightColor, setDayToNightColor] = useState<string>("#0c2233");
   const [moonOrSunColor, setMoonOrSunColor] = useState<string>("#fff");
-  const [weather, setWeather] = useState<number>(2);
-  const [climateControl, setClimateControl] = useState("sunnyMoon");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const [positionValue, setPositionValue] = useState("top");
-  const [openedPopup, setOpenedPopup] = useState(false);
-  const popupRef = useRef<HTMLDivElement>(null);
 
   const {
     timeLeftSunMoon,
@@ -80,42 +50,39 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     lightOffOpacityMoon,
   } = usePositionSunAndMoon({ themeLight });
 
+  const dispatch = useDispatchTyped();
+
   const winter = false;
 
   // const climateControl = "snowy";
 
-  useClickOutside(popupRef, () => {
-    if (openedPopup) {
-      setOpenedPopup(false);
-    }
-  });
-
-  const handleClickPopup = () => {
-    setOpenedPopup(!openedPopup);
-    const positionValueWidth = getwindowInnerWidth() > 959;
-    setPositionValue(positionValueWidth ? "top" : "right");
-  };
+  const handleClickModal = useCallback(() => {
+    dispatch(
+      showModal({
+        content: <ClimateControl />,
+        width: "auto",
+        backgroundOverlay: "rgba(0, 0, 0, 0.4)",
+      })
+    );
+  }, [dispatch]);
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
     setMoonOrSunColor(moonOrSunColorValue);
 
-    if (climateControl === "rainy" && themeLight) {
+    if (climate === "rainy" && themeLight) {
       setDayToNightColor("rgb(29, 120, 147)");
-      // setAnimationClickTheme(false);
-    } else if (climateControl === "cloudyWithRainAndLightning" && themeLight) {
+    } else if (climate === "cloudyWithRainAndLightning" && themeLight) {
       setDayToNightColor("rgb(0, 53, 71)");
-      // setAnimationClickTheme(false);
-    } else if (climateControl === "cloudy" && themeLight) {
+    } else if (climate === "cloudy" && themeLight) {
       setDayToNightColor("rgb(109, 177, 198)");
-      // setAnimationClickTheme(false);
     } else {
       const dayToNightColorValue = themeLight
         ? "-webkit-linear-gradient(bottom, rgba(249, 251, 240, 1) 10%, rgba(215, 253, 254, 1) 20%, rgba(167, 222, 253, 1) 40%, rgba(110, 175, 255, 1) 100%);"
         : "#0c2233";
       setDayToNightColor(dayToNightColorValue);
     }
-  }, [themeLight, climateControl, setDayToNightColor, setMoonOrSunColor]);
+  }, [themeLight, climate, setDayToNightColor, setMoonOrSunColor]);
 
   useIsomorphicLayoutEffect(() => {
     const parallax = (e: { clientX: number; clientY: number }) => {
@@ -138,21 +105,20 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $timeLeftSunMoon={timeLeftSunMoon}
         $themeLight={themeLight}
       >
-        {(climateControl === "rainy" ||
-          climateControl === "cloudyWithRainAndLightning") && (
-          <Rain climateControl={climateControl} />
+        {(climate === "rainy" || climate === "cloudyWithRainAndLightning") && (
+          <Rain climateControl={climate} />
         )}
-        {climateControl === "cloudyWithRainAndLightning" && (
-          <Lightning climateControl={climateControl} />
+        {climate === "cloudyWithRainAndLightning" && (
+          <Lightning climateControl={climate} />
         )}
-        {climateControl === "snowy" && <Snow climateControl={climateControl} />}
+        {climate === "snowy" && <Snow climateControl={climate} />}
         <WindowSky
           dayToNightColor={dayToNightColor}
           timeLeftSunMoon={timeLeftSunMoon}
           themeLight={themeLight}
           lightOffOpacitySun={lightOffOpacitySun}
         />
-        {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
+        {["sunnyMoon", "cloudyWithSunMoon"].includes(climate) && (
           <HeavenlyBodyParallax data-parallax-sun="15">
             <HeavenlyBody
               data-heavenly-body
@@ -165,19 +131,19 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
           </HeavenlyBodyParallax>
         )}
         <HeavenlyBodyParallax data-parallax-cloud="30">
-          <Cloud climateControl={climateControl} />
+          <Cloud climateControl={climate} />
         </HeavenlyBodyParallax>
-        {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
+        {["sunnyMoon", "cloudyWithSunMoon"].includes(climate) && (
           <Star themeLight={themeLight} />
         )}
         <HeavenlyBodyParallax data-parallax-skyscrapers="120">
           <Skyscrapers themeLight={themeLight} />
         </HeavenlyBodyParallax>
         <HeavenlyBodyParallax data-parallax-city="220">
-          <City themeLight={themeLight} climateControl={climateControl} />
+          <City themeLight={themeLight} climateControl={climate} />
         </HeavenlyBodyParallax>
       </WindowView>
-      {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
+      {["sunnyMoon", "cloudyWithSunMoon"].includes(climate) && (
         <WindowHotspot
           $timeLeftSunMoon={timeLeftSunMoon}
           $lightOffOpacitySun={lightOffOpacitySun}
@@ -188,7 +154,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
       <WindowFrame />
       <WindowSill />
 
-      {["sunnyMoon", "cloudyWithSunMoon"].includes(climateControl) && (
+      {["sunnyMoon", "cloudyWithSunMoon"].includes(climate) && (
         <>
           <WindowLightLeft
             $timeLeftSunMoon={timeLeftSunMoon}
@@ -205,26 +171,16 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         </>
       )}
 
-      {climateControl === "cloudyWithRainAndLightning" && (
+      {climate === "cloudyWithRainAndLightning" && (
         <>
           <WindowLightLeftLightning />
           <WindowLightRightLightning />
         </>
       )}
 
-      <Popup
-        positionValue="bottom"
-        openedPopup={openedPopup}
-        content={<PagesSettings />}
-        trigger={
-          <WeatherIconWrapper onClick={() => setIsOpen(!isOpen)}>
-            <WeatherIcon
-              climateControl={climateControl}
-              themeLight={themeLight}
-            />
-          </WeatherIconWrapper>
-        }
-      />
+      <WeatherIconWrapper onClick={handleClickModal}>
+        <WeatherIcon climateControl={climate} themeLight={themeLight} />
+      </WeatherIconWrapper>
     </WindowWrapper>
   );
 };

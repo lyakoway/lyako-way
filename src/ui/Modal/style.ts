@@ -23,7 +23,7 @@ const overlayAnimation = keyframes`
   }
 `;
 
-export const Overlay = styled.div`
+export const Overlay = styled.div<{ backgroundOverlay?: string | null }>`
   display: flex;
   position: fixed;
   height: 100vh;
@@ -31,6 +31,11 @@ export const Overlay = styled.div`
   top: 0;
   left: 0;
   background: url(${myIconComp.src}) no-repeat center;
+  ${({ backgroundOverlay }) =>
+    backgroundOverlay &&
+    css`
+      background: ${backgroundOverlay};
+    `}
   background-size: cover;
   align-items: center;
   justify-content: center;
@@ -42,8 +47,8 @@ export const Overlay = styled.div`
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 `;
 
-export const ModalComponent = styled.div`
-  width: 824px;
+export const ModalComponent = styled.div<{ width?: string | null }>`
+  width: ${({ width }) => (width ? width : "824px")};
   //background-color: rgb(255, 255, 255);
   background-color: ${({ theme }) => theme.color.background.modal};
   box-shadow: 0 1.2px 18px rgba(0, 0, 0, 0.08), 0 6.4px 29px rgba(0, 0, 0, 0.12);

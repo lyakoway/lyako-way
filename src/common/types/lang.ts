@@ -1,5 +1,6 @@
 import PortfolioImgUrl1 from "src/common/icon/icon-blog/PortfolioImgUrl.png";
 import ContactForm from "src/components/ContactForm";
+import { climateLang } from "src/common/lang/russia/climateLang";
 
 export interface HeaderTopMenuProps {
   id: string;
@@ -224,6 +225,10 @@ export interface ListBlogProps {
   value: string | ListBlogSecondProps[];
 }
 
+export interface ClimateProps {
+  title: string;
+}
+
 export interface LanguageProps {
   propsPortfolioListBlog: PortfolioListBlogProps[];
   portfolioDevelopment: ListBlogProps[];
@@ -239,6 +244,7 @@ export interface LanguageProps {
   portfolio: PortfolioProps;
   personal: PersonalProps;
   service: ServiceProps;
+  climateLang: ClimateProps;
   resume: ResumeProps;
   footer: FooterProps;
   toast: ToastProps;

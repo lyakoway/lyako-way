@@ -9,8 +9,12 @@ import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { closeModal } from "src/reducers";
 
 export const Modal: FC = () => {
-  const { isOpened, content } = useSelectorTyped(({ modal }) => modal);
+  const { isOpened, content, width, backgroundOverlay } = useSelectorTyped(
+    ({ modal }) => modal
+  );
   const dispatch = useDispatchTyped();
+
+  console.log("backgroundOverlay", backgroundOverlay);
 
   const onCloseModal = useCallback(() => {
     dispatch(closeModal());
@@ -28,8 +32,8 @@ export const Modal: FC = () => {
 
   if (isOpened && content) {
     return (
-      <Overlay onClick={onCloseModal}>
-        <ModalComponent onClick={(e) => e.stopPropagation()}>
+      <Overlay onClick={onCloseModal} backgroundOverlay={backgroundOverlay}>
+        <ModalComponent width={width} onClick={(e) => e.stopPropagation()}>
           <IconClose onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />
           </IconClose>

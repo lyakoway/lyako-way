@@ -13,11 +13,7 @@ export const useToastNotify = () => {
   const { toastList } = useSelectorTyped(({ toast }) => toast);
   const dispatch = useDispatchTyped();
 
-  const toastNotify = ({
-    title = "",
-    text = "",
-    type = "success",
-  }: IToastNotifyProps) => {
+  return ({ title = "", text = "", type = "success" }: IToastNotifyProps) => {
     if (toastList) {
       const toastDataList: Person[] = getToastDataList({
         text: text,
@@ -33,6 +29,4 @@ export const useToastNotify = () => {
       }
     }
   };
-
-  return toastNotify;
 };

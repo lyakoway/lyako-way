@@ -12,6 +12,7 @@ interface IState {
   padding?: string;
   isInited: boolean;
   hideClose?: boolean;
+  backgroundOverlay?: string | null;
 }
 
 const initialState: IState = {
@@ -25,6 +26,7 @@ const initialState: IState = {
   padding: "",
   isInited: false,
   hideClose: false,
+  backgroundOverlay: "",
 };
 
 const modal = createSlice({
@@ -41,6 +43,7 @@ const modal = createSlice({
       height: action.payload?.height || null,
       padding: action.payload?.padding || "",
       hideClose: action.payload?.hideClose ?? state.hideClose,
+      backgroundOverlay: action.payload?.backgroundOverlay || null,
       isOpened: true,
       isInited: true,
     }),
@@ -56,6 +59,7 @@ const modal = createSlice({
       isOpened: false,
       isInited: true,
       hideClose: false,
+      backgroundOverlay: null,
     }),
   },
 });

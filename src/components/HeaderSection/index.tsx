@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import {
@@ -40,9 +40,6 @@ import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setti
 
 import Button from "src/ui/Button";
 import Popup from "src/ui/Popup";
-// import Toast from "../../common/Toast";
-
-import { getMobile } from "src/common/utils";
 
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
 import { showModal } from "src/reducers";
@@ -57,7 +54,6 @@ const HeaderSection = () => {
     lang: { headerHouse, toast, modal },
   } = useSelectorTyped(({ lang }) => lang);
   const [openedPopup, setOpenedPopup] = useState(false);
-  const [opened, setOpened] = useState(false);
   const [positionValue, setPositionValue] = useState("top");
   const popupRef = useRef<HTMLDivElement>(null);
   const themeLight = name === "light";
@@ -70,22 +66,10 @@ const HeaderSection = () => {
     }
   });
 
-  // const openToastValue = store.getOpenToast();
-  // const checkedTheme = store.getCheckedTheme();
-
   const handleClickPopup = () => {
     setOpenedPopup(!openedPopup);
     const positionValueWidth = getwindowInnerWidth() > 959;
     setPositionValue(positionValueWidth ? "top" : "right");
-  };
-
-  const textToast = getMobile() ? toast.mobileText : toast.desktopText;
-
-  const notify = () => {
-    // if (quantity) {
-    //   toastNotify({ title: 'Корзина оформлена', type: 'success' });
-    // }
-    setOpened(false);
   };
 
   const handleClickModal = useCallback(() => {
@@ -98,12 +82,6 @@ const HeaderSection = () => {
 
   return (
     <HeaderSectionWrapper>
-      {/* <Toast
-        openToastValue={openToastValue}
-        severity="info"
-        text={textToast}
-        timer={10000}
-      /> */}
       <HeaderSectionFon>
         <IconComp $themeLight={themeLight}>
           <SettingWrapper>
