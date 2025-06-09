@@ -2,7 +2,8 @@ export const getParallax = (
   e: { clientX: number; clientY: number },
   nameParallax: string,
   biasX: number,
-  biasY: number
+  biasY: number,
+  zIndex: number
 ) => {
   const dataParallax = Array.from(
     document?.querySelectorAll<HTMLElement>(`[${nameParallax}]`)
@@ -13,6 +14,7 @@ export const getParallax = (
     const biasYSun = (e.clientY * Number(speedSun)) / biasY;
     if (dataParallax?.[0]) {
       dataParallax[0].style.transform = `translateX(${-biasXSun}px) translateY(${-biasYSun}px)`;
+      dataParallax[0].style.zIndex = `${zIndex}`;
     }
   }
 };

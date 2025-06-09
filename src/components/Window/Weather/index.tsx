@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 
 import Cloud from "src/components/Window/Сloud";
 import Rain from "src/components/Window/Rain";
@@ -18,7 +18,7 @@ interface WindowLightProps {
 
 const Weather: FC<WindowLightProps> = ({ climateControl, trigger }) => {
   return (
-    <WeatherWrapper key={trigger}>
+    <Fragment key={trigger}>
       {(climateControl === "rainy" ||
         climateControl === "cloudyWithRainAndLightning") && (
         <Rain climateControl={climateControl} />
@@ -30,7 +30,7 @@ const Weather: FC<WindowLightProps> = ({ climateControl, trigger }) => {
       <HeavenlyBodyParallax data-parallax-cloud="30">
         <Cloud climateControl={climateControl} />
       </HeavenlyBodyParallax>
-    </WeatherWrapper>
+    </Fragment>
   );
 };
 

@@ -87,10 +87,10 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   useIsomorphicLayoutEffect(() => {
     const parallax = (e: { clientX: number; clientY: number }) => {
-      getParallax(e, "data-parallax-sun", 1000, 1000);
-      getParallax(e, "data-parallax-cloud", 1000, 1000);
-      getParallax(e, "data-parallax-skyscrapers", 1000, 2500);
-      getParallax(e, "data-parallax-city", 1600, 2800);
+      getParallax(e, "data-parallax-sun", 1000, 1000, 2);
+      getParallax(e, "data-parallax-cloud", 1000, 1000, 3);
+      getParallax(e, "data-parallax-skyscrapers", 1000, 2500, 4);
+      getParallax(e, "data-parallax-city", 1600, 2800, 4);
     };
     document.addEventListener("mousemove", parallax);
     return () => {
