@@ -42,7 +42,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
   const [dayToNightColor, setDayToNightColor] = useState<string>("#0c2233");
   const [moonOrSunColor, setMoonOrSunColor] = useState<string>("#fff");
 
-  console.log("climate", climate);
   const trigger = useForceUpdate(climate);
 
   const {

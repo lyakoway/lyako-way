@@ -40,8 +40,6 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
     return null;
   }
 
-  console.log("randomCloud", randomCloud);
-
   return randomCloud.map((item, index) => {
     return (
       <CloudWrapper

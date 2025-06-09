@@ -4,12 +4,7 @@ import Cloud from "src/components/Window/Сloud";
 import Rain from "src/components/Window/Rain";
 import Snow from "src/components/Window/Snow";
 import Lightning from "src/components/Window/Lightning";
-import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
-import {
-  HeavenlyBodyParallax,
-  WindowLightLeftLightning,
-  WindowLightRightLightning,
-} from "src/components/Window/style";
+import { HeavenlyBodyParallax } from "src/components/Window/style";
 import styled from "styled-components";
 
 export const WeatherWrapper = styled.div`
