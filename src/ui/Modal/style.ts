@@ -23,7 +23,7 @@ const overlayAnimation = keyframes`
   }
 `;
 
-export const Overlay = styled.div<{ backgroundOverlay?: string | null }>`
+export const Overlay = styled.div<{ $backgroundOverlay?: string | null }>`
   display: flex;
   position: fixed;
   height: 100vh;
@@ -31,10 +31,10 @@ export const Overlay = styled.div<{ backgroundOverlay?: string | null }>`
   top: 0;
   left: 0;
   background: url(${myIconComp.src}) no-repeat center;
-  ${({ backgroundOverlay }) =>
-    backgroundOverlay &&
+  ${({ $backgroundOverlay }) =>
+    $backgroundOverlay &&
     css`
-      background: ${backgroundOverlay};
+      background: ${$backgroundOverlay};
     `}
   background-size: cover;
   align-items: center;

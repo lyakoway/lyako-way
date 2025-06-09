@@ -26,7 +26,7 @@ const Snow: FC<SnowProps> = ({ climateControl }) => {
       randomSnowConst.fallTimeMax
     );
     setRandomSnow(randomSnowValue);
-  }, []);
+  }, [setRandomSnow, getRandomArra, randomSnowConst]);
 
   return (
     <SnowWrapper>

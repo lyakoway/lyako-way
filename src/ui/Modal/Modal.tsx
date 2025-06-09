@@ -32,7 +32,7 @@ export const Modal: FC = () => {
 
   if (isOpened && content) {
     return (
-      <Overlay onClick={onCloseModal} backgroundOverlay={backgroundOverlay}>
+      <Overlay onClick={onCloseModal} $backgroundOverlay={backgroundOverlay}>
         <ModalComponent width={width} onClick={(e) => e.stopPropagation()}>
           <IconClose onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />

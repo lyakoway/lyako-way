@@ -28,11 +28,10 @@ import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
-import Rain from "src/components/Window/Rain";
-import Snow from "src/components/Window/Snow";
-import Lightning from "src/components/Window/Lightning";
 import { showModal } from "src/reducers";
 import ClimateControl from "src/components/Window/ClimateControl";
+import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
+import Weather from "src/components/Window/Weather";
 
 interface WindowLightProps {
   themeLight?: boolean;
@@ -42,6 +41,9 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
   const { climate } = useSelectorTyped(({ climate }) => climate);
   const [dayToNightColor, setDayToNightColor] = useState<string>("#0c2233");
   const [moonOrSunColor, setMoonOrSunColor] = useState<string>("#fff");
+
+  console.log("climate", climate);
+  const trigger = useForceUpdate(climate);
 
   const {
     timeLeftSunMoon,
@@ -105,13 +107,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $timeLeftSunMoon={timeLeftSunMoon}
         $themeLight={themeLight}
       >
-        {(climate === "rainy" || climate === "cloudyWithRainAndLightning") && (
-          <Rain climateControl={climate} />
-        )}
-        {climate === "cloudyWithRainAndLightning" && (
-          <Lightning climateControl={climate} />
-        )}
-        {climate === "snowy" && <Snow climateControl={climate} />}
+        <Weather climateControl={climate} trigger={trigger} />
         <WindowSky
           dayToNightColor={dayToNightColor}
           timeLeftSunMoon={timeLeftSunMoon}
@@ -130,9 +126,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
             />
           </HeavenlyBodyParallax>
         )}
-        <HeavenlyBodyParallax data-parallax-cloud="30">
-          <Cloud climateControl={climate} />
-        </HeavenlyBodyParallax>
         {["sunnyMoon", "cloudyWithSunMoon"].includes(climate) && (
           <Star themeLight={themeLight} />
         )}

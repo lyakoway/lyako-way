@@ -33,7 +33,15 @@ const WeatherRain = ({
       fallTimeMax
     );
     setRandomSnow(randomSnowValue);
-  }, []);
+  }, [
+    getRandomArra,
+    setRandomSnow,
+    dropAmount,
+    leftMin,
+    leftMax,
+    fallTimeMin,
+    fallTimeMax,
+  ]);
 
   return (
     <RainWrapper data-rain-wrapper $show={show}>

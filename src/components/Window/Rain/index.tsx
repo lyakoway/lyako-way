@@ -26,7 +26,7 @@ const Rain: FC<CloudProps> = ({ climateControl }) => {
       randomRainConst.fallTimeMax
     );
     setRandomRain(randomRainValue);
-  }, []);
+  }, [setRandomRain, getRandomArra]);
 
   return (
     <RainWrapper>

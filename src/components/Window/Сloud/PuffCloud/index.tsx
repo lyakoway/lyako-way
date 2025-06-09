@@ -36,7 +36,17 @@ const PuffCloud = ({
       fallTimeMax
     );
     setRandomPuffCloud(randomPuffCloudValue);
+  }, [
+    dropAmount,
+    min,
+    max,
+    fallTimeMin,
+    fallTimeMax,
+    getRandomArra,
+    setRandomPuffCloud,
+  ]);
 
+  useEffect(() => {
     if (
       idType === "sunnyMoon" ||
       (top <= 40 && (idType === "cloudyWithSunMoon" || idType === "cloudy"))
@@ -65,7 +75,7 @@ const PuffCloud = ({
       setColorCloud(50);
       setColorBorder(12);
     }
-  }, [idType]);
+  }, [idType, top, setColorCloud, setColorBorder]);
 
   return (
     randomPuffCloud.length &&
@@ -74,7 +84,6 @@ const PuffCloud = ({
         key={i}
         $top={itemPuff.top}
         $left={itemPuff.left}
-        $animationDuration={itemPuff.animationDuration}
         $colorCloud={colorCloud}
         $colorBorder={colorBorder}
       />

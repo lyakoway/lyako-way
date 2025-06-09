@@ -23,7 +23,7 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
       (item) => item.id === climateControl
     );
     setDataClimateControl(propsClimateControlValue);
-  }, [climateControl]);
+  }, [climateControl, setDataClimateControl]);
 
   useEffect(() => {
     const randomCloudValue = getRandomArra(
@@ -34,11 +34,13 @@ const Cloud: FC<CloudProps> = ({ climateControl }) => {
       dataClimateControl?.timeMaxRandomMovements
     );
     setRandomCloud(randomCloudValue);
-  }, [dataClimateControl, climateControl]);
+  }, [dataClimateControl, getRandomArra, setRandomCloud]);
 
   if (!dataClimateControl) {
     return null;
   }
+
+  console.log("randomCloud", randomCloud);
 
   return randomCloud.map((item, index) => {
     return (
