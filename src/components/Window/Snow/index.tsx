@@ -2,19 +2,16 @@ import React, { FC, useEffect, useState } from "react";
 
 import { SnowWrapper, SnowFlake, SnowFlakeL, SnowFlakeR } from "./style";
 import { getRandomArra } from "src/common/utils";
-interface SnowProps {
-  climateControl: string;
-}
 
 const randomSnowConst = {
-  dropAmount: 180,
+  dropAmount: 40,
   leftMin: 0,
   leftMax: 220,
   fallTimeMin: 10,
   fallTimeMax: 40,
 };
 
-const Snow: FC<SnowProps> = ({ climateControl }) => {
+const Snow: FC = () => {
   const [randomSnow, setRandomSnow] = useState([]);
 
   useEffect(() => {

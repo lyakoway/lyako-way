@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, FC } from "react";
+import React, { useCallback, useEffect, useState, FC, Fragment } from "react";
 
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
@@ -106,7 +106,9 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $timeLeftSunMoon={timeLeftSunMoon}
         $themeLight={themeLight}
       >
-        <Weather climateControl={climate} trigger={trigger} />
+        <Fragment key={trigger}>
+          <Weather climateControl={climate} />
+        </Fragment>
         <WindowSky
           dayToNightColor={dayToNightColor}
           timeLeftSunMoon={timeLeftSunMoon}

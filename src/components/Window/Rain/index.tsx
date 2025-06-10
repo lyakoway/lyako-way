@@ -2,9 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 
 import { RainWrapper, Drop } from "./style";
 import { getRandomArra } from "src/common/utils";
-interface CloudProps {
-  climateControl: string;
-}
 
 const randomRainConst = {
   dropAmount: 100,
@@ -14,7 +11,7 @@ const randomRainConst = {
   fallTimeMax: 20,
 };
 
-const Rain: FC<CloudProps> = ({ climateControl }) => {
+const Rain: FC = () => {
   const [randomRain, setRandomRain] = useState([]);
 
   useEffect(() => {

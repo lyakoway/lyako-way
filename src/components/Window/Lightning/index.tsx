@@ -9,11 +9,7 @@ const createVector = (x: number, y: number) => {
   return { x, y };
 };
 
-interface CloudProps {
-  climateControl: string;
-}
-
-const Lightning: FC<CloudProps> = ({ climateControl }) => {
+const Lightning: FC = () => {
   const [context, setContext] = useState(null);
 
   const canvasHeight = 400;

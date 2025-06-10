@@ -14,8 +14,6 @@ export const Modal: FC = () => {
   );
   const dispatch = useDispatchTyped();
 
-  console.log("backgroundOverlay", backgroundOverlay);
-
   const onCloseModal = useCallback(() => {
     dispatch(closeModal());
   }, [dispatch]);
