@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import { SnowyWrapper, Rain, SnowFlake } from "./style";
 import { getRandomArra } from "src/common/utils";
 
-import { SnowyWrapper, Rain, SnowFlake } from "./style";
+interface SnowItem {
+  left: number;
+  animationDuration: number;
+}
 
 interface WeatherRainProps {
   dropAmount: number;
@@ -13,15 +16,15 @@ interface WeatherRainProps {
   top: number;
 }
 
-const Snowy = ({
+const Snowy: React.FC<WeatherRainProps> = ({
   dropAmount,
   leftMin,
   leftMax,
   fallTimeMin,
   fallTimeMax,
   top,
-}: WeatherRainProps) => {
-  const [randomSnow, setRandomSnow] = useState([]);
+}) => {
+  const [randomSnow, setRandomSnow] = useState<SnowItem[]>([]);
   const show = top > 40;
 
   useEffect(() => {
@@ -33,17 +36,17 @@ const Snowy = ({
       fallTimeMax
     );
     setRandomSnow(randomSnowValue);
-  }, []);
+  }, [dropAmount, leftMin, leftMax, fallTimeMin, fallTimeMax]);
 
   return (
     <SnowyWrapper $show={show}>
       <Rain>
-        {randomSnow.map((itemDrop, i) => (
+        {randomSnow.map((item, i) => (
           <SnowFlake
             key={i}
-            $left={itemDrop.left}
-            $animationDelay={itemDrop.animationDuration / 8}
-            $animationDuration={itemDrop.animationDuration}
+            $left={item.left}
+            $animationDelay={item.animationDuration / 8}
+            $animationDuration={item.animationDuration}
           >
             ❄
           </SnowFlake>

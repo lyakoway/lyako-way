@@ -1,145 +1,103 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const falling = keyframes`
-  0% {
-    margin-top: 0;
-    transform: translateX(0px);
-  }
-  25% {
-    transform: translateX(5px);
-  }
-  20% {
-    transform: translateX(-5px);
-  }
-  30% {
-    transform: translateX(5px);
-  }
-  40% {
-    transform: translateX(-5px);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-  75% {
-    transform: translateX(-5px);
-  }
-  100% {
-    margin-top: 400px;
-    transform: translateX(0px);
-  }
+  0% { margin-top: 0; transform: translateX(0px); }
+  25% { transform: translateX(5px); }
+  50% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+  100% { margin-top: 400px; transform: translateX(0px); }
 `;
 
 export const SnowWrapper = styled.div`
   width: 100%;
-  gap: 2px;
   position: absolute;
-  display: flex;
   height: 400px;
-  margin-left: auto;
-  margin-right: auto;
   margin-top: -50px;
   overflow: hidden;
   z-index: 300;
+  pointer-events: none;
 `;
 
-export const SnowFlake = styled.div<{
+export const SnowFlake = styled.div.attrs<{
   $top: number;
   $left: number;
   $animationDelay: number;
   $animationDuration: number;
   $opacity: number;
   $size: number;
-}>`
+}>((props) => ({
+  style: {
+    top: `-${props.$top}px`,
+    left: `${props.$left}px`,
+    width: `${props.$size}px`,
+    height: `${props.$size}px`,
+    opacity: props.$opacity,
+    animationDelay: `${props.$animationDelay}s`,
+    animationDuration: `${props.$animationDuration}s`,
+  },
+}))`
   position: absolute;
-  top: ${({ $top }) => -$top}px;
-  left: ${({ $left }) => $left}px;
-  width: ${({ $size }) => $size}px;
-  height: ${({ $size }) => $size}px;
   background: white;
   border-radius: 50%;
-  opacity: ${({ $opacity }) => $opacity};
-
-  ${({ $animationDelay, $animationDuration }) =>
-    css`
-      animation: ${falling} ${$animationDuration}s ${$animationDelay}s linear
-        infinite;
-    `}
+  animation-name: ${falling};
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 `;
 
 const fallingL = keyframes`
-  0% {
-    margin-top: 0;
-    transform: translateX(0px);
-  }
-  25% {
-    transform: translateX(-15px);
-  }
-  50% {
-    transform: translateX(15px);
-  }
-  75% {
-    transform: translateX(-15px);
-  }
-  100% {
-    margin-top: 400px;
-    transform: translateX(0px);
-  }
+  0% { margin-top: 0; transform: translateX(0px); }
+  25% { transform: translateX(-15px); }
+  50% { transform: translateX(15px); }
+  75% { transform: translateX(-15px); }
+  100% { margin-top: 400px; transform: translateX(0px); }
 `;
 
 const fallingR = keyframes`
-  0% {
-    margin-top: 0;
-    transform: translateX(0px);
-  }
-  25% {
-    transform: translateX(15px);
-  }
-  50% {
-    transform: translateX(-15px);
-  }
-  75% {
-    transform: translateX(15px);
-  }
-  100% {
-    margin-top: 400px;
-    transform: translateX(0px);
-  }
+  0% { margin-top: 0; transform: translateX(0px); }
+  25% { transform: translateX(15px); }
+  50% { transform: translateX(-15px); }
+  75% { transform: translateX(15px); }
+  100% { margin-top: 400px; transform: translateX(0px); }
 `;
 
-export const SnowFlakeL = styled.div<{
+export const SnowFlakeL = styled.div.attrs<{
   $left: number;
-  $animationDelay: number;
-  $animationDuration: number;
-}>`
+  $delay: number;
+  $duration: number;
+}>((props) => ({
+  style: {
+    left: `${props.$left}%`,
+    animationDelay: `${props.$delay}s`,
+    animationDuration: `${props.$duration}s`,
+  },
+}))`
   position: absolute;
   color: #fff;
   font-size: 1em;
   text-shadow: 0 0 1px #000;
   top: -30px;
-  left: ${({ $left }) => $left}%;
-
-  ${({ $animationDelay, $animationDuration }) =>
-    css`
-      animation: ${fallingL} ${$animationDuration}s ${$animationDelay}s
-        ease-in-out infinite;
-    `}
+  animation-name: ${fallingL};
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 `;
 
-export const SnowFlakeR = styled.div<{
+export const SnowFlakeR = styled.div.attrs<{
   $left: number;
-  $animationDelay: number;
-  $animationDuration: number;
-}>`
+  $delay: number;
+  $duration: number;
+}>((props) => ({
+  style: {
+    left: `${props.$left}%`,
+    animationDelay: `${props.$delay}s`,
+    animationDuration: `${props.$duration}s`,
+  },
+}))`
   position: absolute;
   color: #fff;
   font-size: 1em;
   text-shadow: 0 0 1px #000;
   top: -30px;
-  left: ${({ $left }) => $left}%;
-
-  ${({ $animationDelay, $animationDuration }) =>
-    css`
-      animation: ${fallingR} ${$animationDuration}s ${$animationDelay}s
-        ease-in-out infinite;
-    `}
+  animation-name: ${fallingR};
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
 `;

@@ -1,32 +1,23 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const falling = keyframes`
-    0% {
-        margin-top: 0;
-        transform: translateX(0px);
-    }
-    25% {
-        transform: translateX(3px);
-    }
-    20% {
-        transform: translateX(-3px);
-    }
-    30% {
-        transform: translateX(3px);
-    }
-    40% {
-        transform: translateX(-3px);
-    }
-    50% {
-        transform: translateX(3px);
-    }
-    75% {
-        transform: translateX(-3px);
-    }
-    100% {
-        margin-top: 200px;
-        transform: translateX(0px);
-    }
+  0% {
+    margin-top: 0;
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(3px);
+  }
+  50% {
+    transform: translateX(-3px);
+  }
+  75% {
+    transform: translateX(3px);
+  }
+  100% {
+    margin-top: 200px;
+    transform: translateX(0px);
+  }
 `;
 
 export const SnowyWrapper = styled.div<{ $show: boolean }>`
@@ -46,20 +37,22 @@ export const Rain = styled.div`
   height: 100%;
 `;
 
-export const SnowFlake = styled.div<{
+export const SnowFlake = styled.div.attrs<{
   $left: number;
   $animationDelay: number;
   $animationDuration: number;
-}>`
-  left: ${({ $left }) => $left}px;
+}>((props) => ({
+  style: {
+    left: `${props.$left}px`,
+    animationDelay: `${props.$animationDelay}s`,
+    animationDuration: `${props.$animationDuration}s`,
+  },
+}))`
   position: absolute;
-
+  top: -30px;
   color: #d7fdfe;
   font-size: 0.4em;
-
-  ${({ $animationDelay, $animationDuration }) =>
-    css`
-      animation: ${falling} ${$animationDuration}s ${$animationDelay}s linear
-        infinite;
-    `}
+  animation-name: ${falling};
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 `;

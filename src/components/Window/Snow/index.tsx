@@ -1,5 +1,4 @@
 import React, { FC, useEffect, useState } from "react";
-
 import { SnowWrapper, SnowFlake, SnowFlakeL, SnowFlakeR } from "./style";
 import { getRandomArra } from "src/common/utils";
 
@@ -11,8 +10,14 @@ const randomSnowConst = {
   fallTimeMax: 40,
 };
 
+interface SnowItem {
+  top: number;
+  left: number;
+  animationDuration: number;
+}
+
 const Snow: FC = () => {
-  const [randomSnow, setRandomSnow] = useState([]);
+  const [randomSnow, setRandomSnow] = useState<SnowItem[]>([]);
 
   useEffect(() => {
     const randomSnowValue = getRandomArra(
@@ -23,7 +28,7 @@ const Snow: FC = () => {
       randomSnowConst.fallTimeMax
     );
     setRandomSnow(randomSnowValue);
-  }, [setRandomSnow, getRandomArra, randomSnowConst]);
+  }, []);
 
   return (
     <SnowWrapper>
@@ -38,34 +43,36 @@ const Snow: FC = () => {
           $size={itemDrop.animationDuration / 8}
         />
       ))}
-      <SnowFlakeL $left={10} $animationDelay={0.5} $animationDuration={6}>
+
+      {/* Символьные снежинки */}
+      <SnowFlakeL $left={10} $delay={0.5} $duration={6}>
         ❅
       </SnowFlakeL>
-      <SnowFlakeR $left={20} $animationDelay={2} $animationDuration={7}>
+      <SnowFlakeR $left={20} $delay={2} $duration={7}>
         ❅
       </SnowFlakeR>
-      <SnowFlakeL $left={30} $animationDelay={4} $animationDuration={8}>
+      <SnowFlakeL $left={30} $delay={4} $duration={8}>
         ❆
       </SnowFlakeL>
-      <SnowFlakeR $left={40} $animationDelay={3} $animationDuration={6}>
+      <SnowFlakeR $left={40} $delay={3} $duration={6}>
         ❄
       </SnowFlakeR>
-      <SnowFlakeL $left={50} $animationDelay={4} $animationDuration={9}>
+      <SnowFlakeL $left={50} $delay={4} $duration={9}>
         ❅
       </SnowFlakeL>
-      <SnowFlakeR $left={60} $animationDelay={3} $animationDuration={8}>
+      <SnowFlakeR $left={60} $delay={3} $duration={8}>
         ❆
       </SnowFlakeR>
-      <SnowFlakeL $left={70} $animationDelay={2} $animationDuration={10}>
+      <SnowFlakeL $left={70} $delay={2} $duration={10}>
         ❄
       </SnowFlakeL>
-      <SnowFlakeR $left={80} $animationDelay={2} $animationDuration={7}>
+      <SnowFlakeR $left={80} $delay={2} $duration={7}>
         ❅
       </SnowFlakeR>
-      <SnowFlakeL $left={90} $animationDelay={5} $animationDuration={8}>
+      <SnowFlakeL $left={90} $delay={5} $duration={8}>
         ❆
       </SnowFlakeL>
-      <SnowFlakeR $left={55} $animationDelay={4} $animationDuration={7}>
+      <SnowFlakeR $left={55} $delay={4} $duration={7}>
         ❄
       </SnowFlakeR>
     </SnowWrapper>
