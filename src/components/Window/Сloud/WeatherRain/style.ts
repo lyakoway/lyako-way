@@ -1,9 +1,9 @@
 import styled, { keyframes } from "styled-components";
 
 const falling = keyframes`
-  100% {
-    margin-top: 400px;
-  }
+    100% {
+        margin-top: 400px;
+    }
 `;
 
 export const RainWrapper = styled.div<{ $show: boolean }>`
@@ -23,15 +23,14 @@ export const Rain = styled.div`
   height: 100%;
 `;
 
-export const Drop = styled.div<{ $left: number; $animationDuration: number }>`
+// Теперь DropStyled без динамического $left
+export const DropStyled = styled.div<{ $animationDuration: number }>`
   width: 1px;
   height: 80px;
-  left: ${({ $left }) => $left}px;
   position: absolute;
   background: linear-gradient(transparent, #d3f4ff);
 
   animation-name: ${falling};
-
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   animation-duration: ${({ $animationDuration }) => $animationDuration}s;

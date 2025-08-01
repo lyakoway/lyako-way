@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
 import { getRandomArra } from "src/common/utils";
-
 import { PuffCloudPattern } from "./style";
 
 interface PuffCloudProps {
@@ -14,7 +12,12 @@ interface PuffCloudProps {
   idType: string;
 }
 
-const PuffCloud = ({
+interface PuffItem {
+  top: number;
+  left: number;
+}
+
+const PuffCloud: React.FC<PuffCloudProps> = ({
   dropAmount,
   min,
   max,
@@ -22,8 +25,8 @@ const PuffCloud = ({
   fallTimeMax,
   top,
   idType,
-}: PuffCloudProps) => {
-  const [randomPuffCloud, setRandomPuffCloud] = useState([]);
+}) => {
+  const [randomPuffCloud, setRandomPuffCloud] = useState<PuffItem[]>([]);
   const [colorCloud, setColorCloud] = useState(100);
   const [colorBorder, setColorBorder] = useState(50);
 
@@ -36,15 +39,7 @@ const PuffCloud = ({
       fallTimeMax
     );
     setRandomPuffCloud(randomPuffCloudValue);
-  }, [
-    dropAmount,
-    min,
-    max,
-    fallTimeMin,
-    fallTimeMax,
-    getRandomArra,
-    setRandomPuffCloud,
-  ]);
+  }, [dropAmount, min, max, fallTimeMin, fallTimeMax]);
 
   useEffect(() => {
     if (
@@ -53,41 +48,39 @@ const PuffCloud = ({
     ) {
       setColorCloud(100);
       setColorBorder(70);
-    }
-    if (top > 40 && (idType === "cloudyWithSunMoon" || idType === "cloudy")) {
+    } else if (
+      top > 40 &&
+      (idType === "cloudyWithSunMoon" || idType === "cloudy")
+    ) {
       setColorCloud(80);
       setColorBorder(50);
-    }
-    if (top <= 40 && idType === "rainy") {
+    } else if (top <= 40 && idType === "rainy") {
       setColorCloud(80);
       setColorBorder(50);
-    }
-    if (top > 40 && idType === "rainy") {
+    } else if (top > 40 && idType === "rainy") {
       setColorCloud(60);
       setColorBorder(30);
-    }
-
-    if (top <= 40 && idType === "cloudyWithRainAndLightning") {
+    } else if (top <= 40 && idType === "cloudyWithRainAndLightning") {
       setColorCloud(60);
       setColorBorder(30);
-    }
-    if (top > 40 && idType === "cloudyWithRainAndLightning") {
+    } else if (top > 40 && idType === "cloudyWithRainAndLightning") {
       setColorCloud(50);
       setColorBorder(12);
     }
-  }, [idType, top, setColorCloud, setColorBorder]);
+  }, [idType, top]);
 
   return (
-    randomPuffCloud.length &&
-    randomPuffCloud.map((itemPuff, i) => (
-      <PuffCloudPattern
-        key={i}
-        $top={itemPuff.top}
-        $left={itemPuff.left}
-        $colorCloud={colorCloud}
-        $colorBorder={colorBorder}
-      />
-    ))
+    <>
+      {randomPuffCloud.map((itemPuff, i) => (
+        <PuffCloudPattern
+          key={i}
+          $top={itemPuff.top}
+          $left={itemPuff.left}
+          $colorCloud={colorCloud}
+          $colorBorder={colorBorder}
+        />
+      ))}
+    </>
   );
 };
 

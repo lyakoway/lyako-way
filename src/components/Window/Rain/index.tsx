@@ -1,37 +1,40 @@
-import React, { FC, useEffect, useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { RainWrapper, Drop } from "./style";
-import { getRandomArra } from "src/common/utils";
 
-const randomRainConst = {
-  dropAmount: 100,
-  leftMin: 0,
-  leftMax: 32,
-  fallTimeMin: 10,
-  fallTimeMax: 20,
-};
+interface DropItem {
+  left: number;
+  animationDuration: number;
+  height: number;
+}
 
-const Rain: FC = () => {
-  const [randomRain, setRandomRain] = useState([]);
+interface RainProps {
+  intensity?: "light" | "medium" | "heavy";
+}
+
+const Rain: React.FC<RainProps> = ({ intensity = "medium" }) => {
+  const [drops, setDrops] = useState<DropItem[]>([]);
 
   useEffect(() => {
-    const randomRainValue = getRandomArra(
-      randomRainConst.dropAmount,
-      randomRainConst.leftMin,
-      randomRainConst.leftMax,
-      randomRainConst.fallTimeMin,
-      randomRainConst.fallTimeMax
-    );
-    setRandomRain(randomRainValue);
-  }, [setRandomRain, getRandomArra]);
+    let dropAmount = 50; // default
+    if (intensity === "light") dropAmount = 20;
+    if (intensity === "heavy") dropAmount = 100;
+
+    const newDrops = Array.from({ length: dropAmount }, () => ({
+      left: Math.floor(Math.random() * window.innerWidth),
+      animationDuration: Math.random() * (2 - 1) + 1, // 1–2s
+      height: Math.random() * (30 - 15) + 15, // 15–30px
+    }));
+
+    setDrops(newDrops);
+  }, [intensity]);
 
   return (
     <RainWrapper>
-      {randomRain.map((itemDrop, i) => (
+      {drops.map((drop, index) => (
         <Drop
-          key={i}
-          $left={itemDrop.left}
-          $animationDuration={itemDrop.animationDuration / 10}
+          key={index}
+          $animationDuration={drop.animationDuration}
+          $height={drop.height}
         />
       ))}
     </RainWrapper>

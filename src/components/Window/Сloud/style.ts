@@ -1,25 +1,19 @@
 import styled, { keyframes } from "styled-components";
 
-const wind = ($left: number) => keyframes`
+const wind = keyframes`
   100% {
-    left: ${Number($left) + 300}px;
+    transform: translateX(500px);
   }
 `;
 
-export const CloudWrapper = styled.div<{
-  $top: number;
-  $left: number;
-  $duration: number;
-}>`
+export const CloudWrapper = styled.div<{ $duration: number }>`
   margin: 0 auto;
   position: absolute;
   width: 80px;
   border: 1px solid transparent;
-  top: ${({ $top }) => $top}px;
-  left: ${({ $left }) => $left - 200}px;
 
+  animation-name: ${wind};
   animation-duration: ${({ $duration }) => $duration}s;
-  animation-name: ${({ $left }) => wind($left)};
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 `;

@@ -1,33 +1,44 @@
 import styled, { keyframes } from "styled-components";
 
 const falling = keyframes`
+    0% {
+        transform: translateY(-100%);
+        opacity: 1;
+    }
     100% {
-        margin-top: 400px;
+        transform: translateY(400px);
+        opacity: 0.6;
     }
 `;
 
 export const RainWrapper = styled.div`
   width: 100%;
-  gap: 2px;
-  position: absolute;
   display: flex;
+  gap: 3px;
+  position: absolute;
+  top: 0;
   height: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -50px;
   overflow: hidden;
   z-index: 300;
+  pointer-events: none;
 `;
 
-export const Drop = styled.div<{ $left: number; $animationDuration: number }>`
-  width: 1px;
-  height: 20px;
-  left: ${({ $left }) => $left}px;
+interface DropProps {
+  $animationDuration: number;
+  $height: number;
+}
+
+export const Drop = styled.div.attrs<DropProps>((props) => ({
+  style: {
+    animationDuration: `${props.$animationDuration}s`,
+    height: `${props.$height}px`,
+  },
+}))`
+  width: 2px;
   background: linear-gradient(transparent, #d3f4ff);
+  border-radius: 1px;
 
   animation-name: ${falling};
-
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  animation-duration: ${({ $animationDuration }) => $animationDuration}s;
 `;
