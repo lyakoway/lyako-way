@@ -1,108 +1,90 @@
-import React, { FC, useCallback, useEffect, useState } from "react";
-
+import React, { FC, useEffect, useRef } from "react";
 import { LightningWrapper } from "./style";
 
+const canvasWidth = 222;
+const canvasHeight = 400;
+// Параметры молнии
+const lightningStrikeOffset = 5;
+const lightningStrikeLength = 100;
+const lightningBoltLength = 5;
+const lightningThickness = 4;
+const interval = 3000;
+
 const getRandomFloat = (min: number, max: number) =>
-  Math.random() * (max - min + 1) + min;
+  Math.random() * (max - min) + min;
 
-const createVector = (x: number, y: number) => {
-  return { x, y };
-};
+const getRandomInteger = (min: number, max: number) =>
+  Math.floor(getRandomFloat(min, max));
 
-const Lightning: FC = () => {
-  const [context, setContext] = useState(null);
+interface Vector {
+  x: number;
+  y: number;
+}
 
-  const canvasHeight = 400;
-  const canvasWidth = 222;
-  const lightningStrikeOffset = 5;
-  const lightningStrikeLength = 100;
-  const lightningBoltLength = 5;
-  const lightningThickness = 4;
-  const interval = 3000;
+class LightningSegment {
+  start: Vector;
+  end: Vector;
+  thickness: number;
+  opacity: number;
 
-  useEffect(() => {
-    if (document?.getElementById("canvas")) {
-      const cvs = document?.getElementById("canvas");
-      cvs?.setAttribute("height", `${canvasHeight}`);
-      cvs?.setAttribute("width", `${canvasWidth}`);
-      const canvas = document?.getElementById("canvas") as HTMLCanvasElement;
-      const contextValue = canvas?.getContext("2d");
-      setContext(contextValue);
-    }
-  }, [setContext]);
-
-  const getRandomInteger = (min: number, max: number) =>
-    Math.floor(getRandomFloat(min, max));
-
-  const clearCanvas = useCallback(() => {
-    if (context) {
-      context?.clearRect(0, 0, canvasWidth, canvasHeight);
-      context?.beginPath();
-    }
-  }, [context]);
-
-  const line = useCallback(
-    (start: number, end: number, thickness: number, opacity: number) => {
-      if (context) {
-        context.beginPath();
-        context.moveTo(start.x, start.y);
-        context.lineTo(end.x, end.y);
-        context.lineWidth = thickness;
-        context.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-        context.shadowBlur = 30;
-        context.shadowColor = "#bd9df2";
-        context.stroke();
-        context.closePath();
-      }
-    },
-    [context]
-  );
-
-  class Lightning {
-    constructor(
-      x1: number,
-      y1: number,
-      x2: number,
-      y2: number,
-      thickness: number,
-      opacity: number
-    ) {
-      this.start = createVector(x1, y1);
-      this.end = createVector(x2, y2);
-      this.thickness = thickness;
-      this.opacity = opacity;
-    }
-    draw() {
-      return line(this.start, this.end, this.thickness, this.opacity);
-    }
+  constructor(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    thickness: number,
+    opacity: number
+  ) {
+    this.start = { x: x1, y: y1 };
+    this.end = { x: x2, y: y2 };
+    this.thickness = thickness;
+    this.opacity = opacity;
   }
 
-  let lightning = [];
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.beginPath();
+    ctx.moveTo(this.start.x, this.start.y);
+    ctx.lineTo(this.end.x, this.end.y);
+    ctx.lineWidth = this.thickness;
+    ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+    ctx.shadowBlur = 40;
+    ctx.shadowColor = "#bd9df2";
+    ctx.stroke();
+    ctx.closePath();
+  }
+}
 
-  const createLightning = useCallback(() => {
-    lightning = [];
+const Lightning: FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const lightningRef = useRef<LightningSegment[]>([]);
+
+  const createLightning = () => {
+    const lightning: LightningSegment[] = [];
     let lightningX1 = getRandomInteger(2, canvasWidth - 2);
     let lightningX2 = getRandomInteger(
       lightningX1 - lightningStrikeOffset,
       lightningX1 + lightningStrikeOffset
     );
-    lightning[0] = new Lightning(
-      lightningX1,
-      0,
-      lightningX2,
-      lightningBoltLength,
-      lightningThickness,
-      1
+    lightning.push(
+      new LightningSegment(
+        lightningX1,
+        0,
+        lightningX2,
+        lightningBoltLength,
+        lightningThickness,
+        1
+      )
     );
-    for (let l = 1; l < lightningStrikeLength; l++) {
-      let lastBolt = lightning[l - 1];
+
+    for (let i = 1; i < lightningStrikeLength; i++) {
+      const lastBolt = lightning[i - 1];
       let lx1 = lastBolt.end.x;
       let lx2 = getRandomInteger(
         lx1 - lightningStrikeOffset,
         lx1 + lightningStrikeOffset
       );
       lightning.push(
-        new Lightning(
+        new LightningSegment(
           lx1,
           lastBolt.end.y,
           lx2,
@@ -112,43 +94,58 @@ const Lightning: FC = () => {
         )
       );
     }
-  }, [getRandomInteger, context]);
+    lightningRef.current = lightning;
+  };
 
-  const setup = useCallback(() => {
-    createLightning();
-    for (let i = 0; i < lightning.length; i++) {
-      lightning[i].draw();
-    }
-  }, [createLightning]);
+  const clearCanvas = (ctx: CanvasRenderingContext2D) => {
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+  };
 
-  const animate = useCallback(() => {
-    clearCanvas();
+  const animate = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-    for (let i = 0; i < lightning.length; i++) {
-      lightning[i].opacity -= 0.01;
-      lightning[i].thickness -= 0.05;
-      if (lightning[i].thickness <= 2) {
-        lightning[i].end.y -= 0.05;
+    clearCanvas(ctx);
+
+    lightningRef.current.forEach((segment) => {
+      segment.opacity -= 0.006; // было 0.003 → быстрее растворяется
+      segment.thickness -= 0.02; // было 0.01 → быстрее исчезает
+      if (segment.thickness <= 2) {
+        segment.end.y -= 0.05;
       }
-      lightning[i].draw();
-    }
+      segment.draw(ctx);
+    });
 
     requestAnimationFrame(animate);
-  }, [lightning, clearCanvas]);
+  };
 
   useEffect(() => {
-    setup();
-    requestAnimationFrame(animate);
+    const canvas = canvasRef.current;
+    if (canvas) {
+      canvas.width = canvasWidth;
+      canvas.height = canvasHeight;
+      // Сделать canvas прозрачным (фон через LightningWrapper)
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      }
+    }
+
+    createLightning();
+    animate();
+
     const timer = setInterval(() => {
       createLightning();
     }, interval);
 
     return () => clearInterval(timer);
-  }, [context]);
+  }, []);
 
   return (
     <LightningWrapper>
-      <canvas id="canvas"></canvas>
+      <canvas ref={canvasRef} id="canvas" />
     </LightningWrapper>
   );
 };
