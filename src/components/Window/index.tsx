@@ -28,7 +28,7 @@ import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
-import { showModal } from "src/reducers";
+import {fetchWeather, showModal} from "src/reducers";
 import ClimateControl from "src/components/Window/ClimateControl";
 import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
 import Weather from "src/components/Window/Weather";
@@ -53,9 +53,9 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   const dispatch = useDispatchTyped();
 
-  const winter = false;
-
-  // const climateControl = "snowy";
+  useEffect(() => {
+    dispatch(fetchWeather({city :'Москва'}));
+  }, []);
 
   const handleClickModal = useCallback(() => {
     dispatch(

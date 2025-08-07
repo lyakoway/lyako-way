@@ -1,13 +1,19 @@
-export const fetchRequest = async (
-  url: string | URL,
-  options?: RequestInit
-): Promise<Response> => {
-  const headers = {
+import {getResponse} from "src/api";
+
+export const fetchRequest = async <T>(
+    url: string | URL,
+    options?: RequestInit
+): Promise<T> => {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    ...(options?.headers as Record<string, string>),
   };
 
-  const res = await fetch(url, { headers, ...options });
-  const status = res.status === 401 ? 412 : res.status;
+  const res = await fetch(url.toString(), {
+    ...options,
+    method: options?.method || 'GET',
+    headers,
+  });
 
-  return new Response(res.body, { status, ...res });
+  return getResponse(res);
 };

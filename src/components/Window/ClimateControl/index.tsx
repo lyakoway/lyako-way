@@ -18,6 +18,11 @@ const ClimateControl = () => {
   } = useSelectorTyped(({ theme }) => theme);
   const { climate } = useSelectorTyped(({ climate }) => climate);
   const dispatch = useDispatchTyped();
+    // const { city, setCity, weather, forecast, loading, error, searchCity } = useWeather('Москва')
+    // const handleSubmit = (e: FormEvent) => {
+    //     e.preventDefault();
+    //     searchCity(city);
+    // };
 
   return (
     <Wrapper>
