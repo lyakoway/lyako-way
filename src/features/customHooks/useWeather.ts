@@ -1,60 +1,110 @@
-import { useEffect, useState } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import {fetchWeather} from "src/reducers";
 import {useDispatchTyped, useSelectorTyped} from "src/store";
 
-export function useWeather(defaultCity: string = 'Москва') {
+// const NEXT_PUBLIC_YOUR_API_KEY = process.env.NEXT_PUBLIC_YOUR_API_KEY;
+
+export function useWeather() {
+    const [geoError, setGeoError] = useState<string | null>(null);
+    const [geoCity, setGeoCity] = useState<string | null>(null);
+
     const dispatch = useDispatchTyped();
     const { weather, forecast, loading, error } = useSelectorTyped(
         ({ climate }) => climate
     );
-    const [city, setCity] = useState(defaultCity);
 
-    // Загрузка по геолокации
-    useEffect(() => {
-        const fetchByGeo = async () => {
-            if (!navigator.geolocation) {
-                dispatch(fetchWeather({city: defaultCity}));
-                return;
+    const fetchByCity = useCallback((city: string) => {
+        if (!city) return;
+        dispatch(fetchWeather({ city }));
+    }, [dispatch]);
+
+    const fetchByCoords = useCallback(async (lat: number, lon: number) => {
+        const query = `${lat},${lon}`;
+        dispatch(fetchWeather({ city: query }));
+    }, []);
+
+
+    const fetchByIPFallback = useCallback(async () => {
+        try {
+            const res = await fetch('https://geolocation-db.com/json/');
+            if (!res.ok) {
+                throw new Error(`Ошибка сети: ${res.status} ${res.statusText}`);
             }
+            const data = await res.json();
 
-            navigator.geolocation.getCurrentPosition(
-                async (pos) => {
-                    const { latitude, longitude } = pos.coords;
-                    try {
-                        const res = await fetch(`/api/weather?lat=${latitude}&lon=${longitude}`);
-                        const data = await res.json();
-                        if (data.name) {
-                            setCity(data.name);
-                            dispatch(fetchWeather({city: data.name}));
-                        }
-                    } catch (err) {
-                        console.error('Ошибка геолокации:', err);
-                        dispatch(fetchWeather({city: defaultCity}));
-                    }
-                },
-                () => dispatch(fetchWeather({city: defaultCity})),
-                { timeout: 5000 }
-            );
-        };
+            // В geolocation-db поля latitude/longitude могут называться немного иначе
+            const latitude = data.latitude || data.lat;
+            const longitude = data.longitude || data.lon || data.lng;
+            const cityitude = data.city;
 
-        fetchByGeo();
-    }, [dispatch, defaultCity]);
-
-    const searchCity = (newCity: string) => {
-        if (newCity.trim()) {
-            setCity(newCity);
-            dispatch(fetchWeather({city: newCity}));
+            if (!latitude || !longitude) {
+                throw new Error('IP fallback не вернул координаты');
+            }
+            setGeoCity(cityitude);
+            fetchByCoords(latitude, longitude);
+        } catch (err: any) {
+            fetchByCity('Москва');
+            setGeoError(`Ошибка при определении местоположения по IP: ${err.message}`);
         }
-    };
+    }, [fetchByCoords]);
+
+
+    // https://app.ipbase.com/dashboard
+    // const fetchByIPFallback = useCallback(async () => {
+    //     try {
+    //         const res = await fetch('https://api.ipbase.com/v2/info?apikey=ipb_live_76juM4vsS8f92uy8MKMDVyOsmU6QlNCHa3O2vCa8&ip=1.1.1.1');
+    //
+    //         if (!res.ok) {
+    //             throw new Error(`Ошибка сети: ${res.status} ${res.statusText}`);
+    //         }
+    //
+    //         const data = await res.json();
+    //         const latitude = data?.data?.location?.latitude;
+    //         const longitude = data?.data?.location?.longitude;
+    //
+    //         if (!latitude || !longitude) {
+    //             throw new Error('IP fallback не вернул координаты');
+    //         }
+    //
+    //         fetchByCoords(latitude, longitude);
+    //     } catch (err: any) {
+    //         fetchByCity('Москва');
+    //         setGeoError(`Ошибка при определении местоположения по IP: ${err.message}`);
+    //     }
+    // }, [fetchByCoords]);
+
+
+    const fetchByGeolocation = useCallback(async () => {
+        if (!navigator.geolocation) {
+            setGeoError('Геолокация не поддерживается, используем IP fallback...');
+            await fetchByIPFallback();
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                fetchByCoords(latitude, longitude);
+            },
+            (err) => {
+                setGeoError(`Геолокация отклонена: ${err.message}, используем IP fallback...`);
+                fetchByIPFallback();
+            }
+        );
+    }, [fetchByCoords, fetchByIPFallback]);
+
+    useEffect(() => {
+        fetchByGeolocation();
+    }, [fetchByGeolocation]);
 
     return {
-        city,
-        setCity,
         weather,
         forecast,
+        geoCity,
         loading,
-        error,
-        searchCity,
+        error: error || geoError,
+        fetchByCity,
+        fetchByGeolocation
     };
 }

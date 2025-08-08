@@ -17,8 +17,8 @@ export const fetchWeather = createAsyncThunk<
 >('climate/fetchWeather', async (data, thunkAPI) => {
   const {city} = data;
   try {
-    const weather = await getWeather(city);
-    const forecast = await getForecast(city);
+    const weather = await getWeather({city});
+    const forecast = await getForecast({city});
 
     return {
       weather: weather,

@@ -8,14 +8,22 @@ export type ClimateType =
 
 
 export interface Weather {
-    name: string;
-    main: {
-        temp: number;
-        feels_like: number;
-        temp_min: number;
-        temp_max: number;
+    location: {
+        name: string;
+        region: string;
+        country: string;
+        localtime: string;
     };
-    weather: { description: string; icon: string }[];
+    current: {
+        temp_c: number;
+        feelslike_c: number;
+        condition: { text: string; icon: string };
+        humidity: number;
+        wind_kph: number;
+        wind_dir: string;
+        pressure_mb: number;
+        uv: number;
+    };
 }
 
 export interface ForecastItem {

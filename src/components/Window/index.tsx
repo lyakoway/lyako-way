@@ -19,7 +19,7 @@ import Cloud from "src/components/Window/Сloud";
 import WeatherIcon from "src/components/Window/WeatherIcon";
 import {
   useIsomorphicLayoutEffect,
-  usePositionSunAndMoon,
+  usePositionSunAndMoon, useWeather,
 } from "src/features/customHooks";
 import { getParallax } from "src/common/utils";
 import WindowView from "src/components/Window/WindowView";
@@ -53,9 +53,25 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   const dispatch = useDispatchTyped();
 
-  useEffect(() => {
-    dispatch(fetchWeather({city :'Москва'}));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchWeather({city :'Москва'}));
+  // }, []);
+  const { weather,
+      forecast,
+      geoCity,
+      loading,
+      error,
+        fetchByCity,
+        fetchByGeolocation } = useWeather();
+  // const handleSubmit = (e: FormEvent) => {
+  //     e.preventDefault();
+  //     searchCity(city);
+  // };
+
+  // useEffect(() => {
+  //   searchCity(city);
+  // }, []);
+ console.log('city', geoCity);
 
   const handleClickModal = useCallback(() => {
     dispatch(

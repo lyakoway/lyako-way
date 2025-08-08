@@ -4,8 +4,21 @@ import {fetchRequest} from "src/features/server/fetch";
 export const WEATHER_API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY;
 const BASE_URL = 'https://api.weatherapi.com/v1';
 
-export async function getWeather(city: string) {
-    const url = `${BASE_URL}/current.json?key=${WEATHER_API_KEY}&q=${city}&aqi=no`;
+function buildQuery(params: { city?: string; lat?: number; lon?: number }): string {
+    if (params.city) {
+        return `q=${encodeURIComponent(params.city)}`;
+    }
+
+    if (params.lat != null && params.lon != null) {
+        return `q=${params.lat},${params.lon}`;
+    }
+
+    throw new Error('Не указаны параметры для получения погоды');
+}
+
+export async function getWeather(params: { city?: string; lat?: number; lon?: number }) {
+    const query = buildQuery(params);
+    const url = `${BASE_URL}/current.json?key=${WEATHER_API_KEY}&${query}&aqi=no`;
     try {
         console.log('url', url)
         return await fetchRequest(url);
@@ -15,8 +28,9 @@ export async function getWeather(city: string) {
     }
 }
 
-export async function getForecast(city: string) {
-    const url = `${BASE_URL}/forecast.json?key=${WEATHER_API_KEY}&q=${city}&days=5&aqi=no&alerts=no`;
+export async function getForecast(params: { city?: string; lat?: number; lon?: number }) {
+    const query = buildQuery(params);
+    const url = `${BASE_URL}/forecast.json?key=${WEATHER_API_KEY}&${query}&days=5&aqi=no&alerts=no`;
     try {
         return await fetchRequest(url);
     } catch (error) {
