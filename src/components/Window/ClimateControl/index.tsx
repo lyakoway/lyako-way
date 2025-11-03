@@ -13,7 +13,7 @@ import {
 } from "./style";
 
 import { CLIMATE_CONTROL } from "./constants";
-import { setClimateControl } from "src/reducers";
+import { fetchWeather, setClimateControl } from "src/reducers";
 import { ClimateType } from "src/common/types/climat";
 import { useWeather } from "src/features/customHooks";
 
@@ -59,6 +59,10 @@ const ClimateControl = () => {
   // Тип погоды
   // weather.current.condition.text
 
+  const handleSelectCity = (selectedCity: string) => {
+    dispatch(fetchWeather({ city: selectedCity }));
+  };
+
   return (
     <Wrapper>
       <Header>{climateLang.title}</Header>
@@ -68,6 +72,7 @@ const ClimateControl = () => {
             placeholder="Введите город"
             searchQuery={city}
             setSearchQuery={setCity}
+            onSelectCity={handleSelectCity}
           />
         </SearchInputWrapper>
         <ButtonStyle
