@@ -1,7 +1,3 @@
-import PortfolioImgUrl1 from "src/common/icon/icon-blog/PortfolioImgUrl.png";
-import ContactForm from "src/components/ContactForm";
-import { climateLang } from "src/common/lang/russia/climateLang";
-
 export interface HeaderTopMenuProps {
   id: string;
   label: string;

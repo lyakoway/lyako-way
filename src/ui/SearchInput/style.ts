@@ -8,6 +8,7 @@ export const SelectContainer = styled.div<{
 }>`
   position: relative;
   height: 40px;
+  width: 100%;
   border: 0.05em solid #ffffff;
   display: flex;
   align-items: center;
@@ -16,7 +17,6 @@ export const SelectContainer = styled.div<{
   outline: none;
   cursor: pointer;
   background: #fff;
-  margin-left: 20px;
 
   @media ${MOBILE_660} {
     margin-left: 0;
@@ -25,16 +25,16 @@ export const SelectContainer = styled.div<{
   &:hover {
     transition: 0.3s ease-in-out;
     box-shadow: ${({ $boxShadow }) =>
-      $boxShadow ? "0px 0px 10px 4px #039be5" : "0px 0px 6px 2px #039be5"};
+      $boxShadow ? "0px 0px 5px 2px #039be5" : "0px 0px 6px 2px #039be5"};
   }
   &:active {
     transition: 0.3s ease-in-out;
     box-shadow: ${({ $boxShadow }) =>
-      $boxShadow ? "0px 0px 10px 4px #039be5" : "0px 0px 6px 2px #039be5"};
+      $boxShadow ? "0px 0px 5px 2px #039be5" : "0px 0px 6px 2px #039be5"};
   }
 
   box-shadow: ${({ $boxShadow }) =>
-    $boxShadow ? "0px 0px 10px 4px #039be5" : "box-shadow: 0 0 10px #999"};
+    $boxShadow ? "0px 0px 5px 2px #039be5" : "box-shadow: 0 0 10px #999"};
 `;
 
 export const InputWrapper = styled.div`

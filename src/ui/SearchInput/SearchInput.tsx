@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 
 import {
   SelectContainer,
@@ -7,29 +7,28 @@ import {
   DeleteIconWrapper,
   Input,
 } from "./style";
-// import { getCommonIcon } from "../Icon";
-// import { useAppDispatch } from "../../../store";
-// import { setSearchShopFilter } from "../../../reducers/sort-slice";
 
 import { ReactComponent as SearchIcon } from "src/common/icon/search.svg";
 import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";
 
-export const SearchInput = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  // const SearchIcon = getCommonIcon("search");
-  // const DeleteIcon = getCommonIcon("delete");
+interface ClimateBannerProps {
+  placeholder: string;
+  searchQuery: string;
+  setSearchQuery: (value: string) => void;
+}
 
-  // const dispatch = useAppDispatch();
-
+export const SearchInput: FC<ClimateBannerProps> = ({
+  placeholder,
+  searchQuery,
+  setSearchQuery,
+}) => {
   const getSearchQuery = (valueInput: string) => {
     const searchQueryValue = valueInput.toLowerCase();
     setSearchQuery(searchQueryValue);
-    // dispatch(setSearchShopFilter(searchQueryValue));
   };
 
   const handleClickDelete = () => {
     setSearchQuery("");
-    // dispatch(setSearchShopFilter(""));
   };
 
   return (

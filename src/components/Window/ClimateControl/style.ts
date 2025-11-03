@@ -1,17 +1,5 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { css } from "styled-components";
 import { MOBILE_560 } from "src/common/lib/media";
-
-const weatherIconBorder = keyframes`
-  from {
-    border-color: #ffff;
-  }
-  50% {
-    border-color: #2185d0;
-  }
-  to {
-    border-color: #ffff;
-  }
-`;
 
 export const Wrapper = styled.form`
   display: flex;
@@ -42,6 +30,7 @@ export const Header = styled.div`
 
 export const Content = styled.div`
   display: flex;
+  gap: 12px;
   margin: 20px;
   justify-content: space-between;
 `;
@@ -58,6 +47,19 @@ export const WeatherIconWrapper = styled.div<{ $active: boolean }>`
   ${({ $active }) =>
     $active &&
     css`
-      animation: ${weatherIconBorder} 10s linear infinite;
+      border: solid 4px #ff8560;
     `}
+`;
+
+export const SearchWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  gap: 20px;
+`;
+
+export const SearchInputWrapper = styled.div`
+  display: flex;
+  border: 0.05em solid #ccc;
+  border-radius: 12px;
 `;

@@ -18,6 +18,9 @@ const spin = keyframes`
 export type Size = "big" | "medium" | "small";
 
 export const SpinnerIconWrapper = styled.div<{ size: Size; color: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   animation: ${spin} 1s linear infinite;
   height: ${({ size }) => SIZE[size]}px;
   width: ${({ size }) => SIZE[size]}px;

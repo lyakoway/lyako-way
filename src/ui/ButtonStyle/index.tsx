@@ -1,7 +1,8 @@
 import { FC, PropsWithChildren } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { Spinner } from "src/ui/Spinner";
 
-const ButtonWrapper = styled.button`
+const ButtonWrapper = styled.button<{ disabled?: boolean }>`
   display: flex;
   justify-content: center;
   -webkit-tap-highlight-color: transparent;
@@ -20,6 +21,16 @@ const ButtonWrapper = styled.button`
     box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
     transform: scale(0.98);
   }
+
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.6;
+      cursor: not-allowed;
+      pointer-events: none;
+      transform: none;
+      box-shadow: none;
+    `}
 `;
 
 const Label = styled.div`
@@ -34,16 +45,33 @@ const Label = styled.div`
 
 interface IButtonProps {
   title: string;
+  disabled?: boolean;
+  loading?: boolean;
   handleClick: () => void;
 }
 
 const ButtonStyle: FC<PropsWithChildren<IButtonProps>> = ({
   title,
+  disabled = false,
+  loading = false,
   handleClick,
   children,
 }) => {
+  const onClick = () => {
+    if (!disabled && !loading) {
+      handleClick();
+    }
+  };
+
+  if (loading) {
+    return (
+      <ButtonWrapper type="submit">
+        <Spinner size="small" />
+      </ButtonWrapper>
+    );
+  }
   return (
-    <ButtonWrapper type="submit" onClick={handleClick}>
+    <ButtonWrapper type="submit" onClick={onClick} disabled={disabled}>
       {children}
       {title && <Label>{title}</Label>}
     </ButtonWrapper>
