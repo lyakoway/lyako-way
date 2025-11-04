@@ -78,15 +78,20 @@ type IState = {
   weather: Weather | null;
   forecast: ForecastItem[];
   cityAutofill: string[];
+  selectedCity: string;
   loading: boolean;
   error: string | null;
 };
+
+const savedCity =
+  typeof window !== "undefined" ? localStorage.getItem("selectedCity") : null;
 
 const initialState: IState = {
   climate: "sunnyMoon",
   weather: null,
   forecast: [],
   cityAutofill: [],
+  selectedCity: savedCity || "Москва",
   loading: false,
   error: null,
 };
@@ -99,6 +104,12 @@ const climate = createSlice({
       ...state,
       climate: action.payload,
     }),
+    setSelectedCity: (state, action) => {
+      state.selectedCity = action.payload;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("selectedCity", action.payload); //сохраняем
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -136,6 +147,6 @@ const climate = createSlice({
   },
 });
 
-export const { setClimateControl } = climate.actions;
+export const { setClimateControl, setSelectedCity } = climate.actions;
 
 export const climateReducer = climate.reducer;

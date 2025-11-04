@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { setClimateControl } from "src/reducers";
+import { setClimateControl, setSelectedCity } from "src/reducers";
 
 import {
   Wrapper,
@@ -45,6 +45,7 @@ const ClimateControl = () => {
   };
 
   const handleSelectCity = (selectedCity: string) => {
+    dispatch(setSelectedCity(selectedCity));
     fetchByCity(selectedCity);
   };
 

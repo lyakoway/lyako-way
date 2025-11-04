@@ -10,8 +10,6 @@ const getFormattedPhone = (phone: string): string => {
   const threeNums = "(\\d{3})";
   const twoNums = "(\\d{2})";
 
-  console.log(22222, phone);
-
   return phone
     ? phone
         .replace(/\D/g, "")

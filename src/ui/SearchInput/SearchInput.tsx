@@ -43,9 +43,12 @@ export const SearchInput: FC<SearchInputProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  const [initialized, setInitialized] = useState(false); // 👈 для первого открытия
 
-  // 🔹 Debounce fetch
+  // 🔹 Debounce запрос городов
   useEffect(() => {
+    if (!initialized) return;
+
     if (searchQuery.length >= 2) {
       const timeout = setTimeout(() => {
         dispatch(fetchCities({ city: searchQuery }));
@@ -55,7 +58,13 @@ export const SearchInput: FC<SearchInputProps> = ({
     } else {
       setIsOpen(false);
     }
-  }, [searchQuery, dispatch]);
+  }, [searchQuery, dispatch, initialized]);
+
+  // 🔹 Первый фокус активирует автозапросы
+  const handleFocus = () => {
+    if (!initialized) setInitialized(true);
+    if (searchQuery.length >= 2) setIsOpen(true);
+  };
 
   // 🔹 Клик вне контейнера закрывает dropdown
   useClickOutside(containerRef, () => {
@@ -63,7 +72,7 @@ export const SearchInput: FC<SearchInputProps> = ({
     setHighlightedIndex(-1);
   });
 
-  // 🔹 Обработка Escape отдельно
+  // 🔹 Escape закрывает dropdown
   useEffect(() => {
     const handleEscape = (e: globalThis.KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -84,7 +93,17 @@ export const SearchInput: FC<SearchInputProps> = ({
     inputRef.current?.blur();
   };
 
+  // 🔹 Обработка клавиш
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (!isOpen && e.key === "Enter" && searchQuery.trim()) {
+      // 🔹 Если Dropdown закрыт — ищем по тексту
+      onSelectCity?.(searchQuery.trim());
+      setIsOpen(false);
+      setHighlightedIndex(-1);
+      inputRef.current?.blur();
+      return;
+    }
+
     if (!isOpen || cityAutofill.length === 0) return;
 
     switch (e.key) {
@@ -100,8 +119,14 @@ export const SearchInput: FC<SearchInputProps> = ({
         break;
       case "Enter":
         e.preventDefault();
-        if (highlightedIndex >= 0)
+        if (highlightedIndex >= 0) {
           handleSelectCity(cityAutofill[highlightedIndex]);
+        } else if (searchQuery.trim()) {
+          onSelectCity?.(searchQuery.trim());
+        }
+        setIsOpen(false);
+        setHighlightedIndex(-1);
+        inputRef.current?.blur();
         break;
     }
   };
@@ -114,7 +139,9 @@ export const SearchInput: FC<SearchInputProps> = ({
   };
 
   const shouldShowDropdown =
-    isOpen && (cityAutofill.length > 0 || loading || searchQuery.length >= 2);
+    initialized &&
+    isOpen &&
+    (cityAutofill.length > 0 || loading || searchQuery.length >= 2);
 
   return (
     <SelectContainer ref={containerRef} $boxShadow={!!searchQuery}>
@@ -128,7 +155,7 @@ export const SearchInput: FC<SearchInputProps> = ({
           placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onFocus={() => searchQuery.length >= 2 && setIsOpen(true)}
+          onFocus={handleFocus}
           onKeyDown={handleKeyDown}
         />
 

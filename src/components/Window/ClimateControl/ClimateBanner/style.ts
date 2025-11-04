@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-export const WeatherWrapper = styled.div<{ alignItems?: string }>`
+export const WeatherWrapper = styled.div<{ $alignItems?: string }>`
   display: flex;
   justify-content: center;
-  align-items: ${({ alignItems }) =>
-    alignItems === "center" ? "center" : "start"};
+  align-items: ${({ $alignItems }) =>
+    $alignItems === "center" ? "center" : "start"};
   flex-direction: column;
   gap: 12px;
   padding: 1rem;

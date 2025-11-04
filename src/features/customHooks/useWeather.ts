@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { fetchWeather } from "src/reducers";
+import { fetchWeather, setSelectedCity } from "src/reducers";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 export function useWeather() {
@@ -14,6 +14,7 @@ export function useWeather() {
       if (!city) return;
       setGeoCity(city);
       dispatch(fetchWeather({ city }));
+      dispatch(setSelectedCity(city));
     },
     [dispatch]
   );
@@ -36,6 +37,7 @@ export function useWeather() {
       const cityName = data?.city || "Москва";
 
       setGeoCity(cityName);
+      dispatch(setSelectedCity(cityName));
       if (latitude && longitude) fetchByCoords(latitude, longitude);
       else fetchByCity("Москва");
     } catch {

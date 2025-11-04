@@ -42,7 +42,7 @@ const ClimateBanner: FC<ClimateBannerProps> = ({
 
   if (loading) {
     return (
-      <WeatherWrapper alignItems="center">
+      <WeatherWrapper $alignItems="center">
         <Spinner color="#ff8560" size="medium" />
       </WeatherWrapper>
     );
