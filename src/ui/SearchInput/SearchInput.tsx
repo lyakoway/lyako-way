@@ -15,6 +15,8 @@ import {
 
 import { ReactComponent as SearchIcon } from "src/common/icon/search.svg";
 import { ReactComponent as DeleteIcon } from "src/common/icon/delete.svg";
+import { useClickOutside } from "src/features/customHooks";
+import { HighlightedText } from "src/ui/SearchInput/HighlightedText";
 
 interface SearchInputProps {
   placeholder: string;
@@ -39,104 +41,80 @@ export const SearchInput: FC<SearchInputProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [isFocused, setIsFocused] = useState(false);
-  const [isClosing, setIsClosing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
-  // 🔹 Debounce для запроса городов
+  // 🔹 Debounce fetch
   useEffect(() => {
     if (searchQuery.length >= 2) {
       const timeout = setTimeout(() => {
         dispatch(fetchCities({ city: searchQuery }));
+        setIsOpen(true);
       }, 300);
       return () => clearTimeout(timeout);
     } else {
-      closeDropdown();
+      setIsOpen(false);
     }
   }, [searchQuery, dispatch]);
 
-  // 🔹 Закрытие dropdown с анимацией
-  const closeDropdown = () => {
-    setIsClosing(true);
-    setHighlightedIndex(-1);
-    setTimeout(() => setIsClosing(false), 300);
-  };
-
   // 🔹 Клик вне контейнера закрывает dropdown
+  useClickOutside(containerRef, () => {
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+  });
+
+  // 🔹 Обработка Escape отдельно
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(e.target as Node)
-      ) {
-        setIsFocused(false);
-        closeDropdown();
+    const handleEscape = (e: globalThis.KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        setHighlightedIndex(-1);
+        inputRef.current?.blur();
       }
     };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
   const handleSelectCity = (city: string) => {
     setSearchQuery(city);
     onSelectCity?.(city);
-    closeDropdown();
-    inputRef.current?.blur(); // снимаем фокус
+    setIsOpen(false);
+    setHighlightedIndex(-1);
+    inputRef.current?.blur();
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    const showDropdown =
-      isFocused &&
-      !isClosing &&
-      (cityAutofill.length > 0 || loading || searchQuery.length >= 2);
+    if (!isOpen || cityAutofill.length === 0) return;
 
-    if (!showDropdown) return;
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev < cityAutofill.length - 1 ? prev + 1 : 0
-      );
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setHighlightedIndex((prev) =>
-        prev > 0 ? prev - 1 : cityAutofill.length - 1
-      );
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      if (highlightedIndex >= 0) {
-        handleSelectCity(cityAutofill[highlightedIndex]);
-      } else if (searchQuery.trim()) {
-        closeDropdown();
-        inputRef.current?.blur();
-      }
-    } else if (e.key === "Escape") {
-      closeDropdown();
-      inputRef.current?.blur();
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setHighlightedIndex((prev) => (prev + 1) % cityAutofill.length);
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setHighlightedIndex(
+          (prev) => (prev - 1 + cityAutofill.length) % cityAutofill.length
+        );
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (highlightedIndex >= 0)
+          handleSelectCity(cityAutofill[highlightedIndex]);
+        break;
     }
   };
 
   const handleClickDelete = () => {
     setSearchQuery("");
-    closeDropdown();
+    setIsOpen(false);
+    setHighlightedIndex(-1);
     inputRef.current?.focus();
   };
 
   const shouldShowDropdown =
-    isFocused &&
-    !isClosing &&
-    (cityAutofill.length > 0 || loading || searchQuery.length >= 2);
-
-  // ✨ Подсветка совпадений
-  const highlightMatch = (city: string, query: string) => {
-    if (!query) return city;
-    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // экранируем спецсимволы
-    const regex = new RegExp(`(${safeQuery})`, "gi");
-    return city.replace(
-      regex,
-      "<mark style='color:#00bfff; background:none; font-weight:600;'>$1</mark>"
-    );
-  };
+    isOpen && (cityAutofill.length > 0 || loading || searchQuery.length >= 2);
 
   return (
     <SelectContainer ref={containerRef} $boxShadow={!!searchQuery}>
@@ -150,8 +128,7 @@ export const SearchInput: FC<SearchInputProps> = ({
           placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setTimeout(() => setIsFocused(false), 150)}
+          onFocus={() => searchQuery.length >= 2 && setIsOpen(true)}
           onKeyDown={handleKeyDown}
         />
 
@@ -163,27 +140,22 @@ export const SearchInput: FC<SearchInputProps> = ({
       </InputWrapper>
 
       {shouldShowDropdown && (
-        <Dropdown $closing={isClosing}>
+        <Dropdown>
           {loading && <DropdownMessage>Загрузка...</DropdownMessage>}
-
           {!loading && cityAutofill.length === 0 && searchQuery.length >= 2 && (
             <DropdownMessage>
               {error ? "Ошибка" : "Нет совпадений"}
             </DropdownMessage>
           )}
-
           {!loading &&
             cityAutofill.map((city, index) => (
               <DropdownItem
                 key={city + index}
-                $closing={isClosing}
                 $highlighted={index === highlightedIndex}
-                style={{ animationDelay: `${index * 0.05}s` }}
                 onClick={() => handleSelectCity(city)}
-                dangerouslySetInnerHTML={{
-                  __html: highlightMatch(city, searchQuery),
-                }}
-              />
+              >
+                <HighlightedText text={city} query={searchQuery} />
+              </DropdownItem>
             ))}
         </Dropdown>
       )}
