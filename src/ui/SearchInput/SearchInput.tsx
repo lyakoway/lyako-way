@@ -59,9 +59,7 @@ export const SearchInput: FC<SearchInputProps> = ({
   const closeDropdown = () => {
     setIsClosing(true);
     setHighlightedIndex(-1);
-    setTimeout(() => {
-      setIsClosing(false);
-    }, 250 + cityAutofill.length * 50); // учитываем анимацию fade-out
+    setTimeout(() => setIsClosing(false), 300);
   };
 
   // 🔹 Клик вне контейнера закрывает dropdown
@@ -83,7 +81,7 @@ export const SearchInput: FC<SearchInputProps> = ({
     setSearchQuery(city);
     onSelectCity?.(city);
     closeDropdown();
-    inputRef.current?.blur(); // снимаем фокус после выбора
+    inputRef.current?.blur(); // снимаем фокус
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -110,7 +108,7 @@ export const SearchInput: FC<SearchInputProps> = ({
         handleSelectCity(cityAutofill[highlightedIndex]);
       } else if (searchQuery.trim()) {
         closeDropdown();
-        inputRef.current?.blur(); // снимаем фокус после Enter без выделения
+        inputRef.current?.blur();
       }
     } else if (e.key === "Escape") {
       closeDropdown();
@@ -121,13 +119,24 @@ export const SearchInput: FC<SearchInputProps> = ({
   const handleClickDelete = () => {
     setSearchQuery("");
     closeDropdown();
-    inputRef.current?.focus(); // оставляем фокус для продолжения ввода
+    inputRef.current?.focus();
   };
 
   const shouldShowDropdown =
     isFocused &&
     !isClosing &&
     (cityAutofill.length > 0 || loading || searchQuery.length >= 2);
+
+  // ✨ Подсветка совпадений
+  const highlightMatch = (city: string, query: string) => {
+    if (!query) return city;
+    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // экранируем спецсимволы
+    const regex = new RegExp(`(${safeQuery})`, "gi");
+    return city.replace(
+      regex,
+      "<mark style='color:#00bfff; background:none; font-weight:600;'>$1</mark>"
+    );
+  };
 
   return (
     <SelectContainer ref={containerRef} $boxShadow={!!searchQuery}>
@@ -171,9 +180,10 @@ export const SearchInput: FC<SearchInputProps> = ({
                 $highlighted={index === highlightedIndex}
                 style={{ animationDelay: `${index * 0.05}s` }}
                 onClick={() => handleSelectCity(city)}
-              >
-                {city}
-              </DropdownItem>
+                dangerouslySetInnerHTML={{
+                  __html: highlightMatch(city, searchQuery),
+                }}
+              />
             ))}
         </Dropdown>
       )}

@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
 import { Z_INDEX_TOAST } from "src/common/constants/zIndex";
 
@@ -125,6 +125,15 @@ export const Dropdown = styled.div<{ $closing?: boolean }>`
   max-height: 220px;
   overflow-y: auto;
   z-index: 15;
+  padding: 4px 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+
+  ${({ $closing }) =>
+    $closing &&
+    css`
+      opacity: 0;
+      transform: translateY(-5px);
+    `}
 `;
 
 export const DropdownItem = styled.div<{
@@ -132,12 +141,12 @@ export const DropdownItem = styled.div<{
   $highlighted?: boolean;
 }>`
   padding: 8px 12px;
-  color: #fff;
+  color: ${({ $highlighted }) => ($highlighted ? "#00bfff" : "#fff")};
   cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
   animation: ${({ $closing }) => ($closing ? fadeSlideOut : fadeSlideIn)} 0.25s
     ease forwards;
-  background-color: ${({ $highlighted }) =>
-    $highlighted ? "#2c2c2c" : "transparent"};
 
   &:hover {
     background: #2c2c2c;
