@@ -10,7 +10,7 @@ import {
   SearchWrapper,
   SearchInputWrapper,
 } from "./style";
-import { CLIMATE_CONTROL } from "./constants";
+import { CLIMATE_CONTROL, WEATHER_TO_CLIMATE } from "./constants";
 import { ClimateType } from "src/common/types/climat";
 import { useWeather } from "src/features/customHooks";
 
@@ -33,12 +33,23 @@ const ClimateControl = () => {
 
   const [city, setCity] = useState<string>("");
 
-  // Когда загружается погода, подставляем правильное имя города в input
+  // Подставляем город в input при загрузке погоды
   useEffect(() => {
     if (weather?.location?.name) {
       setCity(weather.location.name);
     }
   }, [weather?.location?.name]);
+
+  // 🔹 Автоматически устанавливаем анимацию климата по тексту из API
+  useEffect(() => {
+    if (weather?.current?.condition?.text) {
+      const conditionText = weather.current.condition.text;
+      const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
+      if (mappedClimate) {
+        dispatch(setClimateControl(mappedClimate));
+      }
+    }
+  }, [weather, dispatch]);
 
   const handleSearch = () => {
     if (city) fetchByCity(city);
