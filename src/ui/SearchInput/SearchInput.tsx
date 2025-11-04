@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState, KeyboardEvent } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { fetchCities } from "src/reducers";
+import { fetchCities, setSelectedCity } from "src/reducers";
 
 import {
   SelectContainer,
@@ -43,7 +43,7 @@ export const SearchInput: FC<SearchInputProps> = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
-  const [initialized, setInitialized] = useState(false); // 👈 для первого открытия
+  const [initialized, setInitialized] = useState(false); // для первого открытия
 
   // 🔹 Debounce запрос городов
   useEffect(() => {
@@ -88,6 +88,7 @@ export const SearchInput: FC<SearchInputProps> = ({
   const handleSelectCity = (city: string) => {
     setSearchQuery(city);
     onSelectCity?.(city);
+    dispatch(setSelectedCity(city)); // ✅ сохраняем город в store
     setIsOpen(false);
     setHighlightedIndex(-1);
     inputRef.current?.blur();
@@ -96,8 +97,8 @@ export const SearchInput: FC<SearchInputProps> = ({
   // 🔹 Обработка клавиш
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen && e.key === "Enter" && searchQuery.trim()) {
-      // 🔹 Если Dropdown закрыт — ищем по тексту
       onSelectCity?.(searchQuery.trim());
+      dispatch(setSelectedCity(searchQuery.trim())); // ✅ сохраняем
       setIsOpen(false);
       setHighlightedIndex(-1);
       inputRef.current?.blur();
@@ -123,6 +124,7 @@ export const SearchInput: FC<SearchInputProps> = ({
           handleSelectCity(cityAutofill[highlightedIndex]);
         } else if (searchQuery.trim()) {
           onSelectCity?.(searchQuery.trim());
+          dispatch(setSelectedCity(searchQuery.trim())); // ✅ сохраняем
         }
         setIsOpen(false);
         setHighlightedIndex(-1);

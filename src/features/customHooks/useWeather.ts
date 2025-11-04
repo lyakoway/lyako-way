@@ -3,11 +3,13 @@ import { fetchWeather, setSelectedCity } from "src/reducers";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 export function useWeather() {
-  const [geoCity, setGeoCity] = useState<string>("Москва");
   const dispatch = useDispatchTyped();
-  const { weather, forecast, loading, error } = useSelectorTyped(
+  const { weather, forecast, loading, error, selectedCity } = useSelectorTyped(
     ({ climate }) => climate
   );
+
+  const [geoCity, setGeoCity] = useState<string>("Москва");
+  const [initialized, setInitialized] = useState(false);
 
   const fetchByCity = useCallback(
     (city: string) => {
@@ -30,14 +32,11 @@ export function useWeather() {
   const fetchByIPFallback = useCallback(async () => {
     try {
       const res = await fetch("https://geolocation-db.com/json/");
-      if (!res.ok) throw new Error(`Ошибка сети: ${res.status}`);
       const data = await res.json();
       const latitude = data.latitude || data.lat;
       const longitude = data.longitude || data.lon || data.lng;
       const cityName = data?.city || "Москва";
-
       setGeoCity(cityName);
-      dispatch(setSelectedCity(cityName));
       if (latitude && longitude) fetchByCoords(latitude, longitude);
       else fetchByCity("Москва");
     } catch {
@@ -47,21 +46,31 @@ export function useWeather() {
 
   const fetchByGeolocation = useCallback(() => {
     if (!navigator.geolocation) return fetchByIPFallback();
-
-    navigator.geolocation.getCurrentPosition((position) => {
-      const { latitude, longitude } = position.coords;
-      fetchByCoords(latitude, longitude);
-    }, fetchByIPFallback);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        fetchByCoords(latitude, longitude);
+      },
+      () => fetchByIPFallback()
+    );
   }, [fetchByCoords, fetchByIPFallback]);
 
+  // Выполняем геолокацию только 1 раз — если пользователь не выбирал город ранее
   useEffect(() => {
-    fetchByGeolocation();
-  }, [fetchByGeolocation]);
+    if (!initialized) {
+      if (selectedCity) {
+        fetchByCity(selectedCity);
+      } else {
+        fetchByGeolocation();
+      }
+      setInitialized(true);
+    }
+  }, [initialized, selectedCity, fetchByCity, fetchByGeolocation]);
 
   return {
     weather,
     forecast,
-    geoCity,
+    geoCity: selectedCity || geoCity,
     loading,
     error,
     fetchByCity,
