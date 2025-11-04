@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-
-import WeatherIcon from "../WeatherIcon";
+import React, { useEffect, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { setClimateControl } from "src/reducers";
 
 import {
   Wrapper,
@@ -11,18 +10,14 @@ import {
   SearchWrapper,
   SearchInputWrapper,
 } from "./style";
-
 import { CLIMATE_CONTROL } from "./constants";
-import { fetchWeather, setClimateControl } from "src/reducers";
 import { ClimateType } from "src/common/types/climat";
 import { useWeather } from "src/features/customHooks";
 
-import styled from "styled-components";
 import { SearchInput } from "src/ui/SearchInput";
 import ButtonStyle from "src/ui/ButtonStyle";
-import { Spinner } from "src/ui/Spinner";
 import ClimateBanner from "src/components/Window/ClimateControl/ClimateBanner";
-import ButtonForm from "src/ui/ButtonForm";
+import WeatherIcon from "../WeatherIcon";
 
 const ClimateControl = () => {
   const {
@@ -33,39 +28,30 @@ const ClimateControl = () => {
   } = useSelectorTyped(({ theme }) => theme);
   const { climate } = useSelectorTyped(({ climate }) => climate);
   const dispatch = useDispatchTyped();
-  // const { city, setCity, weather, forecast, loading, error, searchCity } = useWeather('Москва')
-  // const handleSubmit = (e: FormEvent) => {
-  //     e.preventDefault();
-  //     searchCity(city);
-  // };
 
-  const {
-    weather,
-    forecast,
-    geoCity,
-    loading,
-    error,
-    fetchByCity,
-    fetchByGeolocation,
-  } = useWeather();
-  const [city, setCity] = useState(geoCity);
+  const { weather, loading, fetchByCity } = useWeather();
+
+  const [city, setCity] = useState<string>("");
+
+  // Когда загружается погода, подставляем правильное имя города в input
+  useEffect(() => {
+    if (weather?.location?.name) {
+      setCity(weather.location.name);
+    }
+  }, [weather?.location?.name]);
 
   const handleSearch = () => {
-    fetchByCity(city);
+    if (city) fetchByCity(city);
   };
 
-  console.log("city", city);
-  console.log("error", error);
-  // Тип погоды
-  // weather.current.condition.text
-
   const handleSelectCity = (selectedCity: string) => {
-    dispatch(fetchWeather({ city: selectedCity }));
+    fetchByCity(selectedCity);
   };
 
   return (
     <Wrapper>
       <Header>{climateLang.title}</Header>
+
       <SearchWrapper>
         <SearchInputWrapper>
           <SearchInput
