@@ -38,19 +38,35 @@ export const fetchCities = createAsyncThunk<
   const { city } = data;
   try {
     const cityRequest = await getCities({ city });
-    // Преобразуем к списку строк
-    const cityAutofill = Array.isArray(cityRequest)
-      ? cityRequest.map(
-          (c: any) =>
-            `${c.name}${c.region ? `, ${c.region}` : ""}${
-              c.country ? `, ${c.country}` : ""
-            }`
-        )
-      : [];
 
-    return {
-      cityAutofill,
-    };
+    if (!Array.isArray(cityRequest)) {
+      return { cityAutofill: [] };
+    }
+
+    // Убираем дубликаты по (name + country)
+    const uniqueCities = cityRequest.filter(
+      (c: any, index: number, self: any[]) =>
+        index ===
+        self.findIndex(
+          (x) =>
+            x.name.trim().toLowerCase() === c.name.trim().toLowerCase() &&
+            x.country.trim().toLowerCase() === c.country.trim().toLowerCase()
+        )
+    );
+
+    // Формируем строку без "Moscow City" и дубликатов региона
+    const cityAutofill = uniqueCities.map((c: any) => {
+      const region =
+        c.region &&
+        c.region !== c.name &&
+        !c.region.toLowerCase().includes("city") &&
+        !c.region.toLowerCase().includes(c.name.toLowerCase())
+          ? `, ${c.region}`
+          : "";
+      return `${c.name}${region}, ${c.country}`;
+    });
+
+    return { cityAutofill };
   } catch (error) {
     const { message, status } = error as CallApiError;
     return thunkAPI.rejectWithValue({ error: { status, message } });
