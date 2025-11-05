@@ -22,4 +22,5 @@ export const WEATHER_TO_CLIMATE: Record<string, ClimateType> = {
   Snow: "snowy",
   "Light snow": "snowy",
   "Heavy snow": "snowy",
+  Mist: "cloudy",
 };
