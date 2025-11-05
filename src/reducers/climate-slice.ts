@@ -81,6 +81,7 @@ type IState = {
   selectedCity: string;
   loading: boolean;
   error: string | null;
+  userSelectedClimate: boolean;
 };
 
 const savedCity =
@@ -94,20 +95,30 @@ const initialState: IState = {
   selectedCity: savedCity || "Москва",
   loading: false,
   error: null,
+  userSelectedClimate: false,
 };
 
 const climate = createSlice({
   name: "climate",
   initialState,
   reducers: {
-    setClimateControl: (state, action: PayloadAction<ClimateType>) => ({
-      ...state,
-      climate: action.payload,
-    }),
+    setClimateControl: (state, action: PayloadAction<ClimateType>) => {
+      state.climate = action.payload;
+      state.userSelectedClimate = true; //пользователь сделал выбор
+      if (typeof window !== "undefined") {
+        localStorage.setItem("userSelectedClimate", "true");
+      }
+    },
     setSelectedCity: (state, action) => {
       state.selectedCity = action.payload;
       if (typeof window !== "undefined") {
         localStorage.setItem("selectedCity", action.payload); //сохраняем
+      }
+    },
+    resetUserSelectedClimate: (state) => {
+      state.userSelectedClimate = false;
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("userSelectedClimate");
       }
     },
   },
@@ -147,6 +158,6 @@ const climate = createSlice({
   },
 });
 
-export const { setClimateControl, setSelectedCity } = climate.actions;
+export const { setClimateControl, setSelectedCity, resetUserSelectedClimate } = climate.actions;
 
 export const climateReducer = climate.reducer;

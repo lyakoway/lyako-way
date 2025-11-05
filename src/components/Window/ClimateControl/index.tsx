@@ -23,33 +23,37 @@ const ClimateControl = () => {
   const {
     lang: { climateLang },
   } = useSelectorTyped(({ lang }) => lang);
+
   const {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
-  const { climate } = useSelectorTyped(({ climate }) => climate);
-  const dispatch = useDispatchTyped();
 
+  const { climate, userSelectedClimate } = useSelectorTyped(
+      ({ climate }) => climate
+  );
+
+  const dispatch = useDispatchTyped();
   const { weather, loading, fetchByCity } = useWeather();
 
   const [city, setCity] = useState<string>("");
 
-  // Подставляем город в input при загрузке погоды
+  // Подставляем город при первой загрузке погоды
   useEffect(() => {
     if (weather?.location?.name) {
       setCity(weather.location.name);
     }
   }, [weather?.location?.name]);
 
-  // 🔹 Автоматически устанавливаем анимацию климата по тексту из API
+  // Устанавливаем climate из API только если пользователь ещё не выбирал
   useEffect(() => {
-    if (weather?.current?.condition?.text) {
+    if (!userSelectedClimate && weather?.current?.condition?.text) {
       const conditionText = weather.current.condition.text;
       const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
       if (mappedClimate) {
         dispatch(setClimateControl(mappedClimate));
       }
     }
-  }, [weather, dispatch]);
+  }, [weather, dispatch, userSelectedClimate]);
 
   const handleSearch = () => {
     if (city) fetchByCity(city);
@@ -58,6 +62,10 @@ const ClimateControl = () => {
   const handleSelectCity = (selectedCity: string) => {
     dispatch(setSelectedCity(selectedCity));
     fetchByCity(selectedCity);
+  };
+
+  const handleSelectClimate = (item: ClimateType) => {
+    dispatch(setClimateControl(item)); // сохраняется userSelectedClimate = true
   };
 
   return (
@@ -98,7 +106,7 @@ const ClimateControl = () => {
           <WeatherIconWrapper
             $active={item === climate}
             key={item}
-            onClick={() => dispatch(setClimateControl(item))}
+            onClick={() => handleSelectClimate(item)}
           >
             <WeatherIcon climateControl={item} themeLight={name === "light"} />
           </WeatherIconWrapper>
