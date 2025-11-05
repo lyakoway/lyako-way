@@ -18,7 +18,7 @@ import {
 import WeatherIcon from "src/components/Window/WeatherIcon";
 import {
   useIsomorphicLayoutEffect,
-  usePositionSunAndMoon,
+  usePositionSunAndMoon, useWeather,
 } from "src/features/customHooks";
 import { getParallax } from "src/common/utils";
 import WindowView from "src/components/Window/WindowView";
@@ -27,19 +27,21 @@ import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
-import { showModal } from "src/reducers";
+import {setClimateControl, showModal} from "src/reducers";
 import ClimateControl from "src/components/Window/ClimateControl";
 import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
 import Weather from "src/components/Window/Weather";
+import {WEATHER_TO_CLIMATE} from "src/components/Window/ClimateControl/constants";
 
 interface WindowLightProps {
   themeLight?: boolean;
 }
 
 const Window: FC<WindowLightProps> = ({ themeLight }) => {
-  const { climate } = useSelectorTyped(({ climate }) => climate);
+  const { climate, userSelectedClimate } = useSelectorTyped(({ climate }) => climate);
   const [dayToNightColor, setDayToNightColor] = useState<string>("#0c2233");
   const [moonOrSunColor, setMoonOrSunColor] = useState<string>("#fff");
+  const { weather, loading } = useWeather();
 
   const trigger = useForceUpdate(climate);
 
@@ -61,6 +63,17 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
       })
     );
   }, [dispatch]);
+
+  // Устанавливаем climate из API только если пользователь ещё не выбирал
+  useEffect(() => {
+    if (!userSelectedClimate && weather?.current?.condition?.text) {
+      const conditionText = weather.current.condition.text;
+      const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
+      if (mappedClimate) {
+        dispatch(setClimateControl(mappedClimate));
+      }
+    }
+  }, [weather, dispatch, userSelectedClimate]);
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
