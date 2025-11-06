@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, {useState, useRef, useCallback, useEffect} from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import {
@@ -30,7 +30,7 @@ import { Modal } from "src/ui/Modal";
 import Clock from "src/components/Clock";
 import Window from "src/components/Window";
 
-import { useClickOutside } from "src/features/customHooks";
+import {useClickOutside, useWeather} from "src/features/customHooks";
 
 import { ReactComponent as RocketGetsiteIcon } from "src/common/icon/rocket/RocketIcon.svg";
 import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
@@ -42,9 +42,10 @@ import Button from "src/ui/Button";
 import Popup from "src/ui/Popup";
 
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
-import { showModal } from "src/reducers";
+import {setClimateControl, showModal} from "src/reducers";
 import ContactForm from "src/components/ContactForm";
 import PagesSettings from "src/components/PagesSettings";
+import {WEATHER_TO_CLIMATE} from "src/components/Window/ClimateControl/constants";
 
 const HeaderSection = () => {
   const {
@@ -59,6 +60,8 @@ const HeaderSection = () => {
   const themeLight = name === "light";
 
   const dispatch = useDispatchTyped();
+  const { userSelectedClimate } = useSelectorTyped(({ climate }) => climate);
+  const { weather } = useWeather();
 
   useClickOutside(popupRef, () => {
     if (openedPopup) {
@@ -71,6 +74,17 @@ const HeaderSection = () => {
     const positionValueWidth = getwindowInnerWidth() > 959;
     setPositionValue(positionValueWidth ? "top" : "right");
   };
+
+  // Устанавливаем climate из API только если пользователь ещё не выбирал
+  useEffect(() => {
+    if (!userSelectedClimate && weather?.current?.condition?.text) {
+      const conditionText = weather.current.condition.text;
+      const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
+      if (mappedClimate) {
+        dispatch(setClimateControl(mappedClimate));
+      }
+    }
+  }, [weather, dispatch, userSelectedClimate]);
 
   const handleClickModal = useCallback(() => {
     dispatch(

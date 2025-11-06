@@ -38,10 +38,9 @@ interface WindowLightProps {
 }
 
 const Window: FC<WindowLightProps> = ({ themeLight }) => {
-  const { climate, userSelectedClimate } = useSelectorTyped(({ climate }) => climate);
+  const { climate } = useSelectorTyped(({ climate }) => climate);
   const [dayToNightColor, setDayToNightColor] = useState<string>("#0c2233");
   const [moonOrSunColor, setMoonOrSunColor] = useState<string>("#fff");
-  const { weather, loading } = useWeather();
 
   const trigger = useForceUpdate(climate);
 
@@ -63,17 +62,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
       })
     );
   }, [dispatch]);
-
-  // Устанавливаем climate из API только если пользователь ещё не выбирал
-  useEffect(() => {
-    if (!userSelectedClimate && weather?.current?.condition?.text) {
-      const conditionText = weather.current.condition.text;
-      const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
-      if (mappedClimate) {
-        dispatch(setClimateControl(mappedClimate));
-      }
-    }
-  }, [weather, dispatch, userSelectedClimate]);
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
