@@ -4,6 +4,7 @@ import {
   setClimateControl,
   setSelectedCity,
   resetUserSelectedClimate,
+  setLang,
 } from "src/reducers";
 
 import {
@@ -33,7 +34,7 @@ const ClimateControl = () => {
   } = useSelectorTyped(({ theme }) => theme);
 
   const { climate, userSelectedClimate } = useSelectorTyped(
-      ({ climate }) => climate
+    ({ climate }) => climate
   );
 
   const dispatch = useDispatchTyped();
@@ -56,6 +57,11 @@ const ClimateControl = () => {
       if (mappedClimate) {
         dispatch(setClimateControl(mappedClimate));
       }
+      const country = weather?.location?.country?.toLowerCase() || null;
+      if (country) {
+        const isRussia = country === "russia" || country === "россия";
+        dispatch(setLang(!isRussia));
+      }
     }
   }, [weather, dispatch, userSelectedClimate]);
 
@@ -67,6 +73,11 @@ const ClimateControl = () => {
         const mappedClimate = WEATHER_TO_CLIMATE[data.current.condition.text];
         if (mappedClimate) {
           dispatch(setClimateControl(mappedClimate));
+        }
+        const country = weather?.location?.country?.toLowerCase() || null;
+        if (country) {
+          const isRussia = country === "russia" || country === "россия";
+          dispatch(setLang(!isRussia));
         }
       }
     } catch (err) {
@@ -107,6 +118,7 @@ const ClimateControl = () => {
             searchQuery={city}
             setSearchQuery={setCity}
             onSelectCity={handleSelectCity}
+            onEnterPress={updateWeatherAndClimate}
           />
         </SearchInputWrapper>
 

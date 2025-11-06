@@ -23,6 +23,7 @@ interface SearchInputProps {
   searchQuery: string;
   setSearchQuery: (value: string) => void;
   onSelectCity?: (value: string) => void;
+  onEnterPress?: (value: string) => void; // 👈 новый
 }
 
 export const SearchInput: FC<SearchInputProps> = ({
@@ -30,6 +31,7 @@ export const SearchInput: FC<SearchInputProps> = ({
   searchQuery,
   setSearchQuery,
   onSelectCity,
+  onEnterPress,
 }) => {
   const dispatch = useDispatchTyped();
   const {
@@ -97,8 +99,10 @@ export const SearchInput: FC<SearchInputProps> = ({
   // 🔹 Обработка клавиш
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (!isOpen && e.key === "Enter" && searchQuery.trim()) {
-      onSelectCity?.(searchQuery.trim());
-      dispatch(setSelectedCity(searchQuery.trim())); // ✅ сохраняем
+      const cityName = searchQuery.trim();
+      onSelectCity?.(cityName);
+      onEnterPress?.(cityName);
+      dispatch(setSelectedCity(cityName)); // ✅ сохраняем
       setIsOpen(false);
       setHighlightedIndex(-1);
       inputRef.current?.blur();
