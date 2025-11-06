@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { setClimateControl, setSelectedCity } from "src/reducers";
+import {
+  setClimateControl,
+  setSelectedCity,
+  resetUserSelectedClimate,
+} from "src/reducers";
 
 import {
   Wrapper,
@@ -44,7 +48,7 @@ const ClimateControl = () => {
     }
   }, [weather?.location?.name]);
 
-  // Устанавливаем climate из API только если пользователь ещё не выбирал
+  // Устанавливаем climate из API только если пользователь ещё не выбирал вручную
   useEffect(() => {
     if (!userSelectedClimate && weather?.current?.condition?.text) {
       const conditionText = weather.current.condition.text;
@@ -55,15 +59,39 @@ const ClimateControl = () => {
     }
   }, [weather, dispatch, userSelectedClimate]);
 
+  // 🔹 Запрашиваем погоду и обновляем climate
+  const updateWeatherAndClimate = async (targetCity: string) => {
+    try {
+      const data = await fetchByCity(targetCity);
+      if (data?.current?.condition?.text) {
+        const mappedClimate = WEATHER_TO_CLIMATE[data.current.condition.text];
+        if (mappedClimate) {
+          dispatch(setClimateControl(mappedClimate));
+        }
+      }
+    } catch (err) {
+      console.error("Ошибка при обновлении погоды:", err);
+    }
+  };
+
+  // 🔹 Поиск по кнопке
   const handleSearch = () => {
-    if (city) fetchByCity(city);
+    if (city) {
+      dispatch(resetUserSelectedClimate()); // сбрасываем выбор пользователя
+      dispatch(setSelectedCity(city));
+      updateWeatherAndClimate(city);
+    }
   };
 
+  // 🔹 Выбор города из дропдауна
   const handleSelectCity = (selectedCity: string) => {
+    dispatch(resetUserSelectedClimate()); // сбрасываем выбор при новом городе
     dispatch(setSelectedCity(selectedCity));
-    fetchByCity(selectedCity);
+    setCity(selectedCity);
+    updateWeatherAndClimate(selectedCity);
   };
 
+  // 🔹 Выбор погоды вручную
   const handleSelectClimate = (item: ClimateType) => {
     dispatch(setClimateControl(item)); // сохраняется userSelectedClimate = true
   };
@@ -81,6 +109,7 @@ const ClimateControl = () => {
             onSelectCity={handleSelectCity}
           />
         </SearchInputWrapper>
+
         <ButtonStyle
           title="Найти"
           handleClick={handleSearch}
