@@ -1,29 +1,27 @@
 import { useEffect, useState } from "react";
 
 export const useTime = (timeout = 1) => {
-  let day = new Date();
-  const hour = day.getHours();
-  const min = day.getMinutes();
-  const sec = day.getSeconds();
-
-  const [timeData, useTimeData] = useState({
-    hour,
-    min,
-    sec,
+  const [timeData, setTimeData] = useState(() => {
+    const now = new Date();
+    return {
+      hour: now.getHours(),
+      min: now.getMinutes(),
+      sec: now.getSeconds(),
+    };
   });
 
   useEffect(() => {
     const timer = setInterval(() => {
-      const time = {
-        hour,
-        min,
-        sec,
-      };
-      useTimeData(time);
+      const now = new Date();
+      setTimeData({
+        hour: now.getHours(),
+        min: now.getMinutes(),
+        sec: now.getSeconds(),
+      });
     }, timeout * 1000);
 
     return () => clearInterval(timer);
-  }, [hour, min, sec]);
+  }, [timeout]);
 
-  return [timeData?.hour, timeData?.min, timeData?.sec];
+  return [timeData.hour, timeData.min, timeData.sec] as const;
 };

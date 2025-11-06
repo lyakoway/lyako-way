@@ -1,40 +1,62 @@
-import { useEffect } from "react";
-import { useDispatchTyped } from "src/store";
-import { setThemeList } from "src/reducers";
+import { useEffect, useState } from "react";
 import SunCalc from "suncalc";
 import { useTime } from "src/features/customHooks/useTime";
+import { useSelectorTyped } from "src/store"; // ← используем твой типизированный хук для Redux
 
 export const useDayTime = (): {
   sunriseTime: number;
   sunsetTime: number;
   timesHouse: number;
   dayTime: boolean;
+  lat: number;
+  lon: number;
 } => {
-  // Обновить тему с интревалом 10 минут;
-  const timeout3Hour = 600;
-  const [hour, min] = useTime(timeout3Hour);
+  // Обновление каждые 10 минут
+  const refreshInterval = 600;
+  const [hour, min] = useTime(refreshInterval);
 
-  // координы Москвы широта и долгота
-  const latitude = 55.7522;
-  const longitude = 37.6156;
+  // Берём координаты из стора, если есть
+  const weather = useSelectorTyped((state) => state.climate.weather);
 
-  const date = new Date();
-  const sunTimes = SunCalc.getTimes(date, latitude, longitude);
-  // const moonIllumination = SunCalc.getMoonIllumination(date);
-  //
-  // console.log("phase", moonIllumination.phase);
+  // Фолбэк: координаты Москвы
+  const defaultCoords = { lat: 55.7522, lon: 37.6156 };
 
-  // восход в секундах
-  const sunriseTime =
-    (sunTimes.sunrise.getHours() * 60 + sunTimes.sunrise.getMinutes()) * 60;
+  // Получаем координаты — приоритет от WeatherAPI
+  const latitude = weather?.location?.lat ?? defaultCoords.lat;
+  const longitude = weather?.location?.lon ?? defaultCoords.lon;
 
-  // закат в секундах
-  const sunsetTime =
-    (sunTimes.sunset.getHours() * 60 + sunTimes.sunset.getMinutes()) * 60;
-  // текущее время в секундах
-  const timesHouse = (hour * 60 + min) * 60;
+  const [times, setTimes] = useState({
+    sunriseTime: 0,
+    sunsetTime: 0,
+    timesHouse: 0,
+    dayTime: true,
+  });
 
-  const dayTime = sunriseTime < timesHouse && timesHouse < sunsetTime;
+  useEffect(() => {
+    if (latitude && longitude && hour != null && min != null) {
+      const date = new Date();
+      const sunTimes = SunCalc.getTimes(date, latitude, longitude);
 
-  return { sunriseTime, sunsetTime, timesHouse, dayTime };
+      // восход в секундах
+      const sunriseTime =
+        (sunTimes.sunrise.getHours() * 60 + sunTimes.sunrise.getMinutes()) * 60;
+
+      // закат в секундах
+      const sunsetTime =
+        (sunTimes.sunset.getHours() * 60 + sunTimes.sunset.getMinutes()) * 60;
+
+      // текущее время в секундах
+      const timesHouse = (hour * 60 + min) * 60;
+
+      const dayTime = sunriseTime < timesHouse && timesHouse < sunsetTime;
+
+      setTimes({ sunriseTime, sunsetTime, timesHouse, dayTime });
+    }
+  }, [latitude, longitude, hour, min]);
+
+  return {
+    ...times,
+    lat: latitude,
+    lon: longitude,
+  };
 };

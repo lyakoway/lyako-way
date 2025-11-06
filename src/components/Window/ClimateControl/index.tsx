@@ -75,20 +75,20 @@ const ClimateControl = () => {
   };
 
   // 🔹 Поиск по кнопке
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (city) {
       dispatch(resetUserSelectedClimate()); // сбрасываем выбор пользователя
       dispatch(setSelectedCity(city));
-      updateWeatherAndClimate(city);
+      await updateWeatherAndClimate(city);
     }
   };
 
   // 🔹 Выбор города из дропдауна
-  const handleSelectCity = (selectedCity: string) => {
+  const handleSelectCity = async (selectedCity: string) => {
     dispatch(resetUserSelectedClimate()); // сбрасываем выбор при новом городе
     dispatch(setSelectedCity(selectedCity));
     setCity(selectedCity);
-    updateWeatherAndClimate(selectedCity);
+    await updateWeatherAndClimate(selectedCity);
   };
 
   // 🔹 Выбор погоды вручную
