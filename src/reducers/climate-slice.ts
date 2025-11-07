@@ -104,10 +104,6 @@ const climate = createSlice({
   reducers: {
     setClimateControl: (state, action: PayloadAction<ClimateType>) => {
       state.climate = action.payload;
-      state.userSelectedClimate = true; //пользователь сделал выбор
-      if (typeof window !== "undefined") {
-        localStorage.setItem("userSelectedClimate", "true");
-      }
     },
     setSelectedCity: (state, action) => {
       state.selectedCity = action.payload;
@@ -115,11 +111,8 @@ const climate = createSlice({
         localStorage.setItem("selectedCity", action.payload); //сохраняем
       }
     },
-    resetUserSelectedClimate: (state) => {
-      state.userSelectedClimate = false;
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("userSelectedClimate");
-      }
+    setUserSelectedClimate: (state, action: PayloadAction<boolean>) => {
+      state.userSelectedClimate = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -158,6 +151,7 @@ const climate = createSlice({
   },
 });
 
-export const { setClimateControl, setSelectedCity, resetUserSelectedClimate } = climate.actions;
+export const { setClimateControl, setSelectedCity, setUserSelectedClimate } =
+  climate.actions;
 
 export const climateReducer = climate.reducer;

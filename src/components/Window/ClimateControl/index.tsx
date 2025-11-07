@@ -3,8 +3,8 @@ import { useDispatchTyped, useSelectorTyped } from "src/store";
 import {
   setClimateControl,
   setSelectedCity,
-  resetUserSelectedClimate,
   setLang,
+  setUserSelectedClimate,
 } from "src/reducers";
 
 import {
@@ -57,29 +57,19 @@ const ClimateControl = () => {
       if (mappedClimate) {
         dispatch(setClimateControl(mappedClimate));
       }
-      const country = weather?.location?.country?.toLowerCase() || null;
-      if (country) {
-        const isRussia = country === "russia" || country === "россия";
-        dispatch(setLang(!isRussia));
-      }
+    }
+    const country = weather?.location?.country?.toLowerCase() || null;
+    if (country) {
+      const isRussia = country === "russia" || country === "россия";
+      dispatch(setLang(!isRussia));
     }
   }, [weather, dispatch, userSelectedClimate]);
 
   // 🔹 Запрашиваем погоду и обновляем climate
   const updateWeatherAndClimate = async (targetCity: string) => {
     try {
-      const data = await fetchByCity(targetCity);
-      if (data?.current?.condition?.text) {
-        const mappedClimate = WEATHER_TO_CLIMATE[data.current.condition.text];
-        if (mappedClimate) {
-          dispatch(setClimateControl(mappedClimate));
-        }
-        const country = weather?.location?.country?.toLowerCase() || null;
-        if (country) {
-          const isRussia = country === "russia" || country === "россия";
-          dispatch(setLang(!isRussia));
-        }
-      }
+      await fetchByCity(targetCity);
+      dispatch(setUserSelectedClimate(false));
     } catch (err) {
       console.error("Ошибка при обновлении погоды:", err);
     }
@@ -88,7 +78,6 @@ const ClimateControl = () => {
   // 🔹 Поиск по кнопке
   const handleSearch = async () => {
     if (city) {
-      dispatch(resetUserSelectedClimate()); // сбрасываем выбор пользователя
       dispatch(setSelectedCity(city));
       await updateWeatherAndClimate(city);
     }
@@ -96,7 +85,6 @@ const ClimateControl = () => {
 
   // 🔹 Выбор города из дропдауна
   const handleSelectCity = async (selectedCity: string) => {
-    dispatch(resetUserSelectedClimate()); // сбрасываем выбор при новом городе
     dispatch(setSelectedCity(selectedCity));
     setCity(selectedCity);
     await updateWeatherAndClimate(selectedCity);
@@ -105,6 +93,7 @@ const ClimateControl = () => {
   // 🔹 Выбор погоды вручную
   const handleSelectClimate = (item: ClimateType) => {
     dispatch(setClimateControl(item)); // сохраняется userSelectedClimate = true
+    dispatch(setUserSelectedClimate(true));
   };
 
   return (
