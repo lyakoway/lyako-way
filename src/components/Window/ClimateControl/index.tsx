@@ -55,19 +55,27 @@ const ClimateControl = () => {
 
   // Устанавливаем climate из API только если пользователь ещё не выбирал вручную
   useEffect(() => {
-    if (!userSelectedClimate && weather?.current?.condition?.text) {
-      const conditionText = weather.current.condition.text;
-      const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
-      if (mappedClimate) {
+    let isMounted = true;
+
+    if (!loading && weather?.current?.condition?.text && !userSelectedClimate) {
+      const condition = weather.current.condition.text;
+      const mappedClimate = WEATHER_TO_CLIMATE[condition];
+
+      if (mappedClimate && isMounted) {
         dispatch(setClimateControl(mappedClimate));
       }
+
+      const country = weather?.location?.country?.toLowerCase() || null;
+      if (country && isMounted) {
+        const isRussia = country === "russia" || country === "россия";
+        dispatch(setLang(!isRussia));
+      }
     }
-    const country = weather?.location?.country?.toLowerCase() || null;
-    if (!userSelectedLang && country) {
-      const isRussia = country === "russia" || country === "россия";
-      dispatch(setLang(!isRussia));
-    }
-  }, [weather, dispatch, userSelectedClimate]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [weather, loading, userSelectedClimate, dispatch]);
 
   // 🔹 Запрашиваем погоду и обновляем climate
   const updateWeatherAndClimate = async (targetCity: string) => {
