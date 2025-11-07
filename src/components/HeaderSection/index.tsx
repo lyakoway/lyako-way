@@ -53,6 +53,7 @@ const HeaderSection = () => {
   } = useSelectorTyped(({ theme }) => theme);
   const {
     lang: { headerHouse, toast, modal },
+    userSelectedLang,
   } = useSelectorTyped(({ lang }) => lang);
   const [openedPopup, setOpenedPopup] = useState(false);
   const [positionValue, setPositionValue] = useState("top");
@@ -83,11 +84,11 @@ const HeaderSection = () => {
       if (mappedClimate) {
         dispatch(setClimateControl(mappedClimate));
       }
-      const country = weather?.location?.country?.toLowerCase() || null;
-      if (country) {
-        const isRussia = country === "russia" || country === "россия";
-        dispatch(setLang(!isRussia));
-      }
+    }
+    const country = weather?.location?.country?.toLowerCase() || null;
+    if (!userSelectedLang && country) {
+      const isRussia = country === "russia" || country === "россия";
+      dispatch(setLang(!isRussia));
     }
   }, [weather, dispatch, userSelectedClimate]);
 

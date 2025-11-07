@@ -1,8 +1,8 @@
 import React, { useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 
-import { useDispatchTyped } from "src/store";
-import { setLang } from "src/reducers";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { setLang, setUserSelectedLang } from "src/reducers";
 
 import { ReactComponent as LangEnglishIcon } from "src/common/icon/lang/gb.svg";
 import { ReactComponent as LangRussiaIcon } from "src/common/icon/lang/ru.svg";
@@ -29,13 +29,22 @@ const ButtonWrapper = styled.button`
 `;
 
 const ButtonLang = () => {
+  const {
+    lang: { name },
+  } = useSelectorTyped(({ lang }) => lang);
+
   const [opened, setOpened] = useState(false);
   const dispatch = useDispatchTyped();
 
   const handleClick = useCallback(() => {
     setOpened(!opened);
     dispatch(setLang(!opened));
+    dispatch(setUserSelectedLang(true));
   }, [setOpened, opened, dispatch]);
+
+  useEffect(() => {
+    setOpened(name !== "russia");
+  }, []);
 
   const Icon = opened ? LangRussiaIcon : LangEnglishIcon;
 

@@ -5,6 +5,7 @@ import {
   setSelectedCity,
   setLang,
   setUserSelectedClimate,
+  setUserSelectedLang,
 } from "src/reducers";
 
 import {
@@ -27,6 +28,7 @@ import WeatherIcon from "../WeatherIcon";
 const ClimateControl = () => {
   const {
     lang: { climateLang },
+    userSelectedLang,
   } = useSelectorTyped(({ lang }) => lang);
 
   const {
@@ -59,7 +61,7 @@ const ClimateControl = () => {
       }
     }
     const country = weather?.location?.country?.toLowerCase() || null;
-    if (country) {
+    if (!userSelectedLang && country) {
       const isRussia = country === "russia" || country === "россия";
       dispatch(setLang(!isRussia));
     }
@@ -70,6 +72,7 @@ const ClimateControl = () => {
     try {
       await fetchByCity(targetCity);
       dispatch(setUserSelectedClimate(false));
+      dispatch(setUserSelectedLang(false));
     } catch (err) {
       console.error("Ошибка при обновлении погоды:", err);
     }

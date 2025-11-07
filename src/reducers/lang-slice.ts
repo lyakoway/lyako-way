@@ -4,10 +4,12 @@ import { LanguageProps } from "src/common/types/lang";
 
 type IState = {
   lang: LanguageProps;
+  userSelectedLang: boolean;
 };
 
 const initialState: IState = {
   lang: RUSSIAN_LANGUAGE,
+  userSelectedLang: false,
 };
 
 const lang = createSlice({
@@ -17,9 +19,12 @@ const lang = createSlice({
     setLang: (state, action: PayloadAction<boolean>) => {
       state.lang = action.payload ? ENGLISH_LANGUAGE : RUSSIAN_LANGUAGE;
     },
+    setUserSelectedLang: (state, action: PayloadAction<boolean>) => {
+      state.userSelectedLang = action.payload;
+    },
   },
 });
 
-export const { setLang } = lang.actions;
+export const { setLang, setUserSelectedLang } = lang.actions;
 
 export const langReducer = lang.reducer;
