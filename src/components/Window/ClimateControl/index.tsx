@@ -6,6 +6,7 @@ import {
   setLang,
   setUserSelectedClimate,
   setUserSelectedLang,
+  setThemeList,
 } from "src/reducers";
 
 import {
@@ -18,7 +19,7 @@ import {
 } from "./style";
 import { CLIMATE_CONTROL, WEATHER_TO_CLIMATE } from "./constants";
 import { ClimateType } from "src/common/types/climat";
-import { useWeather } from "src/features/customHooks";
+import { useDayTime, useWeather } from "src/features/customHooks";
 
 import { SearchInput } from "src/ui/SearchInput";
 import ButtonStyle from "src/ui/ButtonStyle";
@@ -41,6 +42,7 @@ const ClimateControl = () => {
 
   const dispatch = useDispatchTyped();
   const { weather, loading, fetchByCity } = useWeather();
+  const { dayTime } = useDayTime();
 
   const [city, setCity] = useState<string>("");
 
@@ -71,6 +73,7 @@ const ClimateControl = () => {
   const updateWeatherAndClimate = async (targetCity: string) => {
     try {
       await fetchByCity(targetCity);
+      dispatch(setThemeList(dayTime));
       dispatch(setUserSelectedClimate(false));
       dispatch(setUserSelectedLang(false));
     } catch (err) {
