@@ -1,6 +1,6 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal } from "src/reducers";
