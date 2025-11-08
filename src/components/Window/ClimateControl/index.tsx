@@ -31,6 +31,7 @@ import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 const ClimateControl = () => {
   const {
     lang: { climateLang },
+    userSelectedLang,
   } = useSelectorTyped(({ lang }) => lang);
 
   const {
@@ -66,8 +67,10 @@ const ClimateControl = () => {
       if (mappedClimate && isMounted) {
         dispatch(setClimateControl(mappedClimate));
       }
+    }
 
-      const country = weather?.location?.country?.toLowerCase() || null;
+    const country = weather?.location?.country?.toLowerCase() || null;
+    if (!userSelectedLang && country && !loading) {
       if (country && isMounted) {
         const isRussia = country === "russia" || country === "россия";
         dispatch(setLang(!isRussia));
@@ -77,7 +80,7 @@ const ClimateControl = () => {
     return () => {
       isMounted = false;
     };
-  }, [weather, loading, userSelectedClimate, dispatch]);
+  }, [weather, loading, userSelectedClimate, userSelectedLang, dispatch]);
 
   // 🔹 Запрашиваем погоду и обновляем climate
   const updateWeatherAndClimate = async (targetCity: string) => {
@@ -87,7 +90,7 @@ const ClimateControl = () => {
     dispatch(setUserSelectedLang(false));
     if (status === RequestStatus.SUCCESS_CITY) {
       toastNotify({
-        title: "Применяем тему города",
+        title: climateLang.titleToast,
         type: "success",
       });
     }
@@ -123,7 +126,7 @@ const ClimateControl = () => {
           <SearchWrapper>
             <SearchInputWrapper>
               <SearchInput
-                placeholder="Введите город"
+                placeholder={climateLang.placeholder}
                 searchQuery={city}
                 setSearchQuery={setCity}
                 onSelectCity={handleSelectCity}
@@ -132,7 +135,7 @@ const ClimateControl = () => {
             </SearchInputWrapper>
 
             <ButtonStyle
-              title="Найти"
+              title={climateLang.buttonText}
               handleClick={handleSearch}
               disabled={loading}
             />
@@ -152,7 +155,7 @@ const ClimateControl = () => {
         </>
       )}
 
-      <Header>Выбрать погоду</Header>
+      <Header>{climateLang.titleSelectWeather}</Header>
       <Content>
         {CLIMATE_CONTROL.map((item: ClimateType) => (
           <WeatherIconWrapper

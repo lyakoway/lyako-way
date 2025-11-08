@@ -36,9 +36,6 @@ const ClimateBanner: FC<ClimateBannerProps> = ({
   const {
     lang: { climateLang },
   } = useSelectorTyped(({ lang }) => lang);
-  const {
-    theme: { name },
-  } = useSelectorTyped(({ theme }) => theme);
 
   if (loading) {
     return (
@@ -61,15 +58,29 @@ const ClimateBanner: FC<ClimateBannerProps> = ({
         {temperature && (
           <div>
             <h3>{temperature}°C</h3>
-            <p>Ощущается как: {temperatureFeeling}°C</p>
+            <p>
+              {climateLang.temperatureFeeling}: {temperatureFeeling}°C
+            </p>
           </div>
         )}
       </WeatherInfo>
 
       <WeatherDetails>
-        {humidity && <li>Влажность: {humidity}%</li>}
-        {wind && <li>Ветер: {wind} км/ч</li>}
-        {pressure && <li>Давление: {pressure} мбар</li>}
+        {humidity && (
+          <li>
+            {climateLang.humidity}: {humidity}%
+          </li>
+        )}
+        {wind && (
+          <li>
+            {climateLang.wind}: {wind} {climateLang.speed}
+          </li>
+        )}
+        {pressure && (
+          <li>
+            {climateLang.pressure}: {pressure} {climateLang.pressureValue}
+          </li>
+        )}
       </WeatherDetails>
     </WeatherWrapper>
   );

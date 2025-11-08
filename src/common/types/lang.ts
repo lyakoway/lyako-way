@@ -223,6 +223,16 @@ export interface ListBlogProps {
 
 export interface ClimateProps {
   title: string;
+  placeholder: string;
+  buttonText: string;
+  titleSelectWeather: string;
+  titleToast: string;
+  temperatureFeeling: string;
+  humidity: string;
+  wind: string;
+  pressure: string;
+  pressureValue: string;
+  speed: string;
 }
 
 export interface LanguageProps {
