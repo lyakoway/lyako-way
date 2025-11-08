@@ -34,11 +34,9 @@ export const SearchInput: FC<SearchInputProps> = ({
   onEnterPress,
 }) => {
   const dispatch = useDispatchTyped();
-  const {
-    cityAutofill = [],
-    loading,
-    error,
-  } = useSelectorTyped((state) => state.climate);
+  const { cityAutofill = [], loading } = useSelectorTyped(
+    ({ climate }) => climate
+  );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -176,9 +174,7 @@ export const SearchInput: FC<SearchInputProps> = ({
         <Dropdown>
           {loading && <DropdownMessage>Загрузка...</DropdownMessage>}
           {!loading && cityAutofill.length === 0 && searchQuery.length >= 2 && (
-            <DropdownMessage>
-              {error ? "Ошибка" : "Нет совпадений"}
-            </DropdownMessage>
+            <DropdownMessage>Нет совпадений</DropdownMessage>
           )}
           {!loading &&
             cityAutofill.map((city, index) => (

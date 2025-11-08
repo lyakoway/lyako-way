@@ -25,24 +25,26 @@ import { SearchInput } from "src/ui/SearchInput";
 import ButtonStyle from "src/ui/ButtonStyle";
 import ClimateBanner from "src/components/Window/ClimateControl/ClimateBanner";
 import WeatherIcon from "../WeatherIcon";
+import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
+import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 
 const ClimateControl = () => {
   const {
     lang: { climateLang },
-    userSelectedLang,
   } = useSelectorTyped(({ lang }) => lang);
 
   const {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
 
-  const { climate, userSelectedClimate } = useSelectorTyped(
+  const { climate, userSelectedClimate, status } = useSelectorTyped(
     ({ climate }) => climate
   );
 
   const dispatch = useDispatchTyped();
   const { weather, loading, fetchByCity } = useWeather();
   const { dayTime } = useDayTime();
+  const toastNotify = useToastNotify();
 
   const [city, setCity] = useState<string>("");
 
@@ -79,13 +81,15 @@ const ClimateControl = () => {
 
   // 🔹 Запрашиваем погоду и обновляем climate
   const updateWeatherAndClimate = async (targetCity: string) => {
-    try {
-      await fetchByCity(targetCity);
-      dispatch(setThemeList(dayTime));
-      dispatch(setUserSelectedClimate(false));
-      dispatch(setUserSelectedLang(false));
-    } catch (err) {
-      console.error("Ошибка при обновлении погоды:", err);
+    await fetchByCity(targetCity);
+    dispatch(setThemeList(dayTime));
+    dispatch(setUserSelectedClimate(false));
+    dispatch(setUserSelectedLang(false));
+    if (status === RequestStatus.SUCCESS_CITY) {
+      toastNotify({
+        title: "Применяем тему по располжением",
+        type: "success",
+      });
     }
   };
 
@@ -112,37 +116,41 @@ const ClimateControl = () => {
 
   return (
     <Wrapper>
-      <Header>{climateLang.title}</Header>
+      {weather && (
+        <>
+          <Header>{climateLang.title}</Header>
 
-      <SearchWrapper>
-        <SearchInputWrapper>
-          <SearchInput
-            placeholder="Введите город"
-            searchQuery={city}
-            setSearchQuery={setCity}
-            onSelectCity={handleSelectCity}
-            onEnterPress={updateWeatherAndClimate}
+          <SearchWrapper>
+            <SearchInputWrapper>
+              <SearchInput
+                placeholder="Введите город"
+                searchQuery={city}
+                setSearchQuery={setCity}
+                onSelectCity={handleSelectCity}
+                onEnterPress={updateWeatherAndClimate}
+              />
+            </SearchInputWrapper>
+
+            <ButtonStyle
+              title="Найти"
+              handleClick={handleSearch}
+              disabled={loading}
+            />
+          </SearchWrapper>
+
+          <ClimateBanner
+            loading={loading}
+            city={weather?.location?.name}
+            icon={weather?.current?.condition?.icon}
+            iconText={weather?.current?.condition?.text}
+            temperature={weather?.current?.temp_c}
+            temperatureFeeling={weather?.current?.feelslike_c}
+            humidity={weather?.current?.humidity}
+            wind={weather?.current?.wind_kph}
+            pressure={weather?.current?.pressure_mb}
           />
-        </SearchInputWrapper>
-
-        <ButtonStyle
-          title="Найти"
-          handleClick={handleSearch}
-          disabled={loading}
-        />
-      </SearchWrapper>
-
-      <ClimateBanner
-        loading={loading}
-        city={weather?.location?.name}
-        icon={weather?.current?.condition?.icon}
-        iconText={weather?.current?.condition?.text}
-        temperature={weather?.current?.temp_c}
-        temperatureFeeling={weather?.current?.feelslike_c}
-        humidity={weather?.current?.humidity}
-        wind={weather?.current?.wind_kph}
-        pressure={weather?.current?.pressure_mb}
-      />
+        </>
+      )}
 
       <Header>Выбрать погоду</Header>
       <Content>

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ClimateType, ForecastItem, Weather } from "src/common/types/climat";
 import { getCities, getForecast, getWeather } from "src/routes/climate";
 import { CallApiError } from "src/api";
+import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
 
 interface IRejectedValue {
   error: {
@@ -81,6 +82,7 @@ type IState = {
   selectedCity: string;
   loading: boolean;
   error: string | null;
+  status: string | null;
   userSelectedClimate: boolean;
 };
 
@@ -95,6 +97,7 @@ const initialState: IState = {
   selectedCity: savedCity || "Москва",
   loading: false,
   error: null,
+  status: null,
   userSelectedClimate: false,
 };
 
@@ -120,7 +123,7 @@ const climate = createSlice({
       .addCase(fetchWeather.pending, (state) => ({
         ...state,
         loading: true,
-        error: null,
+        status: null,
       }))
       .addCase(fetchWeather.fulfilled, (state, action) => ({
         ...state,
@@ -131,22 +134,23 @@ const climate = createSlice({
       .addCase(fetchWeather.rejected, (state, action) => ({
         ...state,
         loading: false,
-        error: action.error.message || "Ошибка",
+        status: RequestStatus.ERROR_CLIMATE,
       }))
       .addCase(fetchCities.pending, (state) => ({
         ...state,
         loading: true,
-        error: null,
+        status: null,
       }))
       .addCase(fetchCities.fulfilled, (state, action) => ({
         ...state,
         loading: false,
         cityAutofill: action.payload.cityAutofill || [],
+        status: RequestStatus.SUCCESS_CITY,
       }))
       .addCase(fetchCities.rejected, (state, action) => ({
         ...state,
         loading: false,
-        error: action.error.message || "Ошибка",
+        status: RequestStatus.ERROR_CITY,
       }));
   },
 });

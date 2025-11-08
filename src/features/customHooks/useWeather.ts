@@ -1,15 +1,22 @@
 import { useCallback, useEffect, useState } from "react";
 import { fetchWeather, setSelectedCity } from "src/reducers";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { useToastNotify } from "src/features/customHooks/use-toast-notify";
+import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
 
 export function useWeather() {
   const dispatch = useDispatchTyped();
-  const { weather, forecast, loading, error, selectedCity } = useSelectorTyped(
-    ({ climate }) => climate
-  );
+  const { weather, forecast, loading, error, selectedCity, status } =
+    useSelectorTyped(({ climate }) => climate);
+
+  const {
+    lang: { toast },
+  } = useSelectorTyped(({ lang }) => lang);
 
   const [geoCity, setGeoCity] = useState<string>("Москва");
   const [initialized, setInitialized] = useState(false);
+
+  const toastNotify = useToastNotify();
 
   const fetchByCity = useCallback(
     (city: string) => {
@@ -66,6 +73,18 @@ export function useWeather() {
       setInitialized(true);
     }
   }, [initialized, selectedCity, fetchByCity, fetchByGeolocation]);
+
+  useEffect(() => {
+    if (
+      status === RequestStatus.ERROR_CLIMATE ||
+      status === RequestStatus.ERROR_CITY
+    ) {
+      toastNotify({
+        title: toast.textError,
+        type: "error",
+      });
+    }
+  }, [status]);
 
   return {
     weather,
