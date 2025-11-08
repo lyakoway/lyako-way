@@ -87,7 +87,7 @@ const ClimateControl = () => {
     dispatch(setUserSelectedLang(false));
     if (status === RequestStatus.SUCCESS_CITY) {
       toastNotify({
-        title: "Применяем тему по располжением",
+        title: "Применяем тему города",
         type: "success",
       });
     }
