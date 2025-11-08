@@ -298,14 +298,14 @@ export const CheckboxIcon = styled.div<{ checked: boolean }>`
     display: inline-block;
     font-weight: 900;
     font-size: 14px;
-    content: "\\002B";
+    content: "+";
     transition: transform 0.3s ease-in-out;
 
     ${({ checked }) =>
       checked &&
       css`
         color: #4caf50;
-        content: "\\2713";
+        content: "✓";
         transform: rotate(-360deg);
         transition: transform 0.3s ease-in-out;
       `};

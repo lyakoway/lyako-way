@@ -109,9 +109,6 @@ export interface ModalProps {
   services3: string;
   services4: string;
   services5: string;
-  services6: string;
-  services7: string;
-  services8: string;
   mail: string;
   mailLabel: string;
   time: string;
