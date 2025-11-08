@@ -66,14 +66,14 @@ export const Result = styled.div<{ $status?: string }>`
     font-weight: 900;
     font-size: 24px;
     color: #ffffff;
-    content: "\\2718";
+    content: "✘";
     animation: ${ani} 1s forwards;
 
     ${({ $status }) =>
       $status === "success" &&
       css`
         color: #ffffff;
-        content: "\\2713";
+        content: "✓";
       `};
   }
 `;
