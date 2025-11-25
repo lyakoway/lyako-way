@@ -5,16 +5,10 @@ import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useSelectorTyped } from "src/store";
 
-// --- Анимация "взрыва" сердечек ---
+// --- Анимации ---
 const heartFly = keyframes`
-  0% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-40px) scale(0.7);
-  }
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-40px) scale(0.7); }
 `;
 
 const bounce = keyframes`
@@ -25,7 +19,7 @@ const bounce = keyframes`
   100% { transform: scale(1); }
 `;
 
-// --- Button wrapper ---
+// --- Стили кнопки ---
 const ButtonWrapper = styled.button<{ $animate?: boolean }>`
   display: flex;
   justify-content: center;
@@ -67,7 +61,6 @@ const Label = styled.div`
   margin-top: 30px;
 `;
 
-// --- Частицы (сердечки) ---
 const Particle = styled.div<{
   x: number;
   size: number;
@@ -78,36 +71,102 @@ const Particle = styled.div<{
   top: -5px;
   left: 20px;
   pointer-events: none;
-
   transform: translateX(${(p) => p.x}px) rotate(${(p) => p.rotate}deg)
     scale(${(p) => p.size});
   color: ${(p) => p.color};
-
   animation: ${heartFly} 0.9s ease-out forwards;
-
   font-size: 14px;
 `;
 
-// ================================
-// ======== COMPONENT =============
-// ================================
+// --- Модальный кастомный alert ---
+const ModalBackdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+`;
+
+const ModalWindow = styled.div`
+  background: #1d1d1d;
+  border-radius: 14px;
+  padding: 22px 26px;
+  width: 280px;
+  color: white;
+  text-align: center;
+  animation: pop 0.25s ease;
+  @keyframes pop {
+    0% {
+      transform: scale(0.7);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+`;
+
+const CloseButton = styled.button`
+  margin-top: 18px;
+  padding: 8px 18px;
+  border: none;
+  background: #ff4d6d;
+  color: white;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.05);
+    background: #ff6b85;
+  }
+`;
+
+const AlertModal = ({ onClose }: { onClose: () => void }) => (
+  <ModalBackdrop onClick={onClose}>
+    <ModalWindow onClick={(e) => e.stopPropagation()}>
+      <div style={{ fontSize: "16px", marginBottom: "10px" }}>
+        ⭐ Добавить в избранное
+      </div>
+      <div style={{ opacity: 0.9 }}>
+        Нажми <b>Ctrl+D</b> (или <b>Cmd+D</b> на Mac), чтобы сохранить страницу
+      </div>
+      <CloseButton onClick={onClose}>OK</CloseButton>
+    </ModalWindow>
+  </ModalBackdrop>
+);
+
+// =====================
+// ===== COMPONENT =====
+// =====================
 const ButtonHeart: React.FC = () => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
+  const toastNotify = useToastNotify();
 
   const [counter, setCounter] = useState(0);
   const [animate, setAnimate] = useState(false);
   const [particles, setParticles] = useState<
     { id: number; x: number; size: number; rotate: number; color: string }[]
   >([]);
-
-  const toastNotify = useToastNotify();
+  const [showModal, setShowModal] = useState(false);
 
   // Загружаем лайки при монтировании
   useEffect(() => {
     const url = window.location.href;
-
     fetch(`/api/likes?url=${encodeURIComponent(url)}`)
       .then((r) => r.json())
       .then((d) => setCounter(d.count ?? 0))
@@ -115,16 +174,16 @@ const ButtonHeart: React.FC = () => {
   }, []);
 
   // --- Обработка клика ---
-  // --- Обработка клика ---
   const handleClick = async () => {
     const url = window.location.href;
+    const title = document.title;
 
     // Анимация сердца
     setAnimate(true);
     setTimeout(() => setAnimate(false), 500);
 
     // Генерация частиц
-    const count = Math.floor(Math.random() * 3) + 5;
+    const count = Math.floor(Math.random() * 3) + 5; // 5–8 шт
     const newParticles = Array.from({ length: count }).map(() => ({
       id: Date.now() + Math.random(),
       x: Math.random() * 60 - 30,
@@ -132,16 +191,14 @@ const ButtonHeart: React.FC = () => {
       rotate: Math.random() * 360 - 180,
       color: ["#ff3d6e", "#ff6b9a", "#ff95b3"][Math.floor(Math.random() * 3)],
     }));
-
     setParticles((prev) => [...prev, ...newParticles]);
-
     setTimeout(() => {
       setParticles((prev) =>
         prev.filter((p) => !newParticles.some((np) => np.id === p.id))
       );
     }, 900);
 
-    // Локальный счётчик
+    // Локально увеличиваем
     setCounter((prev) => prev + 1);
 
     // Тост
@@ -150,7 +207,7 @@ const ButtonHeart: React.FC = () => {
       type: "success",
     });
 
-    // Отправляем лайк на сервер
+    // Отправка на сервер
     try {
       await fetch("/api/likes", {
         method: "POST",
@@ -161,50 +218,35 @@ const ButtonHeart: React.FC = () => {
       console.error("Ошибка при отправке лайка:", err);
     }
 
-    // === ALERT (один раз, через 3 сек) ===
+    // --- Кастомный alert один раз с задержкой ---
     if (!localStorage.getItem("fav-alert-shown")) {
       setTimeout(() => {
-        try {
-          const win = window as any;
-
-          const title = document.title;
-
-          if (win.external?.AddFavorite) {
-            win.external.AddFavorite(url, title);
-          } else if (win.sidebar?.addPanel) {
-            win.sidebar.addPanel(title, url, "");
-          } else {
-            alert(
-              "Чтобы добавить страницу в избранное, нажмите Ctrl+D (или Cmd+D на Mac)"
-            );
-          }
-
-          localStorage.setItem("fav-alert-shown", "true");
-        } catch (e) {
-          console.log("Добавление в избранное не поддерживается");
-        }
-      }, 3000); // задержка 3 секунды
+        setShowModal(true);
+        localStorage.setItem("fav-alert-shown", "true");
+      }, 3000); // 3 секунды
     }
   };
 
   return (
-    <ButtonWrapper onClick={handleClick} $animate={animate}>
-      <HeartIcon />
+    <>
+      <ButtonWrapper onClick={handleClick} $animate={animate}>
+        <HeartIcon />
+        <Label>{counter}</Label>
+        {particles.map((p) => (
+          <Particle
+            key={p.id}
+            x={p.x}
+            size={p.size}
+            rotate={p.rotate}
+            color={p.color}
+          >
+            ❤️
+          </Particle>
+        ))}
+      </ButtonWrapper>
 
-      <Label>{counter}</Label>
-
-      {particles.map((p) => (
-        <Particle
-          key={p.id}
-          x={p.x}
-          size={p.size}
-          rotate={p.rotate}
-          color={p.color}
-        >
-          ❤️
-        </Particle>
-      ))}
-    </ButtonWrapper>
+      {showModal && <AlertModal onClose={() => setShowModal(false)} />}
+    </>
   );
 };
 
