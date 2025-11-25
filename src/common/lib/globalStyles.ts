@@ -419,7 +419,7 @@ const GlobalStyles = createGlobalStyle`
     border:none !important;
     -webkit-text-fill-color: ${({ theme }) =>
       theme.color.text.primary} !important;
-    -webkit-box-shadow: 0 0 0px 1000px #FFFFFF inset;
+    -webkit-box-shadow: 0 0 0 1000px #FFFFFF inset;
     color: ${({ theme }) => theme.color.text.primary};
     transition: background-color 5000s ease-in-out 0s;
   }

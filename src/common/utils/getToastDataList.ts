@@ -1,35 +1,31 @@
-import { Person } from "src/ui/Toast/Toast";
+import { Toast } from "src/common/types/toast";
 
 export interface IToastProps {
   text: string;
   id: number;
-  title: string;
+  title?: string;
 }
 
-export const getToastDataList = ({
-  text,
-  id,
-  title,
-}: IToastProps): Person[] => [
+export const getToastDataList = ({ text, id, title }: IToastProps): Toast[] => [
   {
     id,
     type: "success",
     title: title,
     text: text,
-    borderColor: "#fff",
+    backgroundColor: "#fff",
   },
   {
     id,
     type: "error",
     title: title,
     text: text,
-    borderColor: "#d9534f",
+    backgroundColor: "#d9534f",
   },
   {
     id,
     type: "info",
     title: title,
     text: text,
-    borderColor: "#5bc0de",
+    backgroundColor: "#5bc0de",
   },
 ];

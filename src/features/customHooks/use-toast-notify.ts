@@ -1,5 +1,5 @@
 import { setToastList } from "src/reducers";
-import { Person } from "src/ui/Toast/Toast";
+import { Toast } from "src/common/types/toast";
 import { getToastDataList } from "src/common/utils/getToastDataList";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
@@ -15,12 +15,12 @@ export const useToastNotify = () => {
 
   return ({ title = "", text = "", type = "success" }: IToastNotifyProps) => {
     if (toastList) {
-      const toastDataList: Person[] = getToastDataList({
+      const toastDataList: Toast[] = getToastDataList({
         text: text,
         id: toastList.length + 1,
         title: title,
       });
-      const toastDataListValue: Person | undefined = toastDataList.find(
+      const toastDataListValue: Toast | undefined = toastDataList.find(
         (item) => item.type === type
       );
 

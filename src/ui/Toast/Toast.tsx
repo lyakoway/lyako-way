@@ -15,23 +15,16 @@ import ButtonDelete from "src/ui/ButtonDelete";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { setToastList } from "src/reducers";
 import { useToastListItem } from "src/features/customHooks/use-toast-list";
-
-export interface Person {
-  id: number;
-  title: string;
-  text: string;
-  borderColor: string;
-  type?: "info" | "success" | "error";
-}
+import { Toast as ToastTypes } from "src/common/types/toast";
 
 const ToastMap = (
-  toast: Person,
+  toast: ToastTypes,
   id: number,
   deleteToast: (value: number) => void
 ) => {
   const Icon = getToastIcon(toast?.type ? toast.type : "error");
   return (
-    <Notification key={id} $borderColor={toast.borderColor}>
+    <Notification key={id} $borderColor={toast.backgroundColor}>
       <Icon />
       <TextWrapper>
         <Title>{toast.title}</Title>
