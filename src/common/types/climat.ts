@@ -12,8 +12,8 @@ export interface Weather {
     region: string;
     country: string;
     localtime: string;
-    lat: number;
-    lon: number;
+    lat?: number;
+    lon?: number;
   };
   current: {
     temp_c: number;

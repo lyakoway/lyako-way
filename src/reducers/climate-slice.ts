@@ -18,12 +18,12 @@ export const fetchWeather = createAsyncThunk<
 >("climate/fetchWeather", async (data, thunkAPI) => {
   const { city } = data;
   try {
-    const weather = await getWeather({ city });
-    const forecast = await getForecast({ city });
+    const weather = (await getWeather({ city })) as Weather;
+    const forecast = (await getForecast({ city })) as ForecastItem[];
 
     return {
-      weather: weather,
-      forecast: forecast, // 5 дней
+      weather,
+      forecast, // 5 дней
     };
   } catch (error) {
     const { message, status } = error as CallApiError;
