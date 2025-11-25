@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useSelectorTyped } from "src/store";
 
 // --- Анимации ---
-const heartFly = keyframes`
-  0% { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(-40px) scale(0.7); }
-`;
-
 const bounce = keyframes`
   0% { transform: scale(1); }
   30% { transform: scale(1.3); }
@@ -19,7 +14,17 @@ const bounce = keyframes`
   100% { transform: scale(1); }
 `;
 
-// --- Стили кнопки ---
+const heartFly = keyframes`
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(0.7); }
+`;
+
+const confettiFly = (x: number, y: number, rotate: number) => keyframes`
+  0% { transform: translate(0,0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(${x}px, ${y}px) rotate(${rotate}deg); opacity: 0; }
+`;
+
+// --- Стили ---
 const ButtonWrapper = styled.button<{ $animate?: boolean }>`
   display: flex;
   justify-content: center;
@@ -39,7 +44,12 @@ const ButtonWrapper = styled.button<{ $animate?: boolean }>`
   svg {
     width: 26px;
     height: 26px;
-    animation: ${({ $animate }) => ($animate ? bounce : "none")} 0.5s ease;
+    animation: ${({ $animate }) =>
+      $animate
+        ? css`
+            ${bounce} 0.7s ease
+          `
+        : "none"};
   }
 
   @media ${MOBILE_660} {
@@ -61,11 +71,13 @@ const Label = styled.div`
   margin-top: 30px;
 `;
 
+// Частицы сердечек
 const Particle = styled.div<{
   x: number;
   size: number;
   rotate: number;
   color: string;
+  $fly?: boolean;
 }>`
   position: absolute;
   top: -5px;
@@ -74,11 +86,36 @@ const Particle = styled.div<{
   transform: translateX(${(p) => p.x}px) rotate(${(p) => p.rotate}deg)
     scale(${(p) => p.size});
   color: ${(p) => p.color};
-  animation: ${heartFly} 0.9s ease-out forwards;
   font-size: 14px;
+  animation: ${(p) =>
+    p.$fly
+      ? css`
+          ${heartFly} 1.5s ease-out forwards
+        `
+      : css`
+            none
+          `};
 `;
 
-// --- Модальный кастомный alert ---
+// Конфетти
+const ConfettiPiece = styled.div<{
+  x: number;
+  y: number;
+  size: number;
+  rotate: number;
+  color: string;
+}>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: ${(p) => p.size}px;
+  height: ${(p) => p.size * 0.4}px;
+  background-color: ${(p) => p.color};
+  border-radius: 2px;
+  pointer-events: none;
+  animation: ${(p) => confettiFly(p.x, p.y, p.rotate)} 1.5s ease-out forwards;
+`;
+
 const ModalBackdrop = styled.div`
   position: fixed;
   inset: 0;
@@ -158,13 +195,30 @@ const ButtonHeart: React.FC = () => {
   const toastNotify = useToastNotify();
 
   const [counter, setCounter] = useState(0);
-  const [animate, setAnimate] = useState(false);
+  const [animateHeart, setAnimateHeart] = useState(false);
   const [particles, setParticles] = useState<
-    { id: number; x: number; size: number; rotate: number; color: string }[]
+    {
+      id: number;
+      x: number;
+      size: number;
+      rotate: number;
+      color: string;
+      $fly?: boolean;
+    }[]
+  >([]);
+  const [confetti, setConfetti] = useState<
+    {
+      id: number;
+      x: number;
+      y: number;
+      size: number;
+      rotate: number;
+      color: string;
+    }[]
   >([]);
   const [showModal, setShowModal] = useState(false);
 
-  // Загружаем лайки при монтировании
+  // Загружаем лайки
   useEffect(() => {
     const url = window.location.href;
     fetch(`/api/likes?url=${encodeURIComponent(url)}`)
@@ -173,32 +227,54 @@ const ButtonHeart: React.FC = () => {
       .catch(() => {});
   }, []);
 
-  // --- Обработка клика ---
   const handleClick = async () => {
     const url = window.location.href;
-    const title = document.title;
 
-    // Анимация сердца
-    setAnimate(true);
-    setTimeout(() => setAnimate(false), 500);
+    // --- Конфетти ---
+    const confCount = 15;
+    const newConfetti = Array.from({ length: confCount }).map(() => ({
+      id: Date.now() + Math.random(),
+      x: (Math.random() - 0.5) * 120,
+      y: -(Math.random() * 100 + 80),
+      size: Math.random() * 6 + 4,
+      rotate: Math.random() * 360,
+      color: ["#FFD700", "#FF4500", "#1E90FF", "#32CD32", "#FF69B4"][
+        Math.floor(Math.random() * 5)
+      ],
+    }));
+    setConfetti((prev) => [...prev, ...newConfetti]);
+    setTimeout(
+      () =>
+        setConfetti((prev) =>
+          prev.filter((c) => !newConfetti.some((nc) => nc.id === c.id))
+        ),
+      1500
+    );
 
-    // Генерация частиц
-    const count = Math.floor(Math.random() * 3) + 5; // 5–8 шт
+    // --- Сердечки (одновременно с конфетти) ---
+    const count = Math.floor(Math.random() * 3) + 5;
     const newParticles = Array.from({ length: count }).map(() => ({
       id: Date.now() + Math.random(),
       x: Math.random() * 60 - 30,
       size: Math.random() * 0.6 + 0.7,
       rotate: Math.random() * 360 - 180,
       color: ["#ff3d6e", "#ff6b9a", "#ff95b3"][Math.floor(Math.random() * 3)],
+      $fly: true,
     }));
     setParticles((prev) => [...prev, ...newParticles]);
-    setTimeout(() => {
-      setParticles((prev) =>
-        prev.filter((p) => !newParticles.some((np) => np.id === p.id))
-      );
-    }, 900);
+    setTimeout(
+      () =>
+        setParticles((prev) =>
+          prev.filter((p) => !newParticles.some((np) => np.id === p.id))
+        ),
+      1500
+    );
 
-    // Локально увеличиваем
+    // Анимация сердечка
+    setAnimateHeart(true);
+    setTimeout(() => setAnimateHeart(false), 700);
+
+    // Локально увеличиваем счетчик
     setCounter((prev) => prev + 1);
 
     // Тост
@@ -218,30 +294,43 @@ const ButtonHeart: React.FC = () => {
       console.error("Ошибка при отправке лайка:", err);
     }
 
-    // --- Кастомный alert один раз с задержкой ---
+    // alert один раз с задержкой 3 сек
     if (!localStorage.getItem("fav-alert-shown")) {
       setTimeout(() => {
         setShowModal(true);
         localStorage.setItem("fav-alert-shown", "true");
-      }, 3000); // 3 секунды
+      }, 3000);
     }
   };
 
   return (
     <>
-      <ButtonWrapper onClick={handleClick} $animate={animate}>
+      <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
         <HeartIcon />
         <Label>{counter}</Label>
+
         {particles.map((p) => (
           <Particle
-            key={p.id}
+            key={p.id} // используем для React
             x={p.x}
             size={p.size}
             rotate={p.rotate}
             color={p.color}
+            $fly={p.$fly}
           >
             ❤️
           </Particle>
+        ))}
+
+        {confetti.map((c) => (
+          <ConfettiPiece
+            key={c.id} // ключ для React
+            x={c.x}
+            y={c.y}
+            size={c.size}
+            rotate={c.rotate}
+            color={c.color}
+          />
         ))}
       </ButtonWrapper>
 
