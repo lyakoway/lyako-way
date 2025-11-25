@@ -6,6 +6,18 @@ import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useSelectorTyped } from "src/store";
 
+// Добавляем расширение глобального окна
+declare global {
+  interface Window {
+    external?: {
+      AddFavorite?: (url: string, title: string) => void;
+    };
+    sidebar?: {
+      addPanel?: (title: string, url: string, description: string) => void;
+    };
+  }
+}
+
 const ButtonWrapper = styled.button`
   display: flex;
   justify-content: center;
@@ -50,7 +62,7 @@ const Label = styled.div`
   margin-top: 30px;
 `;
 
-const ButtonHeart = () => {
+const ButtonHeart: React.FC = () => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
@@ -88,13 +100,11 @@ const ButtonHeart = () => {
       console.error("Ошибка при отправке лайка:", err);
     }
 
-    // Добавление в избранное
+    // Добавление в избранное (старый IE/Firefox)
     try {
-      if (window.external && "AddFavorite" in window.external) {
-        // Для старого IE
+      if (window.external?.AddFavorite) {
         window.external.AddFavorite(url, title);
-      } else if (window.sidebar && window.sidebar.addPanel) {
-        // Для старого Firefox
+      } else if (window.sidebar?.addPanel) {
         window.sidebar.addPanel(title, url, "");
       } else {
         alert(
