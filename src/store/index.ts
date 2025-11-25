@@ -1,95 +1,8 @@
-import { makeAutoObservable } from "mobx";
+import { AnyAction, combineReducers, configureStore } from "@reduxjs/toolkit";
+import { createWrapper, HYDRATE } from "next-redux-wrapper";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
 
-import { LIGHT_THEME, DARK_THEME } from "src/common/themes";
-import { RUSSIAN_LANGUAGE, ENGLISH_LANGUAGE } from "src/common/lang";
-
-// class Store {
-//   opendToast = false;
-//   opendToastModal = false;
-//   theme = LIGHT_THEME;
-//   langText = RUSSIAN_LANGUAGE;
-//   routeLink = "";
-//   time = { hourValue: 0, minValue: 0 };
-//   toggleTheme = false;
-//   climateControl = "sunnyMoon";
-
-//   constructor() {
-//     makeAutoObservable(this);
-//   }
-
-//   setOpenToast(open) {
-//     this.opendToast = open;
-//   }
-
-//   getOpenToast() {
-//     return this.opendToast;
-//   }
-
-//   setOpenToastModal(open) {
-//     this.opendToastModal = open;
-//   }
-
-//   getOpenToastModal() {
-//     return this.opendToastModal;
-//   }
-
-//   setToggleTheme(themeDark) {
-//     this.theme = themeDark ? DARK_THEME : LIGHT_THEME;
-//   }
-
-//   getToggleTheme() {
-//     return this.theme;
-//   }
-
-//   setCheckedTheme(checkedTheme) {
-//     this.toggleTheme = checkedTheme;
-//   }
-
-//   getCheckedTheme() {
-//     return this.toggleTheme;
-//   }
-
-//   setToggleLang(LangEnglish) {
-//     this.langText = LangEnglish ? ENGLISH_LANGUAGE : RUSSIAN_LANGUAGE;
-//   }
-
-//   getToggleLang() {
-//     return this.langText;
-//   }
-
-//   setRouteLink(route) {
-//     this.routeLink = route;
-//   }
-
-//   getRouteLink() {
-//     return this.routeLink;
-//   }
-
-//   setTime(timeValue) {
-//     this.time = timeValue;
-//   }
-
-//   getTime() {
-//     return this.time;
-//   }
-
-//   setClimateControl(ClimateControlValue) {
-//     this.climateControl = climateControlValue;
-//   }
-
-//   getClimateControl() {
-//     return this.climateControl;
-//   }
-// }
-
-// export const store = new Store();
-
-import {
-  AnyAction,
-  combineReducers,
-  configureStore,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+// Импорт редьюсеров
 import {
   climateReducer,
   modalReducer,
@@ -98,9 +11,8 @@ import {
   langReducer,
   linkReducer,
 } from "src/reducers";
-import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux";
-import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
+// --- Комбинируем редьюсеры ---
 const rootReducer = combineReducers({
   climate: climateReducer,
   modal: modalReducer,
@@ -110,48 +22,39 @@ const rootReducer = combineReducers({
   link: linkReducer,
 });
 
-type RootReducer = typeof rootReducer;
+// --- Типы для RootState ---
+export type RootState = ReturnType<typeof rootReducer>;
 
-const reducer: RootReducer = (
-  state: ReturnType<RootReducer>,
-  action: AnyAction
-) => {
+// --- Главный редьюсер с поддержкой HYDRATE ---
+const reducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === HYDRATE) {
-    const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
+    return {
+      ...state, // предыдущий state
+      ...action.payload, // данные из сервера (SSR)
     };
-    return nextState;
   }
   return rootReducer(state, action);
 };
 
+// --- Создаем store ---
 export const makeStore = () =>
   configureStore({
     reducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
-        serializableCheck: false,
+        serializableCheck: false, // отключаем проверки сериализации для Next.js
       }),
+    devTools: process.env.NODE_ENV !== "production",
   });
 
-// export const store = configureStore({
-//   reducer: rootReducer,
-//   devTools: true,
-// });
-
+// --- Типы store и dispatch ---
 export type Store = ReturnType<typeof makeStore>;
 export type DispatchTyped = Store["dispatch"];
-export type RootState = ReturnType<Store["getState"]>;
 
-export const wrapper = createWrapper(makeStore);
+// --- Создаем wrapper для Next.js ---
+export const wrapper = createWrapper<Store>(makeStore);
 
-export function useSelectorTyped<TSelected>(
-  cb: (state: RootState) => TSelected
-): TSelected {
-  return useSelector<RootState, TSelected>(cb);
-}
+// --- Хуки для использования в компонентах ---
+export const useSelectorTyped: TypedUseSelectorHook<RootState> = useSelector;
 
-export function useDispatchTyped() {
-  return useDispatch<DispatchTyped>();
-}
+export const useDispatchTyped = () => useDispatch<DispatchTyped>();
