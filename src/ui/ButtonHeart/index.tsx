@@ -6,18 +6,6 @@ import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useSelectorTyped } from "src/store";
 
-// Добавляем расширение глобального окна
-declare global {
-  interface Window {
-    external?: {
-      AddFavorite?: (url: string, title: string) => void;
-    };
-    sidebar?: {
-      addPanel?: (title: string, url: string, description: string) => void;
-    };
-  }
-}
-
 const ButtonWrapper = styled.button`
   display: flex;
   justify-content: center;
@@ -66,6 +54,7 @@ const ButtonHeart: React.FC = () => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
+
   const [counter, setCounter] = useState<number>(0);
   const toastNotify = useToastNotify();
 
@@ -102,10 +91,14 @@ const ButtonHeart: React.FC = () => {
 
     // Добавление в избранное (старый IE/Firefox)
     try {
-      if (window.external?.AddFavorite) {
-        window.external.AddFavorite(url, title);
-      } else if (window.sidebar?.addPanel) {
-        window.sidebar.addPanel(title, url, "");
+      const win = window as any; // обходим типизацию TS
+
+      if (win.external?.AddFavorite) {
+        // Старый IE
+        win.external.AddFavorite(url, title);
+      } else if (win.sidebar?.addPanel) {
+        // Старый Firefox
+        win.sidebar.addPanel(title, url, "");
       } else {
         alert(
           "Чтобы добавить страницу в избранное, нажмите Ctrl+D (или Cmd+D на Mac)"
