@@ -115,6 +115,7 @@ const ButtonHeart: React.FC = () => {
   }, []);
 
   // --- Обработка клика ---
+  // --- Обработка клика ---
   const handleClick = async () => {
     const url = window.location.href;
 
@@ -123,7 +124,7 @@ const ButtonHeart: React.FC = () => {
     setTimeout(() => setAnimate(false), 500);
 
     // Генерация частиц
-    const count = Math.floor(Math.random() * 3) + 5; // 5–8 шт
+    const count = Math.floor(Math.random() * 3) + 5;
     const newParticles = Array.from({ length: count }).map(() => ({
       id: Date.now() + Math.random(),
       x: Math.random() * 60 - 30,
@@ -134,14 +135,13 @@ const ButtonHeart: React.FC = () => {
 
     setParticles((prev) => [...prev, ...newParticles]);
 
-    // Удаляем через 900 ms
     setTimeout(() => {
       setParticles((prev) =>
         prev.filter((p) => !newParticles.some((np) => np.id === p.id))
       );
     }, 900);
 
-    // Локально увеличиваем
+    // Локальный счётчик
     setCounter((prev) => prev + 1);
 
     // Тост
@@ -150,7 +150,7 @@ const ButtonHeart: React.FC = () => {
       type: "success",
     });
 
-    // Отправка на сервер
+    // Отправляем лайк на сервер
     try {
       await fetch("/api/likes", {
         method: "POST",
@@ -161,24 +161,30 @@ const ButtonHeart: React.FC = () => {
       console.error("Ошибка при отправке лайка:", err);
     }
 
-    // // Добавление в избранное (старый IE/Firefox)
-    // try {
-    //   const win = window as any; // обходим типизацию TS
-    //
-    //   if (win.external?.AddFavorite) {
-    //     // Старый IE
-    //     win.external.AddFavorite(url, title);
-    //   } else if (win.sidebar?.addPanel) {
-    //     // Старый Firefox
-    //     win.sidebar.addPanel(title, url, "");
-    //   } else {
-    //     alert(
-    //       "Чтобы добавить страницу в избранное, нажмите Ctrl+D (или Cmd+D на Mac)"
-    //     );
-    //   }
-    // } catch (e) {
-    //   console.log("Добавление в избранное не поддерживается");
-    // }
+    // === ALERT (один раз, через 3 сек) ===
+    if (!localStorage.getItem("fav-alert-shown")) {
+      setTimeout(() => {
+        try {
+          const win = window as any;
+
+          const title = document.title;
+
+          if (win.external?.AddFavorite) {
+            win.external.AddFavorite(url, title);
+          } else if (win.sidebar?.addPanel) {
+            win.sidebar.addPanel(title, url, "");
+          } else {
+            alert(
+              "Чтобы добавить страницу в избранное, нажмите Ctrl+D (или Cmd+D на Mac)"
+            );
+          }
+
+          localStorage.setItem("fav-alert-shown", "true");
+        } catch (e) {
+          console.log("Добавление в избранное не поддерживается");
+        }
+      }, 3000); // задержка 3 секунды
+    }
   };
 
   return (
