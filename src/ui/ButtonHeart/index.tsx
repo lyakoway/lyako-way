@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { MOBILE_660 } from "src/common/lib/media";
@@ -11,50 +11,24 @@ const ButtonWrapper = styled.button`
   justify-content: center;
   align-items: center;
   margin: 10px;
-
-  -webkit-tap-highlight-color: transparent;
-
   position: relative;
-
   background: none;
   outline: none;
   border: none;
   padding: 0;
   cursor: pointer;
-
   color: #eee;
   text-transform: uppercase;
   font-weight: 700;
   letter-spacing: 0.05em;
+  transition: transform 0.2s ease;
 
-  &::after {
-    content: "";
-    position: absolute;
-    top: -1em;
-    bottom: -1em;
-    left: -1em;
-    right: -1em;
-    border-radius: 4em;
-    box-shadow: 0 0 0px rgba(0, 0, 0, 0.4), inset 0 0 0px rgba(0, 0, 0, 0.4);
-    transition: box-shadow 0.3s;
+  &:hover {
+    transform: scale(1.05);
   }
 
-  &:hover,
-  &:focus {
-    span {
-      background-color: lighten($orange, 3%);
-    }
-  }
   &:active {
-    span {
-      background-color: $orange;
-      transform: scale(0.97);
-      box-shadow: -2px 2px 5px rgba(0, 0, 0, 0.2);
-    }
-    &::after {
-      box-shadow: 0 0 2px rgba(0, 0, 0, 0.4),
-        inset -3px 3px 1em rgba(0, 0, 0, 0.4);
-    }
+    transform: scale(0.95);
   }
 
   @media ${MOBILE_660} {
@@ -80,69 +54,63 @@ const ButtonHeart = () => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
-  const [counter, setCounter] = useState<number>(20);
+  const [counter, setCounter] = useState<number>(0);
   const toastNotify = useToastNotify();
 
-  // Функция для определения "мобильности" браузера
-  function MobileDetect() {
-    let UA = navigator.userAgent.toLowerCase();
-    return /android|webos|iris|bolt|mobile|iphone|ipad|ipod|iemobile|blackberry|windows phone|opera mobi|opera mini/i.test(
-      UA
-    )
-      ? true
-      : false;
-  }
+  // Загружаем текущее количество лайков при монтировании
+  useEffect(() => {
+    const url = window.location.href;
+    fetch(`/api/likes?url=${encodeURIComponent(url)}`)
+      .then((res) => res.json())
+      .then((data) => setCounter(data.count))
+      .catch(() => setCounter(0));
+  }, []);
 
-  const handleClick = () => {
-    const url = window.document.location; //Адрес Вашего сайта
-    const title = window.document.title; //Название Вашего сайта
+  const handleClick = async () => {
+    const url = window.location.href;
+    const title = document.title;
 
-    setCounter(counter + 1);
+    // Увеличиваем локально
+    setCounter((prev) => prev + 1);
+    toastNotify({
+      title: toast.textHeart || "Спасибо за лайк ❤️",
+      type: "success",
+    });
 
-    toastNotify({ title: toast.textHeart, type: "success" });
-
-    if (!MobileDetect()) {
-      try {
-        window.external.AddFavorite(url, title);
-      } catch (e) {
-        try {
-          window.sidebar.addPanel(title, url, "");
-        } catch (e) {
-          console.log("");
-        }
-      }
+    // Отправляем на сервер
+    try {
+      await fetch("/api/likes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ url }),
+      });
+    } catch (err) {
+      console.error("Ошибка при отправке лайка:", err);
     }
 
-    return false;
-
-    // if (window.sidebar) {
-    //   // такой объект есть только в Gecko
-    //   window.sidebar.addPanel(title, url, ""); // используем его метод добавления закладки
-    // }
-    // // else if (window.sidebar) {
-    // //   // есть объект opera?
-    // //   a.rel = "sidebar"; // добавлем закладку, смотрите вызов функции ниже
-    // //   a.title = title;
-    // //   a.url = url;
-    // //   return true;
-    // // }
-    // else if (document.all) {
-    //   // ну значит это Internet Explorer
-    //   window.external.AddFavorite(url, title); // используем соответсвующий метод
-    // } else {
-    //   alert("Для !!! добавления страницы в Избранное нажмите Ctrl+D"); // для всех остальных браузеров, в т.ч. Chrome
-    // }
-
-    // return false;
+    // Добавление в избранное
+    try {
+      if (window.external && "AddFavorite" in window.external) {
+        // Для старого IE
+        window.external.AddFavorite(url, title);
+      } else if (window.sidebar && window.sidebar.addPanel) {
+        // Для старого Firefox
+        window.sidebar.addPanel(title, url, "");
+      } else {
+        alert(
+          "Чтобы добавить страницу в избранное, нажмите Ctrl+D (или Cmd+D на Mac)"
+        );
+      }
+    } catch (e) {
+      console.log("Добавление в избранное не поддерживается");
+    }
   };
 
   return (
-    <>
-      <ButtonWrapper onClick={handleClick}>
-        <HeartIcon />
-        <Label>{counter}</Label>
-      </ButtonWrapper>
-    </>
+    <ButtonWrapper onClick={handleClick}>
+      <HeartIcon />
+      <Label>{counter}</Label>
+    </ButtonWrapper>
   );
 };
 
