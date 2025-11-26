@@ -110,10 +110,10 @@ const Lightning: FC = () => {
     clearCanvas(ctx);
 
     lightningRef.current.forEach((segment) => {
-      segment.opacity -= 0.006; // было 0.003 → быстрее растворяется
-      segment.thickness -= 0.02; // было 0.01 → быстрее исчезает
+      segment.opacity -= 0.015; // было 0.003 → быстрее растворяется
+      segment.thickness -= 0.05; // было 0.01 → быстрее исчезает
       if (segment.thickness <= 2) {
-        segment.end.y -= 0.05;
+        segment.end.y -= 0.15;
       }
       segment.draw(ctx);
     });
