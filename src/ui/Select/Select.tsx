@@ -112,8 +112,10 @@ export const Select = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const showInputDelete = multiple
-    ? value?.length !== 0
-    : value?.label !== undefined;
+    ? value.length !== 0
+    : !multiple && value && "label" in value
+    ? value.label !== undefined
+    : false;
 
   const clearOptions = useCallback(
     (e: MouseEvent<HTMLElement>) => {
@@ -197,7 +199,13 @@ export const Select = ({
 
   return (
     <SelectContainer
-      $boxShadow={value.length !== 0}
+      $boxShadow={
+        Array.isArray(value)
+          ? value.length !== 0
+          : value && "label" in value
+          ? value.label !== undefined
+          : false
+      }
       ref={containerRef}
       onBlur={() => setIsOpen(false)}
       onClick={() => setIsOpen((prev) => !prev)}
@@ -205,8 +213,12 @@ export const Select = ({
     >
       <InputText>
         {multiple
-          ? getInputMultipleText(value, getSelectOption, defaultText)
-          : getInputTextSelect(value, defaultText)}
+          ? getInputMultipleText(
+              value as ISelectOption[],
+              getSelectOption,
+              defaultText
+            )
+          : getInputTextSelect(value as ISelectOption | undefined, defaultText)}
       </InputText>
       {showInputDelete && (
         <DeleteIconWrapper onClick={(e) => clearOptions(e)}>
