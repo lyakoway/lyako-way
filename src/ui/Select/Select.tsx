@@ -30,18 +30,19 @@ type MultipleSelectProps = {
   multiple: true;
   value: ISelectOption[];
   onChange: (value: ISelectOption[]) => void;
+  defaultText: string;
+  options: ISelectOption[];
 };
 
 type SingleSelectProps = {
   multiple?: false;
   value?: ISelectOption;
   onChange: (value: ISelectOption | undefined) => void;
-};
-
-type SelectProps = {
   defaultText: string;
   options: ISelectOption[];
-} & (SingleSelectProps | MultipleSelectProps);
+};
+
+type SelectProps = SingleSelectProps | MultipleSelectProps;
 
 const getInputMultipleText = (
   value: ISelectOption[],
@@ -128,17 +129,20 @@ export const Select = ({
   const getSelectOption = useCallback(
     (option: ISelectOption) => {
       if (multiple) {
-        if (value?.includes(option)) {
-          onChange(value?.filter((o) => o !== option));
-          // setIsOpen(true);
-          // if (value.length === 1) {
-          //   setIsOpen(false);
-          // }
+        // TS теперь точно знает, что value — массив
+        const arr = value as ISelectOption[];
+        if (arr.includes(option)) {
+          onChange(arr.filter((o) => o !== option));
         } else {
-          onChange([...value, option]);
+          onChange([...arr, option]);
         }
       } else {
-        if (option !== value) onChange(option);
+        // value точно объект или undefined
+        const singleValue = value as ISelectOption | undefined;
+        if (option !== singleValue) {
+          // TS теперь понимает, что onChange принимает ISelectOption | undefined
+          (onChange as (v: ISelectOption | undefined) => void)(option);
+        }
       }
     },
     [onChange, multiple, value]
