@@ -1,4 +1,4 @@
-import { FC, forwardRef, useEffect, useState } from "react";
+import { FC, forwardRef, useEffect } from "react";
 
 import {
   SelectContainer,
@@ -43,20 +43,6 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
     },
     ref
   ) => {
-    // const [searchQuery, setSearchQuery] = useState("");
-    // const dispatch = useAppDispatch();
-
-    // const getSearchQuery = (valueInput: string) => {
-    //   const searchQueryValue = valueInput.toLowerCase();
-    //   setSearchQuery(searchQueryValue);
-    //   // dispatch(setSearchShopFilter(searchQueryValue));
-    // };
-
-    // const handleClickDelete = () => {
-    //   setSearchQuery("");
-    //   // dispatch(setSearchShopFilter(''));
-    // };
-
     useEffect(() => {
       if (typeof document !== "undefined") {
         const labels = document.querySelectorAll("label");
@@ -86,8 +72,12 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
             onFocus={onFocusHandler}
             onBlur={onBlurHandler}
             ref={ref}
-            onInvalid={(e) => e.target.setCustomValidity(customValidity)}
-            onInput={(e) => e.target.setCustomValidity("")}
+            onInvalid={(e: React.InvalidEvent<HTMLInputElement>) => {
+              e.currentTarget.setCustomValidity(customValidity);
+            }}
+            onInput={(e: React.FormEvent<HTMLInputElement>) => {
+              e.currentTarget.setCustomValidity("");
+            }}
           />
           {label && !description && <Text>{label}</Text>}
           {description && <TextDescription>{description}</TextDescription>}
