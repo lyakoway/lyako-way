@@ -8,19 +8,19 @@
       "density": "0.75"
     },
     {
-      "src": "/static/favicons/android-icon-72x72.png",
-      "sizes": "72x72",
+      "src": "/static/favicons/apple-icon-57x57.png",
+      "sizes": "57x57",
       "type": "image/png",
       "density": "1.5"
     },
     {
-      "src": "/static/favicons/android-icon-96x96.png",
-      "sizes": "96x96",
+      "src": "/static/favicons/ms-icon-70x70.png",
+      "sizes": "70x70",
       "type": "image/png",
       "density": "2.0"
     },
     {
-      "src": "/static/favicons/android-icon-192x192.png",
+      "src": "/static/favicons/apple-icon-precomposed.png",
       "sizes": "192x192",
       "type": "image/png",
       "density": "4.0"

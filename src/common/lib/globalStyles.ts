@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { normalize } from "styled-normalize";
+import { bgTransition } from "src/common/utils/bgTransition";
 // import { Inter } from "next/font/google";
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -373,7 +374,7 @@ const GlobalStyles = createGlobalStyle`
     color: var(--color-text-primary);
     -webkit-text-size-adjust: none;
     overflow-x: clip;
-    transition: background-color 3s ease;
+    ${bgTransition}
   }
 
   p {

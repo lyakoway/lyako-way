@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import { bgTransition } from "src/common/utils/bgTransition";
 
 export const StreetlampWrapper = styled.div<{
   $left: string;
@@ -33,7 +34,7 @@ export const StreetlampWrapper = styled.div<{
     height: 6px;
     background-color: ${({ $climateControl }) =>
       $climateControl === "snowy" ? "#fff" : "#809191"};
-    transition: background 4s ease;
+    ${bgTransition};
     border-radius: 50%;
     left: -2px;
     top: -5px;

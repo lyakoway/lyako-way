@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { bgTransition } from "src/common/utils/bgTransition";
 
 export const Wrapper = styled.div<{ $climateControl: string }>`
   background: linear-gradient(
@@ -58,7 +59,7 @@ export const HouseWindowCircle = styled.div<{ $themeLight: boolean }>`
     css`
       box-shadow: inset 0 0 5px 1px #3f6b91;
     `}
-  transition: background 4s ease;
+  ${bgTransition};
 
   &:before {
     content: "";
@@ -105,7 +106,7 @@ export const HousesWindows = styled.div<{
     css`
       box-shadow: inset 0 0 5px 1px #3f6b91;
     `}
-  transition: background 4s ease;
+  ${bgTransition};
 
   &:before {
     content: "";

@@ -14,6 +14,7 @@ import myIconBook from "src/common/icon/icon-header/books.png";
 import myIconBookn from "src/common/icon/icon-header/booksn.png";
 import myIconPicture from "src/common/icon/icon-header/image.png";
 import myIconPicturen from "src/common/icon/icon-header/imagen.png";
+import { bgTransition } from "src/common/utils/bgTransition";
 
 const spin = keyframes`
   0% {
@@ -266,7 +267,7 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconCompn.src}) 100% 100% no-repeat;
         `};
-  transition: background 4s ease;
+  ${bgTransition};
   display: flex;
   width: 697px;
   height: 321px;
@@ -331,7 +332,7 @@ export const IconMap = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconMapn.src}) no-repeat;
         `};
-  transition: background 4s ease;
+  ${bgTransition};
   display: flex;
   width: 183px;
   height: 140px;
@@ -349,7 +350,7 @@ export const IconBook = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconBookn.src}) no-repeat;
         `};
-  transition: background 4s ease;
+  ${bgTransition};
   display: flex;
   width: 212px;
   height: 96px;
@@ -375,7 +376,7 @@ export const IconPicture = styled.div<{ $themeLight?: boolean }>`
       : css`
           background: url(${myIconPicturen.src}) no-repeat;
         `};
-  transition: background 4s ease;
+  ${bgTransition};
   display: flex;
   width: 233px;
   height: 107px;

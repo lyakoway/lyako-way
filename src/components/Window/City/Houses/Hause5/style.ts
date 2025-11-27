@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { bgTransition } from "src/common/utils/bgTransition";
 
 export const Wrapper = styled.div<{ $climateControl: string }>`
   width: 108px;
@@ -13,7 +14,7 @@ export const Wrapper = styled.div<{ $climateControl: string }>`
     position: absolute;
     background-color: ${({ $climateControl }) =>
       $climateControl === "snowy" ? "#fff" : "#61453e"};
-    transition: background 4s ease;
+    ${bgTransition};
     width: 110px;
     height: 4px;
     top: -7px;
@@ -35,7 +36,7 @@ export const HouseRoof = styled.div<{ $climateControl: string }>`
   position: absolute;
   background-color: ${({ $climateControl }) =>
     $climateControl === "snowy" ? "#fff" : "#6e615d"};
-  transition: background 4s ease;
+  ${bgTransition};
   width: 101px;
   height: 4px;
   top: -61px;
@@ -46,7 +47,7 @@ export const HouseRoof = styled.div<{ $climateControl: string }>`
     position: absolute;
     background-color: ${({ $climateControl }) =>
       $climateControl === "snowy" ? "#fff" : "#c7baba"};
-    transition: background 4s ease;
+    ${bgTransition};
     width: 21px;
     height: 15px;
     top: -15px;
@@ -75,7 +76,7 @@ export const HouseRoof = styled.div<{ $climateControl: string }>`
 export const Tank = styled.div<{ $climateControl: string }>`
   background-color: ${({ $climateControl }) =>
     $climateControl === "snowy" ? "#fff" : "#eadadb"};
-  transition: background 4s ease;
+  ${bgTransition};
   position: relative;
   top: -27px;
   left: 62px;
@@ -107,7 +108,7 @@ export const TankDetails = styled.div<{ $climateControl: string }>`
   height: 3px;
   background-color: ${({ $climateControl }) =>
     $climateControl === "snowy" ? "#fff" : "#ccbebf"};
-  transition: background 4s ease;
+  ${bgTransition};
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
   left: 7px;
@@ -165,7 +166,7 @@ export const HousesWindowsTop = styled.div<{
     css`
       box-shadow: inset 0 0 5px 1px #3f6b91;
     `}
-  transition: background 4s ease;
+  ${bgTransition};
 
   &:before {
     content: "";
@@ -247,7 +248,7 @@ export const HousesWindows = styled.div<{
     css`
       box-shadow: inset 0 0 5px 1px #3f6b91;
     `}
-  transition: background 4s ease;
+  ${bgTransition};
 
   &:before {
     content: "";

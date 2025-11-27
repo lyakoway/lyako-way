@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import { bgTransition } from "src/common/utils/bgTransition";
 
 export const Container = styled.div`
   width: 72px;
@@ -32,7 +33,7 @@ export const Wrapper = styled.div<{ $climateControl: string }>`
       $climateControl === "snowy"
         ? "linear-gradient(to bottom, #fff, #fff 50%, #fff 50%, #fff)"
         : "linear-gradient(to bottom, #b65951, #b65951 50%, #964a43 50%, #964a43)"};
-    transition: background 4s ease;
+    ${bgTransition};
     background-size: 100% 8px;
     width: 72px;
     height: 28px;
@@ -159,7 +160,7 @@ export const House3RoofWindow = styled.div<{
     css`
       box-shadow: inset 0 0 5px 1px #3f6b91;
     `}
-  transition: background 4s ease;
+  ${bgTransition};
 
   &:before {
     content: "";
@@ -250,7 +251,7 @@ export const HousesWindows = styled.div<{
     css`
       box-shadow: inset 0 0 5px 1px #3f6b91;
     `}
-  transition: background 4s ease;
+  ${bgTransition};
 
   &:before {
     content: "";
