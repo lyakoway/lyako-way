@@ -10,6 +10,7 @@ import {
   toastReducer,
   langReducer,
   linkReducer,
+  likesReducer,
 } from "src/reducers";
 
 // --- Комбинируем редьюсеры ---
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   toast: toastReducer,
   lang: langReducer,
   link: linkReducer,
+  likes: likesReducer,
 });
 
 // --- Типы для RootState ---

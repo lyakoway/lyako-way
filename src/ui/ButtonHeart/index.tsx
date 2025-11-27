@@ -3,7 +3,8 @@ import styled, { keyframes, css } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
-import { useSelectorTyped } from "src/store";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { fetchLikes, fetchSendLike, setIdLikes, setLikes } from "src/reducers";
 
 // --- Анимации ---
 const bounce = keyframes`
@@ -192,7 +193,9 @@ const ButtonHeart: React.FC = () => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
+  const { likes } = useSelectorTyped(({ likes }) => likes);
   const toastNotify = useToastNotify();
+  const dispatch = useDispatchTyped();
 
   const [counter, setCounter] = useState(0);
   const [animateHeart, setAnimateHeart] = useState(false);
@@ -220,11 +223,13 @@ const ButtonHeart: React.FC = () => {
 
   // Загружаем лайки
   useEffect(() => {
-    const url = window.location.href;
-    fetch(`/api/likes?url=${encodeURIComponent(url)}`)
-      .then((r) => r.json())
-      .then((d) => setCounter(d.count ?? 0))
-      .catch(() => {});
+    // const url = window.location.href;
+    // fetch(`/api/likes?url=${encodeURIComponent(url)}`)
+    //   .then((r) => r.json())
+    //   .then((d) => setCounter(d.count ?? 0))
+    //   .catch(() => {});
+
+    dispatch(fetchLikes({ idLikes: "heart_button" }));
   }, []);
 
   const handleClick = async () => {
@@ -274,25 +279,21 @@ const ButtonHeart: React.FC = () => {
     setAnimateHeart(true);
     setTimeout(() => setAnimateHeart(false), 700);
 
-    // Локально увеличиваем счетчик
-    setCounter((prev) => prev + 1);
+    // Локальный инкремент
+    setCounter((prev) => {
+      const newCount = prev + 1;
+      dispatch(setLikes(newCount));
+      dispatch(setIdLikes("heart_button"));
+      // Отправка на сервер
+      dispatch(fetchSendLike({ idLikes: "heart_button", likes: newCount }));
+      return newCount;
+    });
 
     // Тост
     toastNotify({
       title: toast.textHeart || "Спасибо за лайк ❤️",
       type: "success",
     });
-
-    // Отправка на сервер
-    try {
-      await fetch("/api/likes", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url }),
-      });
-    } catch (err) {
-      console.error("Ошибка при отправке лайка:", err);
-    }
 
     // alert один раз с задержкой 3 сек
     if (!localStorage.getItem("fav-alert-shown")) {

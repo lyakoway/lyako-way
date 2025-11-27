@@ -82,7 +82,7 @@ type IState = {
   selectedCity: string;
   loading: boolean;
   error: string | null;
-  status: string | null;
+  status: RequestStatus | null;
   userSelectedClimate: boolean;
 };
 
