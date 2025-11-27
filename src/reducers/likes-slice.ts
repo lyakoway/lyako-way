@@ -17,7 +17,7 @@ export const fetchLikes = createAsyncThunk<
 >("climate/fetchWeather", async (data, thunkAPI) => {
   const { idLikes } = data;
   try {
-    const res = await getLikes({ id: idLikes });
+    const res = (await getLikes({ id: idLikes })) as { likes: number };
 
     return { likes: res.likes };
   } catch (error) {
@@ -33,7 +33,7 @@ export const fetchSendLike = createAsyncThunk<
 >("climate/fetchCities", async (data, thunkAPI) => {
   const { idLikes, likes } = data;
   try {
-    return await sendLike({ id: idLikes, delta: likes });
+    await sendLike({ id: idLikes, delta: likes });
   } catch (error) {
     const { message, status } = error as CallApiError;
     return thunkAPI.rejectWithValue({ error: { status, message } });
