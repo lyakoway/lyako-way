@@ -19,13 +19,17 @@ export const Header = styled.div`
   white-space: pre-wrap;
   color: ${({ theme }) => theme.color.text.primary};
   font-family: Inter;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 24px;
   text-transform: uppercase;
   border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
 
   padding: 20px 60px 20px 20px;
+
+  span {
+    padding-right: 16px;
+  }
 
   @media ${MOBILE_560} {
     flex-direction: column;
@@ -39,6 +43,16 @@ export const Text = styled.p`
   font-weight: 400;
   line-height: 24px;
   text-align: center;
+  padding: 0 20px;
+  b {
+    color: #ff8560;
+    letter-spacing: 4px;
+    font-size: 22px;
+    font-weight: 400;
+    //text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    text-shadow: 1px 1px white, 1px -1px white, -1px 1px white, -1px -1px white,
+      3px 3px 6px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -61,7 +75,10 @@ const AlertModal: React.FC = () => {
 
   return (
     <Wrapper>
-      <Header>⭐ {alertHeart?.title}</Header>
+      <Header>
+        <span>⭐</span>
+        {alertHeart?.title}
+      </Header>
       <Text>{alertHeart?.text},</Text>
       <Text>{alertHeart?.textSecondary}</Text>
       <ButtonWrapper>
