@@ -1,7 +1,5 @@
 import { fetchRequest } from "src/features/server/fetch";
-// const { MongoClient, ServerApiVersion } = require("mongodb");
 
-export const MONGO_URI = process.env.MONGO_URI;
 const BASE_URL = "/api/likes";
 
 export async function getLikes({ id }: { id?: string }) {

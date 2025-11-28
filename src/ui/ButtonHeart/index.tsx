@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
@@ -12,6 +12,10 @@ import {
 import { ButtonWrapper, Label, Particle, ConfettiPiece } from "./style";
 import AlertModal from "src/components/AlertModal";
 import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";
+import {
+  generateConfetti,
+  generateParticles,
+} from "src/ui/ButtonHeart/animations";
 
 const ButtonHeart: React.FC = () => {
   const {
@@ -21,8 +25,8 @@ const ButtonHeart: React.FC = () => {
   const toastNotify = useToastNotify();
   const dispatch = useDispatchTyped();
 
-  const [counter, setCounter] = useState(0);
   const [animateHeart, setAnimateHeart] = useState(false);
+  const [shouldShowModal, setShouldShowModal] = useState(false);
   const [particles, setParticles] = useState<
     {
       id: number;
@@ -35,7 +39,7 @@ const ButtonHeart: React.FC = () => {
   >([]);
   const [confetti, setConfetti] = useState<
     {
-      id: number;
+      id: string | number;
       x: number;
       y: number;
       size: number;
@@ -47,21 +51,30 @@ const ButtonHeart: React.FC = () => {
   // Загружаем лайки
   useEffect(() => {
     dispatch(fetchLikes({ idLikes: "heart_button" }));
-  }, []);
+  }, [dispatch]);
 
-  const handleClick = async () => {
+  useEffect(() => {
+    if (shouldShowModal) {
+      const timer = setTimeout(() => {
+        dispatch(
+          showModal({
+            content: <AlertModal />,
+            width: "auto",
+            backgroundOverlay: "rgba(0, 0, 0, 0.4)",
+          })
+        );
+        localStorage.setItem("fav-alert-shown", "true");
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [dispatch, shouldShowModal]);
+
+  const triggerAnimations = useCallback(() => {
     // --- Конфетти ---
     const confCount = 15;
-    const newConfetti = Array.from({ length: confCount }).map(() => ({
-      id: Date.now() + Math.random(),
-      x: (Math.random() - 0.5) * 120,
-      y: -(Math.random() * 100 + 80),
-      size: Math.random() * 6 + 4,
-      rotate: Math.random() * 360,
-      color: ["#FFD700", "#FF4500", "#1E90FF", "#32CD32", "#FF69B4"][
-        Math.floor(Math.random() * 5)
-      ],
-    }));
+    const newConfetti = generateConfetti(confCount);
+
     setConfetti((prev) => [...prev, ...newConfetti]);
     setTimeout(
       () =>
@@ -71,16 +84,9 @@ const ButtonHeart: React.FC = () => {
       1500
     );
 
-    // --- Сердечки (одновременно с конфетти) ---
+    // --- Сердечки ---
     const count = Math.floor(Math.random() * 3) + 5;
-    const newParticles = Array.from({ length: count }).map(() => ({
-      id: Date.now() + Math.random(),
-      x: Math.random() * 60 - 30,
-      size: Math.random() * 0.6 + 0.7,
-      rotate: Math.random() * 360 - 180,
-      color: ["#ff3d6e", "#ff6b9a", "#ff95b3"][Math.floor(Math.random() * 3)],
-      $fly: true,
-    }));
+    const newParticles = generateParticles(count);
     setParticles((prev) => [...prev, ...newParticles]);
     setTimeout(
       () =>
@@ -93,16 +99,26 @@ const ButtonHeart: React.FC = () => {
     // Анимация сердечка
     setAnimateHeart(true);
     setTimeout(() => setAnimateHeart(false), 700);
+  }, []);
 
-    // Локальный инкремент
-    setCounter((prev) => {
-      const newCount = prev + 1;
-      dispatch(setLikes(newCount));
-      dispatch(setIdLikes("heart_button"));
-      // Отправка на сервер
-      dispatch(fetchSendLike({ idLikes: "heart_button", likes: newCount }));
-      return newCount;
-    });
+  const handleClick = async () => {
+    triggerAnimations();
+    // Увеличиваем локальный счетчик и Redux
+
+    const newCount = likes + 1;
+    dispatch(setLikes(newCount));
+    dispatch(setIdLikes("heart_button"));
+    // Отправка на сервер
+    dispatch(fetchSendLike({ idLikes: "heart_button" }))
+      .unwrap()
+      .catch(() => {
+        // откат
+        dispatch(setLikes(likes));
+        toastNotify({
+          title: toast.textError,
+          type: "error",
+        });
+      });
 
     // Тост
     toastNotify({
@@ -110,32 +126,18 @@ const ButtonHeart: React.FC = () => {
       type: "success",
     });
 
-    // Функция для определения "мобильности" браузера
-    function getProductsHref() {
-      const userAgent = getMobileOperatingSystem();
-      return isAndroid(userAgent) || isIos(userAgent);
-    }
-    const productsHref = getProductsHref();
+    // Проверка на мобильную платформу
+    const ua = getMobileOperatingSystem();
+    const mobile = isAndroid(ua) || isIos(ua);
+    const shown = localStorage.getItem("fav-alert-shown");
 
-    // alert один раз с задержкой 3 сек
-    if (localStorage.getItem("fav-alert-shown") && !productsHref) {
-      setTimeout(() => {
-        dispatch(
-          showModal({
-            content: <AlertModal />,
-            width: "auto",
-            backgroundOverlay: "rgba(0, 0, 0, 0.4)",
-          })
-        );
-        localStorage.setItem("fav-alert-shown", "true");
-      }, 3000);
-    }
+    if (!shown && !mobile) setShouldShowModal(true);
   };
 
   return (
     <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
       <HeartIcon />
-      <Label>{counter}</Label>
+      <Label>{likes}</Label>
 
       {particles.map((p) => (
         <Particle
