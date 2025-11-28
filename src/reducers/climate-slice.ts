@@ -144,7 +144,7 @@ const climate = createSlice({
       .addCase(fetchCities.fulfilled, (state, action) => ({
         ...state,
         loading: false,
-        cityAutofill: action.payload.cityAutofill || [],
+        cityAutofill: action.payload?.cityAutofill ?? [],
         status: RequestStatus.SUCCESS_CITY,
       }))
       .addCase(fetchCities.rejected, (state, action) => ({

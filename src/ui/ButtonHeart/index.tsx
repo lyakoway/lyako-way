@@ -1,194 +1,18 @@
 import React, { useEffect, useState } from "react";
-import styled, { keyframes, css } from "styled-components";
-import { MOBILE_660 } from "src/common/lib/media";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { fetchLikes, fetchSendLike, setIdLikes, setLikes } from "src/reducers";
+import {
+  fetchLikes,
+  fetchSendLike,
+  setIdLikes,
+  setLikes,
+  showModal,
+} from "src/reducers";
+import { ButtonWrapper, Label, Particle, ConfettiPiece } from "./style";
+import AlertModal from "src/components/AlertModal";
+import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";
 
-// --- Анимации ---
-const bounce = keyframes`
-  0% { transform: scale(1); }
-  30% { transform: scale(1.3); }
-  50% { transform: scale(1.1); }
-  70% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-`;
-
-const heartFly = keyframes`
-  0% { opacity: 1; transform: translateY(0) scale(1); }
-  100% { opacity: 0; transform: translateY(-80px) scale(0.7); }
-`;
-
-const confettiFly = (x: number, y: number, rotate: number) => keyframes`
-  0% { transform: translate(0,0) rotate(0deg); opacity: 1; }
-  100% { transform: translate(${x}px, ${y}px) rotate(${rotate}deg); opacity: 0; }
-`;
-
-// --- Стили ---
-const ButtonWrapper = styled.button<{ $animate?: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  margin: 10px;
-  background: none;
-  outline: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
-  svg {
-    width: 26px;
-    height: 26px;
-    animation: ${({ $animate }) =>
-      $animate
-        ? css`
-            ${bounce} 0.7s ease
-          `
-        : "none"};
-  }
-
-  @media ${MOBILE_660} {
-    margin: 0 auto;
-    margin-top: 10px;
-  }
-`;
-
-const Label = styled.div`
-  position: absolute;
-  color: white;
-  line-height: 17px;
-  font-size: 10px;
-  font-weight: 400;
-  font-family: "Exo 2", sans-serif;
-  text-transform: uppercase;
-  text-align: center;
-  margin-left: 28px;
-  margin-top: 30px;
-`;
-
-// Частицы сердечек
-const Particle = styled.div<{
-  x: number;
-  size: number;
-  rotate: number;
-  color: string;
-  $fly?: boolean;
-}>`
-  position: absolute;
-  top: -5px;
-  left: 20px;
-  pointer-events: none;
-  transform: translateX(${(p) => p.x}px) rotate(${(p) => p.rotate}deg)
-    scale(${(p) => p.size});
-  color: ${(p) => p.color};
-  font-size: 14px;
-  animation: ${(p) =>
-    p.$fly
-      ? css`
-          ${heartFly} 1.5s ease-out forwards
-        `
-      : css`
-            none
-          `};
-`;
-
-// Конфетти
-const ConfettiPiece = styled.div<{
-  x: number;
-  y: number;
-  size: number;
-  rotate: number;
-  color: string;
-}>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: ${(p) => p.size}px;
-  height: ${(p) => p.size * 0.4}px;
-  background-color: ${(p) => p.color};
-  border-radius: 2px;
-  pointer-events: none;
-  animation: ${(p) => confettiFly(p.x, p.y, p.rotate)} 1.5s ease-out forwards;
-`;
-
-const ModalBackdrop = styled.div`
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  animation: fadeIn 0.3s ease;
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-`;
-
-const ModalWindow = styled.div`
-  background: #1d1d1d;
-  border-radius: 14px;
-  padding: 22px 26px;
-  width: 280px;
-  color: white;
-  text-align: center;
-  animation: pop 0.25s ease;
-  @keyframes pop {
-    0% {
-      transform: scale(0.7);
-      opacity: 0;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-  }
-`;
-
-const CloseButton = styled.button`
-  margin-top: 18px;
-  padding: 8px 18px;
-  border: none;
-  background: #ff4d6d;
-  color: white;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-  &:hover {
-    transform: scale(1.05);
-    background: #ff6b85;
-  }
-`;
-
-const AlertModal = ({ onClose }: { onClose: () => void }) => (
-  <ModalBackdrop onClick={onClose}>
-    <ModalWindow onClick={(e) => e.stopPropagation()}>
-      <div style={{ fontSize: "16px", marginBottom: "10px" }}>
-        ⭐ Добавить в избранное
-      </div>
-      <div style={{ opacity: 0.9 }}>
-        Нажми <b>Ctrl+D</b> (или <b>Cmd+D</b> на Mac), чтобы сохранить страницу
-      </div>
-      <CloseButton onClick={onClose}>OK</CloseButton>
-    </ModalWindow>
-  </ModalBackdrop>
-);
-
-// =====================
-// ===== COMPONENT =====
-// =====================
 const ButtonHeart: React.FC = () => {
   const {
     lang: { toast },
@@ -219,22 +43,13 @@ const ButtonHeart: React.FC = () => {
       color: string;
     }[]
   >([]);
-  const [showModal, setShowModal] = useState(false);
 
   // Загружаем лайки
   useEffect(() => {
-    // const url = window.location.href;
-    // fetch(`/api/likes?url=${encodeURIComponent(url)}`)
-    //   .then((r) => r.json())
-    //   .then((d) => setCounter(d.count ?? 0))
-    //   .catch(() => {});
-
     dispatch(fetchLikes({ idLikes: "heart_button" }));
   }, []);
 
   const handleClick = async () => {
-    const url = window.location.href;
-
     // --- Конфетти ---
     const confCount = 15;
     const newConfetti = Array.from({ length: confCount }).map(() => ({
@@ -295,48 +110,57 @@ const ButtonHeart: React.FC = () => {
       type: "success",
     });
 
+    // Функция для определения "мобильности" браузера
+    function getProductsHref() {
+      const userAgent = getMobileOperatingSystem();
+      return isAndroid(userAgent) || isIos(userAgent);
+    }
+    const productsHref = getProductsHref();
+
     // alert один раз с задержкой 3 сек
-    if (!localStorage.getItem("fav-alert-shown")) {
+    if (localStorage.getItem("fav-alert-shown") && !productsHref) {
       setTimeout(() => {
-        setShowModal(true);
+        dispatch(
+          showModal({
+            content: <AlertModal />,
+            width: "auto",
+            backgroundOverlay: "rgba(0, 0, 0, 0.4)",
+          })
+        );
         localStorage.setItem("fav-alert-shown", "true");
       }, 3000);
     }
   };
 
   return (
-    <>
-      <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
-        <HeartIcon />
-        <Label>{counter}</Label>
+    <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
+      <HeartIcon />
+      <Label>{counter}</Label>
 
-        {particles.map((p) => (
-          <Particle
-            key={p.id} // используем для React
-            x={p.x}
-            size={p.size}
-            rotate={p.rotate}
-            color={p.color}
-            $fly={p.$fly}
-          >
-            ❤️
-          </Particle>
-        ))}
+      {particles.map((p) => (
+        <Particle
+          key={p.id} // используем для React
+          x={p.x}
+          size={p.size}
+          rotate={p.rotate}
+          color={p.color}
+          $fly={p.$fly}
+        >
+          ❤️
+        </Particle>
+      ))}
 
-        {confetti.map((c) => (
-          <ConfettiPiece
-            key={c.id} // ключ для React
-            x={c.x}
-            y={c.y}
-            size={c.size}
-            rotate={c.rotate}
-            color={c.color}
-          />
-        ))}
-      </ButtonWrapper>
-
-      {showModal && <AlertModal onClose={() => setShowModal(false)} />}
-    </>
+      {confetti.map((c) => (
+        <ConfettiPiece
+          key={c.id} // ключ для React
+          x={c.x}
+          y={c.y}
+          size={c.size}
+          rotate={c.rotate}
+          color={c.color}
+        />
+      ))}
+    </ButtonWrapper>
   );
 };
 

@@ -17,6 +17,7 @@ import { portfolioListBlog } from "src/common/lang/russia/portfolioListBlog";
 import { portfolioDevelopment } from "src/common/lang/russia/portfolioDevelopment";
 import { LanguageProps } from "src/common/types/lang";
 import { climateLang } from "src/common/lang/russia/climateLang";
+import { alertHeart } from "src/common/lang/russia/alertHeart";
 
 export const RUSSIAN_LANGUAGE: LanguageProps = {
   propsPortfolioListBlog,
@@ -34,6 +35,7 @@ export const RUSSIAN_LANGUAGE: LanguageProps = {
   personal,
   service,
   climateLang,
+  alertHeart,
   resume,
   footer,
   toast,

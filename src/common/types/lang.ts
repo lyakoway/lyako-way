@@ -232,6 +232,13 @@ export interface ClimateProps {
   speed: string;
 }
 
+export interface AlertHeartProps {
+  title: string;
+  text: string | JSX.Element;
+  textSecondary: string;
+  buttonText: string;
+}
+
 export interface LanguageProps {
   propsPortfolioListBlog: PortfolioListBlogProps[];
   portfolioDevelopment: ListBlogProps[];
@@ -248,6 +255,7 @@ export interface LanguageProps {
   personal: PersonalProps;
   service: ServiceProps;
   climateLang: ClimateProps;
+  alertHeart: AlertHeartProps;
   resume: ResumeProps;
   footer: FooterProps;
   toast: ToastProps;

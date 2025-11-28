@@ -17,6 +17,7 @@ import { portfolioListBlog } from "src/common/lang/english/portfolioListBlog";
 import { portfolioDevelopment } from "src/common/lang/english/portfolioDevelopment";
 import { LanguageProps } from "src/common/types/lang";
 import { climateLang } from "src/common/lang/english/climateLang";
+import { alertHeart } from "src/common/lang/english/alertHeart";
 
 export const ENGLISH_LANGUAGE: LanguageProps = {
   propsPortfolioListBlog,
@@ -34,6 +35,7 @@ export const ENGLISH_LANGUAGE: LanguageProps = {
   personal,
   service,
   climateLang,
+  alertHeart,
   resume,
   footer,
   toast,
