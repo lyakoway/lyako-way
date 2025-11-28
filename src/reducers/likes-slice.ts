@@ -28,12 +28,12 @@ export const fetchLikes = createAsyncThunk<
 
 export const fetchSendLike = createAsyncThunk<
   void,
-  { idLikes: string },
+  { idLikes: string; likes: number },
   { rejectValue: IRejectedValue }
 >("climate/fetchCities", async (data, thunkAPI) => {
-  const { idLikes } = data;
+  const { idLikes, likes } = data;
   try {
-    await sendLike({ id: idLikes, delta: 1 });
+    await sendLike({ id: idLikes, value: likes });
   } catch (error) {
     const { message, status } = error as CallApiError;
     return thunkAPI.rejectWithValue({ error: { status, message } });

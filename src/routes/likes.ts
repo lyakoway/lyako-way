@@ -12,9 +12,9 @@ export async function getLikes({ id }: { id?: string }) {
   }
 }
 
-export async function sendLike({ id, delta }: { id?: string; delta: number }) {
+export async function sendLike({ id, value }: { id?: string; value: number }) {
   const url = `${BASE_URL}/${id}`;
-  const requestBody = JSON.stringify({ delta });
+  const requestBody = JSON.stringify({ value });
   try {
     return await fetchRequest(url, { method: "POST", body: requestBody });
   } catch (error) {

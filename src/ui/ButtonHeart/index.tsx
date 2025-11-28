@@ -109,7 +109,7 @@ const ButtonHeart: React.FC = () => {
     dispatch(setLikes(newCount));
     dispatch(setIdLikes("heart_button"));
     // Отправка на сервер
-    dispatch(fetchSendLike({ idLikes: "heart_button" }))
+    dispatch(fetchSendLike({ idLikes: "heart_button", likes: newCount }))
       .unwrap()
       .catch(() => {
         // откат

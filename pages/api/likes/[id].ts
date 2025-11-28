@@ -17,15 +17,15 @@ export default async function handler(req, res) {
   }
 
   if (req.method === "POST") {
-    const { delta } = req.body;
+    const { value } = req.body;
 
     const result = await collection.findOneAndUpdate(
       { id },
-      { $inc: { likes: delta } },
+      { $set: { likes: value } },
       { returnDocument: "after", upsert: true }
     );
 
-    return res.status(200).json({ likes: result.likes });
+    return res.status(200).json({ likes: result.value?.likes || result.likes });
   }
 
   res.status(405).json({ message: "Method not allowed" });
