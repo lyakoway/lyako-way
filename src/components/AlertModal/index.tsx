@@ -54,25 +54,7 @@ const AlertModal: React.FC = () => {
   const {
     lang: { alertHeart },
   } = useSelectorTyped(({ lang }) => lang);
-  // const url = window.location.href;
-  // const title = document.title;
 
-  // // Добавление в избранное
-  // try {
-  //   if (window.external && "AddFavorite" in window.external) {
-  //     // Для старого IE
-  //     window.external.AddFavorite(url, title);
-  //   } else if (window.sidebar && window.sidebar.addPanel) {
-  //     // Для старого Firefox
-  //     window.sidebar.addPanel(title, url, "");
-  //   } else {
-  //     alert(
-  //       "Чтобы добавить страницу в избранное, нажмите Ctrl+D (или Cmd+D на Mac)"
-  //     );
-  //   }
-  // } catch (e) {
-  //   console.log("Добавление в избранное не поддерживается");
-  // }
   const onClose = () => {
     dispatch(closeModal());
   };

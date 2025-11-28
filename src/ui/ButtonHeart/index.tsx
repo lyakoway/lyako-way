@@ -53,6 +53,21 @@ const ButtonHeart: React.FC = () => {
     dispatch(fetchLikes({ idLikes: "heart_button" }));
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   if (status === RequestLikes.SUCCESS_LIKES) {
+  //     toastNotify({
+  //       title: toast.textHeart || "Спасибо за лайк ❤️",
+  //       type: "success",
+  //     });
+  //   }
+  //   if (status === RequestLikes.ERROR_LIKES) {
+  //     toastNotify({
+  //       title: toast.textError,
+  //       type: "error",
+  //     });
+  //   }
+  // }, [status]);
+
   useEffect(() => {
     if (shouldShowModal) {
       const timer = setTimeout(() => {
@@ -114,15 +129,15 @@ const ButtonHeart: React.FC = () => {
       .catch(() => {
         // откат
         dispatch(setLikes(likes));
-        toastNotify({
-          title: toast.textError,
-          type: "error",
-        });
+        // toastNotify({
+        //   title: toast.textError,
+        //   type: "error",
+        // });
       });
 
     // Тост
     toastNotify({
-      title: toast.textHeart || "Спасибо за лайк ❤️",
+      title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
       type: "success",
     });
 
