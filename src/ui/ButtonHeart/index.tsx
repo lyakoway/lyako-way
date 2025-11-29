@@ -69,20 +69,27 @@ const ButtonHeart: React.FC = () => {
   // }, [status]);
 
   useEffect(() => {
-    if (shouldShowModal) {
-      const timer = setTimeout(() => {
-        dispatch(
-          showModal({
-            content: <AlertModal />,
-            width: "auto",
-            backgroundOverlay: "rgba(0, 0, 0, 0.4)",
-          })
-        );
-        localStorage.setItem("fav-alert-shown", "true");
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
+    // if (shouldShowModal) {
+    //   const timer = setTimeout(() => {
+    //     dispatch(
+    //       showModal({
+    //         content: <AlertModal />,
+    //         width: "auto",
+    //         backgroundOverlay: "rgba(0, 0, 0, 0.4)",
+    //       })
+    //     );
+    //     localStorage.setItem("fav-alert-shown", "true");
+    //   }, 3000);
+    //
+    //   return () => clearTimeout(timer);
+    // }
+    dispatch(
+      showModal({
+        content: <AlertModal />,
+        width: "auto",
+        backgroundOverlay: "rgba(0, 0, 0, 0.4)",
+      })
+    );
   }, [dispatch, shouldShowModal]);
 
   const triggerAnimations = useCallback(() => {
