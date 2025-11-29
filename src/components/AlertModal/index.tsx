@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { closeModal } from "src/reducers";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
@@ -12,7 +12,6 @@ export const Wrapper = styled.form`
   width: 100%;
   gap: 6px;
 `;
-
 export const Header = styled.div`
   display: flex;
   align-items: center;
@@ -25,6 +24,7 @@ export const Header = styled.div`
   line-height: 24px;
   text-transform: uppercase;
   border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
+
   padding: 20px 60px 20px 20px;
 
   span {
@@ -44,12 +44,12 @@ export const Text = styled.p`
   line-height: 24px;
   text-align: center;
   padding: 0 20px;
-
   b {
     color: #ff8560;
     letter-spacing: 4px;
     font-size: 22px;
     font-weight: 400;
+    //text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
     text-shadow: 1px 1px white, 1px -1px white, -1px 1px white, -1px -1px white,
       3px 3px 6px rgba(0, 0, 0, 0.5);
   }
@@ -63,104 +63,26 @@ const ButtonWrapper = styled.div`
   padding: 10px 20px 20px 20px;
 `;
 
-// =========================
-// основной компонент
-// =========================
-
 const AlertModal: React.FC = () => {
   const dispatch = useDispatchTyped();
   const {
     lang: { alertHeart },
   } = useSelectorTyped(({ lang }) => lang);
 
-  const [promptEvent, setPromptEvent] = useState<any>(null);
-  const [isIos, setIsIos] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const onClose = () => dispatch(closeModal());
-
-  // detect platforms
-  useEffect(() => {
-    const ua = window.navigator.userAgent.toLowerCase();
-    const mobile = /iphone|ipad|ipod|android|mobile/.test(ua);
-    const ios = /iphone|ipad|ipod/.test(ua);
-
-    setIsMobile(mobile);
-    setIsIos(ios);
-  }, []);
-
-  // catch PWA install event
-  useEffect(() => {
-    const handler = (e: any) => {
-      e.preventDefault();
-      setPromptEvent(e);
-    };
-
-    window.addEventListener("beforeinstallprompt", handler);
-    return () => window.removeEventListener("beforeinstallprompt", handler);
-  }, []);
-
-  const handleInstall = async () => {
-    if (!promptEvent) return;
-
-    promptEvent.prompt();
-    const result = await promptEvent.userChoice;
-    setPromptEvent(null);
-  };
-
-  // =========================
-  // RENDER LOGIC
-  // =========================
-
-  const renderContent = () => {
-    // ---- Android (Chrome/Edge) PWA install available
-    if (isMobile && promptEvent) {
-      return (
-        <>
-          <Text>Добавь страницу на главный экран</Text>
-          <Text>Чтобы получить быстрый доступ</Text>
-          <ButtonWrapper>
-            <ButtonForm title="Добавить" handleClick={handleInstall} />
-          </ButtonWrapper>
-        </>
-      );
-    }
-
-    // ---- iOS Safari
-    if (isIos) {
-      return (
-        <>
-          <Text>
-            На iPhone добавление работает через меню{" "}
-            <b>Поделиться → На экран «Домой»</b>
-          </Text>
-          <Text>Используй эту функцию, чтобы сохранить страницу</Text>
-        </>
-      );
-    }
-
-    // ---- Desktop browsers
-    return (
-      <>
-        <Text>
-          Нажми <b>Ctrl+D</b> (или <b>Cmd+D</b> на Mac),
-        </Text>
-        <Text>чтобы сохранить страницу в избранное браузера</Text>
-      </>
-    );
+  const onClose = () => {
+    dispatch(closeModal());
   };
 
   return (
     <Wrapper>
       <Header>
         <span>⭐</span>
-        Добавить в избранное
+        {alertHeart?.title}
       </Header>
-
-      {renderContent()}
-
+      <Text>{alertHeart?.text},</Text>
+      <Text>{alertHeart?.textSecondary}</Text>
       <ButtonWrapper>
-        <ButtonForm title="ок" handleClick={onClose} />
+        <ButtonForm title={alertHeart?.buttonText} handleClick={onClose} />
       </ButtonWrapper>
     </Wrapper>
   );
