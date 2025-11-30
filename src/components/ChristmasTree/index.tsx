@@ -49,14 +49,18 @@ const Tree = styled.div`
 `;
 
 // ⭐ Звезда
-const TreeStar = styled.div`
+const TreeStar = styled.div<{ $themeLight: boolean }>`
   position: absolute;
   top: 0;
   left: 40%;
   z-index: 4;
 
   /* ⭐ Анимация сияния */
-  animation: ${starShine} 2.2s ease-in-out infinite;
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      animation: ${starShine} 2.2s ease-in-out infinite;
+    `}
 
   /* Нижний луч — твоя звезда */
   &::before {
@@ -70,7 +74,11 @@ const TreeStar = styled.div`
     border-bottom: 25px solid #fcd000;
 
     /* Сияние от нижней части */
-    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+    ${({ $themeLight }) =>
+      !$themeLight &&
+      css`
+        filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
+      `}
   }
 
   /* Верхний луч */
@@ -95,7 +103,7 @@ const TreeLeaves = styled.div`
 `;
 
 // Вехняя часть елки
-const TreePart1 = styled.div`
+const TreePart1 = styled.div<{ $themeLight: boolean }>`
   width: 0;
   height: 0;
   border-left: 80px solid transparent;
@@ -103,6 +111,12 @@ const TreePart1 = styled.div`
   border-bottom: 100px solid #49bd55;
   position: relative;
   z-index: 3;
+
+  ${({ $themeLight }) =>
+    $themeLight &&
+    css`
+      border-bottom-color: #31883a;
+    `}
 
   &::before {
     content: "";
@@ -221,43 +235,61 @@ const LightBulb = styled.div`
 `;
 
 // Красная лампочка на проводе
-const LightBulbRed = styled(LightBulb)`
+const LightBulbRed = styled(LightBulb)<{ $themeLight: boolean }>`
   background: #de3939;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14), 0 2px 6px 2px #de3939;
   transform: rotateZ(-73deg);
   top: 2px;
   left: -9px;
-  animation: ${blinkRed} 1s ease-in-out infinite alternate;
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      animation: ${blinkRed} 1s ease-in-out infinite alternate;
+    `}
 `;
 
 // Зеленая лампочка на проводе
-const LightBulbYew = styled(LightBulb)`
+const LightBulbYew = styled(LightBulb)<{ $themeLight: boolean }>`
   background: #69e622;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14), 0 2px 6px 2px #69e622;
   transform: rotateZ(-86deg);
   top: 6px;
   left: 20px;
-  animation: ${blinkYew} 1.2s ease-in-out infinite alternate;
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      animation: ${blinkYew} 1.2s ease-in-out infinite alternate;
+    `}
 `;
 
 // Фиолетовая лампочка на проводе
-const LightBulbPurple = styled(LightBulb)`
+const LightBulbPurple = styled(LightBulb)<{ $themeLight: boolean }>`
   background: #9c6aff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14), 0 2px 6px 2px #9c6aff;
   transform: rotateZ(-96deg);
   top: 6px;
   left: 50px;
-  animation: ${blinkPurple} 1.4s ease-in-out infinite alternate;
+
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      animation: ${blinkPurple} 1.4s ease-in-out infinite alternate;
+    `}
 `;
 
 // Синяя лампочка на проводе
-const LightBulbBlue = styled(LightBulb)`
+const LightBulbBlue = styled(LightBulb)<{ $themeLight: boolean }>`
   background: #0ebeff;
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14), 0 2px 6px 2px #0ebeff;
   transform: rotateZ(-106deg);
   top: 3px;
   left: 75px;
-  animation: ${blinkBlue} 1.1s ease-in-out infinite alternate;
+
+  ${({ $themeLight }) =>
+    !$themeLight &&
+    css`
+      animation: ${blinkBlue} 1.1s ease-in-out infinite alternate;
+    `}
 `;
 
 // 🌳 Подставка
@@ -303,52 +335,56 @@ const Jar = styled.div`
   }
 `;
 
+interface ChristmasTreeProps {
+  themeLight: boolean;
+}
+
 // 🌲 Компонент елки
-export const ChristmasTree: React.FC = () => {
+export const ChristmasTree: React.FC<ChristmasTreeProps> = ({ themeLight }) => {
   return (
     <Tree>
-      <TreeStar />
+      <TreeStar $themeLight={themeLight} />
       <TreeLeaves>
-        <TreePart1>
+        <TreePart1 $themeLight={themeLight}>
           <TreeLightsLeft>
-            <LightBulbRed />
-            <LightBulbYew />
-            <LightBulbPurple />
-            <LightBulbBlue />
+            <LightBulbRed $themeLight={themeLight} />
+            <LightBulbYew $themeLight={themeLight} />
+            <LightBulbPurple $themeLight={themeLight} />
+            <LightBulbBlue $themeLight={themeLight} />
           </TreeLightsLeft>
           <TreeLightsRight>
-            <LightBulbRed />
-            <LightBulbYew />
-            <LightBulbPurple />
-            <LightBulbBlue />
+            <LightBulbRed $themeLight={themeLight} />
+            <LightBulbYew $themeLight={themeLight} />
+            <LightBulbPurple $themeLight={themeLight} />
+            <LightBulbBlue $themeLight={themeLight} />
           </TreeLightsRight>
         </TreePart1>
         <TreePart2>
           <TreeLightsLeft>
-            <LightBulbRed />
-            <LightBulbYew />
-            <LightBulbPurple />
-            <LightBulbBlue />
+            <LightBulbRed $themeLight={themeLight} />
+            <LightBulbYew $themeLight={themeLight} />
+            <LightBulbPurple $themeLight={themeLight} />
+            <LightBulbBlue $themeLight={themeLight} />
           </TreeLightsLeft>
           <TreeLightsRight>
-            <LightBulbRed />
-            <LightBulbYew />
-            <LightBulbPurple />
-            <LightBulbBlue />
+            <LightBulbRed $themeLight={themeLight} />
+            <LightBulbYew $themeLight={themeLight} />
+            <LightBulbPurple $themeLight={themeLight} />
+            <LightBulbBlue $themeLight={themeLight} />
           </TreeLightsRight>
         </TreePart2>
         <TreePart3>
           <TreeLightsLeft>
-            <LightBulbRed />
-            <LightBulbYew />
-            <LightBulbPurple />
-            <LightBulbBlue />
+            <LightBulbRed $themeLight={themeLight} />
+            <LightBulbYew $themeLight={themeLight} />
+            <LightBulbPurple $themeLight={themeLight} />
+            <LightBulbBlue $themeLight={themeLight} />
           </TreeLightsLeft>
           <TreeLightsRight>
-            <LightBulbRed />
-            <LightBulbYew />
-            <LightBulbPurple />
-            <LightBulbBlue />
+            <LightBulbRed $themeLight={themeLight} />
+            <LightBulbYew $themeLight={themeLight} />
+            <LightBulbPurple $themeLight={themeLight} />
+            <LightBulbBlue $themeLight={themeLight} />
           </TreeLightsRight>
         </TreePart3>
       </TreeLeaves>

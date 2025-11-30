@@ -121,8 +121,8 @@ const HeaderSection = () => {
       <HeaderSectionFon>
         {!showTree && (
           <NewYear>
-            <ChristmasTree />
-            <Gifts />
+            <ChristmasTree themeLight={themeLight} />
+            {!themeLight && <Gifts />}
           </NewYear>
         )}
         <IconComp $themeLight={themeLight}>
