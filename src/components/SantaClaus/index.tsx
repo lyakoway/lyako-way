@@ -1,16 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
-
-const santaClaus = keyframes`
-  0%, 60%, 80%, 100% {
-    transform: rotateZ(195deg)
-    translateY(0);
-  }
-  30% {
-    transform: rotateZ(195deg)
-    translateY(300px);
-  }
-`;
+import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { setSantaShown } from "src/reducers";
+import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
 
 const swing = keyframes`
   0%, 100% {
@@ -21,14 +13,33 @@ const swing = keyframes`
   }
 `;
 
-const SantaClausWrapper = styled.div`
+const santaClaus = keyframes`
+  0% {
+    transform: rotateZ(195deg) translateY(300px);
+  }
+  30%, 50%, 80% {
+    transform: rotateZ(195deg)
+    translateY(0);
+  }
+  100% {
+    transform: rotateZ(195deg)
+    translateY(300px);
+  }
+`;
+
+const SantaClausWrapper = styled.div<{ $visible: boolean }>`
   position: absolute;
   right: 0;
   top: 20px;
   display: flex;
   margin: 40px;
   z-index: 5;
-  animation: ${santaClaus} 6s ease-in infinite;
+  transform: rotateZ(195deg) translateY(300px);
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      animation: ${santaClaus} 6s ease-in forwards;
+    `}
 `;
 
 const ScHead = styled.div`
@@ -185,14 +196,25 @@ interface SantaClausProps {
   themeLight?: boolean;
 }
 
-// 🌲 Компонент елки
 export const SantaClaus: React.FC<SantaClausProps> = ({ themeLight }) => {
-  if (themeLight) {
+  const dispatch = useDispatchTyped();
+  const santaShown = useSelectorTyped((state) => state.holidays.santaShown);
+  const showTree = isNewYearPeriod();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(setSantaShown(true));
+    }, 6000); // 6 секунд
+
+    return () => clearTimeout(timer);
+  }, [dispatch]);
+
+  if (themeLight || !santaShown) {
     return null;
   }
 
   return (
-    <SantaClausWrapper>
+    <SantaClausWrapper $visible={santaShown}>
       <ScHead>
         <ScHat>
           <HatTip />

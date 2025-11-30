@@ -11,6 +11,7 @@ import {
   langReducer,
   linkReducer,
   likesReducer,
+  holidaysReducer,
 } from "src/reducers";
 
 // --- Комбинируем редьюсеры ---
@@ -22,6 +23,7 @@ const rootReducer = combineReducers({
   lang: langReducer,
   link: linkReducer,
   likes: likesReducer,
+  holidays: holidaysReducer,
 });
 
 // --- Типы для RootState ---

@@ -61,7 +61,7 @@ const HeaderSection = () => {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
   const {
-    lang: { headerHouse, toast, modal },
+    lang: { headerHouse },
     userSelectedLang,
   } = useSelectorTyped(({ lang }) => lang);
   const [openedPopup, setOpenedPopup] = useState(false);

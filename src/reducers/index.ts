@@ -5,3 +5,4 @@ export * from "./toast-slice";
 export * from "./lang-slice";
 export * from "./link-slice";
 export * from "./likes-slice";
+export * from "./holidays-slice";
