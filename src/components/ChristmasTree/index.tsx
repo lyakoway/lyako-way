@@ -1,19 +1,23 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
 
-// // 🔴 Анимации мигания лампочек
-// const blinkRed = keyframes`
-//   20% { background: #de3939; }
-// `;
-// const blinkYew = keyframes`
-//   60% { background: #69e622; }
-// `;
-// const blinkPurple = keyframes`
-//   75% { background: #9c6aff; }
-// `;
-// const blinkBlue = keyframes`
-//   100% { background: #0ebeFF; }
-// `;
+const starShine = keyframes`
+  0% {
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.7))
+            drop-shadow(0 0 12px rgba(255, 215, 0, 0.5))
+            drop-shadow(0 0 20px rgba(255, 230, 100, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.9))
+            drop-shadow(0 0 18px rgba(255, 215, 0, 0.7))
+            drop-shadow(0 0 28px rgba(255, 230, 100, 0.6));
+  }
+  100% {
+    filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.7))
+            drop-shadow(0 0 12px rgba(255, 215, 0, 0.5))
+            drop-shadow(0 0 20px rgba(255, 230, 100, 0.4));
+  }
+`;
 
 // 🔴 Анимации мигания лампочек
 const blinkRed = keyframes`
@@ -51,6 +55,10 @@ const TreeStar = styled.div`
   left: 40%;
   z-index: 4;
 
+  /* ⭐ Анимация сияния */
+  animation: ${starShine} 2.2s ease-in-out infinite;
+
+  /* Нижний луч — твоя звезда */
   &::before {
     content: "";
     position: absolute;
@@ -60,9 +68,12 @@ const TreeStar = styled.div`
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-bottom: 25px solid #fcd000;
-    box-shadow: 1px 19px 20px -7px #1d5022;
+
+    /* Сияние от нижней части */
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
   }
 
+  /* Верхний луч */
   &::after {
     content: "";
     position: absolute;
@@ -72,6 +83,9 @@ const TreeStar = styled.div`
     border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-top: 25px solid #fcd000;
+
+    /* Сияние от верхней части */
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.8));
   }
 `;
 
