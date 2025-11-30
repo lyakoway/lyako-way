@@ -8,69 +8,69 @@ const GiftsWrapper = styled.div`
 `;
 
 const Square = styled.div`
-  width: 80px;
-  height: 80px;
+  width: 40px;
+  height: 40px;
   background: #ff54cf;
-  box-shadow: -30px 0 0 0 #ed00aa;
+  box-shadow: -15px 0 0 0 #ed00aa;
   position: relative;
   z-index: 1;
 
   &::before {
     content: "";
     width: 100%;
-    height: 10px;
+    height: 5px;
     background: yellow;
-    box-shadow: -30px 0 0 0 #d6d600;
+    box-shadow: -15px 0 0 0 #d6d600;
     display: block;
     position: relative;
-    top: 35px;
+    top: 17px;
   }
   &::after {
     content: "";
-    width: 10px;
+    width: 5px;
     height: inherit;
     background: yellow;
     display: block;
     position: relative;
-    top: -10px;
+    top: -5px;
     margin: auto;
   }
 `;
 
 const TieWrap = styled.div`
   position: absolute;
-  top: -20px;
-  left: -6px;
-  min-width: 82px;
+  top: -10px;
+  left: -3px;
+  min-width: 41px;
 
   &::before {
     position: absolute;
     content: "";
     width: 0;
     height: 0;
-    border-left: 17px solid transparent;
+    border-left: 8px solid transparent;
     border-right: 0 solid transparent;
-    border-bottom: 40px solid yellow;
-    left: 21px;
-    top: 5px;
+    border-bottom: 20px solid yellow;
+    left: 10px;
+    top: 2px;
   }
   &::after {
     position: absolute;
     content: "";
     width: 0;
     height: 0;
-    border-left: 17px solid transparent;
+    border-left: 8px solid transparent;
     border-right: 0 solid transparent;
-    border-bottom: 40px solid yellow;
-    top: 5px;
+    border-bottom: 20px solid yellow;
+    top: 2px;
     transform: rotateY(180deg);
-    left: 54px;
+    left: 27px;
   }
 `;
 
 const Tie = styled.div`
-  width: 40px;
-  height: 20px;
+  width: 20px;
+  height: 10px;
   background: yellow;
   border-radius: 50% 50% 20% 20%;
   float: left;
@@ -81,8 +81,8 @@ const Tie = styled.div`
     content: "";
     background: #cccc00;
     transform: scale(0.5) translateX(15px) translateY(8px);
-    width: 40px;
-    height: 20px;
+    width: 20px;
+    height: 10px;
     border-radius: 50% 50% 20% 20%;
     float: left;
     z-index: 1;
@@ -91,8 +91,8 @@ const Tie = styled.div`
 `;
 
 const Reflected = styled.div`
-  width: 40px;
-  height: 20px;
+  width: 20px;
+  height: 10px;
   background: yellow;
   border-radius: 50% 50% 20% 20%;
   float: left;
@@ -104,8 +104,8 @@ const Reflected = styled.div`
     content: "";
     background: #cccc00;
     transform: scale(0.5) translateX(2px) translateY(8px);
-    width: 40px;
-    height: 20px;
+    width: 20px;
+    height: 10px;
     border-radius: 50% 50% 20% 20%;
     float: left;
     z-index: 1;
@@ -114,38 +114,38 @@ const Reflected = styled.div`
 `;
 
 const Rectangular = styled.div`
-  width: 60px;
-  height: 120px;
+  width: 30px;
+  height: 60px;
   background: #0ebeff;
-  box-shadow: -30px 0 0 0 #008dc1;
+  box-shadow: -15px 0 0 0 #008dc1;
   position: absolute;
-  left: 100px;
+  left: 50px;
   bottom: 0;
 
   &::before {
     content: "";
     width: 100%;
-    height: 10px;
+    height: 5px;
     background: yellow;
-    box-shadow: -30px 0 0 0 #d6d600;
+    box-shadow: -15px 0 0 0 #d6d600;
     display: block;
     position: relative;
-    top: 35px;
+    top: 17px;
   }
   &::after {
     content: "";
-    width: 10px;
+    width: 5px;
     height: inherit;
     background: yellow;
     display: block;
     position: relative;
-    top: -10px;
+    top: -5px;
     margin: auto;
   }
 `;
 
 const TieWrapRectangular = styled(TieWrap)`
-  left: -16px;
+  left: -8px;
 `;
 
 export const Gifts: React.FC = () => {
