@@ -18,7 +18,8 @@ import {
 import WeatherIcon from "src/components/Window/WeatherIcon";
 import {
   useIsomorphicLayoutEffect,
-  usePositionSunAndMoon, useWeather,
+  usePositionSunAndMoon,
+  useWeather,
 } from "src/features/customHooks";
 import { getParallax } from "src/common/utils";
 import WindowView from "src/components/Window/WindowView";
@@ -27,11 +28,12 @@ import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
-import {setClimateControl, showModal} from "src/reducers";
+import { setClimateControl, showModal } from "src/reducers";
 import ClimateControl from "src/components/Window/ClimateControl";
 import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
 import Weather from "src/components/Window/Weather";
-import {WEATHER_TO_CLIMATE} from "src/components/Window/ClimateControl/constants";
+import { WEATHER_TO_CLIMATE } from "src/components/Window/ClimateControl/constants";
+import { SantaClaus } from "src/components/SantaClaus";
 
 interface WindowLightProps {
   themeLight?: boolean;
@@ -102,6 +104,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $timeLeftSunMoon={timeLeftSunMoon}
         $themeLight={themeLight}
       >
+        <SantaClaus themeLight={themeLight} />
         <Fragment key={trigger}>
           <Weather climateControl={climate} />
         </Fragment>
