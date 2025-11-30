@@ -1,18 +1,40 @@
 import React from "react";
 import styled, { keyframes, css } from "styled-components";
 
+// // 🔴 Анимации мигания лампочек
+// const blinkRed = keyframes`
+//   20% { background: #de3939; }
+// `;
+// const blinkYew = keyframes`
+//   60% { background: #69e622; }
+// `;
+// const blinkPurple = keyframes`
+//   75% { background: #9c6aff; }
+// `;
+// const blinkBlue = keyframes`
+//   100% { background: #0ebeFF; }
+// `;
+
 // 🔴 Анимации мигания лампочек
 const blinkRed = keyframes`
-  20% { background: #de3939; }
+  0% { opacity: 1; }
+  50% { opacity: .5; }
+  100% { opacity: 1; }
 `;
 const blinkYew = keyframes`
-  60% { background: #69e622; }
+  0% { opacity: 1; }
+  50% { opacity: .5; }
+  100% { opacity: 1; }
 `;
 const blinkPurple = keyframes`
-  75% { background: #9c6aff; }
+  0% { opacity: 1; }
+  50% { opacity: .5; }
+  100% { opacity: 1; }
 `;
 const blinkBlue = keyframes`
-  100% { background: #0ebeFF; }
+  0% { opacity: 1; }
+  50% { opacity: .5; }
+  100% { opacity: 1; }
 `;
 
 // 🌲 Контейнер елки
@@ -182,7 +204,6 @@ const LightBulb = styled.div`
   margin: 20px;
   border-radius: 20% 50%;
   position: absolute;
-  animation: 1s cubic-bezier(0.39, 0.58, 0.57, 1) infinite;
 `;
 
 // Красная лампочка на проводе
@@ -192,7 +213,7 @@ const LightBulbRed = styled(LightBulb)`
   transform: rotateZ(-73deg);
   top: 2px;
   left: -9px;
-  animation-name: ${blinkRed};
+  animation: ${blinkRed} 1s ease-in-out infinite alternate;
 `;
 
 // Зеленая лампочка на проводе
@@ -202,7 +223,7 @@ const LightBulbYew = styled(LightBulb)`
   transform: rotateZ(-86deg);
   top: 6px;
   left: 20px;
-  animation-name: ${blinkYew};
+  animation: ${blinkYew} 1.2s ease-in-out infinite alternate;
 `;
 
 // Фиолетовая лампочка на проводе
@@ -212,7 +233,7 @@ const LightBulbPurple = styled(LightBulb)`
   transform: rotateZ(-96deg);
   top: 6px;
   left: 50px;
-  animation-name: ${blinkPurple};
+  animation: ${blinkPurple} 1.4s ease-in-out infinite alternate;
 `;
 
 // Синяя лампочка на проводе
@@ -222,7 +243,7 @@ const LightBulbBlue = styled(LightBulb)`
   transform: rotateZ(-106deg);
   top: 3px;
   left: 75px;
-  animation-name: ${blinkBlue};
+  animation: ${blinkBlue} 1.1s ease-in-out infinite alternate;
 `;
 
 // 🌳 Подставка
@@ -230,7 +251,6 @@ const TreeBase = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  //margin-top: -20px;
 `;
 const Stalk = styled.div`
   width: 25px;
