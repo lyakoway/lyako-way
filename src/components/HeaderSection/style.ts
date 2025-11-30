@@ -384,3 +384,10 @@ export const IconPicture = styled.div<{ $themeLight?: boolean }>`
   top: 160px;
   right: -341px;
 `;
+
+export const NewYear = styled.div`
+  display: flex;
+  position: absolute;
+  right: -196px;
+  left: -256px;
+`;
