@@ -1,10 +1,29 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
+import { useSelectorTyped } from "src/store";
 
-const GiftsWrapper = styled.div`
+const balloon = keyframes`
+  0%, 10%, 30% {
+    opacity: 0;
+  }
+  50%, 70% {
+    opacity: 1;
+  }
+  90%, 100% {
+    opacity: 1;
+  }
+`;
+
+const GiftsWrapper = styled.div<{ $visible: boolean }>`
   position: absolute;
   bottom: -41px;
   left: 176px;
+
+  ${({ $visible }) =>
+    $visible &&
+    css`
+      animation: ${balloon} 6s ease-in forwards;
+    `}
 `;
 
 const Square = styled.div`
@@ -149,8 +168,14 @@ const TieWrapRectangular = styled(TieWrap)`
 `;
 
 export const Gifts: React.FC = () => {
+  const santaShown = useSelectorTyped((state) => state.holidays.santaShown);
+
+  if (!santaShown) {
+    return null;
+  }
+
   return (
-    <GiftsWrapper>
+    <GiftsWrapper $visible={santaShown}>
       <Square>
         <TieWrap>
           <Tie />
