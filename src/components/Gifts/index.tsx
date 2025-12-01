@@ -3,13 +3,10 @@ import styled, { css, keyframes } from "styled-components";
 import { useSelectorTyped } from "src/store";
 
 const balloon = keyframes`
-  0%, 10%, 30% {
+  0%, 70% {
     opacity: 0;
   }
-  50%, 70% {
-    opacity: 1;
-  }
-  90%, 100% {
+  80%, 100% {
     opacity: 1;
   }
 `;
@@ -22,7 +19,7 @@ const GiftsWrapper = styled.div<{ $visible: boolean }>`
   ${({ $visible }) =>
     $visible &&
     css`
-      animation: ${balloon} 6s ease-in forwards;
+      animation: ${balloon} 24s ease-in forwards;
     `}
 `;
 

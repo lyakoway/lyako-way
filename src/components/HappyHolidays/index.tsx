@@ -4,11 +4,11 @@ import { useSelectorTyped } from "src/store";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
 
 const balloon = keyframes`
-  0%, 10% {
+  0%, 50%, 70% {
     opacity: 0;
     transform: translateY(0px);
   }
-  30%, 70% {
+  80% {
     opacity: 1;
     transform: translateY(-15px);
   }
@@ -37,7 +37,7 @@ const Holidays = styled.h2<{ $visible: boolean }>`
   ${({ $visible }) =>
     $visible &&
     css`
-      animation: ${balloon} 6s ease-in forwards;
+      animation: ${balloon} 24s ease-in forwards;
     `}
 
   &::before {

@@ -1,36 +1,40 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useSelectorTyped } from "src/store";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
 
 export type SantaProps = {
-  width?: number | string; // e.g. 120 or "120px" or "6rem"
-  className?: string;
   themeLight?: boolean;
 };
 
-const Wrapper = styled.div<{ w?: number | string }>`
+const Wrapper = styled.div`
   position: absolute;
   z-index: 4;
   display: grid;
   place-items: center;
-  width: ${(p) => (typeof p.w === "number" ? `${p.w}px` : p.w || "120px")};
+  width: 120px;
   height: 120px;
 
-  animation: sleigh-move 12s linear infinite;
+  animation: sleigh-move 24s ease-in forwards;
 
   @keyframes sleigh-move {
-    0% {
+    0%,
+    20% {
       transform: translateX(-120px); /* старт слева */
+      opacity: 1;
     }
-    33.33% {
+    60% {
       transform: translateX(110px); /* середина */
+      opacity: 1;
     }
-    66.66% {
-      transform: translateX(110px); /* пауза 2 сек */
+    70%,
+    85% {
+      transform: translateX(110px); /* середина */
+      opacity: 0;
     }
     100% {
       transform: translateX(220px); /* уход вправо */
+      opacity: 1;
     }
   }
 
@@ -121,19 +125,15 @@ const Wrapper = styled.div<{ w?: number | string }>`
   }
 `;
 
-export const SantaClausWithDeer: React.FC<SantaProps> = ({
-  width = 120,
-  className,
-  themeLight,
-}) => {
-  // const santaShown = useSelectorTyped((state) => state.holidays.santaShown);
+export const SantaClausWithDeer: React.FC<SantaProps> = ({ themeLight }) => {
+  const santaShown = useSelectorTyped((state) => state.holidays.santaShown);
   const showTree = isNewYearPeriod();
 
-  if (themeLight || !showTree) {
+  if (themeLight || !santaShown || !showTree) {
     return null;
   }
   return (
-    <Wrapper w={width} className={className} aria-hidden="true">
+    <Wrapper aria-hidden="true">
       <svg
         viewBox="0 0 1709 1384"
         version="1.1"

@@ -14,10 +14,10 @@ const swing = keyframes`
 `;
 
 const santaClaus = keyframes`
-  0% {
+  0%, 50% {
     transform: rotateZ(195deg) translateY(300px);
   }
-  20%, 50%, 80% {
+  70%, 85% {
     transform: rotateZ(195deg)
     translateY(0);
   }
@@ -38,7 +38,7 @@ const SantaClausWrapper = styled.div<{ $visible: boolean }>`
   ${({ $visible }) =>
     $visible &&
     css`
-      animation: ${santaClaus} 6s ease-in forwards;
+      animation: ${santaClaus} 24s ease-in forwards;
     `}
 `;
 
