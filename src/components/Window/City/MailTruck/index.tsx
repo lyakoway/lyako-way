@@ -7,6 +7,7 @@ import {
   MailTruckDetails,
   Headlights,
 } from "src/components/Window/City/MailTruck/style";
+import { useSelectorTyped } from "src/store";
 
 interface MailTruckProps {
   themeLight?: boolean;
@@ -14,11 +15,13 @@ interface MailTruckProps {
 }
 
 const MailTruck: FC<MailTruckProps> = ({ themeLight, climateControl }) => {
+  const { likes } = useSelectorTyped(({ likes }) => likes);
+
   useEffect(() => {
     const animatedElement = document.getElementById("animation-reset");
     const clonedElement = animatedElement.cloneNode(true);
     animatedElement.parentNode.replaceChild(clonedElement, animatedElement);
-  }, [themeLight, climateControl]);
+  }, [themeLight, climateControl, likes]);
 
   return (
     <MailTruckWrapper id="animation-reset">
