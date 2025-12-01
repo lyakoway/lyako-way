@@ -9,7 +9,7 @@ import {
   setLikes,
   showModal,
 } from "src/reducers";
-import { ButtonWrapper, Label, Particle, ConfettiPiece } from "./style";
+import { ButtonWrapper, Label, Particle, ConfettiPiece, Loader } from "./style";
 import AlertModal from "src/components/AlertModal";
 import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";
 import {
@@ -22,7 +22,7 @@ const ButtonHeart: React.FC = () => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
-  const { likes, status } = useSelectorTyped(({ likes }) => likes);
+  const { likes, status, loading } = useSelectorTyped(({ likes }) => likes);
   const toastNotify = useToastNotify();
   const dispatch = useDispatchTyped();
 
@@ -118,6 +118,8 @@ const ButtonHeart: React.FC = () => {
   }, []);
 
   const handleClick = async () => {
+    if (loading) return; // запретить клик во время загрузки
+
     triggerAnimations();
     // Увеличиваем локальный счетчик и Redux
 
@@ -153,7 +155,15 @@ const ButtonHeart: React.FC = () => {
   return (
     <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
       <HeartIcon />
-      <Label>{likes}</Label>
+      <Label>
+        {!loading && likes}
+        {loading && (
+          <>
+            ❤️
+            <Loader />
+          </>
+        )}
+      </Label>
 
       {particles.map((p) => (
         <Particle

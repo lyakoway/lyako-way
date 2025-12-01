@@ -110,3 +110,24 @@ export const ConfettiPiece = styled.div<{
   pointer-events: none;
   animation: ${(p) => confettiFly(p.x, p.y, p.rotate)} 1.5s ease-out forwards;
 `;
+
+// Ключевая анимация вращения
+const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`;
+
+// Лоадер вокруг числа
+export const Loader = styled.div`
+  position: absolute;
+  left: -9px;
+  top: -3px;
+  display: inline-block;
+  margin-left: 6px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 0, 0, 0.2); // светлый цвет
+  border-top: 2px solid red; // яркий цвет
+  border-radius: 50%;
+  animation: ${spin} 0.8s linear infinite;
+`;
