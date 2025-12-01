@@ -28,12 +28,12 @@ import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
-import { setClimateControl, showModal } from "src/reducers";
+import { showModal } from "src/reducers";
 import ClimateControl from "src/components/Window/ClimateControl";
 import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
 import Weather from "src/components/Window/Weather";
-import { WEATHER_TO_CLIMATE } from "src/components/Window/ClimateControl/constants";
 import { SantaClaus } from "src/components/SantaClaus";
+import { HappyHolidays } from "src/components/HappyHolidays";
 
 interface WindowLightProps {
   themeLight?: boolean;
@@ -98,6 +98,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
 
   return (
     <WindowWrapper>
+      <HappyHolidays themeLight={themeLight} />
       <WindowView
         data-window-view
         $dayToNightColor={dayToNightColor}

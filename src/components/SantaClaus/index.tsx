@@ -17,7 +17,7 @@ const santaClaus = keyframes`
   0% {
     transform: rotateZ(195deg) translateY(300px);
   }
-  30%, 50%, 80% {
+  20%, 50%, 80% {
     transform: rotateZ(195deg)
     translateY(0);
   }
@@ -209,7 +209,7 @@ export const SantaClaus: React.FC<SantaClausProps> = ({ themeLight }) => {
     return () => clearTimeout(timer);
   }, [dispatch]);
 
-  if (themeLight || !santaShown) {
+  if (themeLight || !santaShown || !showTree) {
     return null;
   }
 

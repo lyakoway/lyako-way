@@ -119,7 +119,7 @@ const HeaderSection = () => {
   return (
     <HeaderSectionWrapper>
       <HeaderSectionFon>
-        {!showTree && (
+        {showTree && (
           <NewYear>
             <ChristmasTree themeLight={themeLight} />
             <Gifts />
