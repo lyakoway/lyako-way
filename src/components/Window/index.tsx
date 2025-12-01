@@ -34,6 +34,7 @@ import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
 import Weather from "src/components/Window/Weather";
 import { SantaClaus } from "src/components/SantaClaus";
 import { HappyHolidays } from "src/components/HappyHolidays";
+import SantaClausWithDeer from "src/components/SantaClausWithDeer";
 
 interface WindowLightProps {
   themeLight?: boolean;
@@ -105,6 +106,7 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
         $timeLeftSunMoon={timeLeftSunMoon}
         $themeLight={themeLight}
       >
+        <SantaClausWithDeer themeLight={themeLight} />
         <SantaClaus themeLight={themeLight} />
         <Fragment key={trigger}>
           <Weather climateControl={climate} />
