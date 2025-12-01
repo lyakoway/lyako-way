@@ -3,6 +3,7 @@ import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import {
+  clearStatus,
   fetchLikes,
   fetchSendLike,
   setIdLikes,
@@ -60,12 +61,14 @@ const ButtonHeart: React.FC = () => {
         title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
         type: "success",
       });
+      dispatch(clearStatus());
     }
     if (status === RequestLikes.ERROR_LIKES) {
       toastNotify({
         title: toast.textError,
         type: "error",
       });
+      dispatch(clearStatus());
     }
   }, [status]);
 

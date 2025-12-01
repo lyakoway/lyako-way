@@ -78,6 +78,9 @@ const likes = createSlice({
         localStorage.setItem("idLikes", action.payload);
       }
     },
+    clearStatus: (state, action: PayloadAction<string>) => {
+      state.status = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -115,5 +118,5 @@ const likes = createSlice({
   },
 });
 
-export const { setLikes, setIdLikes } = likes.actions;
+export const { setLikes, setIdLikes, clearStatus } = likes.actions;
 export const likesReducer = likes.reducer;
