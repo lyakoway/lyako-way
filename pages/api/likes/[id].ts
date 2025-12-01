@@ -31,13 +31,16 @@ export default async function handler(
     return res.status(400).json({ message: "Missing id" });
   }
 
+  // --- Отключаем кэш браузера ---
+  res.setHeader("Cache-Control", "no-store");
+
   // --- Подключение к Mongo с обработкой ошибок ---
   let mongo: MongoClient;
   try {
     mongo = await clientPromise;
   } catch (err) {
     console.error("Mongo connection failed:", err);
-    return res.status(200).json({ likes: 0 }); // fallback вместо 500
+    return res.status(200).json({}); // <-- пустой объект вместо 0
   }
 
   const db = mongo.db("likes_db");
@@ -47,7 +50,8 @@ export default async function handler(
   try {
     if (req.method === "GET") {
       const item = await collection.findOne({ id });
-      return res.status(200).json({ likes: item?.likes || 0 });
+      if (!item) return res.status(200).json({}); // <-- пустой объект, лайки не обновляются
+      return res.status(200).json({ likes: item.likes });
     }
 
     if (req.method === "POST") {
@@ -59,12 +63,12 @@ export default async function handler(
         { upsert: true, returnDocument: "after" }
       );
 
-      return res.status(200).json({ likes: result.value?.likes ?? value });
+      return res.status(200).json({ likes: result.value?.likes });
     }
 
     return res.status(405).json({ message: "Method not allowed" });
   } catch (err) {
     console.error("Mongo DB error:", err);
-    return res.status(200).json({ likes: 0 }); // fallback вместо 500
+    return res.status(200).json({}); // <-- пустой объект
   }
 }

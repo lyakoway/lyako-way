@@ -16,12 +16,13 @@ import {
   generateConfetti,
   generateParticles,
 } from "src/ui/ButtonHeart/animations";
+import { RequestLikes } from "src/common/enums/Likes/RequestLikes";
 
 const ButtonHeart: React.FC = () => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
-  const { likes } = useSelectorTyped(({ likes }) => likes);
+  const { likes, status } = useSelectorTyped(({ likes }) => likes);
   const toastNotify = useToastNotify();
   const dispatch = useDispatchTyped();
 
@@ -53,20 +54,20 @@ const ButtonHeart: React.FC = () => {
     dispatch(fetchLikes({ idLikes: "heart_button" }));
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   if (status === RequestLikes.SUCCESS_LIKES) {
-  //     toastNotify({
-  //       title: toast.textHeart || "Спасибо за лайк ❤️",
-  //       type: "success",
-  //     });
-  //   }
-  //   if (status === RequestLikes.ERROR_LIKES) {
-  //     toastNotify({
-  //       title: toast.textError,
-  //       type: "error",
-  //     });
-  //   }
-  // }, [status]);
+  useEffect(() => {
+    if (status === RequestLikes.SUCCESS_LIKES) {
+      toastNotify({
+        title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
+        type: "success",
+      });
+    }
+    if (status === RequestLikes.ERROR_LIKES) {
+      toastNotify({
+        title: toast.textError,
+        type: "error",
+      });
+    }
+  }, [status]);
 
   useEffect(() => {
     if (shouldShowModal) {
@@ -129,17 +130,17 @@ const ButtonHeart: React.FC = () => {
       .catch(() => {
         // откат
         dispatch(setLikes(likes));
-        // toastNotify({
-        //   title: toast.textError,
-        //   type: "error",
-        // });
+        toastNotify({
+          title: toast.textError,
+          type: "error",
+        });
       });
 
     // Тост
-    toastNotify({
-      title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
-      type: "success",
-    });
+    // toastNotify({
+    //   title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
+    //   type: "success",
+    // });
 
     // Проверка на мобильную платформу
     const ua = getMobileOperatingSystem();

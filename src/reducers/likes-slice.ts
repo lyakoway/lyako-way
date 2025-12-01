@@ -10,16 +10,16 @@ interface IRejectedValue {
   };
 }
 
+// --- Thunks ---
 export const fetchLikes = createAsyncThunk<
-  { likes: number },
-  { idLikes: string }, //это уникальный идентификатор того, что ты лайкаешь сердечки или еще что-то и храним этого количество
+  { likes: number | null },
+  { idLikes: string },
   { rejectValue: IRejectedValue }
->("climate/fetchWeather", async (data, thunkAPI) => {
-  const { idLikes } = data;
+>("likes/fetchLikes", async ({ idLikes }, thunkAPI) => {
   try {
-    const res = (await getLikes({ id: idLikes })) as { likes: number };
-
-    return { likes: res.likes };
+    const res = (await getLikes({ id: idLikes })) as { likes?: number };
+    // Если API вернул пустой объект, возвращаем null
+    return { likes: res.likes ?? null };
   } catch (error) {
     const { message, status } = error as CallApiError;
     return thunkAPI.rejectWithValue({ error: { status, message } });
@@ -30,8 +30,7 @@ export const fetchSendLike = createAsyncThunk<
   void,
   { idLikes: string; likes: number },
   { rejectValue: IRejectedValue }
->("climate/fetchCities", async (data, thunkAPI) => {
-  const { idLikes, likes } = data;
+>("likes/fetchSendLike", async ({ idLikes, likes }, thunkAPI) => {
   try {
     await sendLike({ id: idLikes, value: likes });
   } catch (error) {
@@ -40,6 +39,7 @@ export const fetchSendLike = createAsyncThunk<
   }
 });
 
+// --- State ---
 type IState = {
   likes: number;
   idLikes: string;
@@ -61,6 +61,7 @@ const initialState: IState = {
   status: null,
 };
 
+// --- Slice ---
 const likes = createSlice({
   name: "likes",
   initialState,
@@ -68,51 +69,51 @@ const likes = createSlice({
     setLikes: (state, action: PayloadAction<number>) => {
       state.likes = action.payload;
       if (typeof window !== "undefined") {
-        localStorage.setItem("likes", String(action.payload)); //сохраняем
+        localStorage.setItem("likes", String(action.payload));
       }
     },
     setIdLikes: (state, action: PayloadAction<string>) => {
       state.idLikes = action.payload;
       if (typeof window !== "undefined") {
-        localStorage.setItem("idLikes", String(action.payload)); //сохраняем
+        localStorage.setItem("idLikes", action.payload);
       }
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLikes.pending, (state) => ({
-        ...state,
-        loading: true,
-        status: null,
-      }))
-      .addCase(fetchLikes.fulfilled, (state, action) => ({
-        ...state,
-        loading: false,
-        likes: action.payload.likes,
-      }))
-      .addCase(fetchLikes.rejected, (state, action) => ({
-        ...state,
-        loading: false,
-        status: RequestLikes.ERROR_LIKES,
-      }))
-      .addCase(fetchSendLike.pending, (state) => ({
-        ...state,
-        loading: true,
-        status: null,
-      }))
-      .addCase(fetchSendLike.fulfilled, (state, action) => ({
-        ...state,
-        loading: false,
-        status: RequestLikes.SUCCESS_LIKES,
-      }))
-      .addCase(fetchSendLike.rejected, (state, action) => ({
-        ...state,
-        loading: false,
-        status: RequestLikes.ERROR_LIKES,
-      }));
+      .addCase(fetchLikes.pending, (state) => {
+        state.loading = true;
+        state.status = null;
+      })
+      .addCase(fetchLikes.fulfilled, (state, action) => {
+        state.loading = false;
+        // Если likes === null, оставляем старое значение
+        if (action.payload.likes !== null) {
+          state.likes = action.payload.likes;
+          if (typeof window !== "undefined") {
+            localStorage.setItem("likes", String(action.payload.likes));
+          }
+        }
+      })
+      .addCase(fetchLikes.rejected, (state, action) => {
+        state.loading = false;
+        state.status = RequestLikes.ERROR_LIKES;
+        // не обнуляем likes
+      })
+      .addCase(fetchSendLike.pending, (state) => {
+        state.loading = true;
+        state.status = null;
+      })
+      .addCase(fetchSendLike.fulfilled, (state) => {
+        state.loading = false;
+        state.status = RequestLikes.SUCCESS_LIKES;
+      })
+      .addCase(fetchSendLike.rejected, (state) => {
+        state.loading = false;
+        state.status = RequestLikes.ERROR_LIKES;
+      });
   },
 });
 
 export const { setLikes, setIdLikes } = likes.actions;
-
 export const likesReducer = likes.reducer;
