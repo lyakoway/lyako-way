@@ -21,7 +21,7 @@ const balloon = keyframes`
 const Holidays = styled.h2<{ $visible: boolean }>`
   margin: 0;
   position: absolute;
-  right: 280px;
+  right: 140px;
   white-space: nowrap;
   top: -25px;
   display: flex;
