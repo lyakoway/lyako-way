@@ -6,3 +6,4 @@ export * from "./lang-slice";
 export * from "./link-slice";
 export * from "./likes-slice";
 export * from "./holidays-slice";
+export * from "./form-slice";

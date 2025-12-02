@@ -12,6 +12,7 @@ import {
   linkReducer,
   likesReducer,
   holidaysReducer,
+  formReducer,
 } from "src/reducers";
 
 // --- Комбинируем редьюсеры ---
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   link: linkReducer,
   likes: likesReducer,
   holidays: holidaysReducer,
+  form: formReducer,
 });
 
 // --- Типы для RootState ---

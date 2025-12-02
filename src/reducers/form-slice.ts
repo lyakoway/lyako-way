@@ -1,23 +1,31 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export interface DataFormItem {
+  user_name: string;
+  user_email: string;
+  user_phone: string;
+  typesWork: string;
+  message: string;
+}
+
 type IState = {
-  routeLink: string;
+  dataForm: DataFormItem;
 };
 
 const initialState: IState = {
-  routeLink: "",
+  dataForm: null,
 };
 
-const link = createSlice({
-  name: "link",
+const form = createSlice({
+  name: "form",
   initialState,
   reducers: {
-    setRouteLink: (state, action: PayloadAction<string>) => {
-      state.routeLink = action.payload;
+    setDataForm: (state, action: PayloadAction<DataFormItem>) => {
+      state.dataForm = action.payload;
     },
   },
 });
 
-export const { setRouteLink } = link.actions;
+export const { setDataForm } = form.actions;
 
-export const linkReducer = link.reducer;
+export const formReducer = form.reducer;

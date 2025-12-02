@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { setSantaShown } from "src/reducers";
+import { setGiftsLocked, setSantaShown } from "src/reducers";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
 
 const swing = keyframes`
@@ -204,10 +204,11 @@ export const SantaClaus: React.FC<SantaClausProps> = ({ themeLight }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(setSantaShown(true));
+      dispatch(setGiftsLocked(true));
     }, 6000); // 6 секунд
 
     return () => clearTimeout(timer);
-  }, [dispatch]);
+  }, [dispatch, santaShown]);
 
   if (themeLight || !santaShown || !showTree) {
     return null;

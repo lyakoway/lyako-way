@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
@@ -8,6 +8,7 @@ import {
   fetchSendLike,
   setIdLikes,
   setLikes,
+  setSantaShown,
   showModal,
 } from "src/reducers";
 import { ButtonWrapper, Label, Particle, ConfettiPiece, Loader } from "./style";
@@ -61,6 +62,7 @@ const ButtonHeart: React.FC = () => {
         title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
         type: "success",
       });
+      dispatch(setSantaShown(false));
       dispatch(clearStatus());
     }
     if (status === RequestLikes.ERROR_LIKES) {

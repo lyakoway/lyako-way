@@ -165,14 +165,14 @@ const TieWrapRectangular = styled(TieWrap)`
 `;
 
 export const Gifts: React.FC = () => {
-  const santaShown = useSelectorTyped((state) => state.holidays.santaShown);
+  const giftsLocked = useSelectorTyped((state) => state.holidays.giftsLocked);
 
-  if (!santaShown) {
+  if (!giftsLocked) {
     return null;
   }
 
   return (
-    <GiftsWrapper $visible={santaShown}>
+    <GiftsWrapper $visible={giftsLocked}>
       <Square>
         <TieWrap>
           <Tie />

@@ -16,12 +16,13 @@ interface MailTruckProps {
 
 const MailTruck: FC<MailTruckProps> = ({ themeLight, climateControl }) => {
   const { likes } = useSelectorTyped(({ likes }) => likes);
+  const { dataForm } = useSelectorTyped(({ form }) => form);
 
   useEffect(() => {
     const animatedElement = document.getElementById("animation-reset");
     const clonedElement = animatedElement.cloneNode(true);
     animatedElement.parentNode.replaceChild(clonedElement, animatedElement);
-  }, [themeLight, climateControl, likes]);
+  }, [themeLight, climateControl, likes, dataForm]);
 
   return (
     <MailTruckWrapper id="animation-reset">

@@ -3,7 +3,7 @@ import { useDispatchTyped, useSelectorTyped } from "src/store";
 import emailjs from "@emailjs/browser";
 
 import { Form, Header, Content, Footer, InputWrapper } from "./style";
-import { closeModal } from "src/reducers";
+import { closeModal, setDataForm, setSantaShown } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
 import { InputPhone, InputEmail, InputName } from "src/ui/Input";
@@ -115,6 +115,8 @@ const ContactForm: FC = () => {
               setStatusRequest("success");
               await wait(2000);
               dispatch(closeModal());
+              dispatch(setSantaShown(false));
+              dispatch(setDataForm(dataForm));
               toastNotify({ title: toast.messageText, type: "success" });
             },
             async (error) => {
