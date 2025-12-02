@@ -60,11 +60,14 @@ interface HappyHolidaysProps {
 
 export const HappyHolidays: React.FC<HappyHolidaysProps> = ({ themeLight }) => {
   const santaShown = useSelectorTyped((state) => state.holidays.santaShown);
+  const {
+    lang: { happyHolidays },
+  } = useSelectorTyped(({ lang }) => lang);
   const showTree = isNewYearPeriod();
 
   if (themeLight || !santaShown || !showTree) {
     return null;
   }
 
-  return <Holidays $visible={santaShown}>Happy Holidays!</Holidays>;
+  return <Holidays $visible={santaShown}>{happyHolidays.text}</Holidays>;
 };

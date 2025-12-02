@@ -54,23 +54,6 @@ const ContactForm: FC = () => {
     useSelectOptions(selectList);
   }, [contactForm, useSelectOptions]);
 
-  useEffect(() => {
-    // const typesWorkValue = typesWork.length
-    //   ? typesWork.map((item) => item.label).join(", ")
-    //   : "";
-    // const formDataValue = [
-    //   { id: "name", name: "Имя", value: name },
-    //   { id: "email", name: "Почта", value: email },
-    //   { id: "phone", name: "Телефон", value: phone },
-    //   {
-    //     id: "typesWork",
-    //     name: "Список выполняемых работ",
-    //     value: typesWorkValue,
-    //   },
-    //   { id: "message", name: "Сообщение", value: message },
-    //  ];
-  }, [name, email, phone, typesWork, message]);
-
   const handleCloseButton = useCallback(
     async (e) => {
       e.preventDefault();

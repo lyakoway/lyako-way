@@ -239,6 +239,10 @@ export interface AlertHeartProps {
   buttonText: string;
 }
 
+export interface HappyHolidaysProps {
+  text: string;
+}
+
 export interface LanguageProps {
   propsPortfolioListBlog: PortfolioListBlogProps[];
   portfolioDevelopment: ListBlogProps[];
@@ -249,6 +253,7 @@ export interface LanguageProps {
   portfolioHeader: PortfolioHeaderProps;
   advantagesText: string;
   contactForm: ContactFormProps;
+  happyHolidays: HappyHolidaysProps;
   cooperation: CooperationProps;
   headerHouse: HeaderHouseProps;
   portfolio: PortfolioProps;
