@@ -8,6 +8,16 @@ const LAYERS = 7;
 
 /* ================== ANIMATION ================== */
 
+const fadeIn = keyframes`
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+`;
+
+const fadeOut = keyframes`
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+`;
+
 const swing = keyframes`
     0%, 100% {
         transform: rotate(-30deg);
@@ -30,6 +40,9 @@ const Scene = styled.div`
   overflow: visible;
   left: 150px;
   top: 170px;
+
+  animation: ${({ themeLight }) => (themeLight ? fadeOut : fadeIn)} 4s
+    ease-in-out forwards;
 
   ul {
     padding: 0;
@@ -118,9 +131,10 @@ const Layer = styled.li`
 export default function ChristmasTreeNew({
   height = 40, // высота ёлки в vh
   rays = 5, // количество лучей солнца
+  themeLight = false,
 }) {
   return (
-    <Scene height={height}>
+    <Scene height={height} themeLight={themeLight}>
       <Sun height={height}>
         {Array.from({ length: rays }).map((_, i) => (
           <Ray key={i} index={i} />
