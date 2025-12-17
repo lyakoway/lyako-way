@@ -1,20 +1,26 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { ReactComponent as ChristmasTree } from "src/common/icon/christmasTree.svg";
 
-// 🌲 Массив цветов для огоньков
+// 🌈 Цвета гирлянды
 const lightColors = [
-  "#ff0000",
-  "#ffff00",
-  "#00ff00",
-  "#00ffff",
-  "#ff00ff",
-  "#ffa500",
-  "#ff69b4",
-  "#8a2be2",
+  "#ff3b3b",
+  "#ffd93b",
+  "#3bff6f",
+  "#3bd9ff",
+  "#b43bff",
+  "#ff8f3b",
 ];
 
-const Tree = styled.div`
+// ✨ Анимация мигания
+const blink = keyframes`
+    0%   { opacity: 1; }
+    40%  { opacity: 0.3; }
+    60%  { opacity: 0.8; }
+    100% { opacity: 1; }
+`;
+
+const Tree = styled.div<{ $animate: boolean }>`
   position: relative;
   top: 190px;
   left: -20px;
@@ -25,12 +31,25 @@ const Tree = styled.div`
   }
 
   path.christmasTree_svg__light {
-    ${(props) => {
+    ${({ $animate }) =>
+      $animate &&
+      css`
+        animation: ${blink} 1.8s infinite ease-in-out;
+      `}
+
+    ${({ $animate }) => {
       let styles = "";
-      // проходим по большому количеству path (например 101)
+
+      // ⚠️ число должно быть > количества path.light
       for (let i = 1; i <= 101; i++) {
-        const color = lightColors[(i - 1) % lightColors.length]; // циклически берём цвет
-        styles += `&:nth-of-type(${i}) { stroke: ${color}; }\n`;
+        const color = lightColors[(i - 1) % lightColors.length];
+
+        styles += `
+          &:nth-of-type(${i}) {
+            stroke: ${color};
+            ${$animate ? `animation-delay: ${i * 0.15}s;` : ""}
+          }
+        `;
       }
       return styles;
     }}
@@ -43,7 +62,7 @@ interface NewYearTreeProps {
 
 export const NewYearTree: React.FC<NewYearTreeProps> = ({ themeLight }) => {
   return (
-    <Tree $animate={themeLight}>
+    <Tree $animate={!themeLight}>
       <ChristmasTree />
     </Tree>
   );
