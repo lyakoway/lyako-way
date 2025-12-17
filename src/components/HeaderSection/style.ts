@@ -338,7 +338,7 @@ export const IconMap = styled.div<{ $themeLight?: boolean }>`
   height: 140px;
   position: absolute;
   top: 160px;
-  left: -299px;
+  left: -360px;
 `;
 
 export const IconBook = styled.div<{ $themeLight?: boolean }>`

@@ -56,6 +56,7 @@ import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
 import { ChristmasTree } from "src/components/ChristmasTree";
 import { Gifts } from "src/components/Gifts";
 import ChristmasTreeNew from "src/components/ChristmasTreeNew";
+import { NewYearTree } from "src/components/NewYearTree";
 
 const HeaderSection = () => {
   const {
@@ -124,7 +125,8 @@ const HeaderSection = () => {
           <NewYear>
             {/*<ChristmasTree themeLight={themeLight} />*/}
             {/*<Gifts />*/}
-            <ChristmasTreeNew themeLight={themeLight} />
+            {/*<ChristmasTreeNew themeLight={themeLight} />*/}
+            <NewYearTree themeLight={themeLight} />
           </NewYear>
         )}
         <IconComp $themeLight={themeLight}>

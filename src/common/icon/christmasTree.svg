@@ -1,0 +1,1942 @@
+<svg
+        width="280"
+        height="300"
+        viewBox="0 0 425 451"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+
+    <g id="tree">
+
+        <g id="line1">
+
+            <path
+                    id="0"
+                    d="M221 446L221 451L231 451L231 446L221 446ZM231 418C231 415.239 228.761 413 226 413C223.239 413 221 415.239 221 418L231 418ZM231 446L231 418L221 418L221 446L231 446Z"
+                    fill="white"
+                    stroke-dasharray="131.71, 131.71"
+                    stroke-dashoffset="131.71" >
+
+                <animate
+                        id="sa0"
+                        begin="0s"
+                        attributeName="stroke-dashoffset"
+                        from="131.71"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="1"
+                    d="M226.5 417.5V402L212.5 388V191L230 173.5V106L248 88V79.5"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-linecap="square"
+                    stroke-dasharray="358.504, 358.504"
+                    stroke-dashoffset="358.504" >
+
+                <animate
+                        id="sa1"
+                        begin="sa0.end"
+                        attributeName="stroke-dashoffset"
+                        from="358.504"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="2"
+                    d="M260.5 65C260.5 71.9036 254.904 77.5 248 77.5C241.096 77.5 235.5 71.9036 235.5 65C235.5 58.0964 241.096 52.5 248 52.5C254.904 52.5 260.5 58.0964 260.5 65Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-linecap="square"
+                    stroke-dasharray="78.5514, 78.5514"
+                    stroke-dashoffset="78.5514" >
+
+                <animate
+                        id="sa2"
+                        begin="sa1.end"
+                        attributeName="stroke-dashoffset"
+                        from="78.5514"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="3"
+                    d="M213.5 330L233.5 310V290.5"
+                    stroke="black"
+                    stroke-width="3"
+                    stroke-dasharray="47.7843, 47.7843"
+                    stroke-dashoffset="47.7843" >
+
+                <animate
+                        id="sa3"
+                        begin="sa2.end"
+                        attributeName="stroke-dashoffset"
+                        from="47.7843"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="4"
+                    d="M242.5 280C242.5 284.971 238.471 289 233.5 289C228.529 289 224.5 284.971 224.5 280C224.5 275.029 228.529 271 233.5 271C238.471 271 242.5 275.029 242.5 280Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="56.5577, 56.5577"
+                    stroke-dashoffset="56.5577" >
+
+                <animate
+                        id="sa4"
+                        begin="sa3.end"
+                        attributeName="stroke-dashoffset"
+                        from="56.5577"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="5"
+                    d="M241 272L277 237.5V231"
+                    stroke="black"
+                    stroke-width="3"
+                    stroke-dasharray="56.3623, 56.3623"
+                    stroke-dashoffset="56.3623" >
+
+                <animate
+                        id="sa5"
+                        begin="sa4.end"
+                        attributeName="stroke-dashoffset"
+                        from="56.3623"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="6"
+                    d="M287 221C287 225.971 282.971 230 278 230C273.029 230 269 225.971 269 221C269 216.029 273.029 212 278 212C282.971 212 287 216.029 287 221Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="56.5577, 56.5577"
+                    stroke-dashoffset="56.5577" >
+
+                <animate
+                        id="sa6"
+                        begin="sa5.end"
+                        attributeName="stroke-dashoffset"
+                        from="56.5577"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="7"
+                    d="M278 212L278 178"
+                    stroke="black"
+                    stroke-width="3"
+                    stroke-dasharray="34, 34"
+                    stroke-dashoffset="34" >
+
+                <animate
+                        id="sa7"
+                        begin="sa6.end"
+                        attributeName="stroke-dashoffset"
+                        from="34"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="8"
+                    d="M287 169C287 173.971 282.971 178 278 178C273.029 178 269 173.971 269 169C269 164.029 273.029 160 278 160C282.971 160 287 164.029 287 169Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="56.5577, 56.5577"
+                    stroke-dashoffset="56.5577" >
+
+                <animate
+                        id="sa8"
+                        begin="sa7.end"
+                        attributeName="stroke-dashoffset"
+                        from="56.5577"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="9"
+                    d="M212 303L185 280.578V233"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="82.6742, 82.6742"
+                    stroke-dashoffset="82.6742" >
+
+                <animate
+                        id="sa9"
+                        begin="sa8.end"
+                        attributeName="stroke-dashoffset"
+                        from="82.6742"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="10"
+                    d="M195.5 223C195.5 228.799 190.799 233.5 185 233.5C179.201 233.5 174.5 228.799 174.5 223C174.5 217.201 179.201 212.5 185 212.5C190.799 212.5 195.5 217.201 195.5 223Z"
+                    stroke="black"
+                    stroke-width="7"
+                    stroke-dasharray="65.9829, 65.9829"
+                    stroke-dashoffset="65.9829" >
+
+                <animate
+                        id="sa10"
+                        begin="sa9.end"
+                        attributeName="stroke-dashoffset"
+                        from="65.9829"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="11"
+                    d="M184 266L156 238V205.5"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="72.098, 72.098"
+                    stroke-dashoffset="72.098" >
+
+                <animate
+                        id="sa11"
+                        begin="sa10.end"
+                        attributeName="stroke-dashoffset"
+                        from="72.098"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="12"
+                    d="M165 195C165 199.971 160.971 204 156 204C151.029 204 147 199.971 147 195C147 190.029 151.029 186 156 186C160.971 186 165 190.029 165 195Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="56.5575, 56.5575"
+                    stroke-dashoffset="56.5575" >
+
+                <animate
+                        id="sa12"
+                        begin="sa11.end"
+                        attributeName="stroke-dashoffset"
+                        from="56.5575"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="13"
+                    d="M146.5 192.5L125.5 171.5"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="29.6985, 29.6985"
+                    stroke-dashoffset="29.6985" >
+
+                <animate
+                        id="sa13"
+                        begin="sa12.end"
+                        attributeName="stroke-dashoffset"
+                        from="29.6985"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="14"
+                    d="M129 163C129 167.971 124.971 172 120 172C115.029 172 111 167.971 111 163C111 158.029 115.029 154 120 154C124.971 154 129 158.029 129 163Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="56.5574, 56.5574"
+                    stroke-dashoffset="56.5574" >
+
+                <animate
+                        id="sa14"
+                        begin="sa13.end"
+                        attributeName="stroke-dashoffset"
+                        from="56.5574"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="15"
+                    d="M212.5 204.5L180.5 172.5V125"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="92.7548, 92.7548"
+                    stroke-dashoffset="92.7548" >
+
+                <animate
+                        id="sa15"
+                        begin="sa14.end"
+                        attributeName="stroke-dashoffset"
+                        from="92.7548"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="16"
+                    d="M189 116C189 120.971 184.971 125 180 125C175.029 125 171 120.971 171 116C171 111.029 175.029 107 180 107C184.971 107 189 111.029 189 116Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="56.5575, 56.5575"
+                    stroke-dashoffset="56.5575" >
+
+                <animate
+                        id="sa16"
+                        begin="sa15.end"
+                        attributeName="stroke-dashoffset"
+                        from="56.5575"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="17"
+                    d="M229.5 148L211.5 130V70.5"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="84.9558, 84.9558"
+                    stroke-dashoffset="84.9558" >
+
+                <animate
+                        id="sa17"
+                        begin="sa16.end"
+                        attributeName="stroke-dashoffset"
+                        from="84.9558"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="18"
+                    d="M221 60C221 65.5228 216.523 70 211 70C205.477 70 201 65.5228 201 60C201 54.4772 205.477 50 211 50C216.523 50 221 54.4772 221 60Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="62.8409, 62.8409"
+                    stroke-dashoffset="62.8409" >
+
+                <animate
+                        id="sa18"
+                        begin="sa17.end"
+                        attributeName="stroke-dashoffset"
+                        from="62.8409"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="19"
+                    d="M211.5 103.5L183 75V50.5"
+                    stroke="black"
+                    stroke-width="3"
+                    stroke-dasharray="64.8051, 64.8051"
+                    stroke-dashoffset="64.8051" >
+
+                <animate
+                        id="sa19"
+                        begin="sa18.end"
+                        attributeName="stroke-dashoffset"
+                        from="64.8051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="20"
+                    d="M192 42.5C192 47.1944 188.194 51 183.5 51C178.806 51 175 47.1944 175 42.5C175 37.8056 178.806 34 183.5 34C188.194 34 192 37.8056 192 42.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="53.4142, 53.4142"
+                    stroke-dashoffset="53.4142" >
+
+                <animate
+                        id="sa20"
+                        begin="sa19.end"
+                        attributeName="stroke-dashoffset"
+                        from="53.4142"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="21"
+                    d="M211 50V26L216.5 20.5"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="31.7782, 31.7782"
+                    stroke-dashoffset="31.7782" >
+
+                <animate
+                        id="sa21"
+                        begin="sa20.end"
+                        attributeName="stroke-dashoffset"
+                        from="31.7782"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="22"
+                    d="M230.5 12C230.5 17.2467 226.247 21.5 221 21.5C215.753 21.5 211.5 17.2467 211.5 12C211.5 6.75329 215.753 2.5 221 2.5C226.247 2.5 230.5 6.75329 230.5 12Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="59.699, 59.699"
+                    stroke-dashoffset="59.699" >
+
+                <animate
+                        id="sa22"
+                        begin="sa21.end"
+                        attributeName="stroke-dashoffset"
+                        from="59.699"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="23"
+                    d="M210 41.5L200 31.5V15.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="30.1421, 30.1421"
+                    stroke-dashoffset="30.1421" >
+
+                <animate
+                        id="sa23"
+                        begin="sa22.end"
+                        attributeName="stroke-dashoffset"
+                        from="30.1421"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="24"
+                    d="M205.5 9C205.5 12.0376 203.038 14.5 200 14.5C196.962 14.5 194.5 12.0376 194.5 9C194.5 5.96243 196.962 3.5 200 3.5C203.038 3.5 205.5 5.96243 205.5 9Z"
+                    stroke="black"
+                    stroke-width="3"
+                    stroke-dasharray="34.563, 34.563"
+                    stroke-dashoffset="34.563" >
+
+                <animate
+                        id="sa24"
+                        begin="sa23.end"
+                        attributeName="stroke-dashoffset"
+                        from="34.563"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="25"
+                    d="M213 266.5L236.5 243V216.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="59.734, 59.734"
+                    stroke-dashoffset="59.734" >
+
+                <animate
+                        id="sa25"
+                        begin="sa24.end"
+                        attributeName="stroke-dashoffset"
+                        from="59.734"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="26"
+                    d="M242 210C242 213.314 239.314 216 236 216C232.686 216 230 213.314 230 210C230 206.686 232.686 204 236 204C239.314 204 242 206.686 242 210Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa26"
+                        begin="sa25.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="27"
+                    d="M214 256.5L226.5 244V230"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="31.6777, 31.6777"
+                    stroke-dashoffset="31.6777" >
+
+                <animate
+                        id="sa27"
+                        begin="sa26.end"
+                        attributeName="stroke-dashoffset"
+                        from="31.6777"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="28"
+                    d="M232 223C232 226.314 229.314 229 226 229C222.686 229 220 226.314 220 223C220 219.686 222.686 217 226 217C229.314 217 232 219.686 232 223Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa28"
+                        begin="sa27.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="29"
+                    d="M278 189.5L254 165.5V135"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="64.4411, 64.4411"
+                    stroke-dashoffset="64.4411" >
+
+                <animate
+                        id="sa29"
+                        begin="sa28.end"
+                        attributeName="stroke-dashoffset"
+                        from="64.4411"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="30"
+                    d="M260 129C260 132.314 257.314 135 254 135C250.686 135 248 132.314 248 129C248 125.686 250.686 123 254 123C257.314 123 260 125.686 260 129Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa30"
+                        begin="sa29.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="31"
+                    d="M256.5 167.5L282 142V117"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="61.0624, 61.0624"
+                    stroke-dashoffset="61.0624" >
+
+                <animate
+                        id="sa31"
+                        begin="sa30.end"
+                        attributeName="stroke-dashoffset"
+                        from="61.0624"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="32"
+                    d="M291 112C291 115.314 288.314 118 285 118C281.686 118 279 115.314 279 112C279 108.686 281.686 106 285 106C288.314 106 291 108.686 291 112Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa32"
+                        begin="sa31.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="33"
+                    d="M254 157L275 136.5V102"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="63.8471, 63.8471"
+                    stroke-dashoffset="63.8471" >
+
+                <animate
+                        id="sa33"
+                        begin="sa32.end"
+                        attributeName="stroke-dashoffset"
+                        from="63.8471"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="34"
+                    d="M281 96C281 99.3137 278.314 102 275 102C271.686 102 269 99.3137 269 96C269 92.6863 271.686 90 275 90C278.314 90 281 92.6863 281 96Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7048, 37.7048"
+                    stroke-dashoffset="37.7048" >
+
+                <animate
+                        id="sa34"
+                        begin="sa33.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7048"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="35"
+                    d="M254 148L268.5 133.5V117L261.5 110"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="46.9056, 46.9056"
+                    stroke-dashoffset="46.9056" >
+
+                <animate
+                        id="sa35"
+                        begin="sa34.end"
+                        attributeName="stroke-dashoffset"
+                        from="46.9056"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="36"
+                    d="M264 105C264 108.314 261.314 111 258 111C254.686 111 252 108.314 252 105C252 101.686 254.686 99 258 99C261.314 99 264 101.686 264 105Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa36"
+                        begin="sa35.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="37"
+                    d="M198.5 190.5V161.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="29, 29"
+                    stroke-dashoffset="29" >
+
+                <animate
+                        id="sa37"
+                        begin="sa36.end"
+                        attributeName="stroke-dashoffset"
+                        from="29"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="38"
+                    d="M204 155C204 158.314 201.314 161 198 161C194.686 161 192 158.314 192 155C192 151.686 194.686 149 198 149C201.314 149 204 151.686 204 155Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa38"
+                        begin="sa37.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="39"
+                    d="M157.5 185V173.5L137 153V146.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="46.9914, 46.9914"
+                    stroke-dashoffset="46.9914" >
+
+                <animate
+                        id="sa39"
+                        begin="sa38.end"
+                        attributeName="stroke-dashoffset"
+                        from="46.9914"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="40"
+                    d="M143 140C143 143.314 140.314 146 137 146C133.686 146 131 143.314 131 140C131 136.686 133.686 134 137 134C140.314 134 143 136.686 143 140Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa40"
+                        begin="sa39.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="41"
+                    d="M180.5 157.5L151 128V97.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="72.2193, 72.2193"
+                    stroke-dashoffset="72.2193" >
+
+                <animate
+                        id="sa41"
+                        begin="sa40.end"
+                        attributeName="stroke-dashoffset"
+                        from="72.2193"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="42"
+                    d="M157 91C157 94.3137 154.314 97 151 97C147.686 97 145 94.3137 145 91C145 87.6863 147.686 85 151 85C154.314 85 157 87.6863 157 91Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7047, 37.7047"
+                    stroke-dashoffset="37.7047" >
+
+                <animate
+                        id="sa42"
+                        begin="sa41.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7047"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="43"
+                    d="M158 135V103.5L166.5 95"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="43.5208, 43.5208"
+                    stroke-dashoffset="43.5208" >
+
+                <animate
+                        id="sa43"
+                        begin="sa42.end"
+                        attributeName="stroke-dashoffset"
+                        from="43.5208"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="44"
+                    d="M176 91C176 94.3137 173.314 97 170 97C166.686 97 164 94.3137 164 91C164 87.6863 166.686 85 170 85C173.314 85 176 87.6863 176 91Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7048, 37.7048"
+                    stroke-dashoffset="37.7048" >
+
+                <animate
+                        id="sa44"
+                        begin="sa43.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7048"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+        </g>
+
+
+        <g id="line2">
+
+            <path
+                    id="0_2"
+                    d="M251 446L251 451L261 451L261 446L251 446ZM261 418C261 415.239 258.761 413 256 413C253.239 413 251 415.239 251 418L261 418ZM261 446L261 418L251 418L251 446L261 446Z"
+                    fill="white"
+                    stroke-dasharray="131.71, 131.71"
+                    stroke-dashoffset="131.71" >
+
+                <animate
+                        id="sa0_2"
+                        begin="0s"
+                        attributeName="stroke-dashoffset"
+                        from="131.71"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="1_2"
+                    d="M256.5 418V401.5L233 378V343L265 311V295L307.5 252.5V198"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="260.593, 260.593"
+                    stroke-dashoffset="260.593" >
+
+                <animate
+                        id="sa1_2"
+                        begin="sa0_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="260.593"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="2_2"
+                    d="M316.5 186.5C316.5 192.023 312.023 196.5 306.5 196.5C300.977 196.5 296.5 192.023 296.5 186.5C296.5 180.977 300.977 176.5 306.5 176.5C312.023 176.5 316.5 180.977 316.5 186.5Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="62.8413, 62.8413"
+                    stroke-dashoffset="62.8413" >
+
+                <animate
+                        id="sa2_2"
+                        begin="sa1_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="62.8413"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="3_2"
+                    d="M308 241L329 221"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="29, 29"
+                    stroke-dashoffset="29" >
+
+                <animate
+                        id="sa3_2"
+                        begin="sa2_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="29"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="4_2"
+                    d="M344.5 211.5C344.5 217.023 340.023 221.5 334.5 221.5C328.977 221.5 324.5 217.023 324.5 211.5C324.5 205.977 328.977 201.5 334.5 201.5C340.023 201.5 344.5 205.977 344.5 211.5Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="62.8413, 62.8413"
+                    stroke-dashoffset="62.8413" >
+
+                <animate
+                        id="sa4_2"
+                        begin="sa3_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="62.8413"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="5_2"
+                    d="M233 346.5H255L268 359.5H285.5L314.5 330.5H355.5L365 321"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="153.332, 153.332"
+                    stroke-dashoffset="153.332" >
+
+                <animate
+                        id="sa5_2"
+                        begin="sa4_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="153.332"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="6_2"
+                    d="M378.5 315.5C378.5 319.918 374.918 323.5 370.5 323.5C366.082 323.5 362.5 319.918 362.5 315.5C362.5 311.082 366.082 307.5 370.5 307.5C374.918 307.5 378.5 311.082 378.5 315.5Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="50.2724, 50.2724"
+                    stroke-dashoffset="50.2724" >
+
+                <animate
+                        id="sa6_2"
+                        begin="sa5_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="50.2724"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="7_2"
+                    d="M307 338.5L319.5 351H364"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="62.1777, 62.1777"
+                    stroke-dashoffset="62.1777" >
+
+                <animate
+                        id="sa7_2"
+                        begin="sa6_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="62.1777"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="8_2"
+                    d="M384.5 350.5C384.5 356.575 379.575 361.5 373.5 361.5C367.425 361.5 362.5 356.575 362.5 350.5C362.5 344.425 367.425 339.5 373.5 339.5C379.575 339.5 384.5 344.425 384.5 350.5Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="69.125, 69.125"
+                    stroke-dashoffset="69.125" >
+
+                <animate
+                        id="sa8_2"
+                        begin="sa7_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="69.125"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="9_2"
+                    d="M265.5 301.5H290.5L318.5 273.5H365.5"
+                    stroke="black"
+                    stroke-width="3"
+                    stroke-dasharray="111.598, 111.598"
+                    stroke-dashoffset="111.598" >
+
+                <animate
+                        id="sa9_2"
+                        begin="sa8_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="111.598"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="10_2"
+                    d="M384 274.5C384 279.194 380.194 283 375.5 283C370.806 283 367 279.194 367 274.5C367 269.806 370.806 266 375.5 266C380.194 266 384 269.806 384 274.5Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="53.4141, 53.4141"
+                    stroke-dashoffset="53.4141" >
+
+                <animate
+                        id="sa10_2"
+                        begin="sa9_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="53.4141"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="11_2"
+                    d="M244.5 346L252.5 338H277L309.5 305.5H340.5L346 311"
+                    stroke="black"
+                    stroke-width="2" stroke-linecap="round"
+                    stroke-dasharray="120.554, 120.554"
+                    stroke-dashoffset="120.554" >
+
+                <animate
+                        id="sa11_2"
+                        begin="sa10_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="120.554"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="12_2"
+                    d="M354 317.5C354 321.09 351.09 324 347.5 324C343.91 324 341 321.09 341 317.5C341 313.91 343.91 311 347.5 311C351.09 311 354 313.91 354 317.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa12_2"
+                        begin="sa11_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="13_2"
+                    d="M330 305L342 294"
+                    stroke="black"
+                    stroke-width="2" stroke-linecap="round"
+                    stroke-dasharray="16.2788, 16.2788"
+                    stroke-dashoffset="16.2788" >
+
+                <animate
+                        id="sa13_2"
+                        begin="sa12_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="16.2788"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="14_2"
+                    d="M352 288.5C352 292.09 349.09 295 345.5 295C341.91 295 339 292.09 339 288.5C339 284.91 341.91 282 345.5 282C349.09 282 352 284.91 352 288.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa14_2"
+                        begin="sa13_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="15_2"
+                    d="M258.5 348.5H278L310.5 316H323"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="77.9619, 77.9619"
+                    stroke-dashoffset="77.9619" >
+
+                <animate
+                        id="sa15_2"
+                        begin="sa14_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="77.9619"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="16_2"
+                    d="M337 316.5C337 320.09 334.09 323 330.5 323C326.91 323 324 320.09 324 316.5C324 312.91 326.91 310 330.5 310C334.09 310 337 312.91 337 316.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa16_2"
+                        begin="sa15_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="17_2"
+                    d="M358 330H392.286L398 324"
+                    stroke="black"
+                    stroke-width="2" stroke-linecap="round"
+                    stroke-dasharray="42.5715, 42.5715"
+                    stroke-dashoffset="42.5715" >
+
+                <animate
+                        id="sa17_2"
+                        begin="sa16_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="42.5715"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="18_2"
+                    d="M409 318.5C409 322.09 406.09 325 402.5 325C398.91 325 396 322.09 396 318.5C396 314.91 398.91 312 402.5 312C406.09 312 409 314.91 409 318.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa18_2"
+                        begin="sa17_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="19_2"
+                    d="M386.5 330L396 339.5H405L413 347.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="33.7487, 33.7487"
+                    stroke-dashoffset="33.7487" >
+
+                <animate
+                        id="sa19_2"
+                        begin="sa18_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="33.7487"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="20_2"
+                    d="M424 352.5C424 356.09 421.09 359 417.5 359C413.91 359 411 356.09 411 352.5C411 348.91 413.91 346 417.5 346C421.09 346 424 348.91 424 352.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa20_2"
+                        begin="sa19_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="21_2"
+                    d="M289 272H302.028L313.493 261H326"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="41.4236, 41.4236"
+                    stroke-dashoffset="41.4236" >
+
+                <animate
+                        id="sa21_2"
+                        begin="sa20_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="41.4236"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="22_2"
+                    d="M339 260.5C339 264.09 336.09 267 332.5 267C328.91 267 326 264.09 326 260.5C326 256.91 328.91 254 332.5 254C336.09 254 339 256.91 339 260.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa22_2"
+                        begin="sa21_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="23_2"
+                    d="M308.5 253.5H322L331 244.5H336"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="31.2279, 31.2279"
+                    stroke-dashoffset="31.2279" >
+
+                <animate
+                        id="sa23_2"
+                        begin="sa22_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="31.2279"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="24_2"
+                    d="M349 244.5C349 248.09 346.09 251 342.5 251C338.91 251 336 248.09 336 244.5C336 240.91 338.91 238 342.5 238C346.09 238 349 240.91 349 244.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa24_2"
+                        begin="sa23_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="25_2"
+                    d="M307.5 247H317L330 234H346.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="44.3848, 44.3848"
+                    stroke-dashoffset="44.3848" >
+
+                <animate
+                        id="sa25_2"
+                        begin="sa24_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="44.3848"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="26_2"
+                    d="M359 230.5C359 234.09 356.09 237 352.5 237C348.91 237 346 234.09 346 230.5C346 226.91 348.91 224 352.5 224C356.09 224 359 226.91 359 230.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="40.8469, 40.8469"
+                    stroke-dashoffset="40.8469" >
+
+                <animate
+                        id="sa26_2"
+                        begin="sa25_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="40.8469"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="27_2"
+                    d="M317.5 231V202.5L325.5 194.5V177L315 166.5H300.5L294.5 160.5V149"
+                    stroke="black"
+                    stroke-dasharray="106.648, 106.648"
+                    stroke-dashoffset="106.648" >
+
+                <animate
+                        id="sa27_2"
+                        begin="sa26_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="106.648"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="28_2"
+                    d="M300 143.5C300 146.538 297.538 149 294.5 149C291.462 149 289 146.538 289 143.5C289 140.462 291.462 138 294.5 138C297.538 138 300 140.462 300 143.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="34.5633, 34.5633"
+                    stroke-dashoffset="34.5633" >
+
+                <animate
+                        id="sa28_2"
+                        begin="sa27_2.end"
+                        attributeName="stroke-dashoffset"
+                        from="34.5633"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+        </g>
+
+
+        <g id="line3">
+
+            <path
+                    id="0_3"
+                    d="M193 446L193 451L203 451L203 446L193 446ZM203 418C203 415.239 200.761 413 198 413C195.239 413 193 415.239 193 418L203 418ZM203 446L203 418L193 418L193 446L203 446Z"
+                    fill="white"
+                    stroke-dasharray="131.71, 131.71"
+                    stroke-dashoffset="131.71" >
+
+                <animate
+                        id="sa0_3"
+                        begin="0s"
+                        attributeName="stroke-dashoffset"
+                        from="131.71"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="1_3"
+                    d="M198 418.5V402.5L184.5 389"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="35.0919, 35.0919"
+                    stroke-dashoffset="35.0919" >
+
+                <animate
+                        id="sa1_3"
+                        begin="sa0_3.end"
+                        attributeName="stroke-dashoffset"
+                        from="35.0919"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+        </g>
+
+
+        <g id="line4">
+
+            <path
+                    id="0_4"
+                    d="M166 446L166 451L176 451L176 446L166 446ZM176 418C176 415.239 173.761 413 171 413C168.239 413 166 415.239 166 418L176 418ZM176 446L176 418L166 418L166 446L176 446Z"
+                    fill="white"
+                    stroke-dasharray="131.71, 131.71"
+                    stroke-dashoffset="131.71" >
+
+                <animate
+                        id="sa0_4"
+                        begin="0s"
+                        attributeName="stroke-dashoffset"
+                        from="131.71"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="1_4"
+                    d="M171.5 417.5V402.5L193.5 380.5V345L137 288.5V269L118 250H89.5L83.5 244V234.5"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="254.371, 254.371"
+                    stroke-dashoffset="254.371" >
+
+                <animate
+                        id="sa1_4"
+                        begin="sa0_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="254.371"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="2_4"
+                    d="M94.5 223.5C94.5 229.575 89.5751 234.5 83.5 234.5C77.4249 234.5 72.5 229.575 72.5 223.5C72.5 217.425 77.4249 212.5 83.5 212.5C89.5751 212.5 94.5 217.425 94.5 223.5Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="69.1247, 69.1247"
+                    stroke-dashoffset="69.1247" >
+
+                <animate
+                        id="sa2_4"
+                        begin="sa1_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="69.1247"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="3_4"
+                    d="M193 360L178.443 345.337H148.827L140.294 353.933H117.204L78.5529 315H65"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="153.893, 153.893"
+                    stroke-dashoffset="153.893" >
+
+                <animate
+                        id="sa3_4"
+                        begin="sa2_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="153.893"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="4_4"
+                    d="M63.5 313.5C63.5 319.575 58.5751 324.5 52.5 324.5C46.4249 324.5 41.5 319.575 41.5 313.5C41.5 307.425 46.4249 302.5 52.5 302.5C58.5751 302.5 63.5 307.425 63.5 313.5Z"
+                    stroke="black"
+                    stroke-width="5"
+                    stroke-dasharray="69.1248, 69.1248"
+                    stroke-dashoffset="69.1248" >
+
+                <animate
+                        id="sa4_4"
+                        begin="sa3_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="69.1248"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="5_4"
+                    d="M158 310H135L112 288"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="54.8277, 54.8277"
+                    stroke-dashoffset="54.8277" >
+
+                <animate
+                        id="sa5_4"
+                        begin="sa4_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="54.8277"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="6_4"
+                    d="M114 279.5C114 285.299 109.299 290 103.5 290C97.701 290 93 285.299 93 279.5C93 273.701 97.701 269 103.5 269C109.299 269 114 273.701 114 279.5Z"
+                    stroke="black"
+                    stroke-width="4"
+                    stroke-dasharray="65.9829, 65.9829"
+                    stroke-dashoffset="65.9829" >
+
+                <animate
+                        id="sa6_4"
+                        begin="sa5_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="65.9829"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="7_4"
+                    d="M169 321H129L107 299H90L59 268"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="131.953, 131.953"
+                    stroke-dashoffset="131.953" >
+
+                <animate
+                        id="sa7_4"
+                        begin="sa6_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="131.953"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="8_4"
+                    d="M61 264C61 267.314 58.3137 270 55 270C51.6863 270 49 267.314 49 264C49 260.686 51.6863 258 55 258C58.3137 258 61 260.686 61 264Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7048, 37.7048"
+                    stroke-dashoffset="37.7048" >
+
+                <animate
+                        id="sa8_4"
+                        begin="sa7_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7048"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="9_4"
+                    d="M92 278H84.7018L66 259.127V249"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="43.9949, 43.9949"
+                    stroke-dashoffset="43.9949" >
+
+                <animate
+                        id="sa9_4"
+                        begin="sa8_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="43.9949"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="10_4"
+                    d="M72 243C72 246.314 69.3137 249 66 249C62.6863 249 60 246.314 60 243C60 239.686 62.6863 237 66 237C69.3137 237 72 239.686 72 243Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7049, 37.7049"
+                    stroke-dashoffset="37.7049" >
+
+                <animate
+                        id="sa10_4"
+                        begin="sa9_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7049"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="11_4"
+                    d="M186 337V307L172 293"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="49.799, 49.799"
+                    stroke-dashoffset="49.799" >
+
+                <animate
+                        id="sa11_4"
+                        begin="sa10_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="49.799"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="12_4"
+                    d="M175 286.5C175 290.642 171.642 294 167.5 294C163.358 294 160 290.642 160 286.5C160 282.358 163.358 279 167.5 279C171.642 279 175 282.358 175 286.5Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="47.1305, 47.1305"
+                    stroke-dashoffset="47.1305" >
+
+                <animate
+                        id="sa12_4"
+                        begin="sa11_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="47.1305"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="13_4"
+                    d="M100 336.5L77.5 359H20.5L11.5 350"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="101.548, 101.548"
+                    stroke-dashoffset="101.548" >
+
+                <animate
+                        id="sa13_4"
+                        begin="sa12_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="101.548"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="14_4"
+                    d="M13 347C13 350.314 10.3137 353 7 353C3.68629 353 1 350.314 1 347C1 343.686 3.68629 341 7 341C10.3137 341 13 343.686 13 347Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7048, 37.7048"
+                    stroke-dashoffset="37.7048" >
+
+                <animate
+                        id="sa14_4"
+                        begin="sa13_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7048"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="15_4"
+                    d="M93 330.5L73 350.5H31L19 338.5V330.5"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="95.2548, 95.2548"
+                    stroke-dashoffset="95.2548" >
+
+                <animate
+                        id="sa15_4"
+                        begin="sa14_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="95.2548"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="16_4"
+                    d="M25 324C25 327.314 22.3137 330 19 330C15.6863 330 13 327.314 13 324C13 320.686 15.6863 318 19 318C22.3137 318 25 320.686 25 324Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7048, 37.7048"
+                    stroke-dashoffset="37.7048" >
+
+                <animate
+                        id="sa16_4"
+                        begin="sa15_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7048"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="17_4"
+                    d="M87 324L70 341H39"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="55.0416, 55.0416"
+                    stroke-dashoffset="55.0416" >
+
+                <animate
+                        id="sa17_4"
+                        begin="sa16_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="55.0416"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="18_4"
+                    d="M41 337C41 340.314 38.3137 343 35 343C31.6863 343 29 340.314 29 337C29 333.686 31.6863 331 35 331C38.3137 331 41 333.686 41 337Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7048, 37.7048"
+                    stroke-dashoffset="37.7048" >
+
+                <animate
+                        id="sa18_4"
+                        begin="sa17_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7048"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="19_4"
+                    d="M138 269V217.836L112 192"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="87.8178, 87.8178"
+                    stroke-dashoffset="87.8178" >
+
+                <animate
+                        id="sa19_4"
+                        begin="sa18_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="87.8178"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="20_4"
+                    d="M115 188C115 191.314 112.314 194 109 194C105.686 194 103 191.314 103 188C103 184.686 105.686 182 109 182C112.314 182 115 184.686 115 188Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa20_4"
+                        begin="sa19_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="21_4"
+                    d="M132.5 264.5V223L110 200.5H97.5L90 193"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="96.4264, 96.4264"
+                    stroke-dashoffset="96.4264" >
+
+                <animate
+                        id="sa21_4"
+                        begin="sa20_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="96.4264"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="22_4"
+                    d="M96 187C96 190.314 93.3137 193 90 193C86.6863 193 84 190.314 84 187C84 183.686 86.6863 181 90 181C93.3137 181 96 183.686 96 187Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7048, 37.7048"
+                    stroke-dashoffset="37.7048" >
+
+                <animate
+                        id="sa22_4"
+                        begin="sa21_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7048"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="23_4"
+                    d="M127.5 258.5V224.5L116.5 213.5H107V222"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="67.5564, 67.5564"
+                    stroke-dashoffset="67.5564" >
+
+                <animate
+                        id="sa23_4"
+                        begin="sa22_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="67.5564"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+
+            <path
+                    id="24_4"
+                    d="M113 228C113 231.314 110.314 234 107 234C103.686 234 101 231.314 101 228C101 224.686 103.686 222 107 222C110.314 222 113 224.686 113 228Z"
+                    stroke="black"
+                    stroke-width="2"
+                    stroke-dasharray="37.7051, 37.7051"
+                    stroke-dashoffset="37.7051" >
+
+                <animate
+                        id="sa24_4"
+                        begin="sa23_4.end"
+                        attributeName="stroke-dashoffset"
+                        from="37.7051"
+                        to="0"
+                        dur="0.5s"
+                        fill="freeze"/>
+
+            </path>
+        </g>
+
+    </g>
+</svg>
