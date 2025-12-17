@@ -45,7 +45,7 @@ const Tree = styled.div<{ $animate: boolean }>`
     ${({ $animate }) => {
       let styles = "";
 
-      for (let i = 1; i <= 120; i++) {
+      for (let i = 1; i <= 101; i++) {
         const color = lightColors[(i - 1) % lightColors.length];
 
         styles += `
