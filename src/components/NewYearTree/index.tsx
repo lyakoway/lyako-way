@@ -34,12 +34,8 @@ const Tree = styled.div<{ $animate: boolean }>`
     ${({ $animate }) =>
       $animate &&
       css`
-        animation-name: ${blink};
-        animation-duration: 1.8s;
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-in-out;
-        animation-fill-mode: both;
-        animation-delay: 6s; /* ⏳ старт через 6 секунд */
+        animation: ${blink} 1.8s ease-in-out infinite;
+        animation-delay: 6s;
       `}
 
     ${({ $animate }) => {
@@ -51,11 +47,9 @@ const Tree = styled.div<{ $animate: boolean }>`
         styles += `
           &:nth-of-type(${i}) {
             stroke: ${color};
-            ${
-              $animate
-                ? `animation-delay: ${24 + i * 0.15}s;` // 6с + разнобой
-                : ""
-            }
+            filter: drop-shadow(0 0 6px ${color})
+                    drop-shadow(0 0 12px ${color});
+            ${$animate ? `animation-delay: ${24 + i * 0.15}s;` : ""}
           }
         `;
       }
