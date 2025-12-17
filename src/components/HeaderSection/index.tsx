@@ -55,7 +55,6 @@ import { WEATHER_TO_CLIMATE } from "src/components/Window/ClimateControl/constan
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
 import { ChristmasTree } from "src/components/ChristmasTree";
 import { Gifts } from "src/components/Gifts";
-import ChristmasTreeNew from "src/components/ChristmasTreeNew";
 import { NewYearTree } from "src/components/NewYearTree";
 
 const HeaderSection = () => {
@@ -125,7 +124,6 @@ const HeaderSection = () => {
           <NewYear>
             {/*<ChristmasTree themeLight={themeLight} />*/}
             {/*<Gifts />*/}
-            {/*<ChristmasTreeNew themeLight={themeLight} />*/}
             <NewYearTree themeLight={themeLight} />
           </NewYear>
         )}
