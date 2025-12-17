@@ -8,7 +8,7 @@ const lightColors = [
   "#ffd93b",
   "#3bff6f",
   "#3bd9ff",
-  "#b43bff",
+  "#ff8560",
   "#ff8f3b",
 ];
 
