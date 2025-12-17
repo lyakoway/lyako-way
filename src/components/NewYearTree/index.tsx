@@ -12,7 +12,7 @@ const lightColors = [
   "#ff8f3b",
 ];
 
-// ✨ Анимация мигания
+// ✨ Мигание
 const blink = keyframes`
     0%   { opacity: 1; }
     40%  { opacity: 0.3; }
@@ -34,23 +34,32 @@ const Tree = styled.div<{ $animate: boolean }>`
     ${({ $animate }) =>
       $animate &&
       css`
-        animation: ${blink} 1.8s infinite ease-in-out;
+        animation-name: ${blink};
+        animation-duration: 1.8s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: both;
+        animation-delay: 6s; /* ⏳ старт через 6 секунд */
       `}
 
     ${({ $animate }) => {
       let styles = "";
 
-      // ⚠️ число должно быть > количества path.light
-      for (let i = 1; i <= 101; i++) {
+      for (let i = 1; i <= 120; i++) {
         const color = lightColors[(i - 1) % lightColors.length];
 
         styles += `
           &:nth-of-type(${i}) {
             stroke: ${color};
-            ${$animate ? `animation-delay: ${i * 0.15}s;` : ""}
+            ${
+              $animate
+                ? `animation-delay: ${24 + i * 0.15}s;` // 6с + разнобой
+                : ""
+            }
           }
         `;
       }
+
       return styles;
     }}
   }
