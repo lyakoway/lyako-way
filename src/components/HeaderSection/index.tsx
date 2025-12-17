@@ -53,8 +53,8 @@ import ContactForm from "src/components/ContactForm";
 import PagesSettings from "src/components/PagesSettings";
 import { WEATHER_TO_CLIMATE } from "src/components/Window/ClimateControl/constants";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
-import { ChristmasTree } from "src/components/ChristmasTree";
-import { Gifts } from "src/components/Gifts";
+// import { ChristmasTree } from "src/components/ChristmasTree";
+// import { Gifts } from "src/components/Gifts";
 import { NewYearTree } from "src/components/NewYearTree";
 
 const HeaderSection = () => {
