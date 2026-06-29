@@ -2,16 +2,31 @@
 const nextConfig = {
   reactStrictMode: true, // Включаем строгий режим React
 
+  compress: true, // gzip-сжатие ответов
+  poweredByHeader: false,
+  productionBrowserSourceMaps: false,
+
   images: {
     domains: ["images.vexels.com"], // Разрешённые домены для <Image />
+    formats: ["image/avif", "image/webp"],
   },
 
   webpack(config) {
-    // Обработка SVG через SVGR и url-loader
+    // Обработка SVG через SVGR: отдаём как React-компонент (ReactComponent),
+    // без инлайна в base64 — это уменьшает размер JS-бандла и TBT.
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.tsx?$/,
-      use: ["@svgr/webpack", "url-loader"],
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: {
+            exportType: "named",
+            namedExport: "ReactComponent",
+            svgo: true,
+          },
+        },
+      ],
     });
 
     return config;
