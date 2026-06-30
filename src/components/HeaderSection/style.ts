@@ -277,7 +277,7 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
   z-index: 10;
 
   @media ${TABLET_959} {
-    position: initial;
+    position: relative;
   }
 
   @media ${MOBILE_660} {
@@ -285,6 +285,111 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
     background-size: 100%;
     z-index: 0;
   }
+`;
+
+// ——— Имитация набора кода на экране ноутбука ———
+
+// Цвета токенов взяты из оригинальной иллюстрации экрана
+export const CODE_COLORS = {
+  g: "#c6d2dc", // светлый текст
+  m: "#7f96a8", // приглушённый
+  o: "#f47b54", // ключевое слово (оранжевый)
+  O: "#f86a4a", // длинная строка (яркий оранжевый)
+  c: "#34c0cd", // акцент (бирюзовый)
+} as const;
+
+export type CodeColor = keyof typeof CODE_COLORS;
+
+// Раскладка строк: отступ + набор токенов [цвет, ширина в %]
+export const CODE_LINES: {
+  indent: number;
+  caret?: boolean;
+  tokens: [CodeColor, number][];
+}[] = [
+  { indent: 0, tokens: [["o", 12], ["g", 24]] },
+  { indent: 6, tokens: [["o", 14], ["c", 18], ["g", 10]] },
+  { indent: 6, tokens: [["g", 18], ["g", 26], ["O", 40]] },
+  { indent: 14, tokens: [["m", 10], ["g", 22]] },
+  { indent: 6, tokens: [["o", 12], ["g", 20], ["c", 14]] },
+  { indent: 14, tokens: [["g", 16], ["c", 22]] },
+  { indent: 6, tokens: [["o", 10], ["g", 28]] },
+  { indent: 14, tokens: [["g", 14], ["g", 20], ["c", 12]] },
+  { indent: 0, caret: true, tokens: [["g", 16]] },
+];
+
+const CODE_CYCLE = "6s";
+
+// Печать строки: скрыта → проявляется слева направо → держится → исчезает
+const typeLine = (start: number, end: number) => keyframes`
+  0%, ${start}% {
+    clip-path: inset(0 100% 0 0);
+  }
+  90%, ${end}% {
+    clip-path: inset(0 0 0 0);
+  }
+  96%, 100% {
+    clip-path: inset(0 100% 0 0);
+  }
+`;
+
+const caretBlink = keyframes`
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+`;
+
+// Накладывается ровно поверх экрана ноутбука и повторяет его цвет
+export const CodeScreen = styled.div`
+  position: absolute;
+  left: 26.97%;
+  top: 45.48%;
+  width: 20.37%;
+  height: 24.3%;
+  box-sizing: border-box;
+  padding: 5px 6px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  background: linear-gradient(135deg, #4f7692 0%, #466f8c 100%);
+  z-index: 11;
+  pointer-events: none;
+
+  @media ${MOBILE_660} {
+    display: none;
+  }
+`;
+
+export const CodeLineRow = styled.div<{ $start: number; $end: number }>`
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 3px;
+  clip-path: inset(0 100% 0 0);
+  animation-name: ${({ $start, $end }) => typeLine($start, $end)};
+  animation-duration: ${CODE_CYCLE};
+  animation-timing-function: steps(12, end);
+  animation-iteration-count: infinite;
+`;
+
+export const CodeToken = styled.span<{ $color: string; $w: number }>`
+  display: block;
+  height: 3px;
+  border-radius: 1.5px;
+  background: ${({ $color }) => $color};
+  width: ${({ $w }) => $w}%;
+`;
+
+export const CodeCaret = styled.span`
+  display: block;
+  width: 2px;
+  height: 6px;
+  margin-left: 1px;
+  background: ${CODE_COLORS.g};
+  animation: ${caretBlink} 1s steps(1, end) infinite;
 `;
 
 export const SettingIconWrapper = styled.div<{ $openedPopup: boolean }>`

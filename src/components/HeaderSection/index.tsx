@@ -25,6 +25,12 @@ import {
   SettingWrapper,
   SettingIconWrapper,
   NewYear,
+  CodeScreen,
+  CodeLineRow,
+  CodeToken,
+  CodeCaret,
+  CODE_LINES,
+  CODE_COLORS,
 } from "./style";
 
 import { Modal } from "src/ui/Modal";
@@ -128,6 +134,21 @@ const HeaderSection = () => {
           </NewYear>
         )}
         <IconComp $themeLight={themeLight}>
+          <CodeScreen aria-hidden>
+            {CODE_LINES.map((line, i) => (
+              <CodeLineRow
+                key={i}
+                $start={i * 9}
+                $end={i * 9 + 8}
+                style={{ marginLeft: line.indent }}
+              >
+                {line.tokens.map(([color, w], j) => (
+                  <CodeToken key={j} $color={CODE_COLORS[color]} $w={w} />
+                ))}
+                {line.caret && <CodeCaret />}
+              </CodeLineRow>
+            ))}
+          </CodeScreen>
           <SettingWrapper>
             <Popup
               positionValue={positionValue}
