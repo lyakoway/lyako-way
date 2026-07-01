@@ -31,6 +31,12 @@ import {
   CodeCaret,
   CODE_LINES,
   CODE_COLORS,
+  Steam,
+  SteamWisp,
+  MonitorScreen,
+  MonitorGlare,
+  MonitorLoader,
+  MonitorLoaderFill,
 } from "./style";
 
 import { Modal } from "src/ui/Modal";
@@ -134,12 +140,13 @@ const HeaderSection = () => {
           </NewYear>
         )}
         <IconComp $themeLight={themeLight}>
-          <CodeScreen aria-hidden>
+          <CodeScreen aria-hidden $themeLight={themeLight}>
             {CODE_LINES.map((line, i) => (
               <CodeLineRow
                 key={i}
                 $start={i * 9}
                 $end={i * 9 + 8}
+                $themeLight={themeLight}
                 style={{ marginLeft: line.indent }}
               >
                 {line.tokens.map(([color, w], j) => (
@@ -149,6 +156,17 @@ const HeaderSection = () => {
               </CodeLineRow>
             ))}
           </CodeScreen>
+          <MonitorScreen aria-hidden $themeLight={themeLight}>
+            <MonitorGlare $themeLight={themeLight} />
+            <MonitorLoader>
+              <MonitorLoaderFill $themeLight={themeLight} />
+            </MonitorLoader>
+          </MonitorScreen>
+          <Steam aria-hidden $themeLight={themeLight}>
+            <SteamWisp $left={8} $delay={0} $themeLight={themeLight} />
+            <SteamWisp $left={50} $delay={1} $themeLight={themeLight} />
+            <SteamWisp $left={92} $delay={2} $themeLight={themeLight} />
+          </Steam>
           <SettingWrapper>
             <Popup
               positionValue={positionValue}

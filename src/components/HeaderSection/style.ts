@@ -341,8 +341,28 @@ const caretBlink = keyframes`
   }
 `;
 
+// Анимации откалиброваны под светлую картинку — в тёмной теме плавно скрываем
+// их тем же переходом, что и смена фона (bgTransition): 4s / 1s на планшете.
+const themeFade = css<{ $themeLight?: boolean }>`
+  opacity: ${({ $themeLight }) => ($themeLight ? 1 : 0)};
+  transition: opacity 4s ease;
+
+  @media ${TABLET_959} {
+    transition: opacity 1s ease;
+  }
+`;
+
+// Задержка запуска анимации = длительности проявления картинки (4s / 1s на планшете),
+// чтобы анимация стартовала, когда светлая тема уже полностью проявилась.
+const ANIM_START = "4s";
+const animStartDelay = css`
+  @media ${TABLET_959} {
+    animation-delay: 1s;
+  }
+`;
+
 // Накладывается ровно поверх экрана ноутбука и повторяет его цвет
-export const CodeScreen = styled.div`
+export const CodeScreen = styled.div<{ $themeLight?: boolean }>`
   position: absolute;
   left: 26.97%;
   top: 45.48%;
@@ -357,22 +377,31 @@ export const CodeScreen = styled.div`
   background: linear-gradient(135deg, #4f7692 0%, #466f8c 100%);
   z-index: 11;
   pointer-events: none;
+  ${themeFade};
 
   @media ${MOBILE_660} {
     display: none;
   }
 `;
 
-export const CodeLineRow = styled.div<{ $start: number; $end: number }>`
+export const CodeLineRow = styled.div<{
+  $start: number;
+  $end: number;
+  $themeLight?: boolean;
+}>`
   display: flex;
   align-items: center;
   gap: 3px;
   height: 3px;
   clip-path: inset(0 100% 0 0);
-  animation-name: ${({ $start, $end }) => typeLine($start, $end)};
-  animation-duration: ${CODE_CYCLE};
-  animation-timing-function: steps(12, end);
-  animation-iteration-count: infinite;
+  animation: ${({ $start, $end, $themeLight }) =>
+    $themeLight
+      ? css`
+          ${typeLine($start, $end)} ${CODE_CYCLE} steps(12, end) ${ANIM_START}
+            infinite
+        `
+      : "none"};
+  ${animStartDelay};
 `;
 
 export const CodeToken = styled.span<{ $color: string; $w: number }>`
@@ -390,6 +419,166 @@ export const CodeCaret = styled.span`
   margin-left: 1px;
   background: ${CODE_COLORS.g};
   animation: ${caretBlink} 1s steps(1, end) infinite;
+`;
+
+// ——— Пар над кружкой ———
+
+const steamRise = keyframes`
+  0% {
+    transform: translateY(0) translateX(0) scaleX(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  55% {
+    opacity: 0.4;
+    transform: translateY(-9px) translateX(2px) scaleX(1.5);
+  }
+  100% {
+    transform: translateY(-20px) translateX(-2px) scaleX(2.1);
+    opacity: 0;
+  }
+`;
+
+export const Steam = styled.div<{ $themeLight?: boolean }>`
+  position: absolute;
+  left: 15.3%;
+  top: 52%;
+  width: 3.4%;
+  height: 11%;
+  z-index: 12;
+  pointer-events: none;
+  ${themeFade};
+
+  @media ${MOBILE_660} {
+    display: none;
+  }
+`;
+
+export const SteamWisp = styled.span<{
+  $left: number;
+  $delay: number;
+  $themeLight?: boolean;
+}>`
+  position: absolute;
+  bottom: 0;
+  left: ${({ $left }) => $left}%;
+  width: 3px;
+  height: 13px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.75)
+  );
+  filter: blur(1.4px);
+  opacity: 0;
+  animation: ${({ $delay, $themeLight }) =>
+    $themeLight
+      ? css`
+          ${steamRise} 3s ease-in-out ${4 + $delay}s infinite
+        `
+      : "none"};
+
+  @media ${TABLET_959} {
+    animation-delay: ${({ $delay }) => 1 + $delay}s;
+  }
+`;
+
+// ——— «Работа окон» на экране монитора ———
+
+const glareSweep = keyframes`
+  0% {
+    transform: translateX(-160%) skewX(-18deg);
+  }
+  60%, 100% {
+    transform: translateX(380%) skewX(-18deg);
+  }
+`;
+
+const loadingFill = keyframes`
+  0% {
+    width: 0;
+  }
+  55% {
+    width: 100%;
+  }
+  80% {
+    width: 100%;
+  }
+  82%,
+  100% {
+    width: 0;
+  }
+`;
+
+// Обрезано ровно по экрану монитора
+export const MonitorScreen = styled.div<{ $themeLight?: boolean }>`
+  position: absolute;
+  left: 43.3%;
+  top: 10.3%;
+  width: 33%;
+  height: 45.8%;
+  overflow: hidden;
+  z-index: 11;
+  pointer-events: none;
+  ${themeFade};
+
+  @media ${MOBILE_660} {
+    display: none;
+  }
+`;
+
+// Скользящий блик-отражение по экрану
+export const MonitorGlare = styled.div<{ $themeLight?: boolean }>`
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 28%;
+  height: 140%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.13) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-160%) skewX(-18deg);
+  animation: ${({ $themeLight }) =>
+    $themeLight
+      ? css`
+          ${glareSweep} 6.5s ease-in-out ${ANIM_START} infinite
+        `
+      : "none"};
+  ${animStartDelay};
+`;
+
+// Голубая полоска как индикатор загрузки: фон повторяет экран, заполнение бежит
+export const MonitorLoader = styled.div`
+  position: absolute;
+  left: 20%;
+  top: 22.4%;
+  width: 40.4%;
+  height: 4.1%;
+  min-height: 4px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #4f7692 0%, #608199 100%);
+`;
+
+export const MonitorLoaderFill = styled.div<{ $themeLight?: boolean }>`
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  background: #3aacbc;
+  animation: ${({ $themeLight }) =>
+    $themeLight
+      ? css`
+          ${loadingFill} 3.2s ease-in-out ${ANIM_START} infinite
+        `
+      : "none"};
+  ${animStartDelay};
 `;
 
 export const SettingIconWrapper = styled.div<{ $openedPopup: boolean }>`
