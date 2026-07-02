@@ -53,78 +53,123 @@ export const LampBulb = styled.div<{ $on: boolean }>`
         `};
 `;
 
-// Кнопка-переключатель на основании лампы (кнопка питания по центру купола).
-// Power-кнопка на основании лампы: металлический ободок, тёмное «стекло» и
-// светящийся значок питания. Светлая тема — зелёный (ON), тёмная — красный (OFF).
-export const LampSwitchButton = styled.button<{ $on: boolean }>`
+// Анимированный power-тумблер на основании лампы (адаптация примера).
+// Светлая тема (checked) — зелёный «ON», тёмная — красный «OFF».
+// Символ питания белый, при переключении «дорисовывается» кольцо и линия.
+export const LampSwitchLabel = styled.label`
   position: absolute;
   left: 5.24%;
   top: 69.78%;
   transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   z-index: 15;
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 12px;
+  cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  appearance: none;
 
-  /* Металлический ободок */
-  background: conic-gradient(
-    from 220deg,
-    #e9edf2,
-    #9aa4b0,
-    #f4f7fa,
-    #838d99,
-    #e9edf2
-  );
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45),
-    inset 0 0 1px rgba(255, 255, 255, 0.9);
-  transition: transform 0.15s ease;
+  --hue: 223;
+  --offHue: 3;
+  --onHue: 123;
+  --off1: hsl(var(--offHue), 90%, 25%);
+  --off2: hsl(var(--offHue), 90%, 40%);
+  --off3: hsl(var(--offHue), 90%, 50%);
+  --off4: hsl(var(--offHue), 90%, 65%);
+  --on1: hsl(var(--onHue), 90%, 15%);
+  --on2: hsl(var(--onHue), 90%, 30%);
+  --on3: hsl(var(--onHue), 90%, 40%);
+  --on4: hsl(var(--onHue), 90%, 55%);
 
-  /* Тёмное «стекло» с цветным свечением-ободком */
-  &:before {
-    content: "";
+  .t__checkbox,
+  .t__svg {
     position: absolute;
-    inset: 2px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .t__checkbox {
+    margin: 0;
+    background-color: var(--off2);
     border-radius: 50%;
-    background: radial-gradient(circle at 50% 38%, #3a4048 0%, #14181d 100%);
-    transition: box-shadow 0.35s ease;
-    box-shadow: ${({ $on }) =>
-      $on
-        ? "0 0 0 1px rgba(55, 209, 58, 0.9), 0 0 5px 1px rgba(55, 209, 58, 0.55) inset"
-        : "0 0 0 1px rgba(226, 59, 46, 0.9), 0 0 5px 1px rgba(226, 59, 46, 0.5) inset"};
+    box-shadow: 0 0 0 0.1em var(--off1) inset, 0 0 0 0.2em var(--off4) inset,
+      -0.3em 0.5em 0 var(--off3) inset, 0 0.15em 0 hsla(0, 0%, 0%, 0.2);
+    filter: brightness(1);
+    cursor: pointer;
+    transition: background-color 0.15s linear, box-shadow 0.15s linear,
+      filter 0.15s linear, transform 0.15s linear;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .t__checkbox:active {
+    box-shadow: 0 0 0 0.1em var(--off1) inset, 0 0 0 0.2em var(--off4) inset,
+      -0.3em 0.5em 0 var(--off3) inset, 0 0.05em 0 hsla(0, 0%, 0%, 0.2);
+  }
+  .t__checkbox:active,
+  .t__checkbox:active + .t__svg {
+    transform: scale(0.9);
+  }
+  .t__checkbox:checked {
+    background-color: var(--on2);
+    box-shadow: 0 0 0 0.1em var(--on1) inset, 0 0 0 0.2em var(--on4) inset,
+      -0.3em 0.5em 0 var(--on3) inset, 0 0.15em 0 hsla(0, 0%, 0%, 0.2);
+  }
+  .t__checkbox:checked:active {
+    box-shadow: 0 0 0 0.1em var(--on1) inset, 0 0 0 0.2em var(--on4) inset,
+      -0.3em 0.5em 0 var(--on3) inset, 0 0.05em 0 hsla(0, 0%, 0%, 0.2);
+  }
+  .t__checkbox:focus,
+  .t__checkbox:hover {
+    filter: brightness(1.2);
+  }
+  .t__checkbox:focus {
+    outline: 0;
   }
 
-  /* Значок питания */
-  & svg {
-    position: relative;
-    width: 9px;
-    height: 9px;
-    stroke: ${({ $on }) => ($on ? "#4be14e" : "#f0463a")};
-    stroke-width: 2.6;
-    stroke-linecap: round;
-    fill: none;
-    filter: drop-shadow(
-      0 0 2px
-        ${({ $on }) =>
-          $on ? "rgba(75, 225, 78, 0.95)" : "rgba(240, 70, 58, 0.9)"}
-    );
-    transition: stroke 0.35s ease, filter 0.35s ease;
+  .t__sr {
+    position: absolute;
+    top: 0;
+    left: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
   }
 
-  &:hover {
-    transform: translate(-50%, -50%) scale(1.12);
+  .t__svg {
+    pointer-events: none;
+    transition: transform 0.15s linear;
   }
-
-  &:active {
-    transform: translate(-50%, -50%) scale(0.94);
+  .t__svg-ring,
+  .t__svg-line {
+    stroke: hsl(var(--hue), 90%, 100%);
+  }
+  .t__svg-ring {
+    stroke-dasharray: 0 5 27.7 5;
+    transition: stroke 0.15s ease-in-out,
+      stroke-dasharray 0.3s 0.25s ease-in-out;
+  }
+  .t__checkbox:checked + .t__svg .t__svg-ring {
+    stroke-dasharray: 0 0 0 37.7;
+    transition-delay: 0s;
+  }
+  .t__svg-line {
+    stroke-dashoffset: 3;
+    transition: stroke 0.15s linear, stroke-dashoffset 0.3s ease-in-out;
+  }
+  .t__svg-line:nth-of-type(1) {
+    transition-delay: 0s, 0.25s;
+  }
+  .t__checkbox:checked + .t__svg .t__svg-line:nth-of-type(1) {
+    stroke-dashoffset: -6;
+    transition-delay: 0s;
+  }
+  .t__svg-line:nth-of-type(2) {
+    stroke-dashoffset: 6;
+  }
+  .t__checkbox:checked + .t__svg .t__svg-line:nth-of-type(2) {
+    stroke-dashoffset: -3;
+    transition-delay: 0s, 0.25s;
   }
 `;
