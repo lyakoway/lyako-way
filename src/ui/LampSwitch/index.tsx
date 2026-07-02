@@ -27,7 +27,12 @@ const LampSwitch = () => {
         onClick={handleClick}
         aria-label="Переключить тему"
         title="Переключить тему"
-      />
+      >
+        <svg viewBox="0 0 24 24" aria-hidden focusable="false">
+          <line x1="12" y1="3.5" x2="12" y2="11.5" />
+          <path d="M7.4 6.8a7 7 0 1 0 9.2 0" />
+        </svg>
+      </LampSwitchButton>
     </>
   );
 };
