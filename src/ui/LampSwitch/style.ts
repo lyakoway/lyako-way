@@ -1,58 +1,29 @@
-import styled, { css, keyframes } from "styled-components";
+import styled from "styled-components";
 
-// Мягкое «дыхание» света включённой лампочки (в тёмной теме)
-const glow = keyframes`
-  0%,
-  100% {
-    box-shadow: 0 0 0 1.5px rgba(255, 205, 120, 0.95),
-      0 0 6px 2px rgba(253, 234, 123, 0.55),
-      0 0 12px 4px rgba(253, 234, 123, 0.25);
-  }
-  50% {
-    box-shadow: 0 0 0 1.5px rgba(255, 215, 140, 1),
-      0 0 8px 3px rgba(255, 240, 150, 0.75),
-      0 0 16px 6px rgba(253, 234, 123, 0.35);
-  }
-`;
-
-// Декоративная лампочка, встроенная в плафон: частично видна (верх-лево срезан
-// краем плафона) и перекрывает запечённую жёлтую. Цвет зависит от темы:
-// светлая — серая (как в ThemeDarkLight), тёмная — жёлтое свечение.
+// Декоративная серая лампочка, встроенная в плафон: частично видна (верх-лево
+// срезан краем плафона) и полностью перекрывает запечённую жёлтую лампочку.
+// Показывается только в светлой теме; в тёмной скрыта — там сцена сама рисует
+// горящую лампу, поэтому оверлей не нужен (иначе двойное наложение).
 export const LampBulb = styled.div<{ $on: boolean }>`
   position: absolute;
-  left: 18.51%;
-  top: 14.64%;
-  width: 16px;
-  height: 16px;
+  left: 18.2%;
+  top: 14%;
+  width: 18px;
+  height: 18px;
   transform: translate(-50%, -50%);
   border-radius: 50%;
   z-index: 14;
   pointer-events: none;
-  clip-path: polygon(71% 0, 100% 0, 100% 100%, 0 100%, 0 94%);
-  transition:
-    background 0.35s ease,
-    box-shadow 0.35s ease;
-
-  ${({ $on }) =>
-    $on
-      ? css`
-          background: radial-gradient(
-            circle at 40% 35%,
-            #ffffff 0%,
-            #d7d7d7 55%,
-            #b9b9b9 100%
-          );
-          box-shadow: 0 0 0 1.5px rgba(255, 200, 120, 0.85);
-        `
-      : css`
-          background: radial-gradient(
-            circle at 40% 35%,
-            #fff6cf 0%,
-            #ffe07a 45%,
-            #fdea7b 100%
-          );
-          animation: ${glow} 3s ease-in-out infinite;
-        `};
+  clip-path: polygon(81% 0, 100% 0, 100% 100%, 0 100%, 0 99%);
+  background: radial-gradient(
+    circle at 40% 35%,
+    #ffffff 0%,
+    #d7d7d7 55%,
+    #b9b9b9 100%
+  );
+  /* box-shadow: 0 0 0 1.5px rgba(255, 200, 120, 0.85); */
+  opacity: ${({ $on }) => ($on ? 1 : 0)};
+  transition: opacity 0.35s ease;
 `;
 
 // Анимированный power-тумблер на основании лампы (адаптация примера).
