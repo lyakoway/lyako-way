@@ -146,8 +146,8 @@ const HeaderSection = () => {
             {CODE_LINES.map((line, i) => (
               <CodeLineRow
                 key={i}
-                $start={i * 9}
-                $end={i * 9 + 8}
+                $start={i * 5}
+                $end={i * 5 + 4}
                 $themeLight={themeLight}
                 style={{ marginLeft: line.indent }}
               >

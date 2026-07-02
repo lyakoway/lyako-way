@@ -317,7 +317,9 @@ export const CODE_LINES: {
   { indent: 0, caret: true, tokens: [["g", 16]] },
 ];
 
-const CODE_CYCLE = "6s";
+// Общий период для набора кода (ноутбук) и загрузки (монитор), чтобы они шли
+// последовательно: сначала печатается код, затем запускается загрузка.
+const CODE_CYCLE = "10s";
 
 // Печать строки: скрыта → проявляется слева направо → держится → исчезает
 const typeLine = (start: number, end: number) => keyframes`
@@ -488,28 +490,35 @@ export const SteamWisp = styled.span<{
 
 // ——— «Работа окон» на экране монитора ———
 
+// «Обновление окна»: блик стоит за кадром, пока печатается код, и один раз
+// проходит по экрану сразу после того, как код допечатался (~44–58% цикла).
 const glareSweep = keyframes`
-  0% {
+  0%,
+  44% {
     transform: translateX(-160%) skewX(-18deg);
   }
-  60%, 100% {
+  58%,
+  100% {
     transform: translateX(380%) skewX(-18deg);
   }
 `;
 
+// Полоса заполнена, пока печатается код (и в начале цикла). Как только код
+// допечатан (~45%), происходит «обновление окна»: полоса сбрасывается и заново
+// загружается, после чего снова остаётся заполненной до следующей печати.
 const loadingFill = keyframes`
-  0% {
+  0%,
+  45% {
+    width: 100%;
+  }
+  48% {
     width: 0;
   }
-  55% {
+  72% {
     width: 100%;
   }
-  80% {
-    width: 100%;
-  }
-  82%,
   100% {
-    width: 0;
+    width: 100%;
   }
 `;
 
@@ -547,7 +556,7 @@ export const MonitorGlare = styled.div<{ $themeLight?: boolean }>`
   animation: ${({ $themeLight }) =>
     $themeLight
       ? css`
-          ${glareSweep} 6.5s ease-in-out ${ANIM_START} infinite
+          ${glareSweep} ${CODE_CYCLE} ease-in-out ${ANIM_START} infinite
         `
       : "none"};
   ${animStartDelay};
@@ -570,12 +579,12 @@ export const MonitorLoaderFill = styled.div<{ $themeLight?: boolean }>`
   left: 0;
   top: 0;
   bottom: 0;
-  width: 0;
+  width: 100%;
   background: #3aacbc;
   animation: ${({ $themeLight }) =>
     $themeLight
       ? css`
-          ${loadingFill} 3.2s ease-in-out ${ANIM_START} infinite
+          ${loadingFill} ${CODE_CYCLE} ease-in-out ${ANIM_START} infinite
         `
       : "none"};
   ${animStartDelay};
