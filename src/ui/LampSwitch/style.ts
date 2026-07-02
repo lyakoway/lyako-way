@@ -29,7 +29,9 @@ export const LampBulb = styled.div<{ $on: boolean }>`
   z-index: 14;
   pointer-events: none;
   clip-path: polygon(71% 0, 100% 0, 100% 100%, 0 100%, 0 94%);
-  transition: background 0.35s ease, box-shadow 0.35s ease;
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease;
 
   ${({ $on }) =>
     $on
@@ -64,7 +66,7 @@ export const LampSwitchLabel = styled.label`
   z-index: 15;
   width: 1.5em;
   height: 1.5em;
-  font-size: 12px;
+  font-size: 10px;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 
@@ -93,18 +95,27 @@ export const LampSwitchLabel = styled.label`
     margin: 0;
     background-color: var(--off2);
     border-radius: 50%;
-    box-shadow: 0 0 0 0.1em var(--off1) inset, 0 0 0 0.2em var(--off4) inset,
-      -0.3em 0.5em 0 var(--off3) inset, 0 0.15em 0 hsla(0, 0%, 0%, 0.2);
+    box-shadow:
+      0 0 0 0.1em var(--off1) inset,
+      0 0 0 0.2em var(--off4) inset,
+      -0.3em 0.5em 0 var(--off3) inset,
+      0 0.15em 0 hsla(0, 0%, 0%, 0.2);
     filter: brightness(1);
     cursor: pointer;
-    transition: background-color 0.15s linear, box-shadow 0.15s linear,
-      filter 0.15s linear, transform 0.15s linear;
+    transition:
+      background-color 0.15s linear,
+      box-shadow 0.15s linear,
+      filter 0.15s linear,
+      transform 0.15s linear;
     -webkit-appearance: none;
     appearance: none;
   }
   .t__checkbox:active {
-    box-shadow: 0 0 0 0.1em var(--off1) inset, 0 0 0 0.2em var(--off4) inset,
-      -0.3em 0.5em 0 var(--off3) inset, 0 0.05em 0 hsla(0, 0%, 0%, 0.2);
+    box-shadow:
+      0 0 0 0.1em var(--off1) inset,
+      0 0 0 0.2em var(--off4) inset,
+      -0.3em 0.5em 0 var(--off3) inset,
+      0 0.05em 0 hsla(0, 0%, 0%, 0.2);
   }
   .t__checkbox:active,
   .t__checkbox:active + .t__svg {
@@ -112,12 +123,18 @@ export const LampSwitchLabel = styled.label`
   }
   .t__checkbox:checked {
     background-color: var(--on2);
-    box-shadow: 0 0 0 0.1em var(--on1) inset, 0 0 0 0.2em var(--on4) inset,
-      -0.3em 0.5em 0 var(--on3) inset, 0 0.15em 0 hsla(0, 0%, 0%, 0.2);
+    box-shadow:
+      0 0 0 0.1em var(--on1) inset,
+      0 0 0 0.2em var(--on4) inset,
+      -0.3em 0.5em 0 var(--on3) inset,
+      0 0.15em 0 hsla(0, 0%, 0%, 0.2);
   }
   .t__checkbox:checked:active {
-    box-shadow: 0 0 0 0.1em var(--on1) inset, 0 0 0 0.2em var(--on4) inset,
-      -0.3em 0.5em 0 var(--on3) inset, 0 0.05em 0 hsla(0, 0%, 0%, 0.2);
+    box-shadow:
+      0 0 0 0.1em var(--on1) inset,
+      0 0 0 0.2em var(--on4) inset,
+      -0.3em 0.5em 0 var(--on3) inset,
+      0 0.05em 0 hsla(0, 0%, 0%, 0.2);
   }
   .t__checkbox:focus,
   .t__checkbox:hover {
@@ -147,7 +164,8 @@ export const LampSwitchLabel = styled.label`
   }
   .t__svg-ring {
     stroke-dasharray: 0 5 27.7 5;
-    transition: stroke 0.15s ease-in-out,
+    transition:
+      stroke 0.15s ease-in-out,
       stroke-dasharray 0.3s 0.25s ease-in-out;
   }
   .t__checkbox:checked + .t__svg .t__svg-ring {
@@ -156,7 +174,9 @@ export const LampSwitchLabel = styled.label`
   }
   .t__svg-line {
     stroke-dashoffset: 3;
-    transition: stroke 0.15s linear, stroke-dashoffset 0.3s ease-in-out;
+    transition:
+      stroke 0.15s linear,
+      stroke-dashoffset 0.3s ease-in-out;
   }
   .t__svg-line:nth-of-type(1) {
     transition-delay: 0s, 0.25s;
