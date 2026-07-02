@@ -53,6 +53,7 @@ import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setti
 
 import Button from "src/ui/Button";
 import Popup from "src/ui/Popup";
+import LampSwitch from "src/ui/LampSwitch";
 
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
 import {
@@ -140,6 +141,7 @@ const HeaderSection = () => {
           </NewYear>
         )}
         <IconComp $themeLight={themeLight}>
+          <LampSwitch />
           <CodeScreen aria-hidden $themeLight={themeLight}>
             {CODE_LINES.map((line, i) => (
               <CodeLineRow
