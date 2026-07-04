@@ -42,6 +42,7 @@ export const Textarea: FC<ITextareaProps> = ({
         required
         id={type}
         name={type}
+        aria-label={label || placeholder || "message"}
         placeholder={placeholder}
         onChange={(e) => handleClick(e.target.value)}
       />

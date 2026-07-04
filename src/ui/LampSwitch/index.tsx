@@ -25,6 +25,7 @@ const LampSwitch = () => {
         <input
           className="t__checkbox"
           type="checkbox"
+          aria-label="Переключить тему"
           checked={on}
           onChange={handleChange}
         />

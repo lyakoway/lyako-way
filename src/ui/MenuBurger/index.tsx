@@ -7,6 +7,7 @@ const MenuBurger = ({ opened, handleClick }) => (
     <input
       type="checkbox"
       className={styles.checkbox}
+      aria-label={opened ? "Закрыть меню" : "Открыть меню"}
       checked={opened}
       onChange={() => console.log("")}
     />

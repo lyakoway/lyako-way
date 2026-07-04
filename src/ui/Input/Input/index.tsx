@@ -66,6 +66,7 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
             id={type}
             type={type}
             name={type}
+            aria-label={label || placeholder || type}
             placeholder={placeholder}
             value={value}
             onChange={(e) => changeHandler(e.target.value)}

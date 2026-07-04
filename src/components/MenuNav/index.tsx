@@ -101,7 +101,7 @@ const MenuNav: FC<PropsWithChildren<MenuNavProps>> = ({
         data-close-modal
         $header={header}
         onBlur={onBlur}
-        tabIndex={1}
+        tabIndex={0}
       >
         <MenuWrapper $header={header}>
           {children}

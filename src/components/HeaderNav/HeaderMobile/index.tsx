@@ -114,7 +114,7 @@ const HeaderMobile: FC<PropsWithChildren<HeaderMobileProps>> = ({
         data-close-modal
         $header={header}
         onBlur={onBlur}
-        tabIndex={1}
+        tabIndex={0}
       >
         <MenuWrapper $header={header}>
           {children}

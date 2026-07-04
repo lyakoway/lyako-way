@@ -156,6 +156,7 @@ export const SearchInput: FC<SearchInputProps> = ({
 
         <Input
           ref={inputRef}
+          aria-label={placeholder}
           placeholder={placeholder}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
