@@ -38,10 +38,9 @@ export const HeaderSectionWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
-  height: 506px;
+  height: 700px;
   width: 960px;
   margin: 0 auto;
-  padding-top: 20px;
 
   @media ${TABLET_1024} {
     width: 100%;
@@ -97,10 +96,10 @@ export const HeaderSectionConteiner = styled.div`
 `;
 
 export const HeaderSectionLabel = styled.span`
-  color: white;
+  color: ${({ theme }) => theme.color.text.staticWhite};
   font-size: 13px;
   font-weight: 400;
-  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   margin: 7px 0px;
   font-style: italic;
   line-height: 18px;
@@ -273,7 +272,7 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
   height: 321px;
   position: absolute;
   bottom: 0;
-  left: 115px;
+  left: 230px;
   z-index: 10;
 
   @media ${TABLET_959} {
@@ -306,14 +305,66 @@ export const CODE_LINES: {
   caret?: boolean;
   tokens: [CodeColor, number][];
 }[] = [
-  { indent: 0, tokens: [["o", 12], ["g", 24]] },
-  { indent: 6, tokens: [["o", 14], ["c", 18], ["g", 10]] },
-  { indent: 6, tokens: [["g", 18], ["g", 26], ["O", 40]] },
-  { indent: 14, tokens: [["m", 10], ["g", 22]] },
-  { indent: 6, tokens: [["o", 12], ["g", 20], ["c", 14]] },
-  { indent: 14, tokens: [["g", 16], ["c", 22]] },
-  { indent: 6, tokens: [["o", 10], ["g", 28]] },
-  { indent: 14, tokens: [["g", 14], ["g", 20], ["c", 12]] },
+  {
+    indent: 0,
+    tokens: [
+      ["o", 12],
+      ["g", 24],
+    ],
+  },
+  {
+    indent: 6,
+    tokens: [
+      ["o", 14],
+      ["c", 18],
+      ["g", 10],
+    ],
+  },
+  {
+    indent: 6,
+    tokens: [
+      ["g", 18],
+      ["g", 26],
+      ["O", 40],
+    ],
+  },
+  {
+    indent: 14,
+    tokens: [
+      ["m", 10],
+      ["g", 22],
+    ],
+  },
+  {
+    indent: 6,
+    tokens: [
+      ["o", 12],
+      ["g", 20],
+      ["c", 14],
+    ],
+  },
+  {
+    indent: 14,
+    tokens: [
+      ["g", 16],
+      ["c", 22],
+    ],
+  },
+  {
+    indent: 6,
+    tokens: [
+      ["o", 10],
+      ["g", 28],
+    ],
+  },
+  {
+    indent: 14,
+    tokens: [
+      ["g", 14],
+      ["g", 20],
+      ["c", 12],
+    ],
+  },
   { indent: 0, caret: true, tokens: [["g", 16]] },
 ];
 
@@ -640,8 +691,12 @@ export const IconMap = styled.div<{ $themeLight?: boolean }>`
   width: 183px;
   height: 140px;
   position: absolute;
-  top: 160px;
-  left: -360px;
+  top: 70px;
+  right: 50px;
+
+  @media ${TABLET_959} {
+    display: none;
+  }
 `;
 
 export const IconBook = styled.div<{ $themeLight?: boolean }>`
@@ -658,12 +713,8 @@ export const IconBook = styled.div<{ $themeLight?: boolean }>`
   width: 212px;
   height: 96px;
   position: absolute;
-  top: 220px;
-  right: 0;
-
-  @media ${TABLET_1024} {
-    right: 20px;
-  }
+  top: 270px;
+  right: 40px;
 
   @media ${TABLET_959} {
     display: none;
@@ -684,8 +735,12 @@ export const IconPicture = styled.div<{ $themeLight?: boolean }>`
   width: 233px;
   height: 107px;
   position: absolute;
-  top: 160px;
-  right: -341px;
+  top: 80px;
+  right: 70px;
+
+  @media ${TABLET_959} {
+    display: none;
+  }
 `;
 
 export const NewYear = styled.div`

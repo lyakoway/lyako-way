@@ -19,6 +19,11 @@ import { LanguageProps } from "src/common/types/lang";
 import { climateLang } from "src/common/lang/english/climateLang";
 import { alertHeart } from "src/common/lang/english/alertHeart";
 import { happyHolidays } from "src/common/lang/english/happyHolidays";
+import { sidebar } from "src/common/lang/english/sidebar";
+import {
+  aboutHighlights,
+  aboutHighlightsTitle,
+} from "src/common/lang/english/aboutHighlights";
 
 export const ENGLISH_LANGUAGE: LanguageProps = {
   propsPortfolioListBlog,
@@ -31,6 +36,9 @@ export const ENGLISH_LANGUAGE: LanguageProps = {
   advantagesText,
   happyHolidays,
   contactForm,
+  sidebar,
+  aboutHighlightsTitle,
+  aboutHighlights,
   cooperation,
   headerHouse,
   portfolio,

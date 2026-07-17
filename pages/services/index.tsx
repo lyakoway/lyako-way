@@ -1,7 +1,5 @@
-export default function About() {
-  return (
-    <>
-      <div>1 нас</div>
-    </>
-  );
+import Services from "src/widgets/Services";
+
+export default function ServicesPage() {
+  return <Services />;
 }

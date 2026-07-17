@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import {
@@ -21,7 +21,6 @@ import {
   IconComp,
   IconMap,
   IconBook,
-  IconPicture,
   SettingWrapper,
   SettingIconWrapper,
   NewYear,
@@ -39,11 +38,10 @@ import {
   MonitorLoaderFill,
 } from "./style";
 
-import { Modal } from "src/ui/Modal";
 import Clock from "src/components/Clock";
 import Window from "src/components/Window";
 
-import { useClickOutside, useWeather } from "src/features/customHooks";
+import { useClickOutside } from "src/features/customHooks";
 
 import { ReactComponent as RocketGetsiteIcon } from "src/common/icon/rocket/RocketIcon.svg";
 import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
@@ -56,27 +54,23 @@ import Popup from "src/ui/Popup";
 import LampSwitch from "src/ui/LampSwitch";
 
 import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
-import {
-  fetchLikes,
-  setClimateControl,
-  setLang,
-  showModal,
-} from "src/reducers";
+import { showModal } from "src/reducers";
 import ContactForm from "src/components/ContactForm";
 import PagesSettings from "src/components/PagesSettings";
-import { WEATHER_TO_CLIMATE } from "src/components/Window/ClimateControl/constants";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
-// import { ChristmasTree } from "src/components/ChristmasTree";
-// import { Gifts } from "src/components/Gifts";
 import { NewYearTree } from "src/components/NewYearTree";
 
-const HeaderSection = () => {
+// Анимированная сцена рабочего стола (стол, монитор, часы, окно, полка с
+// книгами). Сайд-эффекты (лайки, погода→климат, гео→язык) вынесены в
+// useAutoLocaleClimate (вызывается в Layout).
+// hideContacts — режим «Дом» внутри оболочки vCard: контакты уже есть
+// в сайдбаре, поэтому колонку контактов скрываем, оставляя только CTA.
+const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => {
   const {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
   const {
     lang: { headerHouse },
-    userSelectedLang,
   } = useSelectorTyped(({ lang }) => lang);
   const [openedPopup, setOpenedPopup] = useState(false);
   const [positionValue, setPositionValue] = useState("top");
@@ -84,8 +78,6 @@ const HeaderSection = () => {
   const themeLight = name === "light";
 
   const dispatch = useDispatchTyped();
-  const { userSelectedClimate } = useSelectorTyped(({ climate }) => climate);
-  const { weather } = useWeather();
 
   const showTree = isNewYearPeriod();
 
@@ -101,27 +93,6 @@ const HeaderSection = () => {
     setPositionValue(positionValueWidth ? "top" : "right");
   };
 
-  // Загружаем лайки
-  useEffect(() => {
-    dispatch(fetchLikes({ idLikes: "heart_button" }));
-  }, [dispatch]);
-
-  // Устанавливаем climate из API только если пользователь ещё не выбирал
-  useEffect(() => {
-    if (!userSelectedClimate && weather?.current?.condition?.text) {
-      const conditionText = weather.current.condition.text;
-      const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
-      if (mappedClimate) {
-        dispatch(setClimateControl(mappedClimate));
-      }
-    }
-    const country = weather?.location?.country?.toLowerCase() || null;
-    if (!userSelectedLang && country) {
-      const isRussia = country === "russia" || country === "россия";
-      dispatch(setLang(!isRussia));
-    }
-  }, [weather, dispatch, userSelectedClimate]);
-
   const handleClickModal = useCallback(() => {
     dispatch(
       showModal({
@@ -135,8 +106,6 @@ const HeaderSection = () => {
       <HeaderSectionFon>
         {showTree && (
           <NewYear>
-            {/*<ChristmasTree themeLight={themeLight} />*/}
-            {/*<Gifts />*/}
             <NewYearTree themeLight={themeLight} />
           </NewYear>
         )}
@@ -190,59 +159,62 @@ const HeaderSection = () => {
         <Window themeLight={themeLight} />
         <Clock />
         <IconBook $themeLight={themeLight} />
-        <IconPicture $themeLight={themeLight} />
       </HeaderSectionFon>
 
-      <HeaderContactWrapper>
-        <HeaderSectionGetsite>
-          <HeaderSectionConteiner>
-            <Button
-              title={headerHouse.buttonText}
-              toOrderHeader
-              handleClick={handleClickModal}
-            >
-              <RocketGetsiteIcon />
-            </Button>
-            <HeaderSectionLabel>
-              {headerHouse.buttonTextAddition}
-            </HeaderSectionLabel>
-          </HeaderSectionConteiner>
-        </HeaderSectionGetsite>
+      {!hideContacts && (
+        <HeaderContactWrapper>
+          <HeaderSectionGetsite>
+            <HeaderSectionConteiner>
+              <Button
+                title={headerHouse.buttonText}
+                toOrderHeader
+                handleClick={handleClickModal}
+              >
+                <RocketGetsiteIcon />
+              </Button>
+              <HeaderSectionLabel>
+                {headerHouse.buttonTextAddition}
+              </HeaderSectionLabel>
+            </HeaderSectionConteiner>
+          </HeaderSectionGetsite>
 
-        <HeaderSectionContacts>
-          <HeaderSectionConteiner>
-            <Phones>
-              <PhonesIcon />
-              <PhonesConteiner>
-                <PhonesNumber href="tel:+79998121975">
-                  +7 (999) 812-19-75
-                </PhonesNumber>
-                <PhonesNumber href="tel:+79772700930">
-                  +7 (977) 270-09-30
-                </PhonesNumber>
-              </PhonesConteiner>
-            </Phones>
-            <PhonesTextWrapper>
-              <PhonesText href="https://t.me/amazurenk">Telegram</PhonesText>
-              <PhonesTextDivide>/</PhonesTextDivide>
-              <PhonesText href="https://api.whatsapp.com/send?phone=79772700930">
-                Whatsapp
-              </PhonesText>
-            </PhonesTextWrapper>
-            <HeaderSectionLabel>{headerHouse.callText}</HeaderSectionLabel>
-            <Emails>
-              <EmailsIcon />
-              <ContactsText href="mailto:mazurenko-alexey@mail.ru">
-                mazurenko-alexey@mail.ru
-              </ContactsText>
-            </Emails>
-            <Skype>
-              <SkypeIcon />
-              <ContactsText href="skype:aleks10_0?chat">aleks10_0</ContactsText>
-            </Skype>
-          </HeaderSectionConteiner>
-        </HeaderSectionContacts>
-      </HeaderContactWrapper>
+          <HeaderSectionContacts>
+            <HeaderSectionConteiner>
+              <Phones>
+                <PhonesIcon />
+                <PhonesConteiner>
+                  <PhonesNumber href="tel:+79998121975">
+                    +7 (999) 812-19-75
+                  </PhonesNumber>
+                  <PhonesNumber href="tel:+79772700930">
+                    +7 (977) 270-09-30
+                  </PhonesNumber>
+                </PhonesConteiner>
+              </Phones>
+              <PhonesTextWrapper>
+                <PhonesText href="https://t.me/amazurenk">Telegram</PhonesText>
+                <PhonesTextDivide>/</PhonesTextDivide>
+                <PhonesText href="https://api.whatsapp.com/send?phone=79772700930">
+                  Whatsapp
+                </PhonesText>
+              </PhonesTextWrapper>
+              <HeaderSectionLabel>{headerHouse.callText}</HeaderSectionLabel>
+              <Emails>
+                <EmailsIcon />
+                <ContactsText href="mailto:mazurenko-alexey@mail.ru">
+                  mazurenko-alexey@mail.ru
+                </ContactsText>
+              </Emails>
+              <Skype>
+                <SkypeIcon />
+                <ContactsText href="skype:aleks10_0?chat">
+                  aleks10_0
+                </ContactsText>
+              </Skype>
+            </HeaderSectionConteiner>
+          </HeaderSectionContacts>
+        </HeaderContactWrapper>
+      )}
     </HeaderSectionWrapper>
   );
 };

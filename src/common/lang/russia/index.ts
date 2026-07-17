@@ -19,6 +19,11 @@ import { LanguageProps } from "src/common/types/lang";
 import { climateLang } from "src/common/lang/russia/climateLang";
 import { alertHeart } from "src/common/lang/russia/alertHeart";
 import { happyHolidays } from "src/common/lang/russia/happyHolidays";
+import { sidebar } from "src/common/lang/russia/sidebar";
+import {
+  aboutHighlights,
+  aboutHighlightsTitle,
+} from "src/common/lang/russia/aboutHighlights";
 
 export const RUSSIAN_LANGUAGE: LanguageProps = {
   propsPortfolioListBlog,
@@ -31,6 +36,9 @@ export const RUSSIAN_LANGUAGE: LanguageProps = {
   advantagesText,
   happyHolidays,
   contactForm,
+  sidebar,
+  aboutHighlightsTitle,
+  aboutHighlights,
   cooperation,
   headerHouse,
   portfolio,

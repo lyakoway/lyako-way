@@ -1,10 +1,5 @@
-import Header from "src/widgets/Header";
+import SectionPlaceholder from "src/widgets/SectionPlaceholder";
 
-export default function About() {
-  return (
-    <>
-      <Header />
-      <div>1 нас</div>
-    </>
-  );
+export default function Portfolio() {
+  return <SectionPlaceholder menuValue="portfolio" />;
 }

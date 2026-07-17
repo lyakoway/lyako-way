@@ -1,7 +1,5 @@
-export default function About() {
-  return (
-    <>
-      <div>1 нас</div>
-    </>
-  );
+import SectionPlaceholder from "src/widgets/SectionPlaceholder";
+
+export default function Blog() {
+  return <SectionPlaceholder menuValue="blog" />;
 }

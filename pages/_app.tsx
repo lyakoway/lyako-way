@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { AppProps } from "next/app";
 
 import { ThemeProvider } from "styled-components";
+import styled from "styled-components";
 
 import { useDispatchTyped, useSelectorTyped, wrapper } from "src/store";
 import getAppHeadContent from "src/common/utils/getAppHeadContent";
@@ -14,6 +15,15 @@ import { setThemeList } from "src/reducers";
 import { useDayTime } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
 import { Toast } from "src/ui/Toast";
+import Layout from "src/widgets/Layout";
+
+// Фон всего приложения темнее, чем карточки-разделы (сланцевый цвет карточек
+// остаётся у самих разделов). Тема-зависимый.
+const AppShell = styled.main`
+  display: flow-root; /* не даём margin детей "протекать" наверх */
+  min-height: 100vh;
+  background: ${({ theme }) => (theme.name === "light" ? "#3f4954" : "#17191d")};
+`;
 
 // Внутренний компонент рендерится ВНУТРИ <Provider>, поэтому здесь
 // доступны redux-хуки (useSelectorTyped/useDispatchTyped).
@@ -32,9 +42,11 @@ const AppContent: FC<{
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <main>
-        <Component {...pageProps} />
-      </main>
+      <AppShell>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AppShell>
       <Modal />
       <Toast />
     </ThemeProvider>

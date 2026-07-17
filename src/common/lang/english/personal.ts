@@ -1,21 +1,15 @@
 import { PersonalProps } from "src/common/types/lang";
 
 export const personal: PersonalProps = {
-  title: "Web developer site",
+  title: "AI Engineer",
   titleText: "More about me",
-  text1: `On my web developer site, the portfolio features
-  projects that I have developed in collaboration with web studios and
-  for private clients, as well as several personal projects. Main
-  many projects contain individual functions designed for
-  implementation of the features of the website.`,
-  text2: `In addition to the sites created in the portfolio, I also developed
-  various calculators, complex feedback forms,
-  multi-level menu, image slider, reviews, etc.,
-  fixes various errors on sites, load optimization
-  site, filling the site with up to 15,000 products, material (text
-  information) and much more...`,
-  text3: `My web developer portfolio lists the site name, link
-  to the site, the purpose of the site and a description of the work performed. If a
-  I need to provide evidence that I did it
-  all sites from my portfolio.`,
+  text1: `AI Engineer with 7+ years of software engineering experience,
+  previously specializing in frontend development with React and Next.js.`,
+  text2: `I build production-ready AI applications using Python, FastAPI,
+  Large Language Models (LLMs), Retrieval-Augmented Generation (RAG),
+  AI agents, LangGraph, vector databases, and modern AI APIs. My background
+  in frontend engineering allows me to develop complete end-to-end AI products
+  with a strong focus on usability, scalability, and real-world impact.`,
+  text3: `Passionate about applying AI to solve practical business problems
+  and continuously learning new technologies.`,
 };

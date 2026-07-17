@@ -4,3 +4,5 @@ export { useIsomorphicLayoutEffect } from "./useIsomorphicLayoutEffect";
 export { useTime } from "./useTime";
 export { usePositionSunAndMoon } from "./usePositionSunAndMoon";
 export { useWeather } from "./useWeather";
+export { useAutoLocaleClimate } from "./useAutoLocaleClimate";
+export { useFitScale } from "./useFitScale";

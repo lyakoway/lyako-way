@@ -1,7 +1,5 @@
-export default function About() {
-  return (
-    <>
-      <div>1 нас</div>
-    </>
-  );
+import SectionPlaceholder from "src/widgets/SectionPlaceholder";
+
+export default function Cv() {
+  return <SectionPlaceholder menuValue="resume" />;
 }

@@ -243,6 +243,24 @@ export interface HappyHolidaysProps {
   text: string;
 }
 
+export interface AboutHighlightProps {
+  id: string;
+  title: string;
+  text: string;
+}
+
+export interface SidebarProps {
+  name: string;
+  jobTitle: string;
+  showContacts: string;
+  hideContacts: string;
+  emailTitle: string;
+  phoneTitle: string;
+  messengersTitle: string;
+  locationTitle: string;
+  location: string;
+}
+
 export interface LanguageProps {
   propsPortfolioListBlog: PortfolioListBlogProps[];
   portfolioDevelopment: ListBlogProps[];
@@ -254,6 +272,9 @@ export interface LanguageProps {
   advantagesText: string;
   contactForm: ContactFormProps;
   happyHolidays: HappyHolidaysProps;
+  sidebar: SidebarProps;
+  aboutHighlightsTitle: string;
+  aboutHighlights: AboutHighlightProps[];
   cooperation: CooperationProps;
   headerHouse: HeaderHouseProps;
   portfolio: PortfolioProps;

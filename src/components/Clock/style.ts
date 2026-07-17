@@ -21,8 +21,8 @@ export const ClockWrapper = styled.div`
   width: 118px;
   height: 118px;
   position: absolute;
-  top: 114px;
-  left: 287px;
+  top: 70px;
+  left: 430px;
   &:before {
     content: "";
     position: absolute;

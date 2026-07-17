@@ -78,7 +78,7 @@ const GlobalStyles = createGlobalStyle`
     --font-weight-bold: 700;
     --font-weight-medium: 500;
     --font-weight-regular: 400;
-    --font-family-base: sans-serif;
+    --font-family-base: 'Poppins', sans-serif;
     --grid-m-breakpoint: 0;
     --grid-m-columns: 2;
     --grid-m-gutter: 12px;
@@ -368,7 +368,8 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     margin: 0;
     padding: 0;
-    background-color: var(--color-background-primary);
+    background-color: ${({ theme }) =>
+      theme.name === "light" ? "#3f4954" : "#17191d"};
     font-family: var(--font-family-base), sans-serif;
     font-size: 16px;
     color: var(--color-text-primary);

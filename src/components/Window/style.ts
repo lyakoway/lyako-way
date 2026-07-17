@@ -114,7 +114,9 @@ export const WindowSill = styled.div`
 `;
 
 export const WindowWrapper = styled.div`
-  position: relative;
+  position: absolute;
+  left: 90px;
+  bottom: 150px;
   width: 260px;
   height: 340px;
   background: #fff;

@@ -1,11 +1,5 @@
-import Header from "src/widgets/Header";
-import ProgressBar from "src/ui/ProgressBar";
+import Home from "src/widgets/Home";
 
-export default function About() {
-  return (
-    <>
-      <ProgressBar />
-      <Header />
-    </>
-  );
+export default function HomePage() {
+  return <Home />;
 }

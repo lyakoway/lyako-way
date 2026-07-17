@@ -1,7 +1,5 @@
-export default function About() {
-  return (
-    <>
-      <div>1 нас</div>
-    </>
-  );
+import About from "src/widgets/About";
+
+export default function Profile() {
+  return <About />;
 }
