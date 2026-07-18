@@ -60,8 +60,11 @@ export const NavbarList = styled.ul`
 
 export const NavbarItem = styled.li`
   a {
-    display: block;
-    padding: 20px 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 12px 8px;
     color: ${PANEL_TEXT_SECONDARY};
     font-size: 12px;
     text-decoration: none;
@@ -69,25 +72,37 @@ export const NavbarItem = styled.li`
     transition: color 0.25s ease;
   }
 
+  /* нормализуем иконки из propsHeaderTopMenu и красим в белый */
+  a svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  a svg [fill] {
+    fill: currentColor;
+  }
+
   a:hover,
-  a:focus {
-    color: ${PANEL_TEXT};
-  }
-
+  a:focus,
   a[data-active="true"] {
-    color: ${({ theme }) => theme.color.basic.primaryLight};
-    font-weight: 500;
-  }
-
-  @media (min-width: 580px) {
-    a {
-      font-size: 14px;
-    }
+    color: ${PANEL_TEXT};
   }
 
   @media (min-width: 768px) {
     a {
-      font-size: 15px;
+      font-size: 13px;
     }
+  }
+`;
+
+// Подпись пункта: активный получает оранжевое подчёркивание (текст не красим).
+export const NavLabel = styled.span`
+  padding-bottom: 3px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.25s ease;
+
+  a[data-active="true"] & {
+    border-bottom-color: ${({ theme }) => theme.color.basic.primary};
   }
 `;

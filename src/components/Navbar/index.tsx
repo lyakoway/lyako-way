@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 import { useSelectorTyped } from "src/store";
 
-import { NavbarWrapper, NavbarList, NavbarItem } from "./style";
+import { NavbarWrapper, NavbarList, NavbarItem, NavLabel } from "./style";
 
 // Значение пункта меню (propsHeaderTopMenu.value) → реальный роут Next.
 // Пункты без записи здесь (cooperation, contacts) в навбар не попадают.
@@ -19,6 +19,17 @@ const ROUTE_BY_VALUE: Record<string, string> = {
 
 const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
+
+// Иконка «Дом» — заменяет текстовый логотип < / > из lang.
+// fill: currentColor → красится как остальные иконки навбара.
+const HomeIcon = () => (
+  <svg viewBox="0 0 24 24" aria-hidden>
+    <path
+      d="M11.3 2.7a1 1 0 0 1 1.4 0l8 8a1 1 0 0 1-.7 1.7H19v7a1 1 0 0 1-1 1h-4v-5h-4v5H6a1 1 0 0 1-1-1v-7H4a1 1 0 0 1-.7-1.7l8-8Z"
+      fill="currentColor"
+    />
+  </svg>
+);
 
 const Navbar = () => {
   const {
@@ -36,7 +47,8 @@ const Navbar = () => {
         {items.map((item) => (
           <NavbarItem key={item.id}>
             <Link href={item.href} data-active={isActive(pathname, item.href)}>
-              {item.label}
+              {item.value === "" ? <HomeIcon /> : item.icon}
+              <NavLabel>{item.label}</NavLabel>
             </Link>
           </NavbarItem>
         ))}

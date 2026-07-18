@@ -365,6 +365,16 @@ const GlobalStyles = createGlobalStyle`
   }
 
 
+  html {
+    /* Делаем корневой элемент реальным scroll-контейнером с ПОСТОЯННЫМ
+       вертикальным скроллбаром. Иначе полоса прокрутки появляется/исчезает
+       между страницами, ширина контента меняется и центрированная раскладка
+       (margin: auto) дёргается по горизонтали. overflow-y: scroll держит
+       место под скроллбар всегда; scrollbar-gutter — подстраховка. */
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
+  }
+
   html, body {
     margin: 0;
     padding: 0;
@@ -474,13 +484,16 @@ const GlobalStyles = createGlobalStyle`
     margin: 0 auto;
   }
 
-  /* Основная ширина полосы прокрутки. */
+  /* Основная ширина полосы прокрутки. Стилизуем и html (теперь это
+     scroll-контейнер вьюпорта), и body — для кроссбраузерности. */
+  html::-webkit-scrollbar,
   body::-webkit-scrollbar {
     width: 16px;
     -webkit-appearance: none;
   }
 
   /* Цвет дорожки, по которой двигается бегунок прокрутки. */
+  html::-webkit-scrollbar-track,
   body::-webkit-scrollbar-track {
     background: #2b3037;
     background-clip: content-box;
@@ -489,12 +502,14 @@ const GlobalStyles = createGlobalStyle`
   }
 
   /* Размер и цвет бегунка. */
+  html::-webkit-scrollbar-thumb,
   body::-webkit-scrollbar-thumb {
     background: #ff8560;
     border: 6px solid #2b3037;
     border-radius: 10px;
   }
   /* Размер бегунка при наведении на него курсора. */
+  html::-webkit-scrollbar-thumb:hover,
   body::-webkit-scrollbar-thumb:hover {
     border: 4px solid #ffff;
   }
