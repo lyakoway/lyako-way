@@ -25,6 +25,8 @@ import {
   Bullets,
   SkillsGrid,
   SkillCard,
+  SkillHead,
+  SkillIcon,
   SkillCategory,
   ChipList,
   Chip,
@@ -77,6 +79,98 @@ const IconEducation = () => (
     />
   </svg>
 );
+
+/* Иконки категорий навыков — по порядку из resumeCv.skills.
+   Языки · LLM и агенты · RAG и качество · Backend · Frontend · Инфраструктура. */
+const SKILL_ICONS = [
+  // код
+  <svg key="code" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="m9 8-4 4 4 4M15 8l4 4-4 4"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>,
+  // чип / агент
+  <svg key="chip" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <rect
+      x="7"
+      y="7"
+      width="10"
+      height="10"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path
+      d="M10 3v2M14 3v2M10 19v2M14 19v2M3 10h2M3 14h2M19 10h2M19 14h2"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>,
+  // поиск / качество
+  <svg key="search" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+    <path
+      d="m20 20-3.5-3.5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>,
+  // база данных / backend
+  <svg key="db" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <ellipse cx="12" cy="6" rx="7" ry="3" stroke="currentColor" strokeWidth="2" />
+    <path
+      d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+  </svg>,
+  // окно / frontend
+  <svg key="ui" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <rect
+      x="3"
+      y="4"
+      width="18"
+      height="16"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path d="M3 9h18" stroke="currentColor" strokeWidth="2" />
+  </svg>,
+  // серверы / инфраструктура
+  <svg key="infra" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <rect
+      x="3"
+      y="4"
+      width="18"
+      height="6"
+      rx="1.5"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <rect
+      x="3"
+      y="14"
+      width="18"
+      height="6"
+      rx="1.5"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path
+      d="M7 7h.01M7 17h.01"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>,
+];
 
 const Resume = () => {
   const {
@@ -179,9 +273,12 @@ const Resume = () => {
         </SectionHead>
 
         <SkillsGrid>
-          {resumeCv.skills.map((group) => (
+          {resumeCv.skills.map((group, idx) => (
             <SkillCard key={group.id}>
-              <SkillCategory>{group.category}</SkillCategory>
+              <SkillHead>
+                <SkillIcon>{SKILL_ICONS[idx % SKILL_ICONS.length]}</SkillIcon>
+                <SkillCategory>{group.category}</SkillCategory>
+              </SkillHead>
               <ChipList>
                 {group.items.map((skill, i) => (
                   <Chip key={i}>{skill}</Chip>

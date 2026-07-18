@@ -281,39 +281,61 @@ export const Bullets = styled.ul`
 
 /* ——— Навыки (сетка карточек-категорий) ——— */
 
+/* Masonry-раскладка: карточки плотно упаковываются по колонкам без
+   «рваных» пустот, которые давал grid с align-items:start. */
 export const SkillsGrid = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  align-items: start;
-  gap: 14px;
+  column-count: 1;
+  column-gap: 14px;
 
   @media (min-width: 720px) {
-    grid-template-columns: 1fr 1fr;
+    column-count: 2;
   }
 `;
 
 export const SkillCard = styled.div`
   ${cardSurface};
   padding: 16px 18px;
+  margin-bottom: 14px;
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+`;
+
+export const SkillHead = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+`;
+
+export const SkillIcon = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+
+  svg {
+    width: 17px;
+    height: 17px;
+  }
 `;
 
 export const SkillCategory = styled.p`
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  margin: 0 0 13px;
+  margin: 0;
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 600;
-
-  &::before {
-    content: "";
-    flex-shrink: 0;
-    width: 3px;
-    height: 15px;
-    border-radius: 2px;
-    background: ${({ theme }) => theme.color.basic.primary};
-  }
 `;
 
 export const ChipList = styled.ul`
@@ -326,10 +348,18 @@ export const ChipList = styled.ul`
 `;
 
 export const Chip = styled.li`
-  padding: 5px 12px;
+  padding: 6px 12px;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 13px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  cursor: default;
+
+  &:hover {
+    color: ${PANEL_TEXT};
+    border-color: rgba(255, 255, 255, 0.32);
+    background: rgba(255, 255, 255, 0.1);
+  }
 `;
