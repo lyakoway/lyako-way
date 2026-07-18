@@ -69,6 +69,9 @@ export const Article = styled.article<{ $scene?: boolean }>`
 // Заголовок раздела с акцентным подчёркиванием.
 export const ArticleTitle = styled.h2`
   position: relative;
+  /* inline-block → ширина по тексту, поэтому подчёркивание (::after width:100%)
+     тянется ровно на всю длину слова, а не на всю колонку. */
+  display: inline-block;
   margin: 0 0 20px;
   padding-bottom: 15px;
   color: ${PANEL_TEXT};
@@ -81,7 +84,7 @@ export const ArticleTitle = styled.h2`
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 40px;
+    width: 100%;
     height: 4px;
     border-radius: 3px;
     background: ${({ theme }) => theme.color.basic.primary};

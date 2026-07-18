@@ -89,7 +89,7 @@ export const SectionIcon = styled.span`
   border-radius: 10px;
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
 
   svg {
     width: 19px;
@@ -135,13 +135,15 @@ export const TimelineItem = styled.li`
     padding-bottom: 26px;
   }
 
-  /* вертикальная линия */
+  /* вертикальная линия: от центра точки текущего элемента (28px) вниз ровно
+     до точки следующего (height:100% = высота элемента), поэтому дотягивается
+     до конца блока и соединяет все точки. У последнего элемента скрыта. */
   &::before {
     content: "";
     position: absolute;
     left: 5px;
-    top: 8px;
-    bottom: 0;
+    top: 28px;
+    height: 100%;
     width: 2px;
     background: ${PANEL_BORDER};
   }
@@ -150,7 +152,7 @@ export const TimelineItem = styled.li`
     display: none;
   }
 
-  /* точка на линии, выровнена с шапкой карточки */
+  /* точка на линии, выровнена с шапкой карточки (центр = 28px) */
   &::after {
     content: "";
     position: absolute;
@@ -202,7 +204,7 @@ export const ItemRole = styled.h4`
 
 export const ItemCompany = styled.p`
   margin: 3px 0 0;
-  color: ${({ theme }) => theme.color.basic.primaryLight};
+  color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 500;
 `;
@@ -239,7 +241,7 @@ export const Group = styled.div`
 
 export const GroupTitle = styled.p`
   margin: 0 0 8px;
-  color: ${({ theme }) => theme.color.basic.primaryLight};
+  color: ${PANEL_TEXT_SECONDARY};
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
