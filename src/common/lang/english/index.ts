@@ -24,6 +24,7 @@ import {
   aboutHighlights,
   aboutHighlightsTitle,
 } from "src/common/lang/english/aboutHighlights";
+import { resumeCv } from "src/common/lang/english/resumeCv";
 
 export const ENGLISH_LANGUAGE: LanguageProps = {
   propsPortfolioListBlog,
@@ -39,6 +40,7 @@ export const ENGLISH_LANGUAGE: LanguageProps = {
   sidebar,
   aboutHighlightsTitle,
   aboutHighlights,
+  resumeCv,
   cooperation,
   headerHouse,
   portfolio,

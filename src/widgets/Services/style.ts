@@ -53,7 +53,7 @@ export const ServiceItem = styled.li`
 
 export const ServiceIconBox = styled.div`
   flex-shrink: 0;
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
 
   svg {
     width: 40px;

@@ -103,10 +103,10 @@ export const IconBox = styled.div`
   border-radius: 8px;
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
 
   /* Иконки контактов имеют inline fill="#fff"; CSS перебивает
-     presentation-атрибут, красим в акцент для обеих тем. */
+     presentation-атрибут, красим в белый (currentColor). */
   svg {
     width: 18px;
     height: 18px;

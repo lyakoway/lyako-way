@@ -249,6 +249,46 @@ export interface AboutHighlightProps {
   text: string;
 }
 
+export interface ResumeSkillGroupProps {
+  id: string;
+  category: string;
+  items: string[];
+}
+
+export interface ResumeExperienceGroupProps {
+  title?: string;
+  items: string[];
+}
+
+export interface ResumeExperienceProps {
+  id: string;
+  role: string;
+  company: string;
+  period: string;
+  meta?: string;
+  summary?: string;
+  groups: ResumeExperienceGroupProps[];
+}
+
+export interface ResumeEducationProps {
+  id: string;
+  title: string;
+  period: string;
+  text?: string;
+}
+
+export interface ResumeCvProps {
+  experienceTitle: string;
+  skillsTitle: string;
+  educationTitle: string;
+  pdfUrl: string;
+  downloadLabel: string;
+  viewLabel: string;
+  experience: ResumeExperienceProps[];
+  skills: ResumeSkillGroupProps[];
+  education: ResumeEducationProps[];
+}
+
 export interface SidebarProps {
   name: string;
   jobTitle: string;
@@ -275,6 +315,7 @@ export interface LanguageProps {
   sidebar: SidebarProps;
   aboutHighlightsTitle: string;
   aboutHighlights: AboutHighlightProps[];
+  resumeCv: ResumeCvProps;
   cooperation: CooperationProps;
   headerHouse: HeaderHouseProps;
   portfolio: PortfolioProps;

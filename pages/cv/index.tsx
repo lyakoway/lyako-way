@@ -1,5 +1,5 @@
-import SectionPlaceholder from "src/widgets/SectionPlaceholder";
+import Resume from "src/widgets/Resume";
 
-export default function Cv() {
-  return <SectionPlaceholder menuValue="resume" />;
+export default function CvPage() {
+  return <Resume />;
 }

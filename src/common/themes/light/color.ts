@@ -1,13 +1,13 @@
 import { ThemeColor } from "src/common/types/theme";
 
 const BASIC = {
-  primary: "#0D69F2",
+  primary: "#F2622E",
   secondary: "#2B313B",
   tertiary: "#8A96A8",
-  hover: "#0A54C2",
-  press: "#083F91",
+  hover: "#DB4F1F",
+  press: "#B83F16",
   disable: "#C4CAD4",
-  primaryLight: "#6EA5F7",
+  primaryLight: "#FF8A5C",
   borderModal: "#464a53",
 };
 
