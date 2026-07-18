@@ -424,3 +424,42 @@ export const Chip = styled.li`
     background: rgba(255, 255, 255, 0.1);
   }
 `;
+
+/* ——— Просмотр PDF в модалке ——— */
+/* Контент рендерится внутри ModalComponent (фон theme.background.modal),
+   поэтому здесь используем обычные цвета темы, а не сланцевые PANEL_*. */
+
+export const PdfModal = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 85vh;
+  overflow: hidden;
+  border-radius: 8px;
+
+  @media (max-width: 659px) {
+    height: 100vh;
+    border-radius: 0;
+  }
+`;
+
+export const PdfModalHead = styled.div`
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  /* высота = 64px, чтобы центр заголовка (32px) совпал с центром общей
+     кнопки-крестика модалки (top:20 + 24/2 = 32) и они были на одной линии */
+  height: 64px;
+  /* справа оставляем место под встроенную кнопку закрытия модалки */
+  padding: 0 56px 0 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: ${({ theme }) => theme.color.text.primary};
+  border-bottom: 1px solid ${({ theme }) => theme.color.basic.borderModal};
+`;
+
+export const PdfFrame = styled.iframe`
+  flex: 1;
+  width: 100%;
+  border: 0;
+`;

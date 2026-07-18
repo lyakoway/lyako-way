@@ -1,6 +1,7 @@
 import React from "react";
 
-import { useSelectorTyped } from "src/store";
+import { useSelectorTyped, useDispatchTyped } from "src/store";
+import { showModal } from "src/reducers";
 import { ArticleTitle, Article } from "src/ui/Card";
 
 import {
@@ -31,6 +32,9 @@ import {
   SkillCategory,
   ChipList,
   Chip,
+  PdfModal,
+  PdfModalHead,
+  PdfFrame,
 } from "./style";
 
 const IconExperience = () => (
@@ -177,9 +181,29 @@ const Resume = () => {
   const {
     lang: { propsHeaderTopMenu, resumeCv },
   } = useSelectorTyped(({ lang }) => lang);
+  const dispatch = useDispatchTyped();
 
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
+
+  // «Просмотреть» — открываем PDF в модалке (iframe со встроенным
+  // просмотрщиком браузера). preventDefault, чтобы не уходить по href;
+  // href остаётся фолбэком, если JS недоступен.
+  const handleView = (e: React.MouseEvent) => {
+    e.preventDefault();
+    dispatch(
+      showModal({
+        width: "min(1000px, 92vw)",
+        backgroundOverlay: "rgba(0, 0, 0, 0.6)",
+        content: (
+          <PdfModal>
+            <PdfModalHead>{title}</PdfModalHead>
+            <PdfFrame src={resumeCv.pdfUrl} title={title} />
+          </PdfModal>
+        ),
+      })
+    );
+  };
 
   return (
     <Article>
@@ -205,6 +229,7 @@ const Resume = () => {
           href={resumeCv.pdfUrl}
           target="_blank"
           rel="noreferrer noopener"
+          onClick={handleView}
         >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden>
             <path
