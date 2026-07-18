@@ -3,6 +3,7 @@ import { gradientBorder } from "src/ui/Card";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
+  PANEL_ELEVATED,
   PANEL_ELEVATED_HOVER,
   PANEL_BORDER,
 } from "src/common/lib/panelStyles";
@@ -109,5 +110,5 @@ export const ServiceFormCard = styled.div`
   overflow: hidden;
   border-radius: 16px;
   border: 1px solid ${PANEL_BORDER};
-  background: ${({ theme }) => theme.color.background.modal};
+  background: ${PANEL_ELEVATED};
 `;

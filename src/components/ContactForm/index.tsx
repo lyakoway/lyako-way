@@ -141,7 +141,7 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
     <Form>
       <Header $embedded={embedded}>{contactForm.title}</Header>
       <Content $embedded={embedded}>
-        <InputWrapper>
+        <InputWrapper $embedded={embedded}>
           <InputName
             label={contactForm.fullName}
             placeholder={contactForm.placeholderName}

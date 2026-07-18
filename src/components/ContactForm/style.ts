@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { TABLET_959, MOBILE_660, MOBILE_560 } from "src/common/lib/media";
+import { PANEL_TEXT, PANEL_BORDER } from "src/common/lib/panelStyles";
 
 export const Form = styled.form`
   display: flex;
@@ -10,21 +11,27 @@ export const Form = styled.form`
 export const Header = styled.div<{ $embedded?: boolean }>`
   display: flex;
   align-items: center;
-  justify-content: center;
   white-space: pre-wrap;
-  color: ${({ theme }) => theme.color.text.primary};
   font-family: Inter;
-  font-size: 20px;
   font-weight: 600;
   line-height: 24px;
-  text-transform: uppercase;
-  border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
 
-  /* в модалке справа оставлено место под крестик; встроенной форме не нужно */
-  padding: ${({ $embedded }) => ($embedded ? "20px" : "20px 50px 20px 20px")};
+  /* модалка: центр, капс, тёмный текст на светлом фоне модалки.
+     встроенная форма: слева, без капса, белый текст под слейт-панель. */
+  justify-content: ${({ $embedded }) => ($embedded ? "flex-start" : "center")};
+  text-transform: ${({ $embedded }) => ($embedded ? "none" : "uppercase")};
+  font-size: ${({ $embedded }) => ($embedded ? "20px" : "20px")};
+  color: ${({ $embedded, theme }) =>
+    $embedded ? PANEL_TEXT : theme.color.text.primary};
+  border-bottom: ${({ $embedded, theme }) =>
+    $embedded
+      ? `1px solid ${PANEL_BORDER}`
+      : `2px solid ${theme.color.basic.borderModal}`};
+  padding: ${({ $embedded }) => ($embedded ? "20px 24px" : "20px 50px 20px 20px")};
 
   @media ${MOBILE_560} {
     flex-direction: column;
+    align-items: ${({ $embedded }) => ($embedded ? "flex-start" : "center")};
     font-size: 16px;
   }
 `;
@@ -41,7 +48,9 @@ export const Content = styled.div<{ $embedded?: boolean }>`
   padding: 20px;
   gap: 20px;
 
-  background-color: ${({ theme }) => theme.color.background.form};
+  /* встроенная форма прозрачна — видна слейт-поверхность карточки */
+  background-color: ${({ $embedded, theme }) =>
+    $embedded ? "transparent" : theme.color.background.form};
 
   /* Основная ширина полосы прокрутки. */
   &::-webkit-scrollbar {
@@ -74,10 +83,20 @@ export const Content = styled.div<{ $embedded?: boolean }>`
   }
 `;
 
-export const InputWrapper = styled.div`
+export const InputWrapper = styled.div<{ $embedded?: boolean }>`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  /* модалка — авто-заполнение; встроенная форма — ровные 2 колонки */
+  grid-template-columns: ${({ $embedded }) =>
+    $embedded ? "repeat(2, minmax(0, 1fr))" : "repeat(auto-fill, minmax(250px, 1fr))"};
+
+  ${({ $embedded }) =>
+    $embedded &&
+    css`
+      @media ${MOBILE_660} {
+        grid-template-columns: 1fr;
+      }
+    `}
 `;
 
 export const Footer = styled.div<{ $embedded?: boolean }>`
@@ -88,7 +107,10 @@ export const Footer = styled.div<{ $embedded?: boolean }>`
 
   padding: 20px;
 
-  border-top: 2px solid ${({ theme }) => theme.color.basic.borderModal};
+  border-top: ${({ $embedded, theme }) =>
+    $embedded
+      ? `1px solid ${PANEL_BORDER}`
+      : `2px solid ${theme.color.basic.borderModal}`};
 
   @media ${TABLET_959} {
     flex-direction: column-reverse;
