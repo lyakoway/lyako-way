@@ -23,7 +23,8 @@ import {
   Group,
   GroupTitle,
   Bullets,
-  SkillsGrid,
+  SkillsTree,
+  Branch,
   SkillCard,
   SkillHead,
   SkillIcon,
@@ -272,21 +273,23 @@ const Resume = () => {
           <SectionTitle>{resumeCv.skillsTitle}</SectionTitle>
         </SectionHead>
 
-        <SkillsGrid>
+        <SkillsTree>
           {resumeCv.skills.map((group, idx) => (
-            <SkillCard key={group.id}>
-              <SkillHead>
-                <SkillIcon>{SKILL_ICONS[idx % SKILL_ICONS.length]}</SkillIcon>
-                <SkillCategory>{group.category}</SkillCategory>
-              </SkillHead>
-              <ChipList>
-                {group.items.map((skill, i) => (
-                  <Chip key={i}>{skill}</Chip>
-                ))}
-              </ChipList>
-            </SkillCard>
+            <Branch key={group.id} $side={idx % 2 === 0 ? "left" : "right"}>
+              <SkillCard>
+                <SkillHead>
+                  <SkillIcon>{SKILL_ICONS[idx % SKILL_ICONS.length]}</SkillIcon>
+                  <SkillCategory>{group.category}</SkillCategory>
+                </SkillHead>
+                <ChipList>
+                  {group.items.map((skill, i) => (
+                    <Chip key={i}>{skill}</Chip>
+                  ))}
+                </ChipList>
+              </SkillCard>
+            </Branch>
           ))}
-        </SkillsGrid>
+        </SkillsTree>
       </Section>
 
       <Section>

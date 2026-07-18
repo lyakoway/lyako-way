@@ -281,23 +281,84 @@ export const Bullets = styled.ul`
 
 /* ——— Навыки (сетка карточек-категорий) ——— */
 
-/* Masonry-раскладка: карточки плотно упаковываются по колонкам без
-   «рваных» пустот, которые давал grid с align-items:start. */
-export const SkillsGrid = styled.div`
-  column-count: 1;
-  column-gap: 14px;
+/* «Дерево навыков»: центральный ствол по середине, карточки-ветви
+   чередуются слева/справа, каждая соединена с стволом горизонтальной
+   веткой и квадратным узлом. На мобиле — обычная стопка карточек. */
+export const SkillsTree = styled.div`
+  position: relative;
 
   @media (min-width: 720px) {
-    column-count: 2;
+    /* ствол */
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      margin-left: -1px;
+      background: ${PANEL_BORDER};
+    }
+  }
+`;
+
+export const Branch = styled.div<{ $side: "left" | "right" }>`
+  position: relative;
+
+  &:not(:last-child) {
+    margin-bottom: 14px;
+  }
+
+  @media (min-width: 720px) {
+    width: 50%;
+
+    &:not(:last-child) {
+      margin-bottom: 24px;
+    }
+
+    /* сторона ветви */
+    ${({ $side }) =>
+      $side === "left"
+        ? `
+          left: 0;
+          padding-right: 36px;
+        `
+        : `
+          left: 50%;
+          padding-left: 36px;
+        `}
+
+    /* горизонтальная ветка к стволу */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 29px;
+      width: 36px;
+      height: 2px;
+      background: ${PANEL_BORDER};
+      ${({ $side }) => ($side === "left" ? "right: 0;" : "left: 0;")}
+    }
+
+    /* квадратный узел на стволе */
+    &::after {
+      content: "";
+      position: absolute;
+      top: 23px;
+      width: 13px;
+      height: 13px;
+      border-radius: 3px;
+      background: ${({ theme }) =>
+        theme.color.background.primaryHeaderWrapper};
+      border: 2px solid ${({ theme }) => theme.color.basic.primary};
+      z-index: 1;
+      ${({ $side }) => ($side === "left" ? "right: -7px;" : "left: -7px;")}
+    }
   }
 `;
 
 export const SkillCard = styled.div`
   ${cardSurface};
   padding: 16px 18px;
-  margin-bottom: 14px;
-  break-inside: avoid;
-  -webkit-column-break-inside: avoid;
   transition: border-color 0.25s ease, background 0.25s ease;
 
   &:hover {
