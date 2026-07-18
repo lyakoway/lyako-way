@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { gradientBorder } from "src/ui/Card";
-import { PANEL_TEXT, PANEL_TEXT_SECONDARY } from "src/common/lib/panelStyles";
+import {
+  PANEL_TEXT,
+  PANEL_TEXT_SECONDARY,
+  PANEL_ELEVATED_HOVER,
+} from "src/common/lib/panelStyles";
 
 export const ServiceSection = styled.section`
   margin-top: 10px;
@@ -35,6 +39,13 @@ export const ServiceItem = styled.li`
   ${gradientBorder};
   padding: 20px;
   ${({ theme }) => theme.shadow.ClickableDefault};
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  /* выделение при наведении — как на странице «Резюме» */
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 
   display: flex;
   flex-direction: column;

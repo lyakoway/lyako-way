@@ -1,63 +1,63 @@
-import { ReactComponent as PriceIcon } from "src/common/icon/advantages/PriceIcon.svg";
-import { ReactComponent as ExperienceIcon } from "src/common/icon/advantages/ExperienceIcon.svg";
-import { ReactComponent as TermIcon } from "src/common/icon/advantages/TermIcon.svg";
-import { ReactComponent as TechnologiesIcon } from "src/common/icon/advantages/TechnologiesIcon.svg";
-import { ReactComponent as LayoutIcon } from "src/common/icon/advantages/LayoutIcon.svg";
-import { ReactComponent as SupportIcon } from "src/common/icon/advantages/SupportIcon.svg";
+import {
+  AgentIcon,
+  RagIcon,
+  QualityIcon,
+  IntegrationIcon,
+  EndToEndIcon,
+  OptimizationIcon,
+} from "src/common/icon/advantages/serviceIcons";
 
-import { dataYear } from "src/common/constants";
 import { AdvantagesProps } from "src/common/types/lang";
-export const advantagesText = "Advantages";
+
+export const advantagesText = "What I do";
 
 export const propsAdvantages: AdvantagesProps[] = [
   {
     id: "1",
-    title: "Current prices for creating a website",
+    title: "AI agents & orchestration",
     label:
-      "I charge for my services as much as they really cost. Nothing extra. 100% processing of your money.",
-    value: "Price",
-    icon: <PriceIcon />,
+      "I design AI agents for real business scenarios: workflow, function / tool calling, multi-agent orchestration, error handling and recovery.",
+    value: "Agents",
+    icon: <AgentIcon />,
   },
   {
     id: "2",
-    title: `More than ${
-      dataYear - 2017
-    } years of experience as a web developer`,
+    title: "RAG & knowledge",
     label:
-      "This is my main activity, a large number of sites of varying degrees of complexity have been created - from a business card to an online store and various applications.",
-    value: "Experience",
-    icon: <ExperienceIcon />,
+      "I build RAG systems: connecting knowledge bases and vector search so the model answers accurately and from your data — not out of thin air.",
+    value: "Rag",
+    icon: <RagIcon />,
   },
   {
     id: "3",
-    title: "The most optimal development time",
+    title: "Prompt engineering & quality",
     label:
-      "I offer you the creation of a website of any complexity in the shortest possible time, without loss of quality of work.",
-    value: "Term",
-    icon: <TermIcon />,
+      "I develop and iteratively improve prompts, build evaluation sets and test solutions for accuracy, stability and edge cases.",
+    value: "Quality",
+    icon: <QualityIcon />,
   },
   {
     id: "4",
-    title: "Modern technology stack for development",
+    title: "LLM integration into your product",
     label:
-      "I use the most advanced web development technologies for each project for maximum efficiency and results",
-    value: "Technologies",
-    icon: <TechnologiesIcon />,
+      "I embed large language models into existing products via API: a reliable Python / FastAPI backend with safe and predictable behavior.",
+    value: "Integration",
+    icon: <IntegrationIcon />,
   },
   {
     id: "5",
-    title: "Clean code, cross-browser compatibility and adaptive layout",
+    title: "End-to-end development",
     label:
-      "Development takes place according to all the rules of web standards. As well as adaptive layout, which allows you to view the site both on a computer and on mobile devices.",
-    value: "Layout",
-    icon: <LayoutIcon />,
+      "I build the whole thing — from the UI (React / Next) to backend and infrastructure (Docker, Kubernetes, CI/CD). My Senior Frontend background helps ship the product end to end.",
+    value: "EndToEnd",
+    icon: <EndToEndIcon />,
   },
   {
     id: "6",
-    title: "Maintenance and support of the site at any time",
+    title: "Optimization & support",
     label:
-      "I will quickly fix any problem on your site, I am always in touch, and I do not disappear anywhere! Communication via skype and phone.",
-    value: "Support",
-    icon: <SupportIcon />,
+      "I optimize latency and token budget, monitor answer quality in production and quickly iterate as load and requirements grow.",
+    value: "Optimization",
+    icon: <OptimizationIcon />,
   },
 ];

@@ -1,62 +1,63 @@
-import { ReactComponent as PriceIcon } from "src/common/icon/advantages/PriceIcon.svg";
-import { ReactComponent as ExperienceIcon } from "src/common/icon/advantages/ExperienceIcon.svg";
-import { ReactComponent as TermIcon } from "src/common/icon/advantages/TermIcon.svg";
-import { ReactComponent as TechnologiesIcon } from "src/common/icon/advantages/TechnologiesIcon.svg";
-import { ReactComponent as LayoutIcon } from "src/common/icon/advantages/LayoutIcon.svg";
-import { ReactComponent as SupportIcon } from "src/common/icon/advantages/SupportIcon.svg";
+import {
+  AgentIcon,
+  RagIcon,
+  QualityIcon,
+  IntegrationIcon,
+  EndToEndIcon,
+  OptimizationIcon,
+} from "src/common/icon/advantages/serviceIcons";
 
-import { dataYear } from "src/common/constants";
 import { AdvantagesProps } from "src/common/types/lang";
 
-export const advantagesText = "Преимущества";
+export const advantagesText = "Что я делаю";
 
 export const propsAdvantages: AdvantagesProps[] = [
   {
     id: "1",
-    title: "Актуальные цены на создание веб-сайт",
+    title: "AI-агенты и оркестрация",
     label:
-      "Я беру за мои услуги столько, сколько они действительно стоят. Ничего лишнего. 100% отработка ваших денег.",
-    value: "Price",
-    icon: <PriceIcon />,
+      "Проектирую AI-агентов под реальные бизнес-сценарии: workflow, function / tool calling, оркестрация мульти-агентных систем, обработка ошибок и восстановление после сбоев.",
+    value: "Agents",
+    icon: <AgentIcon />,
   },
   {
     id: "2",
-    title: `Более ${dataYear - 2017} лет опыта web разработчиком`,
+    title: "RAG и работа со знаниями",
     label:
-      "Это моя основная деятельность, создано большое количество сайтов разной степени сложности - от визитки до интернет-магазина и различных приложений.",
-    value: "Experience",
-    icon: <ExperienceIcon />,
+      "Строю RAG-системы: подключаю базы знаний и векторный поиск, чтобы модель отвечала точно и по вашим данным, а не «из головы».",
+    value: "Rag",
+    icon: <RagIcon />,
   },
   {
     id: "3",
-    title: "Самые оптимальные сроки разработки",
+    title: "Промпт-инжиниринг и качество",
     label:
-      "Предлагаю вам создание сайта любой сложности в самые сжатые сроки, без потери качества выполнения работы.",
-    value: "Term",
-    icon: <TermIcon />,
+      "Разрабатываю и итеративно улучшаю промпт-сценарии, формирую evaluation-наборы и тестирую решения на точность, стабильность и edge cases.",
+    value: "Quality",
+    icon: <QualityIcon />,
   },
   {
     id: "4",
-    title: "Современный стек технологий по разработке",
+    title: "Интеграция LLM в продукт",
     label:
-      "Использую самые передовые технологии web разработки под каждый проект для наибольшой эффективности и результата",
-    value: "Technologies",
-    icon: <TechnologiesIcon />,
+      "Внедряю большие языковые модели в существующие продукты через API: надёжный backend на Python / FastAPI, безопасная и предсказуемая работа.",
+    value: "Integration",
+    icon: <IntegrationIcon />,
   },
   {
     id: "5",
-    title: "Чистый код, кроссбраузерность и адаптивная верстка",
+    title: "End-to-end разработка",
     label:
-      "Разработка происходит по всем правилам веб-стандартов. А так же адаптивая верстка, которая позволяет просматривать сайт как на компьютере так и на моб.устройствах.",
-    value: "Layout",
-    icon: <LayoutIcon />,
+      "Собираю решение целиком — от интерфейса (React / Next) до backend и инфраструктуры (Docker, Kubernetes, CI/CD). Бэкграунд Senior Frontend помогает довести продукт до конца.",
+    value: "EndToEnd",
+    icon: <EndToEndIcon />,
   },
   {
     id: "6",
-    title: "Обслуживание и поддержка сайта в любое время",
+    title: "Оптимизация и поддержка",
     label:
-      "Быстро устраню любую проблему на вашем сайте, я всегда на связи, и никуда не пропадаю! Связь как по скайпу так и по телефону.",
-    value: "Support",
-    icon: <SupportIcon />,
+      "Оптимизирую задержки и токен-бюджет, слежу за качеством ответов в production и оперативно дорабатываю решение по мере роста нагрузки и задач.",
+    value: "Optimization",
+    icon: <OptimizationIcon />,
   },
 ];
