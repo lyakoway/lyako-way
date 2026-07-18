@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { TABLET_959, MOBILE_660, MOBILE_560 } from "src/common/lib/media";
 
 export const Form = styled.form`
@@ -7,7 +7,7 @@ export const Form = styled.form`
   width: 100%;
 `;
 
-export const Header = styled.div`
+export const Header = styled.div<{ $embedded?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,8 @@ export const Header = styled.div`
   text-transform: uppercase;
   border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
 
-  padding: 20px 50px 20px 20px;
+  /* в модалке справа оставлено место под крестик; встроенной форме не нужно */
+  padding: ${({ $embedded }) => ($embedded ? "20px" : "20px 50px 20px 20px")};
 
   @media ${MOBILE_560} {
     flex-direction: column;
@@ -28,13 +29,15 @@ export const Header = styled.div`
   }
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<{ $embedded?: boolean }>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-  max-height: calc(100vh - 160px);
+  /* в модалке высота ограничена вьюпортом; встроенная форма растёт по контенту */
+  max-height: ${({ $embedded }) =>
+    $embedded ? "none" : "calc(100vh - 160px)"};
   padding: 20px;
   gap: 20px;
 
@@ -77,7 +80,7 @@ export const InputWrapper = styled.div`
   gap: 20px;
 `;
 
-export const Footer = styled.div`
+export const Footer = styled.div<{ $embedded?: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -93,6 +96,15 @@ export const Footer = styled.div`
 
   @media ${MOBILE_660} {
     padding-top: 20px;
-    padding-bottom: 220px;
+    /* в модалке большой нижний отступ (под клавиатуру/панель); встроенной не нужен */
+    padding-bottom: ${({ $embedded }) => ($embedded ? "20px" : "220px")};
   }
+
+  ${({ $embedded }) =>
+    $embedded &&
+    css`
+      @media ${TABLET_959} {
+        flex-direction: row;
+      }
+    `}
 `;

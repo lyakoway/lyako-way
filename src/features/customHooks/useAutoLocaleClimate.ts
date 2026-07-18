@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import {
@@ -19,18 +19,25 @@ export function useAutoLocaleClimate() {
   const dispatch = useDispatchTyped();
   const { userSelectedClimate } = useSelectorTyped(({ climate }) => climate);
   const { userSelectedLang } = useSelectorTyped(({ lang }) => lang);
-  const { weather } = useWeather();
+  // Единственный «драйвер» погоды в приложении.
+  const { weather } = useWeather({ autoInit: true });
 
-  // Загружаем лайки
+  // Загружаем лайки (один раз)
   useEffect(() => {
     dispatch(fetchLikes({ idLikes: "heart_button" }));
   }, [dispatch]);
 
-  // Климат и язык из API только если пользователь ещё не выбирал вручную
+  // Автоопределение климата и языка — применяем РОВНО ОДИН РАЗ, когда впервые
+  // пришла погода. Без guard эффект дёргал setLang/setClimate на каждое
+  // изменение weather, плодя ре-рендеры и мигание.
+  const appliedRef = useRef(false);
   useEffect(() => {
-    if (!userSelectedClimate && weather?.current?.condition?.text) {
-      const conditionText = weather.current.condition.text;
-      const mappedClimate = WEATHER_TO_CLIMATE[conditionText];
+    if (appliedRef.current) return;
+    if (!weather?.current?.condition?.text) return;
+    appliedRef.current = true;
+
+    if (!userSelectedClimate) {
+      const mappedClimate = WEATHER_TO_CLIMATE[weather.current.condition.text];
       if (mappedClimate) {
         dispatch(setClimateControl(mappedClimate));
       }

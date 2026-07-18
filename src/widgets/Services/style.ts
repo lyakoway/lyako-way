@@ -4,6 +4,7 @@ import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
   PANEL_ELEVATED_HOVER,
+  PANEL_BORDER,
 } from "src/common/lib/panelStyles";
 
 export const ServiceSection = styled.section`
@@ -93,4 +94,20 @@ export const ServiceItemText = styled.p`
   font-size: 14px;
   font-weight: 300;
   line-height: 1.6;
+`;
+
+/* ——— Встроенная форма заказа ——— */
+/* Карточка с фоном модалки: внутри форма использует цвета темы
+   (theme.color.text/background.form), поэтому на своей поверхности они
+   дают правильный контраст в обеих темах. */
+
+export const ServiceFormSection = styled.section`
+  margin-top: 36px;
+`;
+
+export const ServiceFormCard = styled.div`
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid ${PANEL_BORDER};
+  background: ${({ theme }) => theme.color.background.modal};
 `;

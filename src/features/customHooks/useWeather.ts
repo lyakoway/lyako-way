@@ -1,10 +1,16 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { fetchWeather, setSelectedCity } from "src/reducers";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
 
-export function useWeather() {
+// autoInit — только ОДИН экземпляр хука должен запускать погоду (драйвер,
+// живёт в Layout через useAutoLocaleClimate). Остальные (Window,
+// ClimateControl) читают уже загруженные данные из стора и делают ручные
+// запросы по действию пользователя. Иначе несколько экземпляров шлют
+// дублирующие запросы, конкурентно обновляют weather → скачет тема/мигание.
+export function useWeather(options?: { autoInit?: boolean }) {
+  const autoInit = options?.autoInit ?? false;
   const dispatch = useDispatchTyped();
   const { weather, forecast, loading, error, selectedCity, status } =
     useSelectorTyped(({ climate }) => climate);
@@ -14,7 +20,7 @@ export function useWeather() {
   } = useSelectorTyped(({ lang }) => lang);
 
   const [geoCity, setGeoCity] = useState<string>("Москва");
-  const [initialized, setInitialized] = useState(false);
+  const didInitRef = useRef(false);
 
   const toastNotify = useToastNotify();
 
@@ -62,19 +68,21 @@ export function useWeather() {
     );
   }, [fetchByCoords, fetchByIPFallback]);
 
-  // Выполняем геолокацию только 1 раз — если пользователь не выбирал город ранее
+  // Инициализируем погоду только у драйвера (autoInit) и ровно один раз.
   useEffect(() => {
-    if (!initialized) {
-      if (selectedCity) {
-        fetchByCity(selectedCity);
-      } else {
-        fetchByGeolocation();
-      }
-      setInitialized(true);
+    if (!autoInit || didInitRef.current) return;
+    didInitRef.current = true;
+    if (selectedCity) {
+      fetchByCity(selectedCity);
+    } else {
+      fetchByGeolocation();
     }
-  }, [initialized, selectedCity, fetchByCity, fetchByGeolocation]);
+  }, [autoInit, selectedCity, fetchByCity, fetchByGeolocation]);
 
+  // Тост об ошибке показываем тоже только у драйвера — иначе несколько
+  // экземпляров дублируют уведомление.
   useEffect(() => {
+    if (!autoInit) return;
     if (
       status === RequestStatus.ERROR_CLIMATE ||
       status === RequestStatus.ERROR_CITY
@@ -84,7 +92,7 @@ export function useWeather() {
         type: "error",
       });
     }
-  }, [status]);
+  }, [status, autoInit]);
 
   return {
     weather,

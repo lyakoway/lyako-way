@@ -2,6 +2,7 @@ import React from "react";
 
 import { useSelectorTyped } from "src/store";
 import { ArticleTitle, Article } from "src/ui/Card";
+import ContactForm from "src/components/ContactForm";
 
 import {
   ServiceSection,
@@ -11,6 +12,8 @@ import {
   ServiceIconBox,
   ServiceItemTitle,
   ServiceItemText,
+  ServiceFormSection,
+  ServiceFormCard,
 } from "./style";
 
 const Services = () => {
@@ -42,6 +45,12 @@ const Services = () => {
           ))}
         </ServiceList>
       </ServiceSection>
+
+      <ServiceFormSection>
+        <ServiceFormCard>
+          <ContactForm embedded />
+        </ServiceFormCard>
+      </ServiceFormSection>
     </Article>
   );
 };

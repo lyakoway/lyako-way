@@ -12,7 +12,10 @@ import { Select } from "src/ui/Select";
 import { ISelectOption } from "src/common/types/select";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 
-const ContactForm: FC = () => {
+// embedded — форма встроена прямо в страницу (не в модалку): убираем
+// модальные размеры (max-height, огромный нижний отступ на мобиле, место
+// под крестик), см. соответствующие $embedded-ветки в style.ts.
+const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
   const {
     lang: { contactForm, toast },
   } = useSelectorTyped(({ lang }) => lang);
@@ -136,8 +139,8 @@ const ContactForm: FC = () => {
 
   return (
     <Form>
-      <Header>{contactForm.title}</Header>
-      <Content>
+      <Header $embedded={embedded}>{contactForm.title}</Header>
+      <Content $embedded={embedded}>
         <InputWrapper>
           <InputName
             label={contactForm.fullName}
@@ -183,7 +186,7 @@ const ContactForm: FC = () => {
           message={message}
         />
       </Content>
-      <Footer>
+      <Footer $embedded={embedded}>
         <ButtonForm
           title={contactForm.buttonText}
           handleClick={handleCloseButton}

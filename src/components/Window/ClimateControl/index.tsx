@@ -3,7 +3,6 @@ import { useDispatchTyped, useSelectorTyped } from "src/store";
 import {
   setClimateControl,
   setSelectedCity,
-  setLang,
   setUserSelectedClimate,
   setUserSelectedLang,
   setThemeList,
@@ -17,7 +16,7 @@ import {
   SearchWrapper,
   SearchInputWrapper,
 } from "./style";
-import { CLIMATE_CONTROL, WEATHER_TO_CLIMATE } from "./constants";
+import { CLIMATE_CONTROL } from "./constants";
 import { ClimateType } from "src/common/types/climat";
 import { useDayTime, useWeather } from "src/features/customHooks";
 
@@ -31,16 +30,13 @@ import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 const ClimateControl = () => {
   const {
     lang: { climateLang },
-    userSelectedLang,
   } = useSelectorTyped(({ lang }) => lang);
 
   const {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
 
-  const { climate, userSelectedClimate, status } = useSelectorTyped(
-    ({ climate }) => climate
-  );
+  const { climate, status } = useSelectorTyped(({ climate }) => climate);
 
   const dispatch = useDispatchTyped();
   const { weather, loading, fetchByCity } = useWeather();
@@ -56,31 +52,9 @@ const ClimateControl = () => {
     }
   }, [weather?.location?.name]);
 
-  // Устанавливаем climate из API только если пользователь ещё не выбирал вручную
-  useEffect(() => {
-    let isMounted = true;
-
-    if (!loading && weather?.current?.condition?.text && !userSelectedClimate) {
-      const condition = weather.current.condition.text;
-      const mappedClimate = WEATHER_TO_CLIMATE[condition];
-
-      if (mappedClimate && isMounted) {
-        dispatch(setClimateControl(mappedClimate));
-      }
-    }
-
-    const country = weather?.location?.country?.toLowerCase() || null;
-    if (!userSelectedLang && country && !loading) {
-      if (country && isMounted) {
-        const isRussia = country === "russia" || country === "россия";
-        dispatch(setLang(!isRussia));
-      }
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [weather, loading, userSelectedClimate, userSelectedLang, dispatch]);
+  // Автоопределение климата/языка по погоде теперь централизовано в
+  // useAutoLocaleClimate (Layout) — здесь дубль убран, чтобы не было
+  // двойных dispatch и мигания.
 
   // 🔹 Запрашиваем погоду и обновляем climate
   const updateWeatherAndClimate = async (targetCity: string) => {
