@@ -282,6 +282,7 @@ export interface ResumeCvProps {
   skillsTitle: string;
   educationTitle: string;
   pdfUrl: string;
+  downloadName: string;
   downloadLabel: string;
   viewLabel: string;
   experience: ResumeExperienceProps[];
