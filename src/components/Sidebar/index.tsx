@@ -34,6 +34,7 @@ import {
   ContactTitle,
   MessengerLinks,
   Controls,
+  ControlItem,
 } from "./style";
 
 const Sidebar = () => {
@@ -127,9 +128,15 @@ const Sidebar = () => {
         <Separator />
 
         <Controls>
-          <ButtonHeart />
-          <ThemeDarkLight />
-          <ButtonLang />
+          <ControlItem>
+            <ButtonHeart />
+          </ControlItem>
+          <ControlItem>
+            <ThemeDarkLight />
+          </ControlItem>
+          <ControlItem>
+            <ButtonLang />
+          </ControlItem>
         </Controls>
       </SidebarMore>
     </SidebarWrapper>

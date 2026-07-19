@@ -6,6 +6,7 @@ import {
   PANEL_TEXT_MUTED,
   PANEL_BORDER,
   PANEL_ELEVATED,
+  PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 
 // Визитка в стиле vCard: на мобайле сворачивается (виден только верх),
@@ -237,6 +238,27 @@ export const Controls = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 12px;
   padding-top: 4px;
+`;
+
+// Квадратная плашка вокруг каждой кнопки (лайк / тема / язык), чтобы каждая
+// читалась как отдельная кнопка — в стиле IconBox контактов.
+export const ControlItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border-radius: 12px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  transition: border-color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
