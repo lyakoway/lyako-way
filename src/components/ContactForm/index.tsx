@@ -104,6 +104,21 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
               dispatch(setSantaShown(false));
               dispatch(setDataForm(dataForm));
               toastNotify({ title: toast.messageText, type: "success" });
+
+              // Встроенная форма не закрывается (модалки нет) — очищаем поля
+              // после успешной отправки. В модалке компонент размонтируется,
+              // поэтому сброс там не нужен (и вызвал бы setState после unmount).
+              if (embedded) {
+                setName("");
+                setEmail("");
+                setPhone("");
+                setTypesWork([]);
+                setMessage("");
+                setFormDescriptionName("");
+                setFormDescriptionEmail("");
+                setFormDescriptionPhone("");
+                setStatusRequest(null);
+              }
             },
             async (error) => {
               console.error("Ошибка при отправке:", error.text);
@@ -129,6 +144,7 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
       dispatch,
       statusRequest,
       wait,
+      embedded,
       setStatusRequest,
       setLoading,
       setFormDescriptionName,
