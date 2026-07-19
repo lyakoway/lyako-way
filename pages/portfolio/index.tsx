@@ -1,5 +1,5 @@
-import SectionPlaceholder from "src/widgets/SectionPlaceholder";
+import Portfolio from "src/widgets/Portfolio";
 
-export default function Portfolio() {
-  return <SectionPlaceholder menuValue="portfolio" />;
+export default function PortfolioPage() {
+  return <Portfolio />;
 }
