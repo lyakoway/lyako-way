@@ -77,7 +77,7 @@ export const Tag = styled.li`
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid ${PANEL_BORDER};
-  color: ${({ theme }) => theme.color.basic.primaryLight};
+  color: ${PANEL_TEXT};
   font-size: 12px;
   font-weight: 500;
 `;

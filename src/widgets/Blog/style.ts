@@ -46,6 +46,22 @@ export const List = styled.div`
   }
 `;
 
+// По умолчанию белый; оранжевым становится при наведении на карточку.
+export const ReadMore = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.25s ease;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+`;
+
 export const Card = styled.a`
   display: flex;
   flex-direction: column;
@@ -63,6 +79,10 @@ export const Card = styled.a`
     border-color: rgba(255, 255, 255, 0.22);
     transform: translateY(-3px);
   }
+
+  &:hover ${ReadMore} {
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+  }
 `;
 
 export const TagList = styled.ul`
@@ -79,7 +99,7 @@ export const Tag = styled.li`
   border-radius: 7px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid ${PANEL_BORDER};
-  color: ${({ theme }) => theme.color.basic.primaryLight};
+  color: ${PANEL_TEXT};
   font-size: 11px;
   font-weight: 500;
 `;
@@ -118,19 +138,5 @@ export const CardDate = styled.div`
   span + span::before {
     content: "·";
     margin-right: 8px;
-  }
-`;
-
-export const ReadMore = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  color: ${({ theme }) => theme.color.basic.primaryLight};
-  font-size: 13px;
-  font-weight: 500;
-
-  svg {
-    width: 15px;
-    height: 15px;
   }
 `;
