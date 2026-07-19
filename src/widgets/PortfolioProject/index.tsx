@@ -16,23 +16,13 @@ import {
   TechChips,
   Chip,
   Desc,
+  Preview,
+  PreviewFrame,
   Actions,
   ButtonPrimary,
   ButtonSecondary,
   NotFound,
 } from "./style";
-
-const HomeGlyph = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="M4 11 12 4l8 7M6 9.5V19a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V9.5"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 const PortfolioProject = ({ slug }: { slug: string }) => {
   const {
@@ -52,11 +42,6 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
       </Head>
 
       <Breadcrumb>
-        <Link href="/">
-          <HomeGlyph />
-          {portfolioHeader.home}
-        </Link>
-        <Sep>/</Sep>
         <Link href="/portfolio">{portfolioHeader.textPortfolio}</Link>
         <Sep>/</Sep>
         <Crumb>{name}</Crumb>
@@ -129,6 +114,22 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 <p key={i}>{line}</p>
               ))}
           </Desc>
+
+          {project.screenshots && project.screenshots.length > 0 && (
+            <Preview>
+              {project.screenshots.map((src, i) => (
+                <PreviewFrame
+                  key={i}
+                  href={src}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={src} alt={`${name} — ${i + 1}`} loading="lazy" />
+                </PreviewFrame>
+              ))}
+            </Preview>
+          )}
 
           <Actions>
             {project.hrefPortfolio && (

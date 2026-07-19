@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
 
 import {
+  FilterBar,
+  FilterChip,
   Grid,
   Card,
   CardThumb,
@@ -15,6 +17,18 @@ import {
   ChipList,
   Chip,
 } from "./style";
+
+// Палитра градиентов для обложек — каждой карточке свой оттенок.
+const GRADIENTS = [
+  "linear-gradient(135deg, rgba(249, 87, 33, 0.30), rgba(255, 255, 255, 0.04))",
+  "linear-gradient(135deg, rgba(69, 182, 252, 0.28), rgba(255, 255, 255, 0.04))",
+  "linear-gradient(135deg, rgba(139, 117, 255, 0.28), rgba(255, 255, 255, 0.04))",
+  "linear-gradient(135deg, rgba(0, 193, 155, 0.26), rgba(255, 255, 255, 0.04))",
+  "linear-gradient(135deg, rgba(234, 31, 73, 0.26), rgba(255, 255, 255, 0.04))",
+  "linear-gradient(135deg, rgba(193, 235, 29, 0.24), rgba(255, 255, 255, 0.04))",
+];
+
+const ALL = "__all__";
 
 const BrowserGlyph = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -46,11 +60,37 @@ const EyeGlyph = () => (
 
 const Portfolio = () => {
   const {
-    lang: { propsHeaderTopMenu, propsPortfolioList },
+    lang: { propsHeaderTopMenu, propsPortfolioList, portfolio },
   } = useSelectorTyped(({ lang }) => lang);
 
   const title =
     propsHeaderTopMenu.find((item) => item.value === "portfolio")?.label ?? "";
+
+  // Закрепляем за каждым проектом свой градиент (стабильно, не зависит от фильтра).
+  const items = useMemo(
+    () =>
+      propsPortfolioList.map((project, i) => ({
+        project,
+        grad: GRADIENTS[i % GRADIENTS.length],
+      })),
+    [propsPortfolioList]
+  );
+
+  // Уникальные технологии из всех проектов — опции фильтра.
+  const techs = useMemo(
+    () =>
+      Array.from(
+        new Set(propsPortfolioList.flatMap((p) => p.technologies))
+      ),
+    [propsPortfolioList]
+  );
+
+  const [active, setActive] = useState<string>(ALL);
+
+  const shown =
+    active === ALL
+      ? items
+      : items.filter(({ project }) => project.technologies.includes(active));
 
   return (
     <Article>
@@ -58,8 +98,23 @@ const Portfolio = () => {
         <ArticleTitle>{title}</ArticleTitle>
       </header>
 
+      <FilterBar>
+        <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
+          {portfolio.all}
+        </FilterChip>
+        {techs.map((tech) => (
+          <FilterChip
+            key={tech}
+            $active={active === tech}
+            onClick={() => setActive(tech)}
+          >
+            {tech}
+          </FilterChip>
+        ))}
+      </FilterBar>
+
       <Grid>
-        {propsPortfolioList.map((project) => (
+        {shown.map(({ project, grad }) => (
           <Link
             key={project.id}
             href={`/portfolio/${project.hrefNameList}`}
@@ -67,8 +122,13 @@ const Portfolio = () => {
             legacyBehavior
           >
             <Card>
-              <CardThumb>
-                <BrowserGlyph />
+              <CardThumb $grad={grad}>
+                {project.screenshots?.[0] ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={project.screenshots[0]} alt={project.portfolioNameList} />
+                ) : (
+                  <BrowserGlyph />
+                )}
                 <ThumbOverlay>
                   <EyeGlyph />
                 </ThumbOverlay>

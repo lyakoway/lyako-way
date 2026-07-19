@@ -125,6 +125,39 @@ export const Desc = styled.div`
   }
 `;
 
+/* ——— Скриншоты ——— */
+
+export const Preview = styled.div`
+  margin-top: 28px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+
+  @media (min-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const PreviewFrame = styled.a`
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid ${PANEL_BORDER};
+  background: rgba(0, 0, 0, 0.2);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.color.basic.primaryLight};
+    transform: translateY(-2px);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+`;
+
 /* ——— Кнопки-ссылки ——— */
 
 export const Actions = styled.div`

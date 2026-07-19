@@ -160,6 +160,7 @@ export interface PortfolioListProps {
   technologies: string[];
   github?: string;
   portfolioText: string;
+  screenshots?: string[];
 }
 
 export interface PortfolioHeaderProps {

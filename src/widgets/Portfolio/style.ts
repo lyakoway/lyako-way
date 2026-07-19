@@ -8,6 +8,34 @@ import {
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 
+export const FilterBar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+`;
+
+export const FilterChip = styled.button<{ $active?: boolean }>`
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid
+    ${({ $active, theme }) =>
+      $active ? theme.color.basic.primary : PANEL_BORDER};
+  background: ${({ $active, theme }) =>
+    $active ? theme.color.basic.primary : "rgba(255, 255, 255, 0.04)"};
+  color: ${({ $active }) => ($active ? "#ffffff" : PANEL_TEXT_SECONDARY)};
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    color: ${({ $active }) => ($active ? "#ffffff" : PANEL_TEXT)};
+    border-color: ${({ $active, theme }) =>
+      $active ? theme.color.basic.primary : "rgba(255, 255, 255, 0.28)"};
+  }
+`;
+
 export const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
@@ -69,18 +97,27 @@ export const Card = styled.a`
 `;
 
 // Декоративная обложка карточки (окно браузера) — не зависит от ассетов.
-export const CardThumb = styled.div`
+// $grad — индивидуальный градиент карточки.
+export const CardThumb = styled.div<{ $grad?: string }>`
   position: relative;
   aspect-ratio: 16 / 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(
-    135deg,
-    rgba(249, 87, 33, 0.22),
-    rgba(255, 255, 255, 0.04)
-  );
+  overflow: hidden;
+  background: ${({ $grad }) =>
+    $grad ||
+    "linear-gradient(135deg, rgba(249, 87, 33, 0.22), rgba(255, 255, 255, 0.04))"};
   color: rgba(255, 255, 255, 0.85);
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
 
   svg {
     width: 44px;

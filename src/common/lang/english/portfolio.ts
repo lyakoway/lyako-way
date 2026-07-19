@@ -26,6 +26,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
       "An AI assistant with Retrieval-Augmented Generation: upload PDF, Word or Excel and ask questions about the content — answers come with citations to the source pages.\nBackend on FastAPI + ChromaDB (vector search) and embeddings; multiple LLM providers (OpenAI, Anthropic, Ollama). Frontend — React 19 + TypeScript (Vite).",
+    screenshots: [
+      "/static/portfolio/rag-chat-dark.png",
+      "/static/portfolio/rag-chat-light.png",
+    ],
   },
   {
     id: "1",
