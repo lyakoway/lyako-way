@@ -2,7 +2,8 @@ import React from "react";
 import Head from "next/head";
 import Link from "next/link";
 
-import { useSelectorTyped } from "src/store";
+import { useSelectorTyped, useDispatchTyped } from "src/store";
+import { showModal } from "src/reducers";
 import { Article, ArticleTitle } from "src/ui/Card";
 
 import {
@@ -18,6 +19,7 @@ import {
   Desc,
   Preview,
   PreviewFrame,
+  ModalImage,
   Actions,
   ButtonPrimary,
   ButtonSecondary,
@@ -28,12 +30,29 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
   const {
     lang: { propsPortfolioList, portfolioHeader },
   } = useSelectorTyped(({ lang }) => lang);
+  const dispatch = useDispatchTyped();
 
   const project = propsPortfolioList.find(
     (item) => item.hrefNameList === slug
   );
 
   const name = project?.portfolioNameList ?? portfolioHeader.textPortfolio;
+
+  // Открываем скриншот в модалке-лайтбоксе.
+  const openImage = (src: string, alt: string) => {
+    dispatch(
+      showModal({
+        width: "min(1200px, 96vw)",
+        backgroundOverlay: "rgba(0, 0, 0, 0.82)",
+        content: (
+          <ModalImage>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={src} alt={alt} />
+          </ModalImage>
+        ),
+      })
+    );
+  };
 
   return (
     <Article>
@@ -120,9 +139,8 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               {project.screenshots.map((src, i) => (
                 <PreviewFrame
                   key={i}
-                  href={src}
-                  target="_blank"
-                  rel="noreferrer noopener"
+                  type="button"
+                  onClick={() => openImage(src, `${name} — ${i + 1}`)}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={`${name} — ${i + 1}`} loading="lazy" />

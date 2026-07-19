@@ -138,12 +138,15 @@ export const Preview = styled.div`
   }
 `;
 
-export const PreviewFrame = styled.a`
+export const PreviewFrame = styled.button`
   display: block;
+  width: 100%;
+  padding: 0;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid ${PANEL_BORDER};
   background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
   transition: border-color 0.25s ease, transform 0.25s ease;
 
   &:hover {
@@ -155,6 +158,23 @@ export const PreviewFrame = styled.a`
     display: block;
     width: 100%;
     height: auto;
+  }
+`;
+
+// Картинка в модалке-лайтбоксе: вписывается во вьюпорт.
+export const ModalImage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 88vh;
+    object-fit: contain;
+    border-radius: 6px;
   }
 `;
 
