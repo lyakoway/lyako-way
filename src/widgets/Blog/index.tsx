@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
+import { getReadMinutes } from "src/common/utils/getReadMinutes";
 
 import {
   FilterBar,
@@ -96,9 +97,14 @@ const Blog = () => {
               <CardExcerpt>{post.portfolioText}</CardExcerpt>
 
               <CardFoot>
-                {post.portfolioDataTime && (
-                  <CardDate>{post.portfolioDataTime}</CardDate>
-                )}
+                <CardDate>
+                  {post.portfolioDataTime && (
+                    <span>{post.portfolioDataTime}</span>
+                  )}
+                  <span>
+                    {getReadMinutes(post)} {blog.readTimeUnit}
+                  </span>
+                </CardDate>
                 <ReadMore>
                   {blog.readMore}
                   <ArrowGlyph />

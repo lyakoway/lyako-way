@@ -27,6 +27,7 @@ export interface BlogProps {
   all: string;
   filter: string;
   readMore: string;
+  readTimeUnit: string;
 }
 
 export interface PortfolioListBlogProps {

@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
+import { getReadMinutes } from "src/common/utils/getReadMinutes";
 
 import {
   Breadcrumb,
@@ -63,6 +64,9 @@ const BlogPost = ({ slug }: { slug: string }) => {
             {post.portfolioDataTime && (
               <MetaDate>{post.portfolioDataTime}</MetaDate>
             )}
+            <MetaDate>
+              {getReadMinutes(post)} {blog.readTimeUnit}
+            </MetaDate>
             <TagList>
               {post.technologies.map((tag, i) => (
                 <Tag key={i}>{tag}</Tag>

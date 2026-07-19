@@ -108,9 +108,17 @@ export const CardFoot = styled.div`
   padding-top: 4px;
 `;
 
-export const CardDate = styled.span`
+export const CardDate = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 12px;
+
+  span + span::before {
+    content: "·";
+    margin-right: 8px;
+  }
 `;
 
 export const ReadMore = styled.span`

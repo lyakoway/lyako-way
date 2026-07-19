@@ -6,7 +6,7 @@ export const blog: BlogProps = {
   blogTitle: "Notes on AI engineering: LLM, RAG, agents and production",
   blogText:
     "Short, practical notes on how I build AI applications: working with large language models, RAG, agents, quality evaluation and shipping to production.",
-  blogDataTime: "2025",
+  blogDataTime: "2026",
   portfolioNameList: "Blog",
   portfolioTextTitle: "Welcome to the blog!",
   portfolioText:
@@ -15,6 +15,7 @@ export const blog: BlogProps = {
   all: "All",
   filter: "Notes filter",
   readMore: "Read",
+  readTimeUnit: "min read",
 };
 
 const ICON_META = { icon: "", widthIcon: "200px", heightIcon: "200px" };
@@ -26,7 +27,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     hrefPortfolio: "",
     hrefNameList: "rag-prostymi-slovami",
     portfolioNameList: "RAG in plain words",
-    portfolioDataTime: "2025",
+    portfolioDataTime: "12.01.2026",
     technologies: ["RAG", "LLM"],
     textBlogHeader: "How to make a model answer from your data",
     portfolioText:
@@ -44,7 +45,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     hrefPortfolio: "",
     hrefNameList: "ai-agents",
     portfolioNameList: "AI agents: how they work",
-    portfolioDataTime: "2025",
+    portfolioDataTime: "26.01.2026",
     technologies: ["Agents", "LLM"],
     textBlogHeader: "Workflow, function calling and orchestration",
     portfolioText:
@@ -62,7 +63,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     hrefPortfolio: "",
     hrefNameList: "prompt-engineering",
     portfolioNameList: "Prompt engineering in practice",
-    portfolioDataTime: "2025",
+    portfolioDataTime: "09.02.2026",
     technologies: ["Prompts", "Quality"],
     textBlogHeader: "How to get stable answers from a model",
     portfolioText:
@@ -80,7 +81,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     hrefPortfolio: "",
     hrefNameList: "llm-evaluation",
     portfolioNameList: "How to evaluate LLM quality",
-    portfolioDataTime: "2025",
+    portfolioDataTime: "23.02.2026",
     technologies: ["Evaluation", "Quality"],
     textBlogHeader: "Metrics, example sets and regressions",
     portfolioText:
@@ -98,7 +99,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     hrefPortfolio: "",
     hrefNameList: "llm-in-product",
     portfolioNameList: "Shipping LLM into a product",
-    portfolioDataTime: "2025",
+    portfolioDataTime: "09.03.2026",
     technologies: ["Integration", "Backend"],
     textBlogHeader: "From prototype to a reliable service",
     portfolioText:
