@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import emailjs from "@emailjs/browser";
 
@@ -8,8 +8,6 @@ import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
 import { InputPhone, InputEmail, InputName } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
-import { Select } from "src/ui/Select";
-import { ISelectOption } from "src/common/types/select";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 
 // embedded — форма встроена прямо в страницу (не в модалку): убираем
@@ -24,13 +22,10 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
     "success" | "error" | null
   >(null);
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectOptions, useSelectOptions] = useState<ISelectOption[]>([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const [message, setMessage] = useState("");
-  // const [formData, setFormData] = useState(null);
   const toastNotify = useToastNotify();
 
   const [formDescriptionName, setFormDescriptionName] = useState("");
@@ -40,22 +35,6 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
   const [validName, setValidName] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validPhone, setValidPhone] = useState(false);
-
-  const changeHandlerName = (valueInput: string) => {
-    const searchQueryValue = valueInput.toLowerCase();
-    setName(searchQueryValue);
-  };
-
-  useEffect(() => {
-    const selectList = [
-      { label: contactForm.services1, value: "services1" },
-      { label: contactForm.services2, value: "services2" },
-      { label: contactForm.services3, value: "services3" },
-      { label: contactForm.services4, value: "services4" },
-      { label: contactForm.services5, value: "services5" },
-    ];
-    useSelectOptions(selectList);
-  }, [contactForm, useSelectOptions]);
 
   const handleCloseButton = useCallback(
     async (e) => {
@@ -74,14 +53,11 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
         setFormDescriptionEmail("");
         setFormDescriptionPhone("");
 
-        const typesWorkValue = typesWork.length
-          ? typesWork.map((item) => item.label).join(", ")
-          : "";
         const dataForm = {
           user_name: name,
           user_email: email,
           user_phone: phone,
-          typesWork: typesWorkValue,
+          typesWork: "",
           message: message,
         };
 
@@ -112,7 +88,6 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
                 setName("");
                 setEmail("");
                 setPhone("");
-                setTypesWork([]);
                 setMessage("");
                 setFormDescriptionName("");
                 setFormDescriptionEmail("");
@@ -137,19 +112,14 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
       email,
       phone,
       message,
-      typesWork,
       validName,
       validEmail,
       validPhone,
       dispatch,
-      statusRequest,
-      wait,
+      contactForm,
+      toast,
+      toastNotify,
       embedded,
-      setStatusRequest,
-      setLoading,
-      setFormDescriptionName,
-      setFormDescriptionEmail,
-      setFormDescriptionPhone,
     ]
   );
 
@@ -178,23 +148,18 @@ const ContactForm: FC<{ embedded?: boolean }> = ({ embedded = false }) => {
             setValid={setValidPhone}
             setFormDescriptionPhone={setFormDescriptionPhone}
           />
-          <InputEmail
-            label={contactForm.mail}
-            type="email"
-            setEmail={setEmail}
-            email={email}
-            description={formDescriptionEmail}
-            setValid={setValidEmail}
-            setFormDescriptionEmail={setFormDescriptionEmail}
-          />
-          <Select
-            multiple
-            options={selectOptions}
-            value={typesWork}
-            onChange={(o) => setTypesWork(o)}
-            defaultText={contactForm.services}
-          />
         </InputWrapper>
+
+        <InputEmail
+          label={contactForm.mail}
+          type="email"
+          setEmail={setEmail}
+          email={email}
+          description={formDescriptionEmail}
+          setValid={setValidEmail}
+          setFormDescriptionEmail={setFormDescriptionEmail}
+        />
+
         <Textarea
           label={contactForm.message}
           placeholder={contactForm.placeholderMessage}

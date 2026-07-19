@@ -1,7 +1,7 @@
 import { ContactFormProps } from "src/common/types/lang";
 
 export const contactForm: ContactFormProps = {
-  title: "You are ready to place an order ?",
+  title: "Get in touch",
   buttonText: "Send",
   fullName: "Name*",
   placeholderName: "What is your name?",

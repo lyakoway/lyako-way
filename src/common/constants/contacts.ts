@@ -30,3 +30,10 @@ export const CONTACT_MESSENGERS: ContactLink[] = [
   },
   { label: "Skype", href: "skype:aleks10_0?chat" },
 ];
+
+// Профили / соцсети. LinkedIn и hh.ru — замените на точные ссылки на профили.
+export const CONTACT_PROFILES: ContactLink[] = [
+  { label: "GitHub", href: "https://github.com/lyakoway" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/" },
+  { label: "hh.ru", href: "https://hh.ru/" },
+];

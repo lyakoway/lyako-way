@@ -337,5 +337,15 @@ export interface LanguageProps {
   order: OrderProps;
   modal: ModalProps;
   blog: BlogProps;
+  contactsPage: ContactsPageProps;
   name: "russia" | "english";
+}
+
+export interface ContactsPageProps {
+  intro: string;
+  profilesTitle: string;
+  locationTitle: string;
+  location: string;
+  responseTitle: string;
+  responseTime: string;
 }

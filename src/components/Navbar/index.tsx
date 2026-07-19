@@ -7,7 +7,7 @@ import { useSelectorTyped } from "src/store";
 import { NavbarWrapper, NavbarList, NavbarItem, NavLabel } from "./style";
 
 // Значение пункта меню (propsHeaderTopMenu.value) → реальный роут Next.
-// Пункты без записи здесь (cooperation, contacts) в навбар не попадают.
+// Пункты без записи здесь (cooperation) в навбар не попадают.
 const ROUTE_BY_VALUE: Record<string, string> = {
   "": "/",
   person: "/profile",
@@ -15,6 +15,7 @@ const ROUTE_BY_VALUE: Record<string, string> = {
   services: "/services",
   portfolio: "/portfolio",
   blog: "/blog",
+  contacts: "/contacts",
 };
 
 const isActive = (pathname: string, href: string) =>

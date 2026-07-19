@@ -9,6 +9,7 @@ import { service } from "./service";
 import { portfolioHeader } from "./portfolioHeader";
 import { propsPortfolioList, portfolio } from "./portfolio";
 import { propsPortfolioListBlog, blog } from "./blog";
+import { contactsPage } from "./contactsPage";
 import { order } from "./order";
 import { footer } from "./footer";
 import { modal } from "./modal";
@@ -54,5 +55,6 @@ export const ENGLISH_LANGUAGE: LanguageProps = {
   order,
   modal,
   blog,
+  contactsPage,
   name: "english",
 };

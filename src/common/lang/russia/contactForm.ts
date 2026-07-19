@@ -1,7 +1,7 @@
 import { ContactFormProps } from "src/common/types/lang";
 
 export const contactForm: ContactFormProps = {
-  title: "Вы готовы сделать заказ ?",
+  title: "Напишите мне",
   buttonText: "Отправить",
   fullName: "Имя*",
   placeholderName: "Ф.И.О.",
