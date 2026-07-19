@@ -14,6 +14,20 @@ export const portfolio: PortfolioProps = {
 
 export const propsPortfolioList: PortfolioListProps[] = [
   {
+    id: "rag-chat",
+    hrefPortfolio: "",
+    portfolioNameList: "RAG Chat — chat with your documents",
+    portfolioDataTime: "2025",
+    icon: "",
+    widthIcon: "285px",
+    heightIcon: "500px",
+    hrefNameList: "rag-chat",
+    technologies: ["Python", "FastAPI", "RAG", "ChromaDB", "React", "TypeScript"],
+    github: "https://github.com/lyakoway/ai-RAG-chat",
+    portfolioText:
+      "An AI assistant with Retrieval-Augmented Generation: upload PDF, Word or Excel and ask questions about the content — answers come with citations to the source pages.\nBackend on FastAPI + ChromaDB (vector search) and embeddings; multiple LLM providers (OpenAI, Anthropic, Ollama). Frontend — React 19 + TypeScript (Vite).",
+  },
+  {
     id: "1",
     hrefPortfolio: "https://react-t-shirt-shop.herokuapp.com/",
     portfolioNameList: "Internet shop",

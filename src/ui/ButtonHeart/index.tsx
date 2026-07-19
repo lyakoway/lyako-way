@@ -51,6 +51,12 @@ const ButtonHeart: React.FC = () => {
     }[]
   >([]);
 
+  // likes в сторе инициализируются из localStorage (на клиенте), а на сервере
+  // это 0 → рассинхрон гидрации. До монтирования показываем серверное значение
+  // (0), после — реальное.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   // Загружаем лайки
   useEffect(() => {
     dispatch(fetchLikes({ idLikes: "heart_button" }));
@@ -161,7 +167,7 @@ const ButtonHeart: React.FC = () => {
     <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
       <HeartIcon />
       <Label>
-        {!loading && likes}
+        {!loading && (mounted ? likes : 0)}
         {loading && (
           <>
             ❤️

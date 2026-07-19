@@ -22,6 +22,26 @@ export const Grid = styled.div`
   }
 `;
 
+// Затемняющий оверлей с иконкой «глаз», проявляется при наведении на карточку.
+export const ThumbOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 12, 16, 0.5);
+  color: #ffffff;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  svg {
+    width: 34px;
+    height: 34px;
+    transform: scale(0.85);
+    transition: transform 0.25s ease;
+  }
+`;
+
 export const Card = styled.a`
   display: flex;
   flex-direction: column;
@@ -37,6 +57,14 @@ export const Card = styled.a`
     background: ${PANEL_ELEVATED_HOVER};
     border-color: rgba(255, 255, 255, 0.22);
     transform: translateY(-3px);
+  }
+
+  &:hover ${ThumbOverlay} {
+    opacity: 1;
+  }
+
+  &:hover ${ThumbOverlay} svg {
+    transform: scale(1);
   }
 `;
 
