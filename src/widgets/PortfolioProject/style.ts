@@ -52,6 +52,28 @@ export const Sep = styled.span`
   color: ${PANEL_TEXT_MUTED};
 `;
 
+export const WipTag = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 22px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  font-weight: 500;
+
+  &::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
 /* ——— Мета-информация ——— */
 
 export const MetaList = styled.dl`

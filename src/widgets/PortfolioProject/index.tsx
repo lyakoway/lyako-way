@@ -23,12 +23,13 @@ import {
   Actions,
   ButtonPrimary,
   ButtonSecondary,
+  WipTag,
   NotFound,
 } from "./style";
 
 const PortfolioProject = ({ slug }: { slug: string }) => {
   const {
-    lang: { propsPortfolioList, portfolioHeader },
+    lang: { propsPortfolioList, portfolioHeader, portfolio },
   } = useSelectorTyped(({ lang }) => lang);
   const dispatch = useDispatchTyped();
 
@@ -76,11 +77,15 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
         </NotFound>
       ) : (
         <>
+          {project.wip && <WipTag>{portfolio.wip}</WipTag>}
+
           <MetaList>
-            <MetaRow>
-              <MetaLabel>{portfolioHeader.date}</MetaLabel>
-              <MetaValue>{project.portfolioDataTime}</MetaValue>
-            </MetaRow>
+            {project.portfolioDataTime && (
+              <MetaRow>
+                <MetaLabel>{portfolioHeader.date}</MetaLabel>
+                <MetaValue>{project.portfolioDataTime}</MetaValue>
+              </MetaRow>
+            )}
 
             <MetaRow>
               <MetaLabel>{portfolioHeader.technology}</MetaLabel>

@@ -11,6 +11,7 @@ import {
   Card,
   CardThumb,
   ThumbOverlay,
+  WipBadge,
   CardBody,
   CardName,
   CardDate,
@@ -76,12 +77,9 @@ const Portfolio = () => {
     [propsPortfolioList]
   );
 
-  // Уникальные технологии из всех проектов — опции фильтра.
-  const techs = useMemo(
-    () =>
-      Array.from(
-        new Set(propsPortfolioList.flatMap((p) => p.technologies))
-      ),
+  // Направления AI-инженера из проектов — опции фильтра.
+  const directions = useMemo(
+    () => Array.from(new Set(propsPortfolioList.map((p) => p.direction))),
     [propsPortfolioList]
   );
 
@@ -90,7 +88,7 @@ const Portfolio = () => {
   const shown =
     active === ALL
       ? items
-      : items.filter(({ project }) => project.technologies.includes(active));
+      : items.filter(({ project }) => project.direction === active);
 
   return (
     <Article>
@@ -102,13 +100,13 @@ const Portfolio = () => {
         <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
           {portfolio.all}
         </FilterChip>
-        {techs.map((tech) => (
+        {directions.map((dir) => (
           <FilterChip
-            key={tech}
-            $active={active === tech}
-            onClick={() => setActive(tech)}
+            key={dir}
+            $active={active === dir}
+            onClick={() => setActive(dir)}
           >
-            {tech}
+            {dir}
           </FilterChip>
         ))}
       </FilterBar>
@@ -123,6 +121,7 @@ const Portfolio = () => {
           >
             <Card>
               <CardThumb $grad={grad}>
+                {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
                 {project.screenshots?.[0] ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={project.screenshots[0]} alt={project.portfolioNameList} />
@@ -135,7 +134,9 @@ const Portfolio = () => {
               </CardThumb>
               <CardBody>
                 <CardName>{project.portfolioNameList}</CardName>
-                <CardDate>{project.portfolioDataTime}</CardDate>
+                {project.portfolioDataTime && (
+                  <CardDate>{project.portfolioDataTime}</CardDate>
+                )}
                 <ChipList>
                   {project.technologies.slice(0, 4).map((tech, i) => (
                     <Chip key={i}>{tech}</Chip>

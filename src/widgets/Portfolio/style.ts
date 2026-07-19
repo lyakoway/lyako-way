@@ -125,6 +125,22 @@ export const CardThumb = styled.div<{ $grad?: string }>`
   }
 `;
 
+// Бейдж «в разработке» в углу обложки.
+export const WipBadge = styled.span`
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(10, 12, 16, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+`;
+
 export const CardBody = styled.div`
   display: flex;
   flex-direction: column;

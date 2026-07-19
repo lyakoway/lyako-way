@@ -146,6 +146,7 @@ export interface PortfolioProps {
   portfolioText: string;
   all: string;
   filter: string;
+  wip: string;
 }
 
 export interface PortfolioListProps {
@@ -161,6 +162,8 @@ export interface PortfolioListProps {
   github?: string;
   portfolioText: string;
   screenshots?: string[];
+  direction: string;
+  wip?: boolean;
 }
 
 export interface PortfolioHeaderProps {
