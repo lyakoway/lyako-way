@@ -78,7 +78,7 @@ const GlobalStyles = createGlobalStyle`
     --font-weight-bold: 700;
     --font-weight-medium: 500;
     --font-weight-regular: 400;
-    --font-family-base: 'Poppins', sans-serif;
+    --font-family-base: var(--font-poppins, 'Poppins'), sans-serif;
     --grid-m-breakpoint: 0;
     --grid-m-columns: 2;
     --grid-m-gutter: 12px;

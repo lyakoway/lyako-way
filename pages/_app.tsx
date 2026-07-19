@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from "react";
 import Head from "next/head";
+import { Poppins } from "next/font/google";
 
 import { Provider } from "react-redux";
 
@@ -7,6 +8,16 @@ import { AppProps } from "next/app";
 
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
+
+// Self-hosted Poppins через next/font: без FOUT и без скачка раскладки —
+// Next добавляет метрически-подогнанный фолбэк (size-adjust). Poppins —
+// латиница; кириллица берётся из системного sans-serif (как и раньше).
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-poppins",
+});
 
 import { useDispatchTyped, useSelectorTyped, wrapper } from "src/store";
 import getAppHeadContent from "src/common/utils/getAppHeadContent";
@@ -42,7 +53,7 @@ const AppContent: FC<{
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <AppShell>
+      <AppShell className={poppins.variable}>
         <Layout>
           <Component {...pageProps} />
         </Layout>
