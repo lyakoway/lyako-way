@@ -78,6 +78,47 @@ export const MailIcon = () => (
   </svg>
 );
 
+// Иконки для строк-разделов (телефон, мессенджеры, локация).
+export const PhoneIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M6.5 3h3l1.6 4-2.1 1.6a11 11 0 0 0 5.4 5.4l1.6-2.1 4 1.6v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3Z"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ChatIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M21 11.5a7.5 7.5 0 0 1-10.9 6.7L4 20l1.3-4.3A7.5 7.5 0 1 1 21 11.5Z"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M9 11h.01M12 11h.01M15 11h.01"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+export const PinIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M12 21s7-5.7 7-11a7 7 0 1 0-14 0c0 5.3 7 11 7 11Z"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <circle cx="12" cy="10" r="2.5" stroke="currentColor" strokeWidth="1.8" />
+  </svg>
+);
+
 export const MESSENGER_ICON: Record<string, JSX.Element> = {
   Telegram: <TelegramIcon />,
   WhatsApp: <WhatsAppIcon />,

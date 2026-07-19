@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 
 import { useSelectorTyped } from "src/store";
-import { IconBox } from "src/ui/Card";
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
@@ -11,11 +10,15 @@ import {
   CONTACT_MESSENGERS,
   CONTACT_PHONES,
 } from "src/common/constants/contacts";
-import { MESSENGER_ICON, MailIcon } from "src/common/icon/socialIcons";
+import {
+  MESSENGER_ICON,
+  MailIcon,
+  PhoneIcon,
+  ChatIcon,
+  PinIcon,
+} from "src/common/icon/socialIcons";
 
 import { ReactComponent as LaykoWayLightIcon } from "src/common/icon/logo/LaykoWayLightIcon.svg";
-import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
-import { ReactComponent as CooperationIcon } from "src/common/icon/contacts/СooperationIcon.svg";
 import { ReactComponent as ContactsIcon } from "src/common/icon/contacts/СontactsIcon.svg";
 
 import {
@@ -32,6 +35,7 @@ import {
   ContactItem,
   ContactInfo,
   ContactTitle,
+  RowIconBox,
   MessengerLinks,
   Controls,
   ControlItem,
@@ -70,9 +74,9 @@ const Sidebar = () => {
 
         <ContactsList>
           <ContactItem>
-            <IconBox>
-              <PhonesIcon />
-            </IconBox>
+            <RowIconBox>
+              <PhoneIcon />
+            </RowIconBox>
             <ContactInfo>
               <ContactTitle>{sidebar.phoneTitle}</ContactTitle>
               {CONTACT_PHONES.map((phone) => (
@@ -84,9 +88,9 @@ const Sidebar = () => {
           </ContactItem>
 
           <ContactItem>
-            <IconBox>
-              <CooperationIcon />
-            </IconBox>
+            <RowIconBox>
+              <ChatIcon />
+            </RowIconBox>
             <ContactInfo>
               <ContactTitle>{sidebar.messengersTitle}</ContactTitle>
               <MessengerLinks>
@@ -114,9 +118,9 @@ const Sidebar = () => {
           </ContactItem>
 
           <ContactItem>
-            <IconBox>
-              <ContactsIcon />
-            </IconBox>
+            <RowIconBox>
+              <PinIcon />
+            </RowIconBox>
             <ContactInfo>
               <ContactTitle>{sidebar.locationTitle}</ContactTitle>
               <address>{sidebar.location}</address>

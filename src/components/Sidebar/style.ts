@@ -201,6 +201,37 @@ export const ContactItem = styled.li`
   min-width: 100%;
 `;
 
+// Плашка иконки строки (телефон/мессенджеры/локация). В отличие от IconBox
+// не форсирует fill — корректно показывает outline-иконки (stroke).
+export const RowIconBox = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (min-width: 580px) {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+`;
+
 // Кликабельная иконка-обёртка (напр. почта в сайдбаре — только иконка).
 export const IconLink = styled.a`
   display: inline-flex;
