@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useCallback } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 import {
@@ -21,8 +21,6 @@ import {
   IconComp,
   IconMap,
   IconBook,
-  SettingWrapper,
-  SettingIconWrapper,
   NewYear,
   CodeScreen,
   CodeLineRow,
@@ -41,22 +39,16 @@ import {
 import Clock from "src/components/Clock";
 import Window from "src/components/Window";
 
-import { useClickOutside } from "src/features/customHooks";
-
 import { ReactComponent as RocketGetsiteIcon } from "src/common/icon/rocket/RocketIcon.svg";
 import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
 import { ReactComponent as EmailsIcon } from "src/common/icon/contacts/EmailsIcon.svg";
 import { ReactComponent as SkypeIcon } from "src/common/icon/contacts/SkypeHeaderIcon.svg";
-import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setting.svg";
 
 import Button from "src/ui/Button";
-import Popup from "src/ui/Popup";
 import LampSwitch from "src/ui/LampSwitch";
 
-import { getwindowInnerWidth } from "src/common/utils/getwindowInnerWidth";
 import { showModal } from "src/reducers";
 import ContactForm from "src/components/ContactForm";
-import PagesSettings from "src/components/PagesSettings";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
 import { NewYearTree } from "src/components/NewYearTree";
 
@@ -72,26 +64,11 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
   const {
     lang: { headerHouse },
   } = useSelectorTyped(({ lang }) => lang);
-  const [openedPopup, setOpenedPopup] = useState(false);
-  const [positionValue, setPositionValue] = useState("top");
-  const popupRef = useRef<HTMLDivElement>(null);
   const themeLight = name === "light";
 
   const dispatch = useDispatchTyped();
 
   const showTree = isNewYearPeriod();
-
-  useClickOutside(popupRef, () => {
-    if (openedPopup) {
-      setOpenedPopup(false);
-    }
-  });
-
-  const handleClickPopup = () => {
-    setOpenedPopup(!openedPopup);
-    const positionValueWidth = getwindowInnerWidth() > 959;
-    setPositionValue(positionValueWidth ? "top" : "right");
-  };
 
   const handleClickModal = useCallback(() => {
     dispatch(
@@ -138,22 +115,6 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
             <SteamWisp $left={50} $delay={1} $themeLight={themeLight} />
             <SteamWisp $left={92} $delay={2} $themeLight={themeLight} />
           </Steam>
-          <SettingWrapper>
-            <Popup
-              positionValue={positionValue}
-              openedPopup={openedPopup}
-              popupRef={popupRef}
-              content={<PagesSettings />}
-              trigger={
-                <SettingIconWrapper
-                  onClick={handleClickPopup}
-                  $openedPopup={openedPopup}
-                >
-                  <SettingIcon fill="white" />
-                </SettingIconWrapper>
-              }
-            />
-          </SettingWrapper>
         </IconComp>
         <IconMap $themeLight={themeLight} />
         <Window themeLight={themeLight} />

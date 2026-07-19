@@ -22,8 +22,12 @@ export function useAutoLocaleClimate() {
   // Единственный «драйвер» погоды в приложении.
   const { weather } = useWeather({ autoInit: true });
 
-  // Загружаем лайки (один раз)
+  // Загружаем лайки строго один раз — ref защищает от повторных запусков
+  // эффекта, если dispatch/стор внезапно меняют идентичность.
+  const likesLoadedRef = useRef(false);
   useEffect(() => {
+    if (likesLoadedRef.current) return;
+    likesLoadedRef.current = true;
     dispatch(fetchLikes({ idLikes: "heart_button" }));
   }, [dispatch]);
 

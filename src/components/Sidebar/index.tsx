@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useSelectorTyped } from "src/store";
 import { IconBox } from "src/ui/Card";
 import ButtonLang from "src/ui/ButtonLang";
+import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
 
 import {
@@ -126,6 +127,7 @@ const Sidebar = () => {
         <Separator />
 
         <Controls>
+          <ButtonHeart />
           <ThemeDarkLight />
           <ButtonLang />
         </Controls>

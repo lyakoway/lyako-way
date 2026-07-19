@@ -30,7 +30,8 @@ export async function getWeather(params: {
   try {
     return await fetchRequest(url);
   } catch (error) {
-    console.error("Ошибка при получении данных погоды:", error);
+    // сеть/погодный API могут быть недоступны — это не критично для страницы
+    console.warn("Погода недоступна:", error);
     throw error;
   }
 }
@@ -45,7 +46,7 @@ export async function getForecast(params: {
   try {
     return await fetchRequest(url);
   } catch (error) {
-    console.error("Ошибка при получении прогноза:", error);
+    console.warn("Прогноз недоступен:", error);
     throw error;
   }
 }
