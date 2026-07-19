@@ -18,12 +18,6 @@ export const Breadcrumb = styled.nav`
   font-size: 13px;
   color: ${PANEL_TEXT_MUTED};
 
-  /* На десктопе навбар абсолютно позиционирован в правом-верхнем углу секции
-     (top:0, right:0). Опускаем крошки и весь контент ниже навбара, чтобы
-     широкие крошки/заголовок не заезжали под него. */
-  @media (min-width: 1024px) {
-    margin-top: 68px;
-  }
 
   a {
     display: inline-flex;

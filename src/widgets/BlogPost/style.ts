@@ -15,11 +15,6 @@ export const Breadcrumb = styled.nav`
   font-size: 13px;
   color: ${PANEL_TEXT_MUTED};
 
-  /* На десктопе навбар абсолютно позиционирован в правом-верхнем углу секции;
-     опускаем крошки/заголовок ниже него. */
-  @media (min-width: 1024px) {
-    margin-top: 68px;
-  }
 
   a {
     color: ${PANEL_TEXT_SECONDARY};
