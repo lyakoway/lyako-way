@@ -1,5 +1,5 @@
-import SectionPlaceholder from "src/widgets/SectionPlaceholder";
+import Blog from "src/widgets/Blog";
 
-export default function Blog() {
-  return <SectionPlaceholder menuValue="blog" />;
+export default function BlogPage() {
+  return <Blog />;
 }

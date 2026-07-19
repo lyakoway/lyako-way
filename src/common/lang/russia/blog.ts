@@ -1,147 +1,113 @@
-import JavaScript from "src/common/icon/icon-blog/JavaScript.png";
-import React from "src/common/icon/icon-blog/React.png";
-import NextJs from "src/common/icon/icon-blog/NextJs.png";
-import TypeScript from "src/common/icon/icon-blog/TypeScript.png";
-import ReactNative from "src/common/icon/icon-blog/ReactNative.jpeg";
-import NodeJs from "src/common/icon/icon-blog/NodeJs.png";
-import Redux from "src/common/icon/icon-blog/Redux.png";
-import Git from "src/common/icon/icon-blog/Git.png";
 import { BlogProps, PortfolioListBlogProps } from "src/common/types/lang";
 
 export const blog: BlogProps = {
-  title: "Мой блог",
+  title: "Блог",
   buttonText: "Открыть блог",
-  blogTitle:
-    "Площадка, c интересными новостями и примерами в мире It разработки",
+  blogTitle: "Заметки об AI-инженерии: LLM, RAG, агенты и продакшн",
   blogText:
-    "Здесь можно узнать для себя что-то новое или повторить. Также здесь я для себя собрал что-то личное, для собственного развития, поделится какой-то личной информацией.",
-  blogDataTime: "08.01.2020",
-  portfolioNameList: "Заметки веб-разработчика",
-  portfolioTextTitle: "Добро пожаловать на блог!",
+    "Короткие практические заметки о том, как я строю AI-приложения: работа с большими языковыми моделями, RAG, агенты, оценка качества и вывод решений в production.",
+  blogDataTime: "2025",
+  portfolioNameList: "Блог",
+  portfolioTextTitle: "Добро пожаловать в блог!",
   portfolioText:
-    "Я наконец-то, решил сам для себя сделать площадку, чтобы делиться интересными новостями и примерами в мире front-end разработки",
-  blogTitleTag: "Популярные теги",
+    "Делюсь практикой и подходами из работы AI-инженера — без воды, по делу.",
+  blogTitleTag: "Теги",
   all: "Все",
   filter: "Фильтр заметок",
+  readMore: "Читать",
 };
+
+const ICON_META = { icon: "", widthIcon: "200px", heightIcon: "200px" };
 
 export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
   {
-    id: "1",
-    hrefPortfolio: "https://react-t-shirt-shop.herokuapp.com/",
-    portfolioNameList: "JavaScript",
-    portfolioDataTime: "Январь 2021",
-    icon: `${JavaScript}`,
-    widthIcon: "200px",
-    heightIcon: "200px",
-    hrefNameList: "javaScript",
-    technologies: ["JavaScript"],
-    // github: 'https://github.com/Alexey25041991/react-t-shirt-shop.git',
+    id: "rag-prostymi-slovami",
+    ...ICON_META,
+    hrefPortfolio: "",
+    hrefNameList: "rag-prostymi-slovami",
+    portfolioNameList: "RAG простыми словами",
+    portfolioDataTime: "2025",
+    technologies: ["RAG", "LLM"],
+    textBlogHeader: "Как заставить модель отвечать по вашим данным",
     portfolioText:
-      "Здесь хочу поделиться полезной информацией свянанной с JavaScript. Можно посмотреть полезные ссылки, примеры кода, что появилось нового. Так же порекомендую из своей практики что стоит изучить, а что не забывать и повторять.",
-    textBlogHeader: "Заметки про JavaScript и как с ним работать.",
+      "Retrieval-Augmented Generation — способ дать модели доступ к вашим документам, чтобы ответы были точными и с ссылками на источники.",
+    body: [
+      "Большая языковая модель знает много, но не знает ваших внутренних документов и часто «придумывает» факты. RAG решает это: перед ответом мы находим в базе знаний релевантные фрагменты и передаём их модели как контекст.",
+      "Пайплайн простой. Документы разбиваются на фрагменты (chunks), для каждого считается векторное представление (embedding) и складывается в векторную базу. На запрос пользователя мы ищем ближайшие по смыслу фрагменты и подставляем их в промпт вместе с вопросом.",
+      "Что важно на практике: разумный размер фрагментов и перекрытие между ними, качество эмбеддингов, и обязательно — цитирование источников, чтобы ответ можно было проверить. Хорошая метрика качества здесь важнее, чем выбор конкретной модели.",
+      "RAG хорош там, где ответы должны опираться на конкретные данные: поддержка, внутренняя база знаний, работа с договорами и отчётами. Он дешевле и безопаснее, чем дообучение модели под каждую задачу.",
+    ],
   },
   {
-    id: "2",
-    hrefPortfolio: "https://react-t-shirt-shop.herokuapp.com/",
-    portfolioNameList: "TypeScript",
-    portfolioDataTime: "Январь 2021",
-    icon: `${TypeScript}`,
-    widthIcon: "200px",
-    heightIcon: "200px",
-    hrefNameList: "typeScript",
-    technologies: ["TypeScript"],
-    // github: 'https://github.com/Alexey25041991/react-t-shirt-shop.git',
+    id: "ai-agents",
+    ...ICON_META,
+    hrefPortfolio: "",
+    hrefNameList: "ai-agents",
+    portfolioNameList: "AI-агенты: как это устроено",
+    portfolioDataTime: "2025",
+    technologies: ["Агенты", "LLM"],
+    textBlogHeader: "Workflow, function calling и оркестрация",
     portfolioText:
-      "Здесь хочу поделиться полезной информацией свянанной с JavaScript. Можно посмотреть полезные ссылки, примеры кода, что появилось нового. Так же порекомендую из своей практики что стоит изучить, а что не забывать и повторять",
-    textBlogHeader: "Заметки про JavaScript и как с ним работать.",
+      "Агент — это модель, которая не просто отвечает текстом, а вызывает инструменты и выполняет шаги для достижения цели.",
+    body: [
+      "Обычная модель отвечает одним сообщением. Агент устроен как цикл: модель решает, какой инструмент вызвать, получает результат, оценивает его и делает следующий шаг — пока задача не решена.",
+      "Ключевой механизм — function / tool calling: мы описываем модели доступные функции (поиск, запрос к API, запуск кода), а она возвращает, какую из них вызвать и с какими аргументами. Дальше наш код выполняет вызов и возвращает результат обратно в диалог.",
+      "Сложность не в самой модели, а в оркестрации: обработка ошибок и повторные попытки, ограничение числа шагов, управление контекстом и токен-бюджетом, а для сложных сценариев — несколько специализированных агентов, которые общаются между собой.",
+      "Мой главный совет: начинайте с простого workflow и добавляйте автономность только там, где она реально нужна. Чем больше свободы у агента, тем важнее наблюдаемость и тесты.",
+    ],
   },
   {
-    id: "3",
-    hrefPortfolio: "http://dlg-construction.ru/",
-    portfolioNameList: "React",
-    portfolioDataTime: "Январь 2021",
-    icon: `${React}`,
-    widthIcon: "160px",
-    heightIcon: "160px",
-    hrefNameList: "react",
-    technologies: ["React"],
-    portfolioText: `В портфолио представлены проекты, которые я 
-    разработал в сотрудничестве с веб-студиями так и для частных клиентов, 
-    а также несколько личных проектов.\nОсновная масса проектов содержит
-    индивидуальные функции предназначенные для реализации особенностей
-    работы веб-сайта.\nВ моем портфолио веб-разработчика указано название
-    сайта, ссылка на сайт, цель сайта и описание выполненной работы.`,
-    textBlogHeader: "Что такое Reac и с чем его едят",
+    id: "prompt-engineering",
+    ...ICON_META,
+    hrefPortfolio: "",
+    hrefNameList: "prompt-engineering",
+    portfolioNameList: "Промпт-инжиниринг на практике",
+    portfolioDataTime: "2025",
+    technologies: ["Промпты", "Качество"],
+    textBlogHeader: "Как получать стабильные ответы от модели",
+    portfolioText:
+      "Промпт — это интерфейс к модели. Небольшие изменения формулировки сильно меняют результат, поэтому промпты стоит проектировать и тестировать.",
+    body: [
+      "Хороший промпт задаёт роль, контекст, формат ответа и ограничения. Чем яснее вы формулируете, что нужно и в каком виде, тем стабильнее и предсказуемее ответ.",
+      "Работают простые приёмы: показать пример желаемого ответа (few-shot), попросить рассуждать по шагам там, где нужна логика, и явно перечислить, чего делать нельзя. Для машинной обработки — просить строгий формат (например, JSON) и валидировать его.",
+      "Промпт нельзя «написать один раз». Я отношусь к нему как к коду: держу версии, прогоняю на наборе примеров и слежу за регрессиями. Без такого набора любое улучшение — это гадание.",
+      "И помните про edge cases: пустой ввод, противоречивые данные, попытки увести модель от задачи. Их лучше закладывать в тесты заранее.",
+    ],
   },
   {
-    id: "4",
-    hrefPortfolio: "https://topas-ts.ru",
-    portfolioNameList: "Интернет магазин",
-    portfolioDataTime: "Январь 2021",
-    icon: `${NextJs}`,
-    widthIcon: "160px",
-    heightIcon: "160px",
-    hrefNameList: "topas-ts",
-    technologies: ["Next"],
-    portfolioText: `В портфолио представлены проекты, которые я 
-    разработал в сотрудничестве с веб-студиями так и для частных клиентов, 
-    а также несколько личных проектов. Основная масса проектов содержит
-    индивидуальные функции предназначенные для реализации особенностей
-    работы веб-сайта.В моем портфолио веб-разработчика указано название
-    сайта, ссылка на сайт, цель сайта и описание выполненной работы`,
-    textBlogHeader: "Зазем нужен Next js",
+    id: "llm-evaluation",
+    ...ICON_META,
+    hrefPortfolio: "",
+    hrefNameList: "llm-evaluation",
+    portfolioNameList: "Как оценивать качество LLM",
+    portfolioDataTime: "2025",
+    technologies: ["Evaluation", "Качество"],
+    textBlogHeader: "Метрики, наборы примеров и регрессии",
+    portfolioText:
+      "«Кажется, стало лучше» — не метрика. Чтобы улучшать LLM-приложение, нужен воспроизводимый способ измерять качество ответов.",
+    body: [
+      "Первый шаг — собрать набор примеров (eval-set): реальные запросы и ожидаемые ответы или критерии правильности. Даже небольшой, но честный набор уже даёт опору для решений.",
+      "Дальше выбираем способ оценки. Где-то подходит точное сравнение и правила, где-то — метрики близости, а для свободных ответов часто применяют LLM-as-a-judge: другая модель оценивает ответ по заданным критериям.",
+      "Главная ценность — регрессионные прогоны. Перед каждым изменением промпта или модели прогоняем eval-set и сравниваем: не стало ли где-то хуже. Так улучшения перестают быть случайными.",
+      "Не гонитесь за одной цифрой. Точность, стабильность, задержка и стоимость — всё это части качества, и баланс между ними зависит от задачи.",
+    ],
   },
   {
-    id: "5",
-    hrefPortfolio: "https://react-t-shirt-shop.herokuapp.com/",
-    portfolioNameList: "Интернет магазин",
-    portfolioDataTime: "Январь 2021",
-    icon: `${ReactNative}`,
-    widthIcon: "200px",
-    heightIcon: "140px",
-    hrefNameList: "name4",
-    technologies: ["ReactNative"],
-    portfolioText: "Интернет магазин4",
-    textBlogHeader: "ReactNative.js",
-  },
-  {
-    id: "6",
-    hrefPortfolio: "https://react-t-shirt-shop.herokuapp.com/",
-    portfolioNameList: "Интернет магазин",
-    portfolioDataTime: "Январь 2021",
-    icon: `${NodeJs}`,
-    widthIcon: "200px",
-    heightIcon: "200px",
-    hrefNameList: "name4",
-    technologies: ["Node"],
-    portfolioText: "Интернет магазин4",
-    textBlogHeader: "Node.js",
-  },
-  {
-    id: "7",
-    hrefPortfolio: "https://react-t-shirt-shop.herokuapp.com/",
-    portfolioNameList: "Интернет магазин",
-    portfolioDataTime: "Январь 2021",
-    icon: `${Redux}`,
-    widthIcon: "200px",
-    heightIcon: "200px",
-    hrefNameList: "name5",
-    technologies: ["Redux"],
-    portfolioText: "Интернет магазин5",
-    textBlogHeader: "Redux",
-  },
-  {
-    id: "8",
-    hrefPortfolio: "https://react-t-shirt-shop.herokuapp.com/",
-    portfolioNameList: "Интернет магазин",
-    portfolioDataTime: "Январь 2021",
-    icon: `${Git}`,
-    widthIcon: "160px",
-    heightIcon: "160px",
-    hrefNameList: "name5",
-    technologies: ["Git"],
-    portfolioText: "Интернет магазин5",
-    textBlogHeader: "Git",
+    id: "llm-in-product",
+    ...ICON_META,
+    hrefPortfolio: "",
+    hrefNameList: "llm-in-product",
+    portfolioNameList: "Внедрение LLM в продукт",
+    portfolioDataTime: "2025",
+    technologies: ["Интеграция", "Backend"],
+    textBlogHeader: "От прототипа до надёжного сервиса",
+    portfolioText:
+      "Прототип на ноутбуке и рабочий сервис — разные вещи. Разбираю, что важно учесть при выводе LLM-функций в production.",
+    body: [
+      "LLM удобно прятать за собственным API: клиент общается с вашим backend, а тот уже ходит в модель. Это даёт контроль над промптами, ключами, логированием и позволяет менять провайдера без переписывания фронтенда.",
+      "В продакшне важны вещи, о которых на прототипе не думаешь: таймауты и повторные попытки, ограничение частоты запросов, кэширование частых ответов, потоковая отдача (streaming) для отзывчивого интерфейса и аккуратная обработка ошибок провайдера.",
+      "Отдельно — стоимость и наблюдаемость. Считайте токены и задержки, логируйте запросы и ответы (с учётом приватности), следите за качеством в реальном трафике. Без этого сложно понять, что происходит и сколько это стоит.",
+      "И последнее: заложите запасной сценарий. Модель может быть недоступна или ответить не так — продукт должен деградировать мягко, а не падать.",
+    ],
   },
 ];

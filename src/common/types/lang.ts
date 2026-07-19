@@ -26,6 +26,7 @@ export interface BlogProps {
   blogTitleTag: string;
   all: string;
   filter: string;
+  readMore: string;
 }
 
 export interface PortfolioListBlogProps {
@@ -41,6 +42,7 @@ export interface PortfolioListBlogProps {
   github?: string;
   portfolioText: string;
   textBlogHeader: string;
+  body?: string[];
 }
 
 export interface CooperationProps {
