@@ -231,7 +231,26 @@ export const ContactTitle = styled.p`
 export const MessengerLinks = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 12px;
+  align-items: center;
+  gap: 12px;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: ${PANEL_TEXT};
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  a:hover {
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+    transform: translateY(-1px);
+  }
+
+  a svg {
+    width: 20px;
+    height: 20px;
+  }
 `;
 
 export const Controls = styled.div`

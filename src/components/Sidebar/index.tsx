@@ -11,6 +11,7 @@ import {
   CONTACT_MESSENGERS,
   CONTACT_PHONES,
 } from "src/common/constants/contacts";
+import { MESSENGER_ICON } from "src/common/icon/socialIcons";
 
 import { ReactComponent as LaykoWayLightIcon } from "src/common/icon/logo/LaykoWayLightIcon.svg";
 import { ReactComponent as EmailsIcon } from "src/common/icon/contacts/EmailsIcon.svg";
@@ -106,8 +107,10 @@ const Sidebar = () => {
                     href={item.href}
                     target="_blank"
                     rel="noreferrer noopener"
+                    title={item.label}
+                    aria-label={item.label}
                   >
-                    {item.label}
+                    {MESSENGER_ICON[item.label]}
                   </a>
                 ))}
               </MessengerLinks>

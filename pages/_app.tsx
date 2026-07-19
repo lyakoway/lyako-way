@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useRef } from "react";
 import Head from "next/head";
 import { Poppins } from "next/font/google";
 
@@ -22,8 +22,8 @@ const poppins = Poppins({
 import { useDispatchTyped, useSelectorTyped, wrapper } from "src/store";
 import getAppHeadContent from "src/common/utils/getAppHeadContent";
 import GlobalStyles from "src/common/lib/globalStyles";
-import { setThemeList } from "src/reducers";
-import { useDayTime } from "src/features/customHooks";
+import { setThemeList, getPreferredIsDay } from "src/reducers";
+import { useDayTime, useIsomorphicLayoutEffect } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
 import { Toast } from "src/ui/Toast";
 import Layout from "src/widgets/Layout";
@@ -46,9 +46,23 @@ const AppContent: FC<{
   const dispatch = useDispatchTyped();
   const { dayTime } = useDayTime();
 
+  // На монтировании применяем предпочтительную тему (сохранённую или по времени
+  // суток) ДО отрисовки — стартовое значение стора светлое (как SSR), поэтому
+  // гидрация проходит без рассинхрона, а вспышки нет (layout-эффект до paint).
+  useIsomorphicLayoutEffect(() => {
+    dispatch(setThemeList(getPreferredIsDay()));
+  }, [dispatch]);
+
+  // Живое переключение день/ночь: применяем изменения dayTime, но пропускаем
+  // первый прогон, чтобы не перебить установленную выше предпочтительную тему.
+  const firstDayTimeRun = useRef(true);
   useEffect(() => {
+    if (firstDayTimeRun.current) {
+      firstDayTimeRun.current = false;
+      return;
+    }
     dispatch(setThemeList(dayTime));
-  }, [dayTime]);
+  }, [dayTime, dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
