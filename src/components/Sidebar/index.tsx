@@ -11,10 +11,9 @@ import {
   CONTACT_MESSENGERS,
   CONTACT_PHONES,
 } from "src/common/constants/contacts";
-import { MESSENGER_ICON } from "src/common/icon/socialIcons";
+import { MESSENGER_ICON, MailIcon } from "src/common/icon/socialIcons";
 
 import { ReactComponent as LaykoWayLightIcon } from "src/common/icon/logo/LaykoWayLightIcon.svg";
-import { ReactComponent as EmailsIcon } from "src/common/icon/contacts/EmailsIcon.svg";
 import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
 import { ReactComponent as CooperationIcon } from "src/common/icon/contacts/СooperationIcon.svg";
 import { ReactComponent as ContactsIcon } from "src/common/icon/contacts/СontactsIcon.svg";
@@ -72,16 +71,6 @@ const Sidebar = () => {
         <ContactsList>
           <ContactItem>
             <IconBox>
-              <EmailsIcon />
-            </IconBox>
-            <ContactInfo>
-              <ContactTitle>{sidebar.emailTitle}</ContactTitle>
-              <a href={CONTACT_EMAIL.href}>{CONTACT_EMAIL.label}</a>
-            </ContactInfo>
-          </ContactItem>
-
-          <ContactItem>
-            <IconBox>
               <PhonesIcon />
             </IconBox>
             <ContactInfo>
@@ -101,6 +90,13 @@ const Sidebar = () => {
             <ContactInfo>
               <ContactTitle>{sidebar.messengersTitle}</ContactTitle>
               <MessengerLinks>
+                <a
+                  href={CONTACT_EMAIL.href}
+                  title={CONTACT_EMAIL.label}
+                  aria-label={sidebar.emailTitle}
+                >
+                  <MailIcon />
+                </a>
                 {CONTACT_MESSENGERS.map((item) => (
                   <a
                     key={item.href}

@@ -4,17 +4,10 @@ import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
 import ContactForm from "src/components/ContactForm";
 import {
-  CONTACT_MESSENGERS,
   CONTACT_EMAIL,
-  CONTACT_PHONES,
   CONTACT_PROFILES,
 } from "src/common/constants/contacts";
-import {
-  MESSENGER_ICON,
-  PROFILE_ICON,
-  TelegramIcon,
-  GitHubIcon,
-} from "src/common/icon/socialIcons";
+import { PROFILE_ICON, GitHubIcon } from "src/common/icon/socialIcons";
 
 import {
   Intro,
@@ -42,17 +35,6 @@ const MailIcon = () => (
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const PhoneIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="M6.5 4h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 6a2 2 0 0 1 2-2Z"
-      stroke="currentColor"
-      strokeWidth="2"
       strokeLinejoin="round"
     />
   </svg>
@@ -100,23 +82,6 @@ const Contacts = () => {
       <Intro>{contactsPage.intro}</Intro>
 
       <ContactBlock>
-        <SectionLabel>{sidebar.messengersTitle}</SectionLabel>
-        <Links>
-          {CONTACT_MESSENGERS.map((item) => (
-            <LinkItem
-              key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              {MESSENGER_ICON[item.label] ?? <TelegramIcon />}
-              {item.label}
-            </LinkItem>
-          ))}
-        </Links>
-      </ContactBlock>
-
-      <ContactBlock>
         <SectionLabel>{contactsPage.profilesTitle}</SectionLabel>
         <Links>
           {CONTACT_PROFILES.map((item) => (
@@ -140,18 +105,6 @@ const Contacts = () => {
             <MailIcon />
             {CONTACT_EMAIL.label}
           </LinkItem>
-        </Links>
-      </ContactBlock>
-
-      <ContactBlock>
-        <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
-        <Links>
-          {CONTACT_PHONES.map((phone) => (
-            <LinkItem key={phone.href} href={phone.href}>
-              <PhoneIcon />
-              {phone.label}
-            </LinkItem>
-          ))}
         </Links>
       </ContactBlock>
 

@@ -201,6 +201,22 @@ export const ContactItem = styled.li`
   min-width: 100%;
 `;
 
+// Кликабельная иконка-обёртка (напр. почта в сайдбаре — только иконка).
+export const IconLink = styled.a`
+  display: inline-flex;
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover > div {
+    border-color: ${({ theme }) => theme.color.basic.primaryLight};
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+  }
+`;
+
 export const ContactInfo = styled.div`
   max-width: calc(100% - 46px);
 
