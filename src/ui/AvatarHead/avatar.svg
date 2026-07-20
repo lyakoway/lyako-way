@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- ============================================================
+       Memoji-аватар «Мазуренко Алексей».
+       Слои снизу вверх (= глубина):
+         background · clothing · neck · ears · hair-back · face ·
+         face-shading · eyebrows · eyes · nose · mouth · hair-front
+       Объём — мягкими размытыми тенями/бликами (filter=soft*) и
+       радиальными градиентами. Цвета — в <defs>.
+       ============================================================ -->
+  <defs>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" />
+    </filter>
+    <filter id="softer" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="10" />
+    </filter>
+
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="75%">
+      <stop offset="0%" stop-color="#3e4348" />
+      <stop offset="100%" stop-color="#2a2e32" />
+    </radialGradient>
+    <radialGradient id="skinGrad" cx="50%" cy="34%" r="72%">
+      <stop offset="0%" stop-color="#f8d7b1" />
+      <stop offset="60%" stop-color="#f0c398" />
+      <stop offset="100%" stop-color="#e0aa7c" />
+    </radialGradient>
+    <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a4a30" />
+      <stop offset="100%" stop-color="#40301e" />
+    </linearGradient>
+    <radialGradient id="irisGrad" cx="50%" cy="62%" r="60%">
+      <stop offset="0%" stop-color="#845c38" />
+      <stop offset="65%" stop-color="#573b23" />
+      <stop offset="100%" stop-color="#38271a" />
+    </radialGradient>
+    <linearGradient id="poloGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4c6772" />
+      <stop offset="100%" stop-color="#37505b" />
+    </linearGradient>
+    <linearGradient id="collarGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b3d46" />
+      <stop offset="100%" stop-color="#1f2e35" />
+    </linearGradient>
+  </defs>
+
+  <!-- ===== BACKGROUND (тёмный) ===== -->
+  <g id="background">
+    <rect width="512" height="512" fill="url(#bgGrad)" />
+  </g>
+
+  <!-- ===== CLOTHING ===== -->
+  <g id="clothing">
+    <path d="M84 512 C88 430 142 386 198 378 L314 378 C370 386 424 430 428 512 Z" fill="url(#poloGrad)" />
+    <path d="M150 400 C132 440 126 478 128 512" fill="none" stroke="#2f4952" stroke-width="26" stroke-linecap="round" opacity="0.55" filter="url(#softer)" />
+    <path d="M362 400 C380 440 386 478 384 512" fill="none" stroke="#2f4952" stroke-width="26" stroke-linecap="round" opacity="0.55" filter="url(#softer)" />
+    <path d="M226 384 L256 470 L286 384 C273 380 264 379 256 379 C248 379 239 380 226 384 Z" fill="#28393f" />
+    <path d="M216 380 C186 396 170 426 168 458 C192 440 220 428 244 424 C250 406 240 388 216 380 Z" fill="url(#collarGrad)" />
+    <path d="M296 380 C326 396 342 426 344 458 C320 440 292 428 268 424 C262 406 272 388 296 380 Z" fill="url(#collarGrad)" />
+    <path d="M248 402 L248 512 L264 512 L264 402 Z" fill="#324b56" />
+    <circle cx="256" cy="430" r="4.5" fill="#20303a" />
+    <circle cx="256" cy="464" r="4.5" fill="#20303a" />
+  </g>
+
+  <!-- ===== NECK ===== -->
+  <g id="neck">
+    <path d="M220 336 L220 400 C220 414 292 414 292 400 L292 336 Z" fill="url(#skinGrad)" />
+    <ellipse cx="256" cy="360" rx="42" ry="12" fill="#cf9a6f" opacity="0.5" filter="url(#soft)" />
+    <path d="M220 342 C240 364 272 364 292 342 L292 358 C272 380 240 380 220 358 Z" fill="#cf9a6f" opacity="0.4" filter="url(#soft)" />
+  </g>
+
+  <!-- ===== EARS ===== -->
+  <g id="ears">
+    <ellipse cx="166" cy="254" rx="16" ry="24" fill="url(#skinGrad)" />
+    <ellipse cx="346" cy="254" rx="16" ry="24" fill="url(#skinGrad)" />
+    <path d="M162 244 C171 253 171 264 162 273" fill="none" stroke="#d69f74" stroke-width="4" stroke-linecap="round" opacity="0.8" filter="url(#soft)" />
+    <path d="M350 244 C341 253 341 264 350 273" fill="none" stroke="#d69f74" stroke-width="4" stroke-linecap="round" opacity="0.8" filter="url(#soft)" />
+  </g>
+
+  <!-- ===== HAIR (back) ===== -->
+  <g id="hair-back">
+    <path d="M164 236 C148 130 200 88 256 88 C312 88 364 130 348 236
+             C350 200 342 168 326 152 C308 130 294 122 256 120
+             C218 122 204 130 186 152 C170 168 162 200 164 236 Z" fill="url(#hairGrad)" />
+  </g>
+
+  <!-- ===== FACE (овал, мягкая челюсть) ===== -->
+  <g id="face">
+    <path d="M172 232 C172 168 204 148 256 148 C308 148 340 168 340 232
+             C340 282 332 316 310 342 C296 356 278 362 256 362
+             C234 362 216 356 202 342 C180 316 172 282 172 232 Z"
+          fill="url(#skinGrad)" />
+  </g>
+
+  <!-- ===== FACE SHADING ===== -->
+  <g id="face-shading">
+    <ellipse cx="256" cy="192" rx="60" ry="24" fill="#fbe1c4" opacity="0.4" filter="url(#softer)" />
+    <ellipse cx="212" cy="282" rx="26" ry="17" fill="#fbe1c4" opacity="0.28" filter="url(#softer)" />
+    <ellipse cx="300" cy="282" rx="26" ry="17" fill="#fbe1c4" opacity="0.28" filter="url(#softer)" />
+    <path d="M176 250 C182 298 200 330 226 350 C208 328 192 296 186 258 Z" fill="#d0966a" opacity="0.38" filter="url(#softer)" />
+    <path d="M336 250 C330 298 312 330 286 350 C304 328 320 296 326 258 Z" fill="#d0966a" opacity="0.38" filter="url(#softer)" />
+    <ellipse cx="210" cy="300" rx="20" ry="13" fill="#e79a7d" opacity="0.2" filter="url(#softer)" />
+    <ellipse cx="302" cy="300" rx="20" ry="13" fill="#e79a7d" opacity="0.2" filter="url(#softer)" />
+  </g>
+
+  <!-- ===== EYEBROWS (тонкие, спокойные) ===== -->
+  <g id="eyebrows">
+    <path d="M188 218 C206 208 232 207 252 214 C249 217 245 218 240 217 C224 212 208 214 196 222 C192 221 189 220 188 218 Z" fill="#3a2617" />
+    <path d="M324 218 C306 208 280 207 260 214 C263 217 267 218 272 217 C288 212 304 214 316 222 C320 221 323 220 324 218 Z" fill="#3a2617" />
+  </g>
+
+  <!-- ===== EYES (нормальные) ===== -->
+  <g id="eyes">
+    <g id="eye-left">
+      <ellipse cx="220" cy="252" rx="26" ry="19" fill="#c9b9a5" opacity="0.25" filter="url(#soft)" />
+      <ellipse cx="220" cy="251" rx="24" ry="18" fill="#fcfbf8" />
+      <path d="M198 240 C208 233 232 233 242 240 L242 236 C232 235 198 238 198 240 Z" fill="#c9b28f" opacity="0.28" filter="url(#soft)" />
+      <circle cx="220" cy="252" r="15" fill="url(#irisGrad)" />
+      <circle cx="220" cy="252" r="6.5" fill="#16100a" />
+      <circle cx="214" cy="246" r="3.4" fill="#ffffff" />
+      <circle cx="225" cy="257" r="1.7" fill="#ffffff" opacity="0.5" />
+      <path d="M198 242 C208 233 232 233 242 242" fill="none" stroke="#4a3421" stroke-width="2.6" stroke-linecap="round" />
+    </g>
+    <g id="eye-right">
+      <ellipse cx="292" cy="252" rx="26" ry="19" fill="#c9b9a5" opacity="0.25" filter="url(#soft)" />
+      <ellipse cx="292" cy="251" rx="24" ry="18" fill="#fcfbf8" />
+      <path d="M270 240 C280 233 304 233 314 240 L314 236 C304 235 270 238 270 240 Z" fill="#c9b28f" opacity="0.28" filter="url(#soft)" />
+      <circle cx="292" cy="252" r="15" fill="url(#irisGrad)" />
+      <circle cx="292" cy="252" r="6.5" fill="#16100a" />
+      <circle cx="286" cy="246" r="3.4" fill="#ffffff" />
+      <circle cx="297" cy="257" r="1.7" fill="#ffffff" opacity="0.5" />
+      <path d="M270 242 C280 233 304 233 314 242" fill="none" stroke="#4a3421" stroke-width="2.6" stroke-linecap="round" />
+    </g>
+  </g>
+
+  <!-- ===== NOSE ===== -->
+  <g id="nose">
+    <path d="M258 262 C263 282 268 296 263 303 C259 307 256 305 256 300 C257 288 257 276 256 264 Z"
+          fill="#d0966a" opacity="0.5" filter="url(#soft)" />
+    <ellipse cx="256" cy="303" rx="13" ry="5" fill="#d0966a" opacity="0.4" filter="url(#soft)" />
+    <ellipse cx="253" cy="293" rx="3.5" ry="12" fill="#fbe1c4" opacity="0.3" filter="url(#soft)" />
+    <ellipse cx="254" cy="300" rx="5.5" ry="4.5" fill="#fce4c8" opacity="0.5" filter="url(#soft)" />
+    <ellipse cx="247" cy="302" rx="2.5" ry="1.7" fill="#bd875f" opacity="0.3" />
+    <ellipse cx="265" cy="302" rx="2.5" ry="1.7" fill="#bd875f" opacity="0.3" />
+  </g>
+
+  <!-- ===== MOUTH (улыбка-линия) ===== -->
+  <g id="mouth">
+    <ellipse cx="256" cy="322" rx="28" ry="5" fill="#d0966a" opacity="0.16" filter="url(#soft)" />
+    <ellipse cx="224" cy="329" rx="4" ry="7" fill="#d0966a" opacity="0.26" filter="url(#soft)" />
+    <ellipse cx="288" cy="329" rx="4" ry="7" fill="#d0966a" opacity="0.26" filter="url(#soft)" />
+    <path d="M226 329 C240 341 272 341 286 329" fill="none" stroke="#a9623f" stroke-width="4" stroke-linecap="round" />
+    <ellipse cx="256" cy="338" rx="16" ry="3.5" fill="#f6cfae" opacity="0.32" filter="url(#soft)" />
+  </g>
+
+  <!-- ===== HAIR (front: боковой пробор, пряди) ===== -->
+  <g id="hair-front">
+    <path d="M166 212 C152 130 202 106 256 104 C310 106 360 130 348 214
+             C344 180 334 164 320 160 C310 178 294 190 276 186
+             C264 180 256 180 246 184 C234 178 216 180 206 192
+             C196 180 182 172 174 184 C169 192 164 202 166 212 Z" fill="url(#hairGrad)" />
+    <path d="M250 100 C300 106 342 128 350 166 C336 142 308 124 272 118 C260 110 254 104 250 100 Z" fill="url(#hairGrad)" />
+    <path d="M206 104 C248 98 300 104 332 122 C304 110 254 108 224 118 C216 114 210 108 206 104 Z" fill="url(#hairGrad)" />
+    <path d="M168 178 C176 142 198 118 230 108 C206 122 188 144 180 174 C176 178 172 180 168 178 Z" fill="url(#hairGrad)" />
+    <path d="M204 162 C248 144 298 138 334 152" fill="none" stroke="#815a39" stroke-width="14" stroke-linecap="round" opacity="0.35" filter="url(#softer)" />
+    <path d="M212 150 C252 136 298 132 330 136" fill="none" stroke="#835c3a" stroke-width="2.5" stroke-linecap="round" opacity="0.4" />
+  </g>
+</svg>

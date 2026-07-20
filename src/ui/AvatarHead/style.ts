@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export const Portrait = styled.img`
+import { ReactComponent as AvatarArt } from "./avatar.svg";
+
+// SVG-портрет заполняет плашку целиком (со скруглением углов от AvatarBox).
+export const Portrait = styled(AvatarArt)`
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   border-radius: inherit;
-  user-select: none;
-  -webkit-user-drag: none;
 `;
