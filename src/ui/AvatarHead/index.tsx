@@ -23,19 +23,34 @@ const PUPIL_RANGE_X = 5; // зрачок влево/вправо (ед. viewBox)
 const PUPIL_RANGE_Y = 3; // зрачок вверх/вниз
 const TURN_Y = 11; // поворот головы влево/вправо (°)
 const TURN_X = 5; // наклон головы вверх/вниз (°)
-const SHIFT_X = 3; // смещение головы к курсору (px)
+const SHIFT_X = 4; // смещение головы к курсору по горизонтали (px)
+const SHIFT_Y = 3; // смещение головы к курсору по вертикали (px, совсем небольшое)
 const NORM_RADIUS = 420; // px, на котором поворот/взгляд максимальны
 
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
 
-type State = { turnX: number; turnY: number; shift: number; px: number; py: number };
+type State = {
+  turnX: number;
+  turnY: number;
+  shiftX: number;
+  shiftY: number;
+  px: number;
+  py: number;
+};
 
 const AvatarHead = () => {
   const uid = useId().replace(/:/g, "");
   const frameRef = useRef<HTMLDivElement>(null);
   const [motion, setMotion] = useState(false);
-  const [s, setS] = useState<State>({ turnX: 0, turnY: 0, shift: 0, px: 0, py: 0 });
+  const [s, setS] = useState<State>({
+    turnX: 0,
+    turnY: 0,
+    shiftX: 0,
+    shiftY: 0,
+    px: 0,
+    py: 0,
+  });
 
   useEffect(() => {
     const reduce =
@@ -54,7 +69,8 @@ const AvatarHead = () => {
       setS({
         turnY: nx * TURN_Y,
         turnX: -ny * TURN_X,
-        shift: nx * SHIFT_X,
+        shiftX: nx * SHIFT_X,
+        shiftY: ny * SHIFT_Y,
         px: nx * PUPIL_RANGE_X,
         py: ny * PUPIL_RANGE_Y,
       });
@@ -90,7 +106,7 @@ const AvatarHead = () => {
 
       <HeadTurn
         style={{
-          transform: `translateX(${s.shift}px) rotateX(${s.turnX}deg) rotateY(${s.turnY}deg)`,
+          transform: `translate(${s.shiftX}px, ${s.shiftY}px) rotateX(${s.turnX}deg) rotateY(${s.turnY}deg)`,
         }}
       >
         <HeadLayer aria-hidden="true" />
