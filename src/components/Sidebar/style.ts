@@ -12,7 +12,8 @@ import {
 // «прилипает» слева.
 export const SidebarWrapper = styled.aside`
   padding: 15px;
-  margin-bottom: 15px;
+  /* ≤767px — зазор между блоками 18px; ≥768px — 26px. */
+  margin-bottom: 18px;
   border-radius: 20px;
   background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
   border: 1px solid ${PANEL_BORDER};
@@ -20,7 +21,10 @@ export const SidebarWrapper = styled.aside`
 
   @media (min-width: 580px) {
     padding: 30px;
-    margin-bottom: 30px;
+  }
+
+  @media (min-width: 768px) {
+    margin-bottom: 26px;
   }
 
   @media (min-width: 1250px) {

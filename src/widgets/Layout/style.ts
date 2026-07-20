@@ -6,15 +6,18 @@ import styled from "styled-components";
 // освобождает место под фиксированную верхнюю панель.
 export const LayoutMain = styled.div`
   min-width: 259px;
-  margin: 66px 12px 40px;
+  /* ≤767px — зазор от верхней навигации 18px (панель ~52px + 18);
+     ≥768px — 26px (панель с подписями ~75px + 26). */
+  margin: 70px 12px 40px;
 
   @media (min-width: 580px) {
     max-width: 520px;
-    margin: 82px auto 60px;
+    margin: 70px auto 60px;
   }
 
   @media (min-width: 768px) {
     max-width: 700px;
+    margin-top: 101px;
   }
 
   @media (min-width: 1024px) {
