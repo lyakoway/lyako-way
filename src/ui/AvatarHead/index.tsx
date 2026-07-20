@@ -1,8 +1,16 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 
-import { Stage, Frame, BaseArt, Overlay, IrisG, Eyelid } from "./style";
+import {
+  Frame,
+  BodyLayer,
+  HeadTurn,
+  HeadLayer,
+  Overlay,
+  IrisG,
+  Eyelid,
+} from "./style";
 
-// Центры глаз в координатах viewBox базового avatar.svg (0..512).
+// Центры глаз в координатах viewBox головы (0..512).
 const LEFT_EYE = { x: 220, y: 251 };
 const RIGHT_EYE = { x: 292, y: 251 };
 const SCLERA_RX = 24;
@@ -11,22 +19,23 @@ const IRIS_R = 15;
 const PUPIL_R = 6.5;
 
 // Диапазоны движения.
-const PUPIL_RANGE_X = 7; // зрачок влево/вправо (ед. viewBox)
-const PUPIL_RANGE_Y = 4; // зрачок вверх/вниз
-const TILT_Y = 11; // поворот головы влево/вправо (°)
-const TILT_X = 8; // наклон головы вверх/вниз (°)
-const NORM_RADIUS = 420; // px, на котором наклон/взгляд максимальны
+const PUPIL_RANGE_X = 5; // зрачок влево/вправо (ед. viewBox)
+const PUPIL_RANGE_Y = 3; // зрачок вверх/вниз
+const TURN_Y = 11; // поворот головы влево/вправо (°)
+const TURN_X = 5; // наклон головы вверх/вниз (°)
+const SHIFT_X = 3; // смещение головы к курсору (px)
+const NORM_RADIUS = 420; // px, на котором поворот/взгляд максимальны
 
 const clamp = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
 
-type State = { tiltX: number; tiltY: number; px: number; py: number };
+type State = { turnX: number; turnY: number; shift: number; px: number; py: number };
 
 const AvatarHead = () => {
   const uid = useId().replace(/:/g, "");
   const frameRef = useRef<HTMLDivElement>(null);
   const [motion, setMotion] = useState(false);
-  const [s, setS] = useState<State>({ tiltX: 0, tiltY: 0, px: 0, py: 0 });
+  const [s, setS] = useState<State>({ turnX: 0, turnY: 0, shift: 0, px: 0, py: 0 });
 
   useEffect(() => {
     const reduce =
@@ -43,8 +52,9 @@ const AvatarHead = () => {
 
       setMotion(true);
       setS({
-        tiltY: nx * TILT_Y,
-        tiltX: -ny * TILT_X,
+        turnY: nx * TURN_Y,
+        turnX: -ny * TURN_X,
+        shift: nx * SHIFT_X,
         px: nx * PUPIL_RANGE_X,
         py: ny * PUPIL_RANGE_Y,
       });
@@ -75,14 +85,15 @@ const AvatarHead = () => {
   );
 
   return (
-    <Stage>
-      <Frame
-        ref={frameRef}
+    <Frame ref={frameRef}>
+      <BodyLayer role="img" aria-label="Аватар — Мазуренко Алексей" />
+
+      <HeadTurn
         style={{
-          transform: `perspective(600px) rotateX(${s.tiltX}deg) rotateY(${s.tiltY}deg) scale(1.06)`,
+          transform: `translateX(${s.shift}px) rotateX(${s.turnX}deg) rotateY(${s.turnY}deg)`,
         }}
       >
-        <BaseArt role="img" aria-label="Аватар — Мазуренко Алексей" />
+        <HeadLayer aria-hidden="true" />
 
         <Overlay viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <defs>
@@ -102,8 +113,8 @@ const AvatarHead = () => {
           {renderEye(LEFT_EYE, clipL)}
           {renderEye(RIGHT_EYE, clipR)}
         </Overlay>
-      </Frame>
-    </Stage>
+      </HeadTurn>
+    </Frame>
   );
 };
 

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">
+  <!-- Статичный слой: фон + одежда + шея. Голова — в avatar-head.svg. -->
+  <defs>
+    <filter id="softB" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="10" />
+    </filter>
+    <filter id="softBn" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="5" />
+    </filter>
+    <radialGradient id="bgGrad" cx="50%" cy="40%" r="75%">
+      <stop offset="0%" stop-color="#3e4348" />
+      <stop offset="100%" stop-color="#2a2e32" />
+    </radialGradient>
+    <radialGradient id="skinGradB" cx="50%" cy="34%" r="72%">
+      <stop offset="0%" stop-color="#f8d7b1" />
+      <stop offset="60%" stop-color="#f0c398" />
+      <stop offset="100%" stop-color="#e0aa7c" />
+    </radialGradient>
+    <linearGradient id="poloGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4c6772" />
+      <stop offset="100%" stop-color="#37505b" />
+    </linearGradient>
+    <linearGradient id="collarGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2b3d46" />
+      <stop offset="100%" stop-color="#1f2e35" />
+    </linearGradient>
+  </defs>
+
+  <!-- ===== BACKGROUND ===== -->
+  <g id="background">
+    <rect width="512" height="512" fill="url(#bgGrad)" />
+  </g>
+
+  <!-- ===== CLOTHING ===== -->
+  <g id="clothing">
+    <path d="M84 512 C88 430 142 386 198 378 L314 378 C370 386 424 430 428 512 Z" fill="url(#poloGrad)" />
+    <path d="M150 400 C132 440 126 478 128 512" fill="none" stroke="#2f4952" stroke-width="26" stroke-linecap="round" opacity="0.55" filter="url(#softB)" />
+    <path d="M362 400 C380 440 386 478 384 512" fill="none" stroke="#2f4952" stroke-width="26" stroke-linecap="round" opacity="0.55" filter="url(#softB)" />
+    <path d="M226 384 L256 470 L286 384 C273 380 264 379 256 379 C248 379 239 380 226 384 Z" fill="#28393f" />
+    <path d="M216 380 C186 396 170 426 168 458 C192 440 220 428 244 424 C250 406 240 388 216 380 Z" fill="url(#collarGrad)" />
+    <path d="M296 380 C326 396 342 426 344 458 C320 440 292 428 268 424 C262 406 272 388 296 380 Z" fill="url(#collarGrad)" />
+    <path d="M248 402 L248 512 L264 512 L264 402 Z" fill="#324b56" />
+    <circle cx="256" cy="430" r="4.5" fill="#20303a" />
+    <circle cx="256" cy="464" r="4.5" fill="#20303a" />
+  </g>
+
+  <!-- ===== NECK ===== -->
+  <g id="neck">
+    <path d="M220 336 L220 400 C220 414 292 414 292 400 L292 336 Z" fill="url(#skinGradB)" />
+    <ellipse cx="256" cy="360" rx="42" ry="12" fill="#cf9a6f" opacity="0.5" filter="url(#softBn)" />
+    <path d="M220 342 C240 364 272 364 292 342 L292 358 C272 380 240 380 220 358 Z" fill="#cf9a6f" opacity="0.4" filter="url(#softBn)" />
+  </g>
+</svg>
