@@ -23,7 +23,7 @@ export const SidebarWrapper = styled.aside`
     margin-bottom: 30px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1250px) {
     position: sticky;
     top: 60px;
     margin-bottom: 0;
@@ -42,7 +42,7 @@ export const SidebarInfo = styled.div`
     gap: 25px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1250px) {
     flex-direction: column;
   }
 `;
@@ -66,7 +66,7 @@ export const AvatarBox = styled.figure`
 `;
 
 export const InfoContent = styled.div`
-  @media (min-width: 1024px) {
+  @media (min-width: 1250px) {
     text-align: center;
   }
 `;
@@ -83,7 +83,7 @@ export const Name = styled.h1`
     margin-bottom: 15px;
   }
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1250px) {
     white-space: nowrap;
     text-align: center;
   }
@@ -98,7 +98,7 @@ export const JobTitle = styled.p`
   font-size: 12px;
   font-weight: 300;
 
-  @media (min-width: 1024px) {
+  @media (min-width: 1250px) {
     margin: 0 auto;
   }
 `;
@@ -124,9 +124,11 @@ export const ContactsList = styled.ul`
   padding: 0;
   list-style: none;
 
-  @media (min-width: 768px) and (max-width: 1023px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px 15px;
+  /* Сайдбар растянут на всю ширину (стек, до 1250px) — раскладываем контакты
+     в горизонтальный ряд, чтобы визитка была ниже и не пустовала справа. */
+  @media (min-width: 580px) and (max-width: 1249px) {
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 20px 28px;
   }
 `;
 
