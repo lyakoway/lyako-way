@@ -114,20 +114,14 @@
       <ellipse cx="220" cy="252" rx="26" ry="19" fill="#c9b9a5" opacity="0.25" filter="url(#soft)" />
       <ellipse cx="220" cy="251" rx="24" ry="18" fill="#fcfbf8" />
       <path d="M198 240 C208 233 232 233 242 240 L242 236 C232 235 198 238 198 240 Z" fill="#c9b28f" opacity="0.28" filter="url(#soft)" />
-      <circle cx="220" cy="252" r="15" fill="url(#irisGrad)" />
-      <circle cx="220" cy="252" r="6.5" fill="#16100a" />
-      <circle cx="214" cy="246" r="3.4" fill="#ffffff" />
-      <circle cx="225" cy="257" r="1.7" fill="#ffffff" opacity="0.5" />
+      <!-- зрачок/радужка рисуются анимационным слоем (см. index.tsx) -->
       <path d="M198 242 C208 233 232 233 242 242" fill="none" stroke="#4a3421" stroke-width="2.6" stroke-linecap="round" />
     </g>
     <g id="eye-right">
       <ellipse cx="292" cy="252" rx="26" ry="19" fill="#c9b9a5" opacity="0.25" filter="url(#soft)" />
       <ellipse cx="292" cy="251" rx="24" ry="18" fill="#fcfbf8" />
       <path d="M270 240 C280 233 304 233 314 240 L314 236 C304 235 270 238 270 240 Z" fill="#c9b28f" opacity="0.28" filter="url(#soft)" />
-      <circle cx="292" cy="252" r="15" fill="url(#irisGrad)" />
-      <circle cx="292" cy="252" r="6.5" fill="#16100a" />
-      <circle cx="286" cy="246" r="3.4" fill="#ffffff" />
-      <circle cx="297" cy="257" r="1.7" fill="#ffffff" opacity="0.5" />
+      <!-- зрачок/радужка рисуются анимационным слоем (см. index.tsx) -->
       <path d="M270 242 C280 233 304 233 314 242" fill="none" stroke="#4a3421" stroke-width="2.6" stroke-linecap="round" />
     </g>
   </g>
