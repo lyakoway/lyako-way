@@ -40,25 +40,38 @@ export const NavbarWrapper = styled.nav`
 
 export const NavbarList = styled.ul`
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 0;
+  justify-content: space-between;
   margin: 0;
-  padding: 0 10px;
+  padding: 0 4px;
   list-style: none;
 
-  @media (min-width: 580px) {
-    gap: 20px;
+  /* На узких экранах пунктов много — прокрутка по горизонтали как страховка. */
+  overflow-x: auto;
+  gap: 0;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    justify-content: center;
+    gap: 16px;
+    padding: 0 10px;
   }
 
   @media (min-width: 1024px) {
+    overflow-x: visible;
     gap: 30px;
     padding: 0 20px;
   }
 `;
 
 export const NavbarItem = styled.li`
+  flex-shrink: 0;
+
   a {
     display: flex;
     flex-direction: column;
@@ -69,6 +82,7 @@ export const NavbarItem = styled.li`
     font-size: 12px;
     text-decoration: none;
     text-transform: capitalize;
+    white-space: nowrap;
     transition: color 0.25s ease;
   }
 
@@ -89,6 +103,24 @@ export const NavbarItem = styled.li`
     color: ${PANEL_TEXT};
   }
 
+  /* Мобайл: подписи скрыты — активный пункт помечаем чёрточкой под иконкой. */
+  @media (max-width: 767px) {
+    a {
+      position: relative;
+      padding: 12px 10px 14px;
+    }
+
+    a[data-active="true"]::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: ${({ theme }) => theme.color.basic.primary};
+    }
+  }
+
   @media (min-width: 768px) {
     a {
       font-size: 13px;
@@ -97,6 +129,7 @@ export const NavbarItem = styled.li`
 `;
 
 // Подпись пункта: активный получает оранжевое подчёркивание (текст не красим).
+// На мобиле подписи скрыты (иконочный таббар) — чтобы влезли все пункты.
 export const NavLabel = styled.span`
   padding-bottom: 3px;
   border-bottom: 2px solid transparent;
@@ -104,5 +137,9 @@ export const NavLabel = styled.span`
 
   a[data-active="true"] & {
     border-bottom-color: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  @media (max-width: 767px) {
+    display: none;
   }
 `;

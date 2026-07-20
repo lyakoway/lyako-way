@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { useSelectorTyped } from "src/store";
 import ButtonLang from "src/ui/ButtonLang";
@@ -19,7 +19,6 @@ import {
 } from "src/common/icon/socialIcons";
 
 import AvatarHead from "src/ui/AvatarHead";
-import { ReactComponent as ContactsIcon } from "src/common/icon/contacts/СontactsIcon.svg";
 
 import {
   SidebarWrapper,
@@ -28,7 +27,6 @@ import {
   InfoContent,
   Name,
   JobTitle,
-  MoreBtn,
   SidebarMore,
   Separator,
   ContactsList,
@@ -45,10 +43,9 @@ const Sidebar = () => {
   const {
     lang: { sidebar },
   } = useSelectorTyped(({ lang }) => lang);
-  const [active, setActive] = useState(false);
 
   return (
-    <SidebarWrapper $active={active}>
+    <SidebarWrapper>
       <SidebarInfo>
         <AvatarBox>
           <AvatarHead />
@@ -58,18 +55,9 @@ const Sidebar = () => {
           <Name title={sidebar.name}>{sidebar.name}</Name>
           <JobTitle>{sidebar.jobTitle}</JobTitle>
         </InfoContent>
-
-        <MoreBtn
-          type="button"
-          onClick={() => setActive((prev) => !prev)}
-          aria-expanded={active}
-        >
-          <span>{active ? sidebar.hideContacts : sidebar.showContacts}</span>
-          <ContactsIcon width={16} height={16} />
-        </MoreBtn>
       </SidebarInfo>
 
-      <SidebarMore $active={active}>
+      <SidebarMore>
         <Separator />
 
         <ContactsList>

@@ -373,6 +373,13 @@ const GlobalStyles = createGlobalStyle`
        место под скроллбар всегда; scrollbar-gutter — подстраховка. */
     overflow-y: scroll;
     scrollbar-gutter: stable;
+
+    /* На мобиле кастомный 16px-скроллбар не нужен (перекрывал бы контент);
+       используем нативный overlay-скроллбар и не резервируем место. */
+    @media (max-width: 767px) {
+      overflow-y: auto;
+      scrollbar-gutter: auto;
+    }
   }
 
   html, body {
@@ -490,6 +497,15 @@ const GlobalStyles = createGlobalStyle`
   body::-webkit-scrollbar {
     width: 16px;
     -webkit-appearance: none;
+  }
+
+  /* На мобиле прячем кастомный скроллбар (нативный overlay). */
+  @media (max-width: 767px) {
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
   }
 
   /* Цвет дорожки, по которой двигается бегунок прокрутки. */

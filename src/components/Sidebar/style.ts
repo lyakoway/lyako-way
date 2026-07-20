@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { gradientBorder } from "src/ui/Card";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
@@ -9,30 +8,24 @@ import {
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 
-// Визитка в стиле vCard: на мобайле сворачивается (виден только верх),
-// «Показать контакты» раскрывает; на десктопе (≥1024px) всегда развёрнута
-// и «прилипает» слева.
-export const SidebarWrapper = styled.aside<{ $active: boolean }>`
+// Визитка в стиле vCard: всегда развёрнута; на десктопе (≥1024px)
+// «прилипает» слева.
+export const SidebarWrapper = styled.aside`
   padding: 15px;
   margin-bottom: 15px;
   border-radius: 20px;
   background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
   border: 1px solid ${PANEL_BORDER};
-  max-height: ${({ $active }) => ($active ? "480px" : "112px")};
-  overflow: hidden;
-  transition: max-height 0.5s ease-in-out;
   ${({ theme }) => theme.shadow.NonClickable};
 
   @media (min-width: 580px) {
     padding: 30px;
     margin-bottom: 30px;
-    max-height: ${({ $active }) => ($active ? "640px" : "180px")};
   }
 
   @media (min-width: 1024px) {
     position: sticky;
     top: 60px;
-    max-height: max-content;
     margin-bottom: 0;
     padding-top: 60px;
   }
@@ -110,53 +103,7 @@ export const JobTitle = styled.p`
   }
 `;
 
-export const MoreBtn = styled.button`
-  ${gradientBorder};
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  padding: 10px;
-  border: none;
-  border-radius: 0 15px;
-  color: ${({ theme }) => theme.color.basic.primary};
-  font-size: 13px;
-  cursor: pointer;
-  ${({ theme }) => theme.shadow.ClickableDefault};
-
-  span {
-    display: none;
-  }
-
-  &:hover {
-    color: ${({ theme }) => theme.color.basic.hover};
-  }
-
-  @media (min-width: 580px) {
-    top: -30px;
-    right: -30px;
-    padding: 10px 15px;
-
-    span {
-      display: block;
-      font-size: 12px;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    display: none;
-  }
-`;
-
-export const SidebarMore = styled.div<{ $active: boolean }>`
-  opacity: ${({ $active }) => ($active ? 1 : 0)};
-  visibility: ${({ $active }) => ($active ? "visible" : "hidden")};
-  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
-
-  @media (min-width: 1024px) {
-    opacity: 1;
-    visibility: visible;
-  }
-`;
+export const SidebarMore = styled.div``;
 
 export const Separator = styled.div`
   width: 100%;
