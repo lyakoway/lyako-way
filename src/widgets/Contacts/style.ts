@@ -21,6 +21,18 @@ export const ContactBlock = styled.section`
   }
 `;
 
+// Телефон/мессенджеры/локация показываем в разделе на всех экранах <1250px —
+// там их нет в верхнем блоке-визитке (навбар сверху). В двухколоночной
+// раскладке (≥1250px) их показывает сайдбар слева, поэтому здесь скрыто.
+export const RangeOnly = styled.div`
+  margin-bottom: 26px;
+
+  @media (min-width: 1250px) {
+    display: none;
+    margin-bottom: 0;
+  }
+`;
+
 export const InfoText = styled.p`
   display: flex;
   align-items: center;

@@ -32,6 +32,7 @@ import {
   SidebarMore,
   Separator,
   ContactsList,
+  ContactsGroup,
   ContactItem,
   ContactInfo,
   ContactTitle,
@@ -69,13 +70,14 @@ const Sidebar = () => {
       </SidebarInfo>
 
       <SidebarMore>
-        <Separator />
+        <ContactsGroup>
+          <Separator />
 
-        <ContactsList>
-          <ContactItem>
-            <RowIconBox>
-              <PhoneIcon />
-            </RowIconBox>
+          <ContactsList>
+            <ContactItem>
+              <RowIconBox>
+                <PhoneIcon />
+              </RowIconBox>
             <ContactInfo>
               <ContactTitle>{sidebar.phoneTitle}</ContactTitle>
               {CONTACT_PHONES.map((phone) => (
@@ -125,7 +127,8 @@ const Sidebar = () => {
               <address>{sidebar.location}</address>
             </ContactInfo>
           </ContactItem>
-        </ContactsList>
+          </ContactsList>
+        </ContactsGroup>
 
         <Separator />
 

@@ -8,13 +8,14 @@ import {
 // Навбар vCard: на мобайле фиксирован снизу (стеклянная плашка),
 // на десктопе (≥1024px) — абсолютно в правом верхнем углу контента.
 export const NavbarWrapper = styled.nav`
+  /* <1250px: раскладка в стек — навигация фиксированной верхней панелью. */
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   width: 100%;
   z-index: 5;
   border: 1px solid ${PANEL_BORDER};
-  border-radius: 12px 12px 0 0;
+  border-radius: 0 0 12px 12px;
   /* темнее панелей — притемняем сланцевый фон под навбаром */
   background: ${({ theme }) =>
     theme.name === "light" ? "#39424c" : "#131519"};
@@ -22,10 +23,11 @@ export const NavbarWrapper = styled.nav`
   ${({ theme }) => theme.shadow.NonClickable};
 
   @media (min-width: 580px) {
-    border-radius: 20px 20px 0 0;
+    border-radius: 0 0 20px 20px;
   }
 
-  @media (min-width: 1024px) {
+  /* ≥1250px: две колонки — навбар абсолютно в правом-верхнем углу контента. */
+  @media (min-width: 1250px) {
     position: absolute;
     top: 0;
     left: auto;

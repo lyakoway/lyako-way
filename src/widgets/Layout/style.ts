@@ -1,15 +1,16 @@
 import styled from "styled-components";
 
-// Раскладка vCard: до 1250px — стек (сайдбар над контентом),
-// с 1250px — две колонки (sticky-сайдбар слева + контент справа).
-// Нижние отступы на мобайле оставляют место фиксированному навбару.
+// Раскладка vCard: до 1250px — стек (сайдбар над контентом) + навигация
+// фиксированной верхней панелью; с 1250px — две колонки (sticky-сайдбар слева
+// + контент справа, навбар в углу контента). Верхний отступ на <1250px
+// освобождает место под фиксированную верхнюю панель.
 export const LayoutMain = styled.div`
   min-width: 259px;
-  margin: 15px 12px 75px;
+  margin: 66px 12px 40px;
 
   @media (min-width: 580px) {
     max-width: 520px;
-    margin: 60px auto 100px;
+    margin: 82px auto 60px;
   }
 
   @media (min-width: 768px) {
@@ -18,11 +19,11 @@ export const LayoutMain = styled.div`
 
   @media (min-width: 1024px) {
     max-width: 950px;
-    margin-bottom: 60px;
   }
 
   @media (min-width: 1250px) {
     max-width: 1200px;
+    margin: 60px auto;
     display: flex;
     justify-content: center;
     align-items: stretch;

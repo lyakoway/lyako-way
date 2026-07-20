@@ -6,12 +6,21 @@ import ContactForm from "src/components/ContactForm";
 import {
   CONTACT_EMAIL,
   CONTACT_PROFILES,
+  CONTACT_PHONES,
+  CONTACT_MESSENGERS,
 } from "src/common/constants/contacts";
-import { PROFILE_ICON, GitHubIcon } from "src/common/icon/socialIcons";
+import {
+  PROFILE_ICON,
+  GitHubIcon,
+  MESSENGER_ICON,
+  PhoneIcon,
+  PinIcon,
+} from "src/common/icon/socialIcons";
 
 import {
   Intro,
   ContactBlock,
+  RangeOnly,
   SectionLabel,
   Links,
   LinkItem,
@@ -95,6 +104,47 @@ const Contacts = () => {
           </LinkItem>
         </Links>
       </ContactBlock>
+
+      {/* Тел/мессенджеры/локация — только в диапазоне 1024–1249px, где их
+          нет в верхнем блоке-визитке. */}
+      <RangeOnly>
+        <ContactBlock>
+          <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
+          <Links>
+            {CONTACT_PHONES.map((phone) => (
+              <LinkItem key={phone.href} href={phone.href}>
+                <PhoneIcon />
+                {phone.label}
+              </LinkItem>
+            ))}
+          </Links>
+        </ContactBlock>
+
+        <ContactBlock>
+          <SectionLabel>{sidebar.messengersTitle}</SectionLabel>
+          <Links>
+            {CONTACT_MESSENGERS.map((item) => (
+              <LinkItem
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                {MESSENGER_ICON[item.label]}
+                {item.label}
+              </LinkItem>
+            ))}
+          </Links>
+        </ContactBlock>
+
+        <ContactBlock>
+          <SectionLabel>{sidebar.locationTitle}</SectionLabel>
+          <InfoText>
+            <PinIcon />
+            {sidebar.location}
+          </InfoText>
+        </ContactBlock>
+      </RangeOnly>
 
       <ContactBlock>
         <SectionLabel>{contactsPage.responseTitle}</SectionLabel>

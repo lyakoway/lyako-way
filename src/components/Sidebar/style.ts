@@ -116,6 +116,15 @@ export const Separator = styled.div`
   }
 `;
 
+// Группа контактов (разделитель + список). До 1250px скрыта: там навбар
+// сверху, а контакты показываются в разделе «Контакты». Видна только в
+// двухколоночной раскладке (≥1250px), где сайдбар — левая колонка.
+export const ContactsGroup = styled.div`
+  @media (max-width: 1249px) {
+    display: none;
+  }
+`;
+
 export const ContactsList = styled.ul`
   display: grid;
   grid-template-columns: 1fr;
@@ -123,13 +132,6 @@ export const ContactsList = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
-
-  /* Сайдбар растянут на всю ширину (стек, до 1250px) — раскладываем контакты
-     в горизонтальный ряд, чтобы визитка была ниже и не пустовала справа. */
-  @media (min-width: 580px) and (max-width: 1249px) {
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 20px 28px;
-  }
 `;
 
 export const ContactItem = styled.li`
