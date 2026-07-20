@@ -55,31 +55,20 @@ export const SidebarInfo = styled.div`
 `;
 
 export const AvatarBox = styled.figure`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
   margin: 0;
   flex-shrink: 0;
+  overflow: hidden;
   width: 80px;
   height: 80px;
   border-radius: 20px;
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
 
-  svg {
-    width: 60px;
-    height: 60px;
-  }
-
   @media (min-width: 580px) {
     width: 120px;
     height: 120px;
     border-radius: 30px;
-
-    svg {
-      width: 90px;
-      height: 90px;
-    }
   }
 `;
 

@@ -18,7 +18,7 @@ import {
   PinIcon,
 } from "src/common/icon/socialIcons";
 
-import { ReactComponent as LaykoWayLightIcon } from "src/common/icon/logo/LaykoWayLightIcon.svg";
+import AvatarHead from "src/ui/AvatarHead";
 import { ReactComponent as ContactsIcon } from "src/common/icon/contacts/СontactsIcon.svg";
 
 import {
@@ -51,7 +51,7 @@ const Sidebar = () => {
     <SidebarWrapper $active={active}>
       <SidebarInfo>
         <AvatarBox>
-          <LaykoWayLightIcon />
+          <AvatarHead />
         </AvatarBox>
 
         <InfoContent>
