@@ -3,8 +3,7 @@ import { SidebarProps } from "src/common/types/lang";
 export const sidebar: SidebarProps = {
   name: "Alexey Mazurenko",
   jobTitle: "AI Engineer",
-  showContacts: "Show Contacts",
-  hideContacts: "Hide Contacts",
+  settings: "Settings",
   emailTitle: "Email",
   phoneTitle: "Phone",
   messengersTitle: "Messengers",

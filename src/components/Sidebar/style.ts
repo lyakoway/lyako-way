@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
@@ -238,12 +238,113 @@ export const MessengerLinks = styled.div`
   }
 `;
 
-export const Controls = styled.div`
+// Обёртка блока настроек. Мобайл (<768px): строка-пункт «Настройки»
+// (плашка-шестерёнка + подпись, как контактные строки) + выпадающий дропдаун
+// с кнопками (лайк/тема/язык). Десктоп (≥768px): кнопки сразу инлайн.
+export const SettingsBox = styled.div`
+  position: relative;
+
+  @media (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+
+const spin = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+// Плашка-иконка как у контактных строк (RowIconBox), но шестерёнка крутится.
+export const SettingsIconBox = styled(RowIconBox)`
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  svg {
+    fill: currentColor;
+    animation: ${spin} 6s linear infinite;
+  }
+`;
+
+// Выглядит как обычный пункт (не кнопка): без фона/рамки, иконка слева + текст.
+export const SettingsBtn = styled.button`
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 16px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+
+  /* при наведении и пока открыт попап — шестерёнка оранжевая */
+  &:hover ${SettingsIconBox},
+  &[aria-expanded="true"] ${SettingsIconBox} {
+    color: ${({ theme }) => theme.color.basic.primary};
+    border-color: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+`;
+
+export const Controls = styled.div<{ $open?: boolean }>`
+  /* Мобайл: выпадающий дропдаун над шестерёнкой (прижат к левому краю). */
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  z-index: 6;
+  display: ${({ $open }) => ($open ? "flex" : "none")};
+  flex-direction: column;
+  align-items: center;
   gap: 12px;
-  padding-top: 4px;
+  padding: 14px;
+  border-radius: 16px;
+  background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+  border: 1px solid ${PANEL_BORDER};
+  ${({ theme }) => theme.shadow.NonClickable};
+
+  /* стрелочка вниз к шестерёнке (по центру плашки-иконки слева) */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 15px;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+    border-right: 1px solid ${PANEL_BORDER};
+    border-bottom: 1px solid ${PANEL_BORDER};
+  }
+
+  @media (min-width: 580px) {
+    &::after {
+      left: 24px;
+    }
+  }
+
+  /* Десктоп: кнопки сразу инлайн, без дропдауна. */
+  @media (min-width: 768px) {
+    position: static;
+    transform: none;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    padding: 4px 0 0;
+    border: none;
+    box-shadow: none;
+    background: none;
+
+    &::after {
+      display: none;
+    }
+  }
 `;
 
 // Квадратная плашка вокруг каждой кнопки (лайк / тема / язык), чтобы каждая

@@ -300,8 +300,7 @@ export interface ResumeCvProps {
 export interface SidebarProps {
   name: string;
   jobTitle: string;
-  showContacts: string;
-  hideContacts: string;
+  settings: string;
   emailTitle: string;
   phoneTitle: string;
   messengersTitle: string;

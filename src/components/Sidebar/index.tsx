@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 import { useSelectorTyped } from "src/store";
+import { useClickOutside } from "src/features/customHooks";
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
@@ -19,6 +20,7 @@ import {
 } from "src/common/icon/socialIcons";
 
 import AvatarHead from "src/ui/AvatarHead";
+import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setting.svg";
 
 import {
   SidebarWrapper,
@@ -35,6 +37,9 @@ import {
   ContactTitle,
   RowIconBox,
   MessengerLinks,
+  SettingsBox,
+  SettingsBtn,
+  SettingsIconBox,
   Controls,
   ControlItem,
 } from "./style";
@@ -43,6 +48,12 @@ const Sidebar = () => {
   const {
     lang: { sidebar },
   } = useSelectorTyped(({ lang }) => lang);
+
+  // На мобиле блок кнопок (лайк/тема/язык) свёрнут в дропдаун под шестерёнкой
+  // «Настройки» — чтобы визитка сверху была ниже. На десктопе кнопки инлайн.
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const settingsRef = useRef<HTMLDivElement>(null);
+  useClickOutside(settingsRef, () => setSettingsOpen(false));
 
   return (
     <SidebarWrapper>
@@ -118,17 +129,31 @@ const Sidebar = () => {
 
         <Separator />
 
-        <Controls>
-          <ControlItem>
-            <ButtonHeart />
-          </ControlItem>
-          <ControlItem>
-            <ThemeDarkLight />
-          </ControlItem>
-          <ControlItem>
-            <ButtonLang />
-          </ControlItem>
-        </Controls>
+        <SettingsBox ref={settingsRef}>
+          <SettingsBtn
+            type="button"
+            onClick={() => setSettingsOpen((prev) => !prev)}
+            aria-expanded={settingsOpen}
+            aria-label={sidebar.settings}
+          >
+            <SettingsIconBox>
+              <SettingIcon />
+            </SettingsIconBox>
+            <span>{sidebar.settings}</span>
+          </SettingsBtn>
+
+          <Controls $open={settingsOpen}>
+            <ControlItem>
+              <ButtonHeart />
+            </ControlItem>
+            <ControlItem>
+              <ThemeDarkLight />
+            </ControlItem>
+            <ControlItem>
+              <ButtonLang />
+            </ControlItem>
+          </Controls>
+        </SettingsBox>
       </SidebarMore>
     </SidebarWrapper>
   );
