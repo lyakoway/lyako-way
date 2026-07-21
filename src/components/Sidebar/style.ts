@@ -5,7 +5,6 @@ import {
   PANEL_TEXT_MUTED,
   PANEL_BORDER,
   PANEL_ELEVATED,
-  PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 
 // Визитка в стиле vCard: всегда развёрнута; на десктопе (≥1024px)
@@ -363,13 +362,4 @@ export const ControlItem = styled.div`
   width: 52px;
   height: 52px;
   padding: 0;
-  border-radius: 12px;
-  background: ${PANEL_ELEVATED};
-  border: 1px solid ${PANEL_BORDER};
-  transition: border-color 0.2s ease, background 0.2s ease;
-
-  &:hover {
-    background: ${PANEL_ELEVATED_HOVER};
-    border-color: rgba(255, 255, 255, 0.22);
-  }
 `;

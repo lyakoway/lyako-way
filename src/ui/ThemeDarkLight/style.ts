@@ -4,10 +4,7 @@ export const ThemeDarkLightChecked = styled.div<{ $opened: boolean }>`
   background-color: ${({ $opened }) =>
     $opened ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0.45)"};
   border-radius: 0.75em;
-  box-shadow: ${({ $opened }) =>
-    $opened
-      ? "0.125em 0.125em 0 0.125em rgba(0, 0, 0, 0.3) inset"
-      : "0.125em 0.125em 0 0.125em rgba(0, 0, 0, 0.webpack.config.js) inset"};
+  box-shadow: none;
   color: #fdea7b;
   display: inline-flex;
   align-items: center;
@@ -15,7 +12,7 @@ export const ThemeDarkLightChecked = styled.div<{ $opened: boolean }>`
   padding: 0.15em !important;
   width: 3em;
   height: 1.5em;
-  transition: background-color 0.1s 0.3s ease-out, box-shadow 0.1s 0.3s ease-out;
+  transition: background-color 0.1s 0.3s ease-out;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

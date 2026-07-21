@@ -147,13 +147,13 @@ const Sidebar = () => {
 
           <Controls $open={settingsOpen}>
             <ControlItem>
-              <ButtonHeart />
+              <ButtonLang />
             </ControlItem>
             <ControlItem>
               <ThemeDarkLight />
             </ControlItem>
             <ControlItem>
-              <ButtonLang />
+              <ButtonHeart />
             </ControlItem>
           </Controls>
         </SettingsBox>
