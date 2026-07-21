@@ -348,9 +348,10 @@ export const SkillCard = styled.div`
   padding: 16px 18px;
   transition: border-color 0.25s ease, background 0.25s ease;
 
+  /* подсветка border при наведении — как у карточек опыта выше */
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
-    border-color: rgba(255, 255, 255, 0.22);
+    border-color: ${({ theme }) => theme.color.basic.primaryLight};
   }
 `;
 
