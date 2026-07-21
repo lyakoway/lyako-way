@@ -139,6 +139,8 @@ export interface PersonalProps {
   text1: string;
   text2: string;
   text3: string;
+  stackTitle: string;
+  stack: string[];
 }
 
 export interface PortfolioProps {

@@ -5,6 +5,10 @@ import { ArticleTitle, Article } from "src/ui/Card";
 
 import {
   AboutText,
+  StackBlock,
+  StackLabel,
+  StackList,
+  StackChip,
   HighlightsSection,
   HighlightsTitle,
   HighlightsGrid,
@@ -39,6 +43,15 @@ const About = () => {
         <p>{personal.text2}</p>
         <p>{personal.text3}</p>
       </AboutText>
+
+      <StackBlock>
+        <StackLabel>{personal.stackTitle}</StackLabel>
+        <StackList>
+          {personal.stack.map((item) => (
+            <StackChip key={item}>{item}</StackChip>
+          ))}
+        </StackList>
+      </StackBlock>
 
       <HighlightsSection>
         <HighlightsTitle>{aboutHighlightsTitle}</HighlightsTitle>

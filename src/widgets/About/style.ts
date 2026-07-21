@@ -3,6 +3,8 @@ import { gradientBorder } from "src/ui/Card";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
+  PANEL_TEXT_MUTED,
+  PANEL_BORDER,
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 
@@ -35,6 +37,39 @@ export const AboutText = styled.div`
       font-size: 18px;
     }
   }
+`;
+
+// Стек технологий — компактные «чипы» вместо перечисления внутри абзаца.
+export const StackBlock = styled.section`
+  margin-top: 22px;
+`;
+
+export const StackLabel = styled.h4`
+  margin: 0 0 12px;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+`;
+
+export const StackList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+`;
+
+export const StackChip = styled.li`
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  font-weight: 500;
 `;
 
 export const HighlightsSection = styled.section`
