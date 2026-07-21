@@ -78,10 +78,11 @@ export const NavbarItem = styled.li`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
-    padding: 12px 8px;
+    gap: 4px;
+    padding: 8px 4px;
     color: ${PANEL_TEXT_SECONDARY};
-    font-size: 12px;
+    /* Мобайл: компактная подпись под иконкой, чтобы все 7 пунктов влезли. */
+    font-size: 10px;
     text-decoration: none;
     text-transform: capitalize;
     white-space: nowrap;
@@ -90,8 +91,8 @@ export const NavbarItem = styled.li`
 
   /* нормализуем иконки из propsHeaderTopMenu и красим в белый */
   a svg {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     fill: currentColor;
   }
 
@@ -105,33 +106,21 @@ export const NavbarItem = styled.li`
     color: ${PANEL_TEXT};
   }
 
-  /* Мобайл: подписи скрыты — активный пункт помечаем чёрточкой под иконкой. */
-  @media (max-width: 767px) {
-    a {
-      position: relative;
-      padding: 12px 10px 14px;
-    }
-
-    a[data-active="true"]::after {
-      content: "";
-      position: absolute;
-      bottom: 6px;
-      width: 20px;
-      height: 2px;
-      border-radius: 2px;
-      background: ${({ theme }) => theme.color.basic.primary};
-    }
-  }
-
   @media (min-width: 768px) {
     a {
+      gap: 5px;
+      padding: 12px 8px;
       font-size: 13px;
+    }
+
+    a svg {
+      width: 24px;
+      height: 24px;
     }
   }
 `;
 
 // Подпись пункта: активный получает оранжевое подчёркивание (текст не красим).
-// На мобиле подписи скрыты (иконочный таббар) — чтобы влезли все пункты.
 export const NavLabel = styled.span`
   padding-bottom: 3px;
   border-bottom: 2px solid transparent;
@@ -139,9 +128,5 @@ export const NavLabel = styled.span`
 
   a[data-active="true"] & {
     border-bottom-color: ${({ theme }) => theme.color.basic.primary};
-  }
-
-  @media (max-width: 767px) {
-    display: none;
   }
 `;
