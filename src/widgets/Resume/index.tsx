@@ -2,6 +2,7 @@ import React from "react";
 
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
+import { useMediaQuery } from "src/features/customHooks";
 import { ArticleTitle, Article } from "src/ui/Card";
 
 import {
@@ -183,13 +184,18 @@ const Resume = () => {
   } = useSelectorTyped(({ lang }) => lang);
   const dispatch = useDispatchTyped();
 
+  // Тач-устройства (телефоны/планшеты) не рендерят PDF во встроенном iframe —
+  // там открываем PDF нативно в новой вкладке (по href), а не в модалке.
+  const isTouch = useMediaQuery("(pointer: coarse)");
+
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
 
-  // «Просмотреть» — открываем PDF в модалке (iframe со встроенным
-  // просмотрщиком браузера). preventDefault, чтобы не уходить по href;
-  // href остаётся фолбэком, если JS недоступен.
+  // «Просмотреть»: на десктопе — PDF в модалке (iframe со встроенным
+  // просмотрщиком браузера). На тач-устройствах не перехватываем клик —
+  // срабатывает href target="_blank" и PDF открывается нативно.
   const handleView = (e: React.MouseEvent) => {
+    if (isTouch) return;
     e.preventDefault();
     dispatch(
       showModal({
