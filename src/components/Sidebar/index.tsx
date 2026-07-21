@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 
 import { useSelectorTyped } from "src/store";
-import { useClickOutside } from "src/features/customHooks";
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
@@ -39,8 +38,7 @@ import {
   RowIconBox,
   MessengerLinks,
   SettingsBox,
-  SettingsBtn,
-  SettingsIconBox,
+  SettingsTitle,
   Controls,
   ControlItem,
 } from "./style";
@@ -49,12 +47,6 @@ const Sidebar = () => {
   const {
     lang: { sidebar },
   } = useSelectorTyped(({ lang }) => lang);
-
-  // На мобиле блок кнопок (лайк/тема/язык) свёрнут в дропдаун под шестерёнкой
-  // «Настройки» — чтобы визитка сверху была ниже. На десктопе кнопки инлайн.
-  const [settingsOpen, setSettingsOpen] = useState(false);
-  const settingsRef = useRef<HTMLDivElement>(null);
-  useClickOutside(settingsRef, () => setSettingsOpen(false));
 
   return (
     <SidebarWrapper>
@@ -132,20 +124,12 @@ const Sidebar = () => {
 
         <Separator />
 
-        <SettingsBox ref={settingsRef}>
-          <SettingsBtn
-            type="button"
-            onClick={() => setSettingsOpen((prev) => !prev)}
-            aria-expanded={settingsOpen}
-            aria-label={sidebar.settings}
-          >
-            <SettingsIconBox>
-              <SettingIcon />
-            </SettingsIconBox>
-            <span>{sidebar.settings}</span>
-          </SettingsBtn>
-
-          <Controls $open={settingsOpen}>
+        <SettingsBox>
+          <SettingsTitle>
+            {sidebar.settings}
+            <SettingIcon />
+          </SettingsTitle>
+          <Controls>
             <ControlItem>
               <ButtonLang />
             </ControlItem>

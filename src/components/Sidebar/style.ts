@@ -243,16 +243,11 @@ export const MessengerLinks = styled.div`
   }
 `;
 
-// Обёртка блока настроек. Мобайл (<768px): строка-пункт «Настройки»
-// (плашка-шестерёнка + подпись, как контактные строки) + выпадающий дропдаун
-// с кнопками (лайк/тема/язык). Десктоп (≥768px): кнопки сразу инлайн.
+// Блок «Настройки»: заголовок с шестерёнкой по центру, ниже — кнопки по центру.
 export const SettingsBox = styled.div`
-  position: relative;
-
-  @media (min-width: 768px) {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const spin = keyframes`
@@ -261,105 +256,41 @@ const spin = keyframes`
   }
 `;
 
-// Плашка-иконка как у контактных строк (RowIconBox), но шестерёнка крутится.
-export const SettingsIconBox = styled(RowIconBox)`
-  transition: color 0.2s ease, border-color 0.2s ease;
+// Заголовок «Настройки» + белая крутящаяся шестерёнка справа от надписи.
+export const SettingsTitle = styled.p`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
 
   svg {
-    fill: currentColor;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: ${PANEL_TEXT};
     animation: ${spin} 6s linear infinite;
   }
 `;
 
-// Выглядит как обычный пункт (не кнопка): без фона/рамки, иконка слева + текст.
-export const SettingsBtn = styled.button`
+// Ряд кнопок (язык / тема / лайк) под заголовком «Настройки».
+export const Controls = styled.div`
   display: flex;
   align-items: center;
-  gap: 16px;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  border: none;
-  background: none;
-  color: ${PANEL_TEXT};
-  font-size: 13px;
-  text-align: left;
-  cursor: pointer;
-
-  /* при наведении и пока открыт попап — шестерёнка оранжевая */
-  &:hover ${SettingsIconBox},
-  &[aria-expanded="true"] ${SettingsIconBox} {
-    color: ${({ theme }) => theme.color.basic.primary};
-    border-color: ${({ theme }) => theme.color.basic.primary};
-  }
-
-  @media (min-width: 768px) {
-    display: none;
-  }
+  justify-content: center;
+  gap: 10px;
 `;
 
-export const Controls = styled.div<{ $open?: boolean }>`
-  /* Мобайл: выпадающий дропдаун над шестерёнкой (прижат к левому краю). */
-  position: absolute;
-  bottom: calc(100% + 12px);
-  left: 0;
-  z-index: 6;
-  display: ${({ $open }) => ($open ? "flex" : "none")};
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  padding: 14px;
-  border-radius: 16px;
-  background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
-  border: 1px solid ${PANEL_BORDER};
-  ${({ theme }) => theme.shadow.NonClickable};
-
-  /* стрелочка вниз к шестерёнке (по центру плашки-иконки слева) */
-  &::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 15px;
-    transform: translate(-50%, -50%) rotate(45deg);
-    width: 12px;
-    height: 12px;
-    background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
-    border-right: 1px solid ${PANEL_BORDER};
-    border-bottom: 1px solid ${PANEL_BORDER};
-  }
-
-  @media (min-width: 580px) {
-    &::after {
-      left: 24px;
-    }
-  }
-
-  /* Десктоп: кнопки сразу инлайн, без дропдауна. */
-  @media (min-width: 768px) {
-    position: static;
-    transform: none;
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    padding: 4px 0 0;
-    border: none;
-    box-shadow: none;
-    background: none;
-
-    &::after {
-      display: none;
-    }
-  }
-`;
-
-// Квадратная плашка вокруг каждой кнопки (лайк / тема / язык), чтобы каждая
-// читалась как отдельная кнопка — в стиле IconBox контактов.
+// Обёртка каждой кнопки (лайк / тема / язык) — без фона/рамки, центрирование.
 export const ControlItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 52px;
-  height: 52px;
+  height: 44px;
   padding: 0;
 `;
