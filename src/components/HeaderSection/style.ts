@@ -245,7 +245,10 @@ export const HeaderSectionFon = styled.div`
   position: relitive;
   display: flex;
 
-  @media ${TABLET_959} {
+  /* Мобильная перекомпоновка (стек) — только <768px. В диапазоне 768–958px
+     оставляем обычную абсолютную раскладку (масштаб — через useFitScale),
+     чтобы часы/полка стояли на своих местах. */
+  @media (max-width: 767px) {
     display: flex;
     width: 100%;
     margin: 0 auto;
@@ -275,7 +278,8 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
   left: 230px;
   z-index: 10;
 
-  @media ${TABLET_959} {
+  /* В стеке (<768px) стол — в потоке flex-контейнера; 768–958px — на месте. */
+  @media (max-width: 767px) {
     position: relative;
   }
 
@@ -716,6 +720,11 @@ export const IconBook = styled.div<{ $themeLight?: boolean }>`
   position: absolute;
   top: 270px;
   right: 40px;
+
+  /* Полку оставляем до 767px; ниже — скрываем. */
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 export const IconPicture = styled.div<{ $themeLight?: boolean }>`

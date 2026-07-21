@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { TABLET_959, MOBILE_660 } from "src/common/lib/media";
 
 import myIconClock from "src/common/icon/clock/clock.png";
 import myIconJs from "src/common/icon/clock/js.png";
@@ -32,10 +31,8 @@ export const ClockWrapper = styled.div`
     border-radius: 50%;
     z-index: 999;
   }
-  @media ${TABLET_959} {
-    position: initial;
-  }
-  @media ${MOBILE_660} {
+  /* Часы остаются на своём месте (absolute) до 767px; ниже — скрываем. */
+  @media (max-width: 767px) {
     display: none;
   }
 `;
