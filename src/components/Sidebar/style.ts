@@ -304,7 +304,7 @@ export const SettingsCorner = styled.div`
   right: 0;
 `;
 
-// Кнопка-шестерёнка (белая, крутится; оранжевая при наведении/открытии).
+// Кнопка-шестерёнка: белая при закрытом попапе, оранжевая при открытом.
 export const GearButton = styled.button`
   display: inline-flex;
   align-items: center;
@@ -318,6 +318,7 @@ export const GearButton = styled.button`
   color: ${PANEL_TEXT};
   cursor: pointer;
   transition: color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
 
   svg {
     width: 22px;
@@ -326,9 +327,18 @@ export const GearButton = styled.button`
     animation: ${spin} 6s linear infinite;
   }
 
-  &:hover,
+  /* Открыт попап — всегда оранжевая. */
   &[aria-expanded="true"] {
     color: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  /* Hover-подсветка только на устройствах с реальным курсором — чтобы на
+     тач-экранах «залипший» hover не оставлял шестерёнку оранжевой при
+     закрытом попапе. */
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: ${({ theme }) => theme.color.basic.primary};
+    }
   }
 `;
 
