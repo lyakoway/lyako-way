@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import { TABLET_959 } from "src/common/lib/media";
 
 interface WindowLightProps {
   $timeLeftSunMoon: number;
@@ -121,10 +120,6 @@ export const WindowWrapper = styled.div`
   height: 340px;
   background: #fff;
   z-index: 2;
-
-  @media ${TABLET_959} {
-    display: none;
-  }
 `;
 
 export const HeavenlyBodyParallax = styled.div`

@@ -716,10 +716,6 @@ export const IconBook = styled.div<{ $themeLight?: boolean }>`
   position: absolute;
   top: 270px;
   right: 40px;
-
-  @media ${TABLET_959} {
-    display: none;
-  }
 `;
 
 export const IconPicture = styled.div<{ $themeLight?: boolean }>`
