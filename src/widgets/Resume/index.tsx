@@ -300,7 +300,7 @@ const Resume = () => {
 
         <SkillsTree>
           {resumeCv.skills.map((group, idx) => (
-            <Branch key={group.id} $side={idx % 2 === 0 ? "left" : "right"}>
+            <Branch key={group.id}>
               <SkillCard>
                 <SkillHead>
                   <SkillIcon>{SKILL_ICONS[idx % SKILL_ICONS.length]}</SkillIcon>

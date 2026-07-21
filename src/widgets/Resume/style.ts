@@ -295,7 +295,7 @@ export const Bullets = styled.ul`
 export const SkillsTree = styled.div`
   position: relative;
 
-  /* Ствол слева — дерево сохраняется и на узких экранах (<720). */
+  /* Ствол слева — дерево слева на всех ширинах. */
   &::before {
     content: "";
     position: absolute;
@@ -305,19 +305,11 @@ export const SkillsTree = styled.div`
     width: 2px;
     background: ${PANEL_BORDER};
   }
-
-  @media (min-width: 720px) {
-    /* Ствол по центру — ветки чередуются слева/справа. */
-    &::before {
-      left: 50%;
-      margin-left: -1px;
-    }
-  }
 `;
 
-export const Branch = styled.div<{ $side: "left" | "right" }>`
+export const Branch = styled.div`
   position: relative;
-  /* <720: ствол слева, карточка справа — оставляем место под узел и ветку. */
+  /* ствол слева, карточка справа — место под узел и ветку */
   padding-left: 34px;
 
   &:not(:last-child) {
@@ -348,42 +340,6 @@ export const Branch = styled.div<{ $side: "left" | "right" }>`
     box-shadow: 0 0 0 4px
       ${({ theme }) => theme.color.background.primaryHeaderWrapper};
     z-index: 1;
-  }
-
-  @media (min-width: 720px) {
-    width: 50%;
-    padding-left: 0;
-
-    &:not(:last-child) {
-      margin-bottom: 24px;
-    }
-
-    /* сторона ветви */
-    ${({ $side }) =>
-      $side === "left"
-        ? `
-          left: 0;
-          padding-right: 36px;
-        `
-        : `
-          left: 50%;
-          padding-left: 36px;
-        `}
-
-    /* горизонтальная ветка к центральному стволу */
-    &::before {
-      top: 29px;
-      width: 36px;
-      ${({ $side }) =>
-        $side === "left" ? "right: 0; left: auto;" : "left: 0;"}
-    }
-
-    /* круглый узел на центральном стволе */
-    &::after {
-      top: 23px;
-      ${({ $side }) =>
-        $side === "left" ? "right: -6px; left: auto;" : "left: -6px;"}
-    }
   }
 `;
 
