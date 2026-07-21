@@ -294,3 +294,70 @@ export const ControlItem = styled.div`
   height: 44px;
   padding: 0;
 `;
+
+/* ——— Компактный режим (<1250px): шестерёнка в углу блока + попап ——— */
+
+// Правый верхний угол блока аватар+имя (SidebarInfo — position: relative).
+export const SettingsCorner = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+`;
+
+// Кнопка-шестерёнка (белая, крутится; оранжевая при наведении/открытии).
+export const GearButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: none;
+  color: ${PANEL_TEXT};
+  cursor: pointer;
+  transition: color 0.2s ease;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+    animation: ${spin} 6s linear infinite;
+  }
+
+  &:hover,
+  &[aria-expanded="true"] {
+    color: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+// Попап с кнопками (лайк/тема/язык), выпадает из шестерёнки вниз.
+export const SettingsPopup = styled.div`
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 12px 22px 12px 16px;
+  border-radius: 16px;
+  background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+  border: 1px solid ${PANEL_BORDER};
+  ${({ theme }) => theme.shadow.NonClickable};
+
+  /* стрелочка вверх к шестерёнке */
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 14px;
+    transform: translateY(50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+    border-left: 1px solid ${PANEL_BORDER};
+    border-top: 1px solid ${PANEL_BORDER};
+  }
+`;

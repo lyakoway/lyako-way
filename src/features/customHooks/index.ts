@@ -6,3 +6,4 @@ export { usePositionSunAndMoon } from "./usePositionSunAndMoon";
 export { useWeather } from "./useWeather";
 export { useAutoLocaleClimate } from "./useAutoLocaleClimate";
 export { useFitScale } from "./useFitScale";
+export { useMediaQuery } from "./useMediaQuery";

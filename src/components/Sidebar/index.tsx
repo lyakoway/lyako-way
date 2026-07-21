@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 
 import { useSelectorTyped } from "src/store";
+import { useClickOutside, useMediaQuery } from "src/features/customHooks";
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
@@ -39,6 +40,9 @@ import {
   MessengerLinks,
   SettingsBox,
   SettingsTitle,
+  SettingsCorner,
+  GearButton,
+  SettingsPopup,
   Controls,
   ControlItem,
 } from "./style";
@@ -47,6 +51,14 @@ const Sidebar = () => {
   const {
     lang: { sidebar },
   } = useSelectorTyped(({ lang }) => lang);
+
+  // <1250px — сайдбар в стеке: кнопки (лайк/тема/язык) прячем под шестерёнку
+  // в правом верхнем углу блока аватар+имя (попап по клику). ≥1250px —
+  // сайдбар слева, кнопки показаны статично под заголовком «Настройки».
+  const compact = useMediaQuery("(max-width: 1249px)");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const cornerRef = useRef<HTMLDivElement>(null);
+  useClickOutside(cornerRef, () => setSettingsOpen(false));
 
   return (
     <SidebarWrapper>
@@ -59,6 +71,33 @@ const Sidebar = () => {
           <Name title={sidebar.name}>{sidebar.name}</Name>
           <JobTitle>{sidebar.jobTitle}</JobTitle>
         </InfoContent>
+
+        {compact && (
+          <SettingsCorner ref={cornerRef}>
+            <GearButton
+              type="button"
+              onClick={() => setSettingsOpen((prev) => !prev)}
+              aria-expanded={settingsOpen}
+              aria-label={sidebar.settings}
+            >
+              <SettingIcon />
+            </GearButton>
+
+            {settingsOpen && (
+              <SettingsPopup>
+                <ControlItem>
+                  <ButtonLang />
+                </ControlItem>
+                <ControlItem>
+                  <ThemeDarkLight />
+                </ControlItem>
+                <ControlItem>
+                  <ButtonHeart />
+                </ControlItem>
+              </SettingsPopup>
+            )}
+          </SettingsCorner>
+        )}
       </SidebarInfo>
 
       <SidebarMore>
@@ -70,77 +109,81 @@ const Sidebar = () => {
               <RowIconBox>
                 <PhoneIcon />
               </RowIconBox>
-            <ContactInfo>
-              <ContactTitle>{sidebar.phoneTitle}</ContactTitle>
-              {CONTACT_PHONES.map((phone) => (
-                <a key={phone.href} href={phone.href}>
-                  {phone.label}
-                </a>
-              ))}
-            </ContactInfo>
-          </ContactItem>
-
-          <ContactItem>
-            <RowIconBox>
-              <ChatIcon />
-            </RowIconBox>
-            <ContactInfo>
-              <ContactTitle>{sidebar.messengersTitle}</ContactTitle>
-              <MessengerLinks>
-                <a
-                  href={CONTACT_EMAIL.href}
-                  title={CONTACT_EMAIL.label}
-                  aria-label={sidebar.emailTitle}
-                >
-                  <MailIcon />
-                </a>
-                {CONTACT_MESSENGERS.map((item) => (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    title={item.label}
-                    aria-label={item.label}
-                  >
-                    {MESSENGER_ICON[item.label]}
+              <ContactInfo>
+                <ContactTitle>{sidebar.phoneTitle}</ContactTitle>
+                {CONTACT_PHONES.map((phone) => (
+                  <a key={phone.href} href={phone.href}>
+                    {phone.label}
                   </a>
                 ))}
-              </MessengerLinks>
-            </ContactInfo>
-          </ContactItem>
+              </ContactInfo>
+            </ContactItem>
 
-          <ContactItem>
-            <RowIconBox>
-              <PinIcon />
-            </RowIconBox>
-            <ContactInfo>
-              <ContactTitle>{sidebar.locationTitle}</ContactTitle>
-              <address>{sidebar.location}</address>
-            </ContactInfo>
-          </ContactItem>
+            <ContactItem>
+              <RowIconBox>
+                <ChatIcon />
+              </RowIconBox>
+              <ContactInfo>
+                <ContactTitle>{sidebar.messengersTitle}</ContactTitle>
+                <MessengerLinks>
+                  <a
+                    href={CONTACT_EMAIL.href}
+                    title={CONTACT_EMAIL.label}
+                    aria-label={sidebar.emailTitle}
+                  >
+                    <MailIcon />
+                  </a>
+                  {CONTACT_MESSENGERS.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      title={item.label}
+                      aria-label={item.label}
+                    >
+                      {MESSENGER_ICON[item.label]}
+                    </a>
+                  ))}
+                </MessengerLinks>
+              </ContactInfo>
+            </ContactItem>
+
+            <ContactItem>
+              <RowIconBox>
+                <PinIcon />
+              </RowIconBox>
+              <ContactInfo>
+                <ContactTitle>{sidebar.locationTitle}</ContactTitle>
+                <address>{sidebar.location}</address>
+              </ContactInfo>
+            </ContactItem>
           </ContactsList>
         </ContactsGroup>
 
-        <Separator />
+        {!compact && (
+          <>
+            <Separator />
 
-        <SettingsBox>
-          <SettingsTitle>
-            {sidebar.settings}
-            <SettingIcon />
-          </SettingsTitle>
-          <Controls>
-            <ControlItem>
-              <ButtonLang />
-            </ControlItem>
-            <ControlItem>
-              <ThemeDarkLight />
-            </ControlItem>
-            <ControlItem>
-              <ButtonHeart />
-            </ControlItem>
-          </Controls>
-        </SettingsBox>
+            <SettingsBox>
+              <SettingsTitle>
+                {sidebar.settings}
+                <SettingIcon />
+              </SettingsTitle>
+              <Controls>
+                <ControlItem>
+                  <ButtonLang />
+                </ControlItem>
+                <ControlItem>
+                  <ThemeDarkLight />
+                </ControlItem>
+                <ControlItem>
+                  <ButtonHeart />
+                </ControlItem>
+              </Controls>
+            </SettingsBox>
+          </>
+        )}
       </SidebarMore>
     </SidebarWrapper>
   );
