@@ -122,48 +122,56 @@ export const SectionTitle = styled.h3`
 /* ——— Таймлайн опыта (карточки) ——— */
 
 export const Timeline = styled.ol`
+  position: relative;
   margin: 0;
   padding: 0;
   list-style: none;
+
+  /* ствол дерева слева — как в «Ключевых навыках» */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: ${PANEL_BORDER};
+  }
 `;
 
 export const TimelineItem = styled.li`
   position: relative;
-  padding-left: 30px;
+  /* дерево слева: ствол — на обёртке, карточка справа с местом под узел/ветку */
+  padding-left: 34px;
 
   &:not(:last-child) {
     padding-bottom: 26px;
   }
 
-  /* вертикальная линия: от центра точки текущего элемента (28px) вниз ровно
-     до точки следующего (height:100% = высота элемента), поэтому дотягивается
-     до конца блока и соединяет все точки. У последнего элемента скрыта. */
+  /* горизонтальная ветка от узла к карточке */
   &::before {
     content: "";
     position: absolute;
-    left: 5px;
-    top: 28px;
-    height: 100%;
-    width: 2px;
+    top: 29px;
+    left: 13px;
+    width: 21px;
+    height: 2px;
     background: ${PANEL_BORDER};
   }
 
-  &:last-child::before {
-    display: none;
-  }
-
-  /* точка на линии, выровнена с шапкой карточки (центр = 28px) */
+  /* круглый узел на стволе — как точки в дереве навыков */
   &::after {
     content: "";
     position: absolute;
-    left: 0;
-    top: 22px;
+    top: 23px;
+    left: 1px;
     width: 12px;
     height: 12px;
     border-radius: 50%;
     background: ${({ theme }) => theme.color.basic.primary};
     box-shadow: 0 0 0 4px ${({ theme }) =>
       theme.color.background.primaryHeaderWrapper};
+    z-index: 1;
   }
 `;
 
