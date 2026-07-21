@@ -163,11 +163,14 @@ const ButtonHeart: React.FC = () => {
     if (!shown && !mobile) setShouldShowModal(true);
   };
 
+  // Счётчик обрезаем до 7 символов, чтобы длинное число не ломало вёрстку.
+  const shownLikes = mounted ? String(likes).slice(0, 7) : "0";
+
   return (
     <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
       <HeartIcon />
       <Label>
-        {!loading && (mounted ? likes : 0)}
+        {!loading && shownLikes}
         {loading && (
           <>
             ❤️

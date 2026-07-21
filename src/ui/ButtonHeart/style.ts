@@ -54,16 +54,21 @@ export const ButtonWrapper = styled.button<{ $animate?: boolean }>`
 `;
 
 export const Label = styled.div`
+  /* Счётчик закреплён справа от сердца, по центру по вертикали. Левое
+     выравнивание — точка привязки не смещается при смене числа (1→2 знака). */
   position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 5px;
+  margin-top: 9px;
   color: white;
-  line-height: 17px;
+  line-height: 1;
   font-size: 10px;
   font-weight: 400;
   font-family: "Exo 2", sans-serif;
   text-transform: uppercase;
-  text-align: center;
-  margin-left: 28px;
-  margin-top: 30px;
+  text-align: left;
 `;
 
 // Частицы сердечек
