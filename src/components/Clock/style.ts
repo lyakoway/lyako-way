@@ -31,10 +31,6 @@ export const ClockWrapper = styled.div`
     border-radius: 50%;
     z-index: 999;
   }
-  /* Часы остаются на своём месте (absolute) до 767px; ниже — скрываем. */
-  @media (max-width: 767px) {
-    display: none;
-  }
 `;
 
 export const Hour = styled.div`

@@ -41,15 +41,6 @@ export const HeaderSectionWrapper = styled.div`
   height: 700px;
   width: 960px;
   margin: 0 auto;
-
-  @media ${TABLET_1024} {
-    width: 100%;
-    min-height: 600px;
-  }
-
-  @media ${MOBILE_660} {
-    padding-top: 100px;
-  }
 `;
 
 export const HeaderContactWrapper = styled.div`
@@ -244,20 +235,6 @@ export const Skype = styled(Phones)`
 export const HeaderSectionFon = styled.div`
   position: relitive;
   display: flex;
-
-  /* Мобильная перекомпоновка (стек) — только <768px. В диапазоне 768–958px
-     оставляем обычную абсолютную раскладку (масштаб — через useFitScale),
-     чтобы часы/полка стояли на своих местах. */
-  @media (max-width: 767px) {
-    display: flex;
-    width: 100%;
-    margin: 0 auto;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    bottom: 0;
-    flex-direction: column-reverse;
-  }
 `;
 
 export const IconComp = styled.div<{ $themeLight?: boolean }>`
@@ -277,17 +254,6 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
   bottom: 0;
   left: 230px;
   z-index: 10;
-
-  /* В стеке (<768px) стол — в потоке flex-контейнера; 768–958px — на месте. */
-  @media (max-width: 767px) {
-    position: relative;
-  }
-
-  @media ${MOBILE_660} {
-    width: 94%;
-    background-size: 100%;
-    z-index: 0;
-  }
 `;
 
 // ——— Имитация набора кода на экране ноутбука ———
@@ -403,20 +369,13 @@ const caretBlink = keyframes`
 const themeFade = css<{ $themeLight?: boolean }>`
   opacity: ${({ $themeLight }) => ($themeLight ? 1 : 0)};
   transition: opacity 4s ease;
-
-  @media ${TABLET_959} {
-    transition: opacity 1s ease;
-  }
 `;
 
-// Задержка запуска анимации = длительности проявления картинки (4s / 1s на планшете),
+// Задержка запуска анимации = длительности проявления картинки (4s),
 // чтобы анимация стартовала, когда светлая тема уже полностью проявилась.
+// Одинаково на всех ширинах.
 const ANIM_START = "4s";
-const animStartDelay = css`
-  @media ${TABLET_959} {
-    animation-delay: 1s;
-  }
-`;
+const animStartDelay = css``;
 
 // Накладывается ровно поверх экрана ноутбука и повторяет его цвет
 export const CodeScreen = styled.div<{ $themeLight?: boolean }>`
@@ -435,10 +394,6 @@ export const CodeScreen = styled.div<{ $themeLight?: boolean }>`
   z-index: 11;
   pointer-events: none;
   ${themeFade};
-
-  @media ${MOBILE_660} {
-    display: none;
-  }
 `;
 
 export const CodeLineRow = styled.div<{
@@ -507,10 +462,6 @@ export const Steam = styled.div<{ $themeLight?: boolean }>`
   z-index: 12;
   pointer-events: none;
   ${themeFade};
-
-  @media ${MOBILE_660} {
-    display: none;
-  }
 `;
 
 export const SteamWisp = styled.span<{
@@ -537,10 +488,6 @@ export const SteamWisp = styled.span<{
           ${steamRise} 3s ease-in-out ${4 + $delay}s infinite
         `
       : "none"};
-
-  @media ${TABLET_959} {
-    animation-delay: ${({ $delay }) => 1 + $delay}s;
-  }
 `;
 
 // ——— «Работа окон» на экране монитора ———
@@ -588,10 +535,6 @@ export const MonitorScreen = styled.div<{ $themeLight?: boolean }>`
   z-index: 11;
   pointer-events: none;
   ${themeFade};
-
-  @media ${MOBILE_660} {
-    display: none;
-  }
 `;
 
 // Скользящий блик-отражение по экрану
@@ -697,11 +640,6 @@ export const IconMap = styled.div<{ $themeLight?: boolean }>`
   position: absolute;
   top: 70px;
   right: 50px;
-
-  /* Картину (карту на стене) убираем на экранах уже 1024px. */
-  @media (max-width: 1023px) {
-    display: none;
-  }
 `;
 
 export const IconBook = styled.div<{ $themeLight?: boolean }>`
@@ -720,11 +658,6 @@ export const IconBook = styled.div<{ $themeLight?: boolean }>`
   position: absolute;
   top: 270px;
   right: 40px;
-
-  /* Полку оставляем до 767px; ниже — скрываем. */
-  @media (max-width: 767px) {
-    display: none;
-  }
 `;
 
 export const IconPicture = styled.div<{ $themeLight?: boolean }>`

@@ -9,6 +9,9 @@ export const HomeStage = styled.div<{ $scale: number }>`
   overflow: hidden;
   display: flex;
   justify-content: center;
+  /* высота = масштабированная высота холста (700px), иначе transform:scale
+     оставляет пустое место (layout-бокс не сжимается). */
+  height: ${({ $scale }) => Math.round(700 * $scale)}px;
 
   & > div {
     flex: none;
