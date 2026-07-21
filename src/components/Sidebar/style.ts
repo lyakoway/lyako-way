@@ -282,7 +282,7 @@ export const Controls = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 22px;
 `;
 
 // Обёртка каждой кнопки (лайк / тема / язык) — без фона/рамки, центрирование.
