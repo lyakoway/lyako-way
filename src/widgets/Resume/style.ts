@@ -287,30 +287,64 @@ export const Bullets = styled.ul`
 export const SkillsTree = styled.div`
   position: relative;
 
+  /* Ствол слева — дерево сохраняется и на узких экранах (<720). */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: ${PANEL_BORDER};
+  }
+
   @media (min-width: 720px) {
-    /* ствол */
+    /* Ствол по центру — ветки чередуются слева/справа. */
     &::before {
-      content: "";
-      position: absolute;
       left: 50%;
-      top: 8px;
-      bottom: 8px;
-      width: 2px;
       margin-left: -1px;
-      background: ${PANEL_BORDER};
     }
   }
 `;
 
 export const Branch = styled.div<{ $side: "left" | "right" }>`
   position: relative;
+  /* <720: ствол слева, карточка справа — оставляем место под узел и ветку. */
+  padding-left: 34px;
 
   &:not(:last-child) {
-    margin-bottom: 14px;
+    margin-bottom: 18px;
+  }
+
+  /* горизонтальная ветка от узла к карточке */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 29px;
+    left: 13px;
+    width: 21px;
+    height: 2px;
+    background: ${PANEL_BORDER};
+  }
+
+  /* круглый узел на стволе — как точки в таймлайне опыта выше */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 23px;
+    left: 1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+    box-shadow: 0 0 0 4px
+      ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+    z-index: 1;
   }
 
   @media (min-width: 720px) {
     width: 50%;
+    padding-left: 0;
 
     &:not(:last-child) {
       margin-bottom: 24px;
@@ -328,30 +362,19 @@ export const Branch = styled.div<{ $side: "left" | "right" }>`
           padding-left: 36px;
         `}
 
-    /* горизонтальная ветка к стволу */
+    /* горизонтальная ветка к центральному стволу */
     &::before {
-      content: "";
-      position: absolute;
       top: 29px;
       width: 36px;
-      height: 2px;
-      background: ${PANEL_BORDER};
-      ${({ $side }) => ($side === "left" ? "right: 0;" : "left: 0;")}
+      ${({ $side }) =>
+        $side === "left" ? "right: 0; left: auto;" : "left: 0;"}
     }
 
-    /* квадратный узел на стволе */
+    /* круглый узел на центральном стволе */
     &::after {
-      content: "";
-      position: absolute;
       top: 23px;
-      width: 13px;
-      height: 13px;
-      border-radius: 3px;
-      background: ${({ theme }) =>
-        theme.color.background.primaryHeaderWrapper};
-      border: 2px solid ${({ theme }) => theme.color.basic.primary};
-      z-index: 1;
-      ${({ $side }) => ($side === "left" ? "right: -7px;" : "left: -7px;")}
+      ${({ $side }) =>
+        $side === "left" ? "right: -6px; left: auto;" : "left: -6px;"}
     }
   }
 `;
