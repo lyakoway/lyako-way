@@ -694,7 +694,8 @@ export const IconMap = styled.div<{ $themeLight?: boolean }>`
   top: 70px;
   right: 50px;
 
-  @media ${TABLET_959} {
+  /* Картину (карту на стене) убираем на экранах уже 1024px. */
+  @media (max-width: 1023px) {
     display: none;
   }
 `;
