@@ -81,49 +81,65 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
 
         // https://dashboard.emailjs.com/admin/templates/ipok92p/content - шаблон
         setLoading(true);
-        await emailjs
-          .send(
-            "service_t0637ri",
-            "template_hksctsh",
-            dataForm,
-            "E3IoCn9xU4A9XR0GB"
-          )
-          .then(
-            async () => {
-              await wait(2000);
-              setLoading(false);
-              setStatusRequest("success");
-              await wait(2000);
-              dispatch(closeModal());
-              dispatch(setSantaShown(false));
-              dispatch(setDataForm(dataForm));
-              toastNotify({ title: toast.messageText, type: "success" });
 
-              // Встроенная форма не закрывается (модалки нет) — очищаем поля
-              // после успешной отправки. В модалке компонент размонтируется,
-              // поэтому сброс там не нужен (и вызвал бы setState после unmount).
-              if (embedded) {
-                setName("");
-                setEmail("");
-                setPhone("");
-                setMessage("");
-                setTypesWork([]);
-                setFormDescriptionName("");
-                setFormDescriptionEmail("");
-                setFormDescriptionPhone("");
-                setStatusRequest(null);
-              }
-            },
-            async (error) => {
-              console.error("Ошибка при отправке:", error.text);
-              await wait(2000);
-              setLoading(false);
-              toastNotify({
-                title: toast.textError,
-                type: "error",
-              });
-            }
-          );
+        // Дублируем заявку в два канала: email (EmailJS) и Telegram (серверный
+        // роут /api/telegram — токен бота хранится на сервере). Отправляем
+        // параллельно; считаем успехом, если сработал хотя бы один канал.
+        const sendEmail = emailjs.send(
+          "service_t0637ri",
+          "template_hksctsh",
+          dataForm,
+          "E3IoCn9xU4A9XR0GB"
+        );
+        const sendTelegram = fetch("/api/telegram", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(dataForm),
+        }).then((r) => {
+          if (!r.ok) throw new Error(`telegram ${r.status}`);
+          return r.json();
+        });
+
+        const [emailResult, telegramResult] = await Promise.allSettled([
+          sendEmail,
+          sendTelegram,
+        ]);
+        const anyOk =
+          emailResult.status === "fulfilled" ||
+          telegramResult.status === "fulfilled";
+
+        await wait(2000);
+        setLoading(false);
+
+        if (anyOk) {
+          setStatusRequest("success");
+          await wait(2000);
+          dispatch(closeModal());
+          dispatch(setSantaShown(false));
+          dispatch(setDataForm(dataForm));
+          toastNotify({ title: toast.messageText, type: "success" });
+
+          // Встроенная форма не закрывается (модалки нет) — очищаем поля
+          // после успешной отправки. В модалке компонент размонтируется,
+          // поэтому сброс там не нужен (и вызвал бы setState после unmount).
+          if (embedded) {
+            setName("");
+            setEmail("");
+            setPhone("");
+            setMessage("");
+            setTypesWork([]);
+            setFormDescriptionName("");
+            setFormDescriptionEmail("");
+            setFormDescriptionPhone("");
+            setStatusRequest(null);
+          }
+        } else {
+          if (emailResult.status === "rejected")
+            console.error("Email error:", emailResult.reason);
+          if (telegramResult.status === "rejected")
+            console.error("Telegram error:", telegramResult.reason);
+          toastNotify({ title: toast.textError, type: "error" });
+        }
       }
     },
     [
