@@ -4,6 +4,7 @@ import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
 import { useMediaQuery } from "src/features/customHooks";
 import { ArticleTitle, Article } from "src/ui/Card";
+import PdfViewer from "src/components/PdfViewer";
 
 import {
   Actions,
@@ -184,18 +185,15 @@ const Resume = () => {
   } = useSelectorTyped(({ lang }) => lang);
   const dispatch = useDispatchTyped();
 
-  // Тач-устройства (телефоны/планшеты) не рендерят PDF во встроенном iframe —
-  // там открываем PDF нативно в новой вкладке (по href), а не в модалке.
+  // Тач-устройства (телефоны/планшеты, встроенные браузеры) не рендерят PDF
+  // в iframe — там показываем его через PDF.js (canvas). На десктопе оставляем
+  // нативный iframe (со встроенным просмотрщиком браузера).
   const isTouch = useMediaQuery("(pointer: coarse)");
 
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
 
-  // «Просмотреть»: на десктопе — PDF в модалке (iframe со встроенным
-  // просмотрщиком браузера). На тач-устройствах не перехватываем клик —
-  // срабатывает href target="_blank" и PDF открывается нативно.
   const handleView = (e: React.MouseEvent) => {
-    if (isTouch) return;
     e.preventDefault();
     dispatch(
       showModal({
@@ -204,7 +202,15 @@ const Resume = () => {
         content: (
           <PdfModal>
             <PdfModalHead>{title}</PdfModalHead>
-            <PdfFrame src={resumeCv.pdfUrl} title={title} />
+            {isTouch ? (
+              <PdfViewer
+                url={resumeCv.pdfUrl}
+                fallbackHref={resumeCv.pdfUrl}
+                downloadName={resumeCv.downloadName}
+              />
+            ) : (
+              <PdfFrame src={resumeCv.pdfUrl} title={title} />
+            )}
           </PdfModal>
         ),
       })
