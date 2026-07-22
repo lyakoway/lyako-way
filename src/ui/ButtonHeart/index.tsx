@@ -11,7 +11,14 @@ import {
   setSantaShown,
   showModal,
 } from "src/reducers";
-import { ButtonWrapper, Label, Particle, ConfettiPiece, Loader } from "./style";
+import {
+  ButtonWrapper,
+  Label,
+  Particle,
+  ConfettiPiece,
+  Loader,
+  Loading,
+} from "./style";
 import AlertModal from "src/components/AlertModal";
 import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";
 import {
@@ -88,7 +95,7 @@ const ButtonHeart: React.FC = () => {
             content: <AlertModal />,
             width: "auto",
             backgroundOverlay: "rgba(0, 0, 0, 0.4)",
-          })
+          }),
         );
         localStorage.setItem("fav-alert-shown", "true");
       }, 3000);
@@ -106,9 +113,9 @@ const ButtonHeart: React.FC = () => {
     setTimeout(
       () =>
         setConfetti((prev) =>
-          prev.filter((c) => !newConfetti.some((nc) => nc.id === c.id))
+          prev.filter((c) => !newConfetti.some((nc) => nc.id === c.id)),
         ),
-      1500
+      1500,
     );
 
     // --- Сердечки ---
@@ -118,9 +125,9 @@ const ButtonHeart: React.FC = () => {
     setTimeout(
       () =>
         setParticles((prev) =>
-          prev.filter((p) => !newParticles.some((np) => np.id === p.id))
+          prev.filter((p) => !newParticles.some((np) => np.id === p.id)),
         ),
-      1500
+      1500,
     );
 
     // Анимация сердечка
@@ -172,10 +179,10 @@ const ButtonHeart: React.FC = () => {
       <Label>
         {!loading && shownLikes}
         {loading && (
-          <>
+          <Loading>
             ❤️
             <Loader />
-          </>
+          </Loading>
         )}
       </Label>
 

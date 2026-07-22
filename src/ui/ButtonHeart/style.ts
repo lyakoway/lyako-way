@@ -49,7 +49,6 @@ export const ButtonWrapper = styled.button<{ $animate?: boolean }>`
 
   @media ${MOBILE_660} {
     margin: 0 auto;
-    margin-top: 10px;
   }
 `;
 
@@ -60,7 +59,7 @@ export const Label = styled.div`
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 5px;
+  margin-left: 0;
   margin-top: 9px;
   color: white;
   line-height: 1;
@@ -123,14 +122,22 @@ const spin = keyframes`
 `;
 
 // Лоадер вокруг числа
-export const Loader = styled.div`
-  position: absolute;
-  left: -9px;
-  top: -3px;
-  display: inline-block;
-  margin-left: 6px;
+// Контейнер загрузки: центрирует маленькое сердечко, а кольцо-лоадер
+// растягивается на весь контейнер (inset: 0) — сердечко ровно в центре кольца.
+export const Loading = styled.span`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 20px;
   height: 20px;
+  font-size: 9px;
+  line-height: 1;
+`;
+
+export const Loader = styled.div`
+  position: absolute;
+  inset: 0;
   border: 2px solid rgba(255, 0, 0, 0.2); // светлый цвет
   border-top: 2px solid red; // яркий цвет
   border-radius: 50%;
