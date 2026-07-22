@@ -1,4 +1,4 @@
-import { FC, forwardRef, useEffect } from "react";
+import { forwardRef } from "react";
 
 import {
   SelectContainer,
@@ -43,21 +43,6 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
     },
     ref
   ) => {
-    useEffect(() => {
-      if (typeof document !== "undefined") {
-        const labels = document.querySelectorAll("label");
-        labels.forEach((label) => {
-          label.innerHTML = label.innerText
-            .split("")
-            .map(
-              (letter, idx) =>
-                `<span style="transition-delay:${idx * 50}ms">${letter}</span>`
-            )
-            .join("");
-        });
-      }
-    }, [description]);
-
     return (
       <SelectContainer $boxShadow={!!value} $valid={valid}>
         <InputWrapper>
@@ -80,7 +65,15 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
               e.currentTarget.setCustomValidity("");
             }}
           />
-          {label && !description && <Text>{label}</Text>}
+          {label && !description && (
+            <Text>
+              {label.split("").map((letter, idx) => (
+                <span key={idx} style={{ transitionDelay: `${idx * 50}ms` }}>
+                  {letter}
+                </span>
+              ))}
+            </Text>
+          )}
           {description && <TextDescription>{description}</TextDescription>}
           {value && (
             <DeleteIconWrapper onClick={handleClickDelete}>

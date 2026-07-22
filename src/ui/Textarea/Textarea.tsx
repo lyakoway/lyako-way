@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 import { SelectContainer, TextareaStyle, Text } from "./style";
 
@@ -21,21 +21,6 @@ export const Textarea: FC<ITextareaProps> = ({
     setMessage(valueInput);
   };
 
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      const labels = document.querySelectorAll("label");
-      labels.forEach((label) => {
-        label.innerHTML = label.innerText
-          .split("")
-          .map(
-            (letter, idx) =>
-              `<span style="transition-delay:${idx * 50}ms">${letter}</span>`
-          )
-          .join("");
-      });
-    }
-  }, []);
-
   return (
     <SelectContainer $boxShadow={!!message}>
       <TextareaStyle
@@ -46,7 +31,15 @@ export const Textarea: FC<ITextareaProps> = ({
         placeholder={placeholder}
         onChange={(e) => handleClick(e.target.value)}
       />
-      {label && <Text>{label}</Text>}
+      {label && (
+        <Text>
+          {label.split("").map((letter, idx) => (
+            <span key={idx} style={{ transitionDelay: `${idx * 50}ms` }}>
+              {letter}
+            </span>
+          ))}
+        </Text>
+      )}
     </SelectContainer>
   );
 };

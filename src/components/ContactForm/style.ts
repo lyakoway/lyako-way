@@ -62,9 +62,10 @@ export const Content = styled.div<{ $embedded?: boolean }>`
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  overflow-y: auto;
+  /* встроенная форма растёт по контенту (без внутреннего скролла и без
+     перераспределения полей при открытии клавиатуры); в модалке — скролл. */
+  overflow-y: ${({ $embedded }) => ($embedded ? "visible" : "auto")};
   overflow-x: hidden;
-  /* в модалке высота ограничена вьюпортом; встроенная форма растёт по контенту */
   max-height: ${({ $embedded }) =>
     $embedded ? "none" : "calc(100vh - 160px)"};
   padding: 20px;
@@ -113,7 +114,8 @@ export const Content = styled.div<{ $embedded?: boolean }>`
   }
 
   @media ${MOBILE_660} {
-    max-height: calc(100vh - 220px);
+    max-height: ${({ $embedded }) =>
+      $embedded ? "none" : "calc(100vh - 220px)"};
     border-radius: 0;
   }
 `;
