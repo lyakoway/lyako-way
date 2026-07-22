@@ -48,7 +48,7 @@ const Services = () => {
 
       <ServiceFormSection>
         <ServiceFormCard>
-          <ContactForm embedded />
+          <ContactForm embedded withService />
         </ServiceFormCard>
       </ServiceFormSection>
     </Article>

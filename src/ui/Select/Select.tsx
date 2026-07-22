@@ -44,27 +44,21 @@ type SingleSelectProps = {
 
 type SelectProps = SingleSelectProps | MultipleSelectProps;
 
+// Разбивает текст на буквы-спаны со ступенчатой задержкой — для той же
+// «волновой» анимации всплытия, что и у плавающих лейблов в Input.
+const letters = (text: string) =>
+  text.split("").map((letter, idx) => (
+    <span key={idx} style={{ transitionDelay: `${idx * 50}ms` }}>
+      {letter}
+    </span>
+  ));
+
 const getInputMultipleText = (
   value: ISelectOption[],
   getSelectOption: (value: ISelectOption) => void,
   defaultText: string
 ) => {
   const setCounterChip = (index: number) => " + " + index;
-
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      const labels = document.querySelectorAll("label");
-      labels.forEach((label) => {
-        label.innerHTML = label.innerText
-          .split("")
-          .map(
-            (letter, idx) =>
-              `<span style="transition-delay:${idx * 50}ms">${letter}</span>`
-          )
-          .join("");
-      });
-    }
-  }, []);
 
   return (
     <>
@@ -86,7 +80,7 @@ const getInputMultipleText = (
           </Chips>
         </Fragment>
       ))}
-      <NotChosen $moveText={value.length !== 0}>{defaultText}</NotChosen>
+      <NotChosen $moveText={value.length !== 0}>{letters(defaultText)}</NotChosen>
     </>
   );
 };
@@ -96,9 +90,9 @@ const getInputTextSelect = (
   defaultText: string
 ) => {
   if (value?.label !== undefined) {
-    return <NotChosen>{value.label}</NotChosen>;
+    return <NotChosen>{letters(value.label)}</NotChosen>;
   }
-  return <NotChosen>{defaultText}</NotChosen>;
+  return <NotChosen>{letters(defaultText)}</NotChosen>;
 };
 
 export const Select = ({

@@ -193,6 +193,7 @@ export const NotChosen = styled.label<{ $moveText?: boolean }>`
   position: absolute;
   left: 12px;
 
+  /* Буквы всплывают по одной (staggered) — как плавающий лейбл в Input. */
   span {
     display: inline-block;
     color: ${({ theme }) => theme.color.text.primary};
