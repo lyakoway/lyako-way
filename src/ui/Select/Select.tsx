@@ -62,7 +62,7 @@ const getInputMultipleText = (
   return (
     <>
       {value.slice(0, count).map((item) => (
-        <Chips data-is-chip data-chip key={item.value}>
+        <Chips data-is-chip data-chip key={item.value} $capped={rest > 0}>
           <TextChips>{item.label}</TextChips>
         </Chips>
       ))}

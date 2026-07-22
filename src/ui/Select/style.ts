@@ -123,7 +123,7 @@ export const TextChips = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const Chips = styled.button`
+export const Chips = styled.button<{ $capped?: boolean }>`
   display: flex;
   align-items: center;
   border-radius: 0.25em;
@@ -138,10 +138,11 @@ export const Chips = styled.button`
   color: white;
   //z-index: 2;
   overflow: hidden;
-  /* натуральная ширина (для корректного замера, сколько чипов влезает),
-     но не шире поля — тогда одиночный длинный чип обрежется многоточием */
+  /* натуральная ширина (для корректного замера, сколько чипов влезает).
+     $capped — когда рядом есть счётчик «+N»: оставляем под него место, чтобы
+     длинный одиночный чип не занял всё и не обрезал счётчик. */
   flex-shrink: 0;
-  max-width: 100%;
+  max-width: ${({ $capped }) => ($capped ? "calc(100% - 68px)" : "100%")};
 
   //&:hover {
   //  background-color: #ffffff;
