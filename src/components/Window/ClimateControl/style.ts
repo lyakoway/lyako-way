@@ -7,7 +7,7 @@ export const Wrapper = styled.form`
   width: 100%;
 `;
 
-export const Header = styled.div`
+export const Header = styled.div<{ $section?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,7 +20,10 @@ export const Header = styled.div`
   text-transform: uppercase;
   border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
 
-  padding: 20px 50px 20px 20px;
+  /* Верхний заголовок: правый отступ под крестик закрытия. Секционный
+     («Выбрать погоду») — симметричный, чтобы текст был строго по центру. */
+  padding: ${({ $section }) =>
+    $section ? "20px" : "20px 50px 20px 20px"};
 
   @media ${MOBILE_560} {
     flex-direction: column;

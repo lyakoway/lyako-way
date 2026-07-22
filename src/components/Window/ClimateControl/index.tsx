@@ -129,7 +129,7 @@ const ClimateControl = () => {
         </>
       )}
 
-      <Header>{climateLang.titleSelectWeather}</Header>
+      <Header $section>{climateLang.titleSelectWeather}</Header>
       <Content>
         {CLIMATE_CONTROL.map((item: ClimateType) => (
           <WeatherIconWrapper
