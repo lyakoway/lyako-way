@@ -29,7 +29,9 @@ export const LayoutMain = styled.div`
     margin: 60px auto;
     display: flex;
     justify-content: center;
-    align-items: stretch;
+    /* сайдбар не тянется на всю высоту контента — берёт свою высоту (sticky),
+       а минимальную высоту ему задаёт SidebarWrapper (= высоте блока «Дом»). */
+    align-items: flex-start;
     gap: 25px;
   }
 `;

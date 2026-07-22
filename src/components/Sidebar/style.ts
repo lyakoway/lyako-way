@@ -31,6 +31,8 @@ export const SidebarWrapper = styled.aside`
     top: 60px;
     margin-bottom: 0;
     padding-top: 60px;
+    /* Не тянемся на всю высоту контента, но не ниже блока «Дом». */
+    min-height: 702px;
   }
 `;
 
