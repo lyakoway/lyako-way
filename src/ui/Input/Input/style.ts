@@ -190,7 +190,7 @@ export const Text = styled.label`
 export const TextDescription = styled.div`
   position: absolute;
   transform: translateY(-2.1rem);
-  color: ${({ theme }) => theme.color.text.negative};
+  color: #fad67d;
   left: 12px;
   font-size: 10px;
   font-weight: 500;
