@@ -30,9 +30,17 @@ export const Header = styled.div`
 
 export const Content = styled.div`
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 14px 12px;
   margin: 20px;
-  justify-content: space-between;
+  justify-content: center;
+
+  /* <436px — ограничиваем ширину под 3 иконки в ряд → раскладка 3 + 3. */
+  @media (max-width: 435px) {
+    max-width: 210px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export const WeatherIconWrapper = styled.div<{ $active: boolean }>`
