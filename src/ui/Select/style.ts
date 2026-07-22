@@ -112,7 +112,6 @@ export const InputText = styled.div`
   flex-wrap: nowrap;
   overflow: hidden;
   min-width: 0;
-  padding-right: 44px;
   height: 32px;
   align-items: center;
 `;
@@ -139,10 +138,11 @@ export const Chips = styled.button<{ $capped?: boolean }>`
   //z-index: 2;
   overflow: hidden;
   /* натуральная ширина (для корректного замера, сколько чипов влезает).
-     $capped — когда рядом есть счётчик «+N»: оставляем под него место, чтобы
-     длинный одиночный чип не занял всё и не обрезал счётчик. */
+     $capped — когда рядом есть счётчик «+N»: оставляем ровно под него место,
+     чтобы чип+счётчик заполняли поле и крестик шёл сразу за счётчиком
+     (без большого пустого пространства). */
   flex-shrink: 0;
-  max-width: ${({ $capped }) => ($capped ? "calc(100% - 68px)" : "100%")};
+  max-width: ${({ $capped }) => ($capped ? "calc(100% - 54px)" : "100%")};
 
   //&:hover {
   //  background-color: #ffffff;
