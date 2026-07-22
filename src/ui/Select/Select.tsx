@@ -1,18 +1,11 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-  MouseEvent,
-  Fragment,
-  useCallback,
-} from "react";
+import { useEffect, useRef, useState, MouseEvent, useCallback } from "react";
+import { useIsomorphicLayoutEffect } from "src/features/customHooks";
 
 import {
   SelectContainer,
   InputText,
   Chips,
   ChipsItem,
-  ChipsClose,
   Divider,
   Caret,
   DropdownList,
@@ -53,34 +46,28 @@ const letters = (text: string) =>
     </span>
   ));
 
+// fit === null — режим измерения: рендерим все чипы (чтобы замерить ширины).
+// Иначе показываем первые `fit` чипов, остальные — счётчиком «+N».
 const getInputMultipleText = (
   value: ISelectOption[],
-  getSelectOption: (value: ISelectOption) => void,
-  defaultText: string
+  defaultText: string,
+  fit: number | null
 ) => {
-  const setCounterChip = (index: number) => " + " + index;
-
+  if (value.length === 0) {
+    return <NotChosen>{letters(defaultText)}</NotChosen>;
+  }
+  const count =
+    fit === null ? value.length : Math.max(1, Math.min(fit, value.length));
+  const rest = value.length - count;
   return (
     <>
-      {value.map((item, i: number) => (
-        <Fragment key={item.value}>
-          {value.length !== 1 && (
-            <ChipsItem>{setCounterChip(value.length - i)}</ChipsItem>
-          )}
-          <Chips data-is-chip>
-            <TextChips>{item.label}</TextChips>
-            {/*<ChipsClose*/}
-            {/*  onClick={(e) => {*/}
-            {/*    e.stopPropagation();*/}
-            {/*    getSelectOption(item);*/}
-            {/*  }}*/}
-            {/*>*/}
-            {/*  &times;*/}
-            {/*</ChipsClose>*/}
-          </Chips>
-        </Fragment>
+      {value.slice(0, count).map((item) => (
+        <Chips data-is-chip data-chip key={item.value}>
+          <TextChips>{item.label}</TextChips>
+        </Chips>
       ))}
-      <NotChosen $moveText={value.length !== 0}>{letters(defaultText)}</NotChosen>
+      {rest > 0 && <ChipsItem data-counter>+ {rest}</ChipsItem>}
+      <NotChosen $moveText>{letters(defaultText)}</NotChosen>
     </>
   );
 };
@@ -105,6 +92,53 @@ export const Select = ({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Сколько выбранных чипов помещается в поле; остальные — в счётчик «+N».
+  // null — режим измерения (рендерим все чипы, чтобы замерить их ширины).
+  const inputRef = useRef<HTMLDivElement>(null);
+  const [fit, setFit] = useState<number | null>(null);
+
+  // При смене выбора и при ресайзе — заново измеряем.
+  useIsomorphicLayoutEffect(() => {
+    if (multiple) setFit(null);
+  }, [value, multiple]);
+
+  useIsomorphicLayoutEffect(() => {
+    if (!multiple || typeof ResizeObserver === "undefined") return;
+    const el = inputRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setFit(null));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [multiple]);
+
+  // Измерение: считаем, сколько чипов влезает (с запасом под счётчик).
+  useIsomorphicLayoutEffect(() => {
+    if (!multiple || fit !== null) return;
+    const arr = value as ISelectOption[];
+    const el = inputRef.current;
+    if (!el || arr.length === 0) {
+      setFit(arr.length);
+      return;
+    }
+    const chips = Array.from(
+      el.querySelectorAll("[data-chip]")
+    ) as HTMLElement[];
+    const s = getComputedStyle(el);
+    const gap = parseFloat(s.columnGap || s.gap || "8") || 8;
+    const padRight = parseFloat(s.paddingRight || "0") || 0;
+    const avail = el.clientWidth - padRight;
+    const COUNTER_RESERVE = 52; // место под «+N»
+    let used = 0;
+    let n = 0;
+    for (let i = 0; i < chips.length; i += 1) {
+      used += (i > 0 ? gap : 0) + chips[i].offsetWidth;
+      const needsCounter = i < chips.length - 1;
+      if (used + (needsCounter ? gap + COUNTER_RESERVE : 0) <= avail) n = i + 1;
+      else break;
+    }
+    setFit(Math.max(1, n));
+  }, [fit, value, multiple]);
 
   const showInputDelete = multiple
     ? value.length !== 0
@@ -209,13 +243,9 @@ export const Select = ({
       onClick={() => setIsOpen((prev) => !prev)}
       tabIndex={0}
     >
-      <InputText>
+      <InputText ref={inputRef}>
         {multiple
-          ? getInputMultipleText(
-              value as ISelectOption[],
-              getSelectOption,
-              defaultText
-            )
+          ? getInputMultipleText(value as ISelectOption[], defaultText, fit)
           : getInputTextSelect(value as ISelectOption | undefined, defaultText)}
       </InputText>
       {showInputDelete && (

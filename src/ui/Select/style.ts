@@ -3,7 +3,6 @@ import {
   Z_INDEX_DROPDOWN_LIST_SELECT,
   Z_INDEX_TOAST,
 } from "src/common/constants/zIndex";
-import { MOBILE_660 } from "src/common/lib/media";
 
 const dropdownListAnimation = keyframes`
   from {
@@ -110,8 +109,9 @@ export const InputText = styled.div`
   flex-grow: 1;
   display: flex;
   gap: 0.5em;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   overflow: hidden;
+  min-width: 0;
   padding-right: 44px;
   height: 32px;
   align-items: center;
@@ -127,21 +127,21 @@ export const Chips = styled.button`
   display: flex;
   align-items: center;
   border-radius: 0.25em;
-  padding: 0.15em 0.25em 0.16em 0.15em;
+  padding: 0.15em 0.5em 0.16em 0.5em;
   gap: 6px;
   //cursor: pointer;
   background: none;
   outline: none;
-  margin: 2px 4px 2px 4px;
+  margin: 2px 0 2px 0;
   height: 28px;
   background: rgb(81, 92, 102);
   color: white;
   //z-index: 2;
   overflow: hidden;
-
-  @media ${MOBILE_660} {
-    max-width: 180px;
-  }
+  /* натуральная ширина (для корректного замера, сколько чипов влезает),
+     но не шире поля — тогда одиночный длинный чип обрежется многоточием */
+  flex-shrink: 0;
+  max-width: 100%;
 
   //&:hover {
   //  background-color: #ffffff;
@@ -175,13 +175,17 @@ export const Chips = styled.button`
 export const ChipsItem = styled.button`
   display: flex;
   align-items: center;
+  justify-content: center;
   border-radius: 0.25em;
   gap: 0.25em;
   background: none;
   outline: none;
-  margin: 2px -51px 2px 2px;
+  margin: 2px 0;
+  padding: 0 0.5em;
   height: 28px;
-  gap: 0.25em;
+  /* счётчик «+N» не сжимается — всегда виден целиком */
+  flex-shrink: 0;
+  white-space: nowrap;
   background: rgb(81, 92, 102);
   color: white;
 
