@@ -101,6 +101,7 @@ export const SelectContainer = styled.div<{
       transform: translateY(-2.2rem);
       font-size: 10px;
       font-weight: 500;
+      color: #fff;
     }
   }
 `;
@@ -212,6 +213,7 @@ export const NotChosen = styled.label<{ $moveText?: boolean }>`
         transform: translateY(-2.2rem);
         font-size: 10px;
         font-weight: 500;
+        color: #fff;
       }
     `}
 `;

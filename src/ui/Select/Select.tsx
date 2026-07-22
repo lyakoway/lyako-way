@@ -53,21 +53,26 @@ const getInputMultipleText = (
   defaultText: string,
   fit: number | null
 ) => {
-  if (value.length === 0) {
-    return <NotChosen>{letters(defaultText)}</NotChosen>;
-  }
   const count =
-    fit === null ? value.length : Math.max(1, Math.min(fit, value.length));
+    value.length === 0
+      ? 0
+      : fit === null
+      ? value.length
+      : Math.max(1, Math.min(fit, value.length));
   const rest = value.length - count;
   return (
     <>
+      {/* Лейбл всегда первый и всегда присутствует (даже при пустом выборе),
+         чтобы React переиспользовал один и тот же DOM-узел — тогда переход
+         transform (всплытие «Работа…») плавно анимируется, а не прыгает.
+         Абсолютное позиционирование не влияет на раскладку чипов. */}
+      <NotChosen $moveText={value.length > 0}>{letters(defaultText)}</NotChosen>
       {value.slice(0, count).map((item) => (
         <Chips data-is-chip data-chip key={item.value} $capped={rest > 0}>
           <TextChips>{item.label}</TextChips>
         </Chips>
       ))}
       {rest > 0 && <ChipsItem data-counter>+ {rest}</ChipsItem>}
-      <NotChosen $moveText>{letters(defaultText)}</NotChosen>
     </>
   );
 };
