@@ -63,9 +63,11 @@ export const Content = styled.div<{ $embedded?: boolean }>`
   justify-content: space-between;
   flex-direction: column;
   /* встроенная форма растёт по контенту (без внутреннего скролла и без
-     перераспределения полей при открытии клавиатуры); в модалке — скролл. */
+     перераспределения полей при открытии клавиатуры); в модалке — скролл.
+     Обе оси visible: если одна ось hidden, другая visible трактуется как
+     auto и появляется лишний скроллбар. */
+  overflow-x: ${({ $embedded }) => ($embedded ? "visible" : "hidden")};
   overflow-y: ${({ $embedded }) => ($embedded ? "visible" : "auto")};
-  overflow-x: hidden;
   max-height: ${({ $embedded }) =>
     $embedded ? "none" : "calc(100vh - 160px)"};
   padding: 20px;
