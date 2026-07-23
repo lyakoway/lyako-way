@@ -64,6 +64,29 @@ const AppContent: FC<{
     dispatch(setThemeList(dayTime));
   }, [dayTime, dispatch]);
 
+  // Плавный переход цвета при смене темы: на время переключения вешаем класс
+  // theme-transition на <html> (см. globalStyles) и снимаем через 3с. Начальную
+  // установку предпочтительной темы пропускаем (themeReady включается после
+  // монтирования), чтобы не анимировать на загрузке.
+  const themeReady = useRef(false);
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      themeReady.current = true;
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    if (!themeReady.current || typeof document === "undefined") return;
+    const el = document.documentElement;
+    el.classList.add("theme-transition");
+    const id = window.setTimeout(
+      () => el.classList.remove("theme-transition"),
+      3000
+    );
+    return () => window.clearTimeout(id);
+  }, [theme.name]);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />

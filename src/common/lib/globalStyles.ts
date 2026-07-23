@@ -11,6 +11,21 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  /* Плавное переключение цвета при смене темы. Класс theme-transition вешается
+     на <html> на момент переключения и снимается через 3с (в _app), поэтому
+     обычные ховеры/переходы в остальное время не замедляются. Трогаем только
+     цветовые свойства — transform/opacity не включаем, чтобы не мешать
+     reveal-анимациям. */
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: background-color 3s ease, color 3s ease, border-color 3s ease,
+      fill 3s ease, stroke 3s ease, box-shadow 3s ease,
+      outline-color 3s ease !important;
+    transition-delay: 0s !important;
+  }
+
   ${normalize}
   :root {
     --color-constant-greyscale-0: #ffffff;
