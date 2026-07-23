@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { setLang, setUserSelectedLang } from "src/reducers";
+import { disperseTextSwap } from "src/common/utils/disperseTextSwap";
 
 import { ReactComponent as LangEnglishIcon } from "src/common/icon/lang/gb.svg";
 import { ReactComponent as LangRussiaIcon } from "src/common/icon/lang/ru.svg";
@@ -37,6 +38,9 @@ const ButtonLang = () => {
   const dispatch = useDispatchTyped();
 
   const handleClick = useCallback(() => {
+    // Снимаем «распыление» СТАРОГО текста ДО смены языка (пока он ещё в DOM):
+    // копия-overlay рассыпается, а под ней уже рендерится новый язык.
+    disperseTextSwap();
     setOpened(!opened);
     dispatch(setLang(!opened));
     dispatch(setUserSelectedLang(true));
