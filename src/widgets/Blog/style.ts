@@ -65,6 +65,7 @@ export const ReadMore = styled.span`
 export const Card = styled.a`
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 12px;
   padding: 20px 22px;
   border-radius: 16px;

@@ -1,35 +1,44 @@
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
-// Плавное появление: прозрачность + лёгкий сдвиг снизу вверх.
-// $animate — проигрывать переход (появление при скролле). Если false, элемент
-// уже был виден на загрузке — показываем мгновенно, без анимации.
-// $delay — задержка для «ступенчатого» (staggered) появления списков.
-// $y — величина стартового сдвига (px). Уважает prefers-reduced-motion.
+// Появление задаём КЕЙФРЕЙМ-анимацией (а не transition): свойство animation
+// не конфликтует с собственным `transition` обёрнутого компонента (например
+// у ServiceItem — transition для ховера), поэтому reveal работает везде, где
+// используется `as={Компонент}`, и не ломает ховер-переходы.
+const revealIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 24px));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+// $in — показывать; $animate — проигрывать появление (при скролле). Если
+// $animate=false, элемент был виден на входе — показываем мгновенно, без
+// анимации. $delay — задержка (staggered списки). $y — стартовый сдвиг (px).
 export const RevealBox = styled.div<{
   $in: boolean;
   $animate: boolean;
   $delay: number;
   $y: number;
 }>`
+  --reveal-y: ${({ $y }) => $y}px;
   opacity: ${({ $in }) => ($in ? 1 : 0)};
-  transform: translateY(${({ $in, $y }) => ($in ? "0" : `${$y}px`)});
+  transform: translateY(${({ $in }) => ($in ? "0" : "var(--reveal-y)")});
   will-change: opacity, transform;
 
-  ${({ $animate, $delay }) =>
-    $animate
-      ? css`
-          transition:
-            opacity 1s ease,
-            transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-          transition-delay: ${$delay}ms;
-        `
-      : css`
-          transition: none;
-        `}
+  ${({ $in, $animate, $delay }) =>
+    $in &&
+    $animate &&
+    css`
+      animation: ${revealIn} 1s cubic-bezier(0.22, 1, 0.36, 1) ${$delay}ms both;
+    `}
 
   @media (prefers-reduced-motion: reduce) {
     opacity: 1;
     transform: none;
-    transition: none;
+    animation: none;
   }
 `;

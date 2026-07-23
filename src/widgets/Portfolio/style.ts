@@ -73,6 +73,7 @@ export const ThumbOverlay = styled.div`
 export const Card = styled.a`
   display: flex;
   flex-direction: column;
+  height: 100%;
   overflow: hidden;
   border-radius: 16px;
   background: ${PANEL_ELEVATED};

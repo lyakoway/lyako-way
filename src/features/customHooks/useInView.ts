@@ -49,14 +49,33 @@ export const useInView = <T extends HTMLElement = HTMLDivElement>(
       return;
     }
 
-    // Элемент ниже сгиба. Анимируем его появление ТОЛЬКО если пользователь
-    // реально скроллил — а не из-за досчёта вёрстки/перехода между страницами
-    // (тогда observer тоже сработает, но скролла не было → показываем мгновенно).
+    // Элемент ниже сгиба. Анимируем его появление ТОЛЬКО при реальном вводе
+    // пользователя (wheel/touch/клавиши). Событие `scroll` не подходит: его
+    // бросает и программный скролл-наверх Next.js при переходе между
+    // страницами, и досчёт вёрстки — тогда карточки «ехали» без скролла.
     let userScrolled = false;
-    const onScroll = () => {
+    const markScrolled = () => {
       userScrolled = true;
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
+    const onKey = (e: KeyboardEvent) => {
+      if (
+        [
+          "ArrowDown",
+          "ArrowUp",
+          "PageDown",
+          "PageUp",
+          "Home",
+          "End",
+          " ",
+          "Spacebar",
+        ].includes(e.key)
+      ) {
+        userScrolled = true;
+      }
+    };
+    window.addEventListener("wheel", markScrolled, { passive: true });
+    window.addEventListener("touchmove", markScrolled, { passive: true });
+    window.addEventListener("keydown", onKey);
 
     const { once = true, threshold, rootMargin, root } = options ?? {};
 
@@ -82,7 +101,9 @@ export const useInView = <T extends HTMLElement = HTMLDivElement>(
 
     return () => {
       io.disconnect();
-      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("wheel", markScrolled);
+      window.removeEventListener("touchmove", markScrolled);
+      window.removeEventListener("keydown", onKey);
     };
     // options читаем один раз при монтировании — намеренно.
     // eslint-disable-next-line react-hooks/exhaustive-deps

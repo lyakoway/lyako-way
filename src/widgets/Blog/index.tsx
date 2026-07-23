@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
+import { Reveal } from "src/ui/Reveal";
 import { getReadMinutes } from "src/common/utils/getReadMinutes";
 
 import {
@@ -59,11 +60,11 @@ const Blog = () => {
 
   return (
     <Article>
-      <header>
+      <Reveal as="header">
         <ArticleTitle>{title}</ArticleTitle>
-      </header>
+      </Reveal>
 
-      <FilterBar>
+      <Reveal as={FilterBar} delay={90}>
         <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
           {blog.all}
         </FilterChip>
@@ -76,17 +77,17 @@ const Blog = () => {
             {tag}
           </FilterChip>
         ))}
-      </FilterBar>
+      </Reveal>
 
       <List>
-        {shown.map((post) => (
-          <Link
-            key={post.id}
-            href={`/blog/${post.hrefNameList}`}
-            passHref
-            legacyBehavior
-          >
-            <Card>
+        {shown.map((post, idx) => (
+          <Reveal key={post.id} delay={idx * 90}>
+            <Link
+              href={`/blog/${post.hrefNameList}`}
+              passHref
+              legacyBehavior
+            >
+              <Card>
               <TagList>
                 {post.technologies.map((tag, i) => (
                   <Tag key={i}>{tag}</Tag>
@@ -111,7 +112,8 @@ const Blog = () => {
                 </ReadMore>
               </CardFoot>
             </Card>
-          </Link>
+            </Link>
+          </Reveal>
         ))}
       </List>
     </Article>

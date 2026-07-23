@@ -112,42 +112,46 @@ const Portfolio = () => {
         ))}
       </Reveal>
 
-      <Reveal as={Grid} delay={150}>
-        {shown.map(({ project, grad }) => (
-          <Link
-            key={project.id}
-            href={`/portfolio/${project.hrefNameList}`}
-            passHref
-            legacyBehavior
-          >
-            <Card>
-              <CardThumb $grad={grad}>
-                {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
-                {project.screenshots?.[0] ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={project.screenshots[0]} alt={project.portfolioNameList} />
-                ) : (
-                  <BrowserGlyph />
-                )}
-                <ThumbOverlay>
-                  <EyeGlyph />
-                </ThumbOverlay>
-              </CardThumb>
-              <CardBody>
-                <CardName>{project.portfolioNameList}</CardName>
-                {project.portfolioDataTime && (
-                  <CardDate>{project.portfolioDataTime}</CardDate>
-                )}
-                <ChipList>
-                  {project.technologies.slice(0, 4).map((tech, i) => (
-                    <Chip key={i}>{tech}</Chip>
-                  ))}
-                </ChipList>
-              </CardBody>
-            </Card>
-          </Link>
+      <Grid>
+        {shown.map(({ project, grad }, i) => (
+          <Reveal key={project.id} delay={i * 90}>
+            <Link
+              href={`/portfolio/${project.hrefNameList}`}
+              passHref
+              legacyBehavior
+            >
+              <Card>
+                <CardThumb $grad={grad}>
+                  {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
+                  {project.screenshots?.[0] ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.screenshots[0]}
+                      alt={project.portfolioNameList}
+                    />
+                  ) : (
+                    <BrowserGlyph />
+                  )}
+                  <ThumbOverlay>
+                    <EyeGlyph />
+                  </ThumbOverlay>
+                </CardThumb>
+                <CardBody>
+                  <CardName>{project.portfolioNameList}</CardName>
+                  {project.portfolioDataTime && (
+                    <CardDate>{project.portfolioDataTime}</CardDate>
+                  )}
+                  <ChipList>
+                    {project.technologies.slice(0, 4).map((tech, i) => (
+                      <Chip key={i}>{tech}</Chip>
+                    ))}
+                  </ChipList>
+                </CardBody>
+              </Card>
+            </Link>
+          </Reveal>
         ))}
-      </Reveal>
+      </Grid>
     </Article>
   );
 };
