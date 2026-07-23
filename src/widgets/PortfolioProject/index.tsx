@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
 import { Article, ArticleTitle } from "src/ui/Card";
+import { Reveal } from "src/ui/Reveal";
 
 import {
   Breadcrumb,
@@ -67,9 +68,9 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
         <Crumb>{name}</Crumb>
       </Breadcrumb>
 
-      <header>
+      <Reveal as="header">
         <ArticleTitle>{name}</ArticleTitle>
-      </header>
+      </Reveal>
 
       {!project ? (
         <NotFound>
@@ -79,7 +80,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
         <>
           {project.wip && <WipTag>{portfolio.wip}</WipTag>}
 
-          <MetaList>
+          <Reveal as={MetaList} delay={80}>
             {project.portfolioDataTime && (
               <MetaRow>
                 <MetaLabel>{portfolioHeader.date}</MetaLabel>
@@ -127,7 +128,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 </MetaValue>
               </MetaRow>
             )}
-          </MetaList>
+          </Reveal>
 
           <Desc>
             {project.portfolioText
@@ -135,26 +136,30 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               .map((line) => line.trim())
               .filter(Boolean)
               .map((line, i) => (
-                <p key={i}>{line}</p>
+                <Reveal as="p" key={i} delay={i * 80}>
+                  {line}
+                </Reveal>
               ))}
           </Desc>
 
           {project.screenshots && project.screenshots.length > 0 && (
             <Preview>
               {project.screenshots.map((src, i) => (
-                <PreviewFrame
+                <Reveal
+                  as={PreviewFrame}
                   key={i}
+                  delay={i * 90}
                   type="button"
                   onClick={() => openImage(src, `${name} — ${i + 1}`)}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={`${name} — ${i + 1}`} loading="lazy" />
-                </PreviewFrame>
+                </Reveal>
               ))}
             </Preview>
           )}
 
-          <Actions>
+          <Reveal as={Actions}>
             {project.hrefPortfolio && (
               <ButtonPrimary
                 href={project.hrefPortfolio}
@@ -183,7 +188,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 GitHub
               </ButtonSecondary>
             )}
-          </Actions>
+          </Reveal>
         </>
       )}
     </Article>

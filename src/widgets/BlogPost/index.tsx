@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
+import { Reveal } from "src/ui/Reveal";
 import { getReadMinutes } from "src/common/utils/getReadMinutes";
 
 import {
@@ -48,9 +49,9 @@ const BlogPost = ({ slug }: { slug: string }) => {
         <Crumb>{title}</Crumb>
       </Breadcrumb>
 
-      <header>
+      <Reveal as="header">
         <ArticleTitle>{title}</ArticleTitle>
-      </header>
+      </Reveal>
 
       {!post ? (
         <NotFound>
@@ -58,9 +59,11 @@ const BlogPost = ({ slug }: { slug: string }) => {
         </NotFound>
       ) : (
         <>
-          {post.textBlogHeader && <Lead>{post.textBlogHeader}</Lead>}
+          {post.textBlogHeader && (
+            <Reveal as={Lead}>{post.textBlogHeader}</Reveal>
+          )}
 
-          <Meta>
+          <Reveal as={Meta} delay={80}>
             {post.portfolioDataTime && (
               <MetaDate>{post.portfolioDataTime}</MetaDate>
             )}
@@ -72,11 +75,13 @@ const BlogPost = ({ slug }: { slug: string }) => {
                 <Tag key={i}>{tag}</Tag>
               ))}
             </TagList>
-          </Meta>
+          </Reveal>
 
           <Body>
             {paragraphs.map((p, i) => (
-              <p key={i}>{p}</p>
+              <Reveal as="p" key={i} delay={i * 80}>
+                {p}
+              </Reveal>
             ))}
           </Body>
         </>

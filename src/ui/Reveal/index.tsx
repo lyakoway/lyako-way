@@ -4,7 +4,7 @@ import { useInView } from "src/features/customHooks";
 import { RevealBox } from "./style";
 
 interface RevealProps {
-  /** Рендерить как другой тег (например "section" | "header" | "li"). */
+  /** Рендерить как другой тег/компонент (например "p" | "header" | Card). */
   as?: ElementType;
   /** Задержка появления, мс — для ступенчатого (staggered) списка. */
   delay?: number;
@@ -14,9 +14,9 @@ interface RevealProps {
 }
 
 /**
- * Обёртка «плавного появления» элемента при попадании во вьюпорт.
- * Пример списка со ступенчатым появлением:
- *   items.map((it, i) => <Reveal key={it.id} delay={i * 90}>...</Reveal>)
+ * Обёртка «плавного появления» при попадании во вьюпорт (только при скролле).
+ * Остальные пропсы (onClick, type, href, …) форвардятся на нижележащий
+ * элемент — чтобы можно было анимировать кликабельные элементы через `as`.
  */
 export const Reveal = ({
   children,
@@ -24,7 +24,8 @@ export const Reveal = ({
   delay = 0,
   y = 24,
   className,
-}: PropsWithChildren<RevealProps>) => {
+  ...rest
+}: PropsWithChildren<RevealProps> & Record<string, unknown>) => {
   const { ref, inView, animate } = useInView<HTMLDivElement>();
 
   return (
@@ -36,6 +37,7 @@ export const Reveal = ({
       $delay={delay}
       $y={y}
       className={className}
+      {...(rest as Record<string, unknown>)}
     >
       {children}
     </RevealBox>

@@ -33,7 +33,14 @@ export const RevealBox = styled.div<{
     $in &&
     $animate &&
     css`
-      animation: ${revealIn} 1s cubic-bezier(0.22, 1, 0.36, 1) ${$delay}ms both;
+      /* fill-mode: backwards — держим стартовое (скрытое) состояние во время
+         задержки (для стаггера), но НЕ фиксируем финальное после завершения.
+         Иначе анимация удерживала бы transform: translateY(0) и перекрывала
+         ховер-подъём карточки (:hover translateY(-2px)). После окончания
+         возвращаемся к базовому состоянию ($in → opacity 1, translateY 0),
+         совпадающему с концом анимации, — без скачка, и ховер снова работает. */
+      animation: ${revealIn} 1s cubic-bezier(0.22, 1, 0.36, 1) ${$delay}ms
+        backwards;
     `}
 
   @media (prefers-reduced-motion: reduce) {
