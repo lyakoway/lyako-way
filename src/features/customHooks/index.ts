@@ -7,3 +7,4 @@ export { useWeather } from "./useWeather";
 export { useAutoLocaleClimate } from "./useAutoLocaleClimate";
 export { useFitScale } from "./useFitScale";
 export { useMediaQuery } from "./useMediaQuery";
+export { useInView } from "./useInView";

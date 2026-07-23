@@ -2,6 +2,7 @@ import React from "react";
 
 import { useSelectorTyped } from "src/store";
 import { ArticleTitle, Article } from "src/ui/Card";
+import { Reveal } from "src/ui/Reveal";
 
 import {
   AboutText,
@@ -34,34 +35,34 @@ const About = () => {
 
   return (
     <Article>
-      <header>
+      <Reveal as="header">
         <ArticleTitle>{aboutLabel}</ArticleTitle>
-      </header>
+      </Reveal>
 
-      <AboutText>
+      <Reveal as={AboutText} delay={90}>
         <p>{personal.text1}</p>
         <p>{personal.text2}</p>
         <p>{personal.text3}</p>
-      </AboutText>
+      </Reveal>
 
-      <StackBlock>
+      <Reveal as={StackBlock} delay={180}>
         <StackLabel>{personal.stackTitle}</StackLabel>
         <StackList>
           {personal.stack.map((item) => (
             <StackChip key={item}>{item}</StackChip>
           ))}
         </StackList>
-      </StackBlock>
+      </Reveal>
 
       <HighlightsSection>
-        <HighlightsTitle>{aboutHighlightsTitle}</HighlightsTitle>
+        <Reveal as={HighlightsTitle}>{aboutHighlightsTitle}</Reveal>
 
         <HighlightsGrid>
-          {aboutHighlights.map((item) => (
-            <HighlightCard key={item.id}>
+          {aboutHighlights.map((item, i) => (
+            <Reveal as={HighlightCard} key={item.id} delay={i * 90}>
               <HighlightCardTitle>{item.title}</HighlightCardTitle>
               <HighlightCardText>{item.text}</HighlightCardText>
-            </HighlightCard>
+            </Reveal>
           ))}
         </HighlightsGrid>
       </HighlightsSection>

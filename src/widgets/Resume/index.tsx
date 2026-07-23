@@ -4,6 +4,7 @@ import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
 import { useMediaQuery } from "src/features/customHooks";
 import { ArticleTitle, Article } from "src/ui/Card";
+import { Reveal } from "src/ui/Reveal";
 import PdfViewer from "src/components/PdfViewer";
 
 import {
@@ -219,11 +220,11 @@ const Resume = () => {
 
   return (
     <Article>
-      <header>
+      <Reveal as="header">
         <ArticleTitle>{title}</ArticleTitle>
-      </header>
+      </Reveal>
 
-      <Actions>
+      <Reveal as={Actions} delay={90}>
         <ButtonPrimary href={resumeCv.pdfUrl} download={resumeCv.downloadName}>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden>
             <path
@@ -261,7 +262,7 @@ const Resume = () => {
           </svg>
           {resumeCv.viewLabel}
         </ButtonSecondary>
-      </Actions>
+      </Reveal>
 
       <Section>
         <SectionHead>
@@ -272,8 +273,8 @@ const Resume = () => {
         </SectionHead>
 
         <Timeline>
-          {resumeCv.experience.map((item) => (
-            <TimelineItem key={item.id}>
+          {resumeCv.experience.map((item, expIdx) => (
+            <Reveal as={TimelineItem} key={item.id} delay={expIdx * 90}>
               <EntryCard>
                 <EntryHeader>
                   <div>
@@ -297,7 +298,7 @@ const Resume = () => {
                   </Group>
                 ))}
               </EntryCard>
-            </TimelineItem>
+            </Reveal>
           ))}
         </Timeline>
       </Section>
@@ -312,7 +313,7 @@ const Resume = () => {
 
         <SkillsTree>
           {resumeCv.skills.map((group, idx) => (
-            <Branch key={group.id}>
+            <Reveal as={Branch} key={group.id} delay={idx * 90}>
               <SkillCard>
                 <SkillHead>
                   <SkillIcon>{SKILL_ICONS[idx % SKILL_ICONS.length]}</SkillIcon>
@@ -324,7 +325,7 @@ const Resume = () => {
                   ))}
                 </ChipList>
               </SkillCard>
-            </Branch>
+            </Reveal>
           ))}
         </SkillsTree>
       </Section>
@@ -338,8 +339,8 @@ const Resume = () => {
         </SectionHead>
 
         <Timeline>
-          {resumeCv.education.map((item) => (
-            <TimelineItem key={item.id}>
+          {resumeCv.education.map((item, i) => (
+            <Reveal as={TimelineItem} key={item.id} delay={i * 90}>
               <EntryCard>
                 <EntryHeader>
                   <ItemRole>{item.title}</ItemRole>
@@ -347,7 +348,7 @@ const Resume = () => {
                 </EntryHeader>
                 {item.text && <ItemSummary>{item.text}</ItemSummary>}
               </EntryCard>
-            </TimelineItem>
+            </Reveal>
           ))}
         </Timeline>
       </Section>

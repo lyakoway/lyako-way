@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
+import { Reveal } from "src/ui/Reveal";
 
 import {
   FilterBar,
@@ -92,11 +93,11 @@ const Portfolio = () => {
 
   return (
     <Article>
-      <header>
+      <Reveal as="header">
         <ArticleTitle>{title}</ArticleTitle>
-      </header>
+      </Reveal>
 
-      <FilterBar>
+      <Reveal as={FilterBar} delay={90}>
         <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
           {portfolio.all}
         </FilterChip>
@@ -109,9 +110,9 @@ const Portfolio = () => {
             {dir}
           </FilterChip>
         ))}
-      </FilterBar>
+      </Reveal>
 
-      <Grid>
+      <Reveal as={Grid} delay={150}>
         {shown.map(({ project, grad }) => (
           <Link
             key={project.id}
@@ -146,7 +147,7 @@ const Portfolio = () => {
             </Card>
           </Link>
         ))}
-      </Grid>
+      </Reveal>
     </Article>
   );
 };

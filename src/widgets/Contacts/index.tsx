@@ -2,6 +2,7 @@ import React from "react";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
+import { Reveal } from "src/ui/Reveal";
 import ContactForm from "src/components/ContactForm";
 import {
   CONTACT_EMAIL,
@@ -72,13 +73,15 @@ const Contacts = () => {
 
   return (
     <Article>
-      <header>
+      <Reveal as="header">
         <ArticleTitle>{title}</ArticleTitle>
-      </header>
+      </Reveal>
 
-      <Intro>{contactsPage.intro}</Intro>
+      <Reveal as={Intro} delay={90}>
+        {contactsPage.intro}
+      </Reveal>
 
-      <ContactBlock>
+      <Reveal as={ContactBlock} delay={120}>
         <SectionLabel>{contactsPage.profilesTitle}</SectionLabel>
         <Links>
           {CONTACT_PROFILES.map((item) => (
@@ -93,9 +96,9 @@ const Contacts = () => {
             </LinkItem>
           ))}
         </Links>
-      </ContactBlock>
+      </Reveal>
 
-      <ContactBlock>
+      <Reveal as={ContactBlock} delay={180}>
         <SectionLabel>{sidebar.emailTitle}</SectionLabel>
         <Links>
           <LinkItem href={CONTACT_EMAIL.href}>
@@ -103,12 +106,12 @@ const Contacts = () => {
             {CONTACT_EMAIL.label}
           </LinkItem>
         </Links>
-      </ContactBlock>
+      </Reveal>
 
       {/* Тел/мессенджеры/локация — только в диапазоне 1024–1249px, где их
           нет в верхнем блоке-визитке. */}
       <RangeOnly>
-        <ContactBlock>
+        <Reveal as={ContactBlock}>
           <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
           <Links>
             {CONTACT_PHONES.map((phone) => (
@@ -118,9 +121,9 @@ const Contacts = () => {
               </LinkItem>
             ))}
           </Links>
-        </ContactBlock>
+        </Reveal>
 
-        <ContactBlock>
+        <Reveal as={ContactBlock} delay={90}>
           <SectionLabel>{sidebar.messengersTitle}</SectionLabel>
           <Links>
             {CONTACT_MESSENGERS.map((item) => (
@@ -135,28 +138,28 @@ const Contacts = () => {
               </LinkItem>
             ))}
           </Links>
-        </ContactBlock>
+        </Reveal>
 
-        <ContactBlock>
+        <Reveal as={ContactBlock} delay={180}>
           <SectionLabel>{sidebar.locationTitle}</SectionLabel>
           <InfoText>
             <PinIcon />
             {sidebar.location}
           </InfoText>
-        </ContactBlock>
+        </Reveal>
       </RangeOnly>
 
-      <ContactBlock>
+      <Reveal as={ContactBlock}>
         <SectionLabel>{contactsPage.responseTitle}</SectionLabel>
         <InfoText>
           <ClockIcon />
           {contactsPage.responseTime}
         </InfoText>
-      </ContactBlock>
+      </Reveal>
 
-      <FormCard>
+      <Reveal as={FormCard} delay={80}>
         <ContactForm embedded />
-      </FormCard>
+      </Reveal>
     </Article>
   );
 };

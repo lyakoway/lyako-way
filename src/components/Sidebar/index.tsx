@@ -20,6 +20,7 @@ import {
 } from "src/common/icon/socialIcons";
 
 import AvatarHead from "src/ui/AvatarHead";
+import { Reveal } from "src/ui/Reveal";
 import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setting.svg";
 
 import {
@@ -62,7 +63,7 @@ const Sidebar = () => {
 
   return (
     <SidebarWrapper>
-      <SidebarInfo>
+      <Reveal as={SidebarInfo}>
         <AvatarBox>
           <AvatarHead />
         </AvatarBox>
@@ -98,14 +99,14 @@ const Sidebar = () => {
             )}
           </SettingsCorner>
         )}
-      </SidebarInfo>
+      </Reveal>
 
       <SidebarMore>
         <ContactsGroup>
           <Separator />
 
           <ContactsList>
-            <ContactItem>
+            <Reveal as={ContactItem}>
               <RowIconBox>
                 <PhoneIcon />
               </RowIconBox>
@@ -117,9 +118,9 @@ const Sidebar = () => {
                   </a>
                 ))}
               </ContactInfo>
-            </ContactItem>
+            </Reveal>
 
-            <ContactItem>
+            <Reveal as={ContactItem} delay={90}>
               <RowIconBox>
                 <ChatIcon />
               </RowIconBox>
@@ -147,9 +148,9 @@ const Sidebar = () => {
                   ))}
                 </MessengerLinks>
               </ContactInfo>
-            </ContactItem>
+            </Reveal>
 
-            <ContactItem>
+            <Reveal as={ContactItem} delay={180}>
               <RowIconBox>
                 <PinIcon />
               </RowIconBox>
@@ -157,7 +158,7 @@ const Sidebar = () => {
                 <ContactTitle>{sidebar.locationTitle}</ContactTitle>
                 <address>{sidebar.location}</address>
               </ContactInfo>
-            </ContactItem>
+            </Reveal>
           </ContactsList>
         </ContactsGroup>
 
@@ -165,7 +166,7 @@ const Sidebar = () => {
           <>
             <Separator />
 
-            <SettingsBox>
+            <Reveal as={SettingsBox} delay={120}>
               <SettingsTitle>
                 {sidebar.settings}
                 <SettingIcon />
@@ -181,7 +182,7 @@ const Sidebar = () => {
                   <ButtonHeart />
                 </ControlItem>
               </Controls>
-            </SettingsBox>
+            </Reveal>
           </>
         )}
       </SidebarMore>
