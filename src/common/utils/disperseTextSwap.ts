@@ -113,8 +113,17 @@ export function disperseTextSwap(): void {
       anchorX = left;
     }
 
+    // учитываем text-transform (например «НАСТРОЙКИ» = uppercase),
+    // иначе форма частиц не совпадёт с видимым текстом
+    let shown = text;
+    const tt = st.textTransform;
+    if (tt === "uppercase") shown = shown.toUpperCase();
+    else if (tt === "lowercase") shown = shown.toLowerCase();
+    else if (tt.startsWith("capitalize"))
+      shown = shown.replace(/\b\p{L}/gu, (c) => c.toUpperCase());
+
     // перенос по словам под ширину строки
-    const words = text.trim().split(/\s+/);
+    const words = shown.trim().split(/\s+/);
     const lines: string[] = [];
     let cur = "";
     for (const w of words) {
@@ -154,7 +163,9 @@ export function disperseTextSwap(): void {
     for (let x = 0; x < vw; x += SAMPLE_STEP) {
       const idx = (y * vw + x) * 4;
       const a = data[idx + 3];
-      if (a > 130) {
+      // низкий порог, чтобы ловить приглушённый текст (напр. «НАСТРОЙКИ» —
+      // rgba(255,255,255,0.5), альфа ~127) — иначе он не даёт частиц
+      if (a > 40) {
         particles.push({
           x,
           y,
