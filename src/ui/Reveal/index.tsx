@@ -10,6 +10,9 @@ interface RevealProps {
   delay?: number;
   /** Стартовый сдвиг снизу, px (по умолчанию 24). */
   y?: number;
+  /** Стартовый сдвиг сбоку, px (напр. 64 — «выезд справа»). При задании
+   *  обычно y=0. */
+  x?: number;
   className?: string;
 }
 
@@ -23,6 +26,7 @@ export const Reveal = ({
   as,
   delay = 0,
   y = 24,
+  x = 0,
   className,
   ...rest
 }: PropsWithChildren<RevealProps> & Record<string, unknown>) => {
@@ -35,6 +39,7 @@ export const Reveal = ({
       $in={inView}
       $animate={animate}
       $delay={delay}
+      $x={x}
       $y={y}
       className={className}
       {...(rest as Record<string, unknown>)}

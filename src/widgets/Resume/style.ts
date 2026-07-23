@@ -126,6 +126,8 @@ export const Timeline = styled.ol`
   margin: 0;
   padding: 0;
   list-style: none;
+  /* карточки «выезжают справа» — прячем горизонтальный overflow при анимации */
+  overflow: hidden;
 
   /* ствол дерева слева — как в «Ключевых навыках» */
   &::before {
@@ -294,6 +296,8 @@ export const Bullets = styled.ul`
    веткой и квадратным узлом. На мобиле — обычная стопка карточек. */
 export const SkillsTree = styled.div`
   position: relative;
+  /* карточки «выезжают справа» — прячем горизонтальный overflow при анимации */
+  overflow: hidden;
 
   /* Ствол слева — дерево слева на всех ширинах. */
   &::before {

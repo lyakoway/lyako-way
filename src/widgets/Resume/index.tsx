@@ -274,8 +274,8 @@ const Resume = () => {
 
         <Timeline>
           {resumeCv.experience.map((item, expIdx) => (
-            <Reveal as={TimelineItem} key={item.id} delay={expIdx * 90}>
-              <EntryCard>
+            <TimelineItem key={item.id}>
+              <Reveal as={EntryCard} x={64} y={0} delay={expIdx * 90}>
                 <EntryHeader>
                   <div>
                     <ItemRole>{item.role}</ItemRole>
@@ -297,8 +297,8 @@ const Resume = () => {
                     </Bullets>
                   </Group>
                 ))}
-              </EntryCard>
-            </Reveal>
+              </Reveal>
+            </TimelineItem>
           ))}
         </Timeline>
       </Section>
@@ -313,8 +313,8 @@ const Resume = () => {
 
         <SkillsTree>
           {resumeCv.skills.map((group, idx) => (
-            <Reveal as={Branch} key={group.id} delay={idx * 90}>
-              <SkillCard>
+            <Branch key={group.id}>
+              <Reveal as={SkillCard} x={64} y={0} delay={idx * 90}>
                 <SkillHead>
                   <SkillIcon>{SKILL_ICONS[idx % SKILL_ICONS.length]}</SkillIcon>
                   <SkillCategory>{group.category}</SkillCategory>
@@ -324,8 +324,8 @@ const Resume = () => {
                     <Chip key={i}>{skill}</Chip>
                   ))}
                 </ChipList>
-              </SkillCard>
-            </Reveal>
+              </Reveal>
+            </Branch>
           ))}
         </SkillsTree>
       </Section>
@@ -340,15 +340,15 @@ const Resume = () => {
 
         <Timeline>
           {resumeCv.education.map((item, i) => (
-            <Reveal as={TimelineItem} key={item.id} delay={i * 90}>
-              <EntryCard>
+            <TimelineItem key={item.id}>
+              <Reveal as={EntryCard} x={64} y={0} delay={i * 90}>
                 <EntryHeader>
                   <ItemRole>{item.title}</ItemRole>
                   {item.period && <PeriodBadge>{item.period}</PeriodBadge>}
                 </EntryHeader>
                 {item.text && <ItemSummary>{item.text}</ItemSummary>}
-              </EntryCard>
-            </Reveal>
+              </Reveal>
+            </TimelineItem>
           ))}
         </Timeline>
       </Section>
