@@ -59,6 +59,9 @@ export function disperseTextSwap(): void {
       }
       const parent = (node as Text).parentElement;
       if (!parent) return NodeFilter.FILTER_REJECT;
+      // сцена «Дом» — картинка с интерактивными label (переключатель темы и
+      // т.п.); её текст в эффект распыления не берём
+      if (parent.closest(".home-scene")) return NodeFilter.FILTER_REJECT;
       const st = getComputedStyle(parent);
       if (
         st.visibility === "hidden" ||
