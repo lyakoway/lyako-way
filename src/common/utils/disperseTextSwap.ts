@@ -120,7 +120,7 @@ export function disperseTextSwap(): void {
     if (tt === "uppercase") shown = shown.toUpperCase();
     else if (tt === "lowercase") shown = shown.toLowerCase();
     else if (tt.startsWith("capitalize"))
-      shown = shown.replace(/\b\p{L}/gu, (c) => c.toUpperCase());
+      shown = shown.replace(/(^|\s)(\S)/g, (_m, sp, ch) => sp + ch.toUpperCase());
 
     // перенос по словам под ширину строки
     const words = shown.trim().split(/\s+/);
