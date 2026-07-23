@@ -20,9 +20,9 @@ const GlobalStyles = createGlobalStyle`
      (themeFade/bgTransition, 4s: день/ночь и фон картинки), которые иначе
      перебивались бы этим !important-правилом. */
   html.theme-transition,
-  html.theme-transition *:not(.home-scene):not(.home-scene *),
-  html.theme-transition *:not(.home-scene):not(.home-scene *)::before,
-  html.theme-transition *:not(.home-scene):not(.home-scene *)::after {
+  html.theme-transition *:not(.home-scene *),
+  html.theme-transition *:not(.home-scene *)::before,
+  html.theme-transition *:not(.home-scene *)::after {
     transition: background-color 3s ease, color 3s ease, border-color 3s ease,
       fill 3s ease, stroke 3s ease, box-shadow 3s ease,
       outline-color 3s ease !important;
