@@ -15,11 +15,14 @@ const GlobalStyles = createGlobalStyle`
      на <html> на момент переключения и снимается через 3с (в _app), поэтому
      обычные ховеры/переходы в остальное время не замедляются. Трогаем только
      цветовые свойства — transform/opacity не включаем, чтобы не мешать
-     reveal-анимациям. */
+     reveal-анимациям.
+     Сцену «Дом» (.home-scene) ИСКЛЮЧАЕМ — у неё свои плавные переходы
+     (themeFade/bgTransition, 4s: день/ночь и фон картинки), которые иначе
+     перебивались бы этим !important-правилом. */
   html.theme-transition,
-  html.theme-transition *,
-  html.theme-transition *::before,
-  html.theme-transition *::after {
+  html.theme-transition *:not(.home-scene):not(.home-scene *),
+  html.theme-transition *:not(.home-scene):not(.home-scene *)::before,
+  html.theme-transition *:not(.home-scene):not(.home-scene *)::after {
     transition: background-color 3s ease, color 3s ease, border-color 3s ease,
       fill 3s ease, stroke 3s ease, box-shadow 3s ease,
       outline-color 3s ease !important;

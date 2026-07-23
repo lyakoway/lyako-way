@@ -13,7 +13,10 @@ const Home = () => {
   const { ref, scale } = useFitScale(960);
 
   return (
-    <Article $scene>
+    // className home-scene — исключаем сцену из глобального 3s-перехода темы
+    // (globalStyles), чтобы работали её собственные плавные переходы
+    // (themeFade/bgTransition, 4s: смена дня/ночи и фона).
+    <Article $scene className="home-scene">
       <HomeStage ref={ref} $scale={scale}>
         <HeaderSection hideContacts />
       </HomeStage>
