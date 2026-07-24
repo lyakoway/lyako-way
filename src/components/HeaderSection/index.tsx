@@ -22,6 +22,7 @@ import {
   IconMap,
   IconBook,
   NewYear,
+  IconCompImage,
   CodeScreen,
   CodeLineRow,
   CodeToken,
@@ -38,6 +39,9 @@ import {
 
 import Clock from "src/components/Clock";
 import Window from "src/components/Window";
+
+import myIconComp from "src/common/icon/icon-header/comp.png";
+import myIconCompn from "src/common/icon/icon-header/compn.png";
 
 import { ReactComponent as RocketGetsiteIcon } from "src/common/icon/rocket/RocketIcon.svg";
 import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
@@ -86,7 +90,27 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
             <NewYearTree themeLight={themeLight} />
           </NewYear>
         )}
-        <IconComp $themeLight={themeLight}>
+        <IconComp>
+          {/* Светлая — SSR-дефолт и LCP: priority => next вставит preload +
+              fetchpriority=high. Тёмная — второй слой, кроссфейд по теме. */}
+          <IconCompImage
+            src={myIconComp}
+            alt=""
+            aria-hidden
+            fill
+            sizes="697px"
+            priority
+            fetchPriority="high"
+            $show={themeLight}
+          />
+          <IconCompImage
+            src={myIconCompn}
+            alt=""
+            aria-hidden
+            fill
+            sizes="697px"
+            $show={!themeLight}
+          />
           <LampSwitch />
           <CodeScreen aria-hidden $themeLight={themeLight}>
             {CODE_LINES.map((line, i) => (

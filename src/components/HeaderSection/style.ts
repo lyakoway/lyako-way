@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled, { keyframes, css } from "styled-components";
 import {
   TABLET_1024,
@@ -6,8 +7,6 @@ import {
   MOBILE_560,
 } from "src/common/lib/media";
 
-import myIconComp from "src/common/icon/icon-header/comp.png";
-import myIconCompn from "src/common/icon/icon-header/compn.png";
 import myIconMap from "src/common/icon/icon-header/map.png";
 import myIconMapn from "src/common/icon/icon-header/mapn.png";
 import myIconBook from "src/common/icon/icon-header/books.png";
@@ -237,16 +236,12 @@ export const HeaderSectionFon = styled.div`
   display: flex;
 `;
 
-export const IconComp = styled.div<{ $themeLight?: boolean }>`
-  ${({ $themeLight }) =>
-    $themeLight
-      ? css`
-          background: url(${myIconComp.src}) 100% 100% no-repeat;
-        `
-      : css`
-          background: url(${myIconCompn.src}) 100% 100% no-repeat;
-        `};
-  ${bgTransition};
+// Контейнер-сцена (монитор/стол). Сама иллюстрация вынесена в два слоя
+// <IconCompImage> (свет/тьма) на next/image — ради приоритетной загрузки
+// (LCP) и оптимизации формата (AVIF/WebP). Контейнер сохраняет размер и
+// позицию, поэтому проценты вложенных оверлеев (экран, монитор, пар) не
+// меняются.
+export const IconComp = styled.div`
   display: flex;
   width: 697px;
   height: 321px;
@@ -254,6 +249,16 @@ export const IconComp = styled.div<{ $themeLight?: boolean }>`
   bottom: 0;
   left: 230px;
   z-index: 10;
+`;
+
+// Слой иллюстрации. Свет и тьма наложены друг на друга и кроссфейдятся по
+// opacity (4s) — как прежняя смена фона по теме, но с реальным переходом.
+export const IconCompImage = styled(Image)<{ $show: boolean }>`
+  object-fit: fill;
+  z-index: 0;
+  opacity: ${({ $show }) => ($show ? 1 : 0)};
+  transition: opacity 4s ease;
+  pointer-events: none;
 `;
 
 // ——— Имитация набора кода на экране ноутбука ———
