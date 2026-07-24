@@ -1,10 +1,12 @@
 import { ThemeColor } from "src/common/types/theme";
 
 const BASIC = {
-  primary: "#F2622E",
+  // Затемнён с #F2622E: белый текст на кнопках/активных чипах теперь даёт
+  // контраст 4.69:1 (WCAG AA), прежний яркий тон давал лишь 3.2:1.
+  primary: "#C94A1E",
   secondary: "#2B313B",
   tertiary: "#8A96A8",
-  hover: "#DB4F1F",
+  hover: "#B84019",
   press: "#B83F16",
   disable: "#C4CAD4",
   primaryLight: "#FF8A5C",
