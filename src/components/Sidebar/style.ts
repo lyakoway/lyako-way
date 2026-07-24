@@ -1,7 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import {
   PANEL_TEXT,
-  PANEL_TEXT_SECONDARY,
   PANEL_TEXT_MUTED,
   PANEL_BORDER,
   PANEL_ELEVATED,
@@ -98,10 +97,12 @@ export const JobTitle = styled.p`
   width: max-content;
   padding: 3px 12px;
   border-radius: 8px;
-  color: ${PANEL_TEXT_SECONDARY};
-  background: ${PANEL_ELEVATED};
+  /* Тёмная подложка + непрозрачный белый текст: контраст ~7:1 (AA) на светлой
+     панели, где прежний полупрозрачный текст на светлом чипе давал ~3.4:1. */
+  color: ${PANEL_TEXT};
+  background: rgba(0, 0, 0, 0.2);
   font-size: 12px;
-  font-weight: 300;
+  font-weight: 400;
 
   @media (min-width: 1250px) {
     margin: 0 auto;
