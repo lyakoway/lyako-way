@@ -37,7 +37,9 @@ export const Notification = styled.div<{ $borderColor?: string }>`
   color: #000;
   transition: 0.3s ease;
 
+  box-sizing: border-box;
   width: 365px;
+  max-width: calc(100vw - 2rem);
   color: #fff;
   padding: 12px 40px 12px 12px;
   background-color: #5a5a5a;
@@ -70,6 +72,11 @@ export const TextWrapper = styled.div`
   border-left: 1px solid #fff;
   padding-left: 6px;
   margin-left: 12px;
+  /* min-width: 0 — иначе флекс-элемент не сжимается ниже ширины контента,
+     и длинный текст распирает тост, а не переносится. flex: 1 — занимает
+     оставшуюся ширину рядом с иконкой. */
+  min-width: 0;
+  flex: 1;
 `;
 
 export const Title = styled.p`
@@ -78,13 +85,17 @@ export const Title = styled.p`
   text-align: left;
   margin-top: 0;
   margin-bottom: 6px;
-  width: 300px;
-  height: 18px;
+  /* Без фиксированных width/height: заголовок переносится по словам и растёт
+     в высоту, а не обрезается на 18px и не наезжает на текст ниже. */
+  overflow-wrap: anywhere;
+  word-break: break-word;
 `;
 
 export const Text = styled.p`
   margin: 0;
   text-align: left;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 `;
 
 export const Wrapper = styled.div`
