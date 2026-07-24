@@ -4,6 +4,7 @@
 /.next
 /.env
 /dist
+*.tsbuildinfo
 /src/utils/dataIcons/data.ts
 
 server.js
