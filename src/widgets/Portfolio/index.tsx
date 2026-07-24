@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
@@ -115,12 +114,7 @@ const Portfolio = () => {
       <Grid>
         {shown.map(({ project, grad }, i) => (
           <Reveal key={project.id} delay={i * 90}>
-            <Link
-              href={`/portfolio/${project.hrefNameList}`}
-              passHref
-              legacyBehavior
-            >
-              <Card>
+            <Card href={`/portfolio/${project.hrefNameList}`}>
                 <CardThumb $grad={grad}>
                   {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
                   {project.screenshots?.[0] ? (
@@ -148,7 +142,6 @@ const Portfolio = () => {
                   </ChipList>
                 </CardBody>
               </Card>
-            </Link>
           </Reveal>
         ))}
       </Grid>

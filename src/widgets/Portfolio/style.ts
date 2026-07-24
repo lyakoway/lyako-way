@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styled from "styled-components";
 import {
   PANEL_TEXT,
@@ -70,7 +71,7 @@ export const ThumbOverlay = styled.div`
   }
 `;
 
-export const Card = styled.a`
+export const Card = styled(Link)`
   display: flex;
   flex-direction: column;
   height: 100%;

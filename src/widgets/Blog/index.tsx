@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
@@ -82,12 +81,7 @@ const Blog = () => {
       <List>
         {shown.map((post, idx) => (
           <Reveal key={post.id} delay={idx * 90}>
-            <Link
-              href={`/blog/${post.hrefNameList}`}
-              passHref
-              legacyBehavior
-            >
-              <Card>
+            <Card href={`/blog/${post.hrefNameList}`}>
               <TagList>
                 {post.technologies.map((tag, i) => (
                   <Tag key={i}>{tag}</Tag>
@@ -112,7 +106,6 @@ const Blog = () => {
                 </ReadMore>
               </CardFoot>
             </Card>
-            </Link>
           </Reveal>
         ))}
       </List>
