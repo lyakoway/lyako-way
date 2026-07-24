@@ -4,8 +4,7 @@ export const resumeCv: ResumeCvProps = {
   experienceTitle: "Опыт работы",
   skillsTitle: "Ключевые навыки",
   educationTitle: "Образование",
-  pdfUrl: "/static/resume/resume-ru.pdf",
-  downloadName: "Мазуренко Алексей — резюме.pdf",
+  downloadName: "Alexey-Mazurenko-ru.pdf",
   downloadLabel: "Скачать PDF",
   viewLabel: "Просмотреть",
 

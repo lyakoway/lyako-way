@@ -182,9 +182,19 @@ const SKILL_ICONS = [
 
 const Resume = () => {
   const {
-    lang: { propsHeaderTopMenu, resumeCv },
+    lang: { propsHeaderTopMenu, resumeCv, name: langName },
   } = useSelectorTyped(({ lang }) => lang);
+  const { theme } = useSelectorTyped(({ theme }) => theme);
   const dispatch = useDispatchTyped();
+
+  // Файлы резюме зависят от языка (ru/en) и темы (light/dark):
+  //  · Просмотр  — тёмная версия под тёмную тему (resume-<lang>[-dark].pdf).
+  //  · Скачивание — единый файл на язык (Alexey-Mazurenko-<lang>.pdf).
+  const slug = langName === "russia" ? "ru" : "en";
+  const viewUrl = `/static/resume/resume-${slug}${
+    theme.name === "dark" ? "-dark" : ""
+  }.pdf`;
+  const downloadUrl = `/static/resume/Alexey-Mazurenko-${slug}.pdf`;
 
   // Тач-устройства (телефоны/планшеты, встроенные браузеры) не рендерят PDF
   // в iframe — там показываем его через PDF.js (canvas). На десктопе оставляем
@@ -205,12 +215,12 @@ const Resume = () => {
             <PdfModalHead>{title}</PdfModalHead>
             {isTouch ? (
               <PdfViewer
-                url={resumeCv.pdfUrl}
-                fallbackHref={resumeCv.pdfUrl}
+                url={viewUrl}
+                fallbackHref={viewUrl}
                 downloadName={resumeCv.downloadName}
               />
             ) : (
-              <PdfFrame src={resumeCv.pdfUrl} title={title} />
+              <PdfFrame src={viewUrl} title={title} />
             )}
           </PdfModal>
         ),
@@ -225,7 +235,7 @@ const Resume = () => {
       </Reveal>
 
       <Reveal as={Actions} delay={90}>
-        <ButtonPrimary href={resumeCv.pdfUrl} download={resumeCv.downloadName}>
+        <ButtonPrimary href={downloadUrl} download={resumeCv.downloadName}>
           <svg viewBox="0 0 24 24" fill="none" aria-hidden>
             <path
               d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"
@@ -239,7 +249,7 @@ const Resume = () => {
         </ButtonPrimary>
 
         <ButtonSecondary
-          href={resumeCv.pdfUrl}
+          href={viewUrl}
           target="_blank"
           rel="noreferrer noopener"
           onClick={handleView}

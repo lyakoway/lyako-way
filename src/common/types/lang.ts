@@ -290,7 +290,6 @@ export interface ResumeCvProps {
   experienceTitle: string;
   skillsTitle: string;
   educationTitle: string;
-  pdfUrl: string;
   downloadName: string;
   downloadLabel: string;
   viewLabel: string;
