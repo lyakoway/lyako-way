@@ -44,7 +44,9 @@ export const StackBlock = styled.section`
   margin-top: 22px;
 `;
 
-export const StackLabel = styled.h4`
+// h3 (а не h4): подраздел «Обо Мне» одного уровня с «Ключевые моменты»,
+// иначе после h2 идёт пропуск уровня (h2→h4) — ошибка порядка заголовков.
+export const StackLabel = styled.h3`
   margin: 0 0 12px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 12px;
