@@ -7,15 +7,24 @@ import { useIsomorphicLayoutEffect } from "src/features/customHooks/useIsomorphi
 // остаётся неизменной (элементы на своих местах, просто меньше).
 export function useFitScale(designWidth: number) {
   const ref = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
+  // ready=false до первого измерения: сцену показываем только после того, как
+  // вычислен реальный масштаб (см. HomeStage), иначе на медленной сети она
+  // успевает отрисоваться в масштабе 1 и потом «дёргается» в правильный размер.
+  const [state, setState] = useState({ scale: 1, ready: false });
 
   useIsomorphicLayoutEffect(() => {
     const el = ref.current;
-    if (!el || typeof ResizeObserver === "undefined") return;
+    if (!el || typeof ResizeObserver === "undefined") {
+      setState((s) => ({ ...s, ready: true }));
+      return;
+    }
 
     const update = () => {
       const width = el.clientWidth;
-      setScale(width < designWidth ? width / designWidth : 1);
+      setState({
+        scale: width < designWidth ? width / designWidth : 1,
+        ready: true,
+      });
     };
 
     update();
@@ -29,5 +38,5 @@ export function useFitScale(designWidth: number) {
     };
   }, [designWidth]);
 
-  return { ref, scale };
+  return { ref, scale: state.scale, ready: state.ready };
 }
