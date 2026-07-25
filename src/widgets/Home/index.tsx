@@ -4,7 +4,7 @@ import HeaderSection from "src/components/HeaderSection";
 import { useFitScale } from "src/features/customHooks";
 import { Article } from "src/ui/Card";
 
-import { HomeStage } from "./style";
+import { HomeStage, SceneLoader, SceneSpinner } from "./style";
 
 // Главная «Дом»: анимированная сцена рабочего стола (окно, стол, монитор,
 // часы, полка с книгами) в article-рамке (как в остальных разделах),
@@ -20,6 +20,13 @@ const Home = () => {
       <HomeStage ref={ref} $scale={scale} $ready={ready}>
         <HeaderSection hideContacts />
       </HomeStage>
+      {/* Лоадер только на время загрузки (при !ready). На быстрой сети сцена
+          готова раньше задержки появления — лоадер не мелькает. */}
+      {!ready && (
+        <SceneLoader aria-hidden>
+          <SceneSpinner />
+        </SceneLoader>
+      )}
     </Article>
   );
 };

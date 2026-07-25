@@ -1,4 +1,54 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+// Лоадер сцены с ЗАДЕРЖКОЙ появления: если сцена готова раньше (быстрая сеть) —
+// он снимается (см. index: рендерится только при !ready) и не успевает
+// проявиться, поэтому визуально не мешает. Если загрузка затянулась (медленная
+// сеть) — плавно проявляется. Реализовано на CSS (opacity + delay), чтобы
+// работать и до загрузки JS: элемент есть в SSR-HTML, анимация идёт от момента
+// первой отрисовки, а не от гидрации.
+const loaderFadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+export const SceneLoader = styled.div`
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  /* появляется только если карточка пустует дольше ~0.7с */
+  animation: ${loaderFadeIn} 0.4s ease 0.7s forwards;
+`;
+
+const spin = keyframes`
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+// Кольцевой спиннер брендового оранжевого (theme.color.basic.primary),
+// адаптивный (компактнее на мобильных).
+export const SceneSpinner = styled.div`
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  border-top-color: ${({ theme }) => theme.color.basic.primary};
+  animation: ${spin} 0.8s linear infinite;
+
+  @media (max-width: 579px) {
+    width: 28px;
+    height: 28px;
+    border-width: 2.5px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation-duration: 2s;
+  }
+`;
 
 // Сцена «Дом» рассчитана на фиксированный холст 960px. Внутри более узкой
 // колонки контента vCard масштабируем её под ширину (useFitScale) и
