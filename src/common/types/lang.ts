@@ -309,6 +309,16 @@ export interface SidebarProps {
   location: string;
 }
 
+export interface ErrorPageProps {
+  errorLabel: string;
+  notFoundTitle: string;
+  notFoundNote: string;
+  genericTitle: string;
+  genericNote: string;
+  homeCta: string;
+  reloadCta: string;
+}
+
 export interface LanguageProps {
   propsPortfolioListBlog: PortfolioListBlogProps[];
   portfolioDevelopment: ListBlogProps[];
@@ -338,6 +348,7 @@ export interface LanguageProps {
   modal: ModalProps;
   blog: BlogProps;
   contactsPage: ContactsPageProps;
+  error: ErrorPageProps;
   name: "russia" | "english";
 }
 

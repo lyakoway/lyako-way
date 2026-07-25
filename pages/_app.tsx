@@ -26,6 +26,7 @@ import { setThemeList, getPreferredIsDay } from "src/reducers";
 import { useDayTime, useIsomorphicLayoutEffect } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
 import { Toast } from "src/ui/Toast";
+import ErrorBoundary from "src/ui/ErrorBoundary";
 import Layout from "src/widgets/Layout";
 
 // Фон всего приложения темнее, чем карточки-разделы (сланцевый цвет карточек
@@ -105,7 +106,9 @@ const AppContent: FC<{
       <GlobalStyles />
       <AppShell className={poppins.variable}>
         <Layout>
-          <Component {...pageProps} />
+          <ErrorBoundary>
+            <Component {...pageProps} />
+          </ErrorBoundary>
         </Layout>
       </AppShell>
       <Modal />

@@ -14,6 +14,7 @@ import { order } from "./order";
 import { footer } from "./footer";
 import { modal } from "./modal";
 import { contactForm } from "./contactForm";
+import { error } from "./errorPage";
 import { portfolioListBlog } from "src/common/lang/russia/portfolioListBlog";
 import { portfolioDevelopment } from "src/common/lang/russia/portfolioDevelopment";
 import { LanguageProps } from "src/common/types/lang";
@@ -56,5 +57,6 @@ export const RUSSIAN_LANGUAGE: LanguageProps = {
   modal,
   blog,
   contactsPage,
+  error,
   name: "russia",
 };
