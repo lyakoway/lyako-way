@@ -171,8 +171,7 @@ export const TimelineItem = styled.li`
     height: 12px;
     border-radius: 50%;
     background: ${({ theme }) => theme.color.basic.primary};
-    box-shadow: 0 0 0 4px ${({ theme }) =>
-      theme.color.background.primaryHeaderWrapper};
+    box-shadow: 0 0 0 4px var(--panel-bg);
     z-index: 1;
   }
 `;
@@ -342,7 +341,7 @@ export const Branch = styled.div`
     border-radius: 50%;
     background: ${({ theme }) => theme.color.basic.primary};
     box-shadow: 0 0 0 4px
-      ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+      var(--panel-bg);
     z-index: 1;
   }
 `;

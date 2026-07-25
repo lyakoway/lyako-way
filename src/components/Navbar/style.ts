@@ -16,9 +16,9 @@ export const NavbarWrapper = styled.nav`
   z-index: 5;
   border: 1px solid ${PANEL_BORDER};
   border-radius: 0 0 12px 12px;
-  /* темнее панелей — притемняем сланцевый фон под навбаром */
-  background: ${({ theme }) =>
-    theme.name === "light" ? "#39424c" : "#131519"};
+  /* темнее панелей — притемняем сланцевый фон под навбаром.
+     Через CSS-переменную (data-theme) — верная тема с первой отрисовки. */
+  background: var(--navbar-bg);
   backdrop-filter: blur(10px);
   ${({ theme }) => theme.shadow.NonClickable};
 

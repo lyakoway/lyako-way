@@ -13,7 +13,7 @@ export const SidebarWrapper = styled.aside`
   /* ≤767px — зазор между блоками 18px; ≥768px — 26px. */
   margin-bottom: 18px;
   border-radius: 20px;
-  background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+  background: var(--panel-bg);
   border: 1px solid ${PANEL_BORDER};
   ${({ theme }) => theme.shadow.NonClickable};
 
@@ -253,6 +253,16 @@ export const SettingsBox = styled.div`
   align-items: center;
 `;
 
+// Десктопная раскладка настроек (секция «Настройки» + разделитель). Ниже
+// 1250px скрыта через CSS — вместо неё показывается шестерёнка в углу
+// (SettingsCorner). Переключение раскладки на CSS, а не на JS, чтобы не было
+// «прыжка» раскладки на медленной сети (SSR-разметка = финальная).
+export const DesktopSettings = styled.div`
+  @media (max-width: 1249px) {
+    display: none;
+  }
+`;
+
 const spin = keyframes`
   to {
     transform: rotate(360deg);
@@ -305,6 +315,12 @@ export const SettingsCorner = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+
+  /* Компактный режим: шестерёнка в углу. На десктопе (≥1250px) вместо неё —
+     секция «Настройки» (DesktopSettings). Переключение через CSS. */
+  @media (min-width: 1250px) {
+    display: none;
+  }
 `;
 
 // Кнопка-шестерёнка: белая при закрытом попапе, оранжевая при открытом.
@@ -356,7 +372,7 @@ export const SettingsPopup = styled.div`
   gap: 18px;
   padding: 12px 22px 12px 16px;
   border-radius: 16px;
-  background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+  background: var(--panel-bg);
   border: 1px solid ${PANEL_BORDER};
   ${({ theme }) => theme.shadow.NonClickable};
 
@@ -369,7 +385,7 @@ export const SettingsPopup = styled.div`
     transform: translateY(50%) rotate(45deg);
     width: 12px;
     height: 12px;
-    background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+    background: var(--panel-bg);
     border-left: 1px solid ${PANEL_BORDER};
     border-top: 1px solid ${PANEL_BORDER};
   }

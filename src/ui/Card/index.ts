@@ -36,7 +36,7 @@ export const Article = styled.article<{ $scene?: boolean }>`
   position: relative;
   border-radius: 20px;
   padding: 15px;
-  background: ${({ theme }) => theme.color.background.primaryHeaderWrapper};
+  background: var(--panel-bg);
   border: 1px solid ${PANEL_BORDER};
   ${({ theme }) => theme.shadow.NonClickable};
 

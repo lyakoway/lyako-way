@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 
 import { useSelectorTyped } from "src/store";
-import { useClickOutside, useMediaQuery } from "src/features/customHooks";
+import { useClickOutside } from "src/features/customHooks";
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
@@ -40,6 +40,7 @@ import {
   RowIconBox,
   MessengerLinks,
   SettingsBox,
+  DesktopSettings,
   SettingsTitle,
   SettingsCorner,
   GearButton,
@@ -56,7 +57,9 @@ const Sidebar = () => {
   // <1250px — сайдбар в стеке: кнопки (лайк/тема/язык) прячем под шестерёнку
   // в правом верхнем углу блока аватар+имя (попап по клику). ≥1250px —
   // сайдбар слева, кнопки показаны статично под заголовком «Настройки».
-  const compact = useMediaQuery("(max-width: 1249px)");
+  // Обе раскладки рендерим всегда и переключаем через CSS (media-query), а не
+  // JS: иначе на медленной сети SSR-раскладка (десктоп) успевает отрисоваться
+  // и потом «прыгает» в компактную при гидрации.
   const [settingsOpen, setSettingsOpen] = useState(false);
   const cornerRef = useRef<HTMLDivElement>(null);
   useClickOutside(cornerRef, () => setSettingsOpen(false));
@@ -73,32 +76,30 @@ const Sidebar = () => {
           <JobTitle>{sidebar.jobTitle}</JobTitle>
         </InfoContent>
 
-        {compact && (
-          <SettingsCorner ref={cornerRef}>
-            <GearButton
-              type="button"
-              onClick={() => setSettingsOpen((prev) => !prev)}
-              aria-expanded={settingsOpen}
-              aria-label={sidebar.settings}
-            >
-              <SettingIcon />
-            </GearButton>
+        <SettingsCorner ref={cornerRef}>
+          <GearButton
+            type="button"
+            onClick={() => setSettingsOpen((prev) => !prev)}
+            aria-expanded={settingsOpen}
+            aria-label={sidebar.settings}
+          >
+            <SettingIcon />
+          </GearButton>
 
-            {settingsOpen && (
-              <SettingsPopup>
-                <ControlItem>
-                  <ButtonLang />
-                </ControlItem>
-                <ControlItem>
-                  <ThemeDarkLight />
-                </ControlItem>
-                <ControlItem>
-                  <ButtonHeart />
-                </ControlItem>
-              </SettingsPopup>
-            )}
-          </SettingsCorner>
-        )}
+          {settingsOpen && (
+            <SettingsPopup>
+              <ControlItem>
+                <ButtonLang />
+              </ControlItem>
+              <ControlItem>
+                <ThemeDarkLight />
+              </ControlItem>
+              <ControlItem>
+                <ButtonHeart />
+              </ControlItem>
+            </SettingsPopup>
+          )}
+        </SettingsCorner>
       </Reveal>
 
       <SidebarMore>
@@ -162,29 +163,27 @@ const Sidebar = () => {
           </ContactsList>
         </ContactsGroup>
 
-        {!compact && (
-          <>
-            <Separator />
+        <DesktopSettings>
+          <Separator />
 
-            <Reveal as={SettingsBox} delay={120}>
-              <SettingsTitle>
-                {sidebar.settings}
-                <SettingIcon />
-              </SettingsTitle>
-              <Controls>
-                <ControlItem>
-                  <ButtonLang />
-                </ControlItem>
-                <ControlItem>
-                  <ThemeDarkLight />
-                </ControlItem>
-                <ControlItem>
-                  <ButtonHeart />
-                </ControlItem>
-              </Controls>
-            </Reveal>
-          </>
-        )}
+          <Reveal as={SettingsBox} delay={120}>
+            <SettingsTitle>
+              {sidebar.settings}
+              <SettingIcon />
+            </SettingsTitle>
+            <Controls>
+              <ControlItem>
+                <ButtonLang />
+              </ControlItem>
+              <ControlItem>
+                <ThemeDarkLight />
+              </ControlItem>
+              <ControlItem>
+                <ButtonHeart />
+              </ControlItem>
+            </Controls>
+          </Reveal>
+        </DesktopSettings>
       </SidebarMore>
     </SidebarWrapper>
   );

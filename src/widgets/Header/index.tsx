@@ -10,8 +10,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   width: 100%;
-  background-color: ${({ theme }) =>
-    theme.color.background.primaryHeaderWrapper};
+  background-color: var(--panel-bg);
   opacity: 1;
 `;
 

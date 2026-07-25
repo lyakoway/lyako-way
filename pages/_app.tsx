@@ -33,7 +33,9 @@ import Layout from "src/widgets/Layout";
 const AppShell = styled.main`
   display: flow-root; /* не даём margin детей "протекать" наверх */
   min-height: 100vh;
-  background: ${({ theme }) => (theme.name === "light" ? "#3f4954" : "#17191d")};
+  /* Фон через CSS-переменную (см. globalStyles + data-theme): на медленной сети
+     фон сразу в правильной теме, без вспышки «светлая→тёмная» до загрузки JS. */
+  background: var(--app-bg);
 `;
 
 // Внутренний компонент рендерится ВНУТРИ <Provider>, поэтому здесь
@@ -52,6 +54,17 @@ const AppContent: FC<{
   useIsomorphicLayoutEffect(() => {
     dispatch(setThemeList(getPreferredIsDay()));
   }, [dispatch]);
+
+  // Держим html[data-theme] в синхроне с redux-темой: инлайн-скрипт в <head>
+  // ставит атрибут ДО первой отрисовки (правильный фон без вспышки), а здесь
+  // обновляем его при переключении темы (день/ночь, ручной тумблер), чтобы
+  // CSS-фоны следовали за темой.
+  useIsomorphicLayoutEffect(() => {
+    document.documentElement.setAttribute(
+      "data-theme",
+      theme.name === "light" ? "light" : "dark"
+    );
+  }, [theme.name]);
 
   // Живое переключение день/ночь: применяем изменения dayTime, но пропускаем
   // первый прогон, чтобы не перебить установленную выше предпочтительную тему.

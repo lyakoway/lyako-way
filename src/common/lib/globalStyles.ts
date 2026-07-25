@@ -30,6 +30,23 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ${normalize}
+
+  /* Фоны, зависящие от темы, вынесены в CSS-переменные и переключаются
+     атрибутом html[data-theme]. Атрибут ставит инлайн-скрипт в <head> ДО
+     первой отрисовки (см. _document), поэтому на медленной сети фоны сразу
+     в правильной теме — без вспышки «светлая→тёмная». В рантайме атрибут
+     синхронизируется с redux-темой эффектом в _app. */
+  :root {
+    --app-bg: #3f4954;
+    --panel-bg: #5b6774;
+    --navbar-bg: #39424c;
+  }
+  html[data-theme="dark"] {
+    --app-bg: #17191d;
+    --panel-bg: #2b3037;
+    --navbar-bg: #131519;
+  }
+
   :root {
     --color-constant-greyscale-0: #ffffff;
     --color-constant-greyscale-100: #f2f3f7;
@@ -403,8 +420,7 @@ const GlobalStyles = createGlobalStyle`
   html, body {
     margin: 0;
     padding: 0;
-    background-color: ${({ theme }) =>
-      theme.name === "light" ? "#3f4954" : "#17191d"};
+    background-color: var(--app-bg);
     font-family: var(--font-family-base), sans-serif;
     font-size: 16px;
     color: var(--color-text-primary);
