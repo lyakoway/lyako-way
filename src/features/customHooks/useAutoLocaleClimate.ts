@@ -7,7 +7,7 @@ import {
   setLang,
 } from "src/reducers";
 import { useWeather } from "src/features/customHooks/useWeather";
-import { WEATHER_TO_CLIMATE } from "src/components/Window/ClimateControl/constants";
+import { weatherToClimate } from "src/components/Window/ClimateControl/constants";
 
 // Сайд-эффекты, которые раньше жили в hero (src/components/HeaderSection):
 //  — загрузка лайков;
@@ -41,7 +41,7 @@ export function useAutoLocaleClimate() {
     appliedRef.current = true;
 
     if (!userSelectedClimate) {
-      const mappedClimate = WEATHER_TO_CLIMATE[weather.current.condition.text];
+      const mappedClimate = weatherToClimate(weather.current.condition.text);
       if (mappedClimate) {
         dispatch(setClimateControl(mappedClimate));
       }

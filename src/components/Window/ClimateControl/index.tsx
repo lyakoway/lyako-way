@@ -16,7 +16,7 @@ import {
   SearchWrapper,
   SearchInputWrapper,
 } from "./style";
-import { CLIMATE_CONTROL } from "./constants";
+import { CLIMATE_CONTROL, weatherToClimate } from "./constants";
 import { ClimateType } from "src/common/types/climat";
 import { useDayTime, useWeather } from "src/features/customHooks";
 
@@ -36,7 +36,9 @@ const ClimateControl = () => {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
 
-  const { climate, status } = useSelectorTyped(({ climate }) => climate);
+  const { climate, status, userSelectedClimate } = useSelectorTyped(
+    ({ climate }) => climate
+  );
 
   const dispatch = useDispatchTyped();
   const { weather, loading, fetchByCity } = useWeather();
@@ -51,6 +53,18 @@ const ClimateControl = () => {
       setCity(weather.location.name);
     }
   }, [weather?.location?.name]);
+
+  // Приоритет — погода найденного города: пока пользователь не выбрал тип
+  // вручную (userSelectedClimate=false), активный тип в списке синхронизируется
+  // с реальной погодой показанного города. Поиск/выбор города сбрасывает
+  // userSelectedClimate в false, поэтому при смене города тип встаёт по нему.
+  useEffect(() => {
+    if (userSelectedClimate) return;
+    const mapped = weatherToClimate(weather?.current?.condition?.text);
+    if (mapped && mapped !== climate) {
+      dispatch(setClimateControl(mapped));
+    }
+  }, [weather, userSelectedClimate, climate, dispatch]);
 
   // Автоопределение климата/языка по погоде теперь централизовано в
   // useAutoLocaleClimate (Layout) — здесь дубль убран, чтобы не было
