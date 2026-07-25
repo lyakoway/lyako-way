@@ -253,12 +253,17 @@ export const IconComp = styled.div`
 
 // Слой иллюстрации. Свет и тьма наложены друг на друга и кроссфейдятся по
 // opacity (4s) — как прежняя смена фона по теме, но с реальным переходом.
-export const IconCompImage = styled(Image)<{ $show: boolean }>`
+export const IconCompImage = styled(Image)<{ $dark?: boolean }>`
   object-fit: fill;
   z-index: 0;
-  opacity: ${({ $show }) => ($show ? 1 : 0)};
   transition: opacity 4s ease;
   pointer-events: none;
+  /* Тема через html[data-theme] (CSS), а не React: верный слой (свет/тьма)
+     виден с первой отрисовки, без ожидания JS. $dark помечает тёмный слой. */
+  opacity: ${({ $dark }) => ($dark ? 0 : 1)};
+  html[data-theme="dark"] & {
+    opacity: ${({ $dark }) => ($dark ? 1 : 0)};
+  }
 `;
 
 // ——— Имитация набора кода на экране ноутбука ———
@@ -371,9 +376,15 @@ const caretBlink = keyframes`
 
 // Анимации откалиброваны под светлую картинку — в тёмной теме плавно скрываем
 // их тем же переходом, что и смена фона (bgTransition): 4s / 1s на планшете.
-const themeFade = css<{ $themeLight?: boolean }>`
-  opacity: ${({ $themeLight }) => ($themeLight ? 1 : 0)};
+// Оверлеи сцены (код на экране, монитор, пар) откалиброваны под светлую
+// картинку; в тёмной теме плавно скрываем их. Тема — через html[data-theme]
+// (CSS), чтобы состояние было верным с первой отрисовки (без ожидания JS).
+const themeFade = css`
+  opacity: 1;
   transition: opacity 4s ease;
+  html[data-theme="dark"] & {
+    opacity: 0;
+  }
 `;
 
 // Задержка запуска анимации = длительности проявления картинки (4s),
@@ -629,15 +640,11 @@ export const SettingWrapper = styled.div`
   }
 `;
 
-export const IconMap = styled.div<{ $themeLight?: boolean }>`
-  ${({ $themeLight }) =>
-    $themeLight
-      ? css`
-          background: url(${myIconMap.src}) no-repeat;
-        `
-      : css`
-          background: url(${myIconMapn.src}) no-repeat;
-        `};
+export const IconMap = styled.div`
+  background: url(${myIconMap.src}) no-repeat;
+  html[data-theme="dark"] & {
+    background: url(${myIconMapn.src}) no-repeat;
+  }
   ${bgTransition};
   display: flex;
   width: 183px;
@@ -647,15 +654,11 @@ export const IconMap = styled.div<{ $themeLight?: boolean }>`
   right: 50px;
 `;
 
-export const IconBook = styled.div<{ $themeLight?: boolean }>`
-  ${({ $themeLight }) =>
-    $themeLight
-      ? css`
-          background: url(${myIconBook.src}) no-repeat;
-        `
-      : css`
-          background: url(${myIconBookn.src}) no-repeat;
-        `};
+export const IconBook = styled.div`
+  background: url(${myIconBook.src}) no-repeat;
+  html[data-theme="dark"] & {
+    background: url(${myIconBookn.src}) no-repeat;
+  }
   ${bgTransition};
   display: flex;
   width: 212px;
@@ -665,15 +668,11 @@ export const IconBook = styled.div<{ $themeLight?: boolean }>`
   right: 40px;
 `;
 
-export const IconPicture = styled.div<{ $themeLight?: boolean }>`
-  ${({ $themeLight }) =>
-    $themeLight
-      ? css`
-          background: url(${myIconPicture.src}) no-repeat;
-        `
-      : css`
-          background: url(${myIconPicturen.src}) no-repeat;
-        `};
+export const IconPicture = styled.div`
+  background: url(${myIconPicture.src}) no-repeat;
+  html[data-theme="dark"] & {
+    background: url(${myIconPicturen.src}) no-repeat;
+  }
   ${bgTransition};
   display: flex;
   width: 233px;

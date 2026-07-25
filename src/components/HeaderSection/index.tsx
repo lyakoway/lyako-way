@@ -91,8 +91,9 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
           </NewYear>
         )}
         <IconComp>
-          {/* Светлая — SSR-дефолт и LCP: priority => next вставит preload +
-              fetchpriority=high. Тёмная — второй слой, кроссфейд по теме. */}
+          {/* Оба слоя рендерятся всегда; какой виден — решает html[data-theme]
+              через CSS (верная тема с первой отрисовки, без ожидания JS).
+              Светлая — LCP: priority => next вставит preload + fetchpriority. */}
           <IconCompImage
             src={myIconComp}
             alt=""
@@ -101,7 +102,6 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
             sizes="697px"
             priority
             fetchPriority="high"
-            $show={themeLight}
           />
           <IconCompImage
             src={myIconCompn}
@@ -109,7 +109,7 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
             aria-hidden
             fill
             sizes="697px"
-            $show={!themeLight}
+            $dark
           />
           <LampSwitch />
           <CodeScreen aria-hidden $themeLight={themeLight}>
@@ -140,10 +140,10 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
             <SteamWisp $left={92} $delay={2} $themeLight={themeLight} />
           </Steam>
         </IconComp>
-        <IconMap $themeLight={themeLight} />
+        <IconMap />
         <Window themeLight={themeLight} />
         <Clock />
-        <IconBook $themeLight={themeLight} />
+        <IconBook />
       </HeaderSectionFon>
 
       {!hideContacts && (
