@@ -15,16 +15,28 @@ export const fetchLikes = createAsyncThunk<
   { likes: number | null },
   { idLikes: string },
   { rejectValue: IRejectedValue }
->("likes/fetchLikes", async ({ idLikes }, thunkAPI) => {
-  try {
-    const res = (await getLikes({ id: idLikes })) as { likes?: number };
-    // Если API вернул пустой объект, возвращаем null
-    return { likes: res.likes ?? null };
-  } catch (error) {
-    const { message, status } = error as CallApiError;
-    return thunkAPI.rejectWithValue({ error: { status, message } });
+>(
+  "likes/fetchLikes",
+  async ({ idLikes }, thunkAPI) => {
+    try {
+      const res = (await getLikes({ id: idLikes })) as { likes?: number };
+      // Если API вернул пустой объект, возвращаем null
+      return { likes: res.likes ?? null };
+    } catch (error) {
+      const { message, status } = error as CallApiError;
+      return thunkAPI.rejectWithValue({ error: { status, message } });
+    }
+  },
+  {
+    // Дедуп: не запускаем повторно, если запрос уже идёт (loading) или лайки
+    // уже загружены в этой сессии (loaded). Иначе несколько <ButtonHeart>
+    // (сайдбар × 2 + настройки) плодят дублирующие запросы heart_button.
+    condition: (_arg, { getState }) => {
+      const { likes } = getState() as { likes: IState };
+      return !likes.loading && !likes.loaded;
+    },
   }
-});
+);
 
 export const fetchSendLike = createAsyncThunk<
   void,
@@ -44,6 +56,9 @@ type IState = {
   likes: number;
   idLikes: string;
   loading: boolean;
+  // true после первой успешной загрузки лайков — чтобы не грузить повторно
+  // (дедуп нескольких <ButtonHeart>). См. condition в fetchLikes.
+  loaded: boolean;
   error: string | null;
   status: RequestLikes | null;
 };
@@ -57,6 +72,7 @@ const initialState: IState = {
   likes: savedLikes || 0,
   idLikes: savedIdLikes || "heart_button",
   loading: false,
+  loaded: false,
   error: null,
   status: null,
 };
@@ -90,6 +106,7 @@ const likes = createSlice({
       })
       .addCase(fetchLikes.fulfilled, (state, action) => {
         state.loading = false;
+        state.loaded = true;
         // Если likes === null, оставляем старое значение
         if (action.payload.likes !== null) {
           state.likes = action.payload.likes;

@@ -17,6 +17,14 @@ const getAppHeadContent = () => (
     />
     <meta name="theme-color" content="#ffffff" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* Ранний коннект к API погоды (current/forecast грузятся с клиента) —
+        сокращает задержку DNS/TLS-хендшейка при их запросе. */}
+    <link
+      rel="preconnect"
+      href="https://api.weatherapi.com"
+      crossOrigin="anonymous"
+    />
+    <link rel="dns-prefetch" href="https://api.weatherapi.com" />
     <meta name="theme-color" content="#000000" />
     {/* Poppins подключается через next/font (self-hosted) в pages/_app.tsx —
         отдельный <link> Google Fonts больше не нужен (убирает FOUT и варн
