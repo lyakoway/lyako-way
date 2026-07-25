@@ -3,6 +3,7 @@ import { ClimateType, ForecastItem, Weather } from "src/common/types/climat";
 import { getCities, getForecast, getWeather } from "src/routes/climate";
 import { CallApiError } from "src/api";
 import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
+import { getCachedWeather, setCachedWeather } from "src/common/utils/weatherCache";
 
 interface IRejectedValue {
   error: {
@@ -17,14 +18,23 @@ export const fetchWeather = createAsyncThunk<
   { rejectValue: IRejectedValue }
 >("climate/fetchWeather", async (data, thunkAPI) => {
   const { city } = data;
+
+  // Кэш с TTL: если для этого города есть свежие данные — отдаём их без запроса.
+  const cached = getCachedWeather(city);
+  if (cached) {
+    return cached;
+  }
+
   try {
     const weather = (await getWeather({ city })) as Weather;
     const forecast = (await getForecast({ city })) as ForecastItem[];
 
-    return {
+    const result = {
       weather,
       forecast, // 5 дней
     };
+    setCachedWeather(city, result);
+    return result;
   } catch (error) {
     const { message, status } = error as CallApiError;
     return thunkAPI.rejectWithValue({ error: { status, message } });
