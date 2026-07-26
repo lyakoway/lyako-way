@@ -37,6 +37,11 @@ export const SidebarWrapper = styled.aside`
 
 export const SidebarInfo = styled.div`
   position: relative;
+  /* Reveal (обёртка этого блока) вешает transform → создаёт стековый контекст,
+     из-за чего попап настроек (внутри) уходил ЗА нижний блок «Обо Мне».
+     Поднимаем весь блок выше MainContent (z:auto), но ниже навбара (z:5),
+     чтобы попап рисовался поверх контента ниже. */
+  z-index: 4;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -388,5 +393,12 @@ export const SettingsPopup = styled.div`
     background: var(--panel-bg);
     border-left: 1px solid ${PANEL_BORDER};
     border-top: 1px solid ${PANEL_BORDER};
+  }
+
+  /* <768px — кнопки в столбик, попап выпадает вниз от шестерёнки. */
+  @media (max-width: 767.98px) {
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
   }
 `;
