@@ -17,7 +17,6 @@ import {
   PhonesTextWrapper,
   Emails,
   ContactsText,
-  Skype,
   IconComp,
   IconMap,
   IconBook,
@@ -46,7 +45,6 @@ import myIconCompn from "src/common/icon/icon-header/compn.png";
 import { ReactComponent as RocketGetsiteIcon } from "src/common/icon/rocket/RocketIcon.svg";
 import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
 import { ReactComponent as EmailsIcon } from "src/common/icon/contacts/EmailsIcon.svg";
-import { ReactComponent as SkypeIcon } from "src/common/icon/contacts/SkypeHeaderIcon.svg";
 
 import Button from "src/ui/Button";
 import LampSwitch from "src/ui/LampSwitch";
@@ -168,9 +166,6 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
               <Phones>
                 <PhonesIcon />
                 <PhonesConteiner>
-                  <PhonesNumber href="tel:+79998121975">
-                    +7 (999) 812-19-75
-                  </PhonesNumber>
                   <PhonesNumber href="tel:+79772700930">
                     +7 (977) 270-09-30
                   </PhonesNumber>
@@ -190,12 +185,6 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
                   mazurenko-alexey@mail.ru
                 </ContactsText>
               </Emails>
-              <Skype>
-                <SkypeIcon />
-                <ContactsText href="skype:aleks10_0?chat">
-                  aleks10_0
-                </ContactsText>
-              </Skype>
             </HeaderSectionConteiner>
           </HeaderSectionContacts>
         </HeaderContactWrapper>

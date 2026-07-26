@@ -13,7 +13,6 @@ export interface ContactLink {
 }
 
 export const CONTACT_PHONES: ContactPhone[] = [
-  { label: "+7 (999) 812-19-75", href: "tel:+79998121975" },
   { label: "+7 (977) 270-09-30", href: "tel:+79772700930" },
 ];
 
@@ -28,7 +27,6 @@ export const CONTACT_MESSENGERS: ContactLink[] = [
     label: "WhatsApp",
     href: "https://api.whatsapp.com/send?phone=79772700930",
   },
-  { label: "Skype", href: "skype:aleks10_0?chat" },
 ];
 
 // Профили / соцсети. LinkedIn и hh.ru — замените на точные ссылки на профили.
