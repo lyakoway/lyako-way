@@ -54,7 +54,7 @@ export const Modal: FC = () => {
           <IconClose onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />
           </IconClose>
-          {content}
+          <Content>{content}</Content>
         </ModalComponent>
       </Overlay>
     );

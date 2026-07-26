@@ -48,11 +48,20 @@ export const Overlay = styled.div<{ $backgroundOverlay?: string | null }>`
 `;
 
 export const ModalComponent = styled.div<{ width?: string | null }>`
+  position: relative; /* якорь для крестика закрытия (IconClose) */
+  display: flex;
+  flex-direction: column;
   width: ${({ width }) => (width ? width : "824px")};
   //background-color: rgb(255, 255, 255);
   background-color: ${({ theme }) => theme.color.background.modal};
   box-shadow: 0 1.2px 18px rgba(0, 0, 0, 0.08), 0 6.4px 29px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
+
+  /* Ограничиваем высоту окна вьюпортом и прячем внешний overflow — сам бокс
+     (и крестик закрытия) остаётся на месте, а длинный контент прокручивается
+     внутри (см. Content). Короткий контент — бокс сжимается по нему как раньше. */
+  max-height: 100vh;
+  overflow: hidden;
 
   @media ${TABLET_959} {
     width: 84%;
@@ -76,6 +85,9 @@ export const IconClose = styled.div`
   position: absolute;
   top: 20px;
   right: calc(22px);
+  /* Выше закреплённой (sticky) шапки контента, чтобы крестик не прятался
+     под неё при скролле (см. Header в ClimateControl). */
+  z-index: 3;
 
   &:hover {
     cursor: pointer;
@@ -103,7 +115,15 @@ export const IconClose = styled.div`
 `;
 
 export const Content = styled.div`
+  /* Прокручиваемая область модалки: занимает оставшуюся высоту и скроллит
+     содержимое, если оно не помещается (min-height:0 обязателен, иначе
+     flex-элемент не даёт себя сжать и скролл не появляется). */
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  /* Изолируем стековый контекст: любые z-index внутри контента не могут
+     перекрыть крестик закрытия (IconClose), который лежит снаружи Content. */
+  isolation: isolate;
 `;

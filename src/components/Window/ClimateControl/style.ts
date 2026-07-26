@@ -25,6 +25,20 @@ export const Header = styled.div<{ $section?: boolean }>`
   padding: ${({ $section }) =>
     $section ? "20px" : "20px 50px 20px 20px"};
 
+  /* Верхнюю шапку (не секционную) закрепляем сверху скролл-области модалки —
+     она остаётся на месте вместе с крестиком закрытия, скроллится только
+     содержимое ниже. Непрозрачный фон, чтобы контент не просвечивал под ней. */
+  ${({ $section, theme }) =>
+    !$section &&
+    css`
+      position: sticky;
+      top: 0;
+      /* Выше любого содержимого, что уезжает под шапку при скролле
+         (выпадашка поиска z-index:15 и пр.). */
+      z-index: 20;
+      background: ${theme.color.background.modal};
+    `}
+
   @media ${MOBILE_560} {
     flex-direction: column;
     font-size: 16px;

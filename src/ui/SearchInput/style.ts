@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
-import { Z_INDEX_TOAST } from "src/common/constants/zIndex";
 
 const fadeSlideIn = keyframes`
   from { opacity: 0; transform: translateY(-5px); }
@@ -78,7 +77,10 @@ export const DeleteIconWrapper = styled.div`
   cursor: pointer;
   position: absolute;
   right: 6px;
-  z-index: ${Z_INDEX_TOAST};
+  /* Локальный порядок внутри поля — над инпутом (z-index:2). Раньше стоял
+     Z_INDEX_TOAST (100) — уровень тостов, из-за чего кнопка вылезала поверх
+     закреплённой шапки модалки при скролле. */
+  z-index: 3;
 
   svg {
     width: 20px;
