@@ -12,6 +12,7 @@ export interface Weather {
     region: string;
     country: string;
     localtime: string;
+    tz_id?: string;
     lat?: number;
     lon?: number;
   };

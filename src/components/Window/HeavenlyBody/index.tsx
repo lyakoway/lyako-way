@@ -1,7 +1,26 @@
 import styled, { css, keyframes } from "styled-components";
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 import Moon from "src/components/Window/HeavenlyBody/Moon";
 import Son from "src/components/Window/HeavenlyBody/Son";
+
+// «Эпоха» анимации + ключ (тема). Хранятся на уровне модуля → переживают
+// клиентские переходы (ремаунт «Дома»). Разница (сейчас − эпоха) идёт в
+// ОТРИЦАТЕЛЬНЫЙ animation-delay:
+//  • тот же ключ (возврат на «Дом») → фаза = прошедшее время → анимация
+//    ПРОДОЛЖАЕТСЯ, не перезапускается → солнце/луна не «сбиваются»;
+//  • сменился ключ (переключение темы свет↔тёмная) → эпоха сбрасывается →
+//    фаза = 0 → анимация играет С НАЧАЛА (тело делает оборот и возвращается).
+let animationEpochMs: number | null = null;
+let animationKey: string | null = null;
+function getAnimationPhaseSeconds(key: string): number {
+  if (typeof window === "undefined") return 0; // SSR — старт с нуля
+  if (animationEpochMs == null || animationKey !== key) {
+    animationEpochMs = Date.now();
+    animationKey = key;
+    return 0; // первый запуск или смена темы → анимация с начала (оборот)
+  }
+  return (Date.now() - animationEpochMs) / 1000;
+}
 
 const heavenlyBodyMoveSun = (
   $leftRotateWindowSunMoon: number,
@@ -136,6 +155,7 @@ const HeavenlyBodyContainer = styled.div<{
   $timeLeftSunMoon: number;
   $themeLight: boolean;
   $moonOrSunColor: string;
+  $phase: number;
 }>`
   position: absolute;
   left: 86px;
@@ -154,6 +174,7 @@ const HeavenlyBodyContainer = styled.div<{
     $timeLeftSunMoon,
     $leftRotateWindowSunMoon,
     $moonOrSunColor,
+    $phase,
   }) =>
     css`
       animation: ${$themeLight
@@ -166,7 +187,13 @@ const HeavenlyBodyContainer = styled.div<{
                 $leftRotateWindowSunMoon,
                 $moonOrSunColor
               )}
-          ${$timeLeftSunMoon}s infinite normal ease-in-out forwards 4s;
+          ${$timeLeftSunMoon}s infinite normal ease-in-out forwards;
+      /* Фаза привязана к первому запуску (эпоха на уровне модуля): интро сдвинуто
+         на -$phase, основной оборот — на (4 − $phase). На первом заходе это даёт
+         прежний тайминг (интро 0–4с, затем основной с 4с). При возврате на «Дом»
+         (большой $phase) основной оборот уже активен и продолжается с нужного
+         места, а интро не переигрывается — позиция не сбивается. */
+      animation-delay: -${$phase}s, ${4 - $phase}s;
     `}
 `;
 
@@ -185,12 +212,21 @@ const HeavenlyBody: FC<HeavenlyBodyProps> = ({
   moonOrSunColor,
   lightOffOpacitySun,
 }) => {
+  // Фаза с ключом по теме: при возврате на «Дом» (тот же ключ) — «прошедшее
+  // время» (анимация продолжается, без сбоя), при смене темы (новый ключ) —
+  // 0 (анимация с начала: тело делает оборот и возвращается на место).
+  const phase = useMemo(
+    () => getAnimationPhaseSeconds(themeLight ? "light" : "dark"),
+    [themeLight]
+  );
+
   return (
     <HeavenlyBodyContainer
       $leftRotateWindowSunMoon={leftRotateWindowSunMoon}
       $timeLeftSunMoon={timeLeftSunMoon}
       $themeLight={themeLight}
       $moonOrSunColor={moonOrSunColor}
+      $phase={phase}
     >
       <Son lightOffOpacitySun={lightOffOpacitySun} themeLight={themeLight} />
       <Moon themeLight={themeLight} />

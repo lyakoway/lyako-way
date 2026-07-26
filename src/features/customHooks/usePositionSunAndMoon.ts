@@ -1,6 +1,20 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { useDayTime } from "src/features/customHooks/useDayTime";
 
+const SECONDS_IN_DAY = 86400;
+
+/**
+ * Позиция и «яркость» солнца/луны по времени суток.
+ *
+ * Считается СИНХРОННО (useMemo) от входных данных — детерминированно и без
+ * цепочки useEffect+useState, которая раньше «устаканивалась» через транзиенты
+ * (−60 → 60 → реальное) и при ремаунте (возврат на «Дом») могла давать другой
+ * результат. Теперь при одинаковом времени → одинаковый угол, поэтому позиция
+ * не «сбивается» при переходах между страницами.
+ *
+ * leftRotateWindowSunMoon — угол тела в окне: 0% пройденного пути → −60°
+ * (слева, восход/закат-начало), 50% → 0° (зенит), 100% → +60° (правый край).
+ */
 export const usePositionSunAndMoon = ({
   themeLight,
 }: {
@@ -12,108 +26,48 @@ export const usePositionSunAndMoon = ({
   lightOffOpacityMoon: number;
 } => {
   const { sunriseTime, sunsetTime, timesHouse, dayTime } = useDayTime();
-  const [timeLeftSunMoon, setTimeLeftSunMoon] = useState<number>(0);
-  const [lightOffOpacitySun, setLightOffOpacitySun] = useState<number>(0);
-  const [lightOffOpacityMoon, setLightOffOpacityMoon] = useState<number>(0);
-  const [leftRotateWindowSunMoon, setLeftRotateWindowSunMoon] =
-    useState<number>(-60);
-  const [percentRemainingSunMoon, setPercentRemainingSunMoon] =
-    useState<number>(0);
 
-  // сколько процентов осталось до захода солнца от дна
-  const percentRemainingSunValue = Math.round(
-    ((sunsetTime - timesHouse) * 100) / (sunsetTime - sunriseTime)
-  );
-  // сколько времени осталось до захода солца в секундах
-  const timesRemainingSunset = Math.abs(sunsetTime - timesHouse);
+  return useMemo(() => {
+    let timeLeft: number;
+    let percentRemaining: number;
 
-  // констатнта для добавления расчтета сикунда анимации для определения продолжительности (пока вынуждено так для учета времени если перевалило за 24:00)
-  const timeDeltaMoon = Math.abs(86400 - sunsetTime);
-  // сколько времени осталось до захода луны
-  const timesMoon =
-    timesHouse <= sunriseTime
-      ? Math.abs(sunriseTime - timesHouse)
-      : Math.abs(86400 - timesHouse + sunriseTime);
-  // 86400 - timesHouse + sunriseTime
-  // сколько процентов осталось до захода луны
-  const percentRemainingMoonValue = Math.round(
-    (timesMoon * 100) / (sunriseTime + timeDeltaMoon)
-  );
-
-  // сколько в процентах пути прошло солце и луна
-  const lengthLeftSunMoon = 100 - percentRemainingSunMoon;
-
-  useEffect(() => {
-    if (typeof document !== "undefined") {
-      const windowView = document?.querySelector("[data-window-view]");
-      // ширина окна
-      if (windowView) {
-        // расположение солнца или луны в градусах от левого края окна
-        // длина пройденного пути в грудах = 120 по ширине окна
-        // расчет сколько крадусов прошел от левого края в соотношения процентов ко времени половины дня (так как значение должно быть отрицательно и уменьшатся от -60 в первую половину дня и потом до 60)
-        if (lengthLeftSunMoon <= 50) {
-          const leftRotate = Math.round((60 * lengthLeftSunMoon) / 50) - 60;
-          setLeftRotateWindowSunMoon(leftRotate);
-          //какую яркость задать от пройденного процента по кругу 360deg для 1
-          if (themeLight) {
-            setLightOffOpacitySun(lengthLeftSunMoon / 50);
-          } else {
-            // для 0.4
-            setLightOffOpacityMoon((lengthLeftSunMoon * 0.4) / 50);
-          }
-        } else {
-          const leftRotate = Math.abs(
-            60 - Math.round((60 * lengthLeftSunMoon) / 50)
-          );
-          setLeftRotateWindowSunMoon(leftRotate);
-          //какую яркость задать от пройденного процента по кругу 360deg для 1
-          if (themeLight) {
-            setLightOffOpacitySun(2 - lengthLeftSunMoon / 50);
-          } else {
-            // для 0.4
-            setLightOffOpacityMoon(0.8 - (lengthLeftSunMoon * 0.4) / 50);
-          }
-        }
-      }
-    }
-  }, [
-    lengthLeftSunMoon,
-    themeLight,
-    setLeftRotateWindowSunMoon,
-    setLightOffOpacitySun,
-    setLightOffOpacityMoon,
-  ]);
-
-  // сколько прошло солце или луна
-  // const lightOff = Math.round((lengthLeftSunMoon * 120) / 100);
-  // сколько прошло солце или луна от полного круга 360deg в прроцентах (всего 33%)
-  // const lightOffPercent = Math.round((lightOff * 100) / 360);
-
-  useEffect(() => {
     if (dayTime) {
-      setTimeLeftSunMoon(timesRemainingSunset);
-      setPercentRemainingSunMoon(percentRemainingSunValue);
-      // setLightOffOpacitySun(lengthLeftSunMoon / 50);
+      // Днём: сколько дня осталось до заката.
+      const dayLength = sunsetTime - sunriseTime;
+      timeLeft = Math.abs(sunsetTime - timesHouse);
+      percentRemaining =
+        dayLength > 0 ? ((sunsetTime - timesHouse) * 100) / dayLength : 0;
     } else {
-      setTimeLeftSunMoon(timesMoon);
-      setPercentRemainingSunMoon(percentRemainingMoonValue);
-      // setLightOffOpacityMoon((lengthLeftSunMoon * 0.4) / 50);
+      // Ночью: сколько ночи осталось до восхода (с учётом перехода через 24:00).
+      const timesMoon =
+        timesHouse <= sunriseTime
+          ? Math.abs(sunriseTime - timesHouse)
+          : Math.abs(SECONDS_IN_DAY - timesHouse + sunriseTime);
+      const nightLength = sunriseTime + Math.abs(SECONDS_IN_DAY - sunsetTime);
+      timeLeft = timesMoon;
+      percentRemaining = nightLength > 0 ? (timesMoon * 100) / nightLength : 0;
     }
-  }, [
-    dayTime,
-    timesRemainingSunset,
-    percentRemainingSunValue,
-    percentRemainingMoonValue,
-    lightOffOpacitySun,
-    lightOffOpacityMoon,
-    timesMoon,
-    themeLight,
-  ]);
 
-  return {
-    timeLeftSunMoon,
-    leftRotateWindowSunMoon,
-    lightOffOpacitySun,
-    lightOffOpacityMoon,
-  };
+    // % пройденного пути (0..100), с защитой от выхода за границы/NaN.
+    const percentPassed = Math.min(
+      100,
+      Math.max(0, 100 - (Number.isFinite(percentRemaining) ? percentRemaining : 0))
+    );
+
+    // Угол: 0% → −60°, 50% → 0°, 100% → +60°.
+    const leftRotate = Math.round((60 * percentPassed) / 50) - 60;
+
+    // Яркость — треугольник с пиком в зените (percentPassed = 50).
+    const peak = 1 - Math.abs(percentPassed - 50) / 50; // 0..1
+    const lightOffOpacitySun = themeLight ? peak : 0;
+    const lightOffOpacityMoon = themeLight ? 0 : peak * 0.4;
+
+    return {
+      // Длительность оборота не может быть 0 (иначе CSS-анимация ломается).
+      timeLeftSunMoon: Math.max(1, Math.round(Number.isFinite(timeLeft) ? timeLeft : 1)),
+      leftRotateWindowSunMoon: leftRotate,
+      lightOffOpacitySun,
+      lightOffOpacityMoon,
+    };
+  }, [sunriseTime, sunsetTime, timesHouse, dayTime, themeLight]);
 };
