@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState, FC, Fragment } from "react";
+import React, { useEffect, useState, FC, Fragment } from "react";
 
-import { useDispatchTyped, useSelectorTyped } from "src/store";
+import { useSelectorTyped } from "src/store";
 
 import {
   WindowWrapper,
@@ -9,17 +9,14 @@ import {
   WindowLightLeft,
   WindowLightRight,
   WindowHotspot,
-  WeatherIconWrapper,
   HeavenlyBodyParallax,
   WindowLightLeftLightning,
   WindowLightRightLightning,
 } from "./style";
 
-import WeatherIcon from "src/components/Window/WeatherIcon";
 import {
   useIsomorphicLayoutEffect,
   usePositionSunAndMoon,
-  useWeather,
 } from "src/features/customHooks";
 import { getParallax } from "src/common/utils";
 import WindowView from "src/components/Window/WindowView";
@@ -28,8 +25,6 @@ import HeavenlyBody from "src/components/Window/HeavenlyBody";
 import WindowSky from "src/components/Window/WindowSky";
 import City from "src/components/Window/City";
 import Skyscrapers from "src/components/Window/City/Skyscrapers";
-import { showModal } from "src/reducers";
-import ClimateControl from "src/components/Window/ClimateControl";
 import { useForceUpdate } from "src/features/customHooks/useForceUpdate";
 import Weather from "src/components/Window/Weather";
 import { SantaClaus } from "src/components/SantaClaus";
@@ -53,18 +48,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
     lightOffOpacitySun,
     lightOffOpacityMoon,
   } = usePositionSunAndMoon({ themeLight });
-
-  const dispatch = useDispatchTyped();
-
-  const handleClickModal = useCallback(() => {
-    dispatch(
-      showModal({
-        content: <ClimateControl />,
-        width: "auto",
-        backgroundOverlay: "rgba(0, 0, 0, 0.4)",
-      })
-    );
-  }, [dispatch]);
 
   useEffect(() => {
     const moonOrSunColorValue = themeLight ? "#fff82f" : "#fff";
@@ -173,10 +156,6 @@ const Window: FC<WindowLightProps> = ({ themeLight }) => {
           <WindowLightRightLightning />
         </>
       )}
-
-      <WeatherIconWrapper onClick={handleClickModal}>
-        <WeatherIcon climateControl={climate} themeLight={themeLight} />
-      </WeatherIconWrapper>
     </WindowWrapper>
   );
 };

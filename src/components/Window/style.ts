@@ -244,27 +244,3 @@ export const WindowHotspot = styled.div<WindowLightProps>`
     `}
 `;
 
-const weatherIconBorder = keyframes`
-  from {
-    border-color: #ffff;
-  }
-  50% {
-    border-color: #8cd9d9;
-  }
-  to {
-    border-color: #ffff;
-  }
-`;
-
-export const WeatherIconWrapper = styled.div`
-  display: flex;
-  border: solid 4px #ffff;
-  cursor: pointer;
-  background: linear-gradient(to bottom, #57c1eb 0%, #246fa8 100%);
-  border-radius: 50%;
-  position: absolute;
-  z-index: 1000;
-  bottom: 0;
-  left: 0;
-  animation: ${weatherIconBorder} 10s linear infinite;
-`;

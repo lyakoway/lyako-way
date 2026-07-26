@@ -4,6 +4,7 @@ import { useSelectorTyped } from "src/store";
 import { useClickOutside } from "src/features/customHooks";
 import ButtonLang from "src/ui/ButtonLang";
 import ButtonHeart from "src/ui/ButtonHeart";
+import ButtonWeather from "src/ui/ButtonWeather";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
 
 import {
@@ -95,6 +96,9 @@ const Sidebar = () => {
                 <ThemeDarkLight />
               </ControlItem>
               <ControlItem>
+                <ButtonWeather />
+              </ControlItem>
+              <ControlItem>
                 <ButtonHeart />
               </ControlItem>
             </SettingsPopup>
@@ -177,6 +181,9 @@ const Sidebar = () => {
               </ControlItem>
               <ControlItem>
                 <ThemeDarkLight />
+              </ControlItem>
+              <ControlItem>
+                <ButtonWeather />
               </ControlItem>
               <ControlItem>
                 <ButtonHeart />
