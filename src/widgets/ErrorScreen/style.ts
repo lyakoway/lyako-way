@@ -18,12 +18,12 @@ export const Wrap = styled.div`
   padding: 8px 0;
 `;
 
-// Крупный код статуса (404 / 500) брендовым цветом.
+// Крупный код статуса (404 / 500) — белым.
 export const Code = styled.span`
   font-size: 72px;
   font-weight: 700;
   line-height: 1;
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: #ffffff;
 
   @media (min-width: 580px) {
     font-size: 96px;
