@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useRouter } from "next/router";
 
 import { useSelectorTyped } from "src/store";
 import { useClickOutside } from "src/features/customHooks";
@@ -65,6 +66,10 @@ const Sidebar = () => {
   const cornerRef = useRef<HTMLDivElement>(null);
   useClickOutside(cornerRef, () => setSettingsOpen(false));
 
+  // Кнопка погоды — только на «Дом» (там окно с погодной сценой).
+  const { pathname } = useRouter();
+  const isHome = pathname === "/";
+
   return (
     <SidebarWrapper>
       <Reveal as={SidebarInfo}>
@@ -95,9 +100,11 @@ const Sidebar = () => {
               <ControlItem>
                 <ThemeDarkLight />
               </ControlItem>
-              <ControlItem>
-                <ButtonWeather />
-              </ControlItem>
+              {isHome && (
+                <ControlItem>
+                  <ButtonWeather />
+                </ControlItem>
+              )}
               <ControlItem>
                 <ButtonHeart />
               </ControlItem>
@@ -182,9 +189,11 @@ const Sidebar = () => {
               <ControlItem>
                 <ThemeDarkLight />
               </ControlItem>
-              <ControlItem>
-                <ButtonWeather />
-              </ControlItem>
+              {isHome && (
+                <ControlItem>
+                  <ButtonWeather />
+                </ControlItem>
+              )}
               <ControlItem>
                 <ButtonHeart />
               </ControlItem>
