@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX } from "react";
 
 // Фирменные иконки мессенджеров и профилей (fill/stroke: currentColor —
 // красятся цветом родителя). Переиспользуются в сайдбаре и разделе «Контакты».

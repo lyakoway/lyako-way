@@ -3,7 +3,13 @@
 /node_modules
 /.next
 /.env
+/.env.local
 /dist
+
+# Cloudflare / OpenNext build output
+/.open-next
+/.wrangler
+.dev.vars
 *.tsbuildinfo
 /src/utils/dataIcons/data.ts
 
