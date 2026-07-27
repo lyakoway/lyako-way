@@ -3,6 +3,15 @@ import {
   Z_INDEX_DROPDOWN_LIST_SELECT,
   Z_INDEX_TOAST,
 } from "src/common/constants/zIndex";
+import {
+  PANEL_TEXT_SECONDARY,
+  PANEL_BORDER,
+  PANEL_ELEVATED,
+  PANEL_ELEVATED_HOVER,
+} from "src/common/lib/panelStyles";
+
+// Граница поля в покое — заметная на тёмной панели; активная — оранжевая.
+const FIELD_BORDER = "rgba(255, 255, 255, 0.22)";
 
 const dropdownListAnimation = keyframes`
   from {
@@ -26,15 +35,14 @@ export const SelectContainer = styled.div<{
   padding: 0.5em;
   outline: none;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.color.background.modal};
+  /* Тёмное «приподнятое» поле в стиле проекта + скруглённые края. */
+  background-color: ${PANEL_ELEVATED};
+  border-radius: 10px;
 
   box-shadow: inset 0 0 0 2px
-    ${({ theme, $boxShadow }) =>
-      $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
+    ${({ $boxShadow }) => ($boxShadow ? "#ff8560" : FIELD_BORDER)};
 
   &:hover {
-    //transition: 0.3s ease-in-out;
-    //box-shadow: 0 0 4px 1px #ff8560;
     ${({ $boxShadow }) =>
       $boxShadow &&
       css`
@@ -45,8 +53,7 @@ export const SelectContainer = styled.div<{
   &:active {
     transition: 0.3s ease-in-out;
     box-shadow: inset 0 0 0 2px
-      ${({ theme, $boxShadow }) =>
-        $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
+      ${({ $boxShadow }) => ($boxShadow ? "#ff8560" : FIELD_BORDER)};
   }
 
   &:before {
@@ -57,6 +64,7 @@ export const SelectContainer = styled.div<{
     left: 0;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
     transform-origin: center;
     border-top: 2px solid #ff8560;
     border-bottom: 2px solid #ff8560;
@@ -74,6 +82,7 @@ export const SelectContainer = styled.div<{
     left: 0;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
     transform-origin: center;
     border-left: 2px solid #ff8560;
     border-right: 2px solid #ff8560;
@@ -202,7 +211,7 @@ export const NotChosen = styled.label<{ $moveText?: boolean }>`
   /* Буквы всплывают по одной (staggered) — как плавающий лейбл в Input. */
   span {
     display: inline-block;
-    color: ${({ theme }) => theme.color.text.primary};
+    color: ${PANEL_TEXT_SECONDARY};
     transition: 0.3s cubic-bezier(0.53, 0.246, 0.265, 1.66);
   }
 
@@ -226,7 +235,7 @@ export const ChipsClose = styled.span`
 `;
 
 export const Divider = styled.div`
-  background-color: ${({ theme }) => theme.color.basic.borderModal};
+  background-color: ${PANEL_BORDER};
 
   align-self: stretch;
   width: 0.05em;
@@ -236,10 +245,10 @@ export const Caret = styled.div<{ $isOpen?: boolean }>`
   transform: translate(0, ${({ $isOpen }) => ($isOpen ? 0 : "50%")});
   transition: transform 0.5s;
   border: 0.35em solid transparent;
-  border-top-color: ${({ $isOpen, theme }) =>
-    $isOpen ? "none" : theme.color.basic.borderModal};
-  border-bottom-color: ${({ $isOpen, theme }) =>
-    $isOpen ? theme.color.basic.borderModal : "none"};
+  border-top-color: ${({ $isOpen }) =>
+    $isOpen ? "none" : PANEL_TEXT_SECONDARY};
+  border-bottom-color: ${({ $isOpen }) =>
+    $isOpen ? PANEL_TEXT_SECONDARY : "none"};
   cursor: pointer;
   z-index: 2;
 `;
@@ -252,12 +261,11 @@ export const DropdownList = styled.ul<{ $isOpen?: boolean }>`
   display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
   max-height: 15em;
   overflow-y: auto;
-  border: 0.3em solid #ddd;
-  border-radius: 0.25em;
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 10px;
   width: 100%;
   left: 0;
   top: calc(100% + 0.25em);
-  background-color: white;
   z-index: ${Z_INDEX_DROPDOWN_LIST_SELECT};
 
   color: white;
@@ -276,7 +284,7 @@ export const ListOption = styled.li<{
   align-items: center;
   padding: 0.25em 0.5em;
   cursor: pointer;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 
   &:last-child {
     border-bottom: none;
@@ -335,7 +343,6 @@ export const DeleteIconWrapper = styled.div`
 
   &:hover {
     border-radius: 8px;
-    background-color: #f2f3f7;
-    box-shadow: 0 0 6px 2px #9e9e9e;
+    background-color: ${PANEL_ELEVATED_HOVER};
   }
 `;

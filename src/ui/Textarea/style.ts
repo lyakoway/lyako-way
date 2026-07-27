@@ -2,6 +2,14 @@ import styled, { css } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
 import { Z_INDEX_TOAST } from "src/common/constants/zIndex";
 import { Textarea } from "src/ui/Textarea/Textarea";
+import {
+  PANEL_TEXT,
+  PANEL_TEXT_SECONDARY,
+  PANEL_ELEVATED,
+} from "src/common/lib/panelStyles";
+
+// Граница поля в покое — заметная на тёмной панели; активная — оранжевая.
+const FIELD_BORDER = "rgba(255, 255, 255, 0.22)";
 
 export const SelectContainer = styled.div<{
   $boxShadow: boolean;
@@ -13,19 +21,18 @@ export const SelectContainer = styled.div<{
   gap: 0.5em;
   outline: none;
   cursor: pointer;
-  background-color: ${({ theme }) => theme.color.background.modal};
+  /* Тёмное «приподнятое» поле в стиле проекта + скруглённые края. */
+  background-color: ${PANEL_ELEVATED};
+  border-radius: 10px;
 
   box-shadow: inset 0 0 0 2px
-    ${({ theme, $boxShadow }) =>
-      $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
+    ${({ $boxShadow }) => ($boxShadow ? "#ff8560" : FIELD_BORDER)};
 
   @media ${MOBILE_660} {
     margin-left: 0;
   }
 
   &:hover {
-    //transition: 0.3s ease-in-out;
-    //box-shadow: 0 0 4px 1px #ff8560;
     ${({ $boxShadow }) =>
       $boxShadow &&
       css`
@@ -36,8 +43,7 @@ export const SelectContainer = styled.div<{
   &:active {
     transition: 0.3s ease-in-out;
     box-shadow: inset 0 0 0 2px
-      ${({ theme, $boxShadow }) =>
-        $boxShadow ? "#ff8560" : theme.color.basic.borderModal};
+      ${({ $boxShadow }) => ($boxShadow ? "#ff8560" : FIELD_BORDER)};
   }
 
   &:before {
@@ -48,6 +54,7 @@ export const SelectContainer = styled.div<{
     left: 0;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
     transform-origin: center;
     border-top: 2px solid #ff8560;
     border-bottom: 2px solid #ff8560;
@@ -65,6 +72,7 @@ export const SelectContainer = styled.div<{
     left: 0;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
     transform-origin: center;
     border-left: 2px solid #ff8560;
     border-right: 2px solid #ff8560;
@@ -103,8 +111,8 @@ export const SelectContainer = styled.div<{
 
     &:focus {
       &::placeholder {
-        color: ${({ theme }) => theme.color.text.primary};
-        opacity: 0.5;
+        color: ${PANEL_TEXT_SECONDARY};
+        opacity: 0.6;
         transition: opacity 1.5s ease 0s;
       }
     }
@@ -116,8 +124,8 @@ export const TextareaStyle = styled.textarea`
   outline: none !important;
   border: none !important;
   box-shadow: none !important;
-  color: ${({ theme }) => theme.color.text.primary};
-  background-color: ${({ theme }) => theme.color.background.modal};
+  color: ${PANEL_TEXT};
+  background-color: transparent;
   width: 100%;
   margin: 3px;
   padding: 9px;
@@ -143,7 +151,7 @@ export const Text = styled.label`
 
   span {
     display: inline-block;
-    color: ${({ theme }) => theme.color.text.primary};
+    color: ${PANEL_TEXT_SECONDARY};
     transition: 0.3s cubic-bezier(0.53, 0.246, 0.265, 1.66);
   }
 `;
