@@ -30,13 +30,24 @@ import {
 
 const PortfolioProject = ({ slug }: { slug: string }) => {
   const {
-    lang: { propsPortfolioList, portfolioHeader, portfolio },
+    lang: { propsPortfolioList, portfolioHeader, portfolio, name: langName },
   } = useSelectorTyped(({ lang }) => lang);
+  const themeName = useSelectorTyped(({ theme }) => theme.theme.name);
   const dispatch = useDispatchTyped();
 
   const project = propsPortfolioList.find(
     (item) => item.hrefNameList === slug
   );
+
+  // Ссылка на развёрнутое демо: пробрасываем текущие язык и тему сайта
+  // (?lang=ru|en&theme=light|dark), чтобы демо открылось в тех же настройках.
+  const demoHref = (() => {
+    if (!project?.hrefPortfolio) return "";
+    const url = new URL(project.hrefPortfolio);
+    url.searchParams.set("lang", langName === "russia" ? "ru" : "en");
+    url.searchParams.set("theme", themeName);
+    return url.toString();
+  })();
 
   const name = project?.portfolioNameList ?? portfolioHeader.textPortfolio;
 
@@ -114,16 +125,16 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               </MetaRow>
             )}
 
-            {project.hrefPortfolio && (
+            {demoHref && (
               <MetaRow>
                 <MetaLabel>{portfolioHeader.link}</MetaLabel>
                 <MetaValue>
                   <a
-                    href={project.hrefPortfolio}
+                    href={demoHref}
                     target="_blank"
                     rel="noreferrer noopener"
                   >
-                    {project.hrefPortfolio}
+                    {demoHref}
                   </a>
                 </MetaValue>
               </MetaRow>
@@ -160,9 +171,9 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
           )}
 
           <Reveal as={Actions}>
-            {project.hrefPortfolio && (
+            {demoHref && (
               <ButtonPrimary
-                href={project.hrefPortfolio}
+                href={demoHref}
                 target="_blank"
                 rel="noreferrer noopener"
               >
