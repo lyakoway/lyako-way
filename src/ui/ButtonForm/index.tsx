@@ -1,6 +1,7 @@
 import { FC, MouseEvent, PropsWithChildren, useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import MailLoader from "src/ui/MailLoader";
+import { PANEL_BORDER, PANEL_ELEVATED } from "src/common/lib/panelStyles";
 
 const ani = keyframes`
   0% {
@@ -26,7 +27,10 @@ export const ButtonWrapper = styled.div`
   width: 120px;
   height: 40px;
   position: relative;
-  background-color: ${({ theme }) => theme.color.background.button};
+  /* Скругляем углы всем состояниям сразу (в т.ч. анимированной svg-обводке),
+     не трогая саму анимацию. */
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
 export const MailLoaderWrapper = styled.div`
@@ -45,9 +49,8 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  background-color: ${({ theme }) => theme.color.background.button};
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5) inset,
-    0 1px 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 1px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: ${PANEL_ELEVATED};
 `;
 
 export const Result = styled.div<{ $status?: string }>`
@@ -86,22 +89,28 @@ const ButtonContent = styled.button`
 
   cursor: pointer;
   outline: none;
-  transition: 1s ease-in-out;
+  /* Заливка/граница меняются за 1s — синхронно с пробегающим бегунком (svg),
+     поэтому кнопка «наполняется» оранжевым пока линия идёт вокруг, и так же
+     плавно теряет цвет в обратную сторону. */
+  transition: background-color 1s ease-in-out, border-color 1s ease-in-out,
+    transform 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
 
   gap: 6px;
 
-  background-color: ${({ theme }) => theme.color.background.button};
-  box-shadow: 0 1px rgb(255 255 255 / 20%) inset, 0 3px 5px rgb(0 1 6 / 50%),
-    0 0 1px 1px rgb(0 1 6 / 20%);
+  /* Панельный стиль проекта: полупрозрачный фон + граница. */
+  border-radius: 10px;
+  border: 1px solid ${PANEL_BORDER};
+  background-color: ${PANEL_ELEVATED};
 
   font-size: 16px;
   font-weight: 500;
   text-transform: uppercase;
-  color: white;
+  color: #ffffff;
 
+  /* Анимированная обводка (рисуется оранжевым при наведении) — без изменений. */
   svg {
     position: absolute;
     left: 0;
@@ -113,28 +122,30 @@ const ButtonContent = styled.button`
     transition: 1s ease-in-out;
   }
 
-  &:hover {
-    transition: 1s ease-in-out;
-    background-color: #ff8560;
-    color: white;
+  &:hover,
+  &:focus-visible,
+  &:active {
+    /* Заливка — брендовый оранжевый (темнее бегунка), текст остаётся белым. */
+    background-color: ${({ theme }) => theme.color.basic.primary};
+    border-color: #ff8560;
+    color: #ffffff;
   }
 
-  &:hover svg {
+  /* Обводка «рисуется» и при наведении, и при нажатии/тапе (мобилка), и в
+     фокусе — а не только при снятии ховера. */
+  &:hover svg,
+  &:focus svg,
+  &:active svg {
     stroke-dashoffset: -480;
   }
 
   &:active {
-    background-color: ${({ theme }) => theme.color.background.button};
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset,
-      0 1px 1px 1px rgba(255, 255, 255, 0.4), 0 -1px 1px 1px rgba(0, 0, 0, 0.1);
-    transition: none;
-    color: black;
-    cursor: pointer;
+    transform: scale(0.97);
   }
 `;
 
 const Label = styled.div`
-  color: white;
+  color: inherit;
   line-height: 17px;
   font-size: 14px;
   font-weight: 400;
