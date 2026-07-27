@@ -1,25 +1,38 @@
 import { FC, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import { Spinner } from "src/ui/Spinner";
+import {
+  PANEL_BORDER,
+  PANEL_ELEVATED,
+  PANEL_ELEVATED_HOVER,
+} from "src/common/lib/panelStyles";
 
+// В стиле проекта: во всю ширину поля, полупрозрачный «приподнятый» фон с
+// границей, белый текст. Оранжевый (границы + текст) — только на наведении,
+// как у остальных контролов, чтобы кнопка не кричала цветом.
 const ButtonWrapper = styled.button<{ disabled?: boolean }>`
   display: flex;
+  width: 100%;
   justify-content: center;
-  -webkit-tap-highlight-color: transparent;
   align-items: center;
+  -webkit-tap-highlight-color: transparent;
   padding: 10px;
-  background: rgb(81, 92, 102);
-
-  box-shadow: 0 1px rgb(255 255 255 / 20%) inset, 0 3px 5px rgb(0 1 6 / 50%),
-    0 0 1px 1px rgb(0 1 6 / 20%);
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 10px;
+  background: ${PANEL_ELEVATED};
+  color: #ffffff;
   cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease,
+    transform 0.15s ease;
+
   &:hover {
-    box-shadow: 0px 15px 25px -5px rgba(darken(dodgerblue, 40%));
-    transform: scale(1.03);
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: ${({ theme }) => theme.color.basic.primaryLight};
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+    transform: translateY(-1px);
   }
   &:active {
-    box-shadow: 0px 4px 8px rgba(darken(dodgerblue, 30%));
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
 
   ${({ disabled }) =>
@@ -29,12 +42,11 @@ const ButtonWrapper = styled.button<{ disabled?: boolean }>`
       cursor: not-allowed;
       pointer-events: none;
       transform: none;
-      box-shadow: none;
     `}
 `;
 
 const Label = styled.div`
-  color: white;
+  color: inherit;
   line-height: 17px;
   font-size: 14px;
   font-weight: 400;

@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { MOBILE_560 } from "src/common/lib/media";
+import { PANEL_TEXT, PANEL_BORDER } from "src/common/lib/panelStyles";
 
 export const Wrapper = styled.form`
   display: flex;
@@ -12,13 +13,13 @@ export const Header = styled.div<{ $section?: boolean }>`
   align-items: center;
   justify-content: center;
   white-space: pre-wrap;
-  color: ${({ theme }) => theme.color.text.primary};
+  color: ${PANEL_TEXT};
   font-family: Inter;
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
   text-transform: uppercase;
-  border-bottom: 2px solid ${({ theme }) => theme.color.basic.borderModal};
+  border-bottom: 2px solid ${PANEL_BORDER};
 
   /* Верхний заголовок: правый отступ под крестик закрытия. Секционный
      («Выбрать погоду») — симметричный, чтобы текст был строго по центру. */
@@ -28,7 +29,7 @@ export const Header = styled.div<{ $section?: boolean }>`
   /* Верхнюю шапку (не секционную) закрепляем сверху скролл-области модалки —
      она остаётся на месте вместе с крестиком закрытия, скроллится только
      содержимое ниже. Непрозрачный фон, чтобы контент не просвечивал под ней. */
-  ${({ $section, theme }) =>
+  ${({ $section }) =>
     !$section &&
     css`
       position: sticky;
@@ -36,7 +37,7 @@ export const Header = styled.div<{ $section?: boolean }>`
       /* Выше любого содержимого, что уезжает под шапку при скролле
          (выпадашка поиска z-index:15 и пр.). */
       z-index: 20;
-      background: ${theme.color.background.modal};
+      background: var(--panel-bg);
     `}
 
   @media ${MOBILE_560} {
@@ -85,6 +86,6 @@ export const SearchWrapper = styled.div`
 
 export const SearchInputWrapper = styled.div`
   display: flex;
-  border: 0.05em solid #ccc;
+  border: 1px solid ${PANEL_BORDER};
   border-radius: 12px;
 `;

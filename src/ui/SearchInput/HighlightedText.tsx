@@ -12,7 +12,7 @@ export const HighlightedText: FC<{ text: string; query: string }> = ({
         part.toLowerCase() === query.toLowerCase() ? (
           <mark
             key={i}
-            style={{ color: "#00bfff", background: "none", fontWeight: 600 }}
+            style={{ color: "#ffffff", background: "none", fontWeight: 700 }}
           >
             {part}
           </mark>

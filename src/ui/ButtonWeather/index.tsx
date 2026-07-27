@@ -40,6 +40,7 @@ const ButtonWeather: React.FC = () => {
         content: <ClimateControl />,
         width: "auto",
         backgroundOverlay: "rgba(0, 0, 0, 0.4)",
+        background: "var(--panel-bg)",
       })
     );
   }, [dispatch]);

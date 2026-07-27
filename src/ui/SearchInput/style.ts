@@ -1,5 +1,12 @@
 import styled, { css, keyframes } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
+import {
+  PANEL_TEXT,
+  PANEL_TEXT_SECONDARY,
+  PANEL_BORDER,
+  PANEL_ELEVATED,
+  PANEL_ELEVATED_HOVER,
+} from "src/common/lib/panelStyles";
 
 const fadeSlideIn = keyframes`
   from { opacity: 0; transform: translateY(-5px); }
@@ -18,32 +25,27 @@ export const SelectContainer = styled.div<{
   position: relative;
   height: 40px;
   width: 100%;
-  border: 0.05em solid #ffffff;
+  border: 1px solid ${PANEL_BORDER};
   display: flex;
   align-items: center;
   gap: 0.5em;
   border-radius: 12px;
   outline: none;
   cursor: pointer;
-  background: #fff;
+  /* Тёмное «приподнятое» поле в стиле проекта. */
+  background: ${PANEL_ELEVATED};
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
 
   @media ${MOBILE_660} {
     margin-left: 0;
   }
 
-  &:hover {
-    transition: 0.3s ease-in-out;
-    box-shadow: ${({ $boxShadow }) =>
-      $boxShadow ? "0px 0px 5px 2px #039be5" : "0px 0px 6px 2px #039be5"};
+  /* Подсветка при наведении/фокусе — оранжевая (брендовая), не синяя. */
+  &:hover,
+  &:focus-within {
+    border-color: ${({ theme }) => theme.color.basic.primaryLight};
+    box-shadow: 0 0 0 2px ${({ theme }) => theme.color.basic.primaryLight}55;
   }
-  &:active {
-    transition: 0.3s ease-in-out;
-    box-shadow: ${({ $boxShadow }) =>
-      $boxShadow ? "0px 0px 5px 2px #039be5" : "0px 0px 6px 2px #039be5"};
-  }
-
-  box-shadow: ${({ $boxShadow }) =>
-    $boxShadow ? "0px 0px 5px 2px #039be5" : "box-shadow: 0 0 10px #999"};
 `;
 
 export const InputWrapper = styled.div`
@@ -52,7 +54,7 @@ export const InputWrapper = styled.div`
   display: flex;
   align-items: center;
   padding: 6px 8px 6px 12px;
-  color: #626c77;
+  color: ${PANEL_TEXT_SECONDARY};
 `;
 
 export const SearchIconWrapper = styled.div`
@@ -66,6 +68,10 @@ export const SearchIconWrapper = styled.div`
   svg {
     width: 24px;
     height: 24px;
+  }
+  /* Иконка лупы — светлая на тёмном поле (в svg жёсткий fill перебиваем). */
+  svg path {
+    fill: ${PANEL_TEXT_SECONDARY};
   }
 `;
 
@@ -86,11 +92,14 @@ export const DeleteIconWrapper = styled.div`
     width: 20px;
     height: 20px;
   }
+  /* Крестик очистки — белый (в svg жёсткий fill перебиваем). */
+  svg path {
+    fill: ${PANEL_TEXT};
+  }
 
   &:hover {
     border-radius: 8px;
-    background-color: #f2f3f7;
-    box-shadow: 0px 0px 6px 2px #9e9e9e;
+    background-color: ${PANEL_ELEVATED_HOVER};
   }
 `;
 
@@ -101,7 +110,7 @@ export const Input = styled.input`
   margin: 0 !important;
   height: auto !important;
   box-shadow: none !important;
-  color: #1d2023;
+  color: ${PANEL_TEXT};
   width: 100%;
   padding: 0 30px 2px 30px !important;
 
@@ -109,6 +118,10 @@ export const Input = styled.input`
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 2;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
 
   &:focus {
     outline: none !important;
@@ -143,7 +156,11 @@ export const DropdownItem = styled.div<{
   $highlighted?: boolean;
 }>`
   padding: 8px 12px;
-  color: ${({ $highlighted }) => ($highlighted ? "#00bfff" : "#fff")};
+  /* Несовпавшую часть приглушаем — тогда ярко-белое жирное совпадение (mark)
+     заметно выделяется контрастом. */
+  color: rgba(255, 255, 255, 0.55);
+  /* Активный пункт (навигация с клавиатуры) выделяем фоном, а не цветом. */
+  background: ${({ $highlighted }) => ($highlighted ? "#2c2c2c" : "transparent")};
   cursor: pointer;
   user-select: none;
   transition: background 0.2s ease;
