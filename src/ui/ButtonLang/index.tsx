@@ -4,29 +4,12 @@ import styled from "styled-components";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { setLang, setUserSelectedLang } from "src/reducers";
 import { disperseTextSwap } from "src/common/utils/disperseTextSwap";
+import { controlButtonBase } from "src/common/lib/controlButton";
 
-import { ReactComponent as LangEnglishIcon } from "src/common/icon/lang/gb.svg";
-import { ReactComponent as LangRussiaIcon } from "src/common/icon/lang/ru.svg";
-
+// Кнопка языка: без флага — просто «RU»/«EN» белыми буквами, оранжевый акцент
+// при наведении/нажатии (см. controlButtonBase). Показывает текущий язык.
 const ButtonWrapper = styled.button`
-  display: flex;
-  -webkit-tap-highlight-color: transparent;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background-color: #2b3037;
-  border-radius: 8px;
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0 15px 25px -5px rgba(darken(dodgerblue, 40%));
-    transform: scale(1.03);
-  }
-  &:active {
-    box-shadow: 0 4px 8px rgba(darken(dodgerblue, 30%));
-    transform: scale(0.98);
-  }
+  ${controlButtonBase}
 `;
 
 const ButtonLang = () => {
@@ -50,11 +33,16 @@ const ButtonLang = () => {
     setOpened(name !== "russia");
   }, []);
 
-  const Icon = opened ? LangRussiaIcon : LangEnglishIcon;
+  const isRussia = name === "russia";
 
+  // Показываем язык, на который переключим: сейчас русский → «EN», иначе «RU».
   return (
-    <ButtonWrapper onClick={handleClick}>
-      <Icon />
+    <ButtonWrapper
+      onClick={handleClick}
+      type="button"
+      aria-label={isRussia ? "Switch to English" : "Переключить на русский"}
+    >
+      {isRussia ? "EN" : "RU"}
     </ButtonWrapper>
   );
 };

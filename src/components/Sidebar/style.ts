@@ -106,6 +106,7 @@ export const JobTitle = styled.p`
      панели, где прежний полупрозрачный текст на светлом чипе давал ~3.4:1. */
   color: ${PANEL_TEXT};
   background: rgba(0, 0, 0, 0.2);
+  border: 1px solid ${PANEL_BORDER};
   font-size: 12px;
   font-weight: 400;
 

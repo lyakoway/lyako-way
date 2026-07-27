@@ -9,7 +9,6 @@ import {
   setIdLikes,
   setLikes,
   setSantaShown,
-  showModal,
 } from "src/reducers";
 import {
   ButtonWrapper,
@@ -19,8 +18,6 @@ import {
   Loader,
   Loading,
 } from "./style";
-import AlertModal from "src/components/AlertModal";
-import { getMobileOperatingSystem, isAndroid, isIos } from "src/common/utils";
 import {
   generateConfetti,
   generateParticles,
@@ -36,7 +33,6 @@ const ButtonHeart: React.FC = () => {
   const dispatch = useDispatchTyped();
 
   const [animateHeart, setAnimateHeart] = useState(false);
-  const [shouldShowModal, setShouldShowModal] = useState(false);
   const [particles, setParticles] = useState<
     {
       id: number;
@@ -86,23 +82,6 @@ const ButtonHeart: React.FC = () => {
       dispatch(clearStatus());
     }
   }, [status]);
-
-  useEffect(() => {
-    if (shouldShowModal) {
-      const timer = setTimeout(() => {
-        dispatch(
-          showModal({
-            content: <AlertModal />,
-            width: "auto",
-            backgroundOverlay: "rgba(0, 0, 0, 0.4)",
-          }),
-        );
-        localStorage.setItem("fav-alert-shown", "true");
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [dispatch, shouldShowModal]);
 
   const triggerAnimations = useCallback(() => {
     // --- Конфетти ---
@@ -161,13 +140,6 @@ const ButtonHeart: React.FC = () => {
     //   title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
     //   type: "success",
     // });
-
-    // Проверка на мобильную платформу
-    const ua = getMobileOperatingSystem();
-    const mobile = isAndroid(ua) || isIos(ua);
-    const shown = localStorage.getItem("fav-alert-shown");
-
-    if (!shown && !mobile) setShouldShowModal(true);
   };
 
   // Счётчик обрезаем до 7 символов, чтобы длинное число не ломало вёрстку.

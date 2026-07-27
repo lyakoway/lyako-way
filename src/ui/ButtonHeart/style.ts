@@ -1,5 +1,6 @@
 import styled, { css, keyframes } from "styled-components";
 import { MOBILE_660 } from "src/common/lib/media";
+import { controlButtonBase } from "src/common/lib/controlButton";
 
 const bounce = keyframes`
   0% { transform: scale(1); }
@@ -20,31 +21,27 @@ export const confettiFly = (x: number, y: number, rotate: number) => keyframes`
 `;
 
 // --- Стили ---
+// Лайк в общем стиле контролов настроек (тёмный квадрат, белый глиф, оранжевый
+// акцент). position:relative нужен для счётчика (Label) и частиц.
 export const ButtonWrapper = styled.button<{ $animate?: boolean }>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${controlButtonBase}
   position: relative;
-  margin: 10px;
-  background: none;
-  outline: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-
-  &:hover {
-    transform: scale(1.05);
-  }
 
   svg {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     animation: ${({ $animate }) =>
       $animate
         ? css`
             ${bounce} 0.7s ease
           `
         : "none"};
+  }
+
+  /* Сердце белое (оранжевое на акценте) — как остальные контролы. Инлайновый
+     fill внутри svg перебиваем через !important. */
+  svg path {
+    fill: currentColor !important;
   }
 
   @media ${MOBILE_660} {
@@ -59,7 +56,8 @@ export const Label = styled.div`
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
-  margin-left: 0;
+  /* Отступ счётчика от правой границы кнопки. */
+  margin-left: 6px;
   margin-top: 9px;
   color: white;
   line-height: 1;

@@ -13,6 +13,9 @@ interface IState {
   isInited: boolean;
   hideClose?: boolean;
   backgroundOverlay?: string | null;
+  // Фон самого окна модалки (по умолчанию — светлый из темы). Позволяет
+  // отдельным модалкам использовать тёмный «панельный» стиль проекта.
+  background?: string | null;
 }
 
 const initialState: IState = {
@@ -27,6 +30,7 @@ const initialState: IState = {
   isInited: false,
   hideClose: false,
   backgroundOverlay: "",
+  background: "",
 };
 
 const modal = createSlice({
@@ -44,6 +48,7 @@ const modal = createSlice({
       padding: action.payload?.padding || "",
       hideClose: action.payload?.hideClose ?? state.hideClose,
       backgroundOverlay: action.payload?.backgroundOverlay || null,
+      background: action.payload?.background || null,
       isOpened: true,
       isInited: true,
     }),
@@ -60,6 +65,7 @@ const modal = createSlice({
       isInited: true,
       hideClose: false,
       backgroundOverlay: null,
+      background: null,
     }),
   },
 });

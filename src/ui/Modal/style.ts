@@ -47,13 +47,18 @@ export const Overlay = styled.div<{ $backgroundOverlay?: string | null }>`
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 `;
 
-export const ModalComponent = styled.div<{ width?: string | null }>`
+export const ModalComponent = styled.div<{
+  width?: string | null;
+  $background?: string | null;
+}>`
   position: relative; /* якорь для крестика закрытия (IconClose) */
   display: flex;
   flex-direction: column;
   width: ${({ width }) => (width ? width : "824px")};
   //background-color: rgb(255, 255, 255);
-  background-color: ${({ theme }) => theme.color.background.modal};
+  /* Фон окна: переданный (напр. тёмная панель проекта) либо светлый из темы. */
+  background-color: ${({ $background, theme }) =>
+    $background || theme.color.background.modal};
   box-shadow: 0 1.2px 18px rgba(0, 0, 0, 0.08), 0 6.4px 29px rgba(0, 0, 0, 0.12);
   border-radius: 8px;
 

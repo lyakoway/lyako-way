@@ -1,72 +1,30 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
+import { controlButtonBase } from "src/common/lib/controlButton";
 
-export const ThemeDarkLightChecked = styled.div<{ $opened: boolean }>`
-  background-color: ${({ $opened }) =>
-    $opened ? "rgba(0, 0, 0, 0.7)" : "rgba(0, 0, 0, 0.45)"};
-  border-radius: 0.75em;
-  box-shadow: none;
-  color: #fdea7b;
-  display: inline-flex;
-  align-items: center;
-  margin: auto;
-  padding: 0.15em !important;
-  width: 3em;
-  height: 1.5em;
-  transition: background-color 0.1s 0.3s ease-out;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+// Переключатель темы в общем стиле контролов настроек.
+export const ThemeButton = styled.button`
+  ${controlButtonBase}
+`;
 
-  &:before,
-  &:after {
-    content: "";
-    display: block;
+// Лампочка ($on): горит тёплым жёлтым со свечением или плавно гаснет до серой.
+// Переход мягкий: «загорается и гаснет постепенно» (в тёмной теме — горит).
+export const Bulb = styled.svg<{ $on: boolean }>`
+  width: 22px;
+  height: 22px;
+
+  .bulb-glass {
+    /* Выключена — светло-серая (видна и на светлой панели #5b6774, и на тёмной),
+       включена — тёплый жёлтый. */
+    fill: ${({ $on }) => ($on ? "#ffe07a" : "rgba(255, 255, 255, 0.75)")};
+    /* Свечение через alpha в drop-shadow — плавно затухает (от→до анимируется). */
+    filter: drop-shadow(
+      0 0 3px rgba(255, 214, 90, ${({ $on }) => ($on ? 0.9 : 0)})
+    );
+    transition: fill 0.45s ease, filter 0.45s ease;
   }
 
-  &:before {
-    background-color: ${({ $opened }) =>
-      $opened ? "#d7d7d7" : "currentColor"};
-    border-radius: 50%;
-    width: 1.2em;
-    height: 1.2em;
-    transition: background-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
-    z-index: 1;
-
-    ${({ $opened }) =>
-      !$opened &&
-      css`
-        transform: translateX(125%);
-      `}
-  }
-
-  &:after {
-    background: linear-gradient(transparent 50%, rgba(0, 0, 0, 0.15) 0) 0 50% /
-        50% 100%,
-      repeating-linear-gradient(
-          90deg,
-          #bbb 0,
-          #bbb,
-          #bbb 20%,
-          #999 20%,
-          #999 40%
-        )
-        0 50% / 50% 100%,
-      radial-gradient(circle at 50% 50%, #888 25%, transparent 26%);
-    background-repeat: no-repeat;
-    border: 0.25em solid transparent;
-    border-left: 0.4em solid #d8d8d8;
-    border-right: 0 solid transparent;
-    transition: border-left-color 0.1s 0.3s ease-out, transform 0.3s ease-out;
-    transform: translateX(-22.5%);
-    transform-origin: 25% 50%;
-    width: 1.2em;
-    height: 1em;
-
-    ${({ $opened }) =>
-      !$opened &&
-      css`
-        border-left-color: currentColor;
-        transform: translateX(-2.5%) rotateY(180deg);
-      `}
+  .bulb-base {
+    fill: ${({ $on }) => ($on ? "#c9a94a" : "rgba(255, 255, 255, 0.55)")};
+    transition: fill 0.45s ease;
   }
 `;
