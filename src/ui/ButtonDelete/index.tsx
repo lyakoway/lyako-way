@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const ButtonDelete = styled.div`
   cursor: pointer;
   position: relative;
-  font-size: 26px;
+  font-size: 22px;
+  line-height: 1;
   margin-left: 16px;
   margin-bottom: 2px;
 
@@ -13,7 +14,8 @@ const ButtonDelete = styled.div`
   width: 22px;
   height: 22px;
   min-width: 16px;
-  font-weight: 600;
+  /* Тонкий крестик — не массивный. */
+  font-weight: 300;
 
   background: none;
   border: none;
@@ -36,11 +38,11 @@ const ButtonDelete = styled.div`
 
   &:hover {
     color: red;
-    font-weight: 700;
+    font-weight: 400;
   }
   &:active {
     color: #fff;
-    font-weight: 700;
+    font-weight: 400;
   }
 `;
 

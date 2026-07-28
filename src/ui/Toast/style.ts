@@ -37,11 +37,12 @@ export const Notification = styled.div<{ $borderColor?: string }>`
   transition: 0.3s ease;
 
   box-sizing: border-box;
-  width: 365px;
+  /* Ширина по содержимому (на десктопе короткие тосты компактные). */
+  width: fit-content;
   max-width: calc(100vw - 2rem);
   color: #fff;
-  /* Симметричные отступы (место под крестик справа) — контент по центру. */
-  padding: 14px 40px;
+  /* Слева меньше, справа место под крестик. */
+  padding: 9px 38px 9px 14px;
   /* Тёмная панель в стиле сайта + скруглённые углы; тонкая рамка цвета статуса. */
   background: var(--panel-bg);
   border-radius: 12px;
@@ -112,10 +113,11 @@ export const WrapperClose = styled.div`
 export const Content = styled.div`
   max-height: calc(100vh - 160px);
   overflow: hidden auto;
-  padding: 12px;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: flex-end;
+  gap: 0.75rem;
 
   /* Основная ширина полосы прокрутки. */
   ::-webkit-scrollbar {
