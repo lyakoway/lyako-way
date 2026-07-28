@@ -32,31 +32,28 @@ export const Container = styled.div`
 export const Notification = styled.div<{ $borderColor?: string }>`
   display: flex;
   align-items: center;
-  border-radius: 4px;
-  box-shadow: 0 0 10px ${({ $borderColor }) => $borderColor};
-  color: #000;
+  justify-content: center;
+  gap: 10px;
   transition: 0.3s ease;
 
   box-sizing: border-box;
   width: 365px;
   max-width: calc(100vw - 2rem);
   color: #fff;
-  padding: 12px 40px 12px 12px;
-  background-color: #5a5a5a;
+  /* Симметричные отступы (место под крестик справа) — контент по центру. */
+  padding: 14px 40px;
+  /* Тёмная панель в стиле сайта + скруглённые углы; тонкая рамка цвета статуса. */
+  background: var(--panel-bg);
+  border-radius: 12px;
   border: 1px solid ${({ $borderColor }) => $borderColor};
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
   position: relative;
 
-  //transition: 1s; /*Скорость перехода состояния элемента*/
   animation: ${toastInRight} 0.7s 1; /* Указываем название анимации, её время и количество повторов*/
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
-  //animation-delay: 1s; /* Задержка перед началом */
 
   @media ${MOBILE_660} {
     width: 100%;
-  }
-
-  &:hover {
-    border: 2px solid ${({ $borderColor }) => $borderColor};
   }
 
   svg {
@@ -69,31 +66,22 @@ export const Notification = styled.div<{ $borderColor?: string }>`
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #fff;
-  padding-left: 6px;
-  margin-left: 12px;
-  /* min-width: 0 — иначе флекс-элемент не сжимается ниже ширины контента,
-     и длинный текст распирает тост, а не переносится. flex: 1 — занимает
-     оставшуюся ширину рядом с иконкой. */
+  align-items: center;
   min-width: 0;
-  flex: 1;
 `;
 
 export const Title = styled.p`
-  font-weight: 700;
-  font-size: 16px;
-  text-align: left;
-  margin-top: 0;
-  margin-bottom: 6px;
-  /* Без фиксированных width/height: заголовок переносится по словам и растёт
-     в высоту, а не обрезается на 18px и не наезжает на текст ниже. */
+  font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  margin: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
 `;
 
 export const Text = styled.p`
-  margin: 0;
-  text-align: left;
+  margin: 4px 0 0;
+  text-align: center;
   overflow-wrap: anywhere;
   word-break: break-word;
 `;
