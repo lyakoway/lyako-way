@@ -32,13 +32,14 @@ export const Container = styled.div`
 export const Notification = styled.div<{ $borderColor?: string }>`
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
   transition: 0.3s ease;
 
   box-sizing: border-box;
-  /* Ширина по содержимому (на десктопе короткие тосты компактные). */
+  /* Ширина по содержимому (на десктопе короткие тосты компактные), но не уже
+     min-width — чтобы текст было видно по центру рядом с иконкой слева. */
   width: fit-content;
+  min-width: 240px;
   max-width: calc(100vw - 2rem);
   color: #fff;
   /* Слева меньше, справа место под крестик. */
@@ -68,6 +69,8 @@ export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Занимает оставшуюся ширину и центрирует текст (иконка — слева по центру). */
+  flex: 1 1 auto;
   min-width: 0;
 `;
 

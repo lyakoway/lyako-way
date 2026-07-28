@@ -28,7 +28,7 @@ const ToastMap = (
       <Icon />
       <TextWrapper>
         <Title>{toast.title}</Title>
-        <Text>{toast.text}</Text>
+        {toast.text && <Text>{toast.text}</Text>}
       </TextWrapper>
       <WrapperClose>
         <ButtonDelete onClick={() => deleteToast(toast.id)}>
