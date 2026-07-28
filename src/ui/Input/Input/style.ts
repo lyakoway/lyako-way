@@ -52,7 +52,9 @@ export const SelectContainer = styled.div<{
   ${({ $valid }) =>
     !$valid &&
     css`
-      box-shadow: inset 0 0 0 2px ${({ theme }) => theme.color.text.negative};
+      /* Подсветка незаполненного поля — жёлтоватая в обеих темах (как в тёмной).
+         Токен text.negative в светлой теме красный, поэтому цвет фиксируем. */
+      box-shadow: inset 0 0 0 2px #fad67d;
     `}
 
   &:before {
@@ -183,6 +185,17 @@ export const InputStyle = styled.input`
   &:focus {
     outline: none !important;
     border: none !important;
+  }
+
+  /* Автоподстановка браузера: текст светлый (по умолчанию тёмный), и гасим
+     жёлтый фон автозаполнения долгим transition, чтобы осталась тёмная тема. */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-text-fill-color: ${PANEL_TEXT} !important;
+    caret-color: ${PANEL_TEXT} !important;
+    transition: background-color 9999s ease-in-out 0s;
   }
 `;
 
