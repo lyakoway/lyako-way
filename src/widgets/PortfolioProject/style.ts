@@ -6,6 +6,7 @@ import {
   PANEL_BORDER,
   PANEL_ELEVATED,
 } from "src/common/lib/panelStyles";
+import { runningBorder } from "src/common/lib/runningBorder";
 
 /* ——— Хлебные крошки ——— */
 
@@ -207,13 +208,13 @@ const buttonBase = `
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 20px;
+  height: 40px;
+  padding: 0 20px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 
   svg {
     width: 18px;
@@ -223,6 +224,7 @@ const buttonBase = `
 
 export const ButtonPrimary = styled.a`
   ${buttonBase};
+  ${runningBorder}
   background: ${({ theme }) => theme.color.basic.primary};
   color: #ffffff;
 
@@ -233,14 +235,10 @@ export const ButtonPrimary = styled.a`
 
 export const ButtonSecondary = styled.a`
   ${buttonBase};
+  ${runningBorder}
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
-
-  &:hover {
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
-    color: ${({ theme }) => theme.color.basic.primaryLight};
-  }
 `;
 
 /* ——— Не найдено ——— */

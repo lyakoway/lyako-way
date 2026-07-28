@@ -6,6 +6,7 @@ import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
 import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
+import RunBorder from "src/ui/RunBorder";
 
 import {
   Breadcrumb,
@@ -187,6 +188,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   />
                 </svg>
                 {portfolioHeader.link.replace(/:$/, "")}
+                <RunBorder radius={12} />
               </ButtonPrimary>
             )}
 
@@ -197,6 +199,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 rel="noreferrer noopener"
               >
                 GitHub
+                <RunBorder radius={12} />
               </ButtonSecondary>
             )}
           </Reveal>
