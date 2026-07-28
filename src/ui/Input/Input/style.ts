@@ -57,52 +57,33 @@ export const SelectContainer = styled.div<{
       box-shadow: inset 0 0 0 2px #fad67d;
     `}
 
-  &:before {
-    box-sizing: inherit;
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    transform-origin: center;
-    border-top: 2px solid #ff8560;
-    border-bottom: 2px solid #ff8560;
-    transform: scale3d(0, 1, 1);
-
-    transition: all 0.2s linear;
-    transition-duration: 0.4s;
-  }
-
+  /* Ревил-рамка: каждый псевдоэлемент — ПОЛНАЯ скруглённая рамка (border-radius:
+     inherit), а «разбегание из центра» задаётся через clip-path (::before по
+     горизонтали, ::after по вертикали). Углы рисуются целой рамкой, поэтому
+     скруглены по границе поля и без «хвостиков». */
+  &:before,
   &:after {
     box-sizing: inherit;
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    transform-origin: center;
-    border-left: 2px solid #ff8560;
-    border-right: 2px solid #ff8560;
-    transform: scale3d(1, 0, 1);
-
-    transition: all 0.2s linear;
-    transition-duration: 0.4s;
+    inset: 0;
+    border: 2px solid #ff8560;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: clip-path 0.4s ease;
+  }
+  &:before {
+    clip-path: inset(0 50% 0 50%);
+  }
+  &:after {
+    clip-path: inset(50% 0 50% 0);
   }
 
   &:hover::before,
-  &:hover::after {
-    transform: scale3d(1, 1, 1); // Show full-size
-    transition: transform 0.5s;
-  }
-
   &:active::before,
+  &:hover::after,
   &:active::after {
-    transform: scale3d(1, 1, 1); // Show full-size
-    transition: transform 0.5s;
+    clip-path: inset(0 0 0 0);
   }
 
   input {

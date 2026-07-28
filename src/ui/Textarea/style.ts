@@ -46,52 +46,31 @@ export const SelectContainer = styled.div<{
       ${({ $boxShadow }) => ($boxShadow ? "#ff8560" : FIELD_BORDER)};
   }
 
-  &:before {
-    box-sizing: inherit;
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    transform-origin: center;
-    border-top: 2px solid #ff8560;
-    border-bottom: 2px solid #ff8560;
-    transform: scale3d(0, 1, 1);
-
-    transition: all 0.2s linear;
-    transition-duration: 0.4s;
-  }
-
+  /* Ревил-рамка: полная скруглённая рамка + раскрытие через clip-path (углы
+     скруглены по границе поля, без «хвостиков»). */
+  &:before,
   &:after {
     box-sizing: inherit;
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-    transform-origin: center;
-    border-left: 2px solid #ff8560;
-    border-right: 2px solid #ff8560;
-    transform: scale3d(1, 0, 1);
-
-    transition: all 0.2s linear;
-    transition-duration: 0.4s;
+    inset: 0;
+    border: 2px solid #ff8560;
+    border-radius: inherit;
+    pointer-events: none;
+    transition: clip-path 0.4s ease;
+  }
+  &:before {
+    clip-path: inset(0 50% 0 50%);
+  }
+  &:after {
+    clip-path: inset(50% 0 50% 0);
   }
 
   &:hover::before,
-  &:hover::after {
-    transform: scale3d(1, 1, 1); // Show full-size
-    transition: transform 0.5s;
-  }
-
   &:active::before,
+  &:hover::after,
   &:active::after {
-    transform: scale3d(1, 1, 1); // Show full-size
-    transition: transform 0.5s;
+    clip-path: inset(0 0 0 0);
   }
 
   textarea {
