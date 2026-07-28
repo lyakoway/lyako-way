@@ -29,7 +29,7 @@ export const ButtonWrapper = styled.div`
   position: relative;
   /* Скругляем углы всем состояниям сразу (в т.ч. анимированной svg-обводке),
      не трогая саму анимацию. */
-  border-radius: 10px;
+  border-radius: 12px;
   overflow: hidden;
 `;
 
@@ -49,7 +49,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  border-radius: 10px;
+  border-radius: 12px;
   background-color: ${PANEL_ELEVATED};
 `;
 
@@ -101,7 +101,7 @@ const ButtonContent = styled.button`
   gap: 6px;
 
   /* Панельный стиль проекта: полупрозрачный фон + граница. */
-  border-radius: 10px;
+  border-radius: 12px;
   border: 1px solid ${PANEL_BORDER};
   background-color: ${PANEL_ELEVATED};
 

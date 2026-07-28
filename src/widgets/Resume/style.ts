@@ -7,6 +7,7 @@ import {
   PANEL_ELEVATED,
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
+import { runningBorder } from "src/common/lib/runningBorder";
 
 /* Поверхность вложенной карточки поверх сланцевой панели раздела. */
 const cardSurface = `
@@ -28,7 +29,8 @@ const buttonBase = `
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 11px 18px;
+  height: 40px;
+  padding: 0 18px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
@@ -44,6 +46,7 @@ const buttonBase = `
 
 export const ButtonPrimary = styled.a`
   ${buttonBase};
+  ${runningBorder}
   background: ${({ theme }) => theme.color.basic.primary};
   color: #ffffff;
 
@@ -54,14 +57,10 @@ export const ButtonPrimary = styled.a`
 
 export const ButtonSecondary = styled.a`
   ${buttonBase};
+  ${runningBorder}
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
-
-  &:hover {
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
-    color: ${({ theme }) => theme.color.basic.primaryLight};
-  }
 `;
 
 /* ——— Секции ——— */

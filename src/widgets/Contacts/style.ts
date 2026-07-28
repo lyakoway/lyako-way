@@ -5,6 +5,7 @@ import {
   PANEL_BORDER,
   PANEL_ELEVATED,
 } from "src/common/lib/panelStyles";
+import { runningBorder } from "src/common/lib/runningBorder";
 
 export const Intro = styled.p`
   margin: 0 0 28px;
@@ -67,10 +68,12 @@ export const Links = styled.div`
 `;
 
 export const LinkItem = styled.a`
+  ${runningBorder}
   display: inline-flex;
   align-items: center;
   gap: 9px;
-  padding: 10px 16px;
+  height: 40px;
+  padding: 0 16px;
   border-radius: 12px;
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
@@ -78,13 +81,6 @@ export const LinkItem = styled.a`
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
-
-  &:hover {
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
-    color: ${({ theme }) => theme.color.basic.primaryLight};
-    transform: translateY(-2px);
-  }
 
   svg {
     width: 18px;

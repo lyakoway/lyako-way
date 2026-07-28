@@ -4,6 +4,7 @@ import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import ContactForm from "src/components/ContactForm";
+import RunBorder from "src/ui/RunBorder";
 import {
   CONTACT_EMAIL,
   CONTACT_PROFILES,
@@ -93,6 +94,7 @@ const Contacts = () => {
             >
               {PROFILE_ICON[item.label] ?? <GitHubIcon />}
               {item.label}
+              <RunBorder radius={12} />
             </LinkItem>
           ))}
         </Links>
@@ -104,6 +106,7 @@ const Contacts = () => {
           <LinkItem href={CONTACT_EMAIL.href}>
             <MailIcon />
             {CONTACT_EMAIL.label}
+            <RunBorder radius={12} />
           </LinkItem>
         </Links>
       </Reveal>
@@ -118,6 +121,7 @@ const Contacts = () => {
               <LinkItem key={phone.href} href={phone.href}>
                 <PhoneIcon />
                 {phone.label}
+                <RunBorder radius={12} />
               </LinkItem>
             ))}
           </Links>
@@ -135,6 +139,7 @@ const Contacts = () => {
               >
                 {MESSENGER_ICON[item.label]}
                 {item.label}
+                <RunBorder radius={12} />
               </LinkItem>
             ))}
           </Links>

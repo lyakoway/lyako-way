@@ -8,6 +8,7 @@ import {
   PANEL_ELEVATED,
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
+import { runningBorder } from "src/common/lib/runningBorder";
 
 export const FilterBar = styled.div`
   display: flex;
@@ -17,8 +18,12 @@ export const FilterBar = styled.div`
 `;
 
 export const FilterChip = styled.button<{ $active?: boolean }>`
-  padding: 7px 14px;
-  border-radius: 999px;
+  ${runningBorder}
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 12px;
   border: 1px solid
     ${({ $active, theme }) =>
       $active ? theme.color.basic.primary : PANEL_BORDER};
@@ -28,13 +33,6 @@ export const FilterChip = styled.button<{ $active?: boolean }>`
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-
-  &:hover {
-    color: ${({ $active }) => ($active ? "#ffffff" : PANEL_TEXT)};
-    border-color: ${({ $active, theme }) =>
-      $active ? theme.color.basic.primary : "rgba(255, 255, 255, 0.28)"};
-  }
 `;
 
 export const Grid = styled.div`

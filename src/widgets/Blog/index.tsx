@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
+import RunBorder from "src/ui/RunBorder";
 import { getReadMinutes } from "src/common/utils/getReadMinutes";
 
 import {
@@ -66,6 +67,7 @@ const Blog = () => {
       <Reveal as={FilterBar} delay={90}>
         <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
           {blog.all}
+          <RunBorder radius={12} />
         </FilterChip>
         {tags.map((tag) => (
           <FilterChip
@@ -74,6 +76,7 @@ const Blog = () => {
             onClick={() => setActive(tag)}
           >
             {tag}
+            <RunBorder radius={12} />
           </FilterChip>
         ))}
       </Reveal>

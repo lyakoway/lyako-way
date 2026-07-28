@@ -5,6 +5,7 @@ import { showModal } from "src/reducers";
 import { useMediaQuery } from "src/features/customHooks";
 import { ArticleTitle, Article } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
+import RunBorder from "src/ui/RunBorder";
 import PdfViewer from "src/components/PdfViewer";
 
 import {
@@ -246,6 +247,7 @@ const Resume = () => {
             />
           </svg>
           {resumeCv.downloadLabel}
+          <RunBorder radius={12} />
         </ButtonPrimary>
 
         <ButtonSecondary
@@ -271,6 +273,7 @@ const Resume = () => {
             />
           </svg>
           {resumeCv.viewLabel}
+          <RunBorder radius={12} />
         </ButtonSecondary>
       </Reveal>
 

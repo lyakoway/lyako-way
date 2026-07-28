@@ -1,39 +1,27 @@
 import { FC, PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import { Spinner } from "src/ui/Spinner";
-import {
-  PANEL_BORDER,
-  PANEL_ELEVATED,
-  PANEL_ELEVATED_HOVER,
-} from "src/common/lib/panelStyles";
+import { PANEL_BORDER, PANEL_ELEVATED } from "src/common/lib/panelStyles";
+import { runningBorder } from "src/common/lib/runningBorder";
+import RunBorder from "src/ui/RunBorder";
 
 // В стиле проекта: во всю ширину поля, полупрозрачный «приподнятый» фон с
 // границей, белый текст. Оранжевый (границы + текст) — только на наведении,
 // как у остальных контролов, чтобы кнопка не кричала цветом.
 const ButtonWrapper = styled.button<{ disabled?: boolean }>`
+  ${runningBorder}
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
   -webkit-tap-highlight-color: transparent;
-  padding: 10px;
+  height: 40px;
+  padding: 0 16px;
   border: 1px solid ${PANEL_BORDER};
-  border-radius: 10px;
+  border-radius: 12px;
   background: ${PANEL_ELEVATED};
   color: #ffffff;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease,
-    transform 0.15s ease;
-
-  &:hover {
-    background: ${PANEL_ELEVATED_HOVER};
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
-    color: ${({ theme }) => theme.color.basic.primaryLight};
-    transform: translateY(-1px);
-  }
-  &:active {
-    transform: scale(0.99);
-  }
 
   ${({ disabled }) =>
     disabled &&
@@ -41,7 +29,6 @@ const ButtonWrapper = styled.button<{ disabled?: boolean }>`
       opacity: 0.6;
       cursor: not-allowed;
       pointer-events: none;
-      transform: none;
     `}
 `;
 
@@ -86,6 +73,7 @@ const ButtonStyle: FC<PropsWithChildren<IButtonProps>> = ({
     <ButtonWrapper type="submit" onClick={onClick} disabled={disabled}>
       {children}
       {title && <Label>{title}</Label>}
+      <RunBorder radius={12} />
     </ButtonWrapper>
   );
 };

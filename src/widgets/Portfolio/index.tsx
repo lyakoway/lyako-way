@@ -3,6 +3,7 @@ import React, { useMemo, useState } from "react";
 import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
+import RunBorder from "src/ui/RunBorder";
 
 import {
   FilterBar,
@@ -99,6 +100,7 @@ const Portfolio = () => {
       <Reveal as={FilterBar} delay={90}>
         <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
           {portfolio.all}
+          <RunBorder radius={12} />
         </FilterChip>
         {directions.map((dir) => (
           <FilterChip
@@ -107,6 +109,7 @@ const Portfolio = () => {
             onClick={() => setActive(dir)}
           >
             {dir}
+            <RunBorder radius={12} />
           </FilterChip>
         ))}
       </Reveal>
