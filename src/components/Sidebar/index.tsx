@@ -106,7 +106,7 @@ const Sidebar = () => {
                 </ControlItem>
               )}
               <ControlItem>
-                <ButtonHeart />
+                <ButtonHeart hideCount />
               </ControlItem>
             </SettingsPopup>
           )}
@@ -195,7 +195,7 @@ const Sidebar = () => {
                 </ControlItem>
               )}
               <ControlItem>
-                <ButtonHeart />
+                <ButtonHeart hideCount />
               </ControlItem>
             </Controls>
           </Reveal>

@@ -24,7 +24,11 @@ import {
 } from "src/ui/ButtonHeart/animations";
 import { RequestLikes } from "src/common/enums/Likes/RequestLikes";
 
-const ButtonHeart: React.FC = () => {
+// hideCount — прячем счётчик у кнопки (в компактном попапе настроек он вылезал
+// за границы). Полное число лайков показываем в тосте после оценки.
+const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
+  hideCount = false,
+}) => {
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
@@ -67,8 +71,9 @@ const ButtonHeart: React.FC = () => {
 
   useEffect(() => {
     if (status === RequestLikes.SUCCESS_LIKES) {
+      // Полное число лайков (без ограничений) показываем здесь, в тосте.
       toastNotify({
-        title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
+        title: `${toast.textHeart || "Спасибо за оценку"} ❤️ ${likes}`,
         type: "success",
       });
       dispatch(setSantaShown(false));
@@ -143,20 +148,28 @@ const ButtonHeart: React.FC = () => {
   };
 
   // Счётчик обрезаем до 7 символов, чтобы длинное число не ломало вёрстку.
-  const shownLikes = mounted ? String(likes).slice(0, 7) : "0";
+  // Больше 3 знаков — показываем первые 3 и многоточие (напр. 211… ).
+  const likesStr = String(likes);
+  const shownLikes = !mounted
+    ? "0"
+    : likesStr.length > 3
+      ? `${likesStr.slice(0, 3)}…`
+      : likesStr;
 
   return (
     <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
       <HeartIcon />
-      <Label>
-        {!loading && shownLikes}
-        {loading && (
-          <Loading>
-            ❤️
-            <Loader />
-          </Loading>
-        )}
-      </Label>
+      {!hideCount && (
+        <Label>
+          {!loading && shownLikes}
+          {loading && (
+            <Loading>
+              ❤️
+              <Loader />
+            </Loading>
+          )}
+        </Label>
+      )}
 
       {particles.map((p) => (
         <Particle
