@@ -352,9 +352,10 @@ export const GearButton = styled.button`
     animation: ${spin} 6s linear infinite;
   }
 
-  /* Открыт попап — всегда оранжевая. */
+  /* Открыт попап — светло-оранжевая (primaryLight, как подсветка иконок
+     мессенджеров при наведении) — хорошо видна на тёмной панели. */
   &[aria-expanded="true"] {
-    color: ${({ theme }) => theme.color.basic.primary};
+    color: ${({ theme }) => theme.color.basic.primaryLight};
   }
 
   /* Hover-подсветка только на устройствах с реальным курсором — чтобы на
@@ -362,7 +363,7 @@ export const GearButton = styled.button`
      закрытом попапе. */
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      color: ${({ theme }) => theme.color.basic.primary};
+      color: ${({ theme }) => theme.color.basic.primaryLight};
     }
   }
 `;
