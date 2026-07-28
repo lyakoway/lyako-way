@@ -106,10 +106,14 @@ export const Wrapper = styled.div`
 
 export const WrapperClose = styled.div`
   position: absolute;
-  top: 12px;
+  /* Строго по центру по вертикали — вровень с текстом. */
+  top: 50%;
   right: 12px;
+  transform: translateY(-50%);
   & > div {
     color: #fff;
+    /* убираем отступы кнопки, иначе глиф смещается вверх от центра */
+    margin: 0;
   }
 `;
 
