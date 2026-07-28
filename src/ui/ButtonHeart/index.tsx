@@ -72,9 +72,9 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
   useEffect(() => {
     if (status === RequestLikes.SUCCESS_LIKES) {
       // Полное число лайков (без ограничений) показываем здесь, в тосте.
-      // Отступ после фразы (em-space), затем число и сердце.
+      // Обычный пробел после фразы, затем число и сердце (nbsp между ними).
       toastNotify({
-        title: `${toast.textHeart || "Спасибо за оценку!"} ${likes} ❤️`,
+        title: `${toast.textHeart || "Спасибо за оценку!"} ${likes} ❤️`,
         type: "success",
       });
       dispatch(setSantaShown(false));
