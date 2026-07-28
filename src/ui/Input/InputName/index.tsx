@@ -95,6 +95,7 @@ export const InputName: FC<IInputNameProps> = ({
       label={label}
       placeholder={placeholder}
       type={type}
+      autoComplete="name"
       changeHandler={changeHandler}
       value={name}
       onBlurHandler={() => validateData(name)}

@@ -177,7 +177,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
           <InputPhone
             label={contactForm.phone}
             placeholder={contactForm.placeholderPhone}
-            type="text"
+            type="tel"
             setPhone={setPhone}
             phone={phone}
             description={formDescriptionPhone}

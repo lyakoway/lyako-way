@@ -125,6 +125,8 @@ export const InputPhone: FC<IInputPhoneProps> = ({
       label={label}
       placeholder={placeholder}
       type={type}
+      autoComplete="tel"
+      inputMode="tel"
       changeHandler={changeHandler}
       value={phone}
       onBlurHandler={() => validateData(phone)}

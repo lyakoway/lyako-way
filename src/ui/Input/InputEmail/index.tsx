@@ -107,6 +107,8 @@ export const InputEmail: FC<IInputEmailProps> = ({
       label={label}
       placeholder={"yours@email.com"}
       type={type}
+      autoComplete="email"
+      inputMode="email"
       changeHandler={changeHandler}
       value={email}
       onBlurHandler={() => validateData(email)}

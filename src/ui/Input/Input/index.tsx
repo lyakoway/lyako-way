@@ -24,6 +24,9 @@ interface IInputProps {
   changeHandler?: (value: string) => void;
   handleClickDelete?: () => void;
   customValidity?: string;
+  // Подсказки автозаполнения браузера (напр. "tel" — сохранённые телефоны).
+  autoComplete?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
 }
 
 export const Input = forwardRef<HTMLInputElement, IInputProps>(
@@ -40,6 +43,8 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
       changeHandler = () => {},
       handleClickDelete = () => {},
       customValidity = "Это поле обязательно!",
+      autoComplete,
+      inputMode,
     },
     ref
   ) => {
@@ -48,9 +53,11 @@ export const Input = forwardRef<HTMLInputElement, IInputProps>(
         <InputWrapper>
           <InputStyle
             required
-            id={type}
+            id={autoComplete || type}
             type={type}
-            name={type}
+            name={autoComplete || type}
+            autoComplete={autoComplete}
+            inputMode={inputMode}
             aria-label={label || placeholder || type}
             placeholder={placeholder}
             value={value}
