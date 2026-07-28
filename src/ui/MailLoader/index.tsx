@@ -64,7 +64,7 @@ const mailLine = ($itemLine: IPropsMailLine) => keyframes`
 export const MailContainer = styled.div`
   display: flex;
   position: absolute;
-  background-color: ${({ theme }) => theme.color.background.modal};
+  background-color: #6a6f7c;
   border-radius: 6px;
   animation: ${mailMove} 3s infinite;
 `;
@@ -80,7 +80,7 @@ const Line = styled.div<{ $itemLine: IPropsMailLine }>`
   margin-top: 4px;
   width: 70px;
   height: 4px;
-  background: ${({ theme }) => theme.color.background.inversion};
+  background: #e2e5e9;
   border-radius: 6px;
 
   ${({ $itemLine }) =>
@@ -92,7 +92,7 @@ const Line = styled.div<{ $itemLine: IPropsMailLine }>`
 const Mail = styled.div`
   width: 60px;
   height: 45px;
-  border: solid 5px ${({ theme }) => theme.color.background.inversion};
+  border: solid 5px #e2e5e9;
   border-radius: 10px;
   overflow: hidden;
   &:before {
@@ -101,8 +101,8 @@ const Mail = styled.div`
     position: relative;
     width: 38px;
     height: 38px;
-    border-top: solid 5px ${({ theme }) => theme.color.background.inversion};
-    border-left: solid 5px ${({ theme }) => theme.color.background.inversion};
+    border-top: solid 5px #e2e5e9;
+    border-left: solid 5px #e2e5e9;
     transform: rotate(45deg);
     top: 14px;
     left: 6px;
@@ -113,11 +113,11 @@ const Mail = styled.div`
     position: relative;
     width: 50px;
     height: 50px;
-    border: solid 5px ${({ theme }) => theme.color.background.inversion};
+    border: solid 5px #e2e5e9;
     transform: rotate(45deg);
     top: -70px;
     border-radius: 15px;
-    background-color: ${({ theme }) => theme.color.background.modal};
+    background-color: #6a6f7c;
   }
 `;
 
