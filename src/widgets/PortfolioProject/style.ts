@@ -147,7 +147,7 @@ export const Desc = styled.div`
   border-top: 1px solid ${PANEL_BORDER};
 
   p {
-    margin: 0 0 10px;
+    margin: 0 0 12px;
     color: ${PANEL_TEXT_SECONDARY};
     font-size: 15px;
     font-weight: 300;
@@ -156,6 +156,15 @@ export const Desc = styled.div`
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  /* Первый абзац — «лид»: крупнее и светлее, задаёт суть проекта. */
+  p:first-child {
+    color: ${PANEL_TEXT};
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.55;
+    margin-bottom: 18px;
   }
 `;
 
