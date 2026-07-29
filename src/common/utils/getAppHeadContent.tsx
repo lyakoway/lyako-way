@@ -8,8 +8,8 @@ const getAppHeadContent = () => (
       name="copyright"
       content="Все права принадлежат Мазуренко Алексею Анатольевичу"
     />
-    <meta name="keywords" content="lakoway, портфолио, Мазуренко" />
-    <meta name="description" content="Сайт портфолио, lakoway" />
+    <meta name="keywords" content="lyakoway, портфолио, Мазуренко, AI-инженер" />
+    <meta name="description" content="Сайт портфолио, lyakoway" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta
       name="msapplication-TileImage"
@@ -33,7 +33,14 @@ const getAppHeadContent = () => (
     {/*  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"*/}
     {/*  rel="stylesheet"*/}
     {/*/>*/}
-    <link rel="icon" href="/static/favicons/favicon.ico" />
+    {/* Знак lyakoway (круг с искрой): SVG для современных браузеров, .ico и
+        PNG — как фолбэк для старых и для плиток/ярлыков. */}
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/static/favicons/favicon.svg"
+    />
+    <link rel="icon" href="/static/favicons/favicon.ico" sizes="any" />
     <link
       rel="apple-touch-icon"
       sizes="57x57"

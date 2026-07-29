@@ -22,6 +22,7 @@ import {
 } from "src/common/icon/socialIcons";
 
 import AvatarHead from "src/ui/AvatarHead";
+import BrandMark from "src/ui/BrandMark";
 import { Reveal } from "src/ui/Reveal";
 import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setting.svg";
 
@@ -79,6 +80,7 @@ const Sidebar = () => {
 
         <InfoContent>
           <Name title={sidebar.name}>{sidebar.name}</Name>
+          <BrandMark tagline={sidebar.brandTagline} />
           <JobTitle>{sidebar.jobTitle}</JobTitle>
         </InfoContent>
 

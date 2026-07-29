@@ -81,8 +81,10 @@ export const InfoContent = styled.div`
   }
 `;
 
+// Ниже имени идёт знак бренда (BrandMark), поэтому отступ меньше, чем зазор
+// «знак → чип с должностью»: имя и название читаются одной группой.
 export const Name = styled.h1`
-  margin: 0 0 10px;
+  margin: 0 0 7px;
   color: ${PANEL_TEXT};
   font-size: 17px;
   font-weight: 500;
@@ -90,7 +92,7 @@ export const Name = styled.h1`
 
   @media (min-width: 580px) {
     font-size: 26px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   @media (min-width: 1250px) {

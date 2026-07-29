@@ -3,6 +3,7 @@ import { SidebarProps } from "src/common/types/lang";
 export const sidebar: SidebarProps = {
   name: "Мазуренко Алексей",
   jobTitle: "AI-инженер",
+  brandTagline: "lyakoway — путь к совершенству",
   settings: "Настройки",
   emailTitle: "Почта",
   phoneTitle: "Телефон",

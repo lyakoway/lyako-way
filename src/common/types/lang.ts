@@ -303,6 +303,8 @@ export interface ResumeCvProps {
 export interface SidebarProps {
   name: string;
   jobTitle: string;
+  // Расшифровка названия сайта под знаком LYAK⊙WAY (подсказка при наведении).
+  brandTagline: string;
   settings: string;
   emailTitle: string;
   phoneTitle: string;

@@ -46,8 +46,18 @@ export const LogoSign = styled.div`
   }
 `;
 
-export const LaykoWayWrapper = styled.div`
+export const MarkWrapper = styled.div`
   display: flex;
   align-items: center;
   margin: 0 6px;
+
+  /* Кольцо толще базовых 1.6 — иначе знак выглядит легче букв с обводкой.
+     Цвет кольца наследуется от LogoSign, искра белая — как обводка букв. */
+  svg circle {
+    stroke-width: 2;
+  }
+
+  svg path {
+    fill: #ffffff;
+  }
 `;
