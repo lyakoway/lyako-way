@@ -71,10 +71,16 @@ export const WipTag = styled.div`
 
 /* ——— Мета-информация ——— */
 
+// <580px — без верхнего отступа: под заголовком уже есть его собственные 20px,
+// и вместе с ними мета уезжала от заголовка почти на полсотни пикселей.
 export const MetaList = styled.dl`
-  margin: 22px 0 0;
+  margin: 0;
   display: grid;
   gap: 14px;
+
+  @media (min-width: 580px) {
+    margin-top: 22px;
+  }
 `;
 
 // <580px — подпись над значением: колонка подписей (130px) на узком экране

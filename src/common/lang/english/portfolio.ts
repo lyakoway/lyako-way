@@ -20,7 +20,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ...ICON_META,
     hrefPortfolio: "https://lyakoway-rag-chat.hf.space",
     portfolioNameList: "RAG Chat",
-    portfolioDataTime: "2025",
+    portfolioDataTime: "July 29, 2026",
     hrefNameList: "rag-chat",
     direction: "RAG & knowledge",
     technologies: ["Python", "FastAPI", "RAG", "ChromaDB", "React", "TypeScript"],
