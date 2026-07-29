@@ -59,19 +59,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Проект в разработке. Фреймворк для промпт-сценариев и evaluation-наборов: тесты на точность, стабильность и edge cases, регрессионная проверка качества ответов. Скоро опубликую.",
   },
   {
-    id: "llm-integration",
-    ...ICON_META,
-    hrefPortfolio: "",
-    portfolioNameList: "Интеграция LLM в продукт",
-    portfolioDataTime: "",
-    hrefNameList: "llm-integration",
-    direction: "LLM-интеграция",
-    wip: true,
-    technologies: ["FastAPI", "LLM API", "Python", "Redis"],
-    portfolioText:
-      "Проект в разработке. Внедрение больших языковых моделей в продукт через API: надёжный backend на Python / FastAPI, кэширование, безопасная и предсказуемая работа. Скоро опубликую.",
-  },
-  {
     id: "mlops",
     ...ICON_META,
     hrefPortfolio: "",
@@ -83,6 +70,19 @@ export const propsPortfolioList: PortfolioListProps[] = [
     technologies: ["Docker", "Kubernetes", "CI/CD", "мониторинг"],
     portfolioText:
       "Проект в разработке. Инфраструктура и деплой LLM-приложений: контейнеризация, оркестрация, CI/CD и мониторинг. Скоро опубликую.",
+  },
+  {
+    id: "llm-integration",
+    ...ICON_META,
+    hrefPortfolio: "",
+    portfolioNameList: "Интеграция LLM в продукт",
+    portfolioDataTime: "",
+    hrefNameList: "llm-integration",
+    direction: "LLM-интеграция",
+    wip: true,
+    technologies: ["FastAPI", "LLM API", "Python", "Redis"],
+    portfolioText:
+      "Проект в разработке. Внедрение больших языковых моделей в продукт через API: надёжный backend на Python / FastAPI, кэширование, безопасная и предсказуемая работа. Скоро опубликую.",
   },
   {
     id: "assistant",

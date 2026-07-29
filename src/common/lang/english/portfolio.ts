@@ -59,19 +59,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Work in progress. A framework for prompt scenarios and evaluation sets: accuracy, stability and edge-case tests, regression checks of answer quality. Coming soon.",
   },
   {
-    id: "llm-integration",
-    ...ICON_META,
-    hrefPortfolio: "",
-    portfolioNameList: "LLM integration into a product",
-    portfolioDataTime: "",
-    hrefNameList: "llm-integration",
-    direction: "LLM integration",
-    wip: true,
-    technologies: ["FastAPI", "LLM API", "Python", "Redis"],
-    portfolioText:
-      "Work in progress. Embedding large language models into a product via API: a reliable Python / FastAPI backend, caching, safe and predictable behavior. Coming soon.",
-  },
-  {
     id: "mlops",
     ...ICON_META,
     hrefPortfolio: "",
@@ -83,6 +70,19 @@ export const propsPortfolioList: PortfolioListProps[] = [
     technologies: ["Docker", "Kubernetes", "CI/CD", "monitoring"],
     portfolioText:
       "Work in progress. Infrastructure and deployment for LLM applications: containerization, orchestration, CI/CD and monitoring. Coming soon.",
+  },
+  {
+    id: "llm-integration",
+    ...ICON_META,
+    hrefPortfolio: "",
+    portfolioNameList: "LLM integration into a product",
+    portfolioDataTime: "",
+    hrefNameList: "llm-integration",
+    direction: "LLM integration",
+    wip: true,
+    technologies: ["FastAPI", "LLM API", "Python", "Redis"],
+    portfolioText:
+      "Work in progress. Embedding large language models into a product via API: a reliable Python / FastAPI backend, caching, safe and predictable behavior. Coming soon.",
   },
   {
     id: "assistant",
