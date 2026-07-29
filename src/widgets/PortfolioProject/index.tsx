@@ -19,6 +19,9 @@ import {
   TechChips,
   Chip,
   Desc,
+  DescLead,
+  DescCard,
+  CardList,
   FeaturesTitle,
   FeatureList,
   Feature,
@@ -165,11 +168,33 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               .split("\n")
               .map((line) => line.trim())
               .filter(Boolean)
-              .map((line, i) => (
-                <Reveal as="p" key={i} delay={i * 80}>
-                  {line}
-                </Reveal>
-              ))}
+              .map((line, i) => {
+                if (i === 0) {
+                  return (
+                    <Reveal as={DescLead} key={i} delay={0}>
+                      {line}
+                    </Reveal>
+                  );
+                }
+                // Карточка: если есть «;» — разбиваем на пункты-строки.
+                const parts = line
+                  .split(";")
+                  .map((p) => p.trim())
+                  .filter(Boolean);
+                return (
+                  <Reveal as={DescCard} key={i} delay={i * 80}>
+                    {parts.length > 1 ? (
+                      <CardList>
+                        {parts.map((p, j) => (
+                          <li key={j}>{p}</li>
+                        ))}
+                      </CardList>
+                    ) : (
+                      line
+                    )}
+                  </Reveal>
+                );
+              })}
           </Desc>
 
           {project.features && project.features.length > 0 && (

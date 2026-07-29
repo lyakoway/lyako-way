@@ -141,30 +141,69 @@ export const Chip = styled.span`
 
 /* ——— Описание ——— */
 
+// Обёртка: вводный лид сверху + карточки-блоки ниже.
 export const Desc = styled.div`
   margin-top: 26px;
   padding-top: 22px;
   border-top: 1px solid ${PANEL_BORDER};
+  display: grid;
+  gap: 14px;
+`;
 
-  p {
-    margin: 0 0 12px;
-    color: ${PANEL_TEXT_SECONDARY};
+// Первый абзац — «лид»: крупнее и светлее, задаёт суть проекта.
+export const DescLead = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT};
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+
+  @media (max-width: 579px) {
     font-size: 15px;
-    font-weight: 300;
-    line-height: 1.65;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+    line-height: 1.5;
   }
+`;
 
-  /* Первый абзац — «лид»: крупнее и светлее, задаёт суть проекта. */
-  p:first-child {
-    color: ${PANEL_TEXT};
-    font-size: 17px;
-    font-weight: 400;
-    line-height: 1.55;
-    margin-bottom: 18px;
+// Остальные абзацы (демо/модели, стек) — отдельными карточками.
+export const DescCard = styled.div`
+  margin: 0;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+
+  @media (max-width: 579px) {
+    font-size: 13.5px;
+    padding: 12px 14px;
+  }
+`;
+
+// Если в тексте карточки есть «;» — разбиваем на пункты-строки с маркерами.
+export const CardList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+
+  li {
+    position: relative;
+    padding-left: 16px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 9px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.color.basic.primary};
+    }
   }
 `;
 
