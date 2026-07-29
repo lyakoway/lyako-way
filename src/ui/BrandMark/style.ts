@@ -10,10 +10,11 @@ export const Brand = styled.p`
   margin: 0 0 8px;
   color: ${PANEL_TEXT_MUTED};
   font-family: "Exo 2", sans-serif;
-  font-size: 12px;
+  /* <580px — компактный размер (крупный 18px только с 580px). */
+  font-size: 14px;
   font-weight: 500;
   line-height: 1;
-  letter-spacing: 2.4px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   white-space: nowrap;
 
@@ -21,8 +22,8 @@ export const Brand = styled.p`
      (letter-spacing уже добавлен после «K» и после знака). */
   svg {
     flex-shrink: 0;
-    width: 15px;
-    height: 15px;
+    width: 18px;
+    height: 18px;
     margin-right: 1px;
   }
 
@@ -32,12 +33,12 @@ export const Brand = styled.p`
 
   @media (min-width: 580px) {
     margin-bottom: 10px;
-    font-size: 13px;
+    font-size: 18px;
     letter-spacing: 2.8px;
 
     svg {
-      width: 17px;
-      height: 17px;
+      width: 24px;
+      height: 24px;
     }
   }
 `;
