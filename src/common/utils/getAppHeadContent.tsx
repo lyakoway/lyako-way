@@ -1,6 +1,14 @@
 import React from "react";
 
-const getAppHeadContent = () => (
+import {
+  OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TITLE,
+} from "src/common/constants/site";
+
+// canonical — абсолютный адрес текущей страницы (передаётся из _app).
+const getAppHeadContent = (canonical: string) => (
   <>
     <meta charSet="utf-8" />
     <meta name="author" content="Мазуренко Алексей Анатольевич" />
@@ -8,8 +16,11 @@ const getAppHeadContent = () => (
       name="copyright"
       content="Все права принадлежат Мазуренко Алексею Анатольевичу"
     />
-    <meta name="keywords" content="lyakoway, портфолио, Мазуренко, AI-инженер" />
-    <meta name="description" content="Сайт портфолио, lyakoway" />
+    <meta
+      name="keywords"
+      content="lyakoway, Мазуренко Алексей, AI-инженер, LLM, RAG, портфолио"
+    />
+    <meta name="description" content={SITE_DESCRIPTION} />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta
       name="msapplication-TileImage"
@@ -26,13 +37,30 @@ const getAppHeadContent = () => (
     />
     <link rel="dns-prefetch" href="https://api.weatherapi.com" />
     <meta name="theme-color" content="#000000" />
+
+    {/* Канонический адрес: без него поисковик считает страницу с параметрами
+        (?utm_source и т.п.) отдельной и делит между ними вес. */}
+    <link rel="canonical" href={canonical} />
+
+    {/* Open Graph / Twitter — превью ссылки в мессенджерах и соцсетях. */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:title" content={SITE_TITLE} />
+    <meta property="og:description" content={SITE_DESCRIPTION} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={SITE_TITLE} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={SITE_TITLE} />
+    <meta name="twitter:description" content={SITE_DESCRIPTION} />
+    <meta name="twitter:image" content={OG_IMAGE} />
+
     {/* Poppins подключается через next/font (self-hosted) в pages/_app.tsx —
         отдельный <link> Google Fonts больше не нужен (убирает FOUT и варн
         no-stylesheets-in-head-component). */}
-    {/*<link*/}
-    {/*  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"*/}
-    {/*  rel="stylesheet"*/}
-    {/*/>*/}
     {/* Знак lyakoway (круг с искрой): SVG для современных браузеров, .ico и
         PNG — как фолбэк для старых и для плиток/ярлыков. */}
     <link

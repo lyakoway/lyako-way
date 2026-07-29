@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Poppins } from "next/font/google";
 
 import { Provider } from "react-redux";
@@ -21,6 +22,7 @@ const poppins = Poppins({
 
 import { useDispatchTyped, useSelectorTyped, wrapper } from "src/store";
 import getAppHeadContent from "src/common/utils/getAppHeadContent";
+import { SITE_TITLE, SITE_URL } from "src/common/constants/site";
 import GlobalStyles from "src/common/lib/globalStyles";
 import { setThemeList, getPreferredIsDay } from "src/reducers";
 import { useDayTime, useIsomorphicLayoutEffect } from "src/features/customHooks";
@@ -121,11 +123,17 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
 
+  // Канонический адрес страницы: путь без query и хэша (?utm_* и #anchor
+  // не должны плодить «разные» страницы в индексе).
+  const { asPath } = useRouter();
+  // Слэш у корня сохраняем: тот же вид адреса, что в sitemap.xml.
+  const canonical = `${SITE_URL}${asPath.split(/[?#]/)[0]}`;
+
   return (
     <React.StrictMode>
       <Head>
-        <title>LYAKOWAY</title>
-        {getAppHeadContent()}
+        <title>{SITE_TITLE}</title>
+        {getAppHeadContent(canonical)}
       </Head>
       <Provider store={store}>
         <AppContent Component={Component} pageProps={pageProps} />
