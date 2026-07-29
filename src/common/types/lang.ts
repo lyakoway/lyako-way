@@ -275,6 +275,22 @@ export interface ResumeExperienceGroupProps {
   items: string[];
 }
 
+/* Проект внутри записи опыта. Либо ссылка на портфолио (portfolioId) — тогда
+   описание, ссылки и возможности берём из propsPortfolioList, либо описание
+   прямо здесь (lead / note / features) для проектов, которых в портфолио нет. */
+export interface ResumeProjectProps {
+  id: string;
+  portfolioId?: string;
+  lead?: string;
+  note?: string;
+  features?: string[];
+  // Результат проекта — ниже возможностей: вводные абзацы (resultsLead /
+  // resultsNote) и список тем же оформлением, что и возможности.
+  resultsLead?: string;
+  resultsNote?: string;
+  results?: string[];
+}
+
 export interface ResumeExperienceProps {
   id: string;
   role: string;
@@ -282,11 +298,8 @@ export interface ResumeExperienceProps {
   period?: string;
   meta?: string;
   summary?: string;
-  // id проекта из propsPortfolioList: описание, технологии, ссылки и список
-  // возможностей берём оттуда — в резюме показываем тем же блоком, что и на
-  // странице проекта (без даты создания).
-  projectId?: string;
-  groups: ResumeExperienceGroupProps[];
+  projects?: ResumeProjectProps[];
+  groups?: ResumeExperienceGroupProps[];
 }
 
 export interface ResumeEducationProps {
@@ -300,6 +313,8 @@ export interface ResumeCvProps {
   experienceTitle: string;
   skillsTitle: string;
   educationTitle: string;
+  // Подзаголовок списка результатов в блоке проекта (рядом с «Возможностями»).
+  resultsTitle: string;
   downloadName: string;
   downloadLabel: string;
   viewLabel: string;

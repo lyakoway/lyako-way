@@ -4,6 +4,7 @@ export const resumeCv: ResumeCvProps = {
   experienceTitle: "Experience",
   skillsTitle: "Key skills",
   educationTitle: "Education",
+  resultsTitle: "Outcome",
   downloadName: "Alexey-Mazurenko-en.pdf",
   downloadLabel: "Download PDF",
   viewLabel: "View",
@@ -48,30 +49,20 @@ export const resumeCv: ResumeCvProps = {
     {
       id: "2",
       role: "AI Engineer",
-      projectId: "rag-chat",
-      groups: [
+      projects: [
         {
-          title: "Agents & orchestration",
-          items: [
-            "Designed and configured agent systems for business scenarios: workflow, function / tool calling, error handling and failure recovery.",
-            "Built AI agents for content generation and development-process automation.",
-            "Researched and applied multi-agent orchestration approaches, tracking current industry practices.",
-          ],
-        },
-        {
-          title: "Prompting & quality",
-          items: [
-            "Developed and iteratively improved prompt scenarios, testing them for accuracy, stability and edge cases.",
-            "Built evaluation sets for regression testing of answer quality.",
-            "Optimized work with LLM context: compression, prioritization, token-budget management.",
-          ],
-        },
-        {
-          title: "Development, infrastructure & R&D",
-          items: [
-            "Helped build the platform end-to-end: backend (Python, FastAPI), frontend (React / Next), infrastructure (Docker, Kubernetes, CI/CD).",
-            "Created skills and helper scripts in Python / Bash, maintained API docs, worked with open-source projects.",
-            "Explored new approaches, validated hypotheses and shipped best practices into the product.",
+          id: "1",
+          portfolioId: "rag-chat",
+          // Результат = практическое применение: тот же подход в стройке.
+          resultsLead:
+            "Practical application — an AI assistant for construction documentation: you ask a question about the documents (cost estimates, SNiP/GOST standards, project documentation in PDF/Excel/Word) and the assistant answers with references to the sources, respecting access rights.",
+          resultsNote:
+            "A real construction project has hundreds of documents in different formats, scattered across mailboxes and drives — and making things up is not an option: a mistake in a concrete grade or in a standard costs money and safety.",
+          results: [
+            "Finds the answer in specific documents and shows the source — the wording can be checked against the original",
+            "Looking up a clause in estimates and standards instead of digging through dozens of files in mailboxes and drives",
+            "A single entry point to a site’s documentation: SNiP/GOST, cost estimates and working drawings in one query",
+            "Access control: contractors and subcontractors only see their own documents",
           ],
         },
       ],

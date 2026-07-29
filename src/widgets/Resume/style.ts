@@ -460,18 +460,23 @@ export const PdfFrame = styled.iframe`
   border: 0;
 `;
 
-/* ——— Блок проекта из портфолио внутри записи опыта ——— */
+/* ——— Блок проекта внутри записи опыта ——— */
 
 // Стили самого блока берём со страницы проекта (единый вид), но там он живёт
 // на всю страницу и имеет свои внешние отступы. Внутри карточки опыта
-// подгоняем интервалы под ритм резюме: лид → технологии и ссылки →
-// карточки описания → возможности.
+// подгоняем интервалы под ритм резюме: лид → ссылки → возможности.
 export const ProjectBlock = styled.div`
   /* Разделитель — снизу, после «Возможностей»: он отделяет блок проекта от
      следующих за ним групп обязанностей. На странице проекта линию рисует
      Desc сверху — здесь её убираем, иначе она висит сразу под должностью. */
   padding-bottom: 20px;
   border-bottom: 1px solid ${PANEL_BORDER};
+
+  /* Если после проекта групп нет — линия оказалась бы у нижнего края карточки. */
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+  }
 
   ${Desc} {
     margin-top: 16px;
@@ -494,4 +499,32 @@ export const ProjectBlock = styled.div`
   ${FeatureList} {
     gap: 7px;
   }
+`;
+
+// Второй абзац описания проекта — контекст задачи, тоном тише лида.
+export const ProjectNote = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.55;
+`;
+
+/* Абзацы в блоке «Результат»: он вне сетки Desc, поэтому интервалы задаём
+   отступами, а не gap. Первый абзац — сам сценарий применения, второй —
+   зачем это нужно. */
+export const ProjectResultLead = styled.p`
+  margin: 0 0 10px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+`;
+
+export const ProjectResultNote = styled.p`
+  margin: 0 0 12px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.55;
 `;
