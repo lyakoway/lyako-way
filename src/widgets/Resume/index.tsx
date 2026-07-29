@@ -39,7 +39,24 @@ import {
   PdfModal,
   PdfModalHead,
   PdfFrame,
+  ProjectBlock,
 } from "./style";
+
+/* Блок проекта внутри записи опыта оформляем так же, как страницу проекта
+   в портфолио, — переиспользуем её стили, чтобы вид не разъезжался. */
+import {
+  MetaList,
+  MetaRow,
+  MetaLabel,
+  MetaValue,
+  TechChips,
+  Chip as TechChip,
+  Desc,
+  DescLead,
+  FeaturesTitle,
+  FeatureList,
+  Feature,
+} from "src/widgets/PortfolioProject/style";
 
 const IconExperience = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -181,9 +198,25 @@ const SKILL_ICONS = [
   </svg>,
 ];
 
+// Показ ссылки без «https://» и служебных параметров — как в портфолио.
+const prettyUrl = (url: string) => {
+  try {
+    const { hostname, pathname } = new URL(url);
+    return `${hostname}${pathname.replace(/\/$/, "")}`;
+  } catch {
+    return url;
+  }
+};
+
 const Resume = () => {
   const {
-    lang: { propsHeaderTopMenu, resumeCv, name: langName },
+    lang: {
+      propsHeaderTopMenu,
+      resumeCv,
+      propsPortfolioList,
+      portfolioHeader,
+      name: langName,
+    },
   } = useSelectorTyped(({ lang }) => lang);
   const { theme } = useSelectorTyped(({ theme }) => theme);
   const dispatch = useDispatchTyped();
@@ -204,6 +237,95 @@ const Resume = () => {
 
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
+
+  /* Запись опыта может ссылаться на проект из портфолио (projectId) — тогда
+     показываем его карточку тем же блоком, что и страница проекта: технологии,
+     ссылки, описание и возможности. Дату создания в резюме не выводим. */
+  const renderProject = (projectId: string) => {
+    const project = propsPortfolioList.find((item) => item.id === projectId);
+    if (!project) return null;
+
+    // В демо пробрасываем текущие язык и тему сайта — как в портфолио.
+    const demoHref = (() => {
+      if (!project.hrefPortfolio) return "";
+      const url = new URL(project.hrefPortfolio);
+      url.searchParams.set("lang", langName === "russia" ? "ru" : "en");
+      url.searchParams.set("theme", theme.name);
+      return url.toString();
+    })();
+
+    // В резюме из описания берём только лид (первый абзац) — карточки про
+    // демо-режим, модели и стек остаются на странице проекта.
+    const [lead] = project.portfolioText
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean);
+
+    return (
+      <ProjectBlock>
+        {/* Порядок: лид, под ним технологии и ссылки, затем возможности. */}
+        <Desc>
+          {lead && <DescLead>{lead}</DescLead>}
+
+          <MetaList>
+            <MetaRow>
+              <MetaLabel>{portfolioHeader.technology}</MetaLabel>
+              <MetaValue as="dd">
+                <TechChips>
+                  {project.technologies.map((tech, i) => (
+                    <TechChip key={i}>{tech}</TechChip>
+                  ))}
+                </TechChips>
+              </MetaValue>
+            </MetaRow>
+
+            {project.github && (
+              <MetaRow>
+                <MetaLabel>{portfolioHeader.linkGithub}</MetaLabel>
+                <MetaValue>
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    title={project.github}
+                  >
+                    {prettyUrl(project.github)}
+                  </a>
+                </MetaValue>
+              </MetaRow>
+            )}
+
+            {demoHref && (
+              <MetaRow>
+                <MetaLabel>{portfolioHeader.link}</MetaLabel>
+                <MetaValue>
+                  <a
+                    href={demoHref}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    title={demoHref}
+                  >
+                    {prettyUrl(demoHref)}
+                  </a>
+                </MetaValue>
+              </MetaRow>
+            )}
+          </MetaList>
+        </Desc>
+
+        {project.features && project.features.length > 0 && (
+          <>
+            <FeaturesTitle>{portfolioHeader.features}</FeaturesTitle>
+            <FeatureList>
+              {project.features.map((f, i) => (
+                <Feature key={i}>{f}</Feature>
+              ))}
+            </FeatureList>
+          </>
+        )}
+      </ProjectBlock>
+    );
+  };
 
   const handleView = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -292,13 +414,14 @@ const Resume = () => {
                 <EntryHeader>
                   <div>
                     <ItemRole>{item.role}</ItemRole>
-                    <ItemCompany>{item.company}</ItemCompany>
+                    {item.company && <ItemCompany>{item.company}</ItemCompany>}
                   </div>
-                  <PeriodBadge>{item.period}</PeriodBadge>
+                  {item.period && <PeriodBadge>{item.period}</PeriodBadge>}
                 </EntryHeader>
 
                 {item.meta && <ItemMeta>{item.meta}</ItemMeta>}
                 {item.summary && <ItemSummary>{item.summary}</ItemSummary>}
+                {item.projectId && renderProject(item.projectId)}
 
                 {item.groups.map((group, i) => (
                   <Group key={i}>

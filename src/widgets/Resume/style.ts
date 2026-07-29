@@ -8,6 +8,12 @@ import {
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 import { runningBorder } from "src/common/lib/runningBorder";
+import {
+  Desc,
+  MetaList,
+  FeaturesTitle,
+  FeatureList,
+} from "src/widgets/PortfolioProject/style";
 
 /* Поверхность вложенной карточки поверх сланцевой панели раздела. */
 const cardSurface = `
@@ -452,4 +458,40 @@ export const PdfFrame = styled.iframe`
   flex: 1;
   width: 100%;
   border: 0;
+`;
+
+/* ——— Блок проекта из портфолио внутри записи опыта ——— */
+
+// Стили самого блока берём со страницы проекта (единый вид), но там он живёт
+// на всю страницу и имеет свои внешние отступы. Внутри карточки опыта
+// подгоняем интервалы под ритм резюме: лид → технологии и ссылки →
+// карточки описания → возможности.
+export const ProjectBlock = styled.div`
+  /* Разделитель — снизу, после «Возможностей»: он отделяет блок проекта от
+     следующих за ним групп обязанностей. На странице проекта линию рисует
+     Desc сверху — здесь её убираем, иначе она висит сразу под должностью. */
+  padding-bottom: 20px;
+  border-bottom: 1px solid ${PANEL_BORDER};
+
+  ${Desc} {
+    margin-top: 16px;
+    padding-top: 0;
+    border-top: 0;
+    gap: 14px;
+  }
+
+  /* margin-top у MetaList рассчитан на страницу проекта — здесь интервал
+     задаёт gap самого Desc, иначе между лидом и технологиями появляется дыра. */
+  ${MetaList} {
+    margin-top: 0;
+    gap: 8px;
+  }
+
+  ${FeaturesTitle} {
+    margin: 18px 0 8px;
+  }
+
+  ${FeatureList} {
+    gap: 7px;
+  }
 `;

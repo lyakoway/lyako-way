@@ -278,10 +278,14 @@ export interface ResumeExperienceGroupProps {
 export interface ResumeExperienceProps {
   id: string;
   role: string;
-  company: string;
-  period: string;
+  company?: string;
+  period?: string;
   meta?: string;
   summary?: string;
+  // id проекта из propsPortfolioList: описание, технологии, ссылки и список
+  // возможностей берём оттуда — в резюме показываем тем же блоком, что и на
+  // странице проекта (без даты создания).
+  projectId?: string;
   groups: ResumeExperienceGroupProps[];
 }
 
