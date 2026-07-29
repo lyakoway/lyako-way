@@ -11,6 +11,24 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
   },
 
+  // Иконки лежат в /static/favicons, но роботы поисковиков (в первую очередь
+  // YandexFavicons) запрашивают их по корневым путям и на 404 берут иконку из
+  // своего кэша. Отдаём те же файлы с корня — без дублей в репозитории.
+  async rewrites() {
+    return [
+      { source: "/favicon.ico", destination: "/static/favicons/favicon.ico" },
+      { source: "/favicon.svg", destination: "/static/favicons/favicon.svg" },
+      {
+        source: "/apple-touch-icon.png",
+        destination: "/static/favicons/apple-icon.png",
+      },
+      {
+        source: "/apple-touch-icon-precomposed.png",
+        destination: "/static/favicons/apple-icon-precomposed.png",
+      },
+    ];
+  },
+
   webpack(config) {
     // Обработка SVG через SVGR: отдаём как React-компонент (ReactComponent),
     // без инлайна в base64 — это уменьшает размер JS-бандла и TBT.
