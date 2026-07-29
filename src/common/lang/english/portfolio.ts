@@ -26,7 +26,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
     technologies: ["Python", "FastAPI", "RAG", "ChromaDB", "React", "TypeScript"],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "An AI assistant with Retrieval-Augmented Generation: upload PDF, Word or Excel and ask questions about the content — answers come with citations to the source pages.\nBackend on FastAPI + ChromaDB (vector search) and embeddings; multiple LLM providers (OpenAI, Anthropic, Ollama). Frontend — React 19 + TypeScript (Vite).",
+      "An AI assistant with Retrieval-Augmented Generation: upload PDF, Word or Excel and ask questions about the content — answers come with links to the source pages.\nThe demo (offline) mode works out of the box, no keys. For live answers, free GLM models are connected (GLM-4.5 Flash and GLM-4.6, Z.ai) right in the “Model” list; OpenAI (GPT), Anthropic (Claude) and local models via Ollama are also supported.\nBackend — FastAPI + ChromaDB (vector search) and embeddings; frontend — React 19 + TypeScript (Vite).",
+    features: [
+      "Search across PDF, Word (.docx) and Excel (.xlsx)",
+      "Clickable citations [1], [2] linking to file and page",
+      "Built-in PDF viewer on the citation page",
+      "Multiple documents at once",
+      "Filtering by category",
+      "Conversation history",
+      "Real-time response streaming (SSE)",
+      "Light/dark theme and language switching (RU/EN)",
+    ],
     screenshots: [
       "/static/portfolio/rag-chat-dark.png",
       "/static/portfolio/rag-chat-light.png",

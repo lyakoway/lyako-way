@@ -168,6 +168,9 @@ export interface PortfolioListProps {
   technologies: string[];
   github?: string;
   portfolioText: string;
+  // Список ключевых возможностей — рендерится буллетами (компактнее сплошного
+  // текста). Каждый пункт может начинаться с эмодзи.
+  features?: string[];
   screenshots?: string[];
   direction: string;
   wip?: boolean;
@@ -182,6 +185,7 @@ export interface PortfolioHeaderProps {
   technology: string;
   linkGithub: string;
   link: string;
+  features: string;
 }
 
 export interface ResumeProps {

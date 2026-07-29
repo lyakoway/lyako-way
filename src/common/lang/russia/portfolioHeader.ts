@@ -9,4 +9,5 @@ export const portfolioHeader: PortfolioHeaderProps = {
   technology: "Технологии:",
   linkGithub: "Ссылка на github:",
   link: "Ссылка на сайт:",
+  features: "Возможности",
 };

@@ -19,6 +19,9 @@ import {
   TechChips,
   Chip,
   Desc,
+  FeaturesTitle,
+  FeatureList,
+  Feature,
   Preview,
   PreviewFrame,
   ModalImage,
@@ -168,6 +171,19 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 </Reveal>
               ))}
           </Desc>
+
+          {project.features && project.features.length > 0 && (
+            <>
+              <FeaturesTitle>{portfolioHeader.features}</FeaturesTitle>
+              <FeatureList>
+                {project.features.map((f, i) => (
+                  <Reveal as={Feature} key={i} delay={i * 60}>
+                    {f}
+                  </Reveal>
+                ))}
+              </FeatureList>
+            </>
+          )}
 
           {project.screenshots && project.screenshots.length > 0 && (
             <Preview>

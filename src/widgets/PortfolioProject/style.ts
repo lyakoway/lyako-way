@@ -159,6 +159,46 @@ export const Desc = styled.div`
   }
 `;
 
+/* ——— Список возможностей (простой список с маркерами) ——— */
+
+export const FeaturesTitle = styled.p`
+  margin: 28px 0 14px;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+`;
+
+export const FeatureList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 9px;
+`;
+
+// Пункт с оранжевым маркером слева (как Bullets в Резюме).
+export const Feature = styled.li`
+  position: relative;
+  padding-left: 18px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.55;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
 /* ——— Скриншоты ——— */
 
 export const Preview = styled.div`
