@@ -18,7 +18,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
   {
     id: "rag-chat",
     ...ICON_META,
-    hrefPortfolio: "https://ai-rag-chat-backend.onrender.com",
+    hrefPortfolio: "https://lyakoway-rag-chat.hf.space",
     portfolioNameList: "RAG Chat — чат с документами",
     portfolioDataTime: "2025",
     hrefNameList: "rag-chat",
