@@ -29,6 +29,19 @@ import {
   NotFound,
 } from "./style";
 
+// Текст ссылки в мете: домен и путь, без «https://» и служебных параметров
+// (?lang=ru&theme=light). Сам href остаётся полным — режем только показ,
+// иначе на узком экране адрес занимал три строки. Если разобрать не удалось,
+// показываем как есть.
+const prettyUrl = (url: string) => {
+  try {
+    const { hostname, pathname } = new URL(url);
+    return `${hostname}${pathname.replace(/\/$/, "")}`;
+  } catch {
+    return url;
+  }
+};
+
 const PortfolioProject = ({ slug }: { slug: string }) => {
   const {
     lang: { propsPortfolioList, portfolioHeader, portfolio, name: langName },
@@ -119,8 +132,9 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     href={project.github}
                     target="_blank"
                     rel="noreferrer noopener"
+                    title={project.github}
                   >
-                    {project.github}
+                    {prettyUrl(project.github)}
                   </a>
                 </MetaValue>
               </MetaRow>
@@ -134,8 +148,9 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     href={demoHref}
                     target="_blank"
                     rel="noreferrer noopener"
+                    title={demoHref}
                   >
-                    {demoHref}
+                    {prettyUrl(demoHref)}
                   </a>
                 </MetaValue>
               </MetaRow>

@@ -19,7 +19,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     id: "rag-chat",
     ...ICON_META,
     hrefPortfolio: "https://lyakoway-rag-chat.hf.space",
-    portfolioNameList: "RAG Chat — чат с документами",
+    portfolioNameList: "RAG Chat",
     portfolioDataTime: "2025",
     hrefNameList: "rag-chat",
     direction: "RAG и знания",

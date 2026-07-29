@@ -77,20 +77,29 @@ export const MetaList = styled.dl`
   gap: 14px;
 `;
 
+// <580px — подпись над значением: колонка подписей (130px) на узком экране
+// оставляла у коротких значений («2025») дыру в полстроки, а длинные ссылки
+// выжимала в три строки. С 580px — две колонки, значения выровнены по одной
+// вертикали. minmax(0, 1fr) обязателен: без него неразрывный URL распирает
+// колонку и ломает сетку.
 export const MetaRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 6px 12px;
+  display: grid;
+  gap: 3px;
+
+  @media (min-width: 580px) {
+    grid-template-columns: 130px minmax(0, 1fr);
+    align-items: baseline;
+    gap: 6px 14px;
+  }
 `;
 
 export const MetaLabel = styled.dt`
-  min-width: 130px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 14px;
 `;
 
 export const MetaValue = styled.dd`
+  min-width: 0;
   margin: 0;
   color: ${PANEL_TEXT};
   font-size: 14px;
@@ -99,7 +108,9 @@ export const MetaValue = styled.dd`
   a {
     color: ${({ theme }) => theme.color.basic.primaryLight};
     text-decoration: none;
-    word-break: break-all;
+    /* anywhere вместо break-all: перенос только когда строка реально не
+       влезает, а не посреди слова при каждом удобном случае. */
+    overflow-wrap: anywhere;
 
     &:hover {
       text-decoration: underline;
