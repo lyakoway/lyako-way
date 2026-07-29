@@ -49,8 +49,6 @@ import {
   MetaRow,
   MetaLabel,
   MetaValue,
-  TechChips,
-  Chip as TechChip,
   Desc,
   DescLead,
   FeaturesTitle,
@@ -263,22 +261,12 @@ const Resume = () => {
 
     return (
       <ProjectBlock>
-        {/* Порядок: лид, под ним технологии и ссылки, затем возможности. */}
+        {/* Порядок: лид, под ним ссылки, затем возможности. Технологии не
+            дублируем — они есть в разделе «Ключевые навыки». */}
         <Desc>
           {lead && <DescLead>{lead}</DescLead>}
 
           <MetaList>
-            <MetaRow>
-              <MetaLabel>{portfolioHeader.technology}</MetaLabel>
-              <MetaValue as="dd">
-                <TechChips>
-                  {project.technologies.map((tech, i) => (
-                    <TechChip key={i}>{tech}</TechChip>
-                  ))}
-                </TechChips>
-              </MetaValue>
-            </MetaRow>
-
             {project.github && (
               <MetaRow>
                 <MetaLabel>{portfolioHeader.linkGithub}</MetaLabel>
