@@ -5,6 +5,7 @@ import {
   PANEL_BORDER,
   PANEL_ELEVATED,
 } from "src/common/lib/panelStyles";
+import { controlButtonBase } from "src/common/lib/controlButton";
 
 // Визитка в стиле vCard: всегда развёрнута; на десктопе (≥1024px)
 // «прилипает» слева.
@@ -330,41 +331,20 @@ export const SettingsCorner = styled.div`
 `;
 
 // Кнопка-шестерёнка: белая при закрытом попапе, оранжевая при открытом.
+// Оформлена как остальные контролы (кнопка EN и т.п.): фон + рамка + оранжевый
+// акцент. Появляется только в компактном режиме (см. SettingsCorner).
 export const GearButton = styled.button`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border: none;
-  border-radius: 10px;
-  background: none;
-  color: ${PANEL_TEXT};
-  cursor: pointer;
-  transition: color 0.2s ease;
-  -webkit-tap-highlight-color: transparent;
+  ${controlButtonBase}
 
   svg {
-    width: 22px;
-    height: 22px;
     fill: currentColor;
     animation: ${spin} 6s linear infinite;
   }
 
-  /* Открыт попап — светло-оранжевая (primaryLight, как подсветка иконок
-     мессенджеров при наведении) — хорошо видна на тёмной панели. */
+  /* Открыт попап — светло-оранжевая (как подсветка иконок при наведении). */
   &[aria-expanded="true"] {
     color: ${({ theme }) => theme.color.basic.primaryLight};
-  }
-
-  /* Hover-подсветка только на устройствах с реальным курсором — чтобы на
-     тач-экранах «залипший» hover не оставлял шестерёнку оранжевой при
-     закрытом попапе. */
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      color: ${({ theme }) => theme.color.basic.primaryLight};
-    }
+    border-color: ${({ theme }) => theme.color.basic.primaryLight};
   }
 `;
 
