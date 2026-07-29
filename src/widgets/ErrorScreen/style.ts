@@ -1,21 +1,39 @@
 import Link from "next/link";
 import styled, { css } from "styled-components";
 
+import { Article } from "src/ui/Card";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
   PANEL_BORDER,
-  PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
+import { runningBorder } from "src/common/lib/runningBorder";
+
+// Карточка ошибки: на десктопе высота = min-height сайдбара (702px), поэтому
+// правый блок по длине точно совпадает с левым; контент — по центру.
+export const ErrorArticle = styled(Article)`
+  @media (min-width: 1250px) {
+    min-height: 702px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+`;
 
 export const Wrap = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  min-height: 50vh;
-  gap: 12px;
+  text-align: center;
+  min-height: 55vh;
+  gap: 14px;
   padding: 8px 0;
+
+  @media (min-width: 1250px) {
+    /* высоту держит ErrorArticle, здесь не растягиваем */
+    min-height: auto;
+  }
 `;
 
 // Крупный код статуса (404 / 500) — белым.
@@ -31,7 +49,7 @@ export const Code = styled.span`
 `;
 
 export const Note = styled.p`
-  margin: 0;
+  margin: 0 auto;
   max-width: 520px;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 15px;
@@ -44,23 +62,25 @@ export const Actions = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   margin-top: 8px;
 `;
 
-// Общая база кнопки.
+// Общая база кнопки (высота 40 / радиус 12 + бегунок при наведении, как везде).
 const buttonBase = css`
+  ${runningBorder}
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 11px 20px;
+  height: 40px;
+  padding: 0 20px;
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 `;
 
 // Основное действие (оранжевое, белый текст — контраст AA).
@@ -74,17 +94,13 @@ const primaryButton = css`
   }
 `;
 
-// Вторичное действие (призрачная кнопка с рамкой).
+// Вторичное действие (призрачная кнопка с рамкой). Заливку/бегунок при
+// наведении задаёт runningBorder.
 const secondaryButton = css`
   ${buttonBase};
   background: transparent;
   color: ${PANEL_TEXT};
   border-color: ${PANEL_BORDER};
-
-  &:hover {
-    background: ${PANEL_ELEVATED_HOVER};
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
-  }
 `;
 
 // Кнопка «Обновить» — перезагрузка страницы (клиентское действие).

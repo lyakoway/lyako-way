@@ -1,9 +1,18 @@
 import React from "react";
 
 import { useSelectorTyped } from "src/store";
-import { Article, ArticleTitle } from "src/ui/Card";
+import { ArticleTitle } from "src/ui/Card";
+import RunBorder from "src/ui/RunBorder";
 
-import { Wrap, Code, Note, Actions, ReloadButton, HomeLink } from "./style";
+import {
+  ErrorArticle,
+  Wrap,
+  Code,
+  Note,
+  Actions,
+  ReloadButton,
+  HomeLink,
+} from "./style";
 
 interface ErrorScreenProps {
   /** HTTP-код (404 / 500). Если не задан — общий экран ошибки. */
@@ -20,7 +29,7 @@ const ErrorScreen = ({ statusCode }: ErrorScreenProps) => {
   const is404 = statusCode === 404;
 
   return (
-    <Article style={{ minHeight: "60vh" }}>
+    <ErrorArticle>
       <Wrap>
         <Code>{statusCode ?? error.errorLabel}</Code>
         <ArticleTitle>
@@ -36,15 +45,17 @@ const ErrorScreen = ({ statusCode }: ErrorScreenProps) => {
               onClick={() => window.location.reload()}
             >
               {error.reloadCta}
+              <RunBorder radius={12} />
             </ReloadButton>
           )}
           {/* Когда рядом есть «Обновить» — «На главную» вторичная. */}
           <HomeLink href="/" $secondary={!is404}>
             {error.homeCta}
+            <RunBorder radius={12} />
           </HomeLink>
         </Actions>
       </Wrap>
-    </Article>
+    </ErrorArticle>
   );
 };
 
