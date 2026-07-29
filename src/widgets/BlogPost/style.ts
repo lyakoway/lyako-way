@@ -35,12 +35,18 @@ export const Sep = styled.span`
   color: ${PANEL_TEXT_MUTED};
 `;
 
+// <580px — без верхнего отступа: у заголовка выше уже есть свои 20px, вместе
+// они отрывали лид от заголовка (как было с метой на странице проекта).
 export const Lead = styled.p`
-  margin: 16px 0 0;
+  margin: 0;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 17px;
   font-weight: 300;
   line-height: 1.5;
+
+  @media (min-width: 580px) {
+    margin-top: 16px;
+  }
 `;
 
 export const Meta = styled.div`
