@@ -11,6 +11,18 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  /* Убираем синюю прямоугольную подсветку тапа на мобильных (её углы не следуют
+     за border-radius кнопок и торчат из-под них). */
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  label,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
   /* Плавное переключение цвета при смене темы. Класс theme-transition вешается
      на <html> на момент переключения и снимается через 3с (в _app), поэтому
      обычные ховеры/переходы в остальное время не замедляются. Трогаем только
