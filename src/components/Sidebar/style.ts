@@ -76,7 +76,19 @@ export const AvatarBox = styled.figure`
 `;
 
 export const InfoContent = styled.div`
+  /* min-width:0 + flex:1 — чтобы блок сжимался и имя переносилось, а не
+     распирало строку. */
+  min-width: 0;
+  flex: 1;
+
+  /* <1250px рядом (в правом верхнем углу) шестерёнка — резервируем справа
+     место, чтобы имя переносилось и не заходило под неё. */
+  @media (max-width: 1249px) {
+    padding-right: 44px;
+  }
+
   @media (min-width: 1250px) {
+    padding-right: 0;
     text-align: center;
   }
 `;
@@ -89,6 +101,8 @@ export const Name = styled.h1`
   font-size: 17px;
   font-weight: 500;
   letter-spacing: -0.25px;
+  /* Длинное имя переносится по словам, а не уходит под шестерёнку. */
+  overflow-wrap: break-word;
 
   @media (min-width: 580px) {
     font-size: 26px;
