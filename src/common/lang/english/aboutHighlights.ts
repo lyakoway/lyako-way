@@ -6,8 +6,8 @@ export const aboutHighlights: AboutHighlightProps[] = [
   {
     id: "1",
     title: "7+ years of experience",
-    text: `7+ years in software development, 2+ of them focused on AI agents
-    and LLMs at MWS AI (MTS ecosystem). MSc in Mathematics.`,
+    text: `7+ years in software development. Passionate about applying AI to
+    practical business problems, constantly learning new technologies.`,
   },
   {
     id: "2",

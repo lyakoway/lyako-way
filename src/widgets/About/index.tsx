@@ -18,6 +18,13 @@ import {
   HighlightCardText,
 } from "./style";
 
+// Пустая строка в тексте — разрыв абзаца: каждый кусок выводим своим <p>.
+const paragraphs = (text: string) =>
+  text
+    .split(/\n\s*\n/)
+    .map((part) => part.trim())
+    .filter(Boolean);
+
 const About = () => {
   const {
     lang: {
@@ -40,9 +47,9 @@ const About = () => {
       </Reveal>
 
       <Reveal as={AboutText} delay={90}>
-        <p>{personal.text1}</p>
-        <p>{personal.text2}</p>
-        <p>{personal.text3}</p>
+        {[personal.text1, personal.text2, personal.text3].flatMap((text, i) =>
+          paragraphs(text).map((part, j) => <p key={`${i}-${j}`}>{part}</p>)
+        )}
       </Reveal>
 
       <Reveal as={StackBlock} delay={180}>
