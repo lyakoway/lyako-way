@@ -17,7 +17,7 @@ export const resumeCv: ResumeCvProps = {
       period: "Apr 2020 — present",
       meta: "Moscow · “MTS Profile” and “Ecosystem widgets”",
       summary:
-        "“MTS Profile” — a module for storing and visualizing customer data with access management across ecosystem products. “Ecosystem widgets” — an embeddable navigation and personalization module for b2c/b2b products.",
+        "“MTS Profile” — a module for storing and visualizing customer data with access management across ecosystem products.\n“Ecosystem widgets” — an embeddable navigation and personalization module for b2c/b2b products.",
       groups: [
         {
           title: "Responsibilities",
@@ -53,13 +53,16 @@ export const resumeCv: ResumeCvProps = {
         {
           id: "1",
           portfolioId: "rag-chat",
+          // Свой лид: в резюме разбиваем на два абзаца (в портфолио «\n»
+          // отделяет уже не абзац, а карточку описания).
+          lead: "An AI assistant with Retrieval-Augmented Generation.\nUpload PDF, Word or Excel and ask questions about the content, answers come with links to the source pages.",
           // Результат = практическое применение: тот же подход в стройке.
           resultsLead:
-            "Practical application — an AI assistant for construction documentation: you ask a question about the documents (cost estimates, SNiP/GOST standards, project documentation in PDF/Excel/Word) and the assistant answers with references to the sources, respecting access rights.",
+            "Practical application — an AI assistant for construction documentation.\nYou ask a question about the documents (cost estimates, SNiP/GOST standards, project documentation in PDF/Excel/Word), and the assistant answers with references to the sources, respecting access rights.",
           resultsNote:
             "A real construction project has hundreds of documents in different formats, scattered across mailboxes and drives — and making things up is not an option: a mistake in a concrete grade or in a standard costs money and safety.",
           results: [
-            "Finds the answer in specific documents and shows the source — the wording can be checked against the original",
+            "Finds the answer in specific documents and shows the source. The wording can be checked against the original",
             "Looking up a clause in estimates and standards instead of digging through dozens of files in mailboxes and drives",
             "A single entry point to a site’s documentation: SNiP/GOST, cost estimates and working drawings in one query",
             "Access control: contractors and subcontractors only see their own documents",

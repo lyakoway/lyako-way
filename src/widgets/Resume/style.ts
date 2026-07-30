@@ -511,16 +511,7 @@ export const ProjectNote = styled.p`
 `;
 
 /* Абзацы в блоке «Результат»: он вне сетки Desc, поэтому интервалы задаём
-   отступами, а не gap. Первый абзац — сам сценарий применения, второй —
-   зачем это нужно. */
-export const ProjectResultLead = styled.p`
-  margin: 0 0 10px;
-  color: ${PANEL_TEXT};
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.55;
-`;
-
+   отступами, а не gap. */
 export const ProjectResultNote = styled.p`
   margin: 0 0 12px;
   color: ${PANEL_TEXT_SECONDARY};

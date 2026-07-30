@@ -42,7 +42,6 @@ import {
   PdfFrame,
   ProjectBlock,
   ProjectNote,
-  ProjectResultLead,
   ProjectResultNote,
 } from "./style";
 
@@ -273,7 +272,19 @@ const Resume = () => {
       <ProjectBlock key={entry.id}>
         {/* Порядок: лид, под ним ссылки, затем возможности. */}
         <Desc>
-          {lead && <DescLead>{lead}</DescLead>}
+          {/* Выделен только первый абзац — что это за проект; остальные идут
+              обычным текстом. */}
+          {lead
+            ?.split("\n")
+            .map((line) => line.trim())
+            .filter(Boolean)
+            .map((line, i) =>
+              i === 0 ? (
+                <DescLead key={i}>{line}</DescLead>
+              ) : (
+                <ProjectNote key={i}>{line}</ProjectNote>
+              )
+            )}
           {entry.note && <ProjectNote>{entry.note}</ProjectNote>}
 
           {(project?.github || demoHref) && (
@@ -327,9 +338,14 @@ const Resume = () => {
         {(entry.resultsLead || entry.results?.length) && (
           <>
             <FeaturesTitle>{resumeCv.resultsTitle}</FeaturesTitle>
-            {entry.resultsLead && (
-              <ProjectResultLead>{entry.resultsLead}</ProjectResultLead>
-            )}
+            {/* «\n» в resultsLead разделяет абзацы — как в summary. */}
+            {entry.resultsLead
+              ?.split("\n")
+              .map((line) => line.trim())
+              .filter(Boolean)
+              .map((line, i) => (
+                <ProjectResultNote key={i}>{line}</ProjectResultNote>
+              ))}
             {entry.resultsNote && (
               <ProjectResultNote>{entry.resultsNote}</ProjectResultNote>
             )}
@@ -439,7 +455,12 @@ const Resume = () => {
                 </EntryHeader>
 
                 {item.meta && <ItemMeta>{item.meta}</ItemMeta>}
-                {item.summary && <ItemSummary>{item.summary}</ItemSummary>}
+                {/* В summary «\n» разделяет абзацы — про каждый продукт свой. */}
+                {item.summary
+                  ?.split("\n")
+                  .map((line) => line.trim())
+                  .filter(Boolean)
+                  .map((line, i) => <ItemSummary key={i}>{line}</ItemSummary>)}
                 {item.projects?.map((project) => renderProject(project))}
 
                 {item.groups?.map((group, i) => (
