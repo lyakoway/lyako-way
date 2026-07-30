@@ -1,10 +1,14 @@
-Сюда положите файлы резюме в PDF:
+Файлы резюме в PDF. Схема имён: Alexey-Mazurenko-<lang>[-dark|-print].pdf
 
-  resume-ru.pdf   — русская версия (кнопки в разделе «Резюме», язык RU)
-  resume-en.pdf   — английская версия (язык EN)
+Просмотр (кнопка «Просмотреть», подстраивается под тему сайта):
+  Alexey-Mazurenko-ru.pdf        — RU, светлая тема
+  Alexey-Mazurenko-ru-dark.pdf   — RU, тёмная тема
+  Alexey-Mazurenko-en.pdf        — EN, светлая тема
+  Alexey-Mazurenko-en-dark.pdf   — EN, тёмная тема
 
-Пути настроены в:
-  src/common/lang/russia/resumeCv.ts  -> pdfUrl: "/static/resume/resume-ru.pdf"
-  src/common/lang/english/resumeCv.ts -> pdfUrl: "/static/resume/resume-en.pdf"
+Скачивание (кнопка «Скачать») — печатная версия:
+  Alexey-Mazurenko-ru-print.pdf  — RU
+  Alexey-Mazurenko-en-print.pdf  — EN
 
-Файлы из public/ раздаются с корня сайта, т.е. /static/resume/resume-ru.pdf
+Пути формируются в src/widgets/Resume/index.tsx (viewUrl / downloadUrl).
+Файлы из public/ раздаются с корня сайта: /static/resume/<file>.pdf

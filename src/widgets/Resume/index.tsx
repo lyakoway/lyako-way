@@ -223,13 +223,13 @@ const Resume = () => {
   const dispatch = useDispatchTyped();
 
   // Файлы резюме зависят от языка (ru/en) и темы (light/dark):
-  //  · Просмотр  — тёмная версия под тёмную тему (resume-<lang>[-dark].pdf).
-  //  · Скачивание — единый файл на язык (Alexey-Mazurenko-<lang>.pdf).
+  //  · Просмотр   — экранная версия под тему: Alexey-Mazurenko-<lang>[-dark].pdf
+  //  · Скачивание — печатная версия: Alexey-Mazurenko-<lang>-print.pdf
   const slug = langName === "russia" ? "ru" : "en";
-  const viewUrl = `/static/resume/resume-${slug}${
+  const viewUrl = `/static/resume/Alexey-Mazurenko-${slug}${
     theme.name === "dark" ? "-dark" : ""
   }.pdf`;
-  const downloadUrl = `/static/resume/Alexey-Mazurenko-${slug}.pdf`;
+  const downloadUrl = `/static/resume/Alexey-Mazurenko-${slug}-print.pdf`;
 
   // Тач-устройства (телефоны/планшеты, встроенные браузеры) не рендерят PDF
   // в iframe — там показываем его через PDF.js (canvas). На десктопе оставляем
