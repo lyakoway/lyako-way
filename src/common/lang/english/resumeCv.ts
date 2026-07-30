@@ -85,7 +85,6 @@ export const resumeCv: ResumeCvProps = {
         "LLM API",
         "LangChain",
         "prompt engineering",
-        "function / tool calling",
         "multi-agent orchestration",
         "context & token-budget optimization",
       ],
@@ -115,7 +114,6 @@ export const resumeCv: ResumeCvProps = {
         "Webpack",
         "Jest",
         "Node + Express",
-        "Storybook",
       ],
     },
     {

@@ -12,8 +12,8 @@ export const aboutHighlights: AboutHighlightProps[] = [
   {
     id: "2",
     title: "AI-агенты и LLM",
-    text: `Проектирую агентов под бизнес-сценарии: workflow,
-    function / tool calling, оркестрация, обработка ошибок.`,
+    text: `Проектирую агентов под бизнес-сценарии: workflow, оркестрация,
+    обработка ошибок.`,
   },
   {
     id: "3",
