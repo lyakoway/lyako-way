@@ -7,13 +7,10 @@ import ContactForm from "src/components/ContactForm";
 import RunBorder from "src/ui/RunBorder";
 import {
   CONTACT_EMAIL,
-  CONTACT_PROFILES,
   CONTACT_PHONES,
   CONTACT_MESSENGERS,
 } from "src/common/constants/contacts";
 import {
-  PROFILE_ICON,
-  GitHubIcon,
   MESSENGER_ICON,
   PhoneIcon,
   PinIcon,
@@ -82,23 +79,6 @@ const Contacts = () => {
         {contactsPage.intro}
       </Reveal>
 
-      <Reveal as={ContactBlock} delay={120}>
-        <SectionLabel>{contactsPage.profilesTitle}</SectionLabel>
-        <Links>
-          {CONTACT_PROFILES.map((item) => (
-            <LinkItem
-              key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              {PROFILE_ICON[item.label] ?? <GitHubIcon />}
-              {item.label}
-              <RunBorder radius={12} />
-            </LinkItem>
-          ))}
-        </Links>
-      </Reveal>
 
       <Reveal as={ContactBlock} delay={180}>
         <SectionLabel>{sidebar.emailTitle}</SectionLabel>
