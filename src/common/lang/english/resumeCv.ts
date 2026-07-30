@@ -60,7 +60,7 @@ export const resumeCv: ResumeCvProps = {
           resultsLead:
             "Practical application — an AI assistant for construction documentation.\nYou ask a question about the documents (cost estimates, SNiP/GOST standards, project documentation in PDF/Excel/Word), and the assistant answers with references to the sources, respecting access rights.",
           resultsNote:
-            "A real construction project has hundreds of documents in different formats, scattered across mailboxes and drives — and making things up is not an option: a mistake in a concrete grade or in a standard costs money and safety.",
+            "A real construction project has hundreds of documents in different formats, scattered across mailboxes and drives. Making things up is not an option, a mistake in a concrete grade or in a standard costs money and safety.",
           results: [
             "Finds the answer in specific documents and shows the source. The wording can be checked against the original",
             "Looking up a clause in estimates and standards instead of digging through dozens of files in mailboxes and drives",
