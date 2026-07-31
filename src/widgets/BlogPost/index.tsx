@@ -19,10 +19,12 @@ import {
   Body,
   NotFound,
 } from "./style";
+// WIP-плашка — тот же вид, что на странице проекта в Портфолио.
+import { WipTag } from "src/widgets/PortfolioProject/style";
 
 const BlogPost = ({ slug }: { slug: string }) => {
   const {
-    lang: { propsPortfolioListBlog, blog },
+    lang: { propsPortfolioListBlog, blog, portfolio },
   } = useSelectorTyped(({ lang }) => lang);
 
   const post = propsPortfolioListBlog.find(
@@ -59,6 +61,8 @@ const BlogPost = ({ slug }: { slug: string }) => {
         </NotFound>
       ) : (
         <>
+          <WipTag>{portfolio.wip}</WipTag>
+
           {post.textBlogHeader && (
             <Reveal as={Lead}>{post.textBlogHeader}</Reveal>
           )}

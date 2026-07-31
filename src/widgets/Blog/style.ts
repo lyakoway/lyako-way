@@ -86,33 +86,6 @@ export const Card = styled(Link)`
   }
 `;
 
-// Бейдж «в разработке»: нейтральная пилюля в правом верхнем углу карточки.
-export const WipBadge = styled.span`
-  position: absolute;
-  top: 14px;
-  right: 16px;
-  z-index: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 11px;
-  border-radius: 999px;
-  background: rgba(10, 12, 16, 0.45);
-  border: 1px solid ${PANEL_BORDER};
-  color: ${PANEL_TEXT_SECONDARY};
-  font-size: 11px;
-  font-weight: 500;
-  backdrop-filter: blur(4px);
-
-  &::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: ${PANEL_TEXT_MUTED};
-  }
-`;
-
 export const TagList = styled.ul`
   display: flex;
   flex-wrap: wrap;

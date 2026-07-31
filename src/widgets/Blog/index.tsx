@@ -18,7 +18,6 @@ import {
   CardFoot,
   CardDate,
   ReadMore,
-  WipBadge,
 } from "./style";
 
 const ALL = "__all__";
@@ -37,7 +36,7 @@ const ArrowGlyph = () => (
 
 const Blog = () => {
   const {
-    lang: { propsHeaderTopMenu, propsPortfolioListBlog, blog, portfolio },
+    lang: { propsHeaderTopMenu, propsPortfolioListBlog, blog },
   } = useSelectorTyped(({ lang }) => lang);
 
   const title =
@@ -86,7 +85,6 @@ const Blog = () => {
         {shown.map((post, idx) => (
           <Reveal key={post.id} delay={idx * 90}>
             <Card href={`/blog/${post.hrefNameList}`}>
-              <WipBadge>{portfolio.wip}</WipBadge>
               <TagList>
                 {post.technologies.map((tag, i) => (
                   <Tag key={i}>{tag}</Tag>
