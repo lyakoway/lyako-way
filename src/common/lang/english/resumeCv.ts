@@ -76,6 +76,7 @@ export const resumeCv: ResumeCvProps = {
           // Свой лид: в резюме разбиваем на два абзаца (в портфолио «\n»
           // отделяет уже не абзац, а карточку описания).
           lead: "An AI assistant with Retrieval-Augmented Generation.\nUpload PDF, Word or Excel and ask questions about the content, answers come with links to the source pages.",
+          note: "RAG pipeline: document ingestion → chunking → embeddings → relevant-context retrieval → LLM answer generation → source citation.",
           // Результат = практическое применение: тот же подход в стройке.
           resultsLead:
             "Practical application — an AI assistant for construction documentation.\nYou ask a question about the documents (cost estimates, SNiP/GOST standards, project documentation in PDF/Excel/Word), and the assistant answers with references to the sources, respecting access rights.",
