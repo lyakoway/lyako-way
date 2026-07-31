@@ -39,6 +39,42 @@ export const AboutText = styled.div`
   }
 `;
 
+// Факты после вводного абзаца — списком с маркерами (сканируется легче, чем
+// набор одиночных абзацев).
+export const AboutBullets = styled.ul`
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+
+  li {
+    position: relative;
+    padding-left: 18px;
+    color: ${PANEL_TEXT_SECONDARY};
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.color.basic.primary};
+    }
+  }
+
+  @media (min-width: 580px) {
+    li {
+      font-size: 16px;
+    }
+  }
+`;
+
 // Стек технологий — компактные «чипы» вместо перечисления внутри абзаца.
 export const StackBlock = styled.section`
   margin-top: 22px;
