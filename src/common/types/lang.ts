@@ -300,6 +300,9 @@ export interface ResumeExperienceProps {
   summary?: string;
   projects?: ResumeProjectProps[];
   groups?: ResumeExperienceGroupProps[];
+  // Стек и процессы записи опыта — подпись + список (рендерятся чипами).
+  stack?: ResumeExperienceGroupProps;
+  processes?: ResumeExperienceGroupProps;
 }
 
 export interface ResumeEducationProps {

@@ -473,6 +473,20 @@ const Resume = () => {
                     </Bullets>
                   </Group>
                 ))}
+
+                {/* Стек и процессы — подпись + чипы (как «Ключевые навыки»). */}
+                {[item.stack, item.processes]
+                  .filter((g): g is NonNullable<typeof g> => !!g)
+                  .map((group, i) => (
+                    <Group key={`sp-${i}`}>
+                      {group.title && <GroupTitle>{group.title}</GroupTitle>}
+                      <ChipList>
+                        {group.items.map((text, j) => (
+                          <Chip key={j}>{text}</Chip>
+                        ))}
+                      </ChipList>
+                    </Group>
+                  ))}
               </Reveal>
             </TimelineItem>
           ))}
