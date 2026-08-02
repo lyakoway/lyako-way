@@ -16,6 +16,7 @@ export const blog: BlogProps = {
   filter: "Фильтр заметок",
   readMore: "Читать",
   readTimeUnit: "мин чтения",
+  searchPlaceholder: "Поиск в статье…",
 };
 
 const ICON_META = { icon: "", widthIcon: "200px", heightIcon: "200px" };

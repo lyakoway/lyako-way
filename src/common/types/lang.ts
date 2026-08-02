@@ -30,6 +30,7 @@ export interface BlogProps {
   filter: string;
   readMore: string;
   readTimeUnit: string;
+  searchPlaceholder: string;
 }
 
 export interface PortfolioListBlogProps {

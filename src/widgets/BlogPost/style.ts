@@ -4,7 +4,120 @@ import {
   PANEL_TEXT_SECONDARY,
   PANEL_TEXT_MUTED,
   PANEL_BORDER,
+  PANEL_ELEVATED,
 } from "src/common/lib/panelStyles";
+
+/* ——— Поиск внутри статьи ——— */
+
+export const SearchRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+`;
+
+// Поле ввода в тёмном стиле проекта + подсветка фокуса оранжевым.
+export const SearchField = styled.div<{ $focused?: boolean }>`
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid
+    ${({ $focused, theme }) =>
+      $focused ? theme.color.basic.primaryLight : PANEL_BORDER};
+  transition: border-color 0.2s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    fill: none;
+    /* Иконка белая: дети svg рисуются stroke="currentColor", поэтому цвет
+       задаём через color. */
+    color: ${PANEL_TEXT};
+  }
+
+  input {
+    all: unset;
+    flex: 1;
+    min-width: 0;
+    color: ${PANEL_TEXT};
+    font-size: 14px;
+  }
+`;
+
+// Плейсхолдер отдельным текстовым узлом (а не атрибутом input) — чтобы его
+// «ловил» эффект распыления текста при смене языка (disperseTextSwap).
+export const Placeholder = styled.span`
+  position: absolute;
+  left: 38px; /* padding 12 + иконка 18 + gap 8 */
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+`;
+
+export const MatchCount = styled.span`
+  flex-shrink: 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 13px;
+  white-space: nowrap;
+`;
+
+export const NavBtn = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  border: 1px solid ${PANEL_BORDER};
+  background: ${PANEL_ELEVATED};
+  color: ${PANEL_TEXT_SECONDARY};
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: ${({ theme }) => theme.color.basic.primaryLight};
+      border-color: ${({ theme }) => theme.color.basic.primaryLight};
+    }
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+`;
+
+// Подсветка совпадения; активное (текущее) — оранжевым.
+export const Mark = styled.mark`
+  background: rgba(255, 133, 96, 0.28);
+  color: inherit;
+  border-radius: 3px;
+  padding: 0 1px;
+  scroll-margin-top: 90px;
+
+  &[data-active="true"] {
+    background: ${({ theme }) => theme.color.basic.primary};
+    color: #ffffff;
+  }
+`;
 
 export const Breadcrumb = styled.nav`
   display: flex;

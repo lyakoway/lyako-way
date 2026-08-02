@@ -16,6 +16,7 @@ export const blog: BlogProps = {
   filter: "Notes filter",
   readMore: "Read",
   readTimeUnit: "min read",
+  searchPlaceholder: "Search in the article…",
 };
 
 const ICON_META = { icon: "", widthIcon: "200px", heightIcon: "200px" };

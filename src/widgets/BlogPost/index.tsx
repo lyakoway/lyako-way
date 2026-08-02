@@ -19,7 +19,50 @@ import {
   Tag,
   Body,
   NotFound,
+  SearchRow,
+  SearchField,
+  Placeholder,
+  MatchCount,
+  NavBtn,
+  Mark,
 } from "./style";
+
+// Экранируем спецсимволы для RegExp (поисковый запрос — произвольный текст).
+const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+// Подсветка совпадений в абзаце. Ключ каждого совпадения — page-para-occ,
+// чтобы отметить активное (текущее) и проскроллить к нему.
+const Highlighted: React.FC<{
+  text: string;
+  pageIdx: number;
+  paraIdx: number;
+  query: string;
+  activeKey?: string;
+}> = ({ text, pageIdx, paraIdx, query, activeKey }) => {
+  const q = query.trim();
+  if (!q) return <>{text}</>;
+
+  const parts = text.split(new RegExp(`(${escapeRe(q)})`, "gi"));
+  let occ = -1;
+
+  return (
+    <>
+      {parts.map((part, i) => {
+        // Нечётные индексы — совпадения (захваченная группа в split).
+        if (i % 2 === 1) {
+          occ += 1;
+          const key = `${pageIdx}-${paraIdx}-${occ}`;
+          return (
+            <Mark key={i} data-match-key={key} data-active={key === activeKey}>
+              {part}
+            </Mark>
+          );
+        }
+        return <React.Fragment key={i}>{part}</React.Fragment>;
+      })}
+    </>
+  );
+};
 // WIP-плашка — тот же вид, что на странице проекта в Портфолио.
 import { WipTag } from "src/widgets/PortfolioProject/style";
 
@@ -92,6 +135,62 @@ const BlogPost = ({ slug }: { slug: string }) => {
     });
   };
 
+  /* ——— Поиск по всем страницам поста ——— */
+  const [query, setQuery] = useState("");
+  const [focused, setFocused] = useState(false);
+  const [activeMatch, setActiveMatch] = useState(0);
+
+  // Плоский список совпадений по всем страницам: page (1-based) + ключ.
+  const matches = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return [] as { page: number; key: string }[];
+    const list: { page: number; key: string }[] = [];
+    pages.forEach((paras, pageIdx) => {
+      paras.forEach((para, paraIdx) => {
+        const lower = para.toLowerCase();
+        let from = 0;
+        let occ = 0;
+        let idx = lower.indexOf(q, from);
+        while (idx !== -1) {
+          list.push({ page: pageIdx + 1, key: `${pageIdx}-${paraIdx}-${occ}` });
+          occ += 1;
+          from = idx + q.length;
+          idx = lower.indexOf(q, from);
+        }
+      });
+    });
+    return list;
+  }, [query, pages]);
+
+  const activeKey = matches[activeMatch]?.key;
+
+  // Новый запрос — на первое совпадение и его страницу. Сброс поиска при смене
+  // поста (slug).
+  useEffect(() => setQuery(""), [slug]);
+  useEffect(() => {
+    setActiveMatch(0);
+    if (matches.length) setPage(matches[0].page);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query]);
+
+  // Прокрутка к активному совпадению после отрисовки страницы.
+  useEffect(() => {
+    if (!matches.length) return;
+    requestAnimationFrame(() => {
+      bodyRef.current
+        ?.querySelector('[data-active="true"]')
+        ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeMatch, page, matches.length]);
+
+  const gotoMatch = (next: number) => {
+    if (!matches.length) return;
+    const idx = (next + matches.length) % matches.length;
+    setActiveMatch(idx);
+    setPage(matches[idx].page);
+  };
+
   return (
     <Article>
       <Head>
@@ -134,10 +233,93 @@ const BlogPost = ({ slug }: { slug: string }) => {
             </TagList>
           </Reveal>
 
+          <SearchRow>
+            <SearchField $focused={focused}>
+              <svg viewBox="0 0 24 24" aria-hidden focusable="false">
+                <circle
+                  cx="11"
+                  cy="11"
+                  r="7"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+                <path
+                  d="m20 20-3.5-3.5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    gotoMatch(activeMatch + (e.shiftKey ? -1 : 1));
+                  }
+                }}
+                aria-label={blog.searchPlaceholder}
+              />
+              {/* Плейсхолдер отдельным текстом — попадает в эффект распыления
+                  при смене языка (см. Placeholder / disperseTextSwap). */}
+              {!query && <Placeholder>{blog.searchPlaceholder}</Placeholder>}
+            </SearchField>
+
+            {query.trim() && (
+              <>
+                <MatchCount>
+                  {matches.length ? `${activeMatch + 1} / ${matches.length}` : "0"}
+                </MatchCount>
+                <NavBtn
+                  type="button"
+                  onClick={() => gotoMatch(activeMatch - 1)}
+                  disabled={!matches.length}
+                  aria-label="Предыдущее совпадение"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M15 6l-6 6 6 6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </NavBtn>
+                <NavBtn
+                  type="button"
+                  onClick={() => gotoMatch(activeMatch + 1)}
+                  disabled={!matches.length}
+                  aria-label="Следующее совпадение"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M9 6l6 6-6 6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </NavBtn>
+              </>
+            )}
+          </SearchRow>
+
           <Body ref={bodyRef}>
             {pageParagraphs.map((p, i) => (
               <Reveal as="p" key={`${page}-${i}`} delay={i * 80}>
-                {p}
+                <Highlighted
+                  text={p}
+                  pageIdx={page - 1}
+                  paraIdx={i}
+                  query={query}
+                  activeKey={activeKey}
+                />
               </Reveal>
             ))}
           </Body>
