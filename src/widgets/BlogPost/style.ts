@@ -12,6 +12,7 @@ import {
 export const SearchRow = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 20px;
 `;
@@ -19,7 +20,10 @@ export const SearchRow = styled.div`
 // Поле ввода в тёмном стиле проекта + подсветка фокуса оранжевым.
 export const SearchField = styled.div<{ $focused?: boolean }>`
   position: relative;
+  /* min-width:0 обязателен: иначе флекс-элемент не сжимается ниже ширины
+     контента и ряд «вылезает» за карточку на узких экранах. */
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   gap: 8px;
