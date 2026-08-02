@@ -22,6 +22,7 @@ import {
   SearchRow,
   SearchField,
   Placeholder,
+  ClearBtn,
   MatchCount,
   NavBtn,
   Mark,
@@ -139,6 +140,12 @@ const BlogPost = ({ slug }: { slug: string }) => {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const [activeMatch, setActiveMatch] = useState(0);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const clearSearch = () => {
+    setQuery("");
+    searchInputRef.current?.focus();
+  };
 
   // Плоский список совпадений по всем страницам: page (1-based) + ключ.
   const matches = useMemo(() => {
@@ -251,6 +258,7 @@ const BlogPost = ({ slug }: { slug: string }) => {
                 />
               </svg>
               <input
+                ref={searchInputRef}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -261,12 +269,30 @@ const BlogPost = ({ slug }: { slug: string }) => {
                     e.preventDefault();
                     gotoMatch(activeMatch + (e.shiftKey ? -1 : 1));
                   }
+                  if (e.key === "Escape") clearSearch();
                 }}
                 aria-label={blog.searchPlaceholder}
               />
               {/* Плейсхолдер отдельным текстом — попадает в эффект распыления
                   при смене языка (см. Placeholder / disperseTextSwap). */}
               {!query && <Placeholder>{blog.searchPlaceholder}</Placeholder>}
+
+              {query && (
+                <ClearBtn
+                  type="button"
+                  onClick={clearSearch}
+                  aria-label="Очистить"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path
+                      d="M6 6l12 12M18 6 6 18"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </ClearBtn>
+              )}
             </SearchField>
 
             {query.trim() && (

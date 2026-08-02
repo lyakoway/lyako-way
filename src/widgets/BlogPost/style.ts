@@ -55,6 +55,34 @@ export const SearchField = styled.div<{ $focused?: boolean }>`
   }
 `;
 
+// Кнопка очистки поля (×) — показывается, когда что-то введено.
+export const ClearBtn = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.1);
+  color: ${PANEL_TEXT};
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+  }
+`;
+
 // Плейсхолдер отдельным текстовым узлом (а не атрибутом input) — чтобы его
 // «ловил» эффект распыления текста при смене языка (disperseTextSwap).
 export const Placeholder = styled.span`
