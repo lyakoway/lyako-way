@@ -88,6 +88,8 @@ export const NavbarItem = styled.li`
     text-transform: capitalize;
     white-space: nowrap;
     transition: color 0.25s ease;
+    /* Убираем серую вспышку-подложку браузера по тапу. */
+    -webkit-tap-highlight-color: transparent;
   }
 
   /* нормализуем иконки из propsHeaderTopMenu и красим в белый */
@@ -99,7 +101,23 @@ export const NavbarItem = styled.li`
     transition: transform 0.25s ease;
   }
 
-  a:hover svg,
+  a svg [fill] {
+    fill: currentColor;
+  }
+
+  a[data-active="true"] {
+    color: ${PANEL_TEXT};
+  }
+
+  /* Наведение НЕ через :hover: на тач-устройствах он залипает после тапа (а
+     media (hover: hover) там врёт — и в эмуляции DevTools, и на части
+     Android-браузеров). Признак ставит Navbar по pointer-событиям мыши. */
+  a[data-hover="true"],
+  a:focus-visible {
+    color: ${PANEL_TEXT};
+  }
+
+  a[data-hover="true"] svg,
   a:focus-visible svg {
     transform: translateY(-2px);
   }
@@ -109,20 +127,10 @@ export const NavbarItem = styled.li`
       transition: none;
     }
 
-    a:hover svg,
+    a[data-hover="true"] svg,
     a:focus-visible svg {
       transform: none;
     }
-  }
-
-  a svg [fill] {
-    fill: currentColor;
-  }
-
-  a:hover,
-  a:focus,
-  a[data-active="true"] {
-    color: ${PANEL_TEXT};
   }
 
   @media (min-width: 768px) {
@@ -157,24 +165,24 @@ export const NavLabel = styled.span`
     background: ${PANEL_TEXT};
     transform: scaleX(0);
     transform-origin: center;
-    transition: transform 0.25s ease, background 0.25s ease;
+    transition: transform 0.25s ease;
   }
 
-  a:hover &::after,
-  a:focus-visible &::after,
-  a[data-active="true"] &::after {
+  /* Эта линия — исключительно индикатор наведения: белая, появляется только под
+     настоящим курсором (data-hover ставит Navbar по pointer-событиям мыши) или
+     при фокусе с клавиатуры. С активным пунктом она не связана — иначе при
+     переходе она мигала бы белым и на новом пункте, и на прежнем. */
+  a[data-hover="true"] &::after,
+  a:focus-visible &::after {
     transform: scaleX(1);
   }
 
-  /* Оранжевую линию активного пункта рисует бегунок (NavIndicator). Пока он
-     не измерен (SSR, первый кадр) — показываем её здесь, чтобы подчёркивание
-     не мигало; как только бегунок появился, локальную линию гасим. */
-  a[data-active="true"] &::after {
+  /* Оранжевую линию выбранного пункта рисует бегунок (NavIndicator). Пока он
+     не измерен (SSR, первый кадр) — рисуем её здесь, чтобы подчёркивание
+     активного пункта не появлялось из ниоткуда. */
+  [data-slider="off"] a[data-active="true"] &::after {
     background: ${({ theme }) => theme.color.basic.primary};
-  }
-
-  [data-slider="on"] a[data-active="true"] &::after {
-    background: transparent;
+    transform: scaleX(1);
   }
 
   @media (prefers-reduced-motion: reduce) {
