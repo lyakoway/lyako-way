@@ -117,17 +117,32 @@ const BlogPost = ({ slug }: { slug: string }) => {
   const totalPages = pages.length;
   const [page, setPage] = useState(1);
 
-  // Сброс на первую страницу при переходе к другому посту.
-  useEffect(() => setPage(1), [slug]);
+  // Запоминаем открытую страницу поста в localStorage (по slug), чтобы при
+  // повторном открытии этой заметки вернуться на неё же.
+  const storageKey = `blogPage:${slug}`;
+  const persistPage = (p: number) => {
+    if (typeof window !== "undefined" && slug) {
+      window.localStorage.setItem(storageKey, String(p));
+    }
+  };
+
+  // Восстанавливаем сохранённую страницу (клэмпим к числу страниц), иначе — 1.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const saved = parseInt(window.localStorage.getItem(storageKey) || "", 10);
+    setPage(saved >= 1 && saved <= totalPages ? saved : 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug, totalPages]);
 
   const bodyRef = useRef<HTMLDivElement>(null);
 
   const pageParagraphs = pages[Math.min(page, totalPages) - 1] ?? [];
 
-  // Смена страницы: прокручиваем к началу текста (с учётом фиксированного
-  // навбара), чтобы новая страница читалась сразу сверху.
+  // Смена страницы: запоминаем и прокручиваем к началу текста (с учётом
+  // фиксированного навбара), чтобы новая страница читалась сразу сверху.
   const handlePageChange = (next: number) => {
     setPage(next);
+    persistPage(next);
     requestAnimationFrame(() => {
       const el = bodyRef.current;
       if (!el) return;
@@ -176,7 +191,10 @@ const BlogPost = ({ slug }: { slug: string }) => {
   useEffect(() => setQuery(""), [slug]);
   useEffect(() => {
     setActiveMatch(0);
-    if (matches.length) setPage(matches[0].page);
+    if (matches.length) {
+      setPage(matches[0].page);
+      persistPage(matches[0].page);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
@@ -196,6 +214,7 @@ const BlogPost = ({ slug }: { slug: string }) => {
     const idx = (next + matches.length) % matches.length;
     setActiveMatch(idx);
     setPage(matches[idx].page);
+    persistPage(matches[idx].page);
   };
 
   return (
