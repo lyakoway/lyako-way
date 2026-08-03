@@ -172,8 +172,10 @@ export const NavLabel = styled.span`
      настоящим курсором (data-hover ставит Navbar по pointer-событиям мыши) или
      при фокусе с клавиатуры. С активным пунктом она не связана — иначе при
      переходе она мигала бы белым и на новом пункте, и на прежнем. */
-  a[data-hover="true"] &::after,
-  a:focus-visible &::after {
+  /* У выбранного пункта линию не показываем — там уже оранжевый бегунок, а
+     белая вылезала бы из-под него кромкой по краям. */
+  a[data-hover="true"]:not([data-active="true"]) &::after,
+  a:focus-visible:not([data-active="true"]) &::after {
     transform: scaleX(1);
   }
 
