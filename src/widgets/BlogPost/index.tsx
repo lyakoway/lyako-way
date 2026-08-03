@@ -260,7 +260,7 @@ const BlogPost = ({ slug }: { slug: string }) => {
           </Reveal>
 
           <SearchRow>
-            <SearchField $focused={focused}>
+            <SearchField $focused={focused} $filled={Boolean(query)}>
               <svg viewBox="0 0 24 24" aria-hidden focusable="false">
                 <circle
                   cx="11"

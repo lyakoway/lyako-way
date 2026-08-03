@@ -1,10 +1,11 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
   PANEL_TEXT_MUTED,
   PANEL_BORDER,
   PANEL_ELEVATED,
+  PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 
 /* ——— Поиск внутри статьи ——— */
@@ -17,8 +18,13 @@ export const SearchRow = styled.div`
   margin-top: 20px;
 `;
 
-// Поле ввода в тёмном стиле проекта + подсветка фокуса оранжевым.
-export const SearchField = styled.div<{ $focused?: boolean }>`
+// Поле ввода в тёмном стиле проекта + подсветка оранжевым, пока поле в фокусе
+// или в нём что-то введено ($filled) — чтобы активный поиск был виден и после
+// того, как фокус ушёл.
+export const SearchField = styled.div<{
+  $focused?: boolean;
+  $filled?: boolean;
+}>`
   position: relative;
   /* min-width:0 обязателен: иначе флекс-элемент не сжимается ниже ширины
      контента и ряд «вылезает» за карточку на узких экранах. */
@@ -32,9 +38,61 @@ export const SearchField = styled.div<{ $focused?: boolean }>`
   border-radius: 10px;
   background: ${PANEL_ELEVATED};
   border: 1px solid
-    ${({ $focused, theme }) =>
-      $focused ? theme.color.basic.primaryLight : PANEL_BORDER};
-  transition: border-color 0.2s ease;
+    ${({ $focused, $filled, theme }) =>
+      $focused || $filled ? theme.color.basic.primaryLight : PANEL_BORDER};
+  transition: border-color 0.2s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+  }
+
+  /* Ревил-рамка при наведении — как у полей контактной формы: каждый
+     псевдоэлемент рисует ПОЛНУЮ скруглённую рамку, а «разбегание из центра»
+     задаёт clip-path (::before по горизонтали, ::after по вертикали), поэтому
+     углы получаются скруглёнными и без хвостиков. */
+  &::before,
+  &::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: 0;
+    border: 1px solid ${({ theme }) => theme.color.basic.primaryLight};
+    border-radius: inherit;
+    pointer-events: none;
+    transition: clip-path 0.4s ease;
+  }
+
+  &::before {
+    clip-path: inset(0 50% 0 50%);
+  }
+
+  &::after {
+    clip-path: inset(50% 0 50% 0);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Активное или заполненное поле: рамка раскрыта всегда, без наведения.
+     Толщина одна и та же (1px) — утолщение под курсором смотрелось слишком
+     грубо на поле высотой 40px. */
+  ${({ $focused, $filled }) =>
+    ($focused || $filled) &&
+    css`
+      &::before,
+      &::after {
+        clip-path: inset(0 0 0 0);
+      }
+    `}
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before,
+    &::after {
+      transition: none;
+    }
+  }
 
   svg {
     width: 18px;
