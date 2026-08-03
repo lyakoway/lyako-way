@@ -41,6 +41,7 @@ export const NavbarWrapper = styled.nav`
 `;
 
 export const NavbarList = styled.ul`
+  position: relative;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -165,13 +166,39 @@ export const NavLabel = styled.span`
     transform: scaleX(1);
   }
 
+  /* Оранжевую линию активного пункта рисует бегунок (NavIndicator). Пока он
+     не измерен (SSR, первый кадр) — показываем её здесь, чтобы подчёркивание
+     не мигало; как только бегунок появился, локальную линию гасим. */
   a[data-active="true"] &::after {
     background: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  [data-slider="on"] a[data-active="true"] &::after {
+    background: transparent;
   }
 
   @media (prefers-reduced-motion: reduce) {
     &::after {
       transition: none;
     }
+  }
+`;
+
+/* Бегунок: одна полоса на весь навбар. При смене активного пункта уезжает к
+   новому — по пути проходит над всеми промежуточными пунктами. Позицию и
+   ширину считает Navbar по метрикам подписи и передаёт инлайном. */
+export const NavIndicator = styled.span`
+  position: absolute;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: ${({ theme }) => theme.color.basic.primary};
+  pointer-events: none;
+  will-change: transform, width;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
