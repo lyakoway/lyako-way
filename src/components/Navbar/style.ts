@@ -94,6 +94,24 @@ export const NavbarItem = styled.li`
     width: 22px;
     height: 22px;
     fill: currentColor;
+    /* Вместе с подчёркиванием иконка чуть приподнимается. */
+    transition: transform 0.25s ease;
+  }
+
+  a:hover svg,
+  a:focus-visible svg {
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a svg {
+      transition: none;
+    }
+
+    a:hover svg,
+    a:focus-visible svg {
+      transform: none;
+    }
   }
 
   a svg [fill] {
@@ -120,13 +138,40 @@ export const NavbarItem = styled.li`
   }
 `;
 
-// Подпись пункта: активный получает оранжевое подчёркивание (текст не красим).
+/* Подпись пункта: линия растёт из центра к краям (scaleX от центра) и так же
+   уезжает обратно. При наведении она белая, у выбранного пункта — оранжевая
+   (у активного цвет держится и под курсором). */
 export const NavLabel = styled.span`
+  position: relative;
   padding-bottom: 3px;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.25s ease;
 
-  a[data-active="true"] & {
-    border-bottom-color: ${({ theme }) => theme.color.basic.primary};
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: ${PANEL_TEXT};
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+
+  a:hover &::after,
+  a:focus-visible &::after,
+  a[data-active="true"] &::after {
+    transform: scaleX(1);
+  }
+
+  a[data-active="true"] &::after {
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+    }
   }
 `;
