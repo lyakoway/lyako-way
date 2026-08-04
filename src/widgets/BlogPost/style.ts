@@ -37,9 +37,9 @@ export const SearchField = styled.div<{
   padding: 0 12px;
   border-radius: 10px;
   background: ${PANEL_ELEVATED};
-  border: 1px solid
-    ${({ $focused, $filled, theme }) =>
-      $focused || $filled ? theme.color.basic.primaryLight : PANEL_BORDER};
+  /* Базовая рамка всегда нейтральная: оранжевую рисует только ревил-рамка
+     ниже, иначе они складывались в две концентрические линии. */
+  border: 1px solid ${PANEL_BORDER};
   transition: border-color 0.2s ease, background 0.25s ease;
 
   &:hover {
@@ -55,9 +55,12 @@ export const SearchField = styled.div<{
     content: "";
     box-sizing: border-box;
     position: absolute;
-    inset: 0;
+    /* -1px: absolute-дети считаются от padding-box, поэтому при inset:0 рамка
+       легла бы ВНУТРЬ базовой и линий стало бы две. Здесь она точно накрывает
+       базовую (радиус, соответственно, 10px + 1px). */
+    inset: -1px;
     border: 1px solid ${({ theme }) => theme.color.basic.primaryLight};
-    border-radius: inherit;
+    border-radius: 11px;
     pointer-events: none;
     transition: clip-path 0.4s ease;
   }
