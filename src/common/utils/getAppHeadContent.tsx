@@ -6,6 +6,7 @@ import {
   SITE_NAME,
   SITE_TITLE,
 } from "src/common/constants/site";
+import getAnalyticsMarkup from "src/common/utils/getAnalyticsMarkup";
 
 // canonical — абсолютный адрес текущей страницы (передаётся из _app).
 const getAppHeadContent = (canonical: string) => (
@@ -57,6 +58,9 @@ const getAppHeadContent = (canonical: string) => (
     <meta name="twitter:title" content={SITE_TITLE} />
     <meta name="twitter:description" content={SITE_DESCRIPTION} />
     <meta name="twitter:image" content={OG_IMAGE} />
+
+    {/* Аналитика: Яндекс.Метрика и Google Analytics 4. */}
+    {getAnalyticsMarkup()}
 
     {/* Poppins подключается через next/font (self-hosted) в pages/_app.tsx —
         отдельный <link> Google Fonts больше не нужен (убирает FOUT и варн
