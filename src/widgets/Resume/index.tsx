@@ -8,6 +8,8 @@ import { ArticleTitle, Article } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
 import PdfViewer from "src/components/PdfViewer";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
   Actions,
@@ -364,6 +366,7 @@ const Resume = () => {
 
   const handleView = (e: React.MouseEvent) => {
     e.preventDefault();
+    trackEvent(AnalyticsEvent.CV_VIEW);
     dispatch(
       showModal({
         width: "min(1000px, 92vw)",
@@ -393,7 +396,11 @@ const Resume = () => {
       </Reveal>
 
       <Reveal as={Actions} delay={90}>
-        <ButtonPrimary href={downloadUrl} download={resumeCv.downloadName}>
+        <ButtonPrimary
+          href={downloadUrl}
+          download={resumeCv.downloadName}
+          onClick={() => trackEvent(AnalyticsEvent.CV_DOWNLOAD)}
+        >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden>
             <path
               d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"

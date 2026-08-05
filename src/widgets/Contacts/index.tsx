@@ -15,6 +15,8 @@ import {
   PhoneIcon,
   PinIcon,
 } from "src/common/icon/socialIcons";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
   Intro,
@@ -83,7 +85,15 @@ const Contacts = () => {
       <Reveal as={ContactBlock} delay={180}>
         <SectionLabel>{sidebar.emailTitle}</SectionLabel>
         <Links>
-          <LinkItem href={CONTACT_EMAIL.href}>
+          <LinkItem
+            href={CONTACT_EMAIL.href}
+            onClick={() =>
+              trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                channel: "email",
+                placement: "contacts_page",
+              })
+            }
+          >
             <MailIcon />
             {CONTACT_EMAIL.label}
             <RunBorder radius={12} />
@@ -98,7 +108,16 @@ const Contacts = () => {
           <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
           <Links>
             {CONTACT_PHONES.map((phone) => (
-              <LinkItem key={phone.href} href={phone.href}>
+              <LinkItem
+                key={phone.href}
+                href={phone.href}
+                onClick={() =>
+                  trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                    channel: "phone",
+                    placement: "contacts_page",
+                  })
+                }
+              >
                 <PhoneIcon />
                 {phone.label}
                 <RunBorder radius={12} />
@@ -116,6 +135,12 @@ const Contacts = () => {
                 href={item.href}
                 target="_blank"
                 rel="noreferrer noopener"
+                onClick={() =>
+                  trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                    channel: item.label.toLowerCase(),
+                    placement: "contacts_page",
+                  })
+                }
               >
                 {MESSENGER_ICON[item.label]}
                 {item.label}

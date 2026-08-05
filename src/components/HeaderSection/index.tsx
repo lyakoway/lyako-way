@@ -52,6 +52,8 @@ import LampSwitch from "src/ui/LampSwitch";
 import { showModal } from "src/reducers";
 import ContactForm from "src/components/ContactForm";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 import { NewYearTree } from "src/components/NewYearTree";
 
 // Анимированная сцена рабочего стола (стол, монитор, часы, окно, полка с
@@ -73,6 +75,7 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
   const showTree = isNewYearPeriod();
 
   const handleClickModal = useCallback(() => {
+    trackEvent(AnalyticsEvent.CTA_ORDER_CLICK);
     dispatch(
       showModal({
         content: <ContactForm />,
@@ -166,22 +169,56 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
               <Phones>
                 <PhonesIcon />
                 <PhonesConteiner>
-                  <PhonesNumber href="tel:+79772700930">
+                  <PhonesNumber
+                    href="tel:+79772700930"
+                    onClick={() =>
+                      trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                        channel: "phone",
+                        placement: "header",
+                      })
+                    }
+                  >
                     +7 (977) 270-09-30
                   </PhonesNumber>
                 </PhonesConteiner>
               </Phones>
               <PhonesTextWrapper>
-                <PhonesText href="https://t.me/amazurenk">Telegram</PhonesText>
+                <PhonesText
+                  href="https://t.me/amazurenk"
+                  onClick={() =>
+                    trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                      channel: "telegram",
+                      placement: "header",
+                    })
+                  }
+                >
+                  Telegram
+                </PhonesText>
                 <PhonesTextDivide>/</PhonesTextDivide>
-                <PhonesText href="https://api.whatsapp.com/send?phone=79772700930">
+                <PhonesText
+                  href="https://api.whatsapp.com/send?phone=79772700930"
+                  onClick={() =>
+                    trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                      channel: "whatsapp",
+                      placement: "header",
+                    })
+                  }
+                >
                   Whatsapp
                 </PhonesText>
               </PhonesTextWrapper>
               <HeaderSectionLabel>{headerHouse.callText}</HeaderSectionLabel>
               <Emails>
                 <EmailsIcon />
-                <ContactsText href="mailto:mazurenko-alexey@mail.ru">
+                <ContactsText
+                  href="mailto:mazurenko-alexey@mail.ru"
+                  onClick={() =>
+                    trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                      channel: "email",
+                      placement: "header",
+                    })
+                  }
+                >
                   mazurenko-alexey@mail.ru
                 </ContactsText>
               </Emails>

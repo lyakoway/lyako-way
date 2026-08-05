@@ -22,6 +22,7 @@ const poppins = Poppins({
 
 import { useDispatchTyped, useSelectorTyped, wrapper } from "src/store";
 import getAppHeadContent from "src/common/utils/getAppHeadContent";
+import { trackPageView } from "src/common/utils/trackAnalytics";
 import { SITE_TITLE, SITE_URL } from "src/common/constants/site";
 import GlobalStyles from "src/common/lib/globalStyles";
 import { setThemeList, getPreferredIsDay } from "src/reducers";
@@ -125,9 +126,17 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
 
   // Канонический адрес страницы: путь без query и хэша (?utm_* и #anchor
   // не должны плодить «разные» страницы в индексе).
-  const { asPath } = useRouter();
+  const router = useRouter();
+  const { asPath } = router;
   // Слэш у корня сохраняем: тот же вид адреса, что в sitemap.xml.
   const canonical = `${SITE_URL}${asPath.split(/[?#]/)[0]}`;
+
+  // SPA-переходы: первый pageview уже шлёт gtag config / ym init.
+  useEffect(() => {
+    const onRoute = (url: string) => trackPageView(url);
+    router.events.on("routeChangeComplete", onRoute);
+    return () => router.events.off("routeChangeComplete", onRoute);
+  }, [router.events]);
 
   return (
     <React.StrictMode>

@@ -6,6 +6,8 @@ import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal, setDataForm, setSantaShown } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 import { InputPhone, InputEmail, InputName } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
 import { Select } from "src/ui/Select";
@@ -82,6 +84,16 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
         // https://dashboard.emailjs.com/admin/templates/ipok92p/content - шаблон
         setLoading(true);
 
+        const formSource = embedded
+          ? withService
+            ? "services"
+            : "contacts"
+          : "modal";
+        trackEvent(AnalyticsEvent.CONTACT_FORM_SUBMIT, {
+          source: formSource,
+          services: dataForm.typesWork || undefined,
+        });
+
         // Дублируем заявку в два канала: email (EmailJS) и Telegram (серверный
         // роут /api/telegram — токен бота хранится на сервере). Отправляем
         // параллельно; считаем успехом, если сработал хотя бы один канал.
@@ -112,6 +124,10 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
         setLoading(false);
 
         if (anyOk) {
+          trackEvent(AnalyticsEvent.CONTACT_FORM_SUCCESS, {
+            source: formSource,
+            services: dataForm.typesWork || undefined,
+          });
           setStatusRequest("success");
           await wait(2000);
           dispatch(closeModal());
@@ -134,6 +150,9 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
             setStatusRequest(null);
           }
         } else {
+          trackEvent(AnalyticsEvent.CONTACT_FORM_ERROR, {
+            source: formSource,
+          });
           if (emailResult.status === "rejected")
             console.error("Email error:", emailResult.reason);
           if (telegramResult.status === "rejected")
@@ -156,6 +175,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       toast,
       toastNotify,
       embedded,
+      withService,
     ]
   );
 

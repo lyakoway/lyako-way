@@ -25,6 +25,8 @@ import AvatarHead from "src/ui/AvatarHead";
 import BrandMark from "src/ui/BrandMark";
 import { Reveal } from "src/ui/Reveal";
 import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setting.svg";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
   SidebarWrapper,
@@ -127,7 +129,16 @@ const Sidebar = () => {
               <ContactInfo>
                 <ContactTitle>{sidebar.phoneTitle}</ContactTitle>
                 {CONTACT_PHONES.map((phone) => (
-                  <a key={phone.href} href={phone.href}>
+                  <a
+                    key={phone.href}
+                    href={phone.href}
+                    onClick={() =>
+                      trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                        channel: "phone",
+                        placement: "sidebar",
+                      })
+                    }
+                  >
                     {phone.label}
                   </a>
                 ))}
@@ -145,6 +156,12 @@ const Sidebar = () => {
                     href={CONTACT_EMAIL.href}
                     title={CONTACT_EMAIL.label}
                     aria-label={sidebar.emailTitle}
+                    onClick={() =>
+                      trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                        channel: "email",
+                        placement: "sidebar",
+                      })
+                    }
                   >
                     <MailIcon />
                   </a>
@@ -156,6 +173,12 @@ const Sidebar = () => {
                       rel="noreferrer noopener"
                       title={item.label}
                       aria-label={item.label}
+                      onClick={() =>
+                        trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                          channel: item.label.toLowerCase(),
+                          placement: "sidebar",
+                        })
+                      }
                     >
                       {MESSENGER_ICON[item.label]}
                     </a>

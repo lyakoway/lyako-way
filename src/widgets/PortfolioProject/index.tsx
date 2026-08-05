@@ -7,6 +7,8 @@ import { showModal } from "src/reducers";
 import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
   Breadcrumb,
@@ -233,6 +235,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 href={demoHref}
                 target="_blank"
                 rel="noreferrer noopener"
+                onClick={() =>
+                  trackEvent(AnalyticsEvent.PORTFOLIO_DEMO_OPEN, {
+                    slug,
+                  })
+                }
               >
                 <svg viewBox="0 0 24 24" fill="none" aria-hidden>
                   <path
@@ -253,6 +260,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 href={project.github}
                 target="_blank"
                 rel="noreferrer noopener"
+                onClick={() =>
+                  trackEvent(AnalyticsEvent.PORTFOLIO_GITHUB_OPEN, {
+                    slug,
+                  })
+                }
               >
                 GitHub
                 <RunBorder radius={12} />
