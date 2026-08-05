@@ -89,7 +89,15 @@ const Sidebar = () => {
         <SettingsCorner ref={cornerRef}>
           <GearButton
             type="button"
-            onClick={() => setSettingsOpen((prev) => !prev)}
+            onClick={() => {
+              setSettingsOpen((prev) => {
+                const next = !prev;
+                trackEvent(AnalyticsEvent.SETTINGS_TOGGLE, {
+                  open: next,
+                });
+                return next;
+              });
+            }}
             aria-expanded={settingsOpen}
             aria-label={sidebar.settings}
           >
