@@ -4,6 +4,8 @@ import { useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
   FilterBar,
@@ -91,6 +93,13 @@ const Portfolio = () => {
       ? items
       : items.filter(({ project }) => project.direction === active);
 
+  const handleFilter = (value: string) => {
+    setActive(value);
+    trackEvent(AnalyticsEvent.PORTFOLIO_FILTER_CLICK, {
+      filter: value === ALL ? "all" : value,
+    });
+  };
+
   return (
     <Article>
       <Reveal as="header">
@@ -98,7 +107,7 @@ const Portfolio = () => {
       </Reveal>
 
       <Reveal as={FilterBar} delay={90}>
-        <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
+        <FilterChip $active={active === ALL} onClick={() => handleFilter(ALL)}>
           {portfolio.all}
           <RunBorder radius={12} />
         </FilterChip>
@@ -106,7 +115,7 @@ const Portfolio = () => {
           <FilterChip
             key={dir}
             $active={active === dir}
-            onClick={() => setActive(dir)}
+            onClick={() => handleFilter(dir)}
           >
             {dir}
             <RunBorder radius={12} />
@@ -117,34 +126,44 @@ const Portfolio = () => {
       <Grid>
         {shown.map(({ project, grad }, i) => (
           <Reveal key={project.id} delay={i * 90}>
-            <Card href={`/portfolio/${project.hrefNameList}`}>
-                <CardThumb $grad={grad}>
-                  {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
-                  {project.screenshots?.[0] ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={project.screenshots[0]}
-                      alt={project.portfolioNameList}
-                    />
-                  ) : (
-                    <BrowserGlyph />
-                  )}
-                  <ThumbOverlay>
-                    <EyeGlyph />
-                  </ThumbOverlay>
-                </CardThumb>
-                <CardBody>
-                  <CardName>{project.portfolioNameList}</CardName>
-                  {project.portfolioDataTime && (
-                    <CardDate>{project.portfolioDataTime}</CardDate>
-                  )}
-                  <ChipList>
-                    {project.technologies.slice(0, 4).map((tech, i) => (
-                      <Chip key={i}>{tech}</Chip>
-                    ))}
-                  </ChipList>
-                </CardBody>
-              </Card>
+            <Card
+              href={`/portfolio/${project.hrefNameList}`}
+              onClick={() =>
+                trackEvent(AnalyticsEvent.PORTFOLIO_PROJECT_OPEN, {
+                  slug: project.hrefNameList,
+                  name: project.portfolioNameList,
+                  direction: project.direction,
+                  wip: Boolean(project.wip),
+                })
+              }
+            >
+              <CardThumb $grad={grad}>
+                {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
+                {project.screenshots?.[0] ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={project.screenshots[0]}
+                    alt={project.portfolioNameList}
+                  />
+                ) : (
+                  <BrowserGlyph />
+                )}
+                <ThumbOverlay>
+                  <EyeGlyph />
+                </ThumbOverlay>
+              </CardThumb>
+              <CardBody>
+                <CardName>{project.portfolioNameList}</CardName>
+                {project.portfolioDataTime && (
+                  <CardDate>{project.portfolioDataTime}</CardDate>
+                )}
+                <ChipList>
+                  {project.technologies.slice(0, 4).map((tech, i) => (
+                    <Chip key={i}>{tech}</Chip>
+                  ))}
+                </ChipList>
+              </CardBody>
+            </Card>
           </Reveal>
         ))}
       </Grid>

@@ -74,7 +74,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
   const name = project?.portfolioNameList ?? portfolioHeader.textPortfolio;
 
   // Открываем скриншот в модалке-лайтбоксе.
-  const openImage = (src: string, alt: string) => {
+  const openImage = (src: string, alt: string, index: number) => {
+    trackEvent(AnalyticsEvent.PORTFOLIO_SCREENSHOT_OPEN, {
+      slug,
+      index,
+    });
     dispatch(
       showModal({
         width: "min(1200px, 96vw)",
@@ -141,6 +145,12 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     target="_blank"
                     rel="noreferrer noopener"
                     title={project.github}
+                    onClick={() =>
+                      trackEvent(AnalyticsEvent.PORTFOLIO_GITHUB_OPEN, {
+                        slug,
+                        placement: "meta",
+                      })
+                    }
                   >
                     {prettyUrl(project.github)}
                   </a>
@@ -157,6 +167,12 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     target="_blank"
                     rel="noreferrer noopener"
                     title={demoHref}
+                    onClick={() =>
+                      trackEvent(AnalyticsEvent.PORTFOLIO_DEMO_OPEN, {
+                        slug,
+                        placement: "meta",
+                      })
+                    }
                   >
                     {prettyUrl(demoHref)}
                   </a>
@@ -220,7 +236,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   key={i}
                   delay={i * 90}
                   type="button"
-                  onClick={() => openImage(src, `${name} — ${i + 1}`)}
+                  onClick={() => openImage(src, `${name} — ${i + 1}`, i)}
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt={`${name} — ${i + 1}`} loading="lazy" />
@@ -238,6 +254,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 onClick={() =>
                   trackEvent(AnalyticsEvent.PORTFOLIO_DEMO_OPEN, {
                     slug,
+                    placement: "button",
                   })
                 }
               >
@@ -263,6 +280,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 onClick={() =>
                   trackEvent(AnalyticsEvent.PORTFOLIO_GITHUB_OPEN, {
                     slug,
+                    placement: "button",
                   })
                 }
               >
