@@ -5,6 +5,8 @@ import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
 import { getReadMinutes } from "src/common/utils/getReadMinutes";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
   FilterBar,
@@ -58,6 +60,13 @@ const Blog = () => {
       ? propsPortfolioListBlog
       : propsPortfolioListBlog.filter((p) => p.technologies.includes(active));
 
+  const handleFilter = (value: string) => {
+    setActive(value);
+    trackEvent(AnalyticsEvent.BLOG_FILTER_CLICK, {
+      filter: value === ALL ? "all" : value,
+    });
+  };
+
   return (
     <Article>
       <Reveal as="header">
@@ -65,7 +74,7 @@ const Blog = () => {
       </Reveal>
 
       <Reveal as={FilterBar} delay={90}>
-        <FilterChip $active={active === ALL} onClick={() => setActive(ALL)}>
+        <FilterChip $active={active === ALL} onClick={() => handleFilter(ALL)}>
           {blog.all}
           <RunBorder radius={12} />
         </FilterChip>
@@ -73,7 +82,7 @@ const Blog = () => {
           <FilterChip
             key={tag}
             $active={active === tag}
-            onClick={() => setActive(tag)}
+            onClick={() => handleFilter(tag)}
           >
             {tag}
             <RunBorder radius={12} />
@@ -84,7 +93,17 @@ const Blog = () => {
       <List>
         {shown.map((post, idx) => (
           <Reveal key={post.id} delay={idx * 90}>
-            <Card href={`/blog/${post.hrefNameList}`}>
+            <Card
+              href={`/blog/${post.hrefNameList}`}
+              onClick={() =>
+                trackEvent(AnalyticsEvent.BLOG_POST_OPEN, {
+                  slug: post.hrefNameList,
+                  name: post.portfolioNameList,
+                  tags: post.technologies.join(", "),
+                  wip: Boolean(post.wip),
+                })
+              }
+            >
               <TagList>
                 {post.technologies.map((tag, i) => (
                   <Tag key={i}>{tag}</Tag>

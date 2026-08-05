@@ -7,6 +7,8 @@ import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import { Pagination } from "src/ui/Pagination";
 import { getReadMinutes } from "src/common/utils/getReadMinutes";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
   Breadcrumb,
@@ -158,6 +160,9 @@ const BlogPost = ({ slug }: { slug: string }) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const clearSearch = () => {
+    if (query) {
+      trackEvent(AnalyticsEvent.BLOG_SEARCH_CLEAR, { slug });
+    }
     setQuery("");
     searchInputRef.current?.focus();
   };
@@ -184,6 +189,20 @@ const BlogPost = ({ slug }: { slug: string }) => {
     return list;
   }, [query, pages]);
 
+  // Debounce: не шлём событие на каждую букву.
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 2) return;
+    const id = window.setTimeout(() => {
+      trackEvent(AnalyticsEvent.BLOG_SEARCH, {
+        slug,
+        query: q,
+        results: matches.length,
+      });
+    }, 600);
+    return () => window.clearTimeout(id);
+  }, [query, matches.length, slug]);
+
   const activeKey = matches[activeMatch]?.key;
 
   // Новый запрос — на первое совпадение и его страницу. Сброс поиска при смене
@@ -209,12 +228,20 @@ const BlogPost = ({ slug }: { slug: string }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMatch, page, matches.length]);
 
-  const gotoMatch = (next: number) => {
+  const gotoMatch = (next: number, via?: "enter" | "prev" | "next") => {
     if (!matches.length) return;
     const idx = (next + matches.length) % matches.length;
     setActiveMatch(idx);
     setPage(matches[idx].page);
     persistPage(matches[idx].page);
+    if (via) {
+      trackEvent(AnalyticsEvent.BLOG_SEARCH_NAVIGATE, {
+        slug,
+        direction: via,
+        match: idx + 1,
+        results: matches.length,
+      });
+    }
   };
 
   return (
@@ -281,12 +308,18 @@ const BlogPost = ({ slug }: { slug: string }) => {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => setFocused(true)}
+                onFocus={() => {
+                  setFocused(true);
+                  trackEvent(AnalyticsEvent.BLOG_SEARCH_FOCUS, { slug });
+                }}
                 onBlur={() => setFocused(false)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
-                    gotoMatch(activeMatch + (e.shiftKey ? -1 : 1));
+                    gotoMatch(
+                      activeMatch + (e.shiftKey ? -1 : 1),
+                      "enter"
+                    );
                   }
                   if (e.key === "Escape") clearSearch();
                 }}
@@ -321,7 +354,7 @@ const BlogPost = ({ slug }: { slug: string }) => {
                 </MatchCount>
                 <NavBtn
                   type="button"
-                  onClick={() => gotoMatch(activeMatch - 1)}
+                  onClick={() => gotoMatch(activeMatch - 1, "prev")}
                   disabled={!matches.length}
                   aria-label="Предыдущее совпадение"
                 >
@@ -337,7 +370,7 @@ const BlogPost = ({ slug }: { slug: string }) => {
                 </NavBtn>
                 <NavBtn
                   type="button"
-                  onClick={() => gotoMatch(activeMatch + 1)}
+                  onClick={() => gotoMatch(activeMatch + 1, "next")}
                   disabled={!matches.length}
                   aria-label="Следующее совпадение"
                 >
