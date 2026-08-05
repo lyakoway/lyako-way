@@ -12,6 +12,13 @@ export const AnalyticsEvent = {
   CV_VIEW: "cv_view",
   PORTFOLIO_DEMO_OPEN: "portfolio_demo_open",
   PORTFOLIO_GITHUB_OPEN: "portfolio_github_open",
+  LANGUAGE_TOGGLE: "language_toggle",
+  THEME_TOGGLE: "theme_toggle",
+  WEATHER_OPEN: "weather_open",
+  WEATHER_CITY_SELECT: "weather_city_select",
+  WEATHER_SEARCH: "weather_search",
+  WEATHER_SELECT: "weather_select",
+  LIKE_CLICK: "like_click",
 } as const;
 
 export type AnalyticsEventName =

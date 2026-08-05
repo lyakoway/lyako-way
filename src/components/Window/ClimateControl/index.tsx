@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import {
   setClimateControl,
@@ -26,6 +26,8 @@ import ClimateBanner from "src/components/Window/ClimateControl/ClimateBanner";
 import WeatherIcon from "../WeatherIcon";
 import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 const ClimateControl = () => {
   const {
@@ -36,9 +38,8 @@ const ClimateControl = () => {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
 
-  const { climate, status, userSelectedClimate } = useSelectorTyped(
-    ({ climate }) => climate
-  );
+  const { climate, status, userSelectedClimate, selectedCity } =
+    useSelectorTyped(({ climate }) => climate);
 
   const dispatch = useDispatchTyped();
   const { weather, loading, fetchByCity } = useWeather();
@@ -46,6 +47,21 @@ const ClimateControl = () => {
   const toastNotify = useToastNotify();
 
   const [city, setCity] = useState<string>("");
+  const openTrackedRef = useRef(false);
+
+  // Открытие модалки: один раз, с городом и координатами из текущей погоды.
+  useEffect(() => {
+    if (openTrackedRef.current) return;
+    openTrackedRef.current = true;
+    const loc = weather?.location;
+    trackEvent(AnalyticsEvent.WEATHER_OPEN, {
+      city: loc?.name || selectedCity,
+      region: loc?.region,
+      country: loc?.country,
+      lat: loc?.lat,
+      lon: loc?.lon,
+    });
+  }, [weather, selectedCity]);
 
   // Подставляем город при первой загрузке погоды
   useEffect(() => {
@@ -87,20 +103,23 @@ const ClimateControl = () => {
   // 🔹 Поиск по кнопке
   const handleSearch = async () => {
     if (city) {
+      trackEvent(AnalyticsEvent.WEATHER_SEARCH, { city });
       dispatch(setSelectedCity(city));
       await updateWeatherAndClimate(city);
     }
   };
 
   // 🔹 Выбор города из дропдауна
-  const handleSelectCity = async (selectedCity: string) => {
-    dispatch(setSelectedCity(selectedCity));
-    setCity(selectedCity);
-    await updateWeatherAndClimate(selectedCity);
+  const handleSelectCity = async (selected: string) => {
+    trackEvent(AnalyticsEvent.WEATHER_CITY_SELECT, { city: selected });
+    dispatch(setSelectedCity(selected));
+    setCity(selected);
+    await updateWeatherAndClimate(selected);
   };
 
   // 🔹 Выбор погоды вручную
   const handleSelectClimate = (item: ClimateType) => {
+    trackEvent(AnalyticsEvent.WEATHER_SELECT, { climate: item });
     dispatch(setClimateControl(item)); // сохраняется userSelectedClimate = true
     dispatch(setUserSelectedClimate(true));
   };

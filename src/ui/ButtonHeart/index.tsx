@@ -23,6 +23,8 @@ import {
   generateParticles,
 } from "src/ui/ButtonHeart/animations";
 import { RequestLikes } from "src/common/enums/Likes/RequestLikes";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 // hideCount — прячем счётчик у кнопки (в компактном попапе настроек он вылезал
 // за границы). Полное число лайков показываем в тосте после оценки.
@@ -123,6 +125,7 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
   const handleClick = async () => {
     if (loading) return; // запретить клик во время загрузки
 
+    trackEvent(AnalyticsEvent.LIKE_CLICK, { likes: likes + 1 });
     triggerAnimations();
     // Увеличиваем локальный счетчик и Redux
 

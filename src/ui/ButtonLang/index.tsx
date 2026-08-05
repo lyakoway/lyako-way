@@ -5,6 +5,8 @@ import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { setLang, setUserSelectedLang } from "src/reducers";
 import { disperseTextSwap } from "src/common/utils/disperseTextSwap";
 import { controlButtonBase } from "src/common/lib/controlButton";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 // Кнопка языка: без флага — просто «RU»/«EN» белыми буквами, оранжевый акцент
 // при наведении/нажатии (см. controlButtonBase). Показывает текущий язык.
@@ -23,11 +25,15 @@ const ButtonLang = () => {
   const handleClick = useCallback(() => {
     // Снимаем «распыление» СТАРОГО текста ДО смены языка (пока он ещё в DOM):
     // копия-overlay рассыпается, а под ней уже рендерится новый язык.
+    const nextIsEnglish = !opened;
+    trackEvent(AnalyticsEvent.LANGUAGE_TOGGLE, {
+      to: nextIsEnglish ? "en" : "ru",
+    });
     disperseTextSwap();
-    setOpened(!opened);
-    dispatch(setLang(!opened));
+    setOpened(nextIsEnglish);
+    dispatch(setLang(nextIsEnglish));
     dispatch(setUserSelectedLang(true));
-  }, [setOpened, opened, dispatch]);
+  }, [opened, dispatch]);
 
   useEffect(() => {
     setOpened(name !== "russia");

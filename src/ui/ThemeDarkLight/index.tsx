@@ -3,6 +3,8 @@ import React, { useCallback, useEffect, useState } from "react";
 import { ThemeButton, Bulb } from "./style";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { setThemeList } from "src/reducers";
+import { trackEvent } from "src/common/utils/trackAnalytics";
+import { AnalyticsEvent } from "src/common/constants/analytics";
 
 const ThemeDarkLight = () => {
   const {
@@ -12,9 +14,13 @@ const ThemeDarkLight = () => {
   const dispatch = useDispatchTyped();
 
   const handleClickTheme = useCallback(() => {
-    setOpenedTheme(!openedTheme);
-    dispatch(setThemeList(!openedTheme));
-  }, [setOpenedTheme, dispatch, openedTheme]);
+    const nextIsLight = !openedTheme;
+    trackEvent(AnalyticsEvent.THEME_TOGGLE, {
+      theme: nextIsLight ? "light" : "dark",
+    });
+    setOpenedTheme(nextIsLight);
+    dispatch(setThemeList(nextIsLight));
+  }, [dispatch, openedTheme]);
 
   useEffect(() => {
     setOpenedTheme(name === "light");
