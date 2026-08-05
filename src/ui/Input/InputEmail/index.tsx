@@ -14,6 +14,7 @@ interface IInputEmailProps {
   description?: string;
   setValid: (value: boolean) => void;
   setFormDescriptionEmail: (value: string) => void;
+  onFieldFocus?: () => void;
 }
 
 export const InputEmail: FC<IInputEmailProps> = ({
@@ -24,6 +25,7 @@ export const InputEmail: FC<IInputEmailProps> = ({
   description = "",
   setValid,
   setFormDescriptionEmail,
+  onFieldFocus,
 }) => {
   const {
     lang: { contactForm },
@@ -67,6 +69,7 @@ export const InputEmail: FC<IInputEmailProps> = ({
   );
 
   const onFocusHandler = () => {
+    onFieldFocus?.();
     fieldRef.current?.focus();
   };
 

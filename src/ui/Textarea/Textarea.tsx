@@ -8,6 +8,7 @@ interface ITextareaProps {
   type?: "text" | "email" | "submit" | "password";
   setMessage?: (value: string) => void;
   message?: string;
+  onFieldFocus?: () => void;
 }
 
 export const Textarea: FC<ITextareaProps> = ({
@@ -16,6 +17,7 @@ export const Textarea: FC<ITextareaProps> = ({
   type = "text",
   setMessage = () => {},
   message = "",
+  onFieldFocus,
 }) => {
   const handleClick = (valueInput: string) => {
     setMessage(valueInput);
@@ -31,6 +33,7 @@ export const Textarea: FC<ITextareaProps> = ({
         placeholder={placeholder}
         value={message}
         onChange={(e) => handleClick(e.target.value)}
+        onFocus={onFieldFocus}
       />
       {label && (
         <Text>

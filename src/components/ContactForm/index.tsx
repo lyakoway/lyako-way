@@ -1,4 +1,4 @@
-import { FC, useCallback, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import emailjs from "@emailjs/browser";
 
@@ -37,6 +37,36 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
   const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const toastNotify = useToastNotify();
 
+  const formSource = embedded
+    ? withService
+      ? "services"
+      : "contacts"
+    : "modal";
+
+  const startedRef = useRef(false);
+  const focusedFieldsRef = useRef<Set<string>>(new Set());
+
+  // Показ формы на «Услугах» (и остальных встроенных/модальных — с source).
+  useEffect(() => {
+    trackEvent(AnalyticsEvent.CONTACT_FORM_VIEW, { source: formSource });
+  }, [formSource]);
+
+  const trackFieldFocus = useCallback(
+    (field: string) => {
+      if (!startedRef.current) {
+        startedRef.current = true;
+        trackEvent(AnalyticsEvent.CONTACT_FORM_START, { source: formSource });
+      }
+      if (focusedFieldsRef.current.has(field)) return;
+      focusedFieldsRef.current.add(field);
+      trackEvent(AnalyticsEvent.CONTACT_FORM_FIELD_FOCUS, {
+        source: formSource,
+        field,
+      });
+    },
+    [formSource]
+  );
+
   const serviceOptions: ISelectOption[] = useMemo(
     () => [
       { label: contactForm.services1, value: "services1" },
@@ -56,6 +86,19 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
   const [validEmail, setValidEmail] = useState(false);
   const [validPhone, setValidPhone] = useState(false);
 
+  const handleServicesChange = useCallback(
+    (options: ISelectOption[]) => {
+      trackFieldFocus("services");
+      setTypesWork(options);
+      trackEvent(AnalyticsEvent.CONTACT_FORM_SERVICE_SELECT, {
+        source: formSource,
+        services: options.map((o) => o.label).join(", ") || undefined,
+        count: options.length,
+      });
+    },
+    [formSource, trackFieldFocus]
+  );
+
   const handleCloseButton = useCallback(
     async (e) => {
       e.preventDefault();
@@ -68,97 +111,111 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       if (!phone) {
         setFormDescriptionPhone(contactForm.formDescriptionPhone);
       }
-      if (name && email && phone && validName && validEmail && validPhone) {
-        setFormDescriptionName("");
-        setFormDescriptionEmail("");
-        setFormDescriptionPhone("");
 
-        const dataForm = {
-          user_name: name,
-          user_email: email,
-          user_phone: phone,
-          typesWork: typesWork.map((item) => item.label).join(", "),
-          message: message,
-        };
+      const canSubmit =
+        name && email && phone && validName && validEmail && validPhone;
 
-        // https://dashboard.emailjs.com/admin/templates/ipok92p/content - шаблон
-        setLoading(true);
+      if (!canSubmit) {
+        const missing = [
+          !name || !validName ? "name" : null,
+          !phone || !validPhone ? "phone" : null,
+          !email || !validEmail ? "email" : null,
+        ]
+          .filter(Boolean)
+          .join(",");
+        trackEvent(AnalyticsEvent.CONTACT_FORM_VALIDATION_ERROR, {
+          source: formSource,
+          fields: missing || undefined,
+        });
+        return;
+      }
 
-        const formSource = embedded
-          ? withService
-            ? "services"
-            : "contacts"
-          : "modal";
-        trackEvent(AnalyticsEvent.CONTACT_FORM_SUBMIT, {
+      setFormDescriptionName("");
+      setFormDescriptionEmail("");
+      setFormDescriptionPhone("");
+
+      const dataForm = {
+        user_name: name,
+        user_email: email,
+        user_phone: phone,
+        typesWork: typesWork.map((item) => item.label).join(", "),
+        message: message,
+      };
+
+      // https://dashboard.emailjs.com/admin/templates/ipok92p/content - шаблон
+      setLoading(true);
+
+      trackEvent(AnalyticsEvent.CONTACT_FORM_SUBMIT, {
+        source: formSource,
+        services: dataForm.typesWork || undefined,
+      });
+
+      // Дублируем заявку в два канала: email (EmailJS) и Telegram (серверный
+      // роут /api/telegram — токен бота хранится на сервере). Отправляем
+      // параллельно; считаем успехом, если сработал хотя бы один канал.
+      const sendEmail = emailjs.send(
+        "service_t0637ri",
+        "template_hksctsh",
+        dataForm,
+        "E3IoCn9xU4A9XR0GB"
+      );
+      const sendTelegram = fetch("/api/telegram", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dataForm),
+      }).then((r) => {
+        if (!r.ok) throw new Error(`telegram ${r.status}`);
+        return r.json();
+      });
+
+      const [emailResult, telegramResult] = await Promise.allSettled([
+        sendEmail,
+        sendTelegram,
+      ]);
+      const anyOk =
+        emailResult.status === "fulfilled" ||
+        telegramResult.status === "fulfilled";
+
+      await wait(2000);
+      setLoading(false);
+
+      if (anyOk) {
+        trackEvent(AnalyticsEvent.CONTACT_FORM_SUCCESS, {
           source: formSource,
           services: dataForm.typesWork || undefined,
         });
-
-        // Дублируем заявку в два канала: email (EmailJS) и Telegram (серверный
-        // роут /api/telegram — токен бота хранится на сервере). Отправляем
-        // параллельно; считаем успехом, если сработал хотя бы один канал.
-        const sendEmail = emailjs.send(
-          "service_t0637ri",
-          "template_hksctsh",
-          dataForm,
-          "E3IoCn9xU4A9XR0GB"
-        );
-        const sendTelegram = fetch("/api/telegram", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(dataForm),
-        }).then((r) => {
-          if (!r.ok) throw new Error(`telegram ${r.status}`);
-          return r.json();
-        });
-
-        const [emailResult, telegramResult] = await Promise.allSettled([
-          sendEmail,
-          sendTelegram,
-        ]);
-        const anyOk =
-          emailResult.status === "fulfilled" ||
-          telegramResult.status === "fulfilled";
-
+        setStatusRequest("success");
         await wait(2000);
-        setLoading(false);
+        dispatch(closeModal());
+        dispatch(setSantaShown(false));
+        dispatch(setDataForm(dataForm));
+        toastNotify({ title: toast.messageText, type: "success" });
 
-        if (anyOk) {
-          trackEvent(AnalyticsEvent.CONTACT_FORM_SUCCESS, {
-            source: formSource,
-            services: dataForm.typesWork || undefined,
-          });
-          setStatusRequest("success");
-          await wait(2000);
-          dispatch(closeModal());
-          dispatch(setSantaShown(false));
-          dispatch(setDataForm(dataForm));
-          toastNotify({ title: toast.messageText, type: "success" });
-
-          // Встроенная форма не закрывается (модалки нет) — очищаем поля
-          // после успешной отправки. В модалке компонент размонтируется,
-          // поэтому сброс там не нужен (и вызвал бы setState после unmount).
-          if (embedded) {
-            setName("");
-            setEmail("");
-            setPhone("");
-            setMessage("");
-            setTypesWork([]);
-            setFormDescriptionName("");
-            setFormDescriptionEmail("");
-            setFormDescriptionPhone("");
-            setStatusRequest(null);
-          }
-        } else {
-          trackEvent(AnalyticsEvent.CONTACT_FORM_ERROR, {
-            source: formSource,
-          });
-          if (emailResult.status === "rejected")
-            console.error("Email error:", emailResult.reason);
-          if (telegramResult.status === "rejected")
-            console.error("Telegram error:", telegramResult.reason);
-          toastNotify({ title: toast.textError, type: "error" });
+        // Встроенная форма не закрывается (модалки нет) — очищаем поля
+        // после успешной отправки. В модалке компонент размонтируется,
+        // поэтому сброс там не нужен (и вызвал бы setState после unmount).
+        if (embedded) {
+          setName("");
+          setEmail("");
+          setPhone("");
+          setMessage("");
+          setTypesWork([]);
+          setFormDescriptionName("");
+          setFormDescriptionEmail("");
+          setFormDescriptionPhone("");
+          setStatusRequest(null);
+          startedRef.current = false;
+          focusedFieldsRef.current.clear();
         }
+      } else {
+        trackEvent(AnalyticsEvent.CONTACT_FORM_ERROR, {
+          source: formSource,
+        });
+        if (emailResult.status === "rejected")
+          console.error("Email error:", emailResult.reason);
+        if (telegramResult.status === "rejected")
+          console.error("Telegram error:", telegramResult.reason);
+        toastNotify({ title: toast.textError, type: "error" });
       }
     },
     [
@@ -175,7 +232,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       toast,
       toastNotify,
       embedded,
-      withService,
+      formSource,
     ]
   );
 
@@ -193,6 +250,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
             description={formDescriptionName}
             setValid={setValidName}
             setFormDescriptionName={setFormDescriptionName}
+            onFieldFocus={() => trackFieldFocus("name")}
           />
           <InputPhone
             label={contactForm.phone}
@@ -203,6 +261,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
             description={formDescriptionPhone}
             setValid={setValidPhone}
             setFormDescriptionPhone={setFormDescriptionPhone}
+            onFieldFocus={() => trackFieldFocus("phone")}
           />
         </InputWrapper>
 
@@ -214,6 +273,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
           description={formDescriptionEmail}
           setValid={setValidEmail}
           setFormDescriptionEmail={setFormDescriptionEmail}
+          onFieldFocus={() => trackFieldFocus("email")}
         />
 
         {withService && (
@@ -221,7 +281,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
             multiple
             options={serviceOptions}
             value={typesWork}
-            onChange={(o) => setTypesWork(o)}
+            onChange={handleServicesChange}
             defaultText={contactForm.services}
           />
         )}
@@ -231,6 +291,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
           placeholder={contactForm.placeholderMessage}
           setMessage={setMessage}
           message={message}
+          onFieldFocus={() => trackFieldFocus("message")}
         />
       </Content>
       <Footer $embedded={embedded}>

@@ -4,6 +4,11 @@ export const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 /** Имена событий — одинаковые для GA4 и целей Яндекс.Метрики (reachGoal). */
 export const AnalyticsEvent = {
   CTA_ORDER_CLICK: "cta_order_click",
+  CONTACT_FORM_VIEW: "contact_form_view",
+  CONTACT_FORM_START: "contact_form_start",
+  CONTACT_FORM_FIELD_FOCUS: "contact_form_field_focus",
+  CONTACT_FORM_SERVICE_SELECT: "contact_form_service_select",
+  CONTACT_FORM_VALIDATION_ERROR: "contact_form_validation_error",
   CONTACT_FORM_SUBMIT: "contact_form_submit",
   CONTACT_FORM_SUCCESS: "contact_form_success",
   CONTACT_FORM_ERROR: "contact_form_error",

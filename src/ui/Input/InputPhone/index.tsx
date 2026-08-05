@@ -19,6 +19,7 @@ interface IInputPhoneProps {
   description?: string;
   setValid: (value: boolean) => void;
   setFormDescriptionPhone: (value: string) => void;
+  onFieldFocus?: () => void;
 }
 
 const changeHandlerFormatPhone = (valueInput: string): string => {
@@ -38,6 +39,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
   description = "",
   setValid,
   setFormDescriptionPhone,
+  onFieldFocus,
 }) => {
   const {
     lang: { name: langName, contactForm },
@@ -85,6 +87,7 @@ export const InputPhone: FC<IInputPhoneProps> = ({
   );
 
   const onFocusHandler = () => {
+    onFieldFocus?.();
     fieldRef.current?.focus();
   };
 

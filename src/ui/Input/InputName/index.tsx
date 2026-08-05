@@ -13,6 +13,7 @@ interface IInputNameProps {
   description?: string;
   setValid: (value: boolean) => void;
   setFormDescriptionName: (value: string) => void;
+  onFieldFocus?: () => void;
 }
 
 export const InputName: FC<IInputNameProps> = ({
@@ -24,6 +25,7 @@ export const InputName: FC<IInputNameProps> = ({
   description = "",
   setValid,
   setFormDescriptionName,
+  onFieldFocus,
 }) => {
   const {
     lang: { contactForm },
@@ -55,6 +57,7 @@ export const InputName: FC<IInputNameProps> = ({
   );
 
   const onFocusHandler = () => {
+    onFieldFocus?.();
     fieldRef.current?.focus();
   };
 
