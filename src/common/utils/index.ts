@@ -7,5 +7,6 @@ export { getRandomNumber } from "./getRandomNumber";
 export { getRandomArra } from "./getRandomArra";
 export { getParallax } from "./getParallax";
 export { default as getAnalyticsMarkup } from "./getAnalyticsMarkup";
-export { trackEvent, trackPageView } from "./trackAnalytics";
+export { trackEvent, trackPageView, setAnalyticsUserId } from "./trackAnalytics";
+export { buildAnalyticsUserId, sha256Hex } from "./buildAnalyticsUserId";
 import { wait } from "src/common/utils/wait";

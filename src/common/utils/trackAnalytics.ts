@@ -52,3 +52,20 @@ export const trackPageView = (url: string) => {
     window.ym(YANDEX_METRIKA_ID, "hit", path);
   }
 };
+
+/**
+ * Привязка визита к пользователю после заявки (хеш почты/телефона).
+ * Метрика: setUserID; GA4: user_id.
+ */
+export const setAnalyticsUserId = (userId: string) => {
+  if (typeof window === "undefined" || !userId) return;
+
+  if (YANDEX_METRIKA_ID && typeof window.ym === "function") {
+    window.ym(YANDEX_METRIKA_ID, "setUserID", userId);
+  }
+
+  if (GA4_MEASUREMENT_ID && typeof window.gtag === "function") {
+    window.gtag("set", { user_id: userId });
+    window.gtag("config", GA4_MEASUREMENT_ID, { user_id: userId });
+  }
+};

@@ -6,7 +6,8 @@ import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal, setDataForm, setSantaShown } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
-import { trackEvent } from "src/common/utils/trackAnalytics";
+import { trackEvent, setAnalyticsUserId } from "src/common/utils/trackAnalytics";
+import { buildAnalyticsUserId } from "src/common/utils/buildAnalyticsUserId";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 import { InputPhone, InputEmail, InputName } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
@@ -179,6 +180,13 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
         trackEvent(AnalyticsEvent.CONTACT_FORM_SUCCESS, {
           source: formSource,
           services: dataForm.typesWork || undefined,
+        });
+        // UserID = SHA-256(email|phone) — без сырых PII в аналитике.
+        void buildAnalyticsUserId(
+          dataForm.user_email,
+          dataForm.user_phone
+        ).then((userId) => {
+          if (userId) setAnalyticsUserId(userId);
         });
         setStatusRequest("success");
         await wait(2000);
