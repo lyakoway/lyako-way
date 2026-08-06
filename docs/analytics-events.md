@@ -30,9 +30,8 @@
 
 | Событие | Когда | Параметры |
 |---------|--------|-----------|
-| `contact_click` | Телефон / email / Telegram / WhatsApp | `channel`, `placement` (`sidebar` \| `header` \| `contacts_page`) |
-| `cta_order_click` | CTA «заказать» → модалка формы | — |
-| `contact_form_view` | Форма появилась на экране | `source` (`modal` \| `contacts` \| `services`) |
+| `contact_click` | Телефон / email / Telegram / WhatsApp | `channel`, `placement` (`sidebar` \| `contacts_page`) |
+| `contact_form_view` | Форма появилась на экране | `source` (`contacts` \| `services`) |
 | `contact_form_start` | Первое взаимодействие с формой | `source` |
 | `contact_form_field_focus` | Фокус поля (один раз на поле) | `source`, `field` (`name` \| `phone` \| `email` \| `services` \| `message`) |
 | `contact_form_service_select` | Выбор услуг («Работа…») | `source`, `services`, `count` |
@@ -117,11 +116,11 @@
 
 | Категория | Кол-во |
 |-----------|--------|
-| Контакты и заявка | 10 |
+| Контакты и заявка | 9 |
 | Резюме | 2 |
 | Портфолио | 5 |
 | Блог | 6 |
 | Настройки и погода | 8 |
 | Ошибки | 3 |
 | Pageview | 1 |
-| **Всего** | **35 именованных + pageview** |
+| **Всего** | **33 именованных + pageview** |

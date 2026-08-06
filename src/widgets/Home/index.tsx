@@ -18,7 +18,8 @@ const Home = () => {
     // (themeFade/bgTransition, 4s: смена дня/ночи и фона).
     <Article $scene className="home-scene">
       <HomeStage ref={ref} $scale={scale} $ready={ready}>
-        <HeaderSection hideContacts />
+        <HeaderSection />
+
       </HomeStage>
       {/* Лоадер только на время загрузки (при !ready). На быстрой сети сцена
           готова раньше задержки появления — лоадер не мелькает. */}

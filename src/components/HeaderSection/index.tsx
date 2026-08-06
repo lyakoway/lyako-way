@@ -1,22 +1,9 @@
-import React, { useCallback } from "react";
-import { useDispatchTyped, useSelectorTyped } from "src/store";
+import React from "react";
+import { useSelectorTyped } from "src/store";
 
 import {
   HeaderSectionWrapper,
-  HeaderContactWrapper,
   HeaderSectionFon,
-  HeaderSectionGetsite,
-  HeaderSectionContacts,
-  HeaderSectionConteiner,
-  HeaderSectionLabel,
-  Phones,
-  PhonesConteiner,
-  PhonesNumber,
-  PhonesText,
-  PhonesTextDivide,
-  PhonesTextWrapper,
-  Emails,
-  ContactsText,
   IconComp,
   IconMap,
   IconBook,
@@ -42,46 +29,22 @@ import Window from "src/components/Window";
 import myIconComp from "src/common/icon/icon-header/comp.png";
 import myIconCompn from "src/common/icon/icon-header/compn.png";
 
-import { ReactComponent as RocketGetsiteIcon } from "src/common/icon/rocket/RocketIcon.svg";
-import { ReactComponent as PhonesIcon } from "src/common/icon/contacts/PhonesIcon.svg";
-import { ReactComponent as EmailsIcon } from "src/common/icon/contacts/EmailsIcon.svg";
-
-import Button from "src/ui/Button";
 import LampSwitch from "src/ui/LampSwitch";
 
-import { showModal } from "src/reducers";
-import ContactForm from "src/components/ContactForm";
 import { isNewYearPeriod } from "src/common/utils/isNewYearPeriod";
-import { trackEvent } from "src/common/utils/trackAnalytics";
-import { AnalyticsEvent } from "src/common/constants/analytics";
 import { NewYearTree } from "src/components/NewYearTree";
 
 // Анимированная сцена рабочего стола (стол, монитор, часы, окно, полка с
 // книгами). Сайд-эффекты (лайки, погода→климат, гео→язык) вынесены в
-// useAutoLocaleClimate (вызывается в Layout).
-// hideContacts — режим «Дом» внутри оболочки vCard: контакты уже есть
-// в сайдбаре, поэтому колонку контактов скрываем, оставляя только CTA.
-const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => {
+// useAutoLocaleClimate (вызывается в Layout). Контакты и форма — в сайдбаре
+// и на страницах «Контакты» / «Услуги», не в hero.
+const HeaderSection = () => {
   const {
     theme: { name },
   } = useSelectorTyped(({ theme }) => theme);
-  const {
-    lang: { headerHouse },
-  } = useSelectorTyped(({ lang }) => lang);
   const themeLight = name === "light";
 
-  const dispatch = useDispatchTyped();
-
   const showTree = isNewYearPeriod();
-
-  const handleClickModal = useCallback(() => {
-    trackEvent(AnalyticsEvent.CTA_ORDER_CLICK);
-    dispatch(
-      showModal({
-        content: <ContactForm />,
-      })
-    );
-  }, [dispatch]);
 
   return (
     <HeaderSectionWrapper>
@@ -146,86 +109,6 @@ const HeaderSection = ({ hideContacts = false }: { hideContacts?: boolean }) => 
         <Clock />
         <IconBook />
       </HeaderSectionFon>
-
-      {!hideContacts && (
-        <HeaderContactWrapper>
-          <HeaderSectionGetsite>
-            <HeaderSectionConteiner>
-              <Button
-                title={headerHouse.buttonText}
-                toOrderHeader
-                handleClick={handleClickModal}
-              >
-                <RocketGetsiteIcon />
-              </Button>
-              <HeaderSectionLabel>
-                {headerHouse.buttonTextAddition}
-              </HeaderSectionLabel>
-            </HeaderSectionConteiner>
-          </HeaderSectionGetsite>
-
-          <HeaderSectionContacts>
-            <HeaderSectionConteiner>
-              <Phones>
-                <PhonesIcon />
-                <PhonesConteiner>
-                  <PhonesNumber
-                    href="tel:+79772700930"
-                    onClick={() =>
-                      trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                        channel: "phone",
-                        placement: "header",
-                      })
-                    }
-                  >
-                    +7 (977) 270-09-30
-                  </PhonesNumber>
-                </PhonesConteiner>
-              </Phones>
-              <PhonesTextWrapper>
-                <PhonesText
-                  href="https://t.me/amazurenk"
-                  onClick={() =>
-                    trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                      channel: "telegram",
-                      placement: "header",
-                    })
-                  }
-                >
-                  Telegram
-                </PhonesText>
-                <PhonesTextDivide>/</PhonesTextDivide>
-                <PhonesText
-                  href="https://api.whatsapp.com/send?phone=79772700930"
-                  onClick={() =>
-                    trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                      channel: "whatsapp",
-                      placement: "header",
-                    })
-                  }
-                >
-                  Whatsapp
-                </PhonesText>
-              </PhonesTextWrapper>
-              <HeaderSectionLabel>{headerHouse.callText}</HeaderSectionLabel>
-              <Emails>
-                <EmailsIcon />
-                <ContactsText
-                  href="mailto:mazurenko-alexey@mail.ru"
-                  onClick={() =>
-                    trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                      channel: "email",
-                      placement: "header",
-                    })
-                  }
-                >
-                  mazurenko-alexey@mail.ru
-                </ContactsText>
-              </Emails>
-            </HeaderSectionConteiner>
-          </HeaderSectionContacts>
-        </HeaderContactWrapper>
-      )}
     </HeaderSectionWrapper>
   );
 };

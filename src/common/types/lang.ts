@@ -65,12 +65,6 @@ export interface FooterProps {
   headHunter: string;
 }
 
-export interface HeaderHouseProps {
-  buttonText: string;
-  buttonTextAddition: string;
-  callText: string;
-}
-
 export interface ContactFormProps {
   title: string;
   buttonText: string;
@@ -366,7 +360,6 @@ export interface LanguageProps {
   aboutHighlights: AboutHighlightProps[];
   resumeCv: ResumeCvProps;
   cooperation: CooperationProps;
-  headerHouse: HeaderHouseProps;
   portfolio: PortfolioProps;
   personal: PersonalProps;
   service: ServiceProps;

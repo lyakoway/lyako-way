@@ -1,6 +1,5 @@
 import { propsAdvantages, advantagesText } from "./advantages";
 import { propsHeaderTopMenu } from "./headerTopMenu";
-import { headerHouse } from "./headerHouse";
 import { toast } from "./toast";
 import { personal } from "./personal";
 import { resume } from "./resume";
@@ -44,7 +43,6 @@ export const RUSSIAN_LANGUAGE: LanguageProps = {
   aboutHighlights,
   resumeCv,
   cooperation,
-  headerHouse,
   portfolio,
   personal,
   service,

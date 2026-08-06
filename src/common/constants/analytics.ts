@@ -6,7 +6,6 @@ export const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
  * Описание всех событий: docs/analytics-events.md
  */
 export const AnalyticsEvent = {
-  CTA_ORDER_CLICK: "cta_order_click",
   CONTACT_FORM_VIEW: "contact_form_view",
   CONTACT_FORM_START: "contact_form_start",
   CONTACT_FORM_FIELD_FOCUS: "contact_form_field_focus",

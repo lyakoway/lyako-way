@@ -37,16 +37,12 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
   const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const toastNotify = useToastNotify();
 
-  const formSource = embedded
-    ? withService
-      ? "services"
-      : "contacts"
-    : "modal";
+  const formSource = withService ? "services" : "contacts";
 
   const startedRef = useRef(false);
   const focusedFieldsRef = useRef<Set<string>>(new Set());
 
-  // Показ формы на «Услугах» (и остальных встроенных/модальных — с source).
+  // Показ формы на «Услугах» / «Контактах».
   useEffect(() => {
     trackEvent(AnalyticsEvent.CONTACT_FORM_VIEW, { source: formSource });
   }, [formSource]);
