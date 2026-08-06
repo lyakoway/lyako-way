@@ -1,7 +1,10 @@
 export const YANDEX_METRIKA_ID = process.env.NEXT_PUBLIC_YANDEX_METRIKA_ID;
 export const GA4_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID;
 
-/** Имена событий — одинаковые для GA4 и целей Яндекс.Метрики (reachGoal). */
+/**
+ * Имена событий — одинаковые для GA4 и целей Яндекс.Метрики (reachGoal).
+ * Описание всех событий: docs/analytics-events.md
+ */
 export const AnalyticsEvent = {
   CTA_ORDER_CLICK: "cta_order_click",
   CONTACT_FORM_VIEW: "contact_form_view",
