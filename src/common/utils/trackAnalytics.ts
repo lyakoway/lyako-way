@@ -72,3 +72,32 @@ export const setAnalyticsUserId = (userId: string) => {
     window.gtag("config", GA4_MEASUREMENT_ID, { user_id: userId });
   }
 };
+
+/** ClientID Яндекс.Метрики (браузер/устройство) — для связи заявки с визитом. */
+export const getMetrikaClientId = (): Promise<string | null> =>
+  new Promise((resolve) => {
+    let done = false;
+    const finish = (id: string | null) => {
+      if (done) return;
+      done = true;
+      resolve(id);
+    };
+
+    if (
+      typeof window === "undefined" ||
+      !YANDEX_METRIKA_ID ||
+      typeof window.ym !== "function"
+    ) {
+      finish(null);
+      return;
+    }
+
+    try {
+      window.ym(YANDEX_METRIKA_ID, "getClientID", (id: string) =>
+        finish(id ? String(id) : null)
+      );
+      window.setTimeout(() => finish(null), 2000);
+    } catch {
+      finish(null);
+    }
+  });

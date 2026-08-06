@@ -6,7 +6,7 @@ import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal, setDataForm, setSantaShown } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
-import { trackEvent, setAnalyticsUserId } from "src/common/utils/trackAnalytics";
+import { trackEvent, setAnalyticsUserId, getMetrikaClientId } from "src/common/utils/trackAnalytics";
 import { buildAnalyticsUserId } from "src/common/utils/buildAnalyticsUserId";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 import { InputPhone, InputEmail, InputName } from "src/ui/Input";
@@ -131,12 +131,16 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       setFormDescriptionEmail("");
       setFormDescriptionPhone("");
 
+      // ClientID Метрики — чтобы сопоставить заявку с карточкой посетителя.
+      const clientId = (await getMetrikaClientId()) || "";
+
       const dataForm = {
         user_name: name,
         user_email: email,
         user_phone: phone,
         typesWork: typesWork.map((item) => item.label).join(", "),
         message: message,
+        client_id: clientId,
       };
 
       // https://dashboard.emailjs.com/admin/templates/ipok92p/content - шаблон
@@ -150,10 +154,18 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       // Дублируем заявку в два канала: email (EmailJS) и Telegram (серверный
       // роут /api/telegram — токен бота хранится на сервере). Отправляем
       // параллельно; считаем успехом, если сработал хотя бы один канал.
+      // В письмо ClientID дописываем в message — шаблон EmailJS может не
+      // содержать {{client_id}}; в Telegram id идёт отдельной строкой.
+      const emailPayload = {
+        ...dataForm,
+        message: clientId
+          ? `${message}${message ? "\n\n" : ""}ClientID: ${clientId}`
+          : message,
+      };
       const sendEmail = emailjs.send(
         "service_t0637ri",
         "template_hksctsh",
-        dataForm,
+        emailPayload,
         "E3IoCn9xU4A9XR0GB"
       );
       const sendTelegram = fetch("/api/telegram", {
@@ -182,12 +194,15 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
           services: dataForm.typesWork || undefined,
         });
         // UserID = SHA-256(email|phone) — без сырых PII в аналитике.
-        void buildAnalyticsUserId(
-          dataForm.user_email,
-          dataForm.user_phone
-        ).then((userId) => {
+        try {
+          const userId = await buildAnalyticsUserId(
+            dataForm.user_email,
+            dataForm.user_phone
+          );
           if (userId) setAnalyticsUserId(userId);
-        });
+        } catch (err) {
+          console.error("Analytics UserID error:", err);
+        }
         setStatusRequest("success");
         await wait(2000);
         dispatch(closeModal());
