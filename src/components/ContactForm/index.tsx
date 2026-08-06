@@ -6,7 +6,12 @@ import { Form, Header, Content, Footer, InputWrapper } from "./style";
 import { closeModal, setDataForm, setSantaShown } from "src/reducers";
 import ButtonForm from "src/ui/ButtonForm";
 import { wait } from "src/common/utils/wait";
-import { trackEvent, setAnalyticsUserId, getMetrikaClientId } from "src/common/utils/trackAnalytics";
+import {
+  trackEvent,
+  setAnalyticsUserId,
+  getMetrikaClientId,
+  getGaClientId,
+} from "src/common/utils/trackAnalytics";
 import { buildAnalyticsUserId } from "src/common/utils/buildAnalyticsUserId";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 import { InputPhone, InputEmail, InputName } from "src/ui/Input";
@@ -131,8 +136,13 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       setFormDescriptionEmail("");
       setFormDescriptionPhone("");
 
-      // ClientID Метрики — чтобы сопоставить заявку с карточкой посетителя.
-      const clientId = (await getMetrikaClientId()) || "";
+      // ClientID Метрики и GA4 — чтобы сопоставить заявку с визитом.
+      const [ymClientId, gaClientId] = await Promise.all([
+        getMetrikaClientId(),
+        getGaClientId(),
+      ]);
+      const clientId = ymClientId || "";
+      const gaId = gaClientId || "";
 
       const dataForm = {
         user_name: name,
@@ -141,6 +151,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
         typesWork: typesWork.map((item) => item.label).join(", "),
         message: message,
         client_id: clientId,
+        ga_client_id: gaId,
       };
 
       // https://dashboard.emailjs.com/admin/templates/ipok92p/content - шаблон
@@ -154,12 +165,18 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       // Дублируем заявку в два канала: email (EmailJS) и Telegram (серверный
       // роут /api/telegram — токен бота хранится на сервере). Отправляем
       // параллельно; считаем успехом, если сработал хотя бы один канал.
-      // В письмо ClientID дописываем в message — шаблон EmailJS может не
-      // содержать {{client_id}}; в Telegram id идёт отдельной строкой.
+      // ClientID дописываем в message письма — шаблон EmailJS менять не нужно;
+      // в Telegram id идут отдельными строками.
+      const idLines = [
+        clientId ? `ClientID Метрика: ${clientId}` : "",
+        gaId ? `ClientID GA4: ${gaId}` : "",
+      ]
+        .filter(Boolean)
+        .join("\n");
       const emailPayload = {
         ...dataForm,
-        message: clientId
-          ? `${message}${message ? "\n\n" : ""}ClientID: ${clientId}`
+        message: idLines
+          ? `${message}${message ? "\n\n" : ""}${idLines}`
           : message,
       };
       const sendEmail = emailjs.send(
@@ -192,6 +209,8 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
         trackEvent(AnalyticsEvent.CONTACT_FORM_SUCCESS, {
           source: formSource,
           services: dataForm.typesWork || undefined,
+          ym_client_id: clientId || undefined,
+          ga_client_id: gaId || undefined,
         });
         // UserID = SHA-256(email|phone) — без сырых PII в аналитике.
         try {

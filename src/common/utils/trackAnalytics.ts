@@ -73,31 +73,72 @@ export const setAnalyticsUserId = (userId: string) => {
   }
 };
 
-/** ClientID Яндекс.Метрики (браузер/устройство) — для связи заявки с визитом. */
-export const getMetrikaClientId = (): Promise<string | null> =>
+const withTimeout = <T,>(
+  run: (finish: (value: T) => void) => void,
+  fallback: T,
+  ms = 2000
+): Promise<T> =>
   new Promise((resolve) => {
     let done = false;
-    const finish = (id: string | null) => {
+    const finish = (value: T) => {
       if (done) return;
       done = true;
-      resolve(id);
+      resolve(value);
     };
-
-    if (
-      typeof window === "undefined" ||
-      !YANDEX_METRIKA_ID ||
-      typeof window.ym !== "function"
-    ) {
-      finish(null);
+    try {
+      run(finish);
+    } catch {
+      finish(fallback);
       return;
     }
-
-    try {
-      window.ym(YANDEX_METRIKA_ID, "getClientID", (id: string) =>
-        finish(id ? String(id) : null)
-      );
-      window.setTimeout(() => finish(null), 2000);
-    } catch {
-      finish(null);
-    }
+    window.setTimeout(() => finish(fallback), ms);
   });
+
+/** ClientID Яндекс.Метрики (браузер/устройство) — для связи заявки с визитом. */
+export const getMetrikaClientId = (): Promise<string | null> => {
+  if (
+    typeof window === "undefined" ||
+    !YANDEX_METRIKA_ID ||
+    typeof window.ym !== "function"
+  ) {
+    return Promise.resolve(null);
+  }
+
+  return withTimeout((finish) => {
+    window.ym!(YANDEX_METRIKA_ID!, "getClientID", (id: string) =>
+      finish(id ? String(id) : null)
+    );
+  }, null);
+};
+
+/**
+ * Client ID GA4 (браузер/устройство).
+ * gtag('get', …) — официальный способ; иначе парсим cookie `_ga`.
+ */
+export const getGaClientId = (): Promise<string | null> => {
+  if (typeof window === "undefined" || !GA4_MEASUREMENT_ID) {
+    return Promise.resolve(null);
+  }
+
+  const fromCookie = (): string | null => {
+    const match = document.cookie.match(/(?:^|;\s*)_ga=([^;]+)/);
+    if (!match) return null;
+    // _ga=GA1.1.XXXXXXXX.YYYYYYYY → client_id = XXXXXXXX.YYYYYYYY
+    const parts = decodeURIComponent(match[1]).split(".");
+    if (parts.length < 4) return null;
+    return `${parts[parts.length - 2]}.${parts[parts.length - 1]}`;
+  };
+
+  if (typeof window.gtag !== "function") {
+    return Promise.resolve(fromCookie());
+  }
+
+  return withTimeout((finish) => {
+    window.gtag!(
+      "get",
+      GA4_MEASUREMENT_ID,
+      "client_id",
+      (id: string | undefined) => finish(id ? String(id) : fromCookie())
+    );
+  }, null).then((id) => id ?? fromCookie());
+};

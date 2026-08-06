@@ -26,8 +26,15 @@ export default async function handler(
     return res.status(500).json({ message: "Telegram is not configured" });
   }
 
-  const { user_name, user_email, user_phone, typesWork, message, client_id } =
-    req.body ?? {};
+  const {
+    user_name,
+    user_email,
+    user_phone,
+    typesWork,
+    message,
+    client_id,
+    ga_client_id,
+  } = req.body ?? {};
 
   const text =
     `<b>📩 Новая заявка с сайта</b>\n\n` +
@@ -35,7 +42,12 @@ export default async function handler(
     `<b>Телефон:</b> ${escapeHtml(user_phone)}\n` +
     `<b>Почта:</b> ${escapeHtml(user_email)}\n` +
     (typesWork ? `<b>Услуга:</b> ${escapeHtml(typesWork)}\n` : "") +
-    (client_id ? `<b>ClientID:</b> <code>${escapeHtml(client_id)}</code>\n` : "") +
+    (client_id
+      ? `<b>ClientID Метрика:</b> <code>${escapeHtml(client_id)}</code>\n`
+      : "") +
+    (ga_client_id
+      ? `<b>ClientID GA4:</b> <code>${escapeHtml(ga_client_id)}</code>\n`
+      : "") +
     (message ? `\n<b>Сообщение:</b>\n${escapeHtml(message)}` : "");
 
   try {
