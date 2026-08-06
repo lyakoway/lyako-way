@@ -100,7 +100,6 @@ const Blog = () => {
                   slug: post.hrefNameList,
                   name: post.portfolioNameList,
                   tags: post.technologies.join(", "),
-                  wip: Boolean(post.wip),
                 })
               }
             >

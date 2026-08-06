@@ -130,7 +130,7 @@ Pageview целью не оформляется — это обычные про
 | Событие | Когда | Параметры |
 |---------|--------|-----------|
 | `blog_filter_click` | Фильтр тегов | `filter` (`all` или тег) |
-| `blog_post_open` | Клик по карточке / «Читать» | `slug`, `name`, `tags`, `wip` |
+| `blog_post_open` | Клик по карточке / «Читать» | `slug`, `name`, `tags` |
 | `blog_search_focus` | Фокус поиска в статье | `slug` |
 | `blog_search` | Запрос (≥2 символа, debounce 600 мс) | `slug`, `query`, `results` |
 | `blog_search_navigate` | Enter / стрелки по совпадениям | `slug`, `direction` (`enter` \| `prev` \| `next`), `match`, `results` |
