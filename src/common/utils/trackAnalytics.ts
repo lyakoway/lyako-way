@@ -55,13 +55,16 @@ export const trackPageView = (url: string) => {
 
 /**
  * Привязка визита к пользователю после заявки (хеш почты/телефона).
- * Метрика: setUserID; GA4: user_id.
+ * Метрика: setUserID + userParams.UserID (чтобы видеть в отчётах);
+ * GA4: user_id.
  */
 export const setAnalyticsUserId = (userId: string) => {
   if (typeof window === "undefined" || !userId) return;
 
   if (YANDEX_METRIKA_ID && typeof window.ym === "function") {
     window.ym(YANDEX_METRIKA_ID, "setUserID", userId);
+    // Без userParams значение setUserID в отчётах Метрики не отображается.
+    window.ym(YANDEX_METRIKA_ID, "userParams", { UserID: userId });
   }
 
   if (GA4_MEASUREMENT_ID && typeof window.gtag === "function") {
