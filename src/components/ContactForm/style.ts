@@ -1,5 +1,10 @@
 import styled, { css } from "styled-components";
-import { TABLET_959, MOBILE_660, MOBILE_560 } from "src/common/lib/media";
+import {
+  TABLET_959,
+  TABLET_768,
+  MOBILE_660,
+  MOBILE_560,
+} from "src/common/lib/media";
 import { PANEL_TEXT, PANEL_BORDER } from "src/common/lib/panelStyles";
 // Контейнеры полей (фон = background.modal) — затемняем их во встроенной
 // форме в тёмной теме через styled-селекторы, не трогая модалку.
@@ -132,7 +137,7 @@ export const InputWrapper = styled.div<{ $embedded?: boolean }>`
   ${({ $embedded }) =>
     $embedded &&
     css`
-      @media ${MOBILE_660} {
+      @media ${TABLET_768} {
         grid-template-columns: 1fr;
       }
     `}

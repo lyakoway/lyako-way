@@ -21,7 +21,6 @@ import { AnalyticsEvent } from "src/common/constants/analytics";
 import {
   Intro,
   ContactBlock,
-  RangeOnly,
   SectionLabel,
   Links,
   LinkItem,
@@ -83,6 +82,28 @@ const Contacts = () => {
 
 
       <Reveal as={ContactBlock} delay={180}>
+        <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
+        <Links>
+          {CONTACT_PHONES.map((phone) => (
+            <LinkItem
+              key={phone.href}
+              href={phone.href}
+              onClick={() =>
+                trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                  channel: "phone",
+                  placement: "contacts_page",
+                })
+              }
+            >
+              <PhoneIcon />
+              {phone.label}
+              <RunBorder radius={12} />
+            </LinkItem>
+          ))}
+        </Links>
+      </Reveal>
+
+      <Reveal as={ContactBlock} delay={210}>
         <SectionLabel>{sidebar.emailTitle}</SectionLabel>
         <Links>
           <LinkItem
@@ -101,63 +122,37 @@ const Contacts = () => {
         </Links>
       </Reveal>
 
-      {/* Тел/мессенджеры/локация — только в диапазоне 1024–1249px, где их
-          нет в верхнем блоке-визитке. */}
-      <RangeOnly>
-        <Reveal as={ContactBlock}>
-          <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
-          <Links>
-            {CONTACT_PHONES.map((phone) => (
-              <LinkItem
-                key={phone.href}
-                href={phone.href}
-                onClick={() =>
-                  trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                    channel: "phone",
-                    placement: "contacts_page",
-                  })
-                }
-              >
-                <PhoneIcon />
-                {phone.label}
-                <RunBorder radius={12} />
-              </LinkItem>
-            ))}
-          </Links>
-        </Reveal>
+      <Reveal as={ContactBlock} delay={240}>
+        <SectionLabel>{sidebar.messengersTitle}</SectionLabel>
+        <Links>
+          {CONTACT_MESSENGERS.map((item) => (
+            <LinkItem
+              key={item.href}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              onClick={() =>
+                trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                  channel: item.label.toLowerCase(),
+                  placement: "contacts_page",
+                })
+              }
+            >
+              {MESSENGER_ICON[item.label]}
+              {item.label}
+              <RunBorder radius={12} />
+            </LinkItem>
+          ))}
+        </Links>
+      </Reveal>
 
-        <Reveal as={ContactBlock} delay={90}>
-          <SectionLabel>{sidebar.messengersTitle}</SectionLabel>
-          <Links>
-            {CONTACT_MESSENGERS.map((item) => (
-              <LinkItem
-                key={item.href}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                onClick={() =>
-                  trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                    channel: item.label.toLowerCase(),
-                    placement: "contacts_page",
-                  })
-                }
-              >
-                {MESSENGER_ICON[item.label]}
-                {item.label}
-                <RunBorder radius={12} />
-              </LinkItem>
-            ))}
-          </Links>
-        </Reveal>
-
-        <Reveal as={ContactBlock} delay={180}>
-          <SectionLabel>{sidebar.locationTitle}</SectionLabel>
-          <InfoText>
-            <PinIcon />
-            {sidebar.location}
-          </InfoText>
-        </Reveal>
-      </RangeOnly>
+      <Reveal as={ContactBlock} delay={270}>
+        <SectionLabel>{sidebar.locationTitle}</SectionLabel>
+        <InfoText>
+          <PinIcon />
+          {sidebar.location}
+        </InfoText>
+      </Reveal>
 
       <Reveal as={ContactBlock}>
         <SectionLabel>{contactsPage.responseTitle}</SectionLabel>
