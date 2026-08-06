@@ -34,6 +34,9 @@ export const AnalyticsEvent = {
   WEATHER_SELECT: "weather_select",
   LIKE_CLICK: "like_click",
   SETTINGS_TOGGLE: "settings_toggle",
+  ERROR_SCREEN_VIEW: "error_screen_view",
+  ERROR_HOME_CLICK: "error_home_click",
+  ERROR_RELOAD_CLICK: "error_reload_click",
 } as const;
 
 export type AnalyticsEventName =
