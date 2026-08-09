@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 
 import { LampBulb, LampSwitchLabel } from "./style";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { setThemeList } from "src/reducers";
+import { setThemeList, setUserSelectedTheme } from "src/reducers";
 
 // Переключатель темы, связанный с лампой:
 // — декоративная лампочка на плафоне (серая в светлой теме, жёлтая в тёмной);
@@ -15,6 +15,7 @@ const LampSwitch = () => {
   const on = name === "light";
 
   const handleChange = useCallback(() => {
+    dispatch(setUserSelectedTheme(true));
     dispatch(setThemeList(!on));
   }, [dispatch, on]);
 

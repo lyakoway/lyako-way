@@ -19,7 +19,7 @@ export interface Weather {
   current: {
     temp_c: number;
     feelslike_c: number;
-    condition: { text: string; icon: string };
+    condition: { text: string; icon: string; code?: number };
     humidity: number;
     wind_kph: number;
     wind_dir: string;

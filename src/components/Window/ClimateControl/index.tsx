@@ -6,6 +6,7 @@ import {
   setUserSelectedClimate,
   setUserSelectedLang,
   setThemeList,
+  setUserSelectedTheme,
 } from "src/reducers";
 
 import {
@@ -76,7 +77,10 @@ const ClimateControl = () => {
   // userSelectedClimate в false, поэтому при смене города тип встаёт по нему.
   useEffect(() => {
     if (userSelectedClimate) return;
-    const mapped = weatherToClimate(weather?.current?.condition?.text);
+    const mapped = weatherToClimate(
+      weather?.current?.condition?.code,
+      weather?.current?.condition?.text
+    );
     if (mapped && mapped !== climate) {
       dispatch(setClimateControl(mapped));
     }
@@ -88,7 +92,8 @@ const ClimateControl = () => {
 
   // 🔹 Запрашиваем погоду и обновляем climate
   const updateWeatherAndClimate = async (targetCity: string) => {
-    await fetchByCity(targetCity);
+    await fetchByCity(targetCity, true);
+    dispatch(setUserSelectedTheme(false));
     dispatch(setThemeList(dayTime));
     dispatch(setUserSelectedClimate(false));
     dispatch(setUserSelectedLang(false));

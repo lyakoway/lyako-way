@@ -25,7 +25,7 @@ import getAppHeadContent from "src/common/utils/getAppHeadContent";
 import { trackPageView } from "src/common/utils/trackAnalytics";
 import { SITE_TITLE, SITE_URL } from "src/common/constants/site";
 import GlobalStyles from "src/common/lib/globalStyles";
-import { setThemeList, getPreferredIsDay } from "src/reducers";
+import { setThemeList, getPreferredIsDay, setUserSelectedTheme } from "src/reducers";
 import { useDayTime, useIsomorphicLayoutEffect } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
 import { Toast } from "src/ui/Toast";
@@ -48,13 +48,11 @@ const AppContent: FC<{
   Component: AppProps["Component"];
   pageProps: AppProps["pageProps"];
 }> = ({ Component, pageProps }) => {
-  const { theme } = useSelectorTyped(({ theme }) => theme);
+  const { theme, userSelectedTheme } = useSelectorTyped(({ theme }) => theme);
   const dispatch = useDispatchTyped();
   const { dayTime } = useDayTime();
 
-  // На монтировании применяем предпочтительную тему (сохранённую или по времени
-  // суток) ДО отрисовки — стартовое значение стора светлое (как SSR), поэтому
-  // гидрация проходит без рассинхрона, а вспышки нет (layout-эффект до paint).
+  // На монтировании — тема по времени суток (без localStorage) ДО paint.
   useIsomorphicLayoutEffect(() => {
     dispatch(setThemeList(getPreferredIsDay()));
   }, [dispatch]);
@@ -70,16 +68,23 @@ const AppContent: FC<{
     );
   }, [theme.name]);
 
-  // Живое переключение день/ночь: применяем изменения dayTime, но пропускаем
-  // первый прогон, чтобы не перебить установленную выше предпочтительную тему.
-  const firstDayTimeRun = useRef(true);
+  // Живое переключение день/ночь. Ручной override держится до реальной смены
+  // восход/закат — тогда снова следуем за солнцем (без localStorage).
+  const prevDayTimeRef = useRef<boolean | null>(null);
   useEffect(() => {
-    if (firstDayTimeRun.current) {
-      firstDayTimeRun.current = false;
+    if (prevDayTimeRef.current === null) {
+      prevDayTimeRef.current = dayTime;
       return;
     }
+    const flipped = prevDayTimeRef.current !== dayTime;
+    prevDayTimeRef.current = dayTime;
+
+    if (userSelectedTheme && !flipped) return;
+    if (userSelectedTheme && flipped) {
+      dispatch(setUserSelectedTheme(false));
+    }
     dispatch(setThemeList(dayTime));
-  }, [dayTime, dispatch]);
+  }, [dayTime, userSelectedTheme, dispatch]);
 
   // Плавный переход цвета при смене темы: на время переключения вешаем класс
   // theme-transition на <html> (см. globalStyles) и снимаем через 3с. Начальную

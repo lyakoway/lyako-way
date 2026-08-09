@@ -41,13 +41,12 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ru">
         <Head>
-          {/* Определяем тему ДО первой отрисовки (localStorage или по времени
-              суток) и ставим html[data-theme] — CSS-фоны сразу рисуются в
-              правильной теме, без вспышки «светлая→тёмная» на медленной сети.
-              В рантайме атрибут синхронизируется с redux-темой (см. _app). */}
+          {/* Тема ДО первой отрисовки — только по времени суток (без localStorage),
+              чтобы не залипала вчерашняя ручная тема. В рантайме атрибут
+              синхронизируется с redux (см. _app) по SunCalc / dayTime. */}
           <script
             dangerouslySetInnerHTML={{
-              __html: `(function(){try{var t=localStorage.getItem('themeMode');var d;if(t==='light'){d=true}else if(t==='dark'){d=false}else{var h=new Date().getHours();d=h>=7&&h<20}document.documentElement.setAttribute('data-theme',d?'light':'dark')}catch(e){}})();`,
+              __html: `(function(){try{localStorage.removeItem('themeMode');var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=7&&h<20)?'light':'dark')}catch(e){}})();`,
             }}
           />
         </Head>

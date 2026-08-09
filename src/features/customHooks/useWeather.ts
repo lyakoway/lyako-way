@@ -4,6 +4,9 @@ import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
 
+// Как часто драйвер принудительно обновляет погоду (минуя кэш).
+const WEATHER_REFRESH_MS = 15 * 60 * 1000;
+
 // autoInit — только ОДИН экземпляр хука должен запускать погоду (драйвер,
 // живёт в Layout через useAutoLocaleClimate). Остальные (Window,
 // ClimateControl) читают уже загруженные данные из стора и делают ручные
@@ -21,14 +24,16 @@ export function useWeather(options?: { autoInit?: boolean }) {
 
   const [geoCity, setGeoCity] = useState<string>("Москва");
   const didInitRef = useRef(false);
+  const selectedCityRef = useRef(selectedCity);
+  selectedCityRef.current = selectedCity;
 
   const toastNotify = useToastNotify();
 
   const fetchByCity = useCallback(
-    (city: string) => {
+    (city: string, force = false) => {
       if (!city) return;
       setGeoCity(city);
-      dispatch(fetchWeather({ city }));
+      dispatch(fetchWeather({ city, force }));
       dispatch(setSelectedCity(city));
     },
     [dispatch]
@@ -78,6 +83,16 @@ export function useWeather(options?: { autoInit?: boolean }) {
       fetchByGeolocation();
     }
   }, [autoInit, selectedCity, fetchByCity, fetchByGeolocation]);
+
+  // Периодический realtime-рефреш у драйвера — сцена и климат не устаревают.
+  useEffect(() => {
+    if (!autoInit) return;
+    const id = window.setInterval(() => {
+      const city = selectedCityRef.current;
+      if (city) dispatch(fetchWeather({ city, force: true }));
+    }, WEATHER_REFRESH_MS);
+    return () => window.clearInterval(id);
+  }, [autoInit, dispatch]);
 
   // Тост об ошибке показываем тоже только у драйвера — иначе несколько
   // экземпляров дублируют уведомление.

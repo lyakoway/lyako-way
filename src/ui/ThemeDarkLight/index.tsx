@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { ThemeButton, Bulb } from "./style";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { setThemeList } from "src/reducers";
+import { setThemeList, setUserSelectedTheme } from "src/reducers";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 
@@ -19,6 +19,7 @@ const ThemeDarkLight = () => {
       theme: nextIsLight ? "light" : "dark",
     });
     setOpenedTheme(nextIsLight);
+    dispatch(setUserSelectedTheme(true));
     dispatch(setThemeList(nextIsLight));
   }, [dispatch, openedTheme]);
 

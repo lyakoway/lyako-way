@@ -14,15 +14,18 @@ interface IRejectedValue {
 
 export const fetchWeather = createAsyncThunk<
   { weather: Weather | null; forecast: ForecastItem[] },
-  { city: string },
+  { city: string; force?: boolean },
   { rejectValue: IRejectedValue }
 >("climate/fetchWeather", async (data, thunkAPI) => {
-  const { city } = data;
+  const { city, force } = data;
 
-  // Кэш с TTL: если для этого города есть свежие данные — отдаём их без запроса.
-  const cached = getCachedWeather(city);
-  if (cached) {
-    return cached;
+  // Кэш с TTL: без force — свежие данные без запроса; force — всегда сеть
+  // (периодический realtime-рефреш).
+  if (!force) {
+    const cached = getCachedWeather(city);
+    if (cached) {
+      return cached;
+    }
   }
 
   try {
