@@ -255,6 +255,23 @@ export const Preview = styled.div`
   gap: 16px;
   grid-template-columns: 1fr;
 
+  /* <900: одна колонка; 2-ю картинку (пустой light) опускаем после 3-й
+     (практический dark), чтобы пары «пусто → пример» шли подряд: 1→3, 2→4. */
+  @media (max-width: 899px) {
+    & > *:nth-child(1) {
+      order: 1;
+    }
+    & > *:nth-child(2) {
+      order: 3;
+    }
+    & > *:nth-child(3) {
+      order: 2;
+    }
+    & > *:nth-child(4) {
+      order: 4;
+    }
+  }
+
   @media (min-width: 900px) {
     grid-template-columns: 1fr 1fr;
   }

@@ -56,6 +56,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
     screenshots: [
       "/static/portfolio/rag-chat-dark.png",
       "/static/portfolio/rag-chat-light.png",
+      "/static/portfolio/rag-chat-light-pr-en.png",
+      "/static/portfolio/agent-chat-light-pr-ru.png",
     ],
   },
   {
