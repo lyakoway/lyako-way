@@ -47,7 +47,7 @@ export const NavbarList = styled.ul`
   align-items: center;
   justify-content: space-between;
   margin: 0;
-  padding: 0 4px;
+  padding: 0 8px;
   list-style: none;
 
   /* На узких экранах пунктов много — прокрутка по горизонтали как страховка. */
