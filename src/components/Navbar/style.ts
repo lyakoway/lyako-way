@@ -59,7 +59,7 @@ export const NavbarList = styled.ul`
     display: none;
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 580px) {
     justify-content: center;
     gap: 16px;
     padding: 0 10px;
