@@ -7,6 +7,7 @@ import {
   setUserSelectedLang,
   setThemeList,
   setUserSelectedTheme,
+  closeModal,
 } from "src/reducers";
 
 import {
@@ -122,11 +123,12 @@ const ClimateControl = () => {
     await updateWeatherAndClimate(selected);
   };
 
-  // 🔹 Выбор погоды вручную
+  // 🔹 Выбор погоды вручную — применяем и закрываем модалку
   const handleSelectClimate = (item: ClimateType) => {
     trackEvent(AnalyticsEvent.WEATHER_SELECT, { climate: item });
-    dispatch(setClimateControl(item)); // сохраняется userSelectedClimate = true
+    dispatch(setClimateControl(item));
     dispatch(setUserSelectedClimate(true));
+    dispatch(closeModal());
   };
 
   return (
