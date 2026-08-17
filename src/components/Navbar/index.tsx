@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useSelectorTyped } from "src/store";
+import { ROUTE_BY_VALUE } from "src/common/lib/navigation";
 
 import {
   NavbarWrapper,
@@ -11,18 +12,6 @@ import {
   NavLabel,
   NavIndicator,
 } from "./style";
-
-// Значение пункта меню (propsHeaderTopMenu.value) → реальный роут Next.
-// Пункты без записи здесь (cooperation) в навбар не попадают.
-const ROUTE_BY_VALUE: Record<string, string> = {
-  "": "/",
-  person: "/profile",
-  resume: "/cv",
-  services: "/services",
-  portfolio: "/portfolio",
-  blog: "/blog",
-  contacts: "/contacts",
-};
 
 const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
