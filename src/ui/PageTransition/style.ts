@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from "styled-components";
+import { PANEL_BORDER } from "src/common/lib/panelStyles";
 
 // Хронометраж: сама анимация — DURATION, слой выхода держим до EXIT_HOLD
 // (таймаут в index.tsx), чтобы анимация успела доиграть до размонтирования.
@@ -61,8 +62,9 @@ const exitToRight = keyframes`
 `;
 
 // Вьюпорт «слайдера». В покое ничем не мешает (без клипа — тени и sticky
-// внутри страниц работают как раньше); на время перехода режет выезжающие
-// карточки по границам области контента.
+// внутри страниц работают как раньше). На время перехода сам становится
+// рамкой карточки: фон/границу/скругление/тень у страниц (Article) снимает и
+// рисует здесь — поэтому рамка стоит на месте, а внутри едет только контент.
 export const TransitionViewport = styled.div<{ $active: boolean }>`
   position: relative;
   display: flex;
@@ -71,10 +73,23 @@ export const TransitionViewport = styled.div<{ $active: boolean }>`
      растяжку контента на высоту колонки (≥1250px) через цепочку слоёв */
   flex: 1;
 
-  ${({ $active }) =>
+  ${({ $active, theme }) =>
     $active &&
     css`
       overflow: hidden;
+      /* рамка попиксельно та же, что была у Article (вьюпорт занимает его бокс) */
+      border-radius: 20px;
+      background: var(--panel-bg);
+      border: 1px solid ${PANEL_BORDER};
+      ${theme.shadow.NonClickable};
+
+      /* хром страниц убираем без скачка раскладки: рамка остаётся в потоке
+         (1px, прозрачная), меняются только фон и тень */
+      & > div > article {
+        background: none;
+        border-color: transparent;
+        box-shadow: none;
+      }
     `}
 `;
 
