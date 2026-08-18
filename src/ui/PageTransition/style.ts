@@ -3,8 +3,10 @@ import { PANEL_BORDER } from "src/common/lib/panelStyles";
 
 // Хронометраж: сама анимация — DURATION, слой выхода держим до EXIT_HOLD
 // (таймаут в index.tsx), чтобы анимация успела доиграть до размонтирования.
-const DURATION = "0.55s";
-const EASING = "cubic-bezier(0.22, 1, 0.36, 1)"; // как у Reveal — плавный выезд
+// Экспортируем: index.tsx синхронизирует с ними анимацию высоты рамки.
+export const DURATION = "0.55s";
+export const DURATION_MS = 550;
+export const EASING = "cubic-bezier(0.22, 1, 0.36, 1)"; // как у Reveal — плавный выезд
 const BLUR = "12px";
 
 // Вход: новый раздел выезжает со своей стороны меню, «фокусируясь» к месту.
@@ -77,11 +79,23 @@ export const TransitionViewport = styled.div<{ $active: boolean }>`
     $active &&
     css`
       overflow: hidden;
-      /* рамка попиксельно та же, что была у Article (вьюпорт занимает его бокс) */
       border-radius: 20px;
       background: var(--panel-bg);
-      border: 1px solid ${PANEL_BORDER};
       ${theme.shadow.NonClickable};
+
+      /* Границу рисует псевдоэлемент, а не border: высота вьюпорта
+         контентная (height:auto), и появление border'а реально растянуло бы
+         бокс на 2px в первый же кадр анимации — заметный сдвиг рамки.
+         ::after с inset:0 ложится ровно на место прежней границы карточки
+         и не влияет на раскладку вовсе. */
+      &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border: 1px solid ${PANEL_BORDER};
+        border-radius: 20px;
+        pointer-events: none;
+      }
 
       /* хром страниц убираем без скачка раскладки: рамка остаётся в потоке
          (1px, прозрачная), меняются только фон и тень */
@@ -94,8 +108,9 @@ export const TransitionViewport = styled.div<{ $active: boolean }>`
 `;
 
 // Слой-«слайд». Входящий — в потоке (задаёт высоту вьюпорту); выходящий —
-// абсолютный, той же геометрии (inset: 0), чтобы растянутая по высоте
-// карточка не «сжималась» в первый кадр анимации выхода.
+// абсолютный, с явной высотой прежней страницы (инлайном из index.tsx):
+// иначе inset:0 растянул бы старую карточку под высоту новой — её контент
+// заметно прыгал в первый кадр анимации.
 export const TransitionLayer = styled.div<{
   $role: "idle" | "enter" | "exit";
   $dir?: 1 | -1;

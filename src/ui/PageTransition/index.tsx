@@ -4,8 +4,9 @@ import { useRouter } from "next/router";
 import { useSelectorTyped } from "src/store";
 import { ROUTE_BY_VALUE } from "src/common/lib/navigation";
 import { HeaderTopMenuProps } from "src/common/types/lang";
+import { useIsomorphicLayoutEffect } from "src/features/customHooks";
 
-import { TransitionViewport, TransitionLayer } from "./style";
+import { TransitionViewport, TransitionLayer, DURATION_MS, EASING } from "./style";
 
 // Направление перехода по меню: 1 — новый раздел правее текущего, -1 — левее.
 type Direction = 1 | -1;
@@ -14,6 +15,8 @@ type ExitPage = {
   key: string;
   element: ReactNode;
   dir: Direction;
+  /** Высота вьюпорта в момент клика — уходящая страница сохраняет её. */
+  height: number | null;
 };
 
 // Сколько держать слой выхода после старта анимации: сама анимация 550 мс
@@ -70,8 +73,16 @@ const PageTransition: FC<{ children: ReactNode }> = ({ children }) => {
     lang: { propsHeaderTopMenu },
   } = useSelectorTyped(({ lang }) => lang);
 
+  const viewportRef = useRef<HTMLDivElement>(null);
+
+  // Высота вьюпорта последнего кадра ДО смены роута: уходящей странице она
+  // нужна, чтобы карточка не растянулась под высоту новой в первый кадр.
+  // Обновляем ResizeObserver'ом — он срабатывает до отрисовки, поэтому в
+  // момент клика здесь лежит ровно то, что видел пользователь.
+  const viewportHeightRef = useRef<number | null>(null);
+
   // Снимок отображаемой страницы: когда роут сменился, children — уже новая
-  // страница, прежняя остаётся только в этом состоянии (для анимации выхода).
+  // страница, прежняя остаётся только в этом состояния (для анимации выхода).
   const [current, setCurrent] = useState<{ key: string; element: ReactNode }>({
     key: pathname,
     element: children,
@@ -86,7 +97,16 @@ const PageTransition: FC<{ children: ReactNode }> = ({ children }) => {
     const leaving = current.element;
 
     setCurrent({ key: pathname, element: children });
-    setExit(dir ? { key: current.key, element: leaving, dir } : null);
+    setExit(
+      dir
+        ? {
+            key: current.key,
+            element: leaving,
+            dir,
+            height: viewportHeightRef.current,
+          }
+        : null
+    );
   } else if (children !== current.element && !exit) {
     // Тот же роут, элемент пересоздан (смена языка/темы) — освежаем снимок,
     // чтобы будущая анимация выхода стартовала с актуальной карточки.
@@ -102,7 +122,60 @@ const PageTransition: FC<{ children: ReactNode }> = ({ children }) => {
 
   // Свайп по контенту на тач-устройствах: пальцем влево — следующий раздел
   // меню, вправо — предыдущий (стороны совпадают с анимацией перехода).
-  const viewportRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = viewportRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => {
+      viewportHeightRef.current = el.getBoundingClientRect().height;
+    });
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  // Плавная высота рамки: в начале перехода фиксируем прежнюю высоту (иначе
+  // рамка мгновенно прыгает под высоту новой страницы) и анимируем к новой —
+  // синхронно со слайдом карточек. По завершении возвращаем height:auto.
+  // Анимируем через WAAPI: CSS-transition, запущенная из layout-эффекта до
+  // первой отрисовки кадра, в Chrome срабатывает нестабильно (высота прыгает
+  // к конечному значению сразу), element.animate стартует гарантированно.
+  useIsomorphicLayoutEffect(() => {
+    const el = viewportRef.current;
+    if (!el) return;
+
+    if (!exit) {
+      el.style.height = "";
+      return;
+    }
+
+    const reducedMotion =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion || exit.height == null || el.animate == null) return;
+
+    // Меряем естественную высоту новой страницы: инлайн сбрасываем и сами
+    // себя — иначе после быстрой повторной навигации прочли бы прошлое
+    // значение, а не высоту нового контента.
+    el.style.height = "";
+    const to = el.getBoundingClientRect().height;
+    const from = exit.height;
+    if (Math.abs(to - from) < 1) return;
+
+    el.style.height = `${from}px`;
+    const anim = el.animate(
+      { height: [`${from}px`, `${to}px`] },
+      { duration: DURATION_MS, easing: EASING }
+    );
+    anim.onfinish = () => {
+      el.style.height = `${to}px`;
+    };
+
+    // Смена выхода посреди анимации (быстрая навигация): отменяем, следующий
+    // запуск эффекта перемерит и запустит заново от актуальной высоты.
+    return () => {
+      anim.onfinish = null;
+      anim.cancel();
+    };
+  }, [exit]);
 
   useEffect(() => {
     const el = viewportRef.current;
@@ -187,7 +260,12 @@ const PageTransition: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <TransitionViewport ref={viewportRef} $active={!!exit}>
       {exit && (
-        <TransitionLayer key={exit.key} $role="exit" $dir={exit.dir}>
+        <TransitionLayer
+          key={exit.key}
+          $role="exit"
+          $dir={exit.dir}
+          style={exit.height != null ? { height: exit.height } : undefined}
+        >
           {exit.element}
         </TransitionLayer>
       )}
