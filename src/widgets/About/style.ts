@@ -143,14 +143,13 @@ export const HighlightCard = styled.li`
   ${gradientBorder};
   padding: 18px;
   ${({ theme }) => theme.shadow.ClickableDefault};
-  transition: border-color 0.25s ease, background 0.25s ease,
-    transform 0.25s ease;
+  transition: border-color 0.25s ease, background 0.25s ease;
 
-  /* выделение при наведении — как на «Резюме», + лёгкий подъём */
+  /* Выделение при наведении — только цветом: карточка не кликабельна, и
+     сдвиг/подъём воспринимался как приглашение нажать. */
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
     border-color: rgba(255, 255, 255, 0.22);
-    transform: translateY(-2px);
   }
 
   @media (min-width: 580px) {
