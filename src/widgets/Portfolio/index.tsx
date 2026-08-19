@@ -6,6 +6,7 @@ import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
+import { PortfolioListProps } from "src/common/types/lang";
 
 import {
   FilterBar,
@@ -66,6 +67,7 @@ const Portfolio = () => {
   const {
     lang: { propsHeaderTopMenu, propsPortfolioList, portfolio },
   } = useSelectorTyped(({ lang }) => lang);
+  const { theme } = useSelectorTyped(({ theme }) => theme);
 
   const title =
     propsHeaderTopMenu.find((item) => item.value === "portfolio")?.label ?? "";
@@ -87,6 +89,15 @@ const Portfolio = () => {
   );
 
   const [active, setActive] = useState<string>(ALL);
+
+  // Обложка карточки: у проектов с тематическими скриншотами берём
+  // соответствующий текущей теме, у остальных — первый из галереи.
+  const thumbOf = (project: PortfolioListProps) =>
+    project.thumbLight && project.thumbDark
+      ? theme.name === "light"
+        ? project.thumbLight
+        : project.thumbDark
+      : project.screenshots?.[0];
 
   const shown =
     active === ALL
@@ -139,12 +150,9 @@ const Portfolio = () => {
             >
               <CardThumb $grad={grad}>
                 {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
-                {project.screenshots?.[0] ? (
+                {thumbOf(project) ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={project.screenshots[0]}
-                    alt={project.portfolioNameList}
-                  />
+                  <img src={thumbOf(project)} alt={project.portfolioNameList} />
                 ) : (
                   <BrowserGlyph />
                 )}

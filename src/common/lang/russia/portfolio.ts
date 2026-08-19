@@ -22,6 +22,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioNameList: "RAG Chat",
     portfolioDataTime: "10.08.2026",
     hrefNameList: "rag-chat",
+    thumbLight: "/static/portfolio/rag-chat-light.png",
+    thumbDark: "/static/portfolio/rag-chat-dark.png",
     direction: "RAG и знания",
     technologies: [
       "Python",
@@ -56,7 +58,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     screenshots: [
       "/static/portfolio/rag-chat-dark.png",
       "/static/portfolio/rag-chat-light.png",
-      "/static/portfolio/rag-chat-light-pr-en.png",
+      "/static/portfolio/rag-chat-dark-pr-en.png",
       "/static/portfolio/agent-chat-light-pr-ru.png",
     ],
   },

@@ -167,6 +167,10 @@ export interface PortfolioListProps {
   // текста). Каждый пункт может начинаться с эмодзи.
   features?: string[];
   screenshots?: string[];
+  // Тематическая обложка карточки в списке: в светлой теме — thumbLight,
+  // в тёмной — thumbDark. Заданы оба или ни одного; без них — screenshots[0].
+  thumbLight?: string;
+  thumbDark?: string;
   direction: string;
   wip?: boolean;
 }
