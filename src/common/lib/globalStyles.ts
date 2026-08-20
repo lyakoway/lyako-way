@@ -30,11 +30,13 @@ const GlobalStyles = createGlobalStyle`
      reveal-анимациям.
      Сцену «Дом» (.home-scene) ИСКЛЮЧАЕМ — у неё свои плавные переходы
      (themeFade/bgTransition, 4s: день/ночь и фон картинки), которые иначе
-     перебивались бы этим !important-правилом. */
+     перебивались бы этим !important-правилом. Так же исключаем тематические
+     обложки портфолио (.theme-thumb) — им нужен собственный кроссфейд
+     opacity при смене темы. */
   html.theme-transition,
-  html.theme-transition *:not(.home-scene *),
-  html.theme-transition *:not(.home-scene *)::before,
-  html.theme-transition *:not(.home-scene *)::after {
+  html.theme-transition *:not(.home-scene *):not(.theme-thumb),
+  html.theme-transition *:not(.home-scene *):not(.theme-thumb)::before,
+  html.theme-transition *:not(.home-scene *):not(.theme-thumb)::after {
     transition: background-color 3s ease, color 3s ease, border-color 3s ease,
       fill 3s ease, stroke 3s ease, box-shadow 3s ease,
       outline-color 3s ease !important;

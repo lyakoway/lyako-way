@@ -6,7 +6,6 @@ import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
-import { PortfolioListProps } from "src/common/types/lang";
 
 import {
   FilterBar,
@@ -16,6 +15,7 @@ import {
   CardThumb,
   ThumbOverlay,
   WipBadge,
+  ThemeThumb,
   CardBody,
   CardName,
   CardDate,
@@ -90,14 +90,7 @@ const Portfolio = () => {
 
   const [active, setActive] = useState<string>(ALL);
 
-  // Обложка карточки: у проектов с тематическими скриншотами берём
-  // соответствующий текущей теме, у остальных — первый из галереи.
-  const thumbOf = (project: PortfolioListProps) =>
-    project.thumbLight && project.thumbDark
-      ? theme.name === "light"
-        ? project.thumbLight
-        : project.thumbDark
-      : project.screenshots?.[0];
+  const isLight = theme.name === "light";
 
   const shown =
     active === ALL
@@ -150,9 +143,33 @@ const Portfolio = () => {
             >
               <CardThumb $grad={grad}>
                 {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
-                {thumbOf(project) ? (
+                {project.thumbLight && project.thumbDark ? (
+                  // Обе версии обложки стопкой; какая активна, решает
+                  // html[data-theme] ещё до первой отрисовки (см.
+                  // ThemeThumb). alt только у видимой — по redux-теме,
+                  // чтобы скринридер не читал дважды.
+                  <>
+                    <ThemeThumb
+                      className="theme-thumb"
+                      src={project.thumbLight}
+                      alt={isLight ? project.portfolioNameList : ""}
+                      aria-hidden={!isLight}
+                      $variant="light"
+                    />
+                    <ThemeThumb
+                      className="theme-thumb"
+                      src={project.thumbDark}
+                      alt={isLight ? "" : project.portfolioNameList}
+                      aria-hidden={isLight}
+                      $variant="dark"
+                    />
+                  </>
+                ) : project.screenshots?.[0] ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={thumbOf(project)} alt={project.portfolioNameList} />
+                  <img
+                    src={project.screenshots[0]}
+                    alt={project.portfolioNameList}
+                  />
                 ) : (
                   <BrowserGlyph />
                 )}

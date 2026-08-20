@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
@@ -122,6 +122,51 @@ export const CardThumb = styled.div<{ $grad?: string }>`
   svg {
     width: 44px;
     height: 44px;
+  }
+`;
+
+// Тематическая обложка: обе версии (light/dark) лежат стопкой. Какая
+// активна, решает html[data-theme] — атрибут ставит инлайн-скрипт в <head>
+// ДО первой отрисовки, поэтому при загрузке сразу видна верная картинка:
+// без вспышки светлой и без кроссфейда на старте. При переключении темы
+// въезжающая проявляется СВЕРХУ (opacity 0→1 без задержки), прежняя держит
+// непрозрачность под ней и гаснет лишь потом — базовое правило несёт
+// задержку 3s, равную длительности кроссфейда. Так в кадре всегда смесь
+// двух картинок: иначе сквозь них просвечивал бы градиент обложки и в
+// конце возникал бы рывок контраста. S-кривая (sinusoidal ease-in-out) —
+// мягкий старт и мягкий финиш. Геометрию (absolute/cover) наследует от
+// правила `img` в CardThumb. Класс theme-thumb исключает элемент из
+// глобального theme-transition (см. globalStyles) — иначе !important
+// перебил бы переход именно в момент смены темы.
+export const ThemeThumb = styled.img<{ $variant: "light" | "dark" }>`
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 3s cubic-bezier(0.37, 0, 0.63, 1) 3s;
+
+  /* Светлая версия активна и когда атрибута нет вовсе (JS отключён —
+     SSR по умолчанию светлая), и в светлой теме. */
+  ${({ $variant }) =>
+    $variant === "light" &&
+    css`
+      html:not([data-theme="dark"]) && {
+        z-index: 2;
+        opacity: 1;
+        transition-delay: 0s;
+      }
+    `}
+
+  ${({ $variant }) =>
+    $variant === "dark" &&
+    css`
+      html[data-theme="dark"] && {
+        z-index: 2;
+        opacity: 1;
+        transition-delay: 0s;
+      }
+    `}
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
 
