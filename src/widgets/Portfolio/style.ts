@@ -53,6 +53,9 @@ export const Grid = styled.div`
 export const ThumbOverlay = styled.div`
   position: absolute;
   inset: 0;
+  /* поверх тематических обложек (ThemeThumb: z-index 1–2) — иначе глаз
+      при наведении прятался под активной картинкой */
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +178,8 @@ export const WipBadge = styled.span`
   position: absolute;
   top: 10px;
   left: 10px;
-  z-index: 1;
+  /* как у ThumbOverlay: выше тематических обложек (z-index 1–2) */
+  z-index: 3;
   padding: 4px 10px;
   border-radius: 999px;
   background: rgba(10, 12, 16, 0.62);
