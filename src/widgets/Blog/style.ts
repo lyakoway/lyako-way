@@ -15,6 +15,18 @@ export const FilterBar = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 22px;
+
+  /* <768px: кнопки остаются компактными (не во всю ширину каждая), но
+     распределяются по строке и заполняют её целиком — как фильтры
+     портфолио: каждая растёт от натурального размера, свободное место
+     делится поровну. */
+  @media (max-width: 767px) {
+    button {
+      flex: 1 0 auto;
+      justify-content: center;
+      text-align: center;
+    }
+  }
 `;
 
 export const FilterChip = styled.button<{ $active?: boolean }>`
