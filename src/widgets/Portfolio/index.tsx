@@ -39,7 +39,9 @@ const GRADIENTS = [
 const ALL = "__all__";
 
 // Сердечко и число лайков проекта под датой (без клика — карточка целиком
-// ведёт в проект; лайк ставится на странице проекта).
+// ведёт в проект; лайк ставится на странице проекта). Пока число с бэкенда
+// не пришло (загрузка или ошибка) — не показываем ничего: ни сердечка,
+// ни пустого placeholder на его месте.
 const CardLikes: React.FC<{ slug: string }> = ({ slug }) => {
   const dispatch = useDispatchTyped();
   const count = useSelectorTyped(({ likes }) => likes.projectLikes[likeIdOf(slug)]);
@@ -48,10 +50,12 @@ const CardLikes: React.FC<{ slug: string }> = ({ slug }) => {
     dispatch(fetchProjectLikes({ id: likeIdOf(slug) }));
   }, [slug, dispatch]);
 
+  if (typeof count !== "number") return null;
+
   return (
     <LikeRow>
       <HeartIcon />
-      {typeof count === "number" ? count : "—"}
+      {count}
     </LikeRow>
   );
 };
