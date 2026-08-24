@@ -1,9 +1,11 @@
+import { ReactNode } from "react";
+
 import { Toast } from "src/common/types/toast";
 
 export interface IToastProps {
-  text: string;
+  text: ReactNode;
   id: number;
-  title?: string;
+  title?: ReactNode;
 }
 
 export const getToastDataList = ({ text, id, title }: IToastProps): Toast[] => [

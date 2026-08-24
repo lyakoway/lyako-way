@@ -10,6 +10,7 @@ export const portfolio: PortfolioProps = {
   all: "Все",
   filter: "Фильтр проектов",
   wip: "В разработке",
+  likeLabel: "Оценить проект",
 };
 
 const ICON_META = { icon: "", widthIcon: "285px", heightIcon: "500px" };
@@ -22,6 +23,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioNameList: "RAG Chat",
     portfolioDataTime: "10.08.2026",
     hrefNameList: "rag-chat",
+    likeable: true,
     thumbLight: "/static/portfolio/rag-chat-light.png",
     thumbDark: "/static/portfolio/rag-chat-dark.png",
     direction: "RAG и знания",
@@ -69,8 +71,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioNameList: "AI Data Pilot",
     portfolioDataTime: "10.08.2026",
     hrefNameList: "ai-data-pilot",
+    likeable: true,
     direction: "AI-агенты",
-    wip: true,
     technologies: [
       "Python",
       "FastAPI",

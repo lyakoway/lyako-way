@@ -55,6 +55,46 @@ export const fetchSendLike = createAsyncThunk<
   }
 });
 
+// --- Лайки проектов (счётчик на каждый проект отдельно) ---
+
+// Ключ лайков проекта в бэкенде: likes:p:<slug>
+export const likeIdOf = (slug: string) => `p:${slug}`;
+
+export const fetchProjectLikes = createAsyncThunk<
+  { id: string; likes: number },
+  { id: string },
+  { rejectValue: IRejectedValue }
+>("likes/fetchProjectLikes", async ({ id }, thunkAPI) => {
+  try {
+    const res = (await getLikes({ id })) as { likes?: number };
+    // Нет ключа в Redis — у проекта ещё нет лайков, это честный ноль
+    return { id, likes: res.likes ?? 0 };
+  } catch (error) {
+    const { message, status } = error as CallApiError;
+    return thunkAPI.rejectWithValue({ error: { status, message } });
+  }
+}, {
+  // Дедуп по проекту: карточка в списке и страница проекта дергают один id
+  condition: ({ id }, { getState }) => {
+    const { likes } = getState() as { likes: IState };
+    return !likes.projectLoading[id] && !likes.projectLoaded[id];
+  },
+});
+
+export const sendProjectLike = createAsyncThunk<
+  { id: string; likes: number | null },
+  { id: string },
+  { rejectValue: IRejectedValue }
+>("likes/sendProjectLike", async ({ id }, thunkAPI) => {
+  try {
+    const res = (await sendLike({ id, value: 1 })) as { likes?: number };
+    return { id, likes: res.likes ?? null };
+  } catch (error) {
+    const { message, status } = error as CallApiError;
+    return thunkAPI.rejectWithValue({ error: { status, message } });
+  }
+});
+
 // --- State ---
 type IState = {
   likes: number;
@@ -65,6 +105,11 @@ type IState = {
   loaded: boolean;
   error: string | null;
   status: RequestLikes | null;
+  // Лайки проектов: id (см. likeIdOf) → счётчик с бэкенда
+  projectLikes: Record<string, number>;
+  // загружен / загружается ли конкретный проект (дедуп в condition)
+  projectLoaded: Record<string, boolean>;
+  projectLoading: Record<string, boolean>;
 };
 
 // Счётчик лайков НЕ храним в localStorage: он привязан к устройству и
@@ -86,6 +131,9 @@ const initialState: IState = {
   loaded: false,
   error: null,
   status: null,
+  projectLikes: {},
+  projectLoaded: {},
+  projectLoading: {},
 };
 
 // --- Slice ---
@@ -140,6 +188,23 @@ const likes = createSlice({
       .addCase(fetchSendLike.rejected, (state, action) => {
         state.loading = false;
         state.status = RequestLikes.ERROR_LIKES;
+      })
+      .addCase(fetchProjectLikes.pending, (state, action) => {
+        state.projectLoading[action.meta.arg.id] = true;
+      })
+      .addCase(fetchProjectLikes.fulfilled, (state, action) => {
+        state.projectLoading[action.meta.arg.id] = false;
+        state.projectLoaded[action.meta.arg.id] = true;
+        state.projectLikes[action.meta.arg.id] = action.payload.likes;
+      })
+      .addCase(fetchProjectLikes.rejected, (state, action) => {
+        state.projectLoading[action.meta.arg.id] = false;
+        // loaded не ставим — следующее монтирование попробует снова
+      })
+      .addCase(sendProjectLike.fulfilled, (state, action) => {
+        if (action.payload.likes !== null) {
+          state.projectLikes[action.payload.id] = action.payload.likes;
+        }
       });
   },
 });

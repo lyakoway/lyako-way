@@ -55,7 +55,11 @@ export const Notification = styled.div<{ $borderColor?: string }>`
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 
   @media ${MOBILE_660} {
+    /* Ширина — строго по контейнеру (left+right 1rem): базовый max-width
+       от 100vw на мобильных расходится с фактической шириной fixed-контейнера
+       (скроллбар/эмуляции), и тост выезжал за край экрана, обрезая текст. */
     width: 100%;
+    max-width: none;
   }
 
   svg {
@@ -88,6 +92,18 @@ export const Text = styled.p`
   text-align: center;
   overflow-wrap: anywhere;
   word-break: break-word;
+`;
+
+// Разделитель между заголовком и подзаголовком: тонкая полупрозрачная линия
+// (в цвет рамок панелей). width: 100% обязателен: TextWrapper центрирует
+// flex-детей (align-items: center), пустой элемент без явной ширины
+// сжимается в ноль.
+export const Divider = styled.span`
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 7px 0 3px;
+  background: rgba(255, 255, 255, 0.14);
 `;
 
 export const Wrapper = styled.div`

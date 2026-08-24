@@ -149,6 +149,7 @@ export interface PortfolioProps {
   all: string;
   filter: string;
   wip: string;
+  likeLabel: string;
 }
 
 export interface PortfolioListProps {
@@ -171,6 +172,8 @@ export interface PortfolioListProps {
   // в тёмной — thumbDark. Заданы оба или ни одного; без них — screenshots[0].
   thumbLight?: string;
   thumbDark?: string;
+  // У проекта включены лайки (сердечко+число на карточке, кнопка на странице).
+  likeable?: boolean;
   direction: string;
   wip?: boolean;
 }

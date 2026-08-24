@@ -220,6 +220,29 @@ export const CardDate = styled.span`
   font-size: 12px;
 `;
 
+// Сердечко и число лайков проекта — под датой, в такт ей по стилю.
+// Не интерактивно: карточка целиком ведёт в проект (лайк — на его странице),
+// поэтому pointer-events off, чтобы ряд не перехватывал клик по ссылке.
+export const LikeRow = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 12px;
+  pointer-events: none;
+
+  svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  /* нормализуем заливку heart.svg под приглушённый цвет ряда */
+  svg,
+  svg [fill] {
+    fill: currentColor;
+  }
+`;
+
 export const ChipList = styled.ul`
   display: flex;
   flex-wrap: wrap;

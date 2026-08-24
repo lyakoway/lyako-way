@@ -1,11 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-import { useSelectorTyped } from "src/store";
+import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { Article, ArticleTitle } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
+import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
+import { fetchProjectLikes, likeIdOf } from "src/reducers";
 
 import {
   FilterBar,
@@ -19,6 +21,7 @@ import {
   CardBody,
   CardName,
   CardDate,
+  LikeRow,
   ChipList,
   Chip,
 } from "./style";
@@ -34,6 +37,24 @@ const GRADIENTS = [
 ];
 
 const ALL = "__all__";
+
+// Сердечко и число лайков проекта под датой (без клика — карточка целиком
+// ведёт в проект; лайк ставится на странице проекта).
+const CardLikes: React.FC<{ slug: string }> = ({ slug }) => {
+  const dispatch = useDispatchTyped();
+  const count = useSelectorTyped(({ likes }) => likes.projectLikes[likeIdOf(slug)]);
+
+  useEffect(() => {
+    dispatch(fetchProjectLikes({ id: likeIdOf(slug) }));
+  }, [slug, dispatch]);
+
+  return (
+    <LikeRow>
+      <HeartIcon />
+      {typeof count === "number" ? count : "—"}
+    </LikeRow>
+  );
+};
 
 const BrowserGlyph = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -182,6 +203,7 @@ const Portfolio = () => {
                 {project.portfolioDataTime && (
                   <CardDate>{project.portfolioDataTime}</CardDate>
                 )}
+                {project.likeable && <CardLikes slug={project.hrefNameList} />}
                 <ChipList>
                   {project.technologies.slice(0, 4).map((tech, i) => (
                     <Chip key={i}>{tech}</Chip>

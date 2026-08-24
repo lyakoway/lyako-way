@@ -1,11 +1,13 @@
+import { ReactNode } from "react";
+
 import { setToastList } from "src/reducers";
 import { Toast } from "src/common/types/toast";
 import { getToastDataList } from "src/common/utils/getToastDataList";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 
 export interface IToastNotifyProps {
-  title?: string;
-  text?: string;
+  title?: ReactNode;
+  text?: ReactNode;
   type?: "info" | "success" | "error";
 }
 

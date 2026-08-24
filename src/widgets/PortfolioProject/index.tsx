@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import styled from "styled-components";
 
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
@@ -9,6 +10,18 @@ import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
+import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
+import { fetchProjectLikes, likeIdOf, sendProjectLike } from "src/reducers";
+import { useToastNotify } from "src/features/customHooks/use-toast-notify";
+import {
+  generateConfetti,
+  generateParticles,
+} from "src/ui/ButtonHeart/animations";
+import {
+  ButtonWrapper,
+  Particle,
+  ConfettiPiece,
+} from "src/ui/ButtonHeart/style";
 
 import {
   Breadcrumb,
@@ -36,6 +49,138 @@ import {
   WipTag,
   NotFound,
 } from "./style";
+
+type HeartParticle = ReturnType<typeof generateParticles>[number];
+type Confetti = ReturnType<typeof generateConfetti>[number];
+
+// Сердце в строке тоста: размер — ровно в кегль цифр счётчика (1em от
+// шрифта строки), посадка по центру через inline-block + vertical-align:
+// middle и лёгкий подъём на уровень цифр (у них визуальный центр чуть
+// выше средней линии строки).
+const ToastHeart = styled.span`
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(-1px);
+  color: #ff3d6e;
+
+  svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+  }
+`;
+
+// Кнопка-лайк проекта — та же, что сердечко в панели настроек (ButtonWrapper:
+// тёмный квадрат с белым сердцем, оранжевый ховер), но заводит счётчик
+// конкретного проекта. Числа на кнопке нет: счётчик — на карточке в списке
+// и в тосте после клика (как у сайдбарного сердца: «Спасибо за оценку!
+// <проект> <число> ❤️»). При клипе сердце на кнопке вспыхивает красным
+// и пульсирует, вокруг летят красные сердечки и конфетти.
+const ProjectLikeButton: React.FC<{
+  slug: string;
+  name: string;
+  label: string;
+}> = ({ slug, name, label }) => {
+  const id = likeIdOf(slug);
+  const {
+    lang: { toast },
+  } = useSelectorTyped(({ lang }) => lang);
+  const toastNotify = useToastNotify();
+  const dispatch = useDispatchTyped();
+  const [busy, setBusy] = useState(false);
+  const [pulse, setPulse] = useState(false);
+  const [particles, setParticles] = useState<HeartParticle[]>([]);
+  const [confetti, setConfetti] = useState<Confetti[]>([]);
+
+  // Прогреваем счётчик проекта — карточка в списке потом не будет его дёргать
+  useEffect(() => {
+    dispatch(fetchProjectLikes({ id }));
+  }, [id, dispatch]);
+
+  const triggerAnimations = () => {
+    const newConfetti = generateConfetti(15);
+    setConfetti((prev) => [...prev, ...newConfetti]);
+    setTimeout(
+      () =>
+        setConfetti((prev) =>
+          prev.filter((c) => !newConfetti.some((nc) => nc.id === c.id)),
+        ),
+      1500,
+    );
+
+    const count = Math.floor(Math.random() * 3) + 5;
+    const newParticles = generateParticles(count);
+    setParticles((prev) => [...prev, ...newParticles]);
+    setTimeout(
+      () =>
+        setParticles((prev) =>
+          prev.filter((p) => !newParticles.some((np) => np.id === p.id)),
+        ),
+      1500,
+    );
+
+    setPulse(true);
+    setTimeout(() => setPulse(false), 700);
+  };
+
+  const handle = () => {
+    if (busy) return;
+    setBusy(true);
+    triggerAnimations();
+    trackEvent(AnalyticsEvent.PROJECT_LIKE_CLICK, { slug });
+    dispatch(sendProjectLike({ id }))
+      .unwrap()
+      .then((res) => {
+        // Двухстрочный тост: сверху «Спасибо за оценку», снизу — проект,
+        // тире, счётчик и svg-сердце. Число — из ответа бэкенда.
+        const num = res?.likes;
+        toastNotify({
+          title: toast.textHeart,
+          text: (
+            <>
+              {name}
+              {num != null && (
+                <>
+                  {" - "}
+                  <ToastHeart>
+                    <HeartIcon />
+                  </ToastHeart>
+                  {"\u00A0"}
+                  {num}
+                </>
+              )}
+            </>
+          ),
+          type: "success",
+        });
+      })
+      .catch(() => {
+        toastNotify({ title: toast.textError, type: "error" });
+      })
+      .finally(() => setBusy(false));
+  };
+
+  return (
+    <ButtonWrapper
+      onClick={handle}
+      $animate={pulse}
+      title={label}
+      aria-label={label}
+      /* при пульсе сердце на кнопке вспыхивает красным (svg красится в currentColor) */
+      style={pulse ? { color: "#ff3d6e" } : undefined}
+    >
+      <HeartIcon />
+      {particles.map((p) => (
+        <Particle key={p.id} x={p.x} size={p.size} rotate={p.rotate} color={p.color} $fly={p.$fly}>
+          ♥
+        </Particle>
+      ))}
+      {confetti.map((c) => (
+        <ConfettiPiece key={c.id} x={c.x} y={c.y} size={c.size} rotate={c.rotate} color={c.color} />
+      ))}
+    </ButtonWrapper>
+  );
+};
 
 // Текст ссылки в мете: домен и путь, без «https://» и служебных параметров
 // (?lang=ru&theme=light). Сам href остаётся полным — режем только показ,
@@ -287,6 +432,14 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 GitHub
                 <RunBorder radius={12} />
               </ButtonSecondary>
+            )}
+
+            {project.likeable && (
+              <ProjectLikeButton
+                slug={slug}
+                name={name}
+                label={portfolio.likeLabel}
+              />
             )}
           </Reveal>
         </>

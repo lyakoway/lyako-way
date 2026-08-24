@@ -6,6 +6,7 @@ import {
   TextWrapper,
   Title,
   Text,
+  Divider,
   Wrapper,
   WrapperClose,
   Content,
@@ -28,7 +29,12 @@ const ToastMap = (
       <Icon />
       <TextWrapper>
         <Title>{toast.title}</Title>
-        {toast.text && <Text>{toast.text}</Text>}
+        {toast.text && (
+          <>
+            <Divider />
+            <Text>{toast.text}</Text>
+          </>
+        )}
       </TextWrapper>
       <WrapperClose>
         <ButtonDelete onClick={() => deleteToast(toast.id)}>
