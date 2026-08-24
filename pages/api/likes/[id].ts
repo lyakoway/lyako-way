@@ -55,11 +55,15 @@ export default async function handler(
     }
 
     if (req.method === "POST") {
+      // Инкремент, а не абсолютное значение: клиент больше не знает (и не
+      // должен знать) глобальный счётчик — раньше локальное значение с нового
+      // устройства ($set маленького числа) затирало накопленные лайки.
       const { value } = req.body;
+      const delta = Number(value) || 0;
 
       const result = await collection.findOneAndUpdate(
         { id },
-        { $set: { likes: value } },
+        { $inc: { likes: delta } },
         { upsert: true, returnDocument: "after" }
       );
 

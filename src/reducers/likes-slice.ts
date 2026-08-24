@@ -39,12 +39,16 @@ export const fetchLikes = createAsyncThunk<
 );
 
 export const fetchSendLike = createAsyncThunk<
-  void,
-  { idLikes: string; likes: number },
+  { likes: number | null },
+  { idLikes: string; value: number },
   { rejectValue: IRejectedValue }
->("likes/fetchSendLike", async ({ idLikes, likes }, thunkAPI) => {
+>("likes/fetchSendLike", async ({ idLikes, value }, thunkAPI) => {
   try {
-    await sendLike({ id: idLikes, value: likes });
+    const res = (await sendLike({ id: idLikes, value })) as {
+      likes?: number;
+    };
+    // Бэкенд инкрементирует и возвращает авторитетное значение счётчика
+    return { likes: res.likes ?? null };
   } catch (error) {
     const { message, status } = error as CallApiError;
     return thunkAPI.rejectWithValue({ error: { status, message } });
@@ -63,13 +67,20 @@ type IState = {
   status: RequestLikes | null;
 };
 
-const savedLikes =
-  typeof window !== "undefined" ? Number(localStorage.getItem("likes")) : 0;
+// Счётчик лайков НЕ храним в localStorage: он привязан к устройству и
+// рассинхронялся с бэкендом (на новом устройстве — ноль, и отправка
+// затирала накопленное). Единственный источник истины — бэкенд: GET при
+// загрузке, инкремент в POST. Старый ключ от прошлых версий вычищаем,
+// чтобы не путал при отладке.
+if (typeof window !== "undefined") {
+  localStorage.removeItem("likes");
+}
+
 const savedIdLikes =
   typeof window !== "undefined" ? localStorage.getItem("idLikes") : "";
 
 const initialState: IState = {
-  likes: savedLikes || 0,
+  likes: 0,
   idLikes: savedIdLikes || "heart_button",
   loading: false,
   loaded: false,
@@ -84,9 +95,6 @@ const likes = createSlice({
   reducers: {
     setLikes: (state, action: PayloadAction<number>) => {
       state.likes = action.payload;
-      if (typeof window !== "undefined") {
-        localStorage.setItem("likes", String(action.payload));
-      }
     },
     setIdLikes: (state, action: PayloadAction<string>) => {
       state.idLikes = action.payload;
@@ -110,9 +118,6 @@ const likes = createSlice({
         // Если likes === null, оставляем старое значение
         if (action.payload.likes !== null) {
           state.likes = action.payload.likes;
-          if (typeof window !== "undefined") {
-            localStorage.setItem("likes", String(action.payload.likes));
-          }
         }
       })
       .addCase(fetchLikes.rejected, (state, action) => {
@@ -124,11 +129,15 @@ const likes = createSlice({
         state.loading = true;
         state.status = null;
       })
-      .addCase(fetchSendLike.fulfilled, (state) => {
+      .addCase(fetchSendLike.fulfilled, (state, action) => {
         state.loading = false;
         state.status = RequestLikes.SUCCESS_LIKES;
+        // Сверяемся с бэкендом: он вернул авторитетное значение счётчика
+        if (action.payload.likes !== null) {
+          state.likes = action.payload.likes;
+        }
       })
-      .addCase(fetchSendLike.rejected, (state) => {
+      .addCase(fetchSendLike.rejected, (state, action) => {
         state.loading = false;
         state.status = RequestLikes.ERROR_LIKES;
       });

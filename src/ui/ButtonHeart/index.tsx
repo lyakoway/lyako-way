@@ -127,14 +127,17 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
 
     trackEvent(AnalyticsEvent.LIKE_CLICK, { likes: likes + 1 });
     triggerAnimations();
-    // Увеличиваем локальный счетчик и Redux
 
-    const newCount = likes + 1;
-    dispatch(setLikes(newCount));
+    // Оптимистично +1 для мгновенного отклика; на сервер шлём ДЕЛЬТУ (+1),
+    // а не абсолютное значение — бэкенд инкрементирует и возвращает
+    // авторитетный счётчик, которым сверяемся (в т.ч. с других устройств).
+    dispatch(setLikes(likes + 1));
     dispatch(setIdLikes("heart_button"));
-    // Отправка на сервер
-    dispatch(fetchSendLike({ idLikes: "heart_button", likes: newCount }))
+    dispatch(fetchSendLike({ idLikes: "heart_button", value: 1 }))
       .unwrap()
+      .then((res) => {
+        if (res?.likes != null) dispatch(setLikes(res.likes));
+      })
       .catch(() => {
         // откат
         dispatch(setLikes(likes));
@@ -143,12 +146,6 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
           type: "error",
         });
       });
-
-    // Тост
-    // toastNotify({
-    //   title: `${toast.textHeart} ❤️` || "Спасибо за лайк ❤️",
-    //   type: "success",
-    // });
   };
 
   // Счётчик обрезаем до 7 символов, чтобы длинное число не ломало вёрстку.
