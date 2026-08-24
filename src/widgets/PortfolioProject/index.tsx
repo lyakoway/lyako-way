@@ -44,6 +44,7 @@ import {
   PreviewFrame,
   ModalImage,
   Actions,
+  ActionsRow,
   ButtonPrimary,
   ButtonSecondary,
   WipTag,
@@ -400,30 +401,34 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               </ButtonPrimary>
             )}
 
-            {project.github && (
-              <ButtonSecondary
-                href={project.github}
-                target="_blank"
-                rel="noreferrer noopener"
-                onClick={() =>
-                  trackEvent(AnalyticsEvent.PORTFOLIO_GITHUB_OPEN, {
-                    slug,
-                    placement: "button",
-                  })
-                }
-              >
-                GitHub
-                <RunBorder radius={12} />
-              </ButtonSecondary>
-            )}
+            {/* GitHub и сердце — под-рядом: на <580 они вместе стоят под
+                кнопкой «Сайт» (см. Actions/ActionsRow в style.ts) */}
+            <ActionsRow>
+              {project.github && (
+                <ButtonSecondary
+                  href={project.github}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  onClick={() =>
+                    trackEvent(AnalyticsEvent.PORTFOLIO_GITHUB_OPEN, {
+                      slug,
+                      placement: "button",
+                    })
+                  }
+                >
+                  GitHub
+                  <RunBorder radius={12} />
+                </ButtonSecondary>
+              )}
 
-            {project.likeable && (
-              <ProjectLikeButton
-                slug={slug}
-                name={name}
-                label={portfolio.likeLabel}
-              />
-            )}
+              {project.likeable && (
+                <ProjectLikeButton
+                  slug={slug}
+                  name={name}
+                  label={portfolio.likeLabel}
+                />
+              )}
+            </ActionsRow>
           </Reveal>
         </>
       )}

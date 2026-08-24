@@ -326,6 +326,20 @@ export const Actions = styled.div`
   margin-top: 26px;
 `;
 
+// Под-ряд: GitHub + сердце. В обычной раскладке — просто строка в строке;
+// на <580 кнопки заполняют ширину одной строкой, а если не помещаются —
+// ряд переносится целиком (сердце всегда с GitHub).
+export const ActionsRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+
+  @media (max-width: 579px) {
+    flex: 1 1 auto;
+  }
+`;
+
 const buttonBase = `
   display: inline-flex;
   align-items: center;
@@ -353,6 +367,12 @@ export const ButtonPrimary = styled.a`
   &:hover {
     background: ${({ theme }) => theme.color.basic.hover};
   }
+
+  /* <580: кнопки заполняют ширину одной строкой; не помещается — перенос */
+  @media (max-width: 579px) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
 `;
 
 export const ButtonSecondary = styled.a`
@@ -361,6 +381,12 @@ export const ButtonSecondary = styled.a`
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
+
+  /* <580: GitHub растягивается на всё место рядом с квадратным сердцем */
+  @media (max-width: 579px) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
 `;
 
 /* ——— Не найдено ——— */
