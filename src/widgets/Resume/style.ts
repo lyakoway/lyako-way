@@ -29,6 +29,29 @@ export const Actions = styled.div`
   flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 34px;
+
+  /* <768px: кнопки «Скачать PDF» / «Просмотреть» — в один ряд, каждая
+     занимает половину карточки, содержимое по центру (натуральная ширина
+     на планшетной ширине смотрится рыхло, а перенос — неаккуратно).
+     Кнопки здесь — <a>-дети Actions (ButtonPrimary/ButtonSecondary
+     описаны ниже по файлу). */
+  @media (max-width: 767px) {
+    & > a {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+
+  /* <580px (телефоны): кнопки в столбец, во всю ширину карточки */
+  @media (max-width: 579px) {
+    flex-direction: column;
+
+    & > a {
+      flex: none;
+      width: 100%;
+      justify-content: center;
+    }
+  }
 `;
 
 const buttonBase = `
