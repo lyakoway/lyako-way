@@ -109,13 +109,14 @@ const ProjectLikeButton: React.FC<{
   const handle = () => {
     if (busy) return;
     setBusy(true);
-    triggerAnimations();
+    // Пока запрос в полёте — сердце непрерывно бьётся ($beating от busy);
+    // празднование (конфетти + улетающее сердце + удар) — только по успеху.
     trackEvent(AnalyticsEvent.PROJECT_LIKE_CLICK, { slug });
     dispatch(sendProjectLike({ id }))
       .unwrap()
       .then((res) => {
-        // Двухстрочный тост: сверху «Спасибо за оценку», снизу — проект,
-        // тире, счётчик и svg-сердце. Число — из ответа бэкенда.
+        // Успех: конфетти, улетающее сердце, одиночный удар — и тост.
+        triggerAnimations();
         const num = res?.likes;
         toastNotify({
           title: toast.textHeart,
@@ -147,10 +148,9 @@ const ProjectLikeButton: React.FC<{
     <ButtonWrapper
       onClick={handle}
       $animate={pulse}
+      $beating={busy}
       title={label}
       aria-label={label}
-      /* при пульсе сердце на кнопке вспыхивает красным (svg красится в currentColor) */
-      style={pulse ? { color: "#ff3d6e" } : undefined}
     >
       <HeartIcon />
       {particles.map((p) => (

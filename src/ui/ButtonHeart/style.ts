@@ -23,23 +23,41 @@ export const confettiFly = (x: number, y: number, rotate: number) => keyframes`
 // --- Стили ---
 // Лайк в общем стиле контролов настроек (тёмный квадрат, белый глиф, оранжевый
 // акцент). position:relative нужен для счётчика (Label) и частиц.
-export const ButtonWrapper = styled.button<{ $animate?: boolean }>`
+// $animate — одиночный «удар» (празднование успеха), $beating — непрерывный
+// пульс, пока запрос отправки лайка в полёте; в обоих состояниях сердце
+// краснеет.
+export const ButtonWrapper = styled.button<{
+  $animate?: boolean;
+  $beating?: boolean;
+}>`
   ${controlButtonBase}
   position: relative;
+
+  /* !important — иначе ховер курсора (primaryLight в controlButtonBase)
+     перебивает красный: кликают мышью, курсор остаётся на кнопке. */
+  ${({ $animate, $beating }) =>
+    ($animate || $beating) &&
+    css`
+      color: #ff3d6e !important;
+    `}
 
   svg {
     width: 24px;
     height: 24px;
-    animation: ${({ $animate }) =>
-      $animate
+    animation: ${({ $animate, $beating }) =>
+      $beating
         ? css`
-            ${bounce} 0.7s ease
+            ${bounce} 0.7s ease infinite
           `
-        : "none"};
+        : $animate
+          ? css`
+              ${bounce} 0.7s ease
+            `
+          : "none"};
   }
 
-  /* Сердце белое (оранжевое на акценте) — как остальные контролы. Инлайновый
-     fill внутри svg перебиваем через !important. */
+  /* Сердце красится в currentColor: белое в покое, красное в пульсе.
+     Инлайновый fill внутри svg перебиваем через !important. */
   svg path {
     fill: currentColor !important;
   }

@@ -113,6 +113,9 @@ type IState = {
   // Общий «удар пульса» для всех кнопок-сердец: инкремент при клике по любой —
   // все экземпляры ButtonHeart (сайдбар × 2 + настройки) анимируются синхронно.
   beat: number;
+  // Идёт отправка лайка на бэкенд: сердца непрерывно бьются, пока запрос
+  // в полёте; по успеху — «празднование» (конфетти, сердца, тост).
+  sending: boolean;
 };
 
 // Счётчик лайков НЕ храним в localStorage: он привязан к устройству и
@@ -138,6 +141,7 @@ const initialState: IState = {
   projectLoaded: {},
   projectLoading: {},
   beat: 0,
+  sending: false,
 };
 
 // --- Slice ---
@@ -183,10 +187,12 @@ const likes = createSlice({
       })
       .addCase(fetchSendLike.pending, (state) => {
         state.loading = true;
+        state.sending = true;
         state.status = null;
       })
       .addCase(fetchSendLike.fulfilled, (state, action) => {
         state.loading = false;
+        state.sending = false;
         state.status = RequestLikes.SUCCESS_LIKES;
         // Сверяемся с бэкендом: он вернул авторитетное значение счётчика
         if (action.payload.likes !== null) {
@@ -195,6 +201,7 @@ const likes = createSlice({
       })
       .addCase(fetchSendLike.rejected, (state, action) => {
         state.loading = false;
+        state.sending = false;
         state.status = RequestLikes.ERROR_LIKES;
       })
       .addCase(fetchProjectLikes.pending, (state, action) => {

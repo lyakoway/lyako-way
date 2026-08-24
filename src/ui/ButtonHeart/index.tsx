@@ -38,7 +38,7 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
-  const { likes, status, loading, beat } = useSelectorTyped(
+  const { likes, status, loading, beat, sending } = useSelectorTyped(
     ({ likes }) => likes
   );
   const toastNotify = useToastNotify();
@@ -79,8 +79,9 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
 
   useEffect(() => {
     if (status === RequestLikes.SUCCESS_LIKES) {
-      // Тост в том же формате, что у лайков проектов: сверху «Спасибо за
-      // оценку», снизу — фирменный знак «lyak◎way», сердце и счётчик.
+      // Успех: «празднование» — конфетти, улетающее сердце и одиночный удар
+      // по всем кнопкам (общий beat), затем тост.
+      dispatch(beatHeart());
       toastNotify({
         title: toast.textHeart || "Спасибо за оценку!",
         text: (
@@ -154,7 +155,8 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
     if (loading) return; // запретить клик во время загрузки
 
     trackEvent(AnalyticsEvent.LIKE_CLICK, { likes: likes + 1 });
-    dispatch(beatHeart());
+    // Пока запрос в полёте — сердце непрерывно бьётся (sending в сторе,
+    // см. $beating у ButtonWrapper); празднование — только по успеху.
 
     // Оптимистично +1 для мгновенного отклика; на сервер шлём ДЕЛЬТУ (+1),
     // а не абсолютное значение — бэкенд инкрементирует и возвращает
@@ -186,13 +188,9 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
       : likesStr;
 
   return (
-    /* При клике сердце на кнопке краснеет и бьётся — та же анимация,
-       что у кнопки-лайка на странице проекта. */
-    <ButtonWrapper
-      onClick={handleClick}
-      $animate={animateHeart}
-      style={animateHeart ? { color: "#ff3d6e" } : undefined}
-    >
+    /* Пока отправка в полёте — сердце непрерывно бьётся и краснеет
+       ($beating от sending); по успеху — одиночный удар-празднование. */
+    <ButtonWrapper onClick={handleClick} $animate={animateHeart} $beating={sending}>
       <HeartIcon />
       {!hideCount && (
         <Label>
