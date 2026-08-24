@@ -33,8 +33,8 @@ const FULL_WIDTH = css`
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 120px;
-  height: 40px;
+  width: 160px;
+  height: 50px;
   position: relative;
   /* Скругляем углы всем состояниям сразу (в т.ч. анимированной svg-обводке),
      не трогая саму анимацию. */
@@ -45,14 +45,14 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const MailLoaderWrapper = styled.div`
-  height: 40px;
+  height: 50px;
   width: 100%;
   position: relative;
 `;
 
 export const Wrapper = styled.div`
-  width: 120px;
-  height: 40px;
+  width: 160px;
+  height: 50px;
 
   outline: none;
   transition: 1s ease-in-out;
@@ -95,8 +95,8 @@ export const Result = styled.div<{ $status?: string }>`
 `;
 
 const ButtonContent = styled.button`
-  width: 120px;
-  height: 40px;
+  width: 160px;
+  height: 50px;
 
   ${FULL_WIDTH};
 
