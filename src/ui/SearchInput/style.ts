@@ -25,7 +25,6 @@ export const SelectContainer = styled.div<{
   position: relative;
   height: 40px;
   width: 100%;
-  border: 1px solid ${PANEL_BORDER};
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -34,17 +33,57 @@ export const SelectContainer = styled.div<{
   cursor: pointer;
   /* Тёмное «приподнятое» поле в стиле проекта. */
   background: ${PANEL_ELEVATED};
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  /* Базовая рамка всегда нейтральная: оранжевую рисует ревил-рамка ниже —
+     раньше рамка + box-shadow-кольцо складывались в двойную линию. */
+  border: 1px solid ${PANEL_BORDER};
+  transition: border-color 0.2s ease, background 0.25s ease;
 
   @media ${MOBILE_660} {
     margin-left: 0;
   }
 
-  /* Подсветка при наведении/фокусе — оранжевая (брендовая), не синяя. */
-  &:hover,
-  &:focus-within {
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
-    box-shadow: 0 0 0 2px ${({ theme }) => theme.color.basic.primaryLight}55;
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+  }
+
+  /* Ревил-рамка при наведении — как у поля «Поиск» (блог, контактная форма):
+     каждый псевдоэлемент рисует полную скруглённую рамку, а «разбегание
+     из центра» задаёт clip-path (::before по горизонтали, ::after по
+     вертикали). inset:-1px — рамка точно накрывает базовую (радиус 12+1),
+     поэтому линия всегда одна. */
+  &::before,
+  &::after {
+    content: "";
+    box-sizing: border-box;
+    position: absolute;
+    inset: -1px;
+    border: 1px solid ${({ theme }) => theme.color.basic.primaryLight};
+    border-radius: 13px;
+    pointer-events: none;
+    transition: clip-path 0.4s ease;
+  }
+
+  &::before {
+    clip-path: inset(0 50% 0 50%);
+  }
+
+  &::after {
+    clip-path: inset(50% 0 50% 0);
+  }
+
+  /* Наведение или фокус в поле — рамка раскрыта. */
+  &:hover::before,
+  &:hover::after,
+  &:focus-within::before,
+  &:focus-within::after {
+    clip-path: inset(0 0 0 0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before,
+    &::after {
+      transition: none;
+    }
   }
 `;
 

@@ -84,8 +84,8 @@ export const SearchWrapper = styled.div`
   gap: 20px;
 `;
 
+// Обёртка поля города без собственной рамки: рамка (и ревил-анимация) — у
+// самого поля (SelectContainer), вторая рамка сверху давала «двойную линию».
 export const SearchInputWrapper = styled.div`
   display: flex;
-  border: 1px solid ${PANEL_BORDER};
-  border-radius: 12px;
 `;
