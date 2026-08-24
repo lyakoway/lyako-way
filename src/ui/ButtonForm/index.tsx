@@ -1,6 +1,8 @@
 import { FC, MouseEvent, PropsWithChildren, useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import MailLoader from "src/ui/MailLoader";
+import RunBorder from "src/ui/RunBorder";
+import { runningBorder } from "src/common/lib/runningBorder";
 import { PANEL_BORDER, PANEL_ELEVATED } from "src/common/lib/panelStyles";
 
 const ani = keyframes`
@@ -23,6 +25,13 @@ const ani1 = keyframes`
   }
 `;
 
+/* <580px (телефоны): кнопка «Отправить» — во всю ширину формы. */
+const FULL_WIDTH = css`
+  @media (max-width: 579px) {
+    width: 100%;
+  }
+`;
+
 export const ButtonWrapper = styled.div`
   width: 120px;
   height: 40px;
@@ -31,6 +40,8 @@ export const ButtonWrapper = styled.div`
      не трогая саму анимацию. */
   border-radius: 12px;
   overflow: hidden;
+
+  ${FULL_WIDTH};
 `;
 
 export const MailLoaderWrapper = styled.div`
@@ -51,6 +62,8 @@ export const Wrapper = styled.div`
 
   border-radius: 12px;
   background-color: ${PANEL_ELEVATED};
+
+  ${FULL_WIDTH};
 `;
 
 export const Result = styled.div<{ $status?: string }>`
@@ -85,15 +98,12 @@ const ButtonContent = styled.button`
   width: 120px;
   height: 40px;
 
+  ${FULL_WIDTH};
+
   padding: 10px;
 
   cursor: pointer;
   outline: none;
-  /* Заливка/граница меняются за 1s — синхронно с пробегающим бегунком (svg),
-     поэтому кнопка «наполняется» оранжевым пока линия идёт вокруг, и так же
-     плавно теряет цвет в обратную сторону. */
-  transition: background-color 1s ease-in-out, border-color 1s ease-in-out,
-    transform 0.15s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -110,38 +120,10 @@ const ButtonContent = styled.button`
   text-transform: uppercase;
   color: #ffffff;
 
-  /* Анимированная обводка (рисуется оранжевым при наведении) — без изменений. */
-  svg {
-    position: absolute;
-    left: 0;
-    top: 0;
-    fill: none;
-    stroke: #ff8560;
-    stroke-dasharray: 150 480;
-    stroke-dashoffset: 150;
-    transition: 1s ease-in-out;
-  }
-
-  &:hover,
-  &:focus-visible,
-  &:active {
-    /* Заливка — брендовый оранжевый (темнее бегунка), текст остаётся белым. */
-    background-color: ${({ theme }) => theme.color.basic.primary};
-    border-color: #ff8560;
-    color: #ffffff;
-  }
-
-  /* Обводка «рисуется» и при наведении, и при нажатии/тапе (мобилка), и в
-     фокусе — а не только при снятии ховера. */
-  &:hover svg,
-  &:focus svg,
-  &:active svg {
-    stroke-dashoffset: -480;
-  }
-
-  &:active {
-    transform: scale(0.97);
-  }
+  /* Анимация наведения — та же, что у кнопок «Резюме» («Просмотреть» и др.):
+     бегунок <RunBorder/> проходит по периметру, фон синхронно наполняется
+     оранжевым. Работает с кнопкой любой ширины (в т.ч. во всю ширину <580px). */
+  ${runningBorder};
 `;
 
 const Label = styled.div`
@@ -204,15 +186,7 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
   return (
     <ButtonWrapper>
       <ButtonContent onClick={(e) => handleClick(e)}>
-        <svg
-          width="120px"
-          height="40px"
-          viewBox="0 0 120 40"
-          className="border"
-        >
-          <polyline points="119,1 119,39 1,39 1,1 119,1" className="bg-line" />
-          <polyline points="119,1 119,39 1,39 1,1 119,1" className="hl-line" />
-        </svg>
+        <RunBorder radius={12} />
         {children}
         {title && <Label>{title}</Label>}
       </ButtonContent>
