@@ -1,78 +1,66 @@
-import { MongoClient } from "mongodb";
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const uri = process.env.MONGO_URI!;
-const options = { connectTimeoutMS: 3000 }; // быстрый таймаут
+// Лайки хранятся в Upstash Redis (REST API): атомарный INCRBY — счётчик
+// глобальный, источник истины только здесь. Переменные окружения:
+//   UPSTASH_REDIS_REST_URL   — вида https://xxx.upstash.io
+//   UPSTASH_REDIS_REST_TOKEN — токен из вкладки REST API базы
+// Если переменных нет (не настроено) — отвечаем пустым объектом: клиент
+// показывает 0 и ничего не затирает (см. likes-slice).
 
-// --- Глобальный кэш соединения для dev режима ---
-let client: MongoClient;
-let clientPromise: Promise<MongoClient>;
+const REST_URL = process.env.UPSTASH_REDIS_REST_URL;
+const REST_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
-if (!global._mongoClientPromise) {
-  client = new MongoClient(uri, options);
-  global._mongoClientPromise = client.connect();
+const keyFor = (id: string) => `likes:${id}`;
+
+// Команда REST API: /get/<key> или /incrby/<key>/<delta>.
+// Возвращает число или null (ключа ещё нет / ответ без result).
+async function redis(path: string): Promise<number | null> {
+  const res = await fetch(`${REST_URL}/${path}`, {
+    headers: { Authorization: `Bearer ${REST_TOKEN}` },
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(`Upstash ${res.status}`);
+  const data = (await res.json()) as { result?: string | null };
+  return data.result == null ? null : Number(data.result);
 }
 
-clientPromise = global._mongoClientPromise;
-
-// --- Типизация глобала для TS ---
-declare global {
-  var _mongoClientPromise: Promise<MongoClient> | undefined;
-}
-
-// --- API-хендлер ---
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { id } = req.query;
 
-  if (!id) {
+  if (!id || Array.isArray(id)) {
     return res.status(400).json({ message: "Missing id" });
   }
 
-  // --- Отключаем кэш браузера ---
+  // Кэш браузера отключаем: счётчик всегда свежий
   res.setHeader("Cache-Control", "no-store");
 
-  // --- Подключение к Mongo с обработкой ошибок ---
-  let mongo: MongoClient;
-  try {
-    mongo = await clientPromise;
-  } catch (err) {
-    console.error("Mongo connection failed:", err);
-    return res.status(200).json({}); // <-- пустой объект вместо 0
+  if (!REST_URL || !REST_TOKEN) {
+    return res.status(200).json({}); // Upstash не настроен
   }
 
-  const db = mongo.db("likes_db");
-  const collection = db.collection("likes");
+  const key = encodeURIComponent(keyFor(String(id)));
 
-  // --- Основная логика GET/POST ---
   try {
     if (req.method === "GET") {
-      const item = await collection.findOne({ id });
-      if (!item) return res.status(200).json({}); // <-- пустой объект, лайки не обновляются
-      return res.status(200).json({ likes: item.likes });
+      const value = await redis(`get/${key}`);
+      // Ключа ещё нет — пустой объект (клиент оставит текущее значение)
+      if (value == null) return res.status(200).json({});
+      return res.status(200).json({ likes: value });
     }
 
     if (req.method === "POST") {
-      // Инкремент, а не абсолютное значение: клиент больше не знает (и не
-      // должен знать) глобальный счётчик — раньше локальное значение с нового
-      // устройства ($set маленького числа) затирало накопленные лайки.
-      const { value } = req.body;
-      const delta = Number(value) || 0;
-
-      const result = await collection.findOneAndUpdate(
-        { id },
-        { $inc: { likes: delta } },
-        { upsert: true, returnDocument: "after" }
-      );
-
-      return res.status(200).json({ likes: result.value?.likes });
+      // Атомарный инкремент на дельту; ответ — авторитетное значение счётчика
+      const delta = Number(req.body?.value) || 0;
+      const after = await redis(`incrby/${key}/${delta}`);
+      return res.status(200).json({ likes: after ?? 0 });
     }
 
     return res.status(405).json({ message: "Method not allowed" });
   } catch (err) {
-    console.error("Mongo DB error:", err);
-    return res.status(200).json({}); // <-- пустой объект
+    console.error("Upstash error:", err);
+    return res.status(200).json({}); // пустой объект — клиент не обнулится
   }
 }
