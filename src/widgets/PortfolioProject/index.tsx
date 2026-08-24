@@ -154,7 +154,7 @@ const ProjectLikeButton: React.FC<{
     >
       <HeartIcon />
       {particles.map((p) => (
-        <Particle key={p.id} x={p.x} size={p.size} rotate={p.rotate} color={p.color} $fly={p.$fly}>
+        <Particle key={p.id} x={p.x} size={p.size} rotate={p.rotate} color="#ff3d6e" $fly={p.$fly}>
           ♥
         </Particle>
       ))}

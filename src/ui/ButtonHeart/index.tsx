@@ -212,11 +212,11 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
           x={p.x}
           size={p.size}
           rotate={p.rotate}
-          color={p.color}
+          color="#ff3d6e"
           $fly={p.$fly}
         >
-          {/* ♥-глиф вместо эмодзи: красится CSS и совпадает с анимацией
-              проектной кнопки */}
+          {/* ♥-глиф вместо эмодзи: красится CSS; цвет — тот же, что у
+              сердца в тосте (см. ToastHeart) */}
           ♥
         </Particle>
       ))}
