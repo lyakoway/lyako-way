@@ -141,3 +141,51 @@ export const Loader = styled.div`
   border-radius: 50%;
   animation: ${spin} 0.8s linear infinite;
 `;
+
+// Сердце в строке тоста (общее для глобального лайка и лайков проектов):
+// размер — ровно в кегль цифр счётчика (1em от шрифта строки), посадка по
+// центру через inline-block + vertical-align: middle и лёгкий подъём на
+// уровень цифр, под ним — неразрывный пробел держит «❤ число» вместе.
+export const ToastHeart = styled.span`
+  display: inline-block;
+  vertical-align: middle;
+  transform: translateY(-1px);
+  color: #ff3d6e;
+
+  svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+  }
+`;
+
+// Мини-версия фирменного знака «lyak◎way» для строки тоста: белые
+// буквы (Exo 2), кольцо — цветом текста, искра — оранжевым акцентом,
+// как у знака в сайдбаре (BrandMark). В кегль текста тоста, без обводки
+// и выделения шрифта.
+export const ToastLogo = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
+  transform: translateY(-1px);
+  color: #ffffff;
+  font-family: "Exo 2", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+
+  svg {
+    width: 1.1em;
+    height: 1.1em;
+  }
+
+  svg circle {
+    stroke-width: 2;
+  }
+
+  svg path {
+    fill: ${({ theme }) => theme.color.basic.primaryLight};
+  }
+`;

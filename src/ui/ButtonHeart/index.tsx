@@ -3,6 +3,7 @@ import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import {
+  beatHeart,
   clearStatus,
   fetchLikes,
   fetchSendLike,
@@ -17,7 +18,10 @@ import {
   ConfettiPiece,
   Loader,
   Loading,
+  ToastHeart,
+  ToastLogo,
 } from "./style";
+import { ReactComponent as LyakoMark } from "src/common/icon/logo/LyakoMark.svg";
 import {
   generateConfetti,
   generateParticles,
@@ -34,7 +38,9 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
   const {
     lang: { toast },
   } = useSelectorTyped(({ lang }) => lang);
-  const { likes, status, loading } = useSelectorTyped(({ likes }) => likes);
+  const { likes, status, loading, beat } = useSelectorTyped(
+    ({ likes }) => likes
+  );
   const toastNotify = useToastNotify();
   const dispatch = useDispatchTyped();
 
@@ -73,10 +79,25 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
 
   useEffect(() => {
     if (status === RequestLikes.SUCCESS_LIKES) {
-      // Полное число лайков (без ограничений) показываем здесь, в тосте.
-      // Обычный пробел после фразы, затем число и сердце (nbsp между ними).
+      // Тост в том же формате, что у лайков проектов: сверху «Спасибо за
+      // оценку», снизу — фирменный знак «lyak◎way», сердце и счётчик.
       toastNotify({
-        title: `${toast.textHeart || "Спасибо за оценку!"} ${likes} ❤️`,
+        title: toast.textHeart || "Спасибо за оценку!",
+        text: (
+          <>
+            <ToastLogo>
+              lyak
+              <LyakoMark aria-hidden="true" />
+              way
+            </ToastLogo>
+            {" - "}
+            <ToastHeart>
+              <HeartIcon />
+            </ToastHeart>
+            {"\u00A0"}
+            {likes}
+          </>
+        ),
         type: "success",
       });
       dispatch(setSantaShown(false));
@@ -122,11 +143,18 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
     setTimeout(() => setAnimateHeart(false), 700);
   }, []);
 
+  // Общий «удар пульса» из стора: клик по ЛЮБОЙ кнопке-сердцу анимирует
+  // все экземпляры (сайдбар × 2 + настройки) синхронно.
+  useEffect(() => {
+    if (beat === 0) return;
+    triggerAnimations();
+  }, [beat, triggerAnimations]);
+
   const handleClick = async () => {
     if (loading) return; // запретить клик во время загрузки
 
     trackEvent(AnalyticsEvent.LIKE_CLICK, { likes: likes + 1 });
-    triggerAnimations();
+    dispatch(beatHeart());
 
     // Оптимистично +1 для мгновенного отклика; на сервер шлём ДЕЛЬТУ (+1),
     // а не абсолютное значение — бэкенд инкрементирует и возвращает
@@ -158,7 +186,13 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
       : likesStr;
 
   return (
-    <ButtonWrapper onClick={handleClick} $animate={animateHeart}>
+    /* При клике сердце на кнопке краснеет и бьётся — та же анимация,
+       что у кнопки-лайка на странице проекта. */
+    <ButtonWrapper
+      onClick={handleClick}
+      $animate={animateHeart}
+      style={animateHeart ? { color: "#ff3d6e" } : undefined}
+    >
       <HeartIcon />
       {!hideCount && (
         <Label>
@@ -181,7 +215,9 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
           color={p.color}
           $fly={p.$fly}
         >
-          ❤️
+          {/* ♥-глиф вместо эмодзи: красится CSS и совпадает с анимацией
+              проектной кнопки */}
+          ♥
         </Particle>
       ))}
 

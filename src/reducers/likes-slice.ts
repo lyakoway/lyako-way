@@ -110,6 +110,9 @@ type IState = {
   // загружен / загружается ли конкретный проект (дедуп в condition)
   projectLoaded: Record<string, boolean>;
   projectLoading: Record<string, boolean>;
+  // Общий «удар пульса» для всех кнопок-сердец: инкремент при клике по любой —
+  // все экземпляры ButtonHeart (сайдбар × 2 + настройки) анимируются синхронно.
+  beat: number;
 };
 
 // Счётчик лайков НЕ храним в localStorage: он привязан к устройству и
@@ -134,6 +137,7 @@ const initialState: IState = {
   projectLikes: {},
   projectLoaded: {},
   projectLoading: {},
+  beat: 0,
 };
 
 // --- Slice ---
@@ -152,6 +156,10 @@ const likes = createSlice({
     },
     clearStatus: (state, action: PayloadAction<string>) => {
       state.status = null;
+    },
+    // «Удар пульса»: клик по любой кнопке-сердцу анимирует все экземпляры
+    beatHeart: (state) => {
+      state.beat += 1;
     },
   },
   extraReducers: (builder) => {
@@ -209,5 +217,5 @@ const likes = createSlice({
   },
 });
 
-export const { setLikes, setIdLikes, clearStatus } = likes.actions;
+export const { setLikes, setIdLikes, clearStatus, beatHeart } = likes.actions;
 export const likesReducer = likes.reducer;

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import styled from "styled-components";
 
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
@@ -21,6 +20,7 @@ import {
   ButtonWrapper,
   Particle,
   ConfettiPiece,
+  ToastHeart,
 } from "src/ui/ButtonHeart/style";
 
 import {
@@ -52,23 +52,6 @@ import {
 
 type HeartParticle = ReturnType<typeof generateParticles>[number];
 type Confetti = ReturnType<typeof generateConfetti>[number];
-
-// Сердце в строке тоста: размер — ровно в кегль цифр счётчика (1em от
-// шрифта строки), посадка по центру через inline-block + vertical-align:
-// middle и лёгкий подъём на уровень цифр (у них визуальный центр чуть
-// выше средней линии строки).
-const ToastHeart = styled.span`
-  display: inline-block;
-  vertical-align: middle;
-  transform: translateY(-1px);
-  color: #ff3d6e;
-
-  svg {
-    display: block;
-    width: 1em;
-    height: 1em;
-  }
-`;
 
 // Кнопка-лайк проекта — та же, что сердечко в панели настроек (ButtonWrapper:
 // тёмный квадрат с белым сердцем, оранжевый ховер), но заводит счётчик
