@@ -181,7 +181,21 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
     handleClick(e);
   };
 
-  if (loading) {
+  // Лоадер не показываем сразу: первые ~2.8с после клика на кнопке играет
+  // анимация иконки (складывание письма и полёт самолётика) — раньше её
+  // мгновенно перекрывал лоадер, и полёта видно не было.
+  const [showLoader, setShowLoader] = useState(false);
+
+  useEffect(() => {
+    if (!loading) {
+      setShowLoader(false);
+      return;
+    }
+    const id = window.setTimeout(() => setShowLoader(true), 2800);
+    return () => window.clearTimeout(id);
+  }, [loading]);
+
+  if (loading && showLoader) {
     return (
       <MailLoaderWrapper>
         <MailLoader />
