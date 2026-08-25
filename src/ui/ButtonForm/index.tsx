@@ -166,13 +166,18 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
     }
   }, [status]);
 
-  // Анимация иконки при клике: конверт стирается, самолётик рисуется
-  // и улетает; затем конверт возвращается (см. MailIconWrap в style.ts).
-  const [fly, setFly] = useState(false);
+  // Трёхфазная анимация иконки при клике (тайминги согласованы с
+  // MailIconWrap в style.ts): письмо складывается → самолётик рисуется
+  // и улетает → новое письмо прилетает на место.
+  const [phase, setPhase] = useState<"idle" | "fold" | "fly" | "return">(
+    "idle"
+  );
 
   const handleIconAndClick = (e: MouseEvent<HTMLButtonElement>) => {
-    setFly(true);
-    window.setTimeout(() => setFly(false), 2200);
+    setPhase("fold");
+    window.setTimeout(() => setPhase("fly"), 600);
+    window.setTimeout(() => setPhase("return"), 2600);
+    window.setTimeout(() => setPhase("idle"), 4000);
     handleClick(e);
   };
 
@@ -198,7 +203,7 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
     <ButtonWrapper>
       <ButtonContent onClick={handleIconAndClick}>
         <RunBorder radius={12} />
-        <MailIconWrap $fly={fly} aria-hidden="true">
+        <MailIconWrap $phase={phase} aria-hidden="true">
           <svg className="mail" viewBox="0 0 120 70" focusable="false">
             <polyline points="119,1 119,69 1,69 1,1" />
             <polyline points="119,1 60,45 1,1 119,1" />
