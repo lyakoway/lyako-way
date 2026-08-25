@@ -384,6 +384,12 @@ export const Actions = styled.div`
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 26px;
+
+  /* <580 (телефоны): кнопки столбиком, каждая на всю ширину карточки */
+  @media (max-width: 579px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
 `;
 
 // Под-ряд: GitHub + сердце. В обычной раскладке — просто строка в строке;
@@ -397,6 +403,7 @@ export const ActionsRow = styled.div`
 
   @media (max-width: 579px) {
     flex: 1 1 auto;
+    width: 100%;
   }
 `;
 
@@ -428,9 +435,9 @@ export const ButtonPrimary = styled.a`
     background: ${({ theme }) => theme.color.basic.hover};
   }
 
-  /* <580: кнопки заполняют ширину одной строкой; не помещается — перенос */
+  /* <580: кнопка на всю ширину строки */
   @media (max-width: 579px) {
-    flex: 1 1 auto;
+    width: 100%;
     justify-content: center;
   }
 `;
@@ -442,9 +449,9 @@ export const ButtonSecondary = styled.a`
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
 
-  /* <580: GitHub растягивается на всё место рядом с квадратным сердцем */
+  /* <580: кнопка на всю ширину строки */
   @media (max-width: 579px) {
-    flex: 1 1 auto;
+    width: 100%;
     justify-content: center;
   }
 `;
@@ -460,6 +467,12 @@ export const LikeButton = styled.button`
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
+
+  /* <580: кнопка на всю ширину строки, сердце остаётся слева от текста */
+  @media (max-width: 579px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 /* ——— Не найдено ——— */

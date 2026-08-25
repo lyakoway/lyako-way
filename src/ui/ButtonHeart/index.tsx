@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
@@ -145,9 +145,14 @@ const ButtonHeart: React.FC<{ hideCount?: boolean }> = ({
   }, []);
 
   // Общий «удар пульса» из стора: клик по ЛЮБОЙ кнопке-сердцу анимирует
-  // все экземпляры (сайдбар × 2 + настройки) синхронно.
+  // все экземпляры (сайдбар × 2 + настройки) синхронно. Анимируем только
+  // РОСТ счётчика: при монтировании (открыли попап настроек) эффект
+  // срабатывает с уже накопленным beat — раньше это «проигрывало» лайк,
+  // который случился раньше.
+  const prevBeatRef = useRef(beat);
   useEffect(() => {
-    if (beat === 0) return;
+    if (beat <= prevBeatRef.current) return;
+    prevBeatRef.current = beat;
     triggerAnimations();
   }, [beat, triggerAnimations]);
 
