@@ -176,8 +176,9 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
   const handleIconAndClick = (e: MouseEvent<HTMLButtonElement>) => {
     setPhase("fold");
     window.setTimeout(() => setPhase("fly"), 600);
-    window.setTimeout(() => setPhase("return"), 2600);
-    window.setTimeout(() => setPhase("idle"), 4000);
+    // возврат письма — после полного полёта самолётика (~2.85с)
+    window.setTimeout(() => setPhase("return"), 2850);
+    window.setTimeout(() => setPhase("idle"), 3800);
     handleClick(e);
   };
 

@@ -138,7 +138,7 @@ export const MailIconWrap = styled.span<{
       }
 
       svg.mail {
-        animation: ${mailReturn} 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+        animation: ${mailReturn} 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
       }
     `}
 
