@@ -2,6 +2,7 @@ import { FC, MouseEvent, PropsWithChildren, useEffect, useState } from "react";
 import styled, { css, keyframes } from "styled-components";
 import MailLoader from "src/ui/MailLoader";
 import RunBorder from "src/ui/RunBorder";
+import { MailIconWrap } from "./style";
 import { runningBorder } from "src/common/lib/runningBorder";
 import { PANEL_BORDER, PANEL_ELEVATED } from "src/common/lib/panelStyles";
 
@@ -165,6 +166,16 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
     }
   }, [status]);
 
+  // Анимация иконки при клике: конверт стирается, самолётик рисуется
+  // и улетает; затем конверт возвращается (см. MailIconWrap в style.ts).
+  const [fly, setFly] = useState(false);
+
+  const handleIconAndClick = (e: MouseEvent<HTMLButtonElement>) => {
+    setFly(true);
+    window.setTimeout(() => setFly(false), 2200);
+    handleClick(e);
+  };
+
   if (loading) {
     return (
       <MailLoaderWrapper>
@@ -185,8 +196,18 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
 
   return (
     <ButtonWrapper>
-      <ButtonContent onClick={(e) => handleClick(e)}>
+      <ButtonContent onClick={handleIconAndClick}>
         <RunBorder radius={12} />
+        <MailIconWrap $fly={fly} aria-hidden="true">
+          <svg className="mail" viewBox="0 0 120 70" focusable="false">
+            <polyline points="119,1 119,69 1,69 1,1" />
+            <polyline points="119,1 60,45 1,1 119,1" />
+          </svg>
+          <svg className="plane" viewBox="0 0 120 110" focusable="false">
+            <polyline points="119,1 1,59 106,80 119,1" />
+            <polyline points="119,1 40,67 43,105 69,73" />
+          </svg>
+        </MailIconWrap>
         {children}
         {title && <Label>{title}</Label>}
       </ButtonContent>
