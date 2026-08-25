@@ -414,6 +414,22 @@ export const ActionsRow = styled.div`
   }
 `;
 
+// Закраска кнопки при $pressed — та же, что у :hover/:active в runningBorder,
+// но управляется JS: живёт до конца анимации даже если палец уже отпущен
+const pressedFill = css<{ $pressed?: boolean }>`
+  ${({ $pressed }) =>
+    $pressed &&
+    css`
+      background-color: ${({ theme }) => theme.color.basic.primary} !important;
+      border-color: #ff8560 !important;
+      color: #ffffff !important;
+
+      [data-run-border] rect {
+        stroke-dashoffset: -182 !important;
+      }
+    `}
+`;
+
 const buttonBase = `
   display: inline-flex;
   align-items: center;
@@ -425,16 +441,32 @@ const buttonBase = `
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
+  /* Продавливание: при нажатии кнопка сжимается и возвращается — тактильный
+     отклик и на мыши, и на тач-экранах. */
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:active {
+    transform: scale(0.94);
+  }
 
   svg {
     width: 18px;
     height: 18px;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:active {
+      transform: none;
+    }
+  }
 `;
 
-export const ButtonPrimary = styled.a`
+export const ButtonPrimary = styled.a<{ $pressed?: boolean }>`
   ${buttonBase};
   ${runningBorder}
+  ${pressedFill}
   background: ${({ theme }) => theme.color.basic.primary};
   color: #ffffff;
 
@@ -453,9 +485,10 @@ export const ButtonPrimary = styled.a`
   }
 `;
 
-export const ButtonSecondary = styled.a`
+export const ButtonSecondary = styled.a<{ $pressed?: boolean }>`
   ${buttonBase};
   ${runningBorder}
+  ${pressedFill}
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
@@ -473,9 +506,10 @@ export const ButtonSecondary = styled.a`
 
 // Кнопка-оценка проекта: таблетка в стиле кнопок ряда («Сайт», GitHub) —
 // то же анимированное сердце слева, справа надпись «Оценить».
-export const LikeButton = styled.button`
+export const LikeButton = styled.button<{ $pressed?: boolean }>`
   ${buttonBase};
   ${runningBorder}
+  ${pressedFill}
   gap: 8px;
   /* те же отступы, что у кнопок ряда (buttonBase: padding 0 20px) */
   padding: 0 20px;

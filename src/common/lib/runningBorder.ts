@@ -16,7 +16,23 @@ export const runningBorder = css`
   transition: background-color 1s ease-in-out, border-color 1s ease-in-out,
     color 0.4s ease;
 
-  &:hover,
+  /* :hover — только на устройствах с реальным курсором: на тач-экранах
+     hover «залипает» после тапа — кнопка оставалась оранжевой, как будто
+     курсор не убрали. Здесь она возвращается в покой сразу после тапа. */
+  @media (hover: hover) {
+    &:hover {
+      background-color: ${({ theme }) => theme.color.basic.primary};
+      border-color: #ff8560;
+      color: #ffffff;
+    }
+
+    &:hover [data-run-border] rect {
+      stroke-dashoffset: -182;
+    }
+  }
+
+  /* Момент нажатия (тап на мобиле, клик мышью) и фокус с клавиатуры —
+     на любых устройствах; живёт ровно пока палец на кнопке. */
   &:focus-visible,
   &:active {
     background-color: ${({ theme }) => theme.color.basic.primary};
@@ -26,7 +42,6 @@ export const runningBorder = css`
 
   /* Бегунок делает проход по периметру: dashoffset 18 → -182 (Δ=200=период
      паттерна), скрыт в покое и в конце (см. RunBorder). */
-  &:hover [data-run-border] rect,
   &:focus-visible [data-run-border] rect,
   &:active [data-run-border] rect {
     stroke-dashoffset: -182;
