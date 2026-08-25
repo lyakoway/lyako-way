@@ -9,6 +9,7 @@ import {
 import styled, { css, keyframes } from "styled-components";
 import MailLoader from "src/ui/MailLoader";
 import RunBorder from "src/ui/RunBorder";
+import { usePressAnimation, pressedFill } from "src/common/lib/usePressAnimation";
 import { MailIconWrap } from "./style";
 import { runningBorder } from "src/common/lib/runningBorder";
 import { PANEL_BORDER, PANEL_ELEVATED } from "src/common/lib/panelStyles";
@@ -102,8 +103,26 @@ export const Result = styled.div<{ $status?: string }>`
   }
 `;
 
-const ButtonContent = styled.button`
+const ButtonContent = styled.button<{ $pressed?: boolean }>`
+  ${pressedFill}
   width: 160px;
+  /* Продавливание: при нажатии сжимается и возвращается */
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 1s ease-in-out, border-color 1s ease-in-out,
+    color 0.4s ease;
+
+  &:active {
+    transform: scale(0.94);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:active {
+      transform: none;
+    }
+  }
+
   height: 50px;
 
   ${FULL_WIDTH};
@@ -186,6 +205,8 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
     "idle"
   );
 
+  const press = usePressAnimation();
+
   const handleIconAndClick = (e: MouseEvent<HTMLButtonElement>) => {
     // Валидация не пройдена — без анимации; отправка всё равно вызывается,
     // чтобы форма показала свои подсказки
@@ -237,7 +258,11 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
 
   return (
     <ButtonWrapper>
-      <ButtonContent onClick={handleIconAndClick}>
+      <ButtonContent
+        onClick={handleIconAndClick}
+        $pressed={press.pressed}
+        {...press.pressHandlers}
+      >
         <RunBorder radius={12} />
         <MailIconWrap $phase={phase} aria-hidden="true">
           <svg className="mail" viewBox="0 0 120 70" focusable="false">
