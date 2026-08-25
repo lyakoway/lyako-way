@@ -1,4 +1,11 @@
-import { FC, MouseEvent, PropsWithChildren, useEffect, useState } from "react";
+import {
+  FC,
+  MouseEvent,
+  PropsWithChildren,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import styled, { css, keyframes } from "styled-components";
 import MailLoader from "src/ui/MailLoader";
 import RunBorder from "src/ui/RunBorder";
@@ -158,7 +165,10 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
     "success" | "error" | null
   >(null);
 
-  useEffect(() => {
+  // useLayoutEffect (а не useEffect): статус ставится ДО отрисовки — иначе
+  // между лоадером и галочностью на кадр мелькала обычная кнопка с письмом
+  // (useEffect срабатывает уже после покраски кадра).
+  useLayoutEffect(() => {
     setStatusRequest(status);
     if (status) {
       const timeoutId = setTimeout(() => {
