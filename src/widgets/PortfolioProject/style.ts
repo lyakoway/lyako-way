@@ -7,6 +7,7 @@ import {
   PANEL_ELEVATED,
 } from "src/common/lib/panelStyles";
 import { runningBorder } from "src/common/lib/runningBorder";
+import { pressedFill } from "src/common/lib/usePressAnimation";
 
 /* ——— Хлебные крошки ——— */
 
@@ -412,22 +413,6 @@ export const ActionsRow = styled.div`
   @media (max-width: 579px) {
     width: 100%;
   }
-`;
-
-// Закраска кнопки при $pressed — та же, что у :hover/:active в runningBorder,
-// но управляется JS: живёт до конца анимации даже если палец уже отпущен
-const pressedFill = css<{ $pressed?: boolean }>`
-  ${({ $pressed }) =>
-    $pressed &&
-    css`
-      background-color: ${({ theme }) => theme.color.basic.primary} !important;
-      border-color: #ff8560 !important;
-      color: #ffffff !important;
-
-      [data-run-border] rect {
-        stroke-dashoffset: -182 !important;
-      }
-    `}
 `;
 
 const buttonBase = `

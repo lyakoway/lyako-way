@@ -6,6 +6,7 @@ import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
 import { getReadMinutes } from "src/common/utils/getReadMinutes";
 import { trackEvent } from "src/common/utils/trackAnalytics";
+import { usePressAnimation } from "src/common/lib/usePressAnimation";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
@@ -35,6 +36,26 @@ const ArrowGlyph = () => (
     />
   </svg>
 );
+
+// Фильтр с анимацией закраски «до конца» при тапе (как кнопки проекта)
+const PressableFilterChip: React.FC<{
+  $active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}> = ({ $active, onClick, children }) => {
+  const press = usePressAnimation();
+  return (
+    <FilterChip
+      $active={$active}
+      $pressed={press.pressed}
+      onClick={onClick}
+      {...press.pressHandlers}
+    >
+      {children}
+      <RunBorder radius={12} />
+    </FilterChip>
+  );
+};
 
 const Blog = () => {
   const {
@@ -74,19 +95,17 @@ const Blog = () => {
       </Reveal>
 
       <Reveal as={FilterBar} delay={90}>
-        <FilterChip $active={active === ALL} onClick={() => handleFilter(ALL)}>
+        <PressableFilterChip $active={active === ALL} onClick={() => handleFilter(ALL)}>
           {blog.all}
-          <RunBorder radius={12} />
-        </FilterChip>
+        </PressableFilterChip>
         {tags.map((tag) => (
-          <FilterChip
+          <PressableFilterChip
             key={tag}
             $active={active === tag}
             onClick={() => handleFilter(tag)}
           >
             {tag}
-            <RunBorder radius={12} />
-          </FilterChip>
+          </PressableFilterChip>
         ))}
       </Reveal>
 

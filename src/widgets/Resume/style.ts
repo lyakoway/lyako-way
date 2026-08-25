@@ -8,6 +8,7 @@ import {
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 import { runningBorder } from "src/common/lib/runningBorder";
+import { pressedFill } from "src/common/lib/usePressAnimation";
 import {
   Desc,
   MetaList,
@@ -65,7 +66,14 @@ const buttonBase = `
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  /* Продавливание + закраска: плавные переходы transform и цветов */
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 1s ease-in-out, border-color 1s ease-in-out,
+    color 0.4s ease;
+
+  &:active {
+    transform: scale(0.94);
+  }
 
   svg {
     width: 18px;
@@ -73,9 +81,10 @@ const buttonBase = `
   }
 `;
 
-export const ButtonPrimary = styled.a`
+export const ButtonPrimary = styled.a<{ $pressed?: boolean }>`
   ${buttonBase};
   ${runningBorder}
+  ${pressedFill}
   background: ${({ theme }) => theme.color.basic.primary};
   color: #ffffff;
 
@@ -84,9 +93,10 @@ export const ButtonPrimary = styled.a`
   }
 `;
 
-export const ButtonSecondary = styled.a`
+export const ButtonSecondary = styled.a<{ $pressed?: boolean }>`
   ${buttonBase};
   ${runningBorder}
+  ${pressedFill}
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
@@ -9,6 +9,7 @@ import {
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 import { runningBorder } from "src/common/lib/runningBorder";
+import { pressedFill } from "src/common/lib/usePressAnimation";
 
 export const FilterBar = styled.div`
   display: flex;
@@ -29,19 +30,51 @@ export const FilterBar = styled.div`
   }
 `;
 
-export const FilterChip = styled.button<{ $active?: boolean }>`
+export const FilterChip = styled.button<{
+  $active?: boolean;
+  $pressed?: boolean;
+}>`
   ${runningBorder}
+  ${pressedFill}
   display: inline-flex;
   align-items: center;
   height: 40px;
   padding: 0 16px;
   border-radius: 12px;
-  border: 1px solid
-    ${({ $active, theme }) =>
-      $active ? theme.color.basic.primary : PANEL_BORDER};
+  /* Продавливание: при нажатии сжимается и возвращается */
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 1s ease-in-out, border-color 1s ease-in-out,
+    color 0.4s ease;
+
+  &:active {
+    transform: scale(0.94);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:active {
+      transform: none;
+    }
+  }
+
+  /* Активный фильтр: заливка — primary, бордер — цвет бегунка (#ff8560),
+     чтобы рамка читалась на фоне заливки */
+  border: 1px solid ${({ $active }) => ($active ? "#ff8560" : PANEL_BORDER)};
   background: ${({ $active, theme }) =>
     $active ? theme.color.basic.primary : "rgba(255, 255, 255, 0.04)"};
   color: ${({ $active }) => ($active ? "#ffffff" : PANEL_TEXT_SECONDARY)};
+
+  /* Активный фильтр: бегущая рамка раскрыта. Двойная специфичность (&&)
+     чтобы гарантированно перекрывать runningBorder и pressedFill —
+     рамка держится, пока фильтр выбран, не исчезает после отпускания. */
+  ${({ $active }) =>
+    $active &&
+    css`
+      && [data-run-border] rect {
+        stroke-dashoffset: -182;
+      }
+    `}
   font-size: 13px;
   font-weight: 500;
   cursor: pointer;

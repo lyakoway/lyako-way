@@ -8,6 +8,8 @@ import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 import { ReactComponent as HeartIcon } from "src/common/icon/heart.svg";
 import { fetchProjectLikes, likeIdOf } from "src/reducers";
+import { usePressAnimation } from "src/common/lib/usePressAnimation";
+import { pressedFill } from "src/common/lib/usePressAnimation";
 
 import {
   FilterBar,
@@ -37,6 +39,27 @@ const GRADIENTS = [
 ];
 
 const ALL = "__all__";
+
+// Фильтр с анимацией закраски «до конца» при тапе (как кнопки проекта):
+// короткое нажатие — заливка доигрывает и плавно уходит; удержание — держится.
+const PressableFilterChip: React.FC<{
+  $active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}> = ({ $active, onClick, children }) => {
+  const press = usePressAnimation();
+  return (
+    <FilterChip
+      $active={$active}
+      $pressed={press.pressed}
+      onClick={onClick}
+      {...press.pressHandlers}
+    >
+      {children}
+      <RunBorder radius={12} />
+    </FilterChip>
+  );
+};
 
 // Сердечко и число лайков проекта под датой (без клика — карточка целиком
 // ведёт в проект; лайк ставится на странице проекта). Пока число с бэкенда
@@ -136,19 +159,17 @@ const Portfolio = () => {
       </Reveal>
 
       <Reveal as={FilterBar} delay={90}>
-        <FilterChip $active={active === ALL} onClick={() => handleFilter(ALL)}>
+        <PressableFilterChip $active={active === ALL} onClick={() => handleFilter(ALL)}>
           {portfolio.all}
-          <RunBorder radius={12} />
-        </FilterChip>
+        </PressableFilterChip>
         {directions.map((dir) => (
-          <FilterChip
+          <PressableFilterChip
             key={dir}
             $active={active === dir}
             onClick={() => handleFilter(dir)}
           >
             {dir}
-            <RunBorder radius={12} />
-          </FilterChip>
+          </PressableFilterChip>
         ))}
       </Reveal>
 

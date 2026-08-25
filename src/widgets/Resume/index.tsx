@@ -10,6 +10,7 @@ import RunBorder from "src/ui/RunBorder";
 import PdfViewer from "src/components/PdfViewer";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
+import { usePressAnimation } from "src/common/lib/usePressAnimation";
 
 import {
   Actions,
@@ -389,6 +390,9 @@ const Resume = () => {
     );
   };
 
+  const downloadPress = usePressAnimation();
+  const viewPress = usePressAnimation();
+
   return (
     <Article>
       <Reveal as="header">
@@ -399,6 +403,8 @@ const Resume = () => {
         <ButtonPrimary
           href={downloadUrl}
           download={resumeCv.downloadName}
+          {...downloadPress.pressHandlers}
+          $pressed={downloadPress.pressed}
           onClick={() => trackEvent(AnalyticsEvent.CV_DOWNLOAD)}
         >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -418,6 +424,8 @@ const Resume = () => {
           href={viewUrl}
           target="_blank"
           rel="noreferrer noopener"
+          {...viewPress.pressHandlers}
+          $pressed={viewPress.pressed}
           onClick={handleView}
         >
           <svg viewBox="0 0 24 24" fill="none" aria-hidden>
