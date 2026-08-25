@@ -10,7 +10,7 @@ export const portfolio: PortfolioProps = {
   all: "All",
   filter: "Project filter",
   wip: "In progress",
-  likeLabel: "Like project",
+  likeLabel: "Like",
 };
 
 const ICON_META = { icon: "", widthIcon: "285px", heightIcon: "500px" };

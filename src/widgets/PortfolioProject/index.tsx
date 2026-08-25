@@ -16,12 +16,7 @@ import {
   generateConfetti,
   generateParticles,
 } from "src/ui/ButtonHeart/animations";
-import {
-  ButtonWrapper,
-  Particle,
-  ConfettiPiece,
-  ToastHeart,
-} from "src/ui/ButtonHeart/style";
+import { Particle, ConfettiPiece, ToastHeart } from "src/ui/ButtonHeart/style";
 
 import {
   Breadcrumb,
@@ -47,6 +42,8 @@ import {
   ActionsRow,
   ButtonPrimary,
   ButtonSecondary,
+  HeartSquare,
+  LikeButton,
   WipTag,
   NotFound,
 } from "./style";
@@ -146,23 +143,36 @@ const ProjectLikeButton: React.FC<{
   };
 
   return (
-    <ButtonWrapper
-      onClick={handle}
-      $animate={pulse}
-      $beating={busy}
-      title={label}
-      aria-label={label}
-    >
-      <HeartIcon />
-      {particles.map((p) => (
-        <Particle key={p.id} x={p.x} size={p.size} rotate={p.rotate} color="#ff3d6e" $fly={p.$fly}>
-          ♥
-        </Particle>
-      ))}
-      {confetti.map((c) => (
-        <ConfettiPiece key={c.id} x={c.x} y={c.y} size={c.size} rotate={c.rotate} color={c.color} />
-      ))}
-    </ButtonWrapper>
+    <LikeButton onClick={handle} title={label} aria-label={label}>
+      {/* То же анимированное сердце (квадрат с пульсом), справа — надпись */}
+      <HeartSquare $animate={pulse} $beating={busy}>
+        <HeartIcon />
+        {particles.map((p) => (
+          <Particle
+            key={p.id}
+            x={p.x}
+            size={p.size}
+            rotate={p.rotate}
+            color="#ff3d6e"
+            $fly={p.$fly}
+          >
+            ♥
+          </Particle>
+        ))}
+        {confetti.map((c) => (
+          <ConfettiPiece
+            key={c.id}
+            x={c.x}
+            y={c.y}
+            size={c.size}
+            rotate={c.rotate}
+            color={c.color}
+          />
+        ))}
+      </HeartSquare>
+      {label}
+      <RunBorder radius={12} />
+    </LikeButton>
   );
 };
 
@@ -186,9 +196,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
   const themeName = useSelectorTyped(({ theme }) => theme.theme.name);
   const dispatch = useDispatchTyped();
 
-  const project = propsPortfolioList.find(
-    (item) => item.hrefNameList === slug
-  );
+  const project = propsPortfolioList.find((item) => item.hrefNameList === slug);
 
   // Ссылка на развёрнутое демо: пробрасываем текущие язык и тему сайта
   // (?lang=ru|en&theme=light|dark), чтобы демо открылось в тех же настройках.
@@ -218,7 +226,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
             <img src={src} alt={alt} />
           </ModalImage>
         ),
-      })
+      }),
     );
   };
 

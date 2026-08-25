@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
@@ -18,7 +18,6 @@ export const Breadcrumb = styled.nav`
   margin-bottom: 18px;
   font-size: 13px;
   color: ${PANEL_TEXT_MUTED};
-
 
   a {
     display: inline-flex;
@@ -286,7 +285,9 @@ export const PreviewFrame = styled.button`
   border: 1px solid ${PANEL_BORDER};
   background: rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  transition: border-color 0.25s ease, transform 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    transform 0.25s ease;
 
   &:hover {
     border-color: ${({ theme }) => theme.color.basic.primaryLight};
@@ -318,6 +319,57 @@ export const ModalImage = styled.div`
 `;
 
 /* ——— Кнопки-ссылки ——— */
+
+// Пульс сердца внутри кнопки-оценки: одиночный удар ($animate) или
+// непрерывный, пока запрос в полёте ($beating).
+const heartBeat = keyframes`
+  0% { transform: scale(1); }
+  30% { transform: scale(1.3); }
+  50% { transform: scale(1.1); }
+  70% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+`;
+
+// Сердце внутри кнопки-оценки — просто белый глиф без подложки-квадрата:
+// кликает вся таблетка, в покое сердце белое, в пульсе — красное.
+export const HeartSquare = styled.div<{
+  $animate?: boolean;
+  $beating?: boolean;
+}>`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ffffff;
+
+  ${({ $animate, $beating }) =>
+    ($animate || $beating) &&
+    css`
+      color: #ff3d6e;
+    `}
+
+  /* fill задан инлайн-стилем в самом heart.svg — перебиваем только
+     через !important: в покое сердце белое, в пульсе — красное */
+  svg path {
+    fill: currentColor !important;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    animation: ${({ $animate, $beating }) =>
+      $beating
+        ? css`
+            ${heartBeat} 0.7s ease infinite
+          `
+        : $animate
+          ? css`
+              ${heartBeat} 0.7s ease
+            `
+          : "none"};
+  }
+`;
 
 export const Actions = styled.div`
   display: flex;
@@ -387,6 +439,19 @@ export const ButtonSecondary = styled.a`
     flex: 1 1 auto;
     justify-content: center;
   }
+`;
+
+// Кнопка-оценка проекта: таблетка в стиле кнопок ряда («Сайт», GitHub) —
+// то же анимированное сердце слева, справа надпись «Оценить».
+export const LikeButton = styled.button`
+  ${buttonBase};
+  ${runningBorder}
+  gap: 8px;
+  /* те же отступы, что у кнопок ряда (buttonBase: padding 0 20px) */
+  padding: 0 20px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
 `;
 
 /* ——— Не найдено ——— */
