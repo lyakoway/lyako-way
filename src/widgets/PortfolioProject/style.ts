@@ -385,10 +385,14 @@ export const Actions = styled.div`
   gap: 12px;
   margin-top: 26px;
 
-  /* <580 (телефоны): кнопки столбиком, каждая на всю ширину карточки */
+  /* <768: кнопки занимают всю ширину карточки (растут поровну, при
+     нехватке места — перенос); <580 — столбиком, каждая своей строкой */
+  @media (max-width: 767px) {
+    align-items: stretch;
+  }
+
   @media (max-width: 579px) {
     flex-direction: column;
-    align-items: stretch;
   }
 `;
 
@@ -401,8 +405,11 @@ export const ActionsRow = styled.div`
   justify-content: center;
   gap: 12px;
 
-  @media (max-width: 579px) {
+  @media (max-width: 767px) {
     flex: 1 1 auto;
+  }
+
+  @media (max-width: 579px) {
     width: 100%;
   }
 `;
@@ -435,10 +442,14 @@ export const ButtonPrimary = styled.a`
     background: ${({ theme }) => theme.color.basic.hover};
   }
 
-  /* <580: кнопка на всю ширину строки */
+  /* <768: растягивается на свободную ширину ряда; <580 — вся строка */
+  @media (max-width: 767px) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
   @media (max-width: 579px) {
     width: 100%;
-    justify-content: center;
   }
 `;
 
@@ -449,10 +460,14 @@ export const ButtonSecondary = styled.a`
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
 
-  /* <580: кнопка на всю ширину строки */
+  /* <768: растягивается на свободную ширину ряда; <580 — вся строка */
+  @media (max-width: 767px) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
   @media (max-width: 579px) {
     width: 100%;
-    justify-content: center;
   }
 `;
 
@@ -468,10 +483,14 @@ export const LikeButton = styled.button`
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
 
-  /* <580: кнопка на всю ширину строки, сердце остаётся слева от текста */
+  /* <768: растягивается на свободную ширину ряда; <580 — вся строка */
+  @media (max-width: 767px) {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
   @media (max-width: 579px) {
     width: 100%;
-    justify-content: center;
   }
 `;
 

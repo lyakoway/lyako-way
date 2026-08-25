@@ -18,14 +18,16 @@ export const Container = styled.div`
   bottom: 1rem;
   right: 1rem;
 
+  /* Мобилки: тост у нижнего края, как на десктопе (раньше висел на 6rem
+     выше — перекрывал контент по центру экрана). */
   @media ${MOBILE_660} {
     left: 1rem;
-    bottom: 6rem;
+    bottom: 1rem;
   }
 
   @media ${MOBILE_480} {
     left: 1rem;
-    bottom: 6rem;
+    bottom: 1rem;
   }
 `;
 
