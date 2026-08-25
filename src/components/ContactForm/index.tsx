@@ -336,6 +336,12 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
         <ButtonForm
           title={contactForm.buttonText}
           handleClick={handleCloseButton}
+          // Синхронная проверка: кнопка играет анимацию только когда все
+          // поля заполнены и валидны (сам handleClick асинхронный — его
+          // результат приходит уже после отправки, поздно для анимации)
+          validate={() =>
+            Boolean(name && email && phone && validName && validEmail && validPhone)
+          }
           loading={loading}
           status={statusRequest}
         />

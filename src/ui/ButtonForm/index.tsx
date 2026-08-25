@@ -140,6 +140,8 @@ const Label = styled.div`
 interface IButtonProps {
   title?: string;
   handleClick?: (value: MouseEvent<HTMLElement>) => void;
+  // Синхронная проверка формы: пока не пройдена — анимацию не запускаем
+  validate?: () => boolean;
   loading?: boolean;
   status?: "success" | "error" | null;
 }
@@ -147,6 +149,7 @@ interface IButtonProps {
 const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
   title = "",
   handleClick = () => {},
+  validate,
   children,
   loading = false,
   status = null,
@@ -174,6 +177,14 @@ const ButtonForm: FC<PropsWithChildren<IButtonProps>> = ({
   );
 
   const handleIconAndClick = (e: MouseEvent<HTMLButtonElement>) => {
+    // Валидация не пройдена — без анимации; отправка всё равно вызывается,
+    // чтобы форма показала свои подсказки
+    if (validate && !validate()) {
+      handleClick(e);
+      return;
+    }
+
+    // Валидация пройдена — анимация стартует сразу, одновременно с отправкой
     setPhase("fold");
     window.setTimeout(() => setPhase("fly"), 600);
     // возврат письма — после полного полёта самолётика (~2.85с)
