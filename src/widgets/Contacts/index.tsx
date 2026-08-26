@@ -16,6 +16,7 @@ import {
   PinIcon,
 } from "src/common/icon/socialIcons";
 import { trackEvent } from "src/common/utils/trackAnalytics";
+import { usePressAnimation } from "src/common/lib/usePressAnimation";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
@@ -62,6 +63,31 @@ const ClockIcon = () => (
   </svg>
 );
 
+// Ссылка-контакт с анимацией нажатия (как кнопки проекта): закраска
+// доигрывает до конца при коротком тапе, при удержании — держится,
+// плюс продавливание scale(0.94).
+const PressableLinkItem: React.FC<{
+  href: string;
+  onClick?: () => void;
+  target?: string;
+  rel?: string;
+  children: React.ReactNode;
+}> = ({ href, onClick, target, rel, children }) => {
+  const press = usePressAnimation();
+  return (
+    <LinkItem
+      href={href}
+      target={target}
+      rel={rel}
+      onClick={onClick}
+      $pressed={press.pressed}
+      {...press.pressHandlers}
+    >
+      {children}
+    </LinkItem>
+  );
+};
+
 const Contacts = () => {
   const {
     lang: { propsHeaderTopMenu, sidebar, contactsPage },
@@ -85,7 +111,7 @@ const Contacts = () => {
         <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
         <Links>
           {CONTACT_PHONES.map((phone) => (
-            <LinkItem
+            <PressableLinkItem
               key={phone.href}
               href={phone.href}
               onClick={() =>
@@ -98,7 +124,7 @@ const Contacts = () => {
               <PhoneIcon />
               {phone.label}
               <RunBorder radius={12} />
-            </LinkItem>
+            </PressableLinkItem>
           ))}
         </Links>
       </Reveal>
@@ -106,7 +132,7 @@ const Contacts = () => {
       <Reveal as={ContactBlock} delay={210}>
         <SectionLabel>{sidebar.emailTitle}</SectionLabel>
         <Links>
-          <LinkItem
+          <PressableLinkItem
             href={CONTACT_EMAIL.href}
             onClick={() =>
               trackEvent(AnalyticsEvent.CONTACT_CLICK, {
@@ -118,7 +144,7 @@ const Contacts = () => {
             <MailIcon />
             {CONTACT_EMAIL.label}
             <RunBorder radius={12} />
-          </LinkItem>
+          </PressableLinkItem>
         </Links>
       </Reveal>
 
@@ -126,7 +152,7 @@ const Contacts = () => {
         <SectionLabel>{sidebar.messengersTitle}</SectionLabel>
         <Links>
           {CONTACT_MESSENGERS.map((item) => (
-            <LinkItem
+            <PressableLinkItem
               key={item.href}
               href={item.href}
               target="_blank"
@@ -141,7 +167,7 @@ const Contacts = () => {
               {MESSENGER_ICON[item.label]}
               {item.label}
               <RunBorder radius={12} />
-            </LinkItem>
+            </PressableLinkItem>
           ))}
         </Links>
       </Reveal>
