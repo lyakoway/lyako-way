@@ -64,6 +64,17 @@ export const FilterChip = styled.button<{
     $active ? theme.color.basic.primary : "rgba(255, 255, 255, 0.04)"};
   color: ${({ $active }) => ($active ? "#ffffff" : PANEL_TEXT_SECONDARY)};
 
+  /* Активный фильтр при наведении/нажатии: белая подсветка-тень */
+  ${({ $active }) =>
+    $active &&
+    css`
+      &:hover,
+      &:active {
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.35),
+          0 0 4px rgba(255, 255, 255, 0.2);
+      }
+    `}
+
   /* Активный фильтр: бегущая рамка раскрыта. Двойная специфичность (&&)
      чтобы гарантированно перекрывать runningBorder и pressedFill —
      рамка держится, пока фильтр выбран, не исчезает после отпускания. */
