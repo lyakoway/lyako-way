@@ -91,6 +91,20 @@ export const ButtonPrimary = styled.a<{ $pressed?: boolean }>`
   &:hover {
     background: ${({ theme }) => theme.color.basic.hover};
   }
+
+  /* Бегущая рамка постоянно раскрыта — как у активного фильтра в Портфолио:
+     кнопка всегда с оранжевой обводкой (#ff8560), читается на заливке. */
+  border: 1px solid #ff8560;
+  [data-run-border] rect {
+    stroke-dashoffset: -182;
+  }
+
+  /* Наведение/нажатие: белая подсветка-тень вокруг кнопки */
+  &:hover,
+  &:active {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.35),
+      0 0 4px rgba(255, 255, 255, 0.2);
+  }
 `;
 
 export const ButtonSecondary = styled.a<{ $pressed?: boolean }>`
