@@ -450,13 +450,20 @@ const buttonBase = `
 
 export const ButtonPrimary = styled.a<{ $pressed?: boolean }>`
   ${buttonBase};
-  ${runningBorder}
   ${pressedFill}
   background: ${({ theme }) => theme.color.basic.primary};
   color: #ffffff;
 
-  &:hover {
+  /* Постоянный бордер цвета бегунка (без бегущей дорожки) — как у кнопки
+     «Скачать PDF» в резюме */
+  border: 1px solid #ff8560;
+
+  /* Наведение/нажатие: белая подсветка-тень вокруг кнопки */
+  &:hover,
+  &:active {
     background: ${({ theme }) => theme.color.basic.hover};
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.35),
+      0 0 4px rgba(255, 255, 255, 0.2);
   }
 
   /* <768: растягивается на свободную ширину ряда; <580 — вся строка */

@@ -419,7 +419,6 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   />
                 </svg>
                 {portfolioHeader.link.replace(/:$/, "")}
-                <RunBorder radius={12} />
               </ButtonPrimary>
             )}
 
