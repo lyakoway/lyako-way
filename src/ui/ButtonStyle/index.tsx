@@ -3,13 +3,18 @@ import styled, { css } from "styled-components";
 import { Spinner } from "src/ui/Spinner";
 import { PANEL_BORDER, PANEL_ELEVATED } from "src/common/lib/panelStyles";
 import { runningBorder } from "src/common/lib/runningBorder";
+import { usePressAnimation, pressedFill } from "src/common/lib/usePressAnimation";
 import RunBorder from "src/ui/RunBorder";
 
 // В стиле проекта: во всю ширину поля, полупрозрачный «приподнятый» фон с
 // границей, белый текст. Оранжевый (границы + текст) — только на наведении,
 // как у остальных контролов, чтобы кнопка не кричала цветом.
-const ButtonWrapper = styled.button<{ disabled?: boolean }>`
+const ButtonWrapper = styled.button<{
+  disabled?: boolean;
+  $pressed?: boolean;
+}>`
   ${runningBorder}
+  ${pressedFill}
   display: flex;
   width: 100%;
   justify-content: center;
@@ -17,6 +22,22 @@ const ButtonWrapper = styled.button<{ disabled?: boolean }>`
   -webkit-tap-highlight-color: transparent;
   height: 40px;
   padding: 0 16px;
+  /* Продавливание + закраска */
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 1s ease-in-out, border-color 1s ease-in-out,
+    color 0.4s ease;
+
+  &:active {
+    transform: scale(0.94);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:active {
+      transform: none;
+    }
+  }
   border: 1px solid ${PANEL_BORDER};
   border-radius: 12px;
   background: ${PANEL_ELEVATED};
@@ -56,6 +77,8 @@ const ButtonStyle: FC<PropsWithChildren<IButtonProps>> = ({
   handleClick,
   children,
 }) => {
+  const press = usePressAnimation();
+
   const onClick = () => {
     if (!disabled && !loading) {
       handleClick();
@@ -64,13 +87,20 @@ const ButtonStyle: FC<PropsWithChildren<IButtonProps>> = ({
 
   if (loading) {
     return (
-      <ButtonWrapper type="submit">
+      <ButtonWrapper type="submit" disabled>
         <Spinner size="small" />
       </ButtonWrapper>
     );
   }
+
   return (
-    <ButtonWrapper type="submit" onClick={onClick} disabled={disabled}>
+    <ButtonWrapper
+      type="submit"
+      onClick={onClick}
+      disabled={disabled}
+      $pressed={press.pressed}
+      {...press.pressHandlers}
+    >
       {children}
       {title && <Label>{title}</Label>}
       <RunBorder radius={12} />
