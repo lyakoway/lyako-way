@@ -123,6 +123,7 @@ UserID (хеш) в GA4 смотрите после того, как `user_id` у
 | `portfolio_screenshot_open` | Клик по скриншоту на странице проекта | `slug`, `index` |
 | `portfolio_demo_open` | Ссылка на демо / сайт | `slug`, `placement` (`meta` \| `button`) |
 | `portfolio_github_open` | Ссылка на GitHub | `slug`, `placement` (`meta` \| `button`) |
+| `project_like_click` | Лайк проекта (кнопка «Оценить») | `slug` |
 
 ### Параметры карточки проекта
 
