@@ -44,9 +44,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "Чат по документам с двумя режимами рядом: классический RAG Chat и AI Агент — разница видна на одном и том же вопросе.\nРежим RAG: один поиск → ответ с цитатами.;Режим агента: свой цикл tools на FastAPI (список документов → поиск → уточнение) с лентой шагов в UI — без LangGraph.\nЗагружаете PDF, Word или Excel и задаёте вопросы.;Ответы со ссылками на страницы-источники.;Встроенный предпросмотр PDF, DOCX и Excel.;Демо-режим работает без ключей.;Подключены бесплатный Z.ai GLM, OpenAI, Anthropic и локальный Ollama.\nBackend — FastAPI, ChromaDB, эмбеддинги.;Frontend — React 19 / TypeScript (Vite). Живое демо на Hugging Face Spaces.",
+      "Чат по документам с тремя режимами рядом: классический RAG Chat, AI Агент и Векторный поиск — разница видна на одном и том же вопросе.\nРежим RAG: один поиск → ответ с цитатами.;Режим агента: свой цикл tools на FastAPI (список документов → поиск → уточнение) с лентой шагов в UI — без LangGraph.;Режим векторного поиска: семантический поиск fastembed по фрагментам без LLM — оценка релевантности и переход в документ с нужной страницы.\nЗагружаете PDF, Word или Excel и задаёте вопросы.;Ответы со ссылками на страницы-источники.;Встроенный предпросмотр PDF, DOCX и Excel.;Демо-режим работает без ключей.;Подключены бесплатный Z.ai GLM, OpenAI, Anthropic и локальный Ollama.\nBackend — FastAPI, ChromaDB, эмбеддинги.;Frontend — React 19 / TypeScript (Vite). Живое демо на Hugging Face Spaces.",
     features: [
-      "Переключатель режимов: RAG Chat и AI Агент в одном приложении",
+      "Переключатель режимов: RAG Chat, AI Агент и Векторный поиск в одном приложении",
+      "Векторный поиск (fastembed + ChromaDB): фрагменты с score релевантности — без LLM и ключей",
       "Лента шагов агента (tools: список / поиск по документам)",
       "Свой agent loop на FastAPI (JSON tool-calling)",
       "Поиск по PDF, Word (.docx) и Excel (.xlsx)",

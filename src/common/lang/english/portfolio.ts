@@ -44,9 +44,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "A document Q&A app with two modes side by side: classic RAG Chat and an AI Agent — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages.;In-browser preview for PDF, DOCX and Excel.;Demo mode works without keys.;Free Z.ai GLM, OpenAI, Anthropic and local Ollama are supported.\nBackend — FastAPI, ChromaDB, embeddings.;Frontend — React 19 / TypeScript (Vite). Live demo on Hugging Face Spaces.",
+      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages.;In-browser preview for PDF, DOCX and Excel.;Demo mode works without keys.;Free Z.ai GLM, OpenAI, Anthropic and local Ollama are supported.\nBackend — FastAPI, ChromaDB, embeddings.;Frontend — React 19 / TypeScript (Vite). Live demo on Hugging Face Spaces.",
     features: [
-      "Mode switch: RAG Chat vs AI Agent on one codebase",
+      "Mode switch: RAG Chat, AI Agent and Vector Search in one app",
+      "Vector search (fastembed + ChromaDB): ranked chunks with relevance scores — no LLM, no keys",
       "Agent steps timeline (tools: list / search documents)",
       "Custom agent loop on FastAPI (JSON tool-calling)",
       "Search across PDF, Word (.docx) and Excel (.xlsx)",
