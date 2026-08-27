@@ -12,6 +12,7 @@ import RunBorder from "src/ui/RunBorder";
 const ButtonWrapper = styled.button<{
   disabled?: boolean;
   $pressed?: boolean;
+  $scaling?: boolean;
 }>`
   ${runningBorder}
   ${pressedFill}
@@ -22,21 +23,20 @@ const ButtonWrapper = styled.button<{
   -webkit-tap-highlight-color: transparent;
   height: 40px;
   padding: 0 16px;
-  /* Продавливание + закраска */
+  /* Продавливание через $scaling (JS pointerdown — мгновенно на любом
+     касании). CSS :active на тач срабатывает с задержкой — не используем. */
   transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
     background-color 1s ease-in-out, border-color 1s ease-in-out,
     color 0.4s ease;
 
-  &:active {
-    transform: scale(0.94);
-  }
+  ${({ $scaling }) =>
+    $scaling &&
+    css`
+      transform: scale(0.94);
+    `}
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
-
-    &:active {
-      transform: none;
-    }
   }
   border: 1px solid ${PANEL_BORDER};
   border-radius: 12px;
@@ -99,6 +99,7 @@ const ButtonStyle: FC<PropsWithChildren<IButtonProps>> = ({
       onClick={onClick}
       disabled={disabled}
       $pressed={press.pressed}
+      $scaling={press.scaling}
       {...press.pressHandlers}
     >
       {children}

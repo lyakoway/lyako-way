@@ -50,9 +50,28 @@ export const usePressAnimation = () => {
     []
   );
 
+  // Мгновенное продавливание (scale): true по pointerdown, false сразу
+  // по pointerup — без таймера. На тач-устройствах CSS :active срабатывает
+  // с задержкой (~200мс, палец нужно удерживать) — JS-состояние решает это.
+  const [scaling, setScaling] = useState(false);
+
   return {
     pressed,
-    pressHandlers: { onPointerDown, onPointerUp, onPointerLeave },
+    scaling,
+    pressHandlers: {
+      onPointerDown: useCallback(() => {
+        onPointerDown();
+        setScaling(true);
+      }, [onPointerDown]),
+      onPointerUp: useCallback(() => {
+        onPointerUp();
+        setScaling(false);
+      }, [onPointerUp]),
+      onPointerLeave: useCallback(() => {
+        onPointerLeave();
+        setScaling(false);
+      }, [onPointerLeave]),
+    },
   };
 };
 
