@@ -66,6 +66,60 @@ export const propsPortfolioList: PortfolioListProps[] = [
       sectionTitle: "Взгляд AI-инженера: методика и замеры",
       intro:
         "Разбор в формате «взгляда AI-инженера»: приложение оценивается не списком фич, а инженерным циклом — от постановки задачи и метрик успеха до замеров качества и эксплуатации. Чек-лист из восьми принципов ниже — моя методика оценки AI-приложений: им разобран этот проект, по нему же будут разобраны и следующие.",
+      diagramTitle: "Схема проекта",
+      diagram: [
+        {
+          title: "Фронтенд",
+          nodes: [
+            { label: "React 19 + Vite", note: "SSE-стриминг, тема и язык RU/EN" },
+            { label: "Цитаты и предпросмотр", note: "PDF / DOCX / XLSX в модалке" },
+            { label: "Фидбек 👍/👎", note: "пишется в БД + аналитика" },
+          ],
+        },
+        {
+          title: "API — FastAPI",
+          nodes: [
+            { label: "POST /api/chat (SSE)", note: "RAG и агент-режимы", accent: true },
+            { label: "GET /api/search", note: "векторный поиск со score" },
+            { label: "/api/documents", note: "загрузка файлов и демо-пак" },
+          ],
+        },
+        {
+          title: "RAG-ядро",
+          nodes: [
+            { label: "Парсеры", note: "PDF · DOCX · XLSX + страницы" },
+            { label: "Чанкинг", note: "tiktoken, 800 / 120 токенов" },
+            { label: "Эмбеддинги", note: "fastembed, мультиязычная MiniLM" },
+            { label: "Гибрид BM25 + RRF", note: "опциональный cross-encoder реранкер", accent: true },
+          ],
+        },
+        {
+          title: "Хранилища",
+          nodes: [
+            { label: "ChromaDB", note: "вектора и фрагменты" },
+            { label: "SQLite", note: "диалоги, сообщения, фидбек" },
+            { label: "Файлы", note: "загруженные документы" },
+          ],
+        },
+        {
+          title: "Провайдеры LLM",
+          nodes: [
+            { label: "Z.ai (GLM)", note: "5.3 / 5.2 / 4.5-flash", accent: true },
+            { label: "OpenAI · Anthropic", note: "по API-ключам" },
+            { label: "Ollama · offline demo", note: "локально и без ключей" },
+          ],
+        },
+        {
+          title: "Эксплуатация",
+          nodes: [
+            { label: "Evaluation", note: "Recall@k и MRR, 24 вопроса" },
+            { label: "Аналитика", note: "Яндекс.Метрика + GA4" },
+            { label: "pytest + CI", note: "25 тестов, GitHub Actions" },
+          ],
+        },
+      ],
+      diagramNote:
+        "Сверху вниз: вопрос пользователя → стриминговый ответ с цитатами. Один RAG-пайплайн обслуживает все три режима — чат, агента и векторный поиск; провайдеры LLM взаимозаменяемы, офлайн-режим работает без ключей.",
       principlesTitle: "Чек-лист AI-инженера",
       principles: [
         {

@@ -694,6 +694,90 @@ export const AiGap = styled(Feature)`
   color: ${PANEL_TEXT_MUTED};
 `;
 
+/* ——— Схема проекта: дорожки сверху вниз ——— */
+
+export const AiDiagram = styled.div`
+  display: grid;
+  gap: 0;
+`;
+
+// Дорожка-слой: на широком экране заголовок слева (как MetaRow), ноды — рядом;
+// на узком заголовок уезжает вверх. Вертикальный ритм задают паддинги дорожки.
+export const AiLane = styled.div`
+  display: grid;
+  gap: 8px;
+  padding: 9px 0;
+
+  @media (min-width: 700px) {
+    grid-template-columns: 150px minmax(0, 1fr);
+    align-items: center;
+    gap: 14px;
+  }
+`;
+
+export const AiLaneTitle = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  line-height: 1.4;
+
+  @media (min-width: 700px) {
+    padding-top: 2px;
+  }
+`;
+
+export const AiNodes = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+export const AiNode = styled.div<{ $accent?: boolean }>`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid
+    ${({ $accent, theme }) =>
+      $accent ? theme.color.basic.primary : PANEL_BORDER};
+  border-radius: 10px;
+  padding: 8px 12px;
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+`;
+
+export const AiNodeLabel = styled.span`
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+`;
+
+export const AiNodeNote = styled.span`
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 11.5px;
+  font-weight: 300;
+  line-height: 1.35;
+`;
+
+// Стрелка между дорожками: по центру колонки нод (на узком — по центру всей
+// строки). 164px = 150px колонки заголовка + 14px зазора сетки.
+export const AiFlow = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1px 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 14px;
+  line-height: 1;
+  user-select: none;
+
+  @media (min-width: 700px) {
+    margin-left: 164px;
+    width: calc(100% - 164px);
+  }
+`;
+
 /* ——— Не найдено ——— */
 
 export const NotFound = styled.p`

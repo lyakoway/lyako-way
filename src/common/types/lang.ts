@@ -178,6 +178,22 @@ export interface AiEngineeringTable {
   footnote?: string;
 }
 
+// ——— Схема проекта: вертикальный поток «дорожек» с нодами-компонентами ———
+export interface AiDiagramNode {
+  // Название компонента («Гибрид BM25 + RRF»)
+  label: string;
+  // Пояснение мелким текстом («опциональный реранкер»)
+  note?: string;
+  // Ключевой компонент — оранжевая рамка
+  accent?: boolean;
+}
+
+export interface AiDiagramLane {
+  // Слой схемы («API — FastAPI», «RAG-ядро»)
+  title: string;
+  nodes: AiDiagramNode[];
+}
+
 export interface AiEngineeringProps {
   // Заголовок всей секции («Взгляд AI-инженера»)
   sectionTitle: string;
@@ -187,6 +203,10 @@ export interface AiEngineeringProps {
   principles: AiEngineeringPrinciple[];
   metricsTitle: string;
   tables: AiEngineeringTable[];
+  // Схема системы: дорожки сверху вниз (фронтенд → API → ядро → хранилища…)
+  diagramTitle?: string;
+  diagram?: AiDiagramLane[];
+  diagramNote?: string;
   // Находки, полученные из замеров (главные инженерные уроки)
   findingsTitle?: string;
   findings?: string[];

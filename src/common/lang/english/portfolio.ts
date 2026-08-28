@@ -66,6 +66,60 @@ export const propsPortfolioList: PortfolioListProps[] = [
       sectionTitle: "AI engineering view: methodology & measurements",
       intro:
         "This review uses an AI engineer's lens: the app is judged not by a feature list but by the engineering loop — from problem framing and success metrics to quality measurements and operations. The eight-principle checklist below is my methodology for evaluating AI applications; it was applied to this project and will be applied to the next ones.",
+      diagramTitle: "Project architecture",
+      diagram: [
+        {
+          title: "Frontend",
+          nodes: [
+            { label: "React 19 + Vite", note: "SSE streaming, theme and RU/EN language" },
+            { label: "Citations & preview", note: "PDF / DOCX / XLSX in a modal" },
+            { label: "👍/👎 feedback", note: "stored in DB + analytics" },
+          ],
+        },
+        {
+          title: "API — FastAPI",
+          nodes: [
+            { label: "POST /api/chat (SSE)", note: "RAG and agent modes", accent: true },
+            { label: "GET /api/search", note: "vector search with scores" },
+            { label: "/api/documents", note: "file uploads and the demo pack" },
+          ],
+        },
+        {
+          title: "RAG core",
+          nodes: [
+            { label: "Parsers", note: "PDF · DOCX · XLSX + page numbers" },
+            { label: "Chunking", note: "tiktoken, 800 / 120 tokens" },
+            { label: "Embeddings", note: "fastembed, multilingual MiniLM" },
+            { label: "Hybrid BM25 + RRF", note: "optional cross-encoder reranker", accent: true },
+          ],
+        },
+        {
+          title: "Storage",
+          nodes: [
+            { label: "ChromaDB", note: "vectors and chunks" },
+            { label: "SQLite", note: "conversations, messages, feedback" },
+            { label: "Files", note: "uploaded documents" },
+          ],
+        },
+        {
+          title: "LLM providers",
+          nodes: [
+            { label: "Z.ai (GLM)", note: "5.3 / 5.2 / 4.5-flash", accent: true },
+            { label: "OpenAI · Anthropic", note: "via API keys" },
+            { label: "Ollama · offline demo", note: "local and keyless" },
+          ],
+        },
+        {
+          title: "Operations",
+          nodes: [
+            { label: "Evaluation", note: "Recall@k and MRR, 24 questions" },
+            { label: "Analytics", note: "Yandex Metrika + GA4" },
+            { label: "pytest + CI", note: "25 tests, GitHub Actions" },
+          ],
+        },
+      ],
+      diagramNote:
+        "Top to bottom: a user question → a streamed answer with citations. One RAG pipeline serves all three modes — chat, agent and vector search; LLM providers are interchangeable, and the offline mode runs without keys.",
       principlesTitle: "AI engineer's checklist",
       principles: [
         {
