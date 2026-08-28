@@ -694,6 +694,52 @@ export const AiGap = styled(Feature)`
   color: ${PANEL_TEXT_MUTED};
 `;
 
+/* ——— Сценарии применения: зачем проект нужен ——— */
+
+export const AiUseCases = styled.div`
+  display: grid;
+  gap: 10px;
+
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const AiUseCase = styled.div`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 5px;
+  align-content: start;
+`;
+
+// Номер сценария — оранжевый, моноширинный: отличает карточки от чек-листа.
+export const AiUseCaseNum = styled.span`
+  color: ${({ theme }) => theme.color.basic.primary};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  font-variant-numeric: tabular-nums;
+`;
+
+export const AiUseCaseTitle = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+`;
+
+export const AiUseCaseDetail = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.55;
+`;
+
 /* ——— Схема проекта: дорожки сверху вниз ——— */
 
 export const AiDiagram = styled.div`

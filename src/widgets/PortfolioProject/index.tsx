@@ -58,6 +58,11 @@ import {
   AiNodeLabel,
   AiNodeNote,
   AiFlow,
+  AiUseCases,
+  AiUseCase,
+  AiUseCaseNum,
+  AiUseCaseTitle,
+  AiUseCaseDetail,
   Preview,
   PreviewFrame,
   ModalImage,
@@ -413,6 +418,27 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
 
           {project.aiEngineering && (
             <AiSection>
+              {project.aiEngineering.useCases &&
+                project.aiEngineering.useCases.length > 0 && (
+                  <>
+                    <FeaturesTitle>{project.aiEngineering.useCasesTitle}</FeaturesTitle>
+                    {project.aiEngineering.useCasesIntro && (
+                      <Reveal as={DescCard} delay={40}>
+                        {project.aiEngineering.useCasesIntro}
+                      </Reveal>
+                    )}
+                    <AiUseCases>
+                      {project.aiEngineering.useCases.map((u, i) => (
+                        <Reveal as={AiUseCase} key={i} delay={i * 50}>
+                          <AiUseCaseNum>{String(i + 1).padStart(2, "0")}</AiUseCaseNum>
+                          <AiUseCaseTitle>{u.title}</AiUseCaseTitle>
+                          <AiUseCaseDetail>{u.detail}</AiUseCaseDetail>
+                        </Reveal>
+                      ))}
+                    </AiUseCases>
+                  </>
+                )}
+
               <FeaturesTitle>{project.aiEngineering.sectionTitle}</FeaturesTitle>
               <Reveal as={DescCard} delay={60}>
                 {project.aiEngineering.intro}

@@ -66,6 +66,36 @@ export const propsPortfolioList: PortfolioListProps[] = [
       sectionTitle: "AI engineering view: methodology & measurements",
       intro:
         "This review uses an AI engineer's lens: the app is judged not by a feature list but by the engineering loop — from problem framing and success metrics to quality measurements and operations. The eight-principle checklist below is my methodology for evaluating AI applications; it was applied to this project and will be applied to the next ones.",
+      useCasesTitle: "What the project is for",
+      useCasesIntro:
+        "A RAG chat solves a typical pain: knowledge is locked inside dozens of PDF, Word and Excel files, and people spend hours digging through them manually. The app turns documents into a conversation — a question in natural language, an answer with an exact link to the file and page. A few scenarios where this already works:",
+      useCases: [
+        {
+          title: "Company knowledge base",
+          detail:
+            "HR policies, regulations and handbooks: “how many vacation days”, “how is internet reimbursed” — an answer in seconds instead of digging through folders. This is exactly what the app's demo pack shows.",
+        },
+        {
+          title: "Customer support over product docs",
+          detail:
+            "Product manuals, pricing and FAQ: a customer asks in their own words and gets an answer linked to the manual section; support sees fewer repetitive tickets.",
+        },
+        {
+          title: "Construction documentation and codes",
+          detail:
+            "Questions about estimates, SNiP / GOST codes and design documentation (PDF / Excel / Word) with an answer linked to the primary source — a single point of entry instead of manually digging through dozens of files.",
+        },
+        {
+          title: "Legal and financial documents",
+          detail:
+            "Find a clause, deadline or figure in contracts and reports: the citation points to the exact page, so verifying an answer takes seconds rather than a separate investigation.",
+        },
+        {
+          title: "Employee onboarding",
+          detail:
+            "A newcomer asks the assistant from day one without reading the whole wiki; category and document filters in the API narrow the search area to one department — the basis for “contractors see only their own documents” scenarios.",
+        },
+      ],
       diagramTitle: "Project architecture",
       diagram: [
         {
@@ -147,7 +177,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "4. Model choice driven by data",
           check: "Models compared on your own pipeline: quality, latency, price.",
           result:
-            "Five providers switch in the UI (Z.ai GLM, OpenAI, Anthropic, Ollama, offline demo). TTFT measured: GLM-5.3-flash — 2.5–3 s, GLM-5.3 — 2.6 s, GLM-4.5-flash — 25–50 s: the model generation matters more than any tuning.",
+            "Five providers switch in the UI (Z.ai GLM, OpenAI, Anthropic, Ollama, offline demo). TTFT measured: GLM-5.3-flash — 2.5–3 s, GLM-5.3 — 2.6 s, a local Llama 3.2 3B on CPU — 1.2–3.6 s, GLM-4.5-flash — 25–50 s: even the free cloud model loses to a local 3B on latency.",
           status: "done",
         },
         {
@@ -203,6 +233,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Vector search via API, server-side p50", "18 ms"] },
             { cells: ["RAG answer, GLM-5.3-flash: first token / complete", "2.5–3.0 s / 3.3–3.9 s"] },
             { cells: ["RAG answer, GLM-5.3: first token / complete", "2.6 s / 3.0 s"] },
+            { cells: ["RAG answer, local Llama 3.2 3B (Ollama, CPU): first token / complete", "1.2–3.6 s / 2.5–5.4 s"] },
+            { cells: ["Llama 3.2 3B: cold start (loading the 2 GB model into RAM)", "+13.7 s to first token"] },
             { cells: ["Agent mode: UI tool steps + two LLM calls", "9.2 s"] },
             { cells: ["Keyless demo mode (mock): first token", "87 ms"] },
           ],
@@ -214,7 +246,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       findings: [
         "Language “twins” are the main trap of multilingual corpora: embeddings align RU and EN, so a Russian question surfaces the English document (Recall@1 50%). Lexical BM25 signal in the fusion is not optional but a necessity: +41.7 pp Recall@1.",
         "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant: Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
-        "The model generation defines latency more than any tuning: GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s.",
+        "The model generation defines latency more than any tuning: GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free: faster than the free cloud model. The price of “free”: spikes up to 8–15 s under load and less polished answers — the small model drops citations more often.",
         "Anti-hallucination was probed with an out-of-corpus question: the model declines and points to the context contents instead of inventing a fact.",
       ],
       gapsTitle: "Honest gaps",

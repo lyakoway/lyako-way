@@ -194,11 +194,23 @@ export interface AiDiagramLane {
   nodes: AiDiagramNode[];
 }
 
+// ——— Сценарии применения: зачем проект нужен в реальных задачах ———
+export interface AiUseCase {
+  // Сценарий («База знаний компании», «Нормы СНиП / ГОСТ»)
+  title: string;
+  // Что приложение делает в этом сценарии и какой эффект даёт
+  detail: string;
+}
+
 export interface AiEngineeringProps {
   // Заголовок всей секции («Взгляд AI-инженера»)
   sectionTitle: string;
   // Вводный абзац: зачем секция и что за методика
   intro: string;
+  // Для чего нужен проект: ценность одним абзацем + сценарии применения
+  useCasesTitle?: string;
+  useCasesIntro?: string;
+  useCases?: AiUseCase[];
   principlesTitle: string;
   principles: AiEngineeringPrinciple[];
   metricsTitle: string;
