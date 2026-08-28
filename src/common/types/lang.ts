@@ -152,6 +152,52 @@ export interface PortfolioProps {
   likeLabel: string;
 }
 
+// ——— Инженерный разбор AI-проекта (секция «взгляд AI-инженера») ———
+// Переиспользуемая структура: чек-лист принципов + таблицы замеров + выводы.
+// Заполняется не для всех проектов — секция рендерится только если задана.
+
+// Статус закрытия принципа в конкретном проекте.
+export type AiEngineeringStatus = "done" | "partial" | "todo";
+
+export interface AiEngineeringPrinciple {
+  // Название принципа («Метрики успеха до кода»)
+  title: string;
+  // Что именно проверяем (формулировка принципа)
+  check: string;
+  // Как принцип закрыт (или не закрыт) в этом проекте — с числами
+  result: string;
+  status: AiEngineeringStatus;
+}
+
+export interface AiEngineeringTable {
+  // Заголовок таблицы («Качество поиска — 24 golden-вопроса»)
+  title: string;
+  columns: string[];
+  // cells[0] — имя строки; highlight — подсветить как конфигурацию по умолчанию
+  rows: { cells: string[]; highlight?: boolean }[];
+  footnote?: string;
+}
+
+export interface AiEngineeringProps {
+  // Заголовок всей секции («Взгляд AI-инженера»)
+  sectionTitle: string;
+  // Вводный абзац: зачем секция и что за методика
+  intro: string;
+  principlesTitle: string;
+  principles: AiEngineeringPrinciple[];
+  metricsTitle: string;
+  tables: AiEngineeringTable[];
+  // Находки, полученные из замеров (главные инженерные уроки)
+  findingsTitle?: string;
+  findings?: string[];
+  // Честные пробелы — что осталось сделать
+  gapsTitle?: string;
+  gaps?: string[];
+  conclusion?: string;
+  // Примечание о воспроизводимости/условиях замеров
+  footnote?: string;
+}
+
 export interface PortfolioListProps {
   id: string;
   hrefPortfolio: string;
@@ -168,6 +214,8 @@ export interface PortfolioListProps {
   // текста). Каждый пункт может начинаться с эмодзи.
   features?: string[];
   screenshots?: string[];
+  // Инженерный разбор: чек-лист AI-инженера + замеры + выводы.
+  aiEngineering?: AiEngineeringProps;
   // Тематическая обложка карточки в списке: в светлой теме — thumbLight,
   // в тёмной — thumbDark. Заданы оба или ни одного; без них — screenshots[0].
   thumbLight?: string;

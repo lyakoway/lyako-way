@@ -44,13 +44,13 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages with 👍/👎 feedback buttons.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 94%).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
+      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages with 👍/👎 feedback buttons.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 92%).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
     features: [
       "Mode switch: RAG Chat, AI Agent and Vector Search in one app",
       "Vector search (fastembed + ChromaDB): ranked chunks with relevance scores — no LLM, no keys",
       "Documents panel: preview, download, language filter, paired RU/EN deletion",
       "Cross-language Q&A: a file in one language, the answer in the UI language",
-      "Retrieval evaluation: 24 golden questions, Recall@1 94% (see README)",
+      "Retrieval evaluation: 24 golden questions, Recall@1 92% (see README)",
       "Agent steps timeline (tools: list / search documents)",
       "Custom agent loop on FastAPI (JSON tool-calling)",
       "Search across PDF, Word (.docx) and Excel (.xlsx)",
@@ -62,6 +62,117 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Light/dark theme and language switching (RU/EN)",
       "Yandex Metrika + GA4 event markup, pytest + CI",
     ],
+    aiEngineering: {
+      sectionTitle: "AI engineering view: methodology & measurements",
+      intro:
+        "This review uses an AI engineer's lens: the app is judged not by a feature list but by the engineering loop — from problem framing and success metrics to quality measurements and operations. The eight-principle checklist below is my methodology for evaluating AI applications; it was applied to this project and will be applied to the next ones.",
+      principlesTitle: "AI engineer's checklist",
+      principles: [
+        {
+          title: "1. Success metrics before code",
+          check: "Is “works” defined up front: quality, latency, cost — and how to measure each.",
+          result:
+            "Criteria were set before implementation: the right document at the top of retrieval (Recall@k), an answer with a page-level citation, first token within seconds. Every criterion has a measurement in the tables below.",
+          status: "done",
+        },
+        {
+          title: "2. Retrieval evaluated on a golden set",
+          check: "Is there a test set of questions with known sources and retrieval metrics, rather than eyeballing.",
+          result:
+            "24 golden questions (RU/EN) over the demo corpus; Recall@1/3/5 and MRR are computed by scripts/evaluate.py — the index is rebuilt from scratch on every run, so the numbers are reproducible with one command.",
+          status: "done",
+        },
+        {
+          title: "3. Decisions driven by measurements",
+          check: "Is every architectural decision backed by a comparison of alternatives.",
+          result:
+            "Hybrid BM25+RRF was chosen because it lifts Recall@1 from 50% to 92% on the bilingual corpus. The cross-encoder reranker was tested and rejected: it hurts on this corpus (Recall@1 42%) and costs ~3 seconds.",
+          status: "done",
+        },
+        {
+          title: "4. Model choice driven by data",
+          check: "Models compared on your own pipeline: quality, latency, price.",
+          result:
+            "Five providers switch in the UI (Z.ai GLM, OpenAI, Anthropic, Ollama, offline demo). TTFT measured: GLM-5.3-flash — 2.5–3 s, GLM-5.3 — 2.6 s, GLM-4.5-flash — 25–50 s: the model generation matters more than any tuning.",
+          status: "done",
+        },
+        {
+          title: "5. Agent with an observable loop",
+          check: "Are tool steps visible, are errors handled, are decisions logged.",
+          result:
+            "A custom tools loop on FastAPI, no frameworks: list documents → search → refine; each step arrives in the UI as a separate event, and a step failure does not kill the stream (SSE error event).",
+          status: "done",
+        },
+        {
+          title: "6. Prompts as components",
+          check: "Prompts separated from logic, changes verified against a test set.",
+          result:
+            "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles). A prompt regression harness is on the roadmap.",
+          status: "partial",
+        },
+        {
+          title: "7. Observability and feedback",
+          check: "For every request you can see what happened: sources, model, errors, user rating.",
+          result:
+            "An SSE protocol with explicit done/error events and a 180 s provider timeout; 👍/👎 is stored in the DB; events are instrumented for Yandex Metrika and GA4.",
+          status: "done",
+        },
+        {
+          title: "8. Engineering discipline",
+          check: "Tests, CI, reproducibility — the system is verified automatically.",
+          result:
+            "25 pytest tests (parsers, chunking, language, API), CI on GitHub Actions, an isolated eval store — measurements never touch the live base.",
+          status: "done",
+        },
+      ],
+      metricsTitle: "Measurements",
+      tables: [
+        {
+          title: "Retrieval quality — 24 golden questions (RU + EN)",
+          columns: ["Configuration", "Recall@1", "Recall@3", "MRR@5", "Search"],
+          rows: [
+            { cells: ["Vector search", "50.0%", "95.8%", "0.733", "11 ms"] },
+            {
+              cells: ["Hybrid BM25 + RRF — default", "91.7%", "100%", "0.958", "18 ms"],
+              highlight: true,
+            },
+            { cells: ["Hybrid + reranker", "41.7%", "100%", "0.694", "~2.9 s"] },
+          ],
+          footnote:
+            "Local run Aug 28, 2026, CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible.",
+        },
+        {
+          title: "System measurements — live API run",
+          columns: ["Scenario", "Result"],
+          rows: [
+            { cells: ["Demo pack indexing: 6 files → 12 chunks", "0.7 s (≈59 ms/chunk)"] },
+            { cells: ["Vector search via API, server-side p50", "18 ms"] },
+            { cells: ["RAG answer, GLM-5.3-flash: first token / complete", "2.5–3.0 s / 3.3–3.9 s"] },
+            { cells: ["RAG answer, GLM-5.3: first token / complete", "2.6 s / 3.0 s"] },
+            { cells: ["Agent mode: UI tool steps + two LLM calls", "9.2 s"] },
+            { cells: ["Keyless demo mode (mock): first token", "87 ms"] },
+          ],
+          footnote:
+            "TTFT = time to first token. GLM-4.5-flash (the free generation) yields a 25–50 s TTFT on the same pipeline — hence it is not recommended.",
+        },
+      ],
+      findingsTitle: "What the measurements showed",
+      findings: [
+        "Language “twins” are the main trap of multilingual corpora: embeddings align RU and EN, so a Russian question surfaces the English document (Recall@1 50%). Lexical BM25 signal in the fusion is not optional but a necessity: +41.7 pp Recall@1.",
+        "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant: Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
+        "The model generation defines latency more than any tuning: GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s.",
+        "Anti-hallucination was probed with an out-of-corpus question: the model declines and points to the context contents instead of inventing a fact.",
+      ],
+      gapsTitle: "Honest gaps",
+      gaps: [
+        "Answer quality (not just retrieval) is not evaluated automatically yet: LLM-as-judge and prompt A/B are the next step.",
+        "The 24-question golden set covers the demo corpus; production needs 100–300 questions from real usage.",
+        "👍/👎 feedback is collected, but there are no alerts on its dynamics yet.",
+      ],
+      conclusion:
+        "The formula of the project: not “a chatbot with an LLM” but a loop — hypothesis → golden set → measurement → data-driven decision → operation with feedback. This checklist is a working methodology: it was used to review RAG Chat and will be used for the rest of the AI projects in the portfolio.",
+      footnote: "All numbers are reproducible: see backend/scripts/evaluate.py in the project repo.",
+    },
     screenshots: [
       "/static/portfolio/rag-chat-dark.png",
       "/static/portfolio/rag-chat-light.png",

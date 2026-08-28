@@ -36,6 +36,20 @@ import {
   FeaturesTitle,
   FeatureList,
   Feature,
+  AiSection,
+  AiPrinciples,
+  AiPrinciple,
+  AiStatus,
+  AiPrincipleBody,
+  AiPrincipleTitle,
+  AiPrincipleCheck,
+  AiPrincipleResult,
+  AiCard,
+  AiTableTitle,
+  AiTable,
+  AiFootnote,
+  AiConclusion,
+  AiGap,
   Preview,
   PreviewFrame,
   ModalImage,
@@ -48,6 +62,18 @@ import {
   WipTag,
   NotFound,
 } from "./style";
+
+// Бейджи статуса принципов чек-листа + подсказки на двух языках сайта.
+const AI_STATUS_GLYPH: Record<string, string> = {
+  done: "✓",
+  partial: "◐",
+  todo: "·",
+};
+const AI_STATUS_HINT: Record<string, { russia: string; english: string }> = {
+  done: { russia: "Закрыто", english: "Done" },
+  partial: { russia: "Частично", english: "Partial" },
+  todo: { russia: "В планах", english: "Planned" },
+};
 
 type HeartParticle = ReturnType<typeof generateParticles>[number];
 type Confetti = ReturnType<typeof generateConfetti>[number];
@@ -375,6 +401,100 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 ))}
               </FeatureList>
             </>
+          )}
+
+          {project.aiEngineering && (
+            <AiSection>
+              <FeaturesTitle>{project.aiEngineering.sectionTitle}</FeaturesTitle>
+              <Reveal as={DescCard} delay={60}>
+                {project.aiEngineering.intro}
+              </Reveal>
+
+              <FeaturesTitle>{project.aiEngineering.principlesTitle}</FeaturesTitle>
+              <AiPrinciples>
+                {project.aiEngineering.principles.map((p, i) => (
+                  <Reveal as={AiPrinciple} key={i} delay={i * 50}>
+                    <AiStatus
+                      $status={p.status}
+                      title={
+                        AI_STATUS_HINT[p.status]?.[langName] ??
+                        AI_STATUS_HINT[p.status]?.english
+                      }
+                    >
+                      {AI_STATUS_GLYPH[p.status] ?? "·"}
+                    </AiStatus>
+                    <AiPrincipleBody>
+                      <AiPrincipleTitle>{p.title}</AiPrincipleTitle>
+                      <AiPrincipleCheck>{p.check}</AiPrincipleCheck>
+                      <AiPrincipleResult>{p.result}</AiPrincipleResult>
+                    </AiPrincipleBody>
+                  </Reveal>
+                ))}
+              </AiPrinciples>
+
+              <FeaturesTitle>{project.aiEngineering.metricsTitle}</FeaturesTitle>
+              {project.aiEngineering.tables.map((t, i) => (
+                <Reveal as={AiCard} key={i} delay={i * 80}>
+                  <AiTableTitle>{t.title}</AiTableTitle>
+                  <AiTable>
+                    <thead>
+                      <tr>
+                        {t.columns.map((c, j) => (
+                          <th key={j}>{c}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {t.rows.map((r, j) => (
+                        <tr key={j} data-highlight={r.highlight ? "true" : undefined}>
+                          {r.cells.map((cell, k) => (
+                            <td key={k}>{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </AiTable>
+                  {t.footnote && <AiFootnote>{t.footnote}</AiFootnote>}
+                </Reveal>
+              ))}
+
+              {project.aiEngineering.findings &&
+                project.aiEngineering.findings.length > 0 && (
+                  <>
+                    <FeaturesTitle>{project.aiEngineering.findingsTitle}</FeaturesTitle>
+                    <FeatureList>
+                      {project.aiEngineering.findings.map((f, i) => (
+                        <Reveal as={Feature} key={i} delay={i * 50}>
+                          {f}
+                        </Reveal>
+                      ))}
+                    </FeatureList>
+                  </>
+                )}
+
+              {project.aiEngineering.gaps && project.aiEngineering.gaps.length > 0 && (
+                <>
+                  <FeaturesTitle>{project.aiEngineering.gapsTitle}</FeaturesTitle>
+                  <FeatureList>
+                    {project.aiEngineering.gaps.map((g, i) => (
+                      <Reveal as={AiGap} key={i} delay={i * 50}>
+                        {g}
+                      </Reveal>
+                    ))}
+                  </FeatureList>
+                </>
+              )}
+
+              {project.aiEngineering.conclusion && (
+                <Reveal as={AiConclusion} delay={0}>
+                  {project.aiEngineering.conclusion}
+                </Reveal>
+              )}
+
+              {project.aiEngineering.footnote && (
+                <AiFootnote>{project.aiEngineering.footnote}</AiFootnote>
+              )}
+            </AiSection>
           )}
 
           {project.screenshots && project.screenshots.length > 0 && (

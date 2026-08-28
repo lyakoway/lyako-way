@@ -520,6 +520,180 @@ export const LikeButton = styled.button<{ $pressed?: boolean }>`
   }
 `;
 
+/* ——— Взгляд AI-инженера: чек-лист принципов + замеры ——— */
+
+export const AiSection = styled.section`
+  margin-top: 30px;
+  display: grid;
+  gap: 14px;
+`;
+
+// Принципы — карточки в две колонки на широком экране, с бейджем статуса слева.
+export const AiPrinciples = styled.div`
+  display: grid;
+  gap: 10px;
+
+  @media (min-width: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const AiPrinciple = styled.div`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+`;
+
+// Бейдж статуса: ✓ — закрыто, ◐ — частично, · — в планах.
+export const AiStatus = styled.span<{ $status: string }>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border-radius: 50%;
+  border: 1px solid
+    ${({ $status, theme }) =>
+      $status === "done" ? theme.color.basic.primary : PANEL_BORDER};
+  color: ${({ $status, theme }) =>
+    $status === "done"
+      ? theme.color.basic.primary
+      : $status === "partial"
+        ? PANEL_TEXT_SECONDARY
+        : PANEL_TEXT_MUTED};
+  font-size: 12px;
+  line-height: 1;
+  user-select: none;
+`;
+
+export const AiPrincipleBody = styled.div`
+  display: grid;
+  gap: 5px;
+`;
+
+export const AiPrincipleTitle = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+`;
+
+// Формулировка принципа (что проверяем) — тише, чем результат в проекте.
+export const AiPrincipleCheck = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.5;
+`;
+
+export const AiPrincipleResult = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.55;
+`;
+
+// Карточка-таблица: горизонтальный скролл на узких экранах вместо поломки сетки.
+export const AiCard = styled.div`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  padding: 16px 18px;
+  overflow-x: auto;
+`;
+
+export const AiTableTitle = styled.p`
+  margin: 0 0 10px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+`;
+
+export const AiTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  color: ${PANEL_TEXT_SECONDARY};
+
+  th {
+    text-align: left;
+    padding: 7px 10px;
+    color: ${PANEL_TEXT_MUTED};
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-bottom: 1px solid ${PANEL_BORDER};
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid ${PANEL_BORDER};
+    font-weight: 300;
+    line-height: 1.45;
+    white-space: nowrap;
+  }
+
+  /* Первый столбец — название сценария: переносим, остальное — числа. */
+  th:first-child,
+  td:first-child {
+    white-space: normal;
+    min-width: 180px;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr[data-highlight="true"] td {
+    color: ${PANEL_TEXT};
+    font-weight: 500;
+    background: rgba(255, 133, 96, 0.07);
+  }
+
+  tr[data-highlight="true"] td:first-child {
+    box-shadow: inset 3px 0 0 ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+export const AiFootnote = styled.p`
+  margin: 10px 0 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.5;
+`;
+
+// Итоговый вывод — карточка с оранжевой линейкой слева (акцент на формулу).
+export const AiConclusion = styled.p`
+  margin: 0;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+`;
+
+// Пробелы — тем же маркером, что возможности, но текст тише: это «не закрыто».
+export const AiGap = styled(Feature)`
+  color: ${PANEL_TEXT_MUTED};
+`;
+
 /* ——— Не найдено ——— */
 
 export const NotFound = styled.p`
