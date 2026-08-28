@@ -44,7 +44,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages with 👍/👎 feedback buttons.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 92%).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
+      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 92%) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
     features: [
       "Mode switch: RAG Chat, AI Agent and Vector Search in one app",
       "Vector search (fastembed + ChromaDB): ranked chunks with relevance scores — no LLM, no keys",
@@ -57,6 +57,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Clickable citations [1], [2] with in-app document preview",
       "PDF / DOCX / Excel preview in a modal",
       "👍/👎 answer feedback (stored in DB + analytics)",
+      "Follow-up suggestions under each answer: one click continues the dialog (built from retrieval)",
+      "Auto chat titles: the LLM names the conversation (background task, no answer delay)",
+      "LLM-as-judge: answer quality scored by a second model — 5.0 on every axis",
       "Category filter, conversation history, SSE streaming",
       "Multi-model: GLM-5.x / Z.ai / OpenAI / Anthropic / Ollama / offline demo",
       "Light/dark theme and language switching (RU/EN)",
@@ -241,6 +244,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
           footnote:
             "TTFT = time to first token. GLM-4.5-flash (the free generation) yields a 25–50 s TTFT on the same pipeline — hence it is not recommended.",
         },
+        {
+          title: "Answer quality — LLM-as-judge, 24 questions",
+          columns: ["Evaluation axis", "Average score"],
+          rows: [
+            { cells: ["Faithfulness — no hallucinations", "5.0 / 5"] },
+            { cells: ["Relevance — answers the question", "5.0 / 5"] },
+            { cells: ["Citations — citations are correct", "5.0 / 5"] },
+          ],
+          footnote:
+            "Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24. The judge is the same GLM family — self-judging is lenient; a strict evaluation needs a judge from another family.",
+        },
       ],
       findingsTitle: "What the measurements showed",
       findings: [
@@ -248,10 +262,11 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant: Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
         "The model generation defines latency more than any tuning: GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free: faster than the free cloud model. The price of “free”: spikes up to 8–15 s under load and less polished answers — the small model drops citations more often.",
         "Anti-hallucination was probed with an out-of-corpus question: the model declines and points to the context contents instead of inventing a fact.",
+        "Automated answer-quality checks: the LLM-as-judge scored 24/24 answers — 5.0 on every axis (no hallucinations, citations correct). But the judge is the same GLM family as the answering model: self-judging is lenient — a strict evaluation needs a judge from another family.",
       ],
       gapsTitle: "Honest gaps",
       gaps: [
-        "Answer quality (not just retrieval) is not evaluated automatically yet: LLM-as-judge and prompt A/B are the next step.",
+        "Prompt A/B testing is not done yet; the LLM-as-judge is implemented (24/24 answers scored), but the judge is the same GLM family as the answering model — a strict evaluation needs a judge from another family.",
         "The 24-question golden set covers the demo corpus; production needs 100–300 questions from real usage.",
         "👍/👎 feedback is collected, but there are no alerts on its dynamics yet.",
       ],
