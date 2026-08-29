@@ -732,25 +732,36 @@ export const AiUseCases = styled.div<{ $open?: boolean }>`
 // текст + стрелка-индикатор раскрытия. Вертикальный паддинг живёт здесь,
 // а не в контейнере: при раскрытии заголовок остаётся на месте, контент
 // разворачивается под ним. Без scale на :active — нажатие не сдвигает
-// текст и стрелку.
+// текст и стрелку. При наведении текст и стрелка подсвечиваются акцентом
+// + заливка строки: видно, что нажимается именно заголовок. Отрицательные
+// поля компенсируют горизонтальный паддинг контейнера — заливка тянется
+// на всю ширину аккордеона, текст и стрелка не смещаются.
 export const AiUseCase = styled.button<{ $open?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  /* 100% — это ширина колонки сетки (уже без паддинга контейнера),
+     +36px возвращают поля: кнопка от границы до границы аккордеона */
+  width: calc(100% + 36px);
   gap: 8px;
   min-height: 40px;
-  padding: 12px 0;
+  margin: 0 -18px;
+  padding: 12px 18px;
   background: none;
   border: none;
-  border-radius: 10px;
+  border-radius: 15px 15px 10px 10px;
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   text-align: left;
   -webkit-tap-highlight-color: transparent;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+    background: rgba(255, 255, 255, 0.04);
+  }
 
   /* Стрелка-индикатор раскрытия */
   &::after {
