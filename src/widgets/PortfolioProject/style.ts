@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from "styled-components";
 import {
   PANEL_TEXT,
+  PANEL_ELEVATED_HOVER,
   PANEL_TEXT_SECONDARY,
   PANEL_TEXT_MUTED,
   PANEL_BORDER,
@@ -696,16 +697,111 @@ export const AiGap = styled(Feature)`
 
 /* ——— Сценарии применения: зачем проект нужен ——— */
 
-export const AiUseCases = styled.div`
+// Блок «Для чего нужен проект» — один общий аккордеон в стиле select:
+// заголовок в одну строку, по клику раскрывается сетка сценариев.
+// Аккордеон «Несколько сценариев» — единая подложка вокруг заголовка и
+// контента: видно, что карточки относятся к этому аккордеону.
+export const AiUseCases = styled.div<{ $open?: boolean }>`
   display: grid;
-  gap: 10px;
+  gap: ${({ $open }) => ($open ? "14px" : "0")};
+  background: ${PANEL_ELEVATED};
+  border: 1px solid
+    ${({ $open }) => ($open ? "#ff8560" : PANEL_BORDER)};
+  border-radius: 16px;
+  padding: ${({ $open }) => ($open ? "16px 18px" : "0 18px")};
+  transition: border-color 0.3s ease, padding 0.35s ease,
+    box-shadow 0.3s ease;
 
-  @media (min-width: 700px) {
-    grid-template-columns: 1fr 1fr;
+  /* Наведение на аккордеон (заголовок или контент): оранжевая рамка
+     + подсветка области нажатия */
+  &:hover {
+    border-color: #ff8560;
+    box-shadow: inset 0 0 0 1px rgba(255, 133, 96, 0.35),
+      0 0 14px rgba(255, 133, 96, 0.18);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
   }
 `;
 
-export const AiUseCase = styled.div`
+// Кнопка-заголовок аккордеона: прозрачная (подложка — у контейнера),
+// текст + стрелка-индикатор раскрытия. При наведении/нажатии контейнер
+// ($open-родитель через :hover) подсвечивается оранжевой рамкой.
+export const AiUseCase = styled.button<{ $open?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  min-height: ${({ $open }) => ($open ? "auto" : "40px")};
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 10px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s ease, transform 0.15s
+    cubic-bezier(0.22, 1, 0.36, 1);
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  /* Стрелка-индикатор раскрытия */
+  &::after {
+    content: "";
+    flex-shrink: 0;
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(${({ $open }) => ($open ? "225deg" : "45deg")});
+    transition: transform 0.3s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+    }
+  }
+`;
+
+// Раскрывающийся контент: сетка карточек сценариев. Техника grid-rows
+// (0fr -> 1fr): контент НЕ сжимается при анимации, в отличие от max-height.
+export const AiUseCasesContent = styled.div<{ $open?: boolean }>`
+  display: grid;
+  grid-template-rows: ${({ $open }) => ($open ? "1fr" : "0fr")};
+  transition: grid-template-rows 0.45s ease;
+
+  /* Внутренняя обёртка держит min-height:0 — иначе 0fr не схлопнется */
+  > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  @media (min-width: 700px) {
+    > div > div {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+`;
+
+// Карточка сценария (как была — сетка внутри раскрытого контента).
+// Подсветка при наведении — как у карточек «Что я делаю» на «Услугах»:
+// светлее фон + светлая рамка.
+export const AiUseCaseCard = styled.div`
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   border-radius: 12px;
@@ -713,9 +809,15 @@ export const AiUseCase = styled.div`
   display: grid;
   gap: 5px;
   align-content: start;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
-// Номер сценария — оранжевый, моноширинный: отличает карточки от чек-листа.
+// Номер сценария — оранжевый, моноширинный: отличает пункты от чек-листа.
 export const AiUseCaseNum = styled.span`
   color: ${({ theme }) => theme.color.basic.primary};
   font-size: 11px;
@@ -732,7 +834,7 @@ export const AiUseCaseTitle = styled.p`
   line-height: 1.4;
 `;
 
-export const AiUseCaseDetail = styled.p`
+export const AiUseCaseText = styled.p`
   margin: 0;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 13px;

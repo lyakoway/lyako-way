@@ -59,11 +59,7 @@ import {
   AiNodeNote,
   AiFlow,
   AiUseCases,
-  AiUseCase,
-  AiUseCaseNum,
-  AiUseCaseTitle,
-  AiUseCaseDetail,
-  Preview,
+          Preview,
   PreviewFrame,
   ModalImage,
   Actions,
@@ -74,6 +70,12 @@ import {
   LikeButton,
   WipTag,
   NotFound,
+  AiUseCase,
+  AiUseCasesContent,
+  AiUseCaseCard,
+  AiUseCaseNum,
+  AiUseCaseTitle,
+  AiUseCaseText,
 } from "./style";
 
 // Бейджи статуса принципов чек-листа + подсказки на двух языках сайта.
@@ -243,6 +245,8 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
   } = useSelectorTyped(({ lang }) => lang);
   const themeName = useSelectorTyped(({ theme }) => theme.theme.name);
   const dispatch = useDispatchTyped();
+
+  const [useCasesOpen, setUseCasesOpen] = useState(false);
 
   const sitePress = usePressAnimation();
   const githubPress = usePressAnimation();
@@ -427,14 +431,33 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                         {project.aiEngineering.useCasesIntro}
                       </Reveal>
                     )}
-                    <AiUseCases>
-                      {project.aiEngineering.useCases.map((u, i) => (
-                        <Reveal as={AiUseCase} key={i} delay={i * 50}>
-                          <AiUseCaseNum>{String(i + 1).padStart(2, "0")}</AiUseCaseNum>
-                          <AiUseCaseTitle>{u.title}</AiUseCaseTitle>
-                          <AiUseCaseDetail>{u.detail}</AiUseCaseDetail>
-                        </Reveal>
-                      ))}
+                    <AiUseCases $open={useCasesOpen}>
+                      {/* Заголовок-кнопка аккордеона */}
+                      <AiUseCase
+                        $open={useCasesOpen}
+                        onClick={() => setUseCasesOpen(!useCasesOpen)}
+                        aria-expanded={useCasesOpen}
+                      >
+                        <AiUseCaseTitle>
+                          {project.aiEngineering.useCasesListTitle}
+                        </AiUseCaseTitle>
+                      </AiUseCase>
+                      {/* Контент: сетка карточек сценариев */}
+                      <AiUseCasesContent $open={useCasesOpen}>
+                        <div>
+                          <div>
+                            {project.aiEngineering.useCases.map((u, i) => (
+                              <AiUseCaseCard key={i}>
+                                <AiUseCaseNum>
+                                  {String(i + 1).padStart(2, "0")}
+                                </AiUseCaseNum>
+                                <AiUseCaseTitle>{u.title}</AiUseCaseTitle>
+                                <AiUseCaseText>{u.detail}</AiUseCaseText>
+                              </AiUseCaseCard>
+                            ))}
+                          </div>
+                        </div>
+                      </AiUseCasesContent>
                     </AiUseCases>
                   </>
                 )}

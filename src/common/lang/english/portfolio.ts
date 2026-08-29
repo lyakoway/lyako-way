@@ -70,6 +70,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       intro:
         "This review uses an AI engineer's lens: the app is judged not by a feature list but by the engineering loop — from problem framing and success metrics to quality measurements and operations. The eight-principle checklist below is my methodology for evaluating AI applications; it was applied to this project and will be applied to the next ones.",
       useCasesTitle: "What the project is for",
+      useCasesListTitle: "Several scenarios where it already works",
       useCasesIntro:
         "A RAG chat solves a typical pain: knowledge is locked inside dozens of PDF, Word and Excel files, and people spend hours digging through them manually. The app turns documents into a conversation — a question in natural language, an answer with an exact link to the file and page. A few scenarios where this already works:",
       useCases: [

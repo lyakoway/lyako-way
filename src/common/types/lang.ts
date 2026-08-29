@@ -209,6 +209,7 @@ export interface AiEngineeringProps {
   intro: string;
   // Для чего нужен проект: ценность одним абзацем + сценарии применения
   useCasesTitle?: string;
+  useCasesListTitle?: string;
   useCasesIntro?: string;
   useCases?: AiUseCase[];
   principlesTitle: string;
