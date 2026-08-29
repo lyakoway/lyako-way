@@ -107,6 +107,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { label: "React 19 + Vite", note: "SSE streaming, theme and RU/EN language" },
             { label: "Citations & preview", note: "PDF / DOCX / XLSX in a modal" },
             { label: "👍/👎 feedback", note: "stored in DB + analytics" },
+            { label: "Follow-ups & auto-titles", note: "suggestions from retrieval, LLM title in background" },
           ],
         },
         {
@@ -145,8 +146,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Operations",
           nodes: [
-            { label: "Evaluation", note: "Recall@k and MRR, 24 questions" },
-            { label: "Analytics", note: "Yandex Metrika + GA4" },
+            { label: "Evaluation", note: "Recall@k, MRR + LLM-as-judge" },
+            { label: "Analytics", note: "Yandex Metrika + GA4, 32 events" },
             { label: "pytest + CI", note: "25 tests, GitHub Actions" },
           ],
         },
@@ -194,14 +195,14 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "6. Prompts as components",
           check: "Prompts separated from logic, changes verified against a test set.",
           result:
-            "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles). A prompt regression harness is on the roadmap.",
+            "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles, JSON judge scores); the judge script supports model A/B (--answer-model / --judge-model). A prompt regression harness is on the roadmap.",
           status: "partial",
         },
         {
           title: "7. Observability and feedback",
           check: "For every request you can see what happened: sources, model, errors, user rating.",
           result:
-            "An SSE protocol with explicit done/error events and a 180 s provider timeout; 👍/👎 is stored in the DB; events are instrumented for Yandex Metrika and GA4.",
+            "An SSE protocol with explicit done/error events and a 180 s provider timeout; 👍/👎 is stored in the DB; 32 analytics events are instrumented for Yandex Metrika and GA4.",
           status: "done",
         },
         {
@@ -262,13 +263,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant: Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
         "The model generation defines latency more than any tuning: GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free: faster than the free cloud model. The price of “free”: spikes up to 8–15 s under load and less polished answers — the small model drops citations more often.",
         "Anti-hallucination was probed with an out-of-corpus question: the model declines and points to the context contents instead of inventing a fact.",
+        "The “trim the context, get a faster first token” hypotheses were tested and rejected: top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s — demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor; the pipeline adds ~20 ms (<1%).",
         "Automated answer-quality checks: the LLM-as-judge scored 24/24 answers — 5.0 on every axis (no hallucinations, citations correct). But the judge is the same GLM family as the answering model: self-judging is lenient — a strict evaluation needs a judge from another family.",
-      ],
-      gapsTitle: "Honest gaps",
-      gaps: [
-        "Prompt A/B testing is not done yet; the LLM-as-judge is implemented (24/24 answers scored), but the judge is the same GLM family as the answering model — a strict evaluation needs a judge from another family.",
-        "The 24-question golden set covers the demo corpus; production needs 100–300 questions from real usage.",
-        "👍/👎 feedback is collected, but there are no alerts on its dynamics yet.",
       ],
       conclusion:
         "The formula of the project: not “a chatbot with an LLM” but a loop — hypothesis → golden set → measurement → data-driven decision → operation with feedback. This checklist is a working methodology: it was used to review RAG Chat and will be used for the rest of the AI projects in the portfolio.",
