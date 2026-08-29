@@ -829,28 +829,37 @@ export const AiUseCaseCard = styled.div`
   }
 `;
 
-// Номер сценария — пилюля-бейдж в акцентном цвете: заметнее простого
-// текста и рифмуется с чипами технологий и бейджем «WIP».
-export const AiUseCaseNum = styled.span`
-  justify-self: start;
-  padding: 2px 9px;
-  border-radius: 999px;
-  background: rgba(255, 133, 96, 0.1);
-  border: 1px solid rgba(255, 133, 96, 0.3);
-  color: ${({ theme }) => theme.color.basic.primary};
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  line-height: 1.6;
-  font-variant-numeric: tabular-nums;
-`;
-
-export const AiUseCaseTitle = styled.p`
+// Заголовок кнопки аккордеона — без акцентного штриха (штрих — только
+// у карточек сценариев внутри).
+export const AiUseCasesHeading = styled.p`
   margin: 0;
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
+`;
+
+// Заголовок сценария — с акцентным штрихом слева, как в карточках
+// «Обо мне» (HighlightCardTitle): вместо нумерации различает пункты.
+export const AiUseCaseTitle = styled.p`
+  position: relative;
+  margin: 0;
+  padding-left: 14px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 4px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 export const AiUseCaseText = styled.p`

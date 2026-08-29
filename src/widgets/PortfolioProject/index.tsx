@@ -73,7 +73,7 @@ import {
   AiUseCase,
   AiUseCasesContent,
   AiUseCaseCard,
-  AiUseCaseNum,
+  AiUseCasesHeading,
   AiUseCaseTitle,
   AiUseCaseText,
 } from "./style";
@@ -438,19 +438,16 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                         onClick={() => setUseCasesOpen(!useCasesOpen)}
                         aria-expanded={useCasesOpen}
                       >
-                        <AiUseCaseTitle>
+                        <AiUseCasesHeading>
                           {project.aiEngineering.useCasesListTitle}
-                        </AiUseCaseTitle>
+                        </AiUseCasesHeading>
                       </AiUseCase>
                       {/* Контент: сетка карточек сценариев */}
                       <AiUseCasesContent $open={useCasesOpen}>
                         <div>
                           <div>
-                            {project.aiEngineering.useCases.map((u, i) => (
-                              <AiUseCaseCard key={i}>
-                                <AiUseCaseNum>
-                                  {String(i + 1).padStart(2, "0")}
-                                </AiUseCaseNum>
+                            {project.aiEngineering.useCases.map((u) => (
+                              <AiUseCaseCard key={u.title}>
                                 <AiUseCaseTitle>{u.title}</AiUseCaseTitle>
                                 <AiUseCaseText>{u.detail}</AiUseCaseText>
                               </AiUseCaseCard>
