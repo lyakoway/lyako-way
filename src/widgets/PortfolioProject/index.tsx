@@ -465,31 +465,30 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 project.aiEngineering.diagram.length > 0 && (
                   <>
                     <FeaturesTitle>{project.aiEngineering.diagramTitle}</FeaturesTitle>
-                    <Reveal as={AiCard} delay={60}>
-                      <AiDiagram>
-                        {project.aiEngineering.diagram.map((lane, i) => (
-                          <React.Fragment key={i}>
-                            {i > 0 && <AiFlow aria-hidden>↓</AiFlow>}
-                            <AiLane>
-                              <AiLaneTitle>{lane.title}</AiLaneTitle>
-                              <AiNodes>
-                                {lane.nodes.map((node, j) => (
-                                  <AiNode key={j} $accent={node.accent}>
-                                    <AiNodeLabel>{node.label}</AiNodeLabel>
-                                    {node.note && (
-                                      <AiNodeNote>{node.note}</AiNodeNote>
-                                    )}
-                                  </AiNode>
-                                ))}
-                              </AiNodes>
-                            </AiLane>
-                          </React.Fragment>
-                        ))}
-                      </AiDiagram>
-                      {project.aiEngineering.diagramNote && (
-                        <AiFootnote>{project.aiEngineering.diagramNote}</AiFootnote>
-                      )}
+                    {/* Без внешней подложки: только дерево слева и карточки дорожек */}
+                    <Reveal as={AiDiagram} delay={60}>
+                      {project.aiEngineering.diagram.map((lane, i) => (
+                        <React.Fragment key={i}>
+                          {i > 0 && <AiFlow aria-hidden>↓</AiFlow>}
+                          <AiLane>
+                            <AiLaneTitle>{lane.title}</AiLaneTitle>
+                            <AiNodes>
+                              {lane.nodes.map((node, j) => (
+                                <AiNode key={j} $accent={node.accent}>
+                                  <AiNodeLabel>{node.label}</AiNodeLabel>
+                                  {node.note && (
+                                    <AiNodeNote>{node.note}</AiNodeNote>
+                                  )}
+                                </AiNode>
+                              ))}
+                            </AiNodes>
+                          </AiLane>
+                        </React.Fragment>
+                      ))}
                     </Reveal>
+                    {project.aiEngineering.diagramNote && (
+                      <AiFootnote>{project.aiEngineering.diagramNote}</AiFootnote>
+                    )}
                   </>
                 )}
 
