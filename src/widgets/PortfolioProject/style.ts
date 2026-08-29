@@ -550,6 +550,13 @@ export const AiPrinciple = styled.div`
   grid-template-columns: auto minmax(0, 1fr);
   gap: 12px;
   align-items: start;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  /* подсветка при наведении — как у карточек сценариев и дорожек схемы */
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 // Бейдж статуса: ✓ — закрыто, ◐ — частично, · — в планах.
