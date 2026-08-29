@@ -460,11 +460,6 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   </>
                 )}
 
-              <FeaturesTitle>{project.aiEngineering.sectionTitle}</FeaturesTitle>
-              <Reveal as={DescCard} delay={60}>
-                {project.aiEngineering.intro}
-              </Reveal>
-
               {project.aiEngineering.diagram &&
                 project.aiEngineering.diagram.length > 0 && (
                   <>
@@ -496,6 +491,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     </Reveal>
                   </>
                 )}
+
+              <FeaturesTitle>{project.aiEngineering.sectionTitle}</FeaturesTitle>
+              <Reveal as={DescCard} delay={60}>
+                {project.aiEngineering.intro}
+              </Reveal>
 
               {/* Чек-лист AI-инженера — тот же аккордеон, что и у сценариев */}
               <AiUseCases $open={principlesOpen}>
