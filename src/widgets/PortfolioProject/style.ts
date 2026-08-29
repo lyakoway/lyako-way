@@ -530,7 +530,9 @@ export const AiSection = styled.section`
 `;
 
 // Принципы — карточки в две колонки на широком экране, с бейджем статуса слева.
+// grid-column: единственный ребёнок внутренней сетки аккордеона — на всю ширину.
 export const AiPrinciples = styled.div`
+  grid-column: 1 / -1;
   display: grid;
   gap: 10px;
 

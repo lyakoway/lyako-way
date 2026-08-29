@@ -247,6 +247,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
   const dispatch = useDispatchTyped();
 
   const [useCasesOpen, setUseCasesOpen] = useState(false);
+  const [principlesOpen, setPrinciplesOpen] = useState(false);
 
   const sitePress = usePressAnimation();
   const githubPress = usePressAnimation();
@@ -496,27 +497,44 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   </>
                 )}
 
-              <FeaturesTitle>{project.aiEngineering.principlesTitle}</FeaturesTitle>
-              <AiPrinciples>
-                {project.aiEngineering.principles.map((p, i) => (
-                  <Reveal as={AiPrinciple} key={i} delay={i * 50}>
-                    <AiStatus
-                      $status={p.status}
-                      title={
-                        AI_STATUS_HINT[p.status]?.[langName] ??
-                        AI_STATUS_HINT[p.status]?.english
-                      }
-                    >
-                      {AI_STATUS_GLYPH[p.status] ?? "·"}
-                    </AiStatus>
-                    <AiPrincipleBody>
-                      <AiPrincipleTitle>{p.title}</AiPrincipleTitle>
-                      <AiPrincipleCheck>{p.check}</AiPrincipleCheck>
-                      <AiPrincipleResult>{p.result}</AiPrincipleResult>
-                    </AiPrincipleBody>
-                  </Reveal>
-                ))}
-              </AiPrinciples>
+              {/* Чек-лист AI-инженера — тот же аккордеон, что и у сценариев */}
+              <AiUseCases $open={principlesOpen}>
+                <AiUseCase
+                  $open={principlesOpen}
+                  onClick={() => setPrinciplesOpen(!principlesOpen)}
+                  aria-expanded={principlesOpen}
+                >
+                  <AiUseCasesHeading>
+                    {project.aiEngineering.principlesTitle}
+                  </AiUseCasesHeading>
+                </AiUseCase>
+                <AiUseCasesContent $open={principlesOpen}>
+                  <div>
+                    <div>
+                      <AiPrinciples>
+                        {project.aiEngineering.principles.map((p, i) => (
+                          <Reveal as={AiPrinciple} key={i} delay={i * 50}>
+                            <AiStatus
+                              $status={p.status}
+                              title={
+                                AI_STATUS_HINT[p.status]?.[langName] ??
+                                AI_STATUS_HINT[p.status]?.english
+                              }
+                            >
+                              {AI_STATUS_GLYPH[p.status] ?? "·"}
+                            </AiStatus>
+                            <AiPrincipleBody>
+                              <AiPrincipleTitle>{p.title}</AiPrincipleTitle>
+                              <AiPrincipleCheck>{p.check}</AiPrincipleCheck>
+                              <AiPrincipleResult>{p.result}</AiPrincipleResult>
+                            </AiPrincipleBody>
+                          </Reveal>
+                        ))}
+                      </AiPrinciples>
+                    </div>
+                  </div>
+                </AiUseCasesContent>
+              </AiUseCases>
 
               <FeaturesTitle>{project.aiEngineering.metricsTitle}</FeaturesTitle>
               {project.aiEngineering.tables.map((t, i) => (
