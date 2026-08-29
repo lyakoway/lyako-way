@@ -708,7 +708,10 @@ export const AiUseCases = styled.div<{ $open?: boolean }>`
   border: 1px solid
     ${({ $open }) => ($open ? "#ff8560" : PANEL_BORDER)};
   border-radius: 16px;
-  padding: ${({ $open }) => ($open ? "16px 18px" : "0 18px")};
+  /* Верхний паддинг постоянный (нулевой): анимированное изменение вертикального
+     паддинга сдвигало заголовок со стрелкой при раскрытии. Нижний растёт
+     только вниз, под контентом, — на заголовок не влияет. */
+  padding: 0 18px ${({ $open }) => ($open ? "16px" : "0")};
   transition: border-color 0.3s ease, padding 0.35s ease,
     box-shadow 0.3s ease;
 
@@ -726,16 +729,18 @@ export const AiUseCases = styled.div<{ $open?: boolean }>`
 `;
 
 // Кнопка-заголовок аккордеона: прозрачная (подложка — у контейнера),
-// текст + стрелка-индикатор раскрытия. При наведении/нажатии контейнер
-// ($open-родитель через :hover) подсвечивается оранжевой рамкой.
+// текст + стрелка-индикатор раскрытия. Вертикальный паддинг живёт здесь,
+// а не в контейнере: при раскрытии заголовок остаётся на месте, контент
+// разворачивается под ним. Без scale на :active — нажатие не сдвигает
+// текст и стрелку.
 export const AiUseCase = styled.button<{ $open?: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   gap: 8px;
-  min-height: ${({ $open }) => ($open ? "auto" : "40px")};
-  padding: 0;
+  min-height: 40px;
+  padding: 12px 0;
   background: none;
   border: none;
   border-radius: 10px;
@@ -745,12 +750,7 @@ export const AiUseCase = styled.button<{ $open?: boolean }>`
   cursor: pointer;
   text-align: left;
   -webkit-tap-highlight-color: transparent;
-  transition: color 0.2s ease, transform 0.15s
-    cubic-bezier(0.22, 1, 0.36, 1);
-
-  &:active {
-    transform: scale(0.98);
-  }
+  transition: color 0.2s ease;
 
   /* Стрелка-индикатор раскрытия */
   &::after {
