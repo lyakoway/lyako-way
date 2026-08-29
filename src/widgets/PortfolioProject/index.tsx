@@ -53,6 +53,7 @@ import {
   AiGap,
   AiDiagram,
   AiLane,
+  AiLaneCard,
   AiLaneTitle,
   AiNodes,
   AiNode,
@@ -470,18 +471,21 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                       {project.aiEngineering.diagram.map((lane, i) => (
                         <React.Fragment key={i}>
                           {i > 0 && <AiFlow aria-hidden>↓</AiFlow>}
+                          {/* Карточка выезжает справа, дерево стоит на месте */}
                           <AiLane>
-                            <AiLaneTitle>{lane.title}</AiLaneTitle>
-                            <AiNodes>
-                              {lane.nodes.map((node, j) => (
-                                <AiNode key={j} $accent={node.accent}>
-                                  <AiNodeLabel>{node.label}</AiNodeLabel>
-                                  {node.note && (
-                                    <AiNodeNote>{node.note}</AiNodeNote>
-                                  )}
-                                </AiNode>
-                              ))}
-                            </AiNodes>
+                            <Reveal as={AiLaneCard} x={64} y={0} delay={i * 90}>
+                              <AiLaneTitle>{lane.title}</AiLaneTitle>
+                              <AiNodes>
+                                {lane.nodes.map((node, j) => (
+                                  <AiNode key={j} $accent={node.accent}>
+                                    <AiNodeLabel>{node.label}</AiNodeLabel>
+                                    {node.note && (
+                                      <AiNodeNote>{node.note}</AiNodeNote>
+                                    )}
+                                  </AiNode>
+                                ))}
+                              </AiNodes>
+                            </Reveal>
                           </AiLane>
                         </React.Fragment>
                       ))}

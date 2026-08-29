@@ -935,15 +935,47 @@ export const AiDiagram = styled.div`
   }
 `;
 
-// Дорожка = карточка блока. Сдвинута вправо от ствола; ветка и узел
-// на стволе нарисованы псевдоэлементами с отрицательными отступами.
+// Дорожка = узел дерева + карточка блока (стиль карточек в самом Reveal,
+// чтобы дерево оставалось на месте, пока карточка выезжает справа).
+// Сдвинута вправо от ствола; ветка и узел — псевдоэлементами.
 export const AiLane = styled.div`
   position: relative;
-  margin-left: 34px;
-  padding: 14px 16px;
+  /* ствол слева — место под узел и ветку */
+  padding-left: 34px;
+
+  /* горизонтальная ветка от узла к карточке */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 13px;
+    width: 21px;
+    height: 2px;
+    background: ${PANEL_BORDER};
+  }
+
+  /* круглый узел на стволе; кольцо цвета фона («panel-bg») отбивает
+     ствол и ветку от круга — линии его не касаются, как в дереве /cv */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+    box-shadow: 0 0 0 4px var(--panel-bg);
+    z-index: 1;
+  }
+`;
+
+// Карточка дорожки: заголовок + чипы нод.
+export const AiLaneCard = styled.div`
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   border-radius: 12px;
+  padding: 14px 16px;
   display: grid;
   gap: 10px;
   transition: border-color 0.25s ease, background 0.25s ease;
@@ -951,30 +983,6 @@ export const AiLane = styled.div`
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
     border-color: rgba(255, 255, 255, 0.22);
-  }
-
-  /* горизонтальная ветка от узла к карточке */
-  &::before {
-    content: "";
-    position: absolute;
-    top: 22px;
-    left: -21px;
-    width: 21px;
-    height: 2px;
-    background: ${PANEL_BORDER};
-  }
-
-  /* круглый узел на стволе */
-  &::after {
-    content: "";
-    position: absolute;
-    top: 16px;
-    left: -33px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: ${({ theme }) => theme.color.basic.primary};
-    z-index: 1;
   }
 `;
 
