@@ -634,11 +634,25 @@ export const AiCard = styled.div`
 `;
 
 export const AiTableTitle = styled.p`
+  position: relative;
   margin: 0 0 10px;
+  padding-left: 11px;
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
+
+  /* акцентный штрих слева — как у заголовков дорожек схемы */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    bottom: 1px;
+    width: 3px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 export const AiTable = styled.table`
@@ -943,6 +957,12 @@ export const AiLane = styled.div`
   /* ствол слева — место под узел и ветку */
   padding-left: 34px;
 
+  /* зазор между соседними дорожками без коннекторов (дерево замеров);
+     в схеме дорожки разделены AiFlow, поэтому там не срабатывает */
+  & + & {
+    margin-top: 14px;
+  }
+
   /* горизонтальная ветка от узла к карточке */
   &::before {
     content: "";
@@ -970,7 +990,8 @@ export const AiLane = styled.div`
   }
 `;
 
-// Карточка дорожки: заголовок + чипы нод.
+// Карточка дорожки: заголовок + чипы нод / таблица замеров.
+// overflow-x — широкие таблицы прокручиваются внутри карточки, не ломая её.
 export const AiLaneCard = styled.div`
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
@@ -978,6 +999,7 @@ export const AiLaneCard = styled.div`
   padding: 14px 16px;
   display: grid;
   gap: 10px;
+  overflow-x: auto;
   transition: border-color 0.25s ease, background 0.25s ease;
 
   &:hover {

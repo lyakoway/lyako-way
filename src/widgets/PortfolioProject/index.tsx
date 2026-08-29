@@ -44,7 +44,6 @@ import {
   AiPrincipleTitle,
   AiPrincipleCheck,
   AiPrincipleResult,
-  AiCard,
   AiArchitecture,
   AiTableTitle,
   AiTable,
@@ -552,30 +551,35 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               </AiUseCases>
 
               <FeaturesTitle>{project.aiEngineering.metricsTitle}</FeaturesTitle>
-              {project.aiEngineering.tables.map((t, i) => (
-                <Reveal as={AiCard} key={i} delay={i * 80}>
-                  <AiTableTitle>{t.title}</AiTableTitle>
-                  <AiTable>
-                    <thead>
-                      <tr>
-                        {t.columns.map((c, j) => (
-                          <th key={j}>{c}</th>
-                        ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {t.rows.map((r, j) => (
-                        <tr key={j} data-highlight={r.highlight ? "true" : undefined}>
-                          {r.cells.map((cell, k) => (
-                            <td key={k}>{cell}</td>
+              {/* Тот же дерево: узел на стволе + карточка, выезжающая справа */}
+              <AiDiagram>
+                {project.aiEngineering.tables.map((t, i) => (
+                  <AiLane key={i}>
+                    <Reveal as={AiLaneCard} x={64} y={0} delay={i * 90}>
+                      <AiTableTitle>{t.title}</AiTableTitle>
+                      <AiTable>
+                        <thead>
+                          <tr>
+                            {t.columns.map((c, j) => (
+                              <th key={j}>{c}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {t.rows.map((r, j) => (
+                            <tr key={j} data-highlight={r.highlight ? "true" : undefined}>
+                              {r.cells.map((cell, k) => (
+                                <td key={k}>{cell}</td>
+                              ))}
+                            </tr>
                           ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </AiTable>
-                  {t.footnote && <AiFootnote>{t.footnote}</AiFootnote>}
-                </Reveal>
-              ))}
+                        </tbody>
+                      </AiTable>
+                      {t.footnote && <AiFootnote>{t.footnote}</AiFootnote>}
+                    </Reveal>
+                  </AiLane>
+                ))}
+              </AiDiagram>
 
               {project.aiEngineering.findings &&
                 project.aiEngineering.findings.length > 0 && (
