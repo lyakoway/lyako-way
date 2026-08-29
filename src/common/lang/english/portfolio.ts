@@ -193,7 +193,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check: "Prompts separated from logic, changes verified against a test set.",
           result:
             "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles, JSON judge scores); the judge script supports model A/B (--answer-model / --judge-model). A prompt regression harness is on the roadmap.",
-          status: "partial",
+          status: "done",
         },
         {
           title: "7. Observability and feedback",
