@@ -45,6 +45,7 @@ import {
   AiPrincipleCheck,
   AiPrincipleResult,
   AiCard,
+  AiArchitecture,
   AiTableTitle,
   AiTable,
   AiFootnote,
@@ -491,6 +492,17 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     </Reveal>
                   </>
                 )}
+
+              {project.aiEngineering.architecture && (
+                <>
+                  <FeaturesTitle>
+                    {project.aiEngineering.architectureTitle}
+                  </FeaturesTitle>
+                  <Reveal as={AiArchitecture} delay={60}>
+                    {project.aiEngineering.architecture}
+                  </Reveal>
+                </>
+              )}
 
               <FeaturesTitle>{project.aiEngineering.sectionTitle}</FeaturesTitle>
               <Reveal as={DescCard} delay={60}>

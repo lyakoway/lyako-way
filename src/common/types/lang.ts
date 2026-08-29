@@ -220,6 +220,9 @@ export interface AiEngineeringProps {
   diagramTitle?: string;
   diagram?: AiDiagramLane[];
   diagramNote?: string;
+  // ASCII-схема архитектуры из README репозитория (клиент ↔ API ↔ модули)
+  architectureTitle?: string;
+  architecture?: string;
   // Находки, полученные из замеров (главные инженерные уроки)
   findingsTitle?: string;
   findings?: string[];

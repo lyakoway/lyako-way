@@ -678,6 +678,22 @@ export const AiFootnote = styled.p`
   line-height: 1.5;
 `;
 
+// ASCII-схема архитектуры из README: моноширинный блок в карточке,
+// на узких экранах прокручивается по горизонтали, не ломая сетку.
+export const AiArchitecture = styled.pre`
+  margin: 0;
+  padding: 16px 18px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  overflow-x: auto;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: ${PANEL_TEXT_SECONDARY};
+`;
+
 // Итоговый вывод — карточка с оранжевой линейкой слева (акцент на формулу).
 export const AiConclusion = styled.p`
   margin: 0;
@@ -874,27 +890,71 @@ export const AiUseCaseText = styled.p`
 
 /* ——— Схема проекта: дорожки сверху вниз ——— */
 
+// Схема проекта: слева дерево — ствол с оранжевыми узлами, как в дереве
+// навыков резюме; справа — по карточке на дорожку (заголовок + чипы нод),
+// между карточками — коннекторы потока.
 export const AiDiagram = styled.div`
-  display: grid;
-  gap: 0;
+  position: relative;
+
+  /* ствол дерева */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: ${PANEL_BORDER};
+  }
 `;
 
-// Дорожка-слой: на широком экране заголовок слева (как MetaRow), ноды — рядом;
-// на узком заголовок уезжает вверх. Вертикальный ритм задают паддинги дорожки.
+// Дорожка = карточка блока. Сдвинута вправо от ствола; ветка и узел
+// на стволе нарисованы псевдоэлементами с отрицательными отступами.
 export const AiLane = styled.div`
+  position: relative;
+  margin-left: 34px;
+  padding: 14px 16px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
   display: grid;
-  gap: 8px;
-  padding: 9px 0;
+  gap: 10px;
+  transition: border-color 0.25s ease, background 0.25s ease;
 
-  @media (min-width: 700px) {
-    grid-template-columns: 150px minmax(0, 1fr);
-    align-items: center;
-    gap: 14px;
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
+  /* горизонтальная ветка от узла к карточке */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: -21px;
+    width: 21px;
+    height: 2px;
+    background: ${PANEL_BORDER};
+  }
+
+  /* круглый узел на стволе */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: -33px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+    z-index: 1;
   }
 `;
 
 export const AiLaneTitle = styled.p`
+  position: relative;
   margin: 0;
+  padding-left: 11px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 11px;
   font-weight: 600;
@@ -902,8 +962,16 @@ export const AiLaneTitle = styled.p`
   text-transform: uppercase;
   line-height: 1.4;
 
-  @media (min-width: 700px) {
-    padding-top: 2px;
+  /* акцентная метка-штрих слева, как у заголовков карточек */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    bottom: 1px;
+    width: 3px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
   }
 `;
 
@@ -913,8 +981,11 @@ export const AiNodes = styled.div`
   gap: 8px;
 `;
 
+// Нода — чип заметно светлее подложки AiCard (иначе сливается с ним);
+// акцентные ноды — с оранжевой рамкой и лёгкой тонировкой фона.
 export const AiNode = styled.div<{ $accent?: boolean }>`
-  background: ${PANEL_ELEVATED};
+  background: ${({ $accent }) =>
+    $accent ? "rgba(255, 133, 96, 0.08)" : PANEL_ELEVATED_HOVER};
   border: 1px solid
     ${({ $accent, theme }) =>
       $accent ? theme.color.basic.primary : PANEL_BORDER};
@@ -939,20 +1010,43 @@ export const AiNodeNote = styled.span`
   line-height: 1.35;
 `;
 
-// Стрелка между дорожками: по центру колонки нод (на узком — по центру всей
-// строки). 164px = 150px колонки заголовка + 14px зазора сетки.
+// Стрелка между дорожками: вертикальный коннектор — линия с градиентом
+// от серого к акценту и наконечник-шеврон, по центру колонки карточек
+// (34px слева занимает дерево). Текстовый «↓» из разметки скрыт
+// (font-size: 0): строка помечена aria-hidden, глиф не нужен ни людям,
+// ни скринридерам.
 export const AiFlow = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
-  padding: 1px 0;
-  color: ${PANEL_TEXT_MUTED};
-  font-size: 14px;
-  line-height: 1;
+  height: 26px;
+  margin-left: 34px;
+  font-size: 0;
   user-select: none;
 
-  @media (min-width: 700px) {
-    margin-left: 164px;
-    width: calc(100% - 164px);
+  &::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    bottom: 8px;
+    width: 2px;
+    border-radius: 1px;
+    background: linear-gradient(
+      180deg,
+      ${PANEL_BORDER},
+      ${({ theme }) => theme.color.basic.primary}
+    );
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid ${({ theme }) => theme.color.basic.primary};
+    border-bottom: 2px solid ${({ theme }) => theme.color.basic.primary};
+    transform: rotate(45deg);
   }
 `;
 
