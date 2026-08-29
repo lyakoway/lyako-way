@@ -176,6 +176,12 @@ export const DescCard = styled.div`
   font-size: 14px;
   font-weight: 300;
   line-height: 1.6;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 
   @media (max-width: 579px) {
     font-size: 13.5px;
@@ -619,6 +625,12 @@ export const AiCard = styled.div`
   border-radius: 12px;
   padding: 16px 18px;
   overflow-x: auto;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 export const AiTableTitle = styled.p`
@@ -713,6 +725,14 @@ export const AiConclusion = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 1.6;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+    /* оранжевая линейка слева сохраняется и при наведении */
+    border-left-color: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 // Пробелы — тем же маркером, что возможности, но текст тише: это «не закрыто».
