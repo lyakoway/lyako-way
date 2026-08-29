@@ -800,7 +800,8 @@ export const AiUseCasesContent = styled.div<{ $open?: boolean }>`
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      align-items: start;
+      /* Без align-items: start карточки ряда растягиваются до общей
+         высоты (внутри контент прижат к верху через align-content) */
     }
   }
 
@@ -828,12 +829,19 @@ export const AiUseCaseCard = styled.div`
   }
 `;
 
-// Номер сценария — оранжевый, моноширинный: отличает пункты от чек-листа.
+// Номер сценария — пилюля-бейдж в акцентном цвете: заметнее простого
+// текста и рифмуется с чипами технологий и бейджем «WIP».
 export const AiUseCaseNum = styled.span`
+  justify-self: start;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: rgba(255, 133, 96, 0.1);
+  border: 1px solid rgba(255, 133, 96, 0.3);
   color: ${({ theme }) => theme.color.basic.primary};
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 1.5px;
+  line-height: 1.6;
   font-variant-numeric: tabular-nums;
 `;
 

@@ -95,11 +95,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
           detail:
             "Find a clause, deadline or figure in contracts and reports: the citation points to the exact page, so verifying an answer takes seconds rather than a separate investigation.",
         },
-        {
-          title: "Employee onboarding",
-          detail:
-            "A newcomer asks the assistant from day one without reading the whole wiki; category and document filters in the API narrow the search area to one department — the basis for “contractors see only their own documents” scenarios.",
-        },
       ],
       diagramTitle: "Project architecture",
       diagram: [
