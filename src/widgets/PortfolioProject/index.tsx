@@ -41,7 +41,6 @@ import {
   AiSection,
   AiPrinciples,
   AiPrinciple,
-  AiStatus,
   AiPrincipleBody,
   AiPrincipleTitle,
   AiPrincipleCheck,
@@ -83,18 +82,6 @@ import {
   AiUseCaseTitle,
   AiUseCaseText,
 } from "./style";
-
-// Бейджи статуса принципов чек-листа + подсказки на двух языках сайта.
-const AI_STATUS_GLYPH: Record<string, string> = {
-  done: "✓",
-  partial: "◐",
-  todo: "·",
-};
-const AI_STATUS_HINT: Record<string, { russia: string; english: string }> = {
-  done: { russia: "Закрыто", english: "Done" },
-  partial: { russia: "Частично", english: "Partial" },
-  todo: { russia: "В планах", english: "Planned" },
-};
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
    резюме (stroke = currentColor, толщина 2, скруглённые концы). */
@@ -652,15 +639,6 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                       <AiPrinciples>
                         {project.aiEngineering.principles.map((p, i) => (
                           <Reveal as={AiPrinciple} key={i} delay={i * 50}>
-                            <AiStatus
-                              $status={p.status}
-                              title={
-                                AI_STATUS_HINT[p.status]?.[langName] ??
-                                AI_STATUS_HINT[p.status]?.english
-                              }
-                            >
-                              {AI_STATUS_GLYPH[p.status] ?? "·"}
-                            </AiStatus>
                             <AiPrincipleBody>
                               <AiPrincipleTitle>{p.title}</AiPrincipleTitle>
                               <AiPrincipleCheck>{p.check}</AiPrincipleCheck>

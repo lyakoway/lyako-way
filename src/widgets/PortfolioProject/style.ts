@@ -588,8 +588,6 @@ export const AiPrinciple = styled.div`
   border-radius: 12px;
   padding: 14px 16px;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 12px;
   align-items: start;
   transition: border-color 0.25s ease, background 0.25s ease;
 
@@ -600,40 +598,31 @@ export const AiPrinciple = styled.div`
   }
 `;
 
-// Бейдж статуса: ✓ — закрыто, ◐ — частично, · — в планах.
-export const AiStatus = styled.span<{ $status: string }>`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  margin-top: 1px;
-  border-radius: 50%;
-  border: 1px solid
-    ${({ $status, theme }) =>
-      $status === "done" ? theme.color.basic.primary : PANEL_BORDER};
-  color: ${({ $status, theme }) =>
-    $status === "done"
-      ? theme.color.basic.primary
-      : $status === "partial"
-        ? PANEL_TEXT_SECONDARY
-        : PANEL_TEXT_MUTED};
-  font-size: 12px;
-  line-height: 1;
-  user-select: none;
-`;
-
 export const AiPrincipleBody = styled.div`
   display: grid;
   gap: 5px;
 `;
 
 export const AiPrincipleTitle = styled.p`
+  position: relative;
   margin: 0;
+  padding-left: 14px;
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
+
+  /* акцентный штрих слева — вместо бейджа статуса, как у карточек сценариев */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    bottom: 2px;
+    width: 4px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 // Формулировка принципа (что проверяем) — тише, чем результат в проекте.
