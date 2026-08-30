@@ -101,16 +101,29 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Frontend",
           nodes: [
-            { label: "React 19 + Vite", note: "SSE streaming, theme and RU/EN language" },
-            { label: "Citations & preview", note: "PDF / DOCX / XLSX in a modal" },
+            {
+              label: "React 19 + Vite",
+              note: "SSE streaming, theme and RU/EN language",
+            },
+            {
+              label: "Citations & preview",
+              note: "PDF / DOCX / XLSX in a modal",
+            },
             { label: "👍/👎 feedback", note: "stored in DB + analytics" },
-            { label: "Follow-ups & auto-titles", note: "suggestions from retrieval, LLM title in background" },
+            {
+              label: "Follow-ups & auto-titles",
+              note: "suggestions from retrieval, LLM title in background",
+            },
           ],
         },
         {
           title: "API — FastAPI",
           nodes: [
-            { label: "POST /api/chat (SSE)", note: "RAG and agent modes", accent: true },
+            {
+              label: "POST /api/chat (SSE)",
+              note: "RAG and agent modes",
+              accent: true,
+            },
             { label: "GET /api/search", note: "vector search with scores" },
             { label: "/api/documents", note: "file uploads and the demo pack" },
           ],
@@ -121,7 +134,11 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { label: "Parsers", note: "PDF · DOCX · XLSX + page numbers" },
             { label: "Chunking", note: "tiktoken, 800 / 120 tokens" },
             { label: "Embeddings", note: "fastembed, multilingual MiniLM" },
-            { label: "Hybrid BM25 + RRF", note: "optional cross-encoder reranker", accent: true },
+            {
+              label: "Hybrid BM25 + RRF",
+              note: "optional cross-encoder reranker",
+              accent: true,
+            },
           ],
         },
         {
@@ -135,7 +152,11 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "LLM providers",
           nodes: [
-            { label: "Z.ai (GLM)", note: "5.3 / 5.2 / 4.5-flash", accent: true },
+            {
+              label: "Z.ai (GLM)",
+              note: "5.3 / 5.2 / 4.5-flash",
+              accent: true,
+            },
             { label: "OpenAI · Anthropic", note: "via API keys" },
             { label: "Ollama · offline demo", note: "local and keyless" },
           ],
@@ -181,56 +202,64 @@ export const propsPortfolioList: PortfolioListProps[] = [
       principles: [
         {
           title: "1. Success metrics before code",
-          check: "Is “works” defined up front: quality, latency, cost — and how to measure each.",
+          check:
+            "Is “works” defined up front: quality, latency, cost — and how to measure each.",
           result:
             "Criteria were set before implementation: the right document at the top of retrieval (Recall@k), an answer with a page-level citation, first token within seconds. Every criterion has a measurement in the tables below.",
           status: "done",
         },
         {
           title: "2. Retrieval evaluated on a golden set",
-          check: "Is there a test set of questions with known sources and retrieval metrics, rather than eyeballing.",
+          check:
+            "Is there a test set of questions with known sources and retrieval metrics, rather than eyeballing.",
           result:
             "24 golden questions (RU/EN) over the demo corpus; Recall@1/3/5 and MRR are computed by scripts/evaluate.py — the index is rebuilt from scratch on every run, so the numbers are reproducible with one command.",
           status: "done",
         },
         {
           title: "3. Decisions driven by measurements",
-          check: "Is every architectural decision backed by a comparison of alternatives.",
+          check:
+            "Is every architectural decision backed by a comparison of alternatives.",
           result:
             "Hybrid BM25+RRF was chosen because it lifts Recall@1 from 50% to 92% on the bilingual corpus. The cross-encoder reranker was tested and rejected: it hurts on this corpus (Recall@1 42%) and costs ~3 seconds.",
           status: "done",
         },
         {
           title: "4. Model choice driven by data",
-          check: "Models compared on your own pipeline: quality, latency, price.",
+          check:
+            "Models compared on your own pipeline: quality, latency, price.",
           result:
             "Five providers switch in the UI (Z.ai GLM, OpenAI, Anthropic, Ollama, offline demo). TTFT measured: GLM-5.3-flash — 2.5–3 s, GLM-5.3 — 2.6 s, a local Llama 3.2 3B on CPU — 1.2–3.6 s, GLM-4.5-flash — 25–50 s: even the free cloud model loses to a local 3B on latency.",
           status: "done",
         },
         {
           title: "5. Agent with an observable loop",
-          check: "Are tool steps visible, are errors handled, are decisions logged.",
+          check:
+            "Are tool steps visible, are errors handled, are decisions logged.",
           result:
             "A custom tools loop on FastAPI, no frameworks: list documents → search → refine; each step arrives in the UI as a separate event, and a step failure does not kill the stream (SSE error event).",
           status: "done",
         },
         {
           title: "6. Prompts as components",
-          check: "Prompts separated from logic, changes verified against a test set.",
+          check:
+            "Prompts separated from logic, changes verified against a test set.",
           result:
             "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles, JSON judge scores); the judge script supports model A/B (--answer-model / --judge-model). A prompt regression harness is on the roadmap.",
           status: "done",
         },
         {
           title: "7. Observability and feedback",
-          check: "For every request you can see what happened: sources, model, errors, user rating.",
+          check:
+            "For every request you can see what happened: sources, model, errors, user rating.",
           result:
             "An SSE protocol with explicit done/error events and a 180 s provider timeout; 👍/👎 is stored in the DB; 32 analytics events are instrumented for Yandex Metrika and GA4.",
           status: "done",
         },
         {
           title: "8. Engineering discipline",
-          check: "Tests, CI, reproducibility — the system is verified automatically.",
+          check:
+            "Tests, CI, reproducibility — the system is verified automatically.",
           result:
             "25 pytest tests (parsers, chunking, language, API), CI on GitHub Actions, an isolated eval store — measurements never touch the live base.",
           status: "done",
@@ -244,10 +273,18 @@ export const propsPortfolioList: PortfolioListProps[] = [
           rows: [
             { cells: ["Vector search", "50.0%", "95.8%", "0.733", "11 ms"] },
             {
-              cells: ["Hybrid BM25 + RRF — default", "91.7%", "100%", "0.958", "18 ms"],
+              cells: [
+                "Hybrid BM25 + RRF — default",
+                "91.7%",
+                "100%",
+                "0.958",
+                "18 ms",
+              ],
               highlight: true,
             },
-            { cells: ["Hybrid + reranker", "41.7%", "100%", "0.694", "~2.9 s"] },
+            {
+              cells: ["Hybrid + reranker", "41.7%", "100%", "0.694", "~2.9 s"],
+            },
           ],
           footnote:
             "Local run Aug 28, 2026, CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible.",
@@ -256,12 +293,37 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "System measurements — live API run",
           columns: ["Scenario", "Result"],
           rows: [
-            { cells: ["Demo pack indexing: 6 files → 12 chunks", "0.7 s (≈59 ms/chunk)"] },
+            {
+              cells: [
+                "Demo pack indexing: 6 files → 12 chunks",
+                "0.7 s (≈59 ms/chunk)",
+              ],
+            },
             { cells: ["Vector search via API, server-side p50", "18 ms"] },
-            { cells: ["RAG answer, GLM-5.3-flash: first token / complete", "2.5–3.0 s / 3.3–3.9 s"] },
-            { cells: ["RAG answer, GLM-5.3: first token / complete", "2.6 s / 3.0 s"] },
-            { cells: ["RAG answer, local Llama 3.2 3B (Ollama, CPU): first token / complete", "1.2–3.6 s / 2.5–5.4 s"] },
-            { cells: ["Llama 3.2 3B: cold start (loading the 2 GB model into RAM)", "+13.7 s to first token"] },
+            {
+              cells: [
+                "RAG answer, GLM-5.3-flash: first token / complete",
+                "2.5–3.0 s / 3.3–3.9 s",
+              ],
+            },
+            {
+              cells: [
+                "RAG answer, GLM-5.3: first token / complete",
+                "2.6 s / 3.0 s",
+              ],
+            },
+            {
+              cells: [
+                "RAG answer, local Llama 3.2 3B (Ollama, CPU): first token / complete",
+                "1.2–3.6 s / 2.5–5.4 s",
+              ],
+            },
+            {
+              cells: [
+                "Llama 3.2 3B: cold start (loading the 2 GB model into RAM)",
+                "+13.7 s to first token",
+              ],
+            },
             { cells: ["Agent mode: UI tool steps + two LLM calls", "9.2 s"] },
             { cells: ["Keyless demo mode (mock): first token", "87 ms"] },
           ],
@@ -289,9 +351,18 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "The “trim the context, get a faster first token” hypotheses were tested and rejected: top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s — demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor; the pipeline adds ~20 ms (<1%).",
         "Automated answer-quality checks: the LLM-as-judge scored 24/24 answers — 5.0 on every axis (no hallucinations, citations correct). But the judge is the same GLM family as the answering model: self-judging is lenient — a strict evaluation needs a judge from another family.",
       ],
+      conclusionLabel: "The takeaway",
+      conclusionSteps: [
+        "Hypothesis",
+        "Golden set",
+        "Measurement",
+        "Data-driven decision",
+        "Operation",
+      ],
       conclusion:
-        "The formula of the project: not “a chatbot with an LLM” but a loop — hypothesis → golden set → measurement → data-driven decision → operation with feedback. This checklist is a working methodology: it was used to review RAG Chat and will be used for the rest of the AI projects in the portfolio.",
-      footnote: "All numbers are reproducible: see backend/scripts/evaluate.py in the project repo.",
+        "This is not just “a chatbot with an LLM” — every stage of the loop on this page is backed by a number.\nThe eight-principle checklist is a working methodology. RAG Chat was reviewed with it.",
+      footnote:
+        "All numbers are reproducible: see backend/scripts/evaluate.py in the project repo.",
     },
     screenshots: [
       "/static/portfolio/rag-chat-dark.png",

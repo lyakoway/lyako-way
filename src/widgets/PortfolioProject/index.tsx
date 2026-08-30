@@ -51,6 +51,10 @@ import {
   AiTable,
   AiFootnote,
   AiConclusion,
+  AiConclusionFlow,
+  AiConclusionStep,
+  AiConclusionArrow,
+  AiConclusionText,
   AiGap,
   AiDiagram,
   AiLane,
@@ -193,6 +197,19 @@ const IconFindings = () => (
       d="M12 3a6 6 0 0 0-3.5 10.9c.7.5 1.2 1.3 1.3 2.1h4.4c.1-.8.6-1.6 1.3-2.1A6 6 0 0 0 12 3z"
       stroke="currentColor"
       strokeWidth="2"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconTakeaway = () => (
+  // Главный вывод — ключ (ключевая мысль)
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>
@@ -753,9 +770,35 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               )}
 
               {project.aiEngineering.conclusion && (
-                <Reveal as={AiConclusion} delay={0}>
-                  {project.aiEngineering.conclusion}
-                </Reveal>
+                <>
+                  {project.aiEngineering.conclusionLabel && (
+                    <FeaturesHead>
+                      <FeaturesIcon><IconTakeaway /></FeaturesIcon>
+                      <FeaturesTitle>{project.aiEngineering.conclusionLabel}</FeaturesTitle>
+                    </FeaturesHead>
+                  )}
+                  <Reveal as={AiConclusion} delay={0}>
+                    {project.aiEngineering.conclusionSteps &&
+                      project.aiEngineering.conclusionSteps.length > 0 && (
+                        <AiConclusionFlow>
+                          {project.aiEngineering.conclusionSteps.map((step, i) => (
+                            <React.Fragment key={i}>
+                              {i > 0 && <AiConclusionArrow aria-hidden>→</AiConclusionArrow>}
+                              <AiConclusionStep>{step}</AiConclusionStep>
+                            </React.Fragment>
+                          ))}
+                        </AiConclusionFlow>
+                      )}
+                    <AiConclusionText>
+                      {/* каждая строка до \n — отдельный акцент */}
+                      {project.aiEngineering.conclusion
+                        .split("\n")
+                        .map((line, i) => (
+                          <span key={i}>{line}</span>
+                        ))}
+                    </AiConclusionText>
+                  </Reveal>
+                </>
               )}
 
               {project.aiEngineering.footnote && (

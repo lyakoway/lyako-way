@@ -754,18 +754,18 @@ export const AiArchitecture = styled.pre`
   color: ${PANEL_TEXT_SECONDARY};
 `;
 
-// Итоговый вывод — карточка с оранжевой линейкой слева (акцент на формулу).
-export const AiConclusion = styled.p`
+// Итоговый вывод — ключевая карточка секции: оранжевая линейка слева,
+// подпись «Главный вывод», цепочка этапов цикла и строки-акценты текста.
+export const AiConclusion = styled.div`
   margin: 0;
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
   border-radius: 12px;
-  padding: 14px 16px;
+  padding: 16px 18px;
   color: ${PANEL_TEXT};
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.6;
+  display: grid;
+  gap: 12px;
   transition: border-color 0.25s ease, background 0.25s ease;
 
   &:hover {
@@ -774,6 +774,43 @@ export const AiConclusion = styled.p`
     /* оранжевая линейка слева сохраняется и при наведении */
     border-left-color: ${({ theme }) => theme.color.basic.primary};
   }
+`;
+
+// Этапы цикла — цепочка шагов со стрелками (мини-версия схемы проекта).
+export const AiConclusionFlow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+`;
+
+export const AiConclusionStep = styled.span`
+  padding: 5px 11px;
+  border-radius: 8px;
+  background: rgba(255, 133, 96, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: ${PANEL_TEXT};
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.35;
+  white-space: nowrap;
+`;
+
+export const AiConclusionArrow = styled.span`
+  color: ${({ theme }) => theme.color.basic.primary};
+  font-size: 13px;
+  line-height: 1;
+  user-select: none;
+`;
+
+// Текст вывода: каждая строка (до \n) — отдельный блок, коротко и по делу.
+export const AiConclusionText = styled.div`
+  display: grid;
+  gap: 5px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
 `;
 
 // Пробелы — тем же маркером, что возможности, но текст тише: это «не закрыто».
