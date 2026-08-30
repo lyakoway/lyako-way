@@ -662,12 +662,9 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   <AiLane key={i}>
                     <Reveal as={AiLaneCard} x={64} y={0} delay={i * 90}>
                       <AiTableTitle>{t.title}</AiTableTitle>
-                      {/* Двухколоночные таблицы: значения прижаты вправо */}
-                      {/* >2 колонки на мобиле перестраиваются в мини-карточки */}
-                      <AiTable
-                        $firstFill={t.columns.length === 2}
-                        $stack={t.columns.length > 2}
-                      >
+                      {/* На узких карточках любая таблица перестраивается
+                          в мини-карточки (container-запрос в AiTable) */}
+                      <AiTable $firstFill={t.columns.length === 2}>
                         <thead>
                           <tr>
                             {t.columns.map((c, j) => (

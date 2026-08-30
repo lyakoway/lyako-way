@@ -565,9 +565,9 @@ export const AiSection = styled.section`
   gap: 14px;
 
   /* grid-элементы по умолчанию не сжимаются ниже min-content: широкие
-     таблицы замеров и ASCII-схема растягивали всю страницу за экран.
+     таблицы замеров растягивали всю страницу за экран.
      min-width: 0 разрешает колонке быть уже контента — широкое содержимое
-     прокручивается внутри карточек (overflow-x на AiLaneCard и pre). */
+     прокручивается внутри карточек (overflow-x на AiLaneCard). */
   & > * {
     min-width: 0;
   }
@@ -686,7 +686,7 @@ export const AiTableTitle = styled.p`
   }
 `;
 
-export const AiTable = styled.table<{ $firstFill?: boolean; $stack?: boolean }>`
+export const AiTable = styled.table<{ $firstFill?: boolean }>`
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
@@ -751,103 +751,106 @@ export const AiTable = styled.table<{ $firstFill?: boolean; $stack?: boolean }>`
     box-shadow: inset 3px 0 0 ${({ theme }) => theme.color.basic.primary};
   }
 
-  ${({ $stack }) =>
-    $stack &&
-    css`
-      /* На узких экранах многоколоночная таблица не влезает — перестраиваемся:
-         шапка скрывается, каждая строка становится мини-карточкой
-         «лейбл — значение» (лейбл берётся из data-label ячейки).
-         Container-запрос считается по ширине самой карточки (AiLaneCard),
-         поэтому не зависит от переполнения страницы за пределами карточки */
-      @container (max-width: 479px) {
-        thead {
-          display: none;
-        }
+  /* На узких карточках таблица не влезает — перестраиваемся:
+     шапка скрывается, каждая строка становится мини-карточкой
+     «лейбл — значение» (лейбл берётся из data-label ячейки).
+     Container-запрос считается по ширине самой карточки (AiLaneCard),
+     поэтому не зависит от переполнения страницы за пределами карточки */
+  @container (max-width: 479px) {
+    thead {
+      display: none;
+    }
 
-        tbody,
-        tr,
-        td {
-          display: block;
-        }
+    tbody,
+    tr,
+    td {
+      display: block;
+    }
 
-        tbody {
-          display: grid;
-          gap: 10px;
-        }
+    tbody {
+      display: grid;
+      gap: 10px;
+    }
 
-        tr {
-          border: 1px solid ${PANEL_BORDER};
-          border-radius: 10px;
-          padding: 10px 12px;
-        }
+    tr {
+      border: 1px solid ${PANEL_BORDER};
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
 
-        td {
-          display: flex;
-          justify-content: space-between;
-          align-items: baseline;
-          gap: 12px;
-          padding: 5px 0;
-          border-bottom: 1px solid ${PANEL_BORDER};
-          white-space: normal;
-          text-align: right;
-        }
+    td {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 5px 0;
+      border-bottom: 1px solid ${PANEL_BORDER};
+      white-space: normal;
+      text-align: right;
+    }
 
-        /* последняя строка мини-карточки — без разделителя */
-        tr td:last-child {
-          border-bottom: none;
-        }
+    /* базовый min-width: 180px первой колонки в мини-карточке не нужен:
+       без него строка «заголовок — значение» сжимается до ширины карточки */
+    th:first-child,
+    td:first-child {
+      min-width: 0;
+    }
 
-        /* в стопке мини-карточек последняя строка таблицы — обычная
-           карточка: базовое «tr:last-child td» (для десктопной таблицы)
-           здесь не действует, разделители возвращаем */
-        tr:last-child td {
-          border-bottom: 1px solid ${PANEL_BORDER};
-        }
+    /* последняя строка мини-карточки — без разделителя */
+    tr td:last-child {
+      border-bottom: none;
+    }
 
-        tr:last-child td:last-child {
-          border-bottom: none;
-        }
+    /* в стопке мини-карточек последняя строка таблицы — обычная
+       карточка: базовое «tr:last-child td» (для десктопной таблицы)
+       здесь не действует, разделители возвращаем */
+    tr:last-child td {
+      border-bottom: 1px solid ${PANEL_BORDER};
+    }
 
-        td::before {
-          content: attr(data-label);
-          color: ${PANEL_TEXT_MUTED};
-          font-size: 11px;
-          font-weight: 600;
-          letter-spacing: 0.5px;
-          text-transform: uppercase;
-          text-align: left;
-        }
+    tr:last-child td:last-child {
+      border-bottom: none;
+    }
 
-        td:first-child {
-          color: ${PANEL_TEXT};
-          font-weight: 500;
-          /* заголовок строки — у левой оранжевой линии, не по центру */
-          text-align: left;
-        }
+    td::before {
+      content: attr(data-label);
+      color: ${PANEL_TEXT_MUTED};
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-align: left;
+    }
 
-        td:first-child::before {
-          content: none;
-        }
+    td:first-child {
+      color: ${PANEL_TEXT};
+      font-weight: 500;
+      /* заголовок строки — у левой оранжевой линии, не по центру */
+      text-align: left;
+    }
 
-        /* подсветка строки переезжает с ячеек на мини-карточку;
-           оранжевая линия слева сохраняется — тексту добавлен отступ
-           от неё (иначе текст прилипает к линии) */
-        tr[data-highlight="true"] {
-          border-color: rgba(255, 133, 96, 0.45);
-          background: rgba(255, 133, 96, 0.07);
-        }
+    td:first-child::before {
+      content: none;
+    }
 
-        tr[data-highlight="true"] td {
-          background: none;
-          box-shadow: none;
-          padding-left: 8px;
-        }
+    /* подсветка строки переезжает с ячеек на мини-карточку;
+       оранжевая линия слева сохраняется — тексту добавлен отступ
+       от неё (иначе текст прилипает к линии) */
+    tr[data-highlight="true"] {
+      border-color: rgba(255, 133, 96, 0.45);
+      background: rgba(255, 133, 96, 0.07);
+    }
 
-        tr[data-highlight="true"] td:first-child {
-          box-shadow: inset 3px 0 0 ${({ theme }) => theme.color.basic.primary};
-        }
-      }
-    `}
+    tr[data-highlight="true"] td {
+      background: none;
+      box-shadow: none;
+      padding-left: 8px;
+    }
+
+    tr[data-highlight="true"] td:first-child {
+      box-shadow: inset 3px 0 0 ${({ theme }) => theme.color.basic.primary};
+    }
+  }
 `;
 
 export const AiFootnote = styled.p`
