@@ -560,6 +560,14 @@ export const AiSection = styled.section`
   margin-top: 30px;
   display: grid;
   gap: 14px;
+
+  /* grid-элементы по умолчанию не сжимаются ниже min-content: широкие
+     таблицы замеров и ASCII-схема растягивали всю страницу за экран.
+     min-width: 0 разрешает колонке быть уже контента — широкое содержимое
+     прокручивается внутри карточек (overflow-x на AiLaneCard и pre). */
+  & > * {
+    min-width: 0;
+  }
 `;
 
 // Принципы — карточки в две колонки на широком экране, с бейджем статуса слева.
@@ -902,11 +910,16 @@ export const AiUseCasesContent = styled.div<{ $open?: boolean }>`
     overflow: hidden;
   }
 
+  /* Сетка карточек с зазором на всех ширинах: на мобиле карточки
+     иначе слипаются в стопку без промежутков */
+  > div > div {
+    display: grid;
+    gap: 10px;
+  }
+
   @media (min-width: 700px) {
     > div > div {
-      display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
       /* Без align-items: start карточки ряда растягиваются до общей
          высоты (внутри контент прижат к верху через align-content) */
     }
