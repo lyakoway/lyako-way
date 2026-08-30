@@ -662,7 +662,8 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   <AiLane key={i}>
                     <Reveal as={AiLaneCard} x={64} y={0} delay={i * 90}>
                       <AiTableTitle>{t.title}</AiTableTitle>
-                      <AiTable>
+                      {/* Двухколоночные таблицы: значения прижаты вправо */}
+                      <AiTable $firstFill={t.columns.length === 2}>
                         <thead>
                           <tr>
                             {t.columns.map((c, j) => (

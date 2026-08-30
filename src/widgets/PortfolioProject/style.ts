@@ -679,11 +679,29 @@ export const AiTableTitle = styled.p`
   }
 `;
 
-export const AiTable = styled.table`
+export const AiTable = styled.table<{ $firstFill?: boolean }>`
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
   color: ${PANEL_TEXT_SECONDARY};
+
+  ${({ $firstFill }) =>
+    $firstFill &&
+    css`
+      /* В двухколоночных таблицах («сценарий → результат») первая колонка
+         забирает всю свободную ширину: колонка значений прижата к правому
+         краю карточки, как у соседних таблиц */
+      th:first-child,
+      td:first-child {
+        width: 100%;
+      }
+
+      /* значения выровнены по правому краю — ровная линия отступов справа */
+      th:last-child,
+      td:last-child {
+        text-align: right;
+      }
+    `}
 
   th {
     text-align: left;
