@@ -73,7 +73,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       useCasesTitle: "What the project is for",
       useCasesListTitle: "Several scenarios where it already works",
       useCasesIntro:
-        "A RAG chat solves a typical pain: knowledge is locked inside dozens of PDF, Word and Excel files, and people spend hours digging through them manually. The app turns documents into a conversation — a question in natural language, an answer with an exact link to the file and page. A few scenarios where this already works:",
+        "A RAG chat solves a typical pain: knowledge is locked inside dozens of PDF, Word and Excel files, and people spend hours digging through them manually. The app turns documents into a conversation — a question in natural language, an answer with an exact link to the file and page.",
       useCases: [
         {
           title: "Company knowledge base",
@@ -83,7 +83,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Customer support over product docs",
           detail:
-            "Product manuals, pricing and FAQ: a customer asks in their own words and gets an answer linked to the manual section; support sees fewer repetitive tickets.",
+            "Product manuals, pricing and FAQ — a customer asks in their own words and gets an answer linked to the manual section. Support sees fewer repetitive tickets.",
         },
         {
           title: "Construction documentation and codes",
@@ -171,7 +171,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
       ],
       diagramNote:
-        "Top to bottom: a user question → a streamed answer with citations. One RAG pipeline serves all three modes — chat, agent and vector search; LLM providers are interchangeable, and the offline mode runs without keys.",
+        "Top to bottom: a user question → a streamed answer with citations. One RAG pipeline serves all three modes — chat, agent and vector search. LLM providers are interchangeable, and the offline mode runs without keys.",
       principlesTitle: "AI engineer's checklist",
       principles: [
         {
@@ -187,7 +187,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check:
             "Is there a test set of questions with known sources and retrieval metrics, rather than eyeballing.",
           result:
-            "24 golden questions (RU/EN) over the demo corpus; Recall@1/3/5 and MRR are computed by scripts/evaluate.py — the index is rebuilt from scratch on every run, so the numbers are reproducible with one command.",
+            "24 golden questions (RU/EN) over the demo corpus. Recall@1/3/5 and MRR are computed by scripts/evaluate.py — the index is rebuilt from scratch on every run, so the numbers are reproducible with one command.",
           status: "done",
         },
         {
@@ -203,7 +203,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check:
             "Models compared on your own pipeline: quality, latency, price.",
           result:
-            "Five providers switch in the UI (Z.ai GLM, OpenAI, Anthropic, Ollama, offline demo). TTFT measured: GLM-5.3-flash — 2.5–3 s, GLM-5.3 — 2.6 s, a local Llama 3.2 3B on CPU — 1.2–3.6 s, GLM-4.5-flash — 25–50 s: even the free cloud model loses to a local 3B on latency.",
+            "Five providers switch in the UI (Z.ai GLM, OpenAI, Anthropic, Ollama, offline demo). TTFT measured: GLM-5.3-flash — 2.5–3 s, GLM-5.3 — 2.6 s, a local Llama 3.2 3B on CPU — 1.2–3.6 s, GLM-4.5-flash — 25–50 s. Even the free cloud model loses to a local 3B on latency.",
           status: "done",
         },
         {
@@ -211,7 +211,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check:
             "Are tool steps visible, are errors handled, are decisions logged.",
           result:
-            "A custom tools loop on FastAPI, no frameworks: list documents → search → refine; each step arrives in the UI as a separate event, and a step failure does not kill the stream (SSE error event).",
+            "A custom tools loop on FastAPI, no frameworks: list documents → search → refine. Each step arrives in the UI as a separate event, and a step failure does not kill the stream (SSE error event).",
           status: "done",
         },
         {
@@ -219,7 +219,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check:
             "Prompts separated from logic, changes verified against a test set.",
           result:
-            "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles, JSON judge scores); the judge script supports model A/B (--answer-model / --judge-model). A prompt regression harness is on the roadmap.",
+            "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles, JSON judge scores). The judge script supports model A/B (--answer-model / --judge-model). A prompt regression harness is on the roadmap.",
           status: "done",
         },
         {
@@ -227,7 +227,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check:
             "For every request you can see what happened: sources, model, errors, user rating.",
           result:
-            "An SSE protocol with explicit done/error events and a 180 s provider timeout; 👍/👎 is stored in the DB; 32 analytics events are instrumented for Yandex Metrika and GA4.",
+            "An SSE protocol with explicit done/error events and a 180 s provider timeout. 👍/👎 is stored in the DB. 32 analytics events are instrumented for Yandex Metrika and GA4.",
           status: "done",
         },
         {
@@ -313,17 +313,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Citations — citations are correct", "5.0 / 5"] },
           ],
           footnote:
-            "Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24. The judge is the same GLM family — self-judging is lenient; a strict evaluation needs a judge from another family.",
+            "Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24. The judge is the same GLM family — self-judging is lenient. A strict evaluation needs a judge from another family.",
         },
       ],
       findingsTitle: "What the measurements showed",
       findings: [
-        "Language “twins” are the main trap of multilingual corpora: embeddings align RU and EN, so a Russian question surfaces the English document (Recall@1 50%). Lexical BM25 signal in the fusion is not optional but a necessity: +41.7 pp Recall@1.",
-        "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant: Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
-        "The model generation defines latency more than any tuning: GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free: faster than the free cloud model. The price of “free”: spikes up to 8–15 s under load and less polished answers — the small model drops citations more often.",
-        "Anti-hallucination was probed with an out-of-corpus question: the model declines and points to the context contents instead of inventing a fact.",
-        "The “trim the context, get a faster first token” hypotheses were tested and rejected: top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s — demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor; the pipeline adds ~20 ms (<1%).",
-        "Automated answer-quality checks: the LLM-as-judge scored 24/24 answers — 5.0 on every axis (no hallucinations, citations correct). But the judge is the same GLM family as the answering model: self-judging is lenient — a strict evaluation needs a judge from another family.",
+        "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question surfaces the English document (Recall@1 50%). Lexical BM25 signal in the fusion is not optional but a necessity (+41.7 pp to Recall@1).",
+        "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant — Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
+        "The model generation defines latency more than any tuning. GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free — faster than the free cloud model. The price of “free” — spikes up to 8–15 s under load and less polished answers. The small model drops citations more often.",
+        "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context contents instead of inventing a fact.",
+        "The “trim the context, get a faster first token” hypotheses were tested and rejected — top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s. Demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor. The pipeline adds ~20 ms (<1%).",
+        "Automated answer-quality checks: the LLM-as-judge scored 24/24 answers — 5.0 on every axis (no hallucinations, citations correct). A strict evaluation needs a judge from another family.",
       ],
       conclusionLabel: "The takeaway",
       conclusionSteps: [
