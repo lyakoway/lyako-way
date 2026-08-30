@@ -779,10 +779,26 @@ export const AiTable = styled.table<{ $firstFill?: boolean; $stack?: boolean }>`
           justify-content: space-between;
           align-items: baseline;
           gap: 12px;
-          padding: 3px 0;
-          border-bottom: none;
+          padding: 5px 0;
+          border-bottom: 1px solid ${PANEL_BORDER};
           white-space: normal;
           text-align: right;
+        }
+
+        /* последняя строка мини-карточки — без разделителя */
+        tr td:last-child {
+          border-bottom: none;
+        }
+
+        /* в стопке мини-карточек последняя строка таблицы — обычная
+           карточка: базовое «tr:last-child td» (для десктопной таблицы)
+           здесь не действует, разделители возвращаем */
+        tr:last-child td {
+          border-bottom: 1px solid ${PANEL_BORDER};
+        }
+
+        tr:last-child td:last-child {
+          border-bottom: none;
         }
 
         td::before {
