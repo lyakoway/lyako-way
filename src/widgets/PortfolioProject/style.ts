@@ -906,8 +906,11 @@ export const AiConclusionStep = styled.span`
 `;
 
 export const AiConclusionArrow = styled.span`
-  color: ${({ theme }) => theme.color.basic.primary};
-  font-size: 13px;
+  /* белые стрелки, а не оранжевый акцент: на тёмной карточке акцентный
+     цвет рядом с оранжевыми чипами этапов сливается и теряется */
+  color: ${PANEL_TEXT};
+  font-size: 15px;
+  font-weight: 600;
   line-height: 1;
   user-select: none;
 `;
