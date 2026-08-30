@@ -679,7 +679,7 @@ export const AiTableTitle = styled.p`
   }
 `;
 
-export const AiTable = styled.table<{ $firstFill?: boolean }>`
+export const AiTable = styled.table<{ $firstFill?: boolean; $stack?: boolean }>`
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
@@ -743,6 +743,86 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
   tr[data-highlight="true"] td:first-child {
     box-shadow: inset 3px 0 0 ${({ theme }) => theme.color.basic.primary};
   }
+
+  ${({ $stack }) =>
+    $stack &&
+    css`
+      /* На узких экранах многоколоночная таблица не влезает — перестраиваемся:
+         шапка скрывается, каждая строка становится мини-карточкой
+         «лейбл — значение» (лейбл берётся из data-label ячейки).
+         Container-запрос считается по ширине самой карточки (AiLaneCard),
+         поэтому не зависит от переполнения страницы за пределами карточки */
+      @container (max-width: 479px) {
+        thead {
+          display: none;
+        }
+
+        tbody,
+        tr,
+        td {
+          display: block;
+        }
+
+        tbody {
+          display: grid;
+          gap: 10px;
+        }
+
+        tr {
+          border: 1px solid ${PANEL_BORDER};
+          border-radius: 10px;
+          padding: 10px 12px;
+        }
+
+        td {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          gap: 12px;
+          padding: 3px 0;
+          border-bottom: none;
+          white-space: normal;
+          text-align: right;
+        }
+
+        td::before {
+          content: attr(data-label);
+          color: ${PANEL_TEXT_MUTED};
+          font-size: 11px;
+          font-weight: 600;
+          letter-spacing: 0.5px;
+          text-transform: uppercase;
+          text-align: left;
+        }
+
+        td:first-child {
+          color: ${PANEL_TEXT};
+          font-weight: 500;
+        }
+
+        td:first-child::before {
+          content: none;
+        }
+
+        /* подсветка строки переезжает с ячеек на мини-карточку;
+           оранжевая линия слева сохраняется — тексту добавлен отступ
+           от неё (иначе текст прилипает к линии) */
+        tr[data-highlight="true"] {
+          border-color: rgba(255, 133, 96, 0.45);
+          background: rgba(255, 133, 96, 0.07);
+        }
+
+        tr[data-highlight="true"] td {
+          background: none;
+          box-shadow: none;
+          padding-left: 8px;
+        }
+
+        tr[data-highlight="true"] td:first-child {
+          box-shadow: inset 3px 0 0 ${({ theme }) => theme.color.basic.primary};
+        }
+      }
+    `}
 `;
 
 export const AiFootnote = styled.p`
@@ -1060,7 +1140,10 @@ export const AiLane = styled.div`
 
 // Карточка дорожки: заголовок + чипы нод / таблица замеров.
 // overflow-x — широкие таблицы прокручиваются внутри карточки, не ломая её.
+// container-type — внутри карточки работают container-запросы (таблица
+// перестраивается по фактической ширине карточки, а не окна).
 export const AiLaneCard = styled.div`
+  container-type: inline-size;
   background: ${PANEL_ELEVATED};
   border: 1px solid ${PANEL_BORDER};
   border-radius: 12px;

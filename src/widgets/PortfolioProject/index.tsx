@@ -663,7 +663,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     <Reveal as={AiLaneCard} x={64} y={0} delay={i * 90}>
                       <AiTableTitle>{t.title}</AiTableTitle>
                       {/* Двухколоночные таблицы: значения прижаты вправо */}
-                      <AiTable $firstFill={t.columns.length === 2}>
+                      {/* >2 колонки на мобиле перестраиваются в мини-карточки */}
+                      <AiTable
+                        $firstFill={t.columns.length === 2}
+                        $stack={t.columns.length > 2}
+                      >
                         <thead>
                           <tr>
                             {t.columns.map((c, j) => (
@@ -675,7 +679,9 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                           {t.rows.map((r, j) => (
                             <tr key={j} data-highlight={r.highlight ? "true" : undefined}>
                               {r.cells.map((cell, k) => (
-                                <td key={k}>{cell}</td>
+                                <td key={k} data-label={t.columns[k]}>
+                                  {cell}
+                                </td>
                               ))}
                             </tr>
                           ))}
