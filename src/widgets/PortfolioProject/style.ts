@@ -216,8 +216,35 @@ export const CardList = styled.ul`
 
 /* ——— Список возможностей (простой список с маркерами) ——— */
 
-export const FeaturesTitle = styled.p`
+// Шапка раздела: иконка в квадратной плашке + заголовок (как секции /cv).
+// Отступы живут здесь — у FeaturesTitle внутри нулевые.
+export const FeaturesHead = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 28px 0 14px;
+`;
+
+export const FeaturesIcon = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+
+  svg {
+    width: 17px;
+    height: 17px;
+  }
+`;
+
+export const FeaturesTitle = styled.p`
+  margin: 0;
   color: ${PANEL_TEXT_MUTED};
   font-size: 12px;
   font-weight: 600;

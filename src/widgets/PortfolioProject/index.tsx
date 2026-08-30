@@ -33,6 +33,8 @@ import {
   DescLead,
   DescCard,
   CardList,
+  FeaturesHead,
+  FeaturesIcon,
   FeaturesTitle,
   FeatureList,
   Feature,
@@ -90,6 +92,124 @@ const AI_STATUS_HINT: Record<string, { russia: string; english: string }> = {
   partial: { russia: "Частично", english: "Partial" },
   todo: { russia: "В планах", english: "Planned" },
 };
+
+/* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
+   резюме (stroke = currentColor, толщина 2, скруглённые концы). */
+const IconFeatures = () => (
+  // Возможности — звезда
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M12 3l2.09 5.26L20 9.27l-4 3.64L17.18 19 12 15.9 6.82 19 8 12.91l-4-3.64 5.91-1.01L12 3z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconUseCases = () => (
+  // Для чего нужен проект — мишень
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="2" />
+    <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="2" />
+  </svg>
+);
+
+const IconDiagram = () => (
+  // Схема проекта — слои
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M12 3 3 8l9 5 9-5-9-5z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+    <path
+      d="m3 12.5 9 5 9-5M3 17l9 5 9-5"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconArchitecture = () => (
+  // Архитектура — код
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="m9 8-4 4 4 4M15 8l4 4-4 4"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconAiView = () => (
+  // Взгляд AI-инженера — чип
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <rect
+      x="7"
+      y="7"
+      width="10"
+      height="10"
+      rx="2"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path
+      d="M10 3v2M14 3v2M10 19v2M14 19v2M3 10h2M3 14h2M19 10h2M19 14h2"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const IconMetrics = () => (
+  // Замеры — столбики диаграммы
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M5 20v-6M12 20V6M19 20v-9M3 20h18"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const IconFindings = () => (
+  // Что показали замеры — лампа
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M9 18h6M10 21h4"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+    <path
+      d="M12 3a6 6 0 0 0-3.5 10.9c.7.5 1.2 1.3 1.3 2.1h4.4c.1-.8.6-1.6 1.3-2.1A6 6 0 0 0 12 3z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const IconGaps = () => (
+  // Честные пробелы — компас
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
+    <path
+      d="m15.5 8.5-2 5-5 2 2-5 5-2z"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 type HeartParticle = ReturnType<typeof generateParticles>[number];
 type Confetti = ReturnType<typeof generateConfetti>[number];
@@ -411,7 +531,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
 
           {project.features && project.features.length > 0 && (
             <>
-              <FeaturesTitle>{portfolioHeader.features}</FeaturesTitle>
+              <FeaturesHead>
+                <FeaturesIcon><IconFeatures /></FeaturesIcon>
+                <FeaturesTitle>{portfolioHeader.features}</FeaturesTitle>
+              </FeaturesHead>
               <FeatureList>
                 {project.features.map((f, i) => (
                   <Reveal as={Feature} key={i} delay={i * 60}>
@@ -427,7 +550,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               {project.aiEngineering.useCases &&
                 project.aiEngineering.useCases.length > 0 && (
                   <>
-                    <FeaturesTitle>{project.aiEngineering.useCasesTitle}</FeaturesTitle>
+                    <FeaturesHead>
+                      <FeaturesIcon><IconUseCases /></FeaturesIcon>
+                      <FeaturesTitle>{project.aiEngineering.useCasesTitle}</FeaturesTitle>
+                    </FeaturesHead>
                     {project.aiEngineering.useCasesIntro && (
                       <Reveal as={DescCard} delay={40}>
                         {project.aiEngineering.useCasesIntro}
@@ -464,7 +590,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               {project.aiEngineering.diagram &&
                 project.aiEngineering.diagram.length > 0 && (
                   <>
-                    <FeaturesTitle>{project.aiEngineering.diagramTitle}</FeaturesTitle>
+                    <FeaturesHead>
+                      <FeaturesIcon><IconDiagram /></FeaturesIcon>
+                      <FeaturesTitle>{project.aiEngineering.diagramTitle}</FeaturesTitle>
+                    </FeaturesHead>
                     {/* Без внешней подложки: только дерево слева и карточки дорожек */}
                     <Reveal as={AiDiagram} delay={60}>
                       {project.aiEngineering.diagram.map((lane, i) => (
@@ -497,16 +626,22 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
 
               {project.aiEngineering.architecture && (
                 <>
-                  <FeaturesTitle>
-                    {project.aiEngineering.architectureTitle}
-                  </FeaturesTitle>
+                  <FeaturesHead>
+                    <FeaturesIcon><IconArchitecture /></FeaturesIcon>
+                    <FeaturesTitle>
+                      {project.aiEngineering.architectureTitle}
+                    </FeaturesTitle>
+                  </FeaturesHead>
                   <Reveal as={AiArchitecture} delay={60}>
                     {project.aiEngineering.architecture}
                   </Reveal>
                 </>
               )}
 
-              <FeaturesTitle>{project.aiEngineering.sectionTitle}</FeaturesTitle>
+              <FeaturesHead>
+                <FeaturesIcon><IconAiView /></FeaturesIcon>
+                <FeaturesTitle>{project.aiEngineering.sectionTitle}</FeaturesTitle>
+              </FeaturesHead>
               <Reveal as={DescCard} delay={60}>
                 {project.aiEngineering.intro}
               </Reveal>
@@ -550,7 +685,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 </AiUseCasesContent>
               </AiUseCases>
 
-              <FeaturesTitle>{project.aiEngineering.metricsTitle}</FeaturesTitle>
+              <FeaturesHead>
+                <FeaturesIcon><IconMetrics /></FeaturesIcon>
+                <FeaturesTitle>{project.aiEngineering.metricsTitle}</FeaturesTitle>
+              </FeaturesHead>
               {/* Тот же дерево: узел на стволе + карточка, выезжающая справа */}
               <AiDiagram>
                 {project.aiEngineering.tables.map((t, i) => (
@@ -584,7 +722,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               {project.aiEngineering.findings &&
                 project.aiEngineering.findings.length > 0 && (
                   <>
-                    <FeaturesTitle>{project.aiEngineering.findingsTitle}</FeaturesTitle>
+                    <FeaturesHead>
+                      <FeaturesIcon><IconFindings /></FeaturesIcon>
+                      <FeaturesTitle>{project.aiEngineering.findingsTitle}</FeaturesTitle>
+                    </FeaturesHead>
                     <FeatureList>
                       {project.aiEngineering.findings.map((f, i) => (
                         <Reveal as={Feature} key={i} delay={i * 50}>
@@ -597,7 +738,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
 
               {project.aiEngineering.gaps && project.aiEngineering.gaps.length > 0 && (
                 <>
-                  <FeaturesTitle>{project.aiEngineering.gapsTitle}</FeaturesTitle>
+                    <FeaturesHead>
+                      <FeaturesIcon><IconGaps /></FeaturesIcon>
+                      <FeaturesTitle>{project.aiEngineering.gapsTitle}</FeaturesTitle>
+                    </FeaturesHead>
                   <FeatureList>
                     {project.aiEngineering.gaps.map((g, i) => (
                       <Reveal as={AiGap} key={i} delay={i * 50}>
