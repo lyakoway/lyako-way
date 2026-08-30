@@ -176,7 +176,9 @@ export const DescCard = styled.div`
   font-size: 14px;
   font-weight: 300;
   line-height: 1.6;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
@@ -496,7 +498,8 @@ export const ButtonPrimary = styled.a<{ $pressed?: boolean }>`
   &:hover,
   &:active {
     background: ${({ theme }) => theme.color.basic.hover};
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.35),
+    box-shadow:
+      0 0 12px rgba(255, 255, 255, 0.35),
       0 0 4px rgba(255, 255, 255, 0.2);
   }
 
@@ -589,7 +592,9 @@ export const AiPrinciple = styled.div`
   padding: 14px 16px;
   display: grid;
   align-items: start;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 
   /* подсветка при наведении — как у карточек сценариев и дорожек схемы */
   &:hover {
@@ -649,7 +654,9 @@ export const AiCard = styled.div`
   border-radius: 12px;
   padding: 16px 18px;
   overflow-x: auto;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
@@ -814,6 +821,8 @@ export const AiTable = styled.table<{ $firstFill?: boolean; $stack?: boolean }>`
         td:first-child {
           color: ${PANEL_TEXT};
           font-weight: 500;
+          /* заголовок строки — у левой оранжевой линии, не по центру */
+          text-align: left;
         }
 
         td:first-child::before {
@@ -861,7 +870,9 @@ export const AiConclusion = styled.div`
   color: ${PANEL_TEXT};
   display: grid;
   gap: 12px;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
@@ -923,21 +934,23 @@ export const AiUseCases = styled.div<{ $open?: boolean }>`
   display: grid;
   gap: ${({ $open }) => ($open ? "14px" : "0")};
   background: ${PANEL_ELEVATED};
-  border: 1px solid
-    ${({ $open }) => ($open ? "#ff8560" : PANEL_BORDER)};
+  border: 1px solid ${({ $open }) => ($open ? "#ff8560" : PANEL_BORDER)};
   border-radius: 16px;
   /* Верхний паддинг постоянный (нулевой): анимированное изменение вертикального
      паддинга сдвигало заголовок со стрелкой при раскрытии. Нижний растёт
      только вниз, под контентом, — на заголовок не влияет. */
   padding: 0 18px ${({ $open }) => ($open ? "16px" : "0")};
-  transition: border-color 0.3s ease, padding 0.35s ease,
+  transition:
+    border-color 0.3s ease,
+    padding 0.35s ease,
     box-shadow 0.3s ease;
 
   /* Наведение на аккордеон (заголовок или контент): оранжевая рамка
      + подсветка области нажатия */
   &:hover {
     border-color: #ff8560;
-    box-shadow: inset 0 0 0 1px rgba(255, 133, 96, 0.35),
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 133, 96, 0.35),
       0 0 14px rgba(255, 133, 96, 0.18);
   }
 
@@ -974,7 +987,9 @@ export const AiUseCase = styled.button<{ $open?: boolean }>`
   cursor: pointer;
   text-align: left;
   -webkit-tap-highlight-color: transparent;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 
   &:hover {
     color: ${({ theme }) => theme.color.basic.primaryLight};
@@ -1044,7 +1059,9 @@ export const AiUseCaseCard = styled.div`
   display: grid;
   gap: 5px;
   align-content: start;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
@@ -1167,7 +1184,9 @@ export const AiLaneCard = styled.div`
   display: grid;
   gap: 10px;
   overflow-x: auto;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
