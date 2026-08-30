@@ -46,7 +46,6 @@ import {
   AiPrincipleTitle,
   AiPrincipleCheck,
   AiPrincipleResult,
-  AiArchitecture,
   AiTableTitle,
   AiTable,
   AiFootnote,
@@ -130,19 +129,6 @@ const IconDiagram = () => (
     />
     <path
       d="m3 12.5 9 5 9-5M3 17l9 5 9-5"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const IconArchitecture = () => (
-  // Архитектура — код
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="m9 8-4 4 4 4M15 8l4 4-4 4"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
@@ -640,20 +626,6 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     )}
                   </>
                 )}
-
-              {project.aiEngineering.architecture && (
-                <>
-                  <FeaturesHead>
-                    <FeaturesIcon><IconArchitecture /></FeaturesIcon>
-                    <FeaturesTitle>
-                      {project.aiEngineering.architectureTitle}
-                    </FeaturesTitle>
-                  </FeaturesHead>
-                  <Reveal as={AiArchitecture} delay={60}>
-                    {project.aiEngineering.architecture}
-                  </Reveal>
-                </>
-              )}
 
               <FeaturesHead>
                 <FeaturesIcon><IconAiView /></FeaturesIcon>

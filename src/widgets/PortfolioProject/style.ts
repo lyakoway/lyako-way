@@ -738,22 +738,6 @@ export const AiFootnote = styled.p`
   line-height: 1.5;
 `;
 
-// ASCII-схема архитектуры из README: моноширинный блок в карточке,
-// на узких экранах прокручивается по горизонтали, не ломая сетку.
-export const AiArchitecture = styled.pre`
-  margin: 0;
-  padding: 16px 18px;
-  background: ${PANEL_ELEVATED};
-  border: 1px solid ${PANEL_BORDER};
-  border-radius: 12px;
-  overflow-x: auto;
-  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono",
-    monospace;
-  font-size: 12px;
-  line-height: 1.5;
-  color: ${PANEL_TEXT_SECONDARY};
-`;
-
 // Итоговый вывод — ключевая карточка секции: оранжевая линейка слева,
 // подпись «Главный вывод», цепочка этапов цикла и строки-акценты текста.
 export const AiConclusion = styled.div`

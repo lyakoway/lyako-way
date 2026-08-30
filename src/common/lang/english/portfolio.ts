@@ -172,32 +172,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       diagramNote:
         "Top to bottom: a user question → a streamed answer with citations. One RAG pipeline serves all three modes — chat, agent and vector search; LLM providers are interchangeable, and the offline mode runs without keys.",
-      architectureTitle: "Architecture",
-      // ASCII-схема из README репозитория проекта
-      architecture: [
-        "┌─────────────────┐     /api (SSE + REST)     ┌──────────────────────────┐",
-        "│  React + Vite   │ ◀───────────────────────▶ │        FastAPI            │",
-        "│  (стриминг UI)  │                            │                          │",
-        "└─────────────────┘                            │  ┌────────────────────┐  │",
-        "                                               │  │ Parsers (pdf/docx/ │  │",
-        "                                               │  │        xlsx)       │  │",
-        "                                               │  ├────────────────────┤  │",
-        "                                               │  │ Chunking (tiktoken)│  │",
-        "                                               │  ├────────────────────┤  │",
-        "                                               │  │ Embeddings         │  │",
-        "                                               │  │ (fastembed/OpenAI) │  │",
-        "                                               │  ├────────────────────┤  │",
-        "                                               │  │ Vector store       │──┼─▶ ChromaDB",
-        "                                               │  ├────────────────────┤  │",
-        "                                               │  │ RAG pipeline       │  │",
-        "                                               │  ├────────────────────┤  │",
-        "                                               │  │ LLM providers      │──┼─▶ Z.ai (GLM) / OpenAI",
-        "                                               │  │ (mock/gpt/claude/  │  │   Anthropic / Ollama",
-        "                                               │  │  ollama)           │  │",
-        "                                               │  └────────────────────┘  │",
-        "                                               │  История → SQLite         │",
-        "                                               └──────────────────────────┘",
-      ].join("\n"),
       principlesTitle: "AI engineer's checklist",
       principles: [
         {
