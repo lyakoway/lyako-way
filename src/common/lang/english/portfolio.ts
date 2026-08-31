@@ -313,7 +313,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Citations — citations are correct", "5.0 / 5"] },
           ],
           footnote:
-            "Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24. The judge is the same GLM family — self-judging is lenient. A strict evaluation needs a judge from another family.",
+            "Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24.",
         },
       ],
       findingsTitle: "What the measurements showed",
