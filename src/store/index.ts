@@ -46,10 +46,9 @@ const reducer = (state: RootState | undefined, action: AnyAction) => {
 export const makeStore = () =>
   configureStore({
     reducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({
-        serializableCheck: false, // отключаем проверки сериализации для Next.js
-      }),
+    // serializableCheck включён: состояние полностью сериализуемо (иконки
+    // в словарях — строковые ключи, элементы — в src/common/lib/iconRegistry).
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
     devTools: process.env.NODE_ENV !== "production",
   });
 

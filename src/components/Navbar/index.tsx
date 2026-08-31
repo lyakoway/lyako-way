@@ -12,6 +12,7 @@ import {
   NavLabel,
   NavIndicator,
 } from "./style";
+import { MENU_ICONS } from "src/common/lib/iconRegistry";
 
 const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -123,7 +124,7 @@ const Navbar = () => {
               onPointerLeave={handlePointerLeave}
               onPointerCancel={handlePointerLeave}
             >
-              {item.value === "" ? <HomeIcon /> : item.icon}
+              {item.value === "" ? <HomeIcon /> : MENU_ICONS[item.icon]}
               <NavLabel
                 ref={(node) => {
                   labelRefs.current[item.id] = node;

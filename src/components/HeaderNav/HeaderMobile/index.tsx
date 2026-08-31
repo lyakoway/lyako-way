@@ -30,6 +30,7 @@ import { ReactComponent as SettingIcon } from "src/common/icon/icon-header/setti
 import { ReactComponent as ProfileIcon } from "src/common/icon/icon-header/profile.svg";
 import { HeaderTopMenuProps } from "src/common/types/lang";
 import PagesSettings from "src/components/PagesSettings";
+import { MENU_ICONS } from "src/common/lib/iconRegistry";
 
 const HeaderMenuLi = (
   propsList: HeaderTopMenuProps[],
@@ -54,21 +55,21 @@ const HeaderMenuLi = (
     <Li $header={header} key={item.id} onClick={() => setOpened(false)}>
       {!item.href && item.value !== "contacts" && (
         <LinkMenu href={`${"/#" + item.value}`}>
-          {item.icon}
+          {MENU_ICONS[item.icon]}
           <Label style={{ pointerEvents: "none" }}>{item.label}</Label>
         </LinkMenu>
       )}
       {item.href && (
         <a href={`${"/" + item.href}`}>
           <LinkDiv>
-            {item.icon}
+            {MENU_ICONS[item.icon]}
             <Label style={{ pointerEvents: "none" }}>{item.label}</Label>
           </LinkDiv>
         </a>
       )}
       {item.value === "contacts" && (
         <LinkDiv onClick={() => scrollToBottom(item.value)}>
-          {item.icon}
+          {MENU_ICONS[item.icon]}
           <Label style={{ pointerEvents: "none" }}>{item.label}</Label>
         </LinkDiv>
       )}

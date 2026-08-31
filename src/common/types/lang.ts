@@ -1,11 +1,17 @@
-import type { JSX } from "react";
+import type {
+  MenuIconName,
+  AdvantageIconName,
+} from "src/common/lib/iconRegistry";
 
+// Иконки хранятся строковыми ключами (см. src/common/lib/iconRegistry):
+// словари сериализуются в __NEXT_DATA__ при SSR, React-элементы в JSON
+// не переживают.
 export interface HeaderTopMenuProps {
   id: string;
   label: string;
   value: string;
   href?: string;
-  icon: string | JSX.Element;
+  icon: MenuIconName;
 }
 
 export interface AdvantagesProps {
@@ -13,7 +19,7 @@ export interface AdvantagesProps {
   title: string;
   label: string;
   value: string;
-  icon: string | JSX.Element;
+  icon: AdvantageIconName;
 }
 
 export interface BlogProps {
@@ -340,7 +346,7 @@ export interface ClimateProps {
 
 export interface AlertHeartProps {
   title: string;
-  text: string | JSX.Element;
+  text: string;
   textSecondary: string;
   buttonText: string;
 }

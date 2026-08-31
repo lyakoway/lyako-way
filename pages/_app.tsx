@@ -5,7 +5,7 @@ import { Poppins } from "next/font/google";
 
 import { Provider } from "react-redux";
 
-import { AppProps } from "next/app";
+import { AppProps, default as NextApp } from "next/app";
 
 import { ThemeProvider } from "styled-components";
 import styled from "styled-components";
@@ -25,7 +25,14 @@ import getAppHeadContent from "src/common/utils/getAppHeadContent";
 import { trackPageView } from "src/common/utils/trackAnalytics";
 import { SITE_TITLE, SITE_URL } from "src/common/constants/site";
 import GlobalStyles from "src/common/lib/globalStyles";
-import { setThemeList, getPreferredIsDay, setUserSelectedTheme } from "src/reducers";
+import {
+  setLang,
+  setUserSelectedLang,
+  setThemeList,
+  getPreferredIsDay,
+  setUserSelectedTheme,
+} from "src/reducers";
+import { parseLangCookie } from "src/common/utils/langStorage";
 import { useDayTime, useIsomorphicLayoutEffect } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
 import { Toast } from "src/ui/Toast";
@@ -155,5 +162,22 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
     </React.StrictMode>
   );
 };
+
+// Cookie → язык до первого рендера: сохранённый ручной выбор применяется
+// на сервере, SSR отдаёт сразу верную версию (без вспышки русской до
+// гидрации), а next-redux-wrapper прокидывает язык клиенту через HYDRATE.
+// getInitialProps в _app отключает статическую оптимизацию всех страниц —
+// для этого сайта это приемлемо: погода, лайки и праздники и так
+// загружаются на клиенте.
+MyApp.getInitialProps = wrapper.getInitialAppProps(
+  (store) => async (appCtx) => {
+    const storedIsEnglish = parseLangCookie(appCtx.ctx.req?.headers.cookie);
+    if (storedIsEnglish !== null) {
+      store.dispatch(setLang(storedIsEnglish));
+      store.dispatch(setUserSelectedLang(true));
+    }
+    return await NextApp.getInitialProps(appCtx);
+  }
+);
 
 export default MyApp;

@@ -8,7 +8,9 @@ type IState = {
 };
 
 const initialState: IState = {
-  lang: RUSSIAN_LANGUAGE,
+  // Язык по умолчанию — английский; русский ставит только гео-детект
+  // (страна «Russia»), см. useAutoLocaleClimate.
+  lang: ENGLISH_LANGUAGE,
   userSelectedLang: false,
 };
 

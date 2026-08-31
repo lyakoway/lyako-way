@@ -1,13 +1,7 @@
-import {
-  AgentIcon,
-  RagIcon,
-  QualityIcon,
-  IntegrationIcon,
-  EndToEndIcon,
-  OptimizationIcon,
-} from "src/common/icon/advantages/serviceIcons";
-
 import { AdvantagesProps } from "src/common/types/lang";
+
+// Иконки — ключи из ADVANTAGE_ICONS (src/common/lib/iconRegistry): словарь
+// сериализуется в Redux/__NEXT_DATA__, React-элементы в JSON не переживают.
 
 export const advantagesText = "Что я делаю";
 
@@ -18,7 +12,7 @@ export const propsAdvantages: AdvantagesProps[] = [
     label:
       "Проектирую AI-агентов под реальные бизнес-сценарии: workflow, function / tool calling, оркестрация мульти-агентных систем, обработка ошибок и восстановление после сбоев.",
     value: "Agents",
-    icon: <AgentIcon />,
+    icon: "agent",
   },
   {
     id: "2",
@@ -26,7 +20,7 @@ export const propsAdvantages: AdvantagesProps[] = [
     label:
       "Строю RAG-системы: подключаю базы знаний и векторный поиск, чтобы модель отвечала точно и по вашим данным, а не «из головы».",
     value: "Rag",
-    icon: <RagIcon />,
+    icon: "rag",
   },
   {
     id: "3",
@@ -34,7 +28,7 @@ export const propsAdvantages: AdvantagesProps[] = [
     label:
       "Разрабатываю и итеративно улучшаю промпт-сценарии, формирую evaluation-наборы и тестирую решения на точность, стабильность и edge cases.",
     value: "Quality",
-    icon: <QualityIcon />,
+    icon: "quality",
   },
   {
     id: "4",
@@ -42,7 +36,7 @@ export const propsAdvantages: AdvantagesProps[] = [
     label:
       "Внедряю большие языковые модели в существующие продукты через API: надёжный backend на Python / FastAPI, безопасная и предсказуемая работа.",
     value: "Integration",
-    icon: <IntegrationIcon />,
+    icon: "integration",
   },
   {
     id: "5",
@@ -50,7 +44,7 @@ export const propsAdvantages: AdvantagesProps[] = [
     label:
       "Собираю решение целиком — от интерфейса (React / Next) до backend и инфраструктуры (Docker, Kubernetes, CI/CD). Бэкграунд Senior Frontend помогает довести продукт до конца.",
     value: "EndToEnd",
-    icon: <EndToEndIcon />,
+    icon: "endToEnd",
   },
   {
     id: "6",
@@ -58,6 +52,6 @@ export const propsAdvantages: AdvantagesProps[] = [
     label:
       "Оптимизирую задержки и токен-бюджет, слежу за качеством ответов в production и оперативно дорабатываю решение по мере роста нагрузки и задач.",
     value: "Optimization",
-    icon: <OptimizationIcon />,
+    icon: "optimization",
   },
 ];

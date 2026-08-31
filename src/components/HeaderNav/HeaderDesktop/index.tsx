@@ -17,6 +17,7 @@ import {
 } from "./style";
 
 import Link from "src/ui/Link";
+import { MENU_ICONS } from "src/common/lib/iconRegistry";
 import { HeaderTopMenuProps } from "src/common/types/lang";
 import HeaderMobile from "src/components/HeaderNav/HeaderMobile";
 
@@ -53,21 +54,21 @@ const HeaderMenuLi = (arrPropsList) => {
     <Li key={item.id}>
       {!item.href && item.value !== "contacts" && (
         <LinkA href={`${"/#" + item.value}`}>
-          {item.icon}
+          {MENU_ICONS[item.icon]}
           <Label style={{ pointerEvents: "none" }}>{item.label}</Label>
         </LinkA>
       )}
       {item.href && (
         <Link href={`${"/" + item.href}`}>
           <LinkDiv>
-            {item.icon}
+            {MENU_ICONS[item.icon]}
             <Label style={{ pointerEvents: "none" }}>{item.label}</Label>
           </LinkDiv>
         </Link>
       )}
       {item.value === "contacts" && (
         <LinkDiv onClick={() => scrollToBottom(item.value)}>
-          {item.icon}
+          {MENU_ICONS[item.icon]}
           <Label style={{ pointerEvents: "none" }}>{item.label}</Label>
         </LinkDiv>
       )}

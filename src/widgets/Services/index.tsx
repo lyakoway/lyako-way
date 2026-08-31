@@ -4,6 +4,7 @@ import { useSelectorTyped } from "src/store";
 import { ArticleTitle, Article } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import ContactForm from "src/components/ContactForm";
+import { ADVANTAGE_ICONS } from "src/common/lib/iconRegistry";
 
 import {
   ServiceSection,
@@ -37,7 +38,7 @@ const Services = () => {
         <ServiceList>
           {propsAdvantages.map((item, i) => (
             <Reveal as={ServiceItem} key={item.id} delay={i * 90}>
-              <ServiceIconBox>{item.icon}</ServiceIconBox>
+              <ServiceIconBox>{ADVANTAGE_ICONS[item.icon]}</ServiceIconBox>
               <div>
                 <ServiceItemTitle>{item.title}</ServiceItemTitle>
                 <ServiceItemText>{item.label}</ServiceItemText>
