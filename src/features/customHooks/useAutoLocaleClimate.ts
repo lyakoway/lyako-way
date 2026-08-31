@@ -13,14 +13,15 @@ import { getStoredLang } from "src/common/utils/langStorage";
 
 // Сайд-эффекты, которые раньше жили в hero (src/components/HeaderSection):
 //  — загрузка лайков;
-//  — автоопределение климата по погоде (если пользователь не выбирал вручную);
-//  — автоопределение языка по стране из погоды (если пользователь не выбирал):
-//    по умолчанию английский, русский — только если гео нашло Россию.
+//  — автоопределение климата по погоде (если пользователь не выбрал вручную);
+//  — автоопределение языка (если пользователь не выбирал): navigator.language
+//    как мгновенный сигнал, гео как арбитр; по умолчанию английский, русский —
+//    только если браузер русский или гео нашло Россию.
 // Вынесено в отдельный хук, чтобы работало из общей оболочки (Layout),
 // а не только при рендере hero на главной.
 export function useAutoLocaleClimate() {
   const dispatch = useDispatchTyped();
-  const { userSelectedClimate, climate } = useSelectorTyped(
+  const { userSelectedClimate, climate, weatherFromGeo } = useSelectorTyped(
     ({ climate }) => climate
   );
   const { userSelectedLang } = useSelectorTyped(({ lang }) => lang);
@@ -59,14 +60,31 @@ export function useAutoLocaleClimate() {
     dispatch(setUserSelectedLang(true));
   }, [dispatch, userSelectedLang]);
 
-  // Язык — один раз при первой погоде: русский только для России, иначе
-  // остаётся английский (дефолт из initialState).
+  // navigator.language — мгновенный сигнал до гео: русский интерфейс браузера
+  // сразу получает русскую версию, не дожидаясь погоды (английский — дефолт,
+  // диспатчить нечего). Гео остаётся арбитром: когда придёт гео-погода, её
+  // вердикт применится поверх этого выбора (эффект ниже).
+  const browserLangRef = useRef(false);
+  useEffect(() => {
+    if (browserLangRef.current || userSelectedLang) return;
+    if (getStoredLang() !== null) return;
+    browserLangRef.current = true;
+    const isRuBrowser = navigator.language?.toLowerCase().startsWith("ru");
+    if (isRuBrowser) {
+      dispatch(setLang(false));
+    }
+  }, [dispatch, userSelectedLang]);
+
+  // Язык — один раз, и только по гео-погоде (координаты/IP): выбранный или
+  // дефолтный город (Москва) не является сигналом о местоположении, поэтому
+  // его страна язык не переключает — остаётся английский дефолт.
   const langAppliedRef = useRef(false);
   useEffect(() => {
     if (langAppliedRef.current || userSelectedLang) return;
     // Сохранённый выбор перекрывает гео, даже если флаг userSelectedLang
     // ещё не успел обновиться в этом же проходе эффектов (смена города).
     if (getStoredLang() !== null) return;
+    if (!weatherFromGeo) return;
     const country = weather?.location?.country?.toLowerCase() || null;
     if (!country) return;
     langAppliedRef.current = true;
@@ -74,5 +92,5 @@ export function useAutoLocaleClimate() {
     // только когда гео нашло Россию, для остальных — остаётся английский.
     const isRussia = country === "russia" || country === "россия";
     dispatch(setLang(!isRussia));
-  }, [weather, dispatch, userSelectedLang]);
+  }, [weather, weatherFromGeo, dispatch, userSelectedLang]);
 }

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { fetchWeather, setSelectedCity } from "src/reducers";
+import { fetchWeather } from "src/reducers";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
@@ -34,7 +34,9 @@ export function useWeather(options?: { autoInit?: boolean }) {
       if (!city) return;
       setGeoCity(city);
       dispatch(fetchWeather({ city, force }));
-      dispatch(setSelectedCity(city));
+      // selectedCity сюда НЕ пишем: localStorage — только явный выбор города
+      // пользователем (ClimateControl диспатчит setSelectedCity сам), иначе
+      // дефолтная «Москва» сохраняется как будто её выбрал человек.
     },
     [dispatch]
   );
@@ -42,7 +44,9 @@ export function useWeather(options?: { autoInit?: boolean }) {
   const fetchByCoords = useCallback(
     (lat: number, lon: number) => {
       const query = `${lat},${lon}`;
-      dispatch(fetchWeather({ city: query }));
+      // fromGeo: погода по координатам пользователя — единственное
+      // основание для автоопределения языка по стране (useAutoLocaleClimate).
+      dispatch(fetchWeather({ city: query, fromGeo: true }));
     },
     [dispatch]
   );
@@ -74,14 +78,16 @@ export function useWeather(options?: { autoInit?: boolean }) {
   }, [fetchByCoords, fetchByIPFallback]);
 
   // Инициализируем погоду только у драйвера (autoInit) и ровно один раз.
+  // Геолокацию пробуем ВСЕГДА: выбранный/дефолтный город даёт окну погоды
+  // быстрый ответ, но язык и климат должны определяться реальным
+  // местоположением — гео-фетч (fromGeo) перезапишет погоду, когда доедет.
   useEffect(() => {
     if (!autoInit || didInitRef.current) return;
     didInitRef.current = true;
     if (selectedCity) {
       fetchByCity(selectedCity);
-    } else {
-      fetchByGeolocation();
     }
+    fetchByGeolocation();
   }, [autoInit, selectedCity, fetchByCity, fetchByGeolocation]);
 
   // Периодический realtime-рефреш у драйвера — сцена и климат не устаревают.
