@@ -83,7 +83,7 @@ export const ModalComponent = styled.div<{
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 `;
 
-export const IconClose = styled.div`
+export const IconClose = styled.div<{ $bright?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,12 +110,20 @@ export const IconClose = styled.div`
       theme.name === "light" ? "rgba(98, 108, 119, 0.25)" : "#d4d4d559"};
   }
 
+  /* Цвет — по фону окна, а не по теме: окно погоды тёмное («панельный»
+     стиль) в обеих темах, поэтому там крестик белый. */
   & svg {
-    fill: ${({ theme }) => (theme.name === "light" ? "#7b7e86" : "#fff")};
+    fill: ${({ $bright, theme }) =>
+      $bright ? "#ffffff" : theme.name === "light" ? "#565b64" : "#ffffff"};
+    /* Лёгкая обводка в тон: утолщает тонкий глиф — крестик читается ярче. */
+    stroke: ${({ $bright, theme }) =>
+      $bright ? "#ffffff" : theme.name === "light" ? "#565b64" : "#ffffff"};
+    stroke-width: 0.6px;
   }
 
   &:hover svg {
     fill: red;
+    stroke: red;
   }
 `;
 

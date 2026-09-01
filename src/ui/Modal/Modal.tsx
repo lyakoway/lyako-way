@@ -55,7 +55,7 @@ export const Modal: FC = () => {
           $background={background}
           onClick={(e) => e.stopPropagation()}
         >
-          <IconClose onClick={onCloseModal}>
+          <IconClose $bright={!!background} onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />
           </IconClose>
           <Content>{content ? renderModalContent(content) : null}</Content>
