@@ -70,6 +70,7 @@ UserID (хеш) в GA4 смотрите после того, как `user_id` у
 | `weather_open` | Открытие погоды | Модалка погоды |
 | `weather_city_select` | Выбор города | Город из списка |
 | `weather_search` | Поиск города | Кнопка «Найти» |
+| `weather_geo` | Кнопка «Моё местоположение» | Иконка геолокации |
 | `weather_select` | Выбор типа погоды | Иконка погоды |
 | `error_screen_view` | Экран ошибки | Показали 404 / ошибку |
 | `error_home_click` | С ошибки на главную | «На главную» |
@@ -160,6 +161,7 @@ UserID (хеш) в GA4 смотрите после того, как `user_id` у
 | `weather_open` | Открытие модалки погоды | `city`, `region`, `country`, `lat`, `lon` |
 | `weather_city_select` | Выбор города из списка | `city` |
 | `weather_search` | Кнопка «Найти» | `city` |
+| `weather_geo` | Кнопка «Моё местоположение» | — |
 | `weather_select` | Выбор типа погоды вручную | `climate` |
 
 Возможные значения `climate`: `sunnyMoon`, `cloudyWithSunMoon`, `cloudy`, `rainy`, `cloudyWithRainAndLightning`, `snowy`.

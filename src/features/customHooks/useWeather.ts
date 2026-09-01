@@ -51,7 +51,9 @@ export function useWeather(options?: { autoInit?: boolean }) {
     [dispatch]
   );
 
-  const fetchByIPFallback = useCallback(async () => {
+  // Тихое определение местоположения по IP — работает без разрешений
+  // браузера, поэтому годится для загрузки страницы (язык, климат, погода).
+  const fetchByIP = useCallback(async () => {
     try {
       const res = await fetch("https://geolocation-db.com/json/");
       const data = await res.json();
@@ -66,29 +68,50 @@ export function useWeather(options?: { autoInit?: boolean }) {
     }
   }, [fetchByCity, fetchByCoords]);
 
-  const fetchByGeolocation = useCallback(() => {
-    if (!navigator.geolocation) return fetchByIPFallback();
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        const { latitude, longitude } = pos.coords;
-        fetchByCoords(latitude, longitude);
-      },
-      () => fetchByIPFallback()
-    );
-  }, [fetchByCoords, fetchByIPFallback]);
+  // Точная геолокация — ТОЛЬКО по действию пользователя (кнопка в окне
+  // климата): браузерный диалог разрешения не показываем при загрузке.
+  // Отказ/ошибка/нет API — тихо откатываемся на IP и сообщаем в окно климата
+  // причину: при запрещённом доступе диалог больше не появится сам —
+  // пользователю нужно разрешить геолокацию в настройках сайта в браузере.
+  const fetchByGeolocation = useCallback(
+    (onFail?: (reason: "denied" | "unavailable") => void) => {
+      if (!navigator.geolocation) {
+        fetchByIP();
+        onFail?.("unavailable");
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          fetchByCoords(latitude, longitude);
+        },
+        (err) => {
+          fetchByIP();
+          onFail?.(
+            err.code === err.PERMISSION_DENIED ? "denied" : "unavailable"
+          );
+        },
+        // maximumAge — разрешаем недавно полученную системой позицию
+        // (быстрее), timeout — чтобы запрос не висел вечно.
+        { timeout: 10000, maximumAge: 5 * 60 * 1000 }
+      );
+    },
+    [fetchByCoords, fetchByIP]
+  );
 
   // Инициализируем погоду только у драйвера (autoInit) и ровно один раз.
-  // Геолокацию пробуем ВСЕГДА: выбранный/дефолтный город даёт окну погоды
-  // быстрый ответ, но язык и климат должны определяться реальным
-  // местоположением — гео-фетч (fromGeo) перезапишет погоду, когда доедет.
+  // Выбранный/дефолтный город даёт окну быстрый ответ, а IP-геолокация
+  // (fromGeo, без разрешений) перезапишет погоду реальным местоположением —
+  // по ней определяются язык и климат. Диалог разрешения при загрузке
+  // не вызываем — navigator.geolocation только по кнопке в окне климата.
   useEffect(() => {
     if (!autoInit || didInitRef.current) return;
     didInitRef.current = true;
     if (selectedCity) {
       fetchByCity(selectedCity);
     }
-    fetchByGeolocation();
-  }, [autoInit, selectedCity, fetchByCity, fetchByGeolocation]);
+    fetchByIP();
+  }, [autoInit, selectedCity, fetchByCity, fetchByIP]);
 
   // Периодический realtime-рефреш у драйвера — сцена и климат не устаревают.
   useEffect(() => {

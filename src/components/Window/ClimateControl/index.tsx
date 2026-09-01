@@ -17,6 +17,7 @@ import {
   WeatherIconWrapper,
   SearchWrapper,
   SearchInputWrapper,
+  GeoButton,
 } from "./style";
 import { CLIMATE_CONTROL, weatherToClimate } from "./constants";
 import { ClimateType } from "src/common/types/climat";
@@ -30,6 +31,7 @@ import { RequestStatus } from "src/common/enums/Climate/RequestStatus";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
+import { PinIcon } from "src/common/icon/socialIcons";
 
 const ClimateControl = () => {
   const {
@@ -44,7 +46,7 @@ const ClimateControl = () => {
     useSelectorTyped(({ climate }) => climate);
 
   const dispatch = useDispatchTyped();
-  const { weather, loading, fetchByCity } = useWeather();
+  const { weather, loading, fetchByCity, fetchByGeolocation } = useWeather();
   const { dayTime } = useDayTime();
   const toastNotify = useToastNotify();
 
@@ -115,6 +117,23 @@ const ClimateControl = () => {
     }
   };
 
+  // 🔹 «Моё местоположение» — единственное место с браузерным запросом
+  // разрешения на геолокацию: диалог показывается только на явный клик.
+  // Если доступ ранее запрещён — диалог сам не появится, объясняем в тосте,
+  // где его разрешить.
+  const handleGeoLocate = () => {
+    trackEvent(AnalyticsEvent.WEATHER_GEO);
+    fetchByGeolocation((reason) =>
+      toastNotify({
+        title:
+          reason === "denied"
+            ? climateLang.geoDeniedToast
+            : climateLang.geoErrorToast,
+        type: "error",
+      })
+    );
+  };
+
   // 🔹 Выбор города из дропдауна
   const handleSelectCity = async (selected: string) => {
     trackEvent(AnalyticsEvent.WEATHER_CITY_SELECT, { city: selected });
@@ -146,6 +165,15 @@ const ClimateControl = () => {
                 onSelectCity={handleSelectCity}
                 onEnterPress={updateWeatherAndClimate}
               />
+              <GeoButton
+                type="button"
+                title={climateLang.geoButtonTitle}
+                aria-label={climateLang.geoButtonTitle}
+                onClick={handleGeoLocate}
+                disabled={loading}
+              >
+                <PinIcon />
+              </GeoButton>
             </SearchInputWrapper>
 
             <ButtonStyle

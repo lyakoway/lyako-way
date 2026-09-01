@@ -334,6 +334,9 @@ export interface ClimateProps {
   title: string;
   placeholder: string;
   buttonText: string;
+  geoButtonTitle: string;
+  geoDeniedToast: string;
+  geoErrorToast: string;
   titleSelectWeather: string;
   titleToast: string;
   temperatureFeeling: string;

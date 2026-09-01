@@ -33,6 +33,7 @@ export const AnalyticsEvent = {
   WEATHER_OPEN: "weather_open",
   WEATHER_CITY_SELECT: "weather_city_select",
   WEATHER_SEARCH: "weather_search",
+  WEATHER_GEO: "weather_geo",
   WEATHER_SELECT: "weather_select",
   LIKE_CLICK: "like_click",
   PROJECT_LIKE_CLICK: "project_like_click",

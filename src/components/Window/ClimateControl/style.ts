@@ -1,6 +1,10 @@
 import styled, { css } from "styled-components";
 import { MOBILE_560 } from "src/common/lib/media";
-import { PANEL_TEXT, PANEL_BORDER } from "src/common/lib/panelStyles";
+import {
+  PANEL_TEXT,
+  PANEL_BORDER,
+  PANEL_ELEVATED,
+} from "src/common/lib/panelStyles";
 
 export const Wrapper = styled.form`
   display: flex;
@@ -88,4 +92,48 @@ export const SearchWrapper = styled.div`
 // самого поля (SelectContainer), вторая рамка сверху давала «двойную линию».
 export const SearchInputWrapper = styled.div`
   display: flex;
+  gap: 8px;
+  align-items: stretch;
+
+  /* Поле города тянется, гео-кнопка — компактная иконка справа. */
+  & > :first-child {
+    flex: 1;
+    min-width: 0;
+  }
+`;
+
+// Кнопка «моё местоположение»: точная геолокация по явному клику (браузерный
+// диалог разрешения показывается только на это действие). Стилистика — как у
+// кнопки «Найти»: приподнятый фон, граница панели, оранжевый на наведении.
+export const GeoButton = styled.button<{ disabled?: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  /* Радиус — как у поля города рядом (SearchInput, 12px). */
+  border-radius: 12px;
+  cursor: pointer;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 1s ease-in-out, color 0.4s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover {
+    border-color: #ff8560;
+    color: #ff8560;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.6;
+  }
 `;
