@@ -77,26 +77,48 @@ export function useWeather(options?: { autoInit?: boolean }) {
   // пользователю нужно разрешить геолокацию в настройках сайта в браузере.
   const fetchByGeolocation = useCallback(
     (onFail?: (reason: "denied" | "unavailable") => void) => {
+      const requestCoords = () => {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const { latitude, longitude } = pos.coords;
+            fetchByCoords(latitude, longitude);
+          },
+          (err) => {
+            fetchByIP();
+            onFail?.(
+              err.code === err.PERMISSION_DENIED ? "denied" : "unavailable"
+            );
+          },
+          // maximumAge — разрешаем недавно полученную системой позицию
+          // (быстрее), timeout — чтобы запрос не висел вечно.
+          { timeout: 10000, maximumAge: 5 * 60 * 1000 }
+        );
+      };
+
       if (!navigator.geolocation) {
         fetchByIP();
         onFail?.("unavailable");
         return;
       }
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          fetchByCoords(latitude, longitude);
-        },
-        (err) => {
-          fetchByIP();
-          onFail?.(
-            err.code === err.PERMISSION_DENIED ? "denied" : "unavailable"
-          );
-        },
-        // maximumAge — разрешаем недавно полученную системой позицию
-        // (быстрее), timeout — чтобы запрос не висел вечно.
-        { timeout: 10000, maximumAge: 5 * 60 * 1000 }
-      );
+
+      // Состояние разрешения узнаём через Permissions API: при «denied»
+      // браузер всё равно мгновенно вернул бы отказ (диалог в этом состоянии
+      // не показывается) — сообщаем причину сразу, запрос не делаем.
+      if (navigator.permissions?.query) {
+        navigator.permissions
+          .query({ name: "geolocation" })
+          .then((status) => {
+            if (status.state === "denied") {
+              fetchByIP();
+              onFail?.("denied");
+            } else {
+              requestCoords();
+            }
+          })
+          .catch(() => requestCoords());
+      } else {
+        requestCoords();
+      }
     },
     [fetchByCoords, fetchByIP]
   );
