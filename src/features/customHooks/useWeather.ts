@@ -24,8 +24,10 @@ export function useWeather(options?: { autoInit?: boolean }) {
 
   const [geoCity, setGeoCity] = useState<string>("Москва");
   const didInitRef = useRef(false);
-  const selectedCityRef = useRef(selectedCity);
-  selectedCityRef.current = selectedCity;
+  // Последний запрос погоды (дефолт/выбранный город/IP-координаты) — по нему
+  // же идёт периодический рефреш, иначе через 15 минут IP-погода молча
+  // заменялась бы Москвой.
+  const lastQueryRef = useRef("");
 
   const toastNotify = useToastNotify();
 
@@ -33,6 +35,7 @@ export function useWeather(options?: { autoInit?: boolean }) {
     (city: string, force = false) => {
       if (!city) return;
       setGeoCity(city);
+      lastQueryRef.current = city;
       dispatch(fetchWeather({ city, force }));
       // selectedCity сюда НЕ пишем: localStorage — только явный выбор города
       // пользователем (ClimateControl диспатчит setSelectedCity сам), иначе
@@ -44,6 +47,7 @@ export function useWeather(options?: { autoInit?: boolean }) {
   const fetchByCoords = useCallback(
     (lat: number, lon: number) => {
       const query = `${lat},${lon}`;
+      lastQueryRef.current = query;
       dispatch(fetchWeather({ city: query }));
     },
     [dispatch]
@@ -115,7 +119,7 @@ export function useWeather(options?: { autoInit?: boolean }) {
   useEffect(() => {
     if (!autoInit) return;
     const id = window.setInterval(() => {
-      const city = selectedCityRef.current;
+      const city = lastQueryRef.current;
       if (city) dispatch(fetchWeather({ city, force: true }));
     }, WEATHER_REFRESH_MS);
     return () => window.clearInterval(id);
