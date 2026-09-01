@@ -116,7 +116,12 @@ export const Name = styled.h1`
 `;
 
 export const JobTitle = styled.p`
+  /* Чип по ширине текста, но не шире карточки: длинная должность
+     переносится внутри чипа, а не выезжает за его границы. */
   width: max-content;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
   padding: 3px 12px;
   border-radius: 8px;
   /* Тёмная подложка + непрозрачный белый текст: контраст ~7:1 (AA) на светлой
