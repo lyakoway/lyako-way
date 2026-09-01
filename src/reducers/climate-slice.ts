@@ -14,7 +14,7 @@ interface IRejectedValue {
 
 export const fetchWeather = createAsyncThunk<
   { weather: Weather | null; forecast: ForecastItem[] },
-  { city: string; force?: boolean; fromGeo?: boolean },
+  { city: string; force?: boolean },
   { rejectValue: IRejectedValue }
 >("climate/fetchWeather", async (data, thunkAPI) => {
   const { city, force } = data;
@@ -97,10 +97,6 @@ type IState = {
   error: string | null;
   status: RequestStatus | null;
   userSelectedClimate: boolean;
-  // Погода получена по реальному местоположению пользователя (координаты
-  // геолокации или IP), а не по городу по умолчанию/выбранному городу.
-  // Язык по стране ставит только эта погода — см. useAutoLocaleClimate.
-  weatherFromGeo: boolean;
 };
 
 const savedCity =
@@ -116,7 +112,6 @@ const initialState: IState = {
   error: null,
   status: null,
   userSelectedClimate: false,
-  weatherFromGeo: false,
 };
 
 const climate = createSlice({
@@ -148,7 +143,6 @@ const climate = createSlice({
         loading: false,
         weather: action.payload.weather,
         forecast: action.payload.forecast,
-        weatherFromGeo: action.meta.arg.fromGeo === true,
       }))
       .addCase(fetchWeather.rejected, (state, action) => ({
         ...state,

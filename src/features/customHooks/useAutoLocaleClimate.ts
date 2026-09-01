@@ -9,19 +9,19 @@ import {
 } from "src/reducers";
 import { useWeather } from "src/features/customHooks/useWeather";
 import { weatherToClimate } from "src/components/Window/ClimateControl/constants";
-import { getStoredLang } from "src/common/utils/langStorage";
+import { getStoredLang, setRuBrowserHint } from "src/common/utils/langStorage";
 
 // Сайд-эффекты, которые раньше жили в hero (src/components/HeaderSection):
 //  — загрузка лайков;
 //  — автоопределение климата по погоде (если пользователь не выбрал вручную);
-//  — автоопределение языка (если пользователь не выбирал): navigator.language
-//    как мгновенный сигнал, гео как арбитр; по умолчанию английский, русский —
-//    только если браузер русский или гео нашло Россию.
+//  — язык: navigator.language — единственный автоматический сигнал (мгновенный
+//    и не врёт при VPN, в отличие от гео-IP); гео на язык не влияет.
+//    По умолчанию английский, русский — если браузер русский.
 // Вынесено в отдельный хук, чтобы работало из общей оболочки (Layout),
 // а не только при рендере hero на главной.
 export function useAutoLocaleClimate() {
   const dispatch = useDispatchTyped();
-  const { userSelectedClimate, climate, weatherFromGeo } = useSelectorTyped(
+  const { userSelectedClimate, climate } = useSelectorTyped(
     ({ climate }) => climate
   );
   const { userSelectedLang } = useSelectorTyped(({ lang }) => lang);
@@ -60,10 +60,13 @@ export function useAutoLocaleClimate() {
     dispatch(setUserSelectedLang(true));
   }, [dispatch, userSelectedLang]);
 
-  // navigator.language — мгновенный сигнал до гео: русский интерфейс браузера
-  // сразу получает русскую версию, не дожидаясь погоды (английский — дефолт,
-  // диспатчить нечего). Гео остаётся арбитром: когда придёт гео-погода, её
-  // вердикт применится поверх этого выбора (эффект ниже).
+  // navigator.language — единственный автоматический сигнал языка: русский
+  // интерфейс браузера получает русскую версию сразу при монтировании
+  // (английский — дефолт, диспатчить нечего). Гео-IP на язык не влияет:
+  // VPN и корпоративные адреса переносят «страну» на другой континент,
+  // а язык браузера — осознанный выбор самого пользователя.
+  // langHint-cookie подсказывает SSR следующей загрузке отдать русский
+  // с первого байта, без вспышки английского.
   const browserLangRef = useRef(false);
   useEffect(() => {
     if (browserLangRef.current || userSelectedLang) return;
@@ -72,25 +75,10 @@ export function useAutoLocaleClimate() {
     const isRuBrowser = navigator.language?.toLowerCase().startsWith("ru");
     if (isRuBrowser) {
       dispatch(setLang(false));
+      setRuBrowserHint();
     }
   }, [dispatch, userSelectedLang]);
 
-  // Язык — один раз, и только по гео-погоде (координаты/IP): выбранный или
-  // дефолтный город (Москва) не является сигналом о местоположении, поэтому
-  // его страна язык не переключает — остаётся английский дефолт.
-  const langAppliedRef = useRef(false);
-  useEffect(() => {
-    if (langAppliedRef.current || userSelectedLang) return;
-    // Сохранённый выбор перекрывает гео, даже если флаг userSelectedLang
-    // ещё не успел обновиться в этом же проходе эффектов (смена города).
-    if (getStoredLang() !== null) return;
-    if (!weatherFromGeo) return;
-    const country = weather?.location?.country?.toLowerCase() || null;
-    if (!country) return;
-    langAppliedRef.current = true;
-    // setLang(true) → английский, setLang(false) → русский: русский ставится
-    // только когда гео нашло Россию, для остальных — остаётся английский.
-    const isRussia = country === "russia" || country === "россия";
-    dispatch(setLang(!isRussia));
-  }, [weather, weatherFromGeo, dispatch, userSelectedLang]);
+  // Язык гео не определяет (см. эффект navigator.language выше) — погода
+  // из гео нужна только климату и сцене.
 }

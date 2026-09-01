@@ -44,9 +44,7 @@ export function useWeather(options?: { autoInit?: boolean }) {
   const fetchByCoords = useCallback(
     (lat: number, lon: number) => {
       const query = `${lat},${lon}`;
-      // fromGeo: погода по координатам пользователя — единственное
-      // основание для автоопределения языка по стране (useAutoLocaleClimate).
-      dispatch(fetchWeather({ city: query, fromGeo: true }));
+      dispatch(fetchWeather({ city: query }));
     },
     [dispatch]
   );

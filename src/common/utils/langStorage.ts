@@ -32,3 +32,21 @@ export function setStoredLang(isEnglish: boolean): void {
     /* cookie могут быть недоступны (приватный режим) — не критично */
   }
 }
+
+// Подсказка «язык браузера — русский» для SSR: ручной выбор это не заменяет,
+// но позволяет серверу сразу отдать русскую версию без вспышки английского.
+const HINT_KEY = "langHint";
+
+export function isRuBrowserHint(cookieHeader: string | undefined | null): boolean {
+  if (!cookieHeader) return false;
+  return new RegExp(`(?:^|;\\s*)${HINT_KEY}=ru(?:;|$)`).test(cookieHeader);
+}
+
+export function setRuBrowserHint(): void {
+  if (typeof window === "undefined") return;
+  try {
+    document.cookie = `${HINT_KEY}=ru; path=/; max-age=${MAX_AGE}; samesite=lax`;
+  } catch {
+    /* cookie могут быть недоступны (приватный режим) — не критично */
+  }
+}

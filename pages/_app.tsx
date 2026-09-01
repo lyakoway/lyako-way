@@ -32,7 +32,7 @@ import {
   getPreferredIsDay,
   setUserSelectedTheme,
 } from "src/reducers";
-import { parseLangCookie } from "src/common/utils/langStorage";
+import { parseLangCookie, isRuBrowserHint } from "src/common/utils/langStorage";
 import { useDayTime, useIsomorphicLayoutEffect } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
 import { Toast } from "src/ui/Toast";
@@ -171,10 +171,16 @@ const MyApp = ({ Component, ...rest }: AppProps) => {
 // загружаются на клиенте.
 MyApp.getInitialProps = wrapper.getInitialAppProps(
   (store) => async (appCtx) => {
-    const storedIsEnglish = parseLangCookie(appCtx.ctx.req?.headers.cookie);
+    const cookieHeader = appCtx.ctx.req?.headers.cookie;
+    const storedIsEnglish = parseLangCookie(cookieHeader);
     if (storedIsEnglish !== null) {
+      // Ручной выбор — высший приоритет.
       store.dispatch(setLang(storedIsEnglish));
       store.dispatch(setUserSelectedLang(true));
+    } else if (isRuBrowserHint(cookieHeader)) {
+      // Подсказка с прошлого захода (язык браузера русский): SSR сразу
+      // отдаёт русскую версию, без вспышки английского до гидрации.
+      store.dispatch(setLang(false));
     }
     return await NextApp.getInitialProps(appCtx);
   }
