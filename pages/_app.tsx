@@ -89,17 +89,19 @@ const AppContent: FC<{
     );
   }, [theme.name]);
 
-  // Авто-режим (без ручного выбора): тема следует за днём/ночью города.
-  // Первый прогон пропускаем — начальный dayTime из useDayTime ещё не
-  // посчитан (true по умолчанию), реальное значение применит инициализация.
+  // Время суток — выше ручного выбора: тема всегда следует за днём/ночью
+  // показанного города (для демонстрации учёта времени суток). Ручной
+  // тумблер — временный override до очередного вердикта. Первый прогон
+  // пропускаем — начальный dayTime из useDayTime ещё не посчитан
+  // (true по умолчанию), реальное значение применит инициализация.
   const autoFollowFirstRef = useRef(true);
   useEffect(() => {
     if (autoFollowFirstRef.current) {
       autoFollowFirstRef.current = false;
       return;
     }
-    if (getStoredTheme() !== null) return;
     dispatch(setThemeList(dayTime));
+    setStoredTheme(dayTime);
   }, [dayTime, dispatch]);
 
   // Вердикт нового города (явные действия: поиск, Enter, дропдаун, кнопка
