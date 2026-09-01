@@ -102,17 +102,24 @@ export function useWeather(options?: { autoInit?: boolean }) {
   );
 
   // Инициализируем погоду только у драйвера (autoInit) и ровно один раз.
-  // Выбранный/дефолтный город даёт окну быстрый ответ, а IP-геолокация
-  // (fromGeo, без разрешений) перезапишет погоду реальным местоположением —
-  // по ней определяются язык и климат. Диалог разрешения при загрузке
-  // не вызываем — navigator.geolocation только по кнопке в окне климата.
+  // Явный выбор города (localStorage) главнее автоматики — как ручной выбор
+  // языка: он остаётся после перезагрузки, IP-детект не запускается.
+  // Без выбора — мгновенно дефолтная Москва, которую тихое IP-определение
+  // (без разрешений браузера) перезапишет реальным местоположением.
+  // Диалог разрешения геолокации при загрузке не вызываем —
+  // navigator.geolocation только по кнопке в окне климата.
   useEffect(() => {
     if (!autoInit || didInitRef.current) return;
     didInitRef.current = true;
+    const hasPick =
+      typeof window !== "undefined" &&
+      !!window.localStorage.getItem("selectedCity");
     if (selectedCity) {
       fetchByCity(selectedCity);
     }
-    fetchByIP();
+    if (!hasPick) {
+      fetchByIP();
+    }
   }, [autoInit, selectedCity, fetchByCity, fetchByIP]);
 
   // Периодический realtime-рефреш у драйвера — сцена и климат не устаревают.

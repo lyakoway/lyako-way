@@ -34,10 +34,17 @@ export type RootState = ReturnType<typeof rootReducer>;
 // --- Главный редьюсер с поддержкой HYDRATE ---
 const reducer = (state: RootState | undefined, action: AnyAction) => {
   if (action.type === HYDRATE) {
-    return {
-      ...state, // предыдущий state
-      ...action.payload, // данные из сервера (SSR)
-    };
+    const hydrated = { ...state, ...action.payload } as RootState;
+    // Выбранный город живёт в localStorage клиента, серверу он неизвестен —
+    // не даём SSR-состоянию («Москва») затирать сохранённый выбор города,
+    // иначе он умирал бы при каждой гидрации.
+    if (state?.climate?.selectedCity) {
+      hydrated.climate = {
+        ...hydrated.climate,
+        selectedCity: state.climate.selectedCity,
+      };
+    }
+    return hydrated;
   }
   return rootReducer(state, action);
 };
