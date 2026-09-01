@@ -32,6 +32,8 @@ import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 import { PinIcon } from "src/common/icon/socialIcons";
+import { usePressAnimation } from "src/common/lib/usePressAnimation";
+import RunBorder from "src/ui/RunBorder";
 
 const ClimateControl = () => {
   const {
@@ -47,6 +49,8 @@ const ClimateControl = () => {
 
   const dispatch = useDispatchTyped();
   const { weather, loading, fetchByCity, fetchByGeolocation } = useWeather();
+  // Прожатие кнопки геолокации — как у кнопки «Найти».
+  const press = usePressAnimation();
   const { dayTime } = useDayTime();
   const toastNotify = useToastNotify();
 
@@ -169,10 +173,14 @@ const ClimateControl = () => {
                 type="button"
                 title={climateLang.geoButtonTitle}
                 aria-label={climateLang.geoButtonTitle}
-                onClick={handleGeoLocate}
                 disabled={loading}
+                {...press.pressHandlers}
+                $pressed={press.pressed}
+                $scaling={press.scaling}
+                onClick={handleGeoLocate}
               >
                 <PinIcon />
+                <RunBorder radius={12} />
               </GeoButton>
             </SearchInputWrapper>
 

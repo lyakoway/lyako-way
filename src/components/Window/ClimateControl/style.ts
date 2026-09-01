@@ -5,6 +5,10 @@ import {
   PANEL_BORDER,
   PANEL_ELEVATED,
 } from "src/common/lib/panelStyles";
+import {
+  pressedFill,
+} from "src/common/lib/usePressAnimation";
+import { runningBorder } from "src/common/lib/runningBorder";
 
 export const Wrapper = styled.form`
   display: flex;
@@ -105,7 +109,16 @@ export const SearchInputWrapper = styled.div`
 // Кнопка «моё местоположение»: точная геолокация по явному клику (браузерный
 // диалог разрешения показывается только на это действие). Стилистика — как у
 // кнопки «Найти»: приподнятый фон, граница панели, оранжевый на наведении.
-export const GeoButton = styled.button<{ disabled?: boolean }>`
+export const GeoButton = styled.button<{
+  disabled?: boolean;
+  $pressed?: boolean;
+  $scaling?: boolean;
+}>`
+  /* Прожатие — в точности как у кнопки «Найти»: runningBorder (заливка и
+     бегущая оранжевая рамка на hover/active) + закраска через $pressed и
+     продавливание через $scaling (usePressAnimation). */
+  ${runningBorder}
+  ${pressedFill}
   display: flex;
   align-items: center;
   justify-content: center;
@@ -120,16 +133,19 @@ export const GeoButton = styled.button<{ disabled?: boolean }>`
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT};
   -webkit-tap-highlight-color: transparent;
-  transition: border-color 1s ease-in-out, color 0.4s ease;
+  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 1s ease-in-out, border-color 1s ease-in-out,
+    color 0.4s ease;
+
+  ${({ $scaling }) =>
+    $scaling &&
+    css`
+      transform: scale(0.94);
+    `}
 
   svg {
     width: 18px;
     height: 18px;
-  }
-
-  &:hover {
-    border-color: #ff8560;
-    color: #ff8560;
   }
 
   &:disabled {
