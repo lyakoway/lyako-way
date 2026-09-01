@@ -7,6 +7,7 @@ import { ReactComponent as CloseOutline } from "src/common/icon/close.svg";
 import Button from "src/ui/Button";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import { closeModal } from "src/reducers";
+import { renderModalContent } from "./registry";
 
 export const Modal: FC = () => {
   const { isOpened, content, width, backgroundOverlay, background } =
@@ -57,7 +58,7 @@ export const Modal: FC = () => {
           <IconClose onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />
           </IconClose>
-          <Content>{content}</Content>
+          <Content>{content ? renderModalContent(content) : null}</Content>
         </ModalComponent>
       </Overlay>
     );

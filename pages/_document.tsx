@@ -41,12 +41,14 @@ export default class MyDocument extends Document {
     return (
       <Html lang="ru">
         <Head>
-          {/* Тема ДО первой отрисовки — только по времени суток (без localStorage),
-              чтобы не залипала вчерашняя ручная тема. В рантайме атрибут
-              синхронизируется с redux (см. _app) по SunCalc / dayTime. */}
+          {/* Тема ДО первой отрисовки — та же лестница, что в рантайме (_app):
+              ручной выбор (localStorage themeManual) → prefers-color-scheme →
+              время суток (7–20 как приближение солнца; SunCalc в инлайне
+              недоступен, точные границы применятся после гидрации).
+              В рантайме атрибут синхронизируется с redux. */}
           <script
             dangerouslySetInnerHTML={{
-              __html: `(function(){try{localStorage.removeItem('themeMode');var h=new Date().getHours();document.documentElement.setAttribute('data-theme',(h>=7&&h<20)?'light':'dark')}catch(e){}})();`,
+              __html: `(function(){try{localStorage.removeItem('themeMode');var m=localStorage.getItem('themeManual');var t;if(m==='light'||m==='dark'){t=m}else if(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches){t='dark'}else{var h=new Date().getHours();t=(h>=7&&h<20)?'light':'dark'}document.documentElement.setAttribute('data-theme',t)}catch(e){}})();`,
             }}
           />
         </Head>

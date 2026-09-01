@@ -3,11 +3,9 @@ import React from "react";
 import { ResumeProjectProps } from "src/common/types/lang";
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
-import { useMediaQuery } from "src/features/customHooks";
 import { ArticleTitle, Article } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import RunBorder from "src/ui/RunBorder";
-import PdfViewer from "src/components/PdfViewer";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 import { usePressAnimation } from "src/common/lib/usePressAnimation";
@@ -40,9 +38,6 @@ import {
   SkillCategory,
   ChipList,
   Chip,
-  PdfModal,
-  PdfModalHead,
-  PdfFrame,
   ProjectBlock,
   ProjectNote,
   ProjectResultNote,
@@ -237,7 +232,6 @@ const Resume = () => {
   // Тач-устройства (телефоны/планшеты, встроенные браузеры) не рендерят PDF
   // в iframe — там показываем его через PDF.js (canvas). На десктопе оставляем
   // нативный iframe (со встроенным просмотрщиком браузера).
-  const isTouch = useMediaQuery("(pointer: coarse)");
 
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
@@ -370,22 +364,14 @@ const Resume = () => {
     trackEvent(AnalyticsEvent.CV_VIEW);
     dispatch(
       showModal({
+        type: "pdf",
         width: "min(1000px, 92vw)",
         backgroundOverlay: "rgba(0, 0, 0, 0.6)",
-        content: (
-          <PdfModal>
-            <PdfModalHead>{title}</PdfModalHead>
-            {isTouch ? (
-              <PdfViewer
-                url={viewUrl}
-                fallbackHref={viewUrl}
-                downloadName={resumeCv.downloadName}
-              />
-            ) : (
-              <PdfFrame src={viewUrl} title={title} />
-            )}
-          </PdfModal>
-        ),
+        data: {
+          url: viewUrl,
+          title,
+          downloadName: resumeCv.downloadName,
+        },
       })
     );
   };

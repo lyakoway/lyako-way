@@ -1,12 +1,22 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { ReactElement } from "react";
+
+// Дескриптор контента модалки — сериализуемый (тип + данные). Сами
+// React-элементы рендерит реестр src/ui/Modal/registry.tsx: элементы в сторе
+// ломают сериализацию состояния (__NEXT_DATA__ при SSR) и подсвечиваются
+// serializableCheck-ом RTK.
+export type ModalType = "climate" | "image" | "pdf";
+
+export interface ModalDescriptor {
+  type: ModalType;
+  data?: Record<string, string>;
+}
 
 interface IState {
   isOpened?: boolean;
   title?: string;
   icon?: string | null;
   link?: string;
-  content?: ReactElement | null;
+  content?: ModalDescriptor | null;
   width?: string | null;
   height?: string | null;
   padding?: string;
@@ -33,22 +43,38 @@ const initialState: IState = {
   background: "",
 };
 
+type ShowModalPayload = {
+  title?: string;
+  icon?: string | null;
+  link?: string;
+  type?: ModalType;
+  data?: Record<string, string>;
+  width?: string | null;
+  height?: string | null;
+  padding?: string;
+  hideClose?: boolean;
+  backgroundOverlay?: string | null;
+  background?: string | null;
+};
+
 const modal = createSlice({
   name: "modal",
   initialState,
   reducers: {
-    showModal: (state, action: PayloadAction<Partial<IState | null>>) => ({
+    showModal: (state, action: PayloadAction<ShowModalPayload>) => ({
       ...state,
-      title: action.payload?.title || "",
-      icon: action.payload?.icon || null,
-      link: action.payload?.link || "",
-      content: action.payload?.content || null,
-      width: action.payload?.width || null,
-      height: action.payload?.height || null,
-      padding: action.payload?.padding || "",
-      hideClose: action.payload?.hideClose ?? state.hideClose,
-      backgroundOverlay: action.payload?.backgroundOverlay || null,
-      background: action.payload?.background || null,
+      title: action.payload.title || "",
+      icon: action.payload.icon || null,
+      link: action.payload.link || "",
+      content: action.payload.type
+        ? { type: action.payload.type, data: action.payload.data }
+        : null,
+      width: action.payload.width || null,
+      height: action.payload.height || null,
+      padding: action.payload.padding || "",
+      hideClose: action.payload.hideClose ?? state.hideClose,
+      backgroundOverlay: action.payload.backgroundOverlay || null,
+      background: action.payload.background || null,
       isOpened: true,
       isInited: true,
     }),

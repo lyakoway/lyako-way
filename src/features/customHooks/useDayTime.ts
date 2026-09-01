@@ -29,6 +29,26 @@ function toSecs(hour: number, min: number) {
   return (hour * 60 + min) * 60;
 }
 
+// День или ночь в конкретной точке (учитывает таймзону города из WeatherAPI).
+// Чистая функция — используется для вердикта выбранного города (см. _app):
+// вердикт применяется сразу по приходе погоды города, даже если день/ночь
+// совпадает с предыдущей локацией.
+export function isDayAt(
+  lat: number,
+  lon: number,
+  tzId?: string,
+  now: Date = new Date()
+): boolean {
+  const { hour, min } = getHourMin(now, tzId);
+  const nowSecs = toSecs(hour, min);
+  const times = SunCalc.getTimes(now, lat, lon);
+  const sunrise = getHourMin(times.sunrise, tzId);
+  const sunset = getHourMin(times.sunset, tzId);
+  const sunriseSecs = toSecs(sunrise.hour, sunrise.min);
+  const sunsetSecs = toSecs(sunset.hour, sunset.min);
+  return sunriseSecs < nowSecs && nowSecs < sunsetSecs;
+}
+
 function nextSunBoundary(now: Date, lat: number, lon: number): Date {
   const today = SunCalc.getTimes(now, lat, lon);
   if (now < today.sunrise) return today.sunrise;
@@ -42,6 +62,7 @@ export const useDayTime = (): {
   sunsetTime: number;
   timesHouse: number;
   dayTime: boolean;
+  boundaryTick: number;
   lat: number;
   lon: number;
 } => {
@@ -94,5 +115,7 @@ export const useDayTime = (): {
     return () => window.clearTimeout(id);
   }, [latitude, longitude, hour, min, tzId, boundaryTick]);
 
-  return { ...times, lat: latitude, lon: longitude };
+  // boundaryTick растёт только на реальной смене дня/ночи (граница
+  // восход/закат) — по нему тема узнаёт о смене времени суток (см. _app).
+  return { ...times, boundaryTick, lat: latitude, lon: longitude };
 };

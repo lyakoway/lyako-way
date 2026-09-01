@@ -5,8 +5,7 @@ import {
   setSelectedCity,
   setUserSelectedClimate,
   setUserSelectedLang,
-  setThemeList,
-  setUserSelectedTheme,
+  setCityVerdictPending,
   closeModal,
 } from "src/reducers";
 
@@ -21,7 +20,7 @@ import {
 } from "./style";
 import { CLIMATE_CONTROL, weatherToClimate } from "./constants";
 import { ClimateType } from "src/common/types/climat";
-import { useDayTime, useWeather } from "src/features/customHooks";
+import { useWeather } from "src/features/customHooks";
 
 import { SearchInput } from "src/ui/SearchInput";
 import ButtonStyle from "src/ui/ButtonStyle";
@@ -51,7 +50,6 @@ const ClimateControl = () => {
   const { weather, loading, fetchByCity, fetchByGeolocation } = useWeather();
   // Прожатие кнопки геолокации — как у кнопки «Найти».
   const press = usePressAnimation();
-  const { dayTime } = useDayTime();
   const toastNotify = useToastNotify();
 
   const [city, setCity] = useState<string>("");
@@ -97,11 +95,14 @@ const ClimateControl = () => {
   // useAutoLocaleClimate (Layout) — здесь дубль убран, чтобы не было
   // двойных dispatch и мигания.
 
-  // 🔹 Запрашиваем погоду и обновляем climate
+  // 🔹 Запрашиваем погоду и обновляем climate.
+  // Явный выбор города — вердикт дня/ночи перекрывает ручную тему:
+  // флаг ставится здесь, применит его _app, когда придёт погода нового города.
   const updateWeatherAndClimate = async (targetCity: string) => {
+    // Армим ДО запроса: в _app снапшотится СТАРАЯ погода, и вердикт
+    // применится, когда придёт погода нового города.
+    dispatch(setCityVerdictPending(true));
     await fetchByCity(targetCity, true);
-    dispatch(setUserSelectedTheme(false));
-    dispatch(setThemeList(dayTime));
     dispatch(setUserSelectedClimate(false));
     dispatch(setUserSelectedLang(false));
     if (status === RequestStatus.SUCCESS_CITY) {
@@ -127,6 +128,7 @@ const ClimateControl = () => {
   // где его разрешить.
   const handleGeoLocate = () => {
     trackEvent(AnalyticsEvent.WEATHER_GEO);
+    dispatch(setCityVerdictPending(true));
     fetchByGeolocation((reason) =>
       toastNotify({
         title:

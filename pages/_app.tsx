@@ -29,10 +29,14 @@ import {
   setLang,
   setUserSelectedLang,
   setThemeList,
-  getPreferredIsDay,
-  setUserSelectedTheme,
+  setCityVerdictPending,
+  computeDayTime,
+  prefersDarkScheme,
 } from "src/reducers";
+import type { Weather } from "src/common/types/climat";
 import { parseLangCookie, isRuBrowserHint } from "src/common/utils/langStorage";
+import { getStoredTheme, setStoredTheme } from "src/common/utils/themeStorage";
+import { isDayAt } from "src/features/customHooks/useDayTime";
 import { useDayTime, useIsomorphicLayoutEffect } from "src/features/customHooks";
 import { Modal } from "src/ui/Modal";
 import { Toast } from "src/ui/Toast";
@@ -55,13 +59,23 @@ const AppContent: FC<{
   Component: AppProps["Component"];
   pageProps: AppProps["pageProps"];
 }> = ({ Component, pageProps }) => {
-  const { theme, userSelectedTheme } = useSelectorTyped(({ theme }) => theme);
+  const { theme } = useSelectorTyped(({ theme }) => theme);
+  const { cityVerdictPending } = useSelectorTyped(
+    ({ theme }) => theme
+  );
+  const { weather } = useSelectorTyped(({ climate }) => climate);
   const dispatch = useDispatchTyped();
-  const { dayTime } = useDayTime();
+  const { dayTime, boundaryTick } = useDayTime();
 
-  // На монтировании — тема по времени суток (без localStorage) ДО paint.
+
+  // Тема ДО paint: системная настройка задаёт её только при первой загрузке;
+  // дальше правят ручной тумблер (localStorage) и день/ночь выбранного
+  // города (явные действия и смена времени суток — эффекты ниже).
   useIsomorphicLayoutEffect(() => {
-    dispatch(setThemeList(getPreferredIsDay()));
+    const stored = getStoredTheme();
+    if (stored !== null) dispatch(setThemeList(stored));
+    else if (prefersDarkScheme()) dispatch(setThemeList(false));
+    else dispatch(setThemeList(computeDayTime()));
   }, [dispatch]);
 
   // Держим html[data-theme] в синхроне с redux-темой: инлайн-скрипт в <head>
@@ -75,23 +89,63 @@ const AppContent: FC<{
     );
   }, [theme.name]);
 
-  // Живое переключение день/ночь. Ручной override держится до реальной смены
-  // восход/закат — тогда снова следуем за солнцем (без localStorage).
-  const prevDayTimeRef = useRef<boolean | null>(null);
+  // Авто-режим (без ручного выбора): тема следует за днём/ночью города.
+  // Первый прогон пропускаем — начальный dayTime из useDayTime ещё не
+  // посчитан (true по умолчанию), реальное значение применит инициализация.
+  const autoFollowFirstRef = useRef(true);
   useEffect(() => {
-    if (prevDayTimeRef.current === null) {
-      prevDayTimeRef.current = dayTime;
+    if (autoFollowFirstRef.current) {
+      autoFollowFirstRef.current = false;
       return;
     }
-    const flipped = prevDayTimeRef.current !== dayTime;
-    prevDayTimeRef.current = dayTime;
-
-    if (userSelectedTheme && !flipped) return;
-    if (userSelectedTheme && flipped) {
-      dispatch(setUserSelectedTheme(false));
-    }
+    if (getStoredTheme() !== null) return;
     dispatch(setThemeList(dayTime));
-  }, [dayTime, userSelectedTheme, dispatch]);
+  }, [dayTime, dispatch]);
+
+  // Вердикт нового города (явные действия: поиск, Enter, дропдаун, кнопка
+  // геолокации) перекрывает ручной выбор. Ждём погоду НОВОГО города (объект
+  // weather сменился после арма) и считаем день/ночь напрямую по её координатам
+  // и таймзоне — применение не зависит от того, изменился ли dayTime хука
+  // (иначе вердикт «день → светлая» терялся, когда прежний город тоже днём).
+  const armedWeatherRef = useRef<Weather | null>(null);
+  const armedRef = useRef(false);
+  useEffect(() => {
+    // Первый прогон с pending — снапшот текущей (старой) погоды.
+    if (cityVerdictPending && !armedRef.current) {
+      armedWeatherRef.current = weather;
+      armedRef.current = true;
+      return;
+    }
+    // Пришла погода НОВОГО города (объект сменился после арма) — применяем
+    // вердикт дня/ночи по её координатам, поверх ручного выбора и системы.
+    if (
+      armedRef.current &&
+      weather &&
+      weather !== armedWeatherRef.current &&
+      weather.location
+    ) {
+      armedRef.current = false;
+      dispatch(setCityVerdictPending(false));
+      const isDay = isDayAt(
+        weather.location.lat,
+        weather.location.lon,
+        weather.location.tz_id
+      );
+      dispatch(setThemeList(isDay));
+      // Вердикт города становится новым сохранённым состоянием темы:
+      // переживает перезагрузку (город тоже сохранён — при следующем заходе
+      // день/ночь этого города применится снова).
+      setStoredTheme(isDay);
+    }
+  }, [cityVerdictPending, weather, dispatch]);
+
+  // Реальная смена времени суток (граница восход/закат) — тоже главнее
+  // ручного выбора.
+  useEffect(() => {
+    if (boundaryTick === 0) return;
+    dispatch(setThemeList(dayTime));
+    setStoredTheme(dayTime);
+  }, [boundaryTick, dayTime, dispatch]);
 
   // Плавный переход цвета при смене темы: на время переключения вешаем класс
   // theme-transition на <html> (см. globalStyles) и снимаем через 3с. Начальную

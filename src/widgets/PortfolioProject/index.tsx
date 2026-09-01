@@ -66,7 +66,6 @@ import {
   AiUseCases,
           Preview,
   PreviewFrame,
-  ModalImage,
   Actions,
   ActionsRow,
   ButtonPrimary,
@@ -385,14 +384,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
     });
     dispatch(
       showModal({
+        type: "image",
         width: "min(1200px, 96vw)",
         backgroundOverlay: "rgba(0, 0, 0, 0.82)",
-        content: (
-          <ModalImage>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt={alt} />
-          </ModalImage>
-        ),
+        data: { src, alt },
       }),
     );
   };

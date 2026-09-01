@@ -37,7 +37,7 @@ const ButtonWeather: React.FC = () => {
   const handleClick = useCallback(() => {
     dispatch(
       showModal({
-        content: <ClimateControl />,
+        type: "climate",
         width: "auto",
         backgroundOverlay: "rgba(0, 0, 0, 0.4)",
         background: "var(--panel-bg)",

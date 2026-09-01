@@ -5,9 +5,11 @@ import { Theme } from "src/common/types/theme";
 
 type IState = {
   theme: Theme;
-  // Ручной выбор темы — только на сессию (не в localStorage). Сбрасывается
-  // при реальной смене дня/ночи (восход/закат), чтобы тема снова шла за солнцем.
-  userSelectedTheme: boolean;
+  // Ждём вердикт дня/ночи нового города: флаг ставят явные действия
+  // (поиск города, Enter, дропдаун, кнопка геолокации — ClimateControl).
+  // Когда день/ночь нового места становится известен, _app применяет его
+  // поверх ручного выбора и снимает флаг.
+  cityVerdictPending: boolean;
 };
 
 // НАЧАЛЬНОЕ значение — детерминированное (светлая), совпадает с SSR, чтобы не
@@ -15,7 +17,7 @@ type IState = {
 // эффекте (_app) ДО отрисовки — без вспышки и без ошибки гидрации.
 const initialState: IState = {
   theme: LIGHT_THEME,
-  userSelectedTheme: false,
+  cityVerdictPending: false,
 };
 
 // День/ночь по локальному времени и координатам Москвы (как fallback в useDayTime).
@@ -28,17 +30,14 @@ export function computeDayTime(): boolean {
   return sunrise < secs && secs < sunset;
 }
 
-// Тема на клиенте всегда по времени суток — без localStorage, чтобы после
-// рассвета/заката не «залипала» вчерашняя ручная тема.
-export function getPreferredIsDay(): boolean {
-  if (typeof window === "undefined") return true;
-  // Убираем устаревший ключ от прошлых версий, если он ещё лежит в браузере.
+// Системная тёмная тема (prefers-color-scheme: dark).
+export function prefersDarkScheme(): boolean {
+  if (typeof window === "undefined") return false;
   try {
-    localStorage.removeItem("themeMode");
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
   } catch {
-    /* localStorage может быть недоступен */
+    return false;
   }
-  return computeDayTime();
 }
 
 const theme = createSlice({
@@ -48,12 +47,12 @@ const theme = createSlice({
     setThemeList: (state, action: PayloadAction<boolean>) => {
       state.theme = action.payload ? LIGHT_THEME : DARK_THEME;
     },
-    setUserSelectedTheme: (state, action: PayloadAction<boolean>) => {
-      state.userSelectedTheme = action.payload;
+    setCityVerdictPending: (state, action: PayloadAction<boolean>) => {
+      state.cityVerdictPending = action.payload;
     },
   },
 });
 
-export const { setThemeList, setUserSelectedTheme } = theme.actions;
+export const { setThemeList, setCityVerdictPending } = theme.actions;
 
 export const themeReducer = theme.reducer;

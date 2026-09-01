@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from "react";
 
 import { ThemeButton, Bulb } from "./style";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
-import { setThemeList, setUserSelectedTheme } from "src/reducers";
+import { setThemeList } from "src/reducers";
+import { setStoredTheme } from "src/common/utils/themeStorage";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 
@@ -19,8 +20,11 @@ const ThemeDarkLight = () => {
       theme: nextIsLight ? "light" : "dark",
     });
     setOpenedTheme(nextIsLight);
-    dispatch(setUserSelectedTheme(true));
     dispatch(setThemeList(nextIsLight));
+    // Сохраняем для инлайн-скрипта в _document: тема до гидрации красится
+    // по последнему ручному выбору; после гидрации вердикт дня/ночи
+    // (или тёмной системы) перекрывает его.
+    setStoredTheme(nextIsLight);
   }, [dispatch, openedTheme]);
 
   useEffect(() => {
