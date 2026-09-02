@@ -348,7 +348,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
   {
     id: "ai-data-pilot",
     ...ICON_META,
-    hrefPortfolio: "",
+    hrefPortfolio: "https://lyakoway-ai-data-pilot.hf.space/",
     portfolioNameList: "AI Data Pilot",
     portfolioDataTime: "August 10, 2026",
     hrefNameList: "ai-data-pilot",
