@@ -5,6 +5,7 @@ export const resumeCv: ResumeCvProps = {
   skillsTitle: "Key skills",
   educationTitle: "Education",
   projectPortfolioNote: "A similar project is implemented in the portfolio — details on",
+  demoTitle: "Demo",
   downloadName: "Alexey-Mazurenko-en.pdf",
   downloadLabel: "Download PDF",
   viewLabel: "View",
@@ -120,6 +121,8 @@ export const resumeCv: ResumeCvProps = {
         title: "Processes",
         items: ["Scrum", "Jira", "Confluence"],
       },
+      // Просмотр продукта — боевой сайт «МТС Профиля».
+      link: "https://id.mts.ru",
     },
   ],
 

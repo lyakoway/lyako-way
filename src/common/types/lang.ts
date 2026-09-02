@@ -385,6 +385,8 @@ export interface ResumeExperienceProps {
   // Похожий проект из портфолио: в конце карточки выводим подпись со ссылкой
   // на его страницу /portfolio/<hrefNameList>.
   portfolioId?: string;
+  // Внешняя ссылка на просмотр проекта записи (в конце карточки).
+  link?: string;
   groups?: ResumeExperienceGroupProps[];
   // Стек и процессы записи опыта — подпись + список (рендерятся чипами).
   stack?: ResumeExperienceGroupProps;
@@ -404,6 +406,8 @@ export interface ResumeCvProps {
   educationTitle: string;
   // Подпись ссылки на похожий проект в портфолио (в конце карточки опыта).
   projectPortfolioNote: string;
+  // Заголовок секции «Демо» — ссылка на просмотр проекта записи.
+  demoTitle: string;
   downloadName: string;
   downloadLabel: string;
   viewLabel: string;

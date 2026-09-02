@@ -501,10 +501,10 @@ export const PdfFrame = styled.iframe`
   border: 0;
 `;
 
-/* Финальная строка записи опыта: похожий проект реализован в портфолио.
-   Ссылка — акцентным цветом сайта. */
-export const PortfolioNote = styled.p`
-  margin: 14px 0 0;
+/* Финальная строка записи опыта: подпись про портфолио или ссылка демо.
+   Вариант внутри группы (после заголовка секции) — без верхнего отступа. */
+export const PortfolioNote = styled.p<{ $inGroup?: boolean }>`
+  margin: ${({ $inGroup }) => ($inGroup ? "0" : "14px 0 0")};
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 14px;
   font-weight: 300;

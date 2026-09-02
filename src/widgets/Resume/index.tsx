@@ -208,8 +208,9 @@ const Resume = () => {
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
 
-  /* Финальная строка записи опыта: похожий проект реализован в портфолио,
-     подробности — возможности, замеры и демо — на его странице. */
+  /* Демо записи: похожий проект реализован в портфолио — подробности
+     (возможности, замеры и демо-стенд) на его странице. Секция оформляется
+     так же, как «Стек» и «Процессы». */
   const renderPortfolioNote = (portfolioId: string) => {
     const project = propsPortfolioList.find((item) => item.id === portfolioId);
     if (!project) return null;
@@ -217,14 +218,30 @@ const Resume = () => {
     const portfolioHref = `/portfolio/${project.hrefNameList}`;
 
     return (
-      <PortfolioNote>
-        {resumeCv.projectPortfolioNote}{" "}
-        <a href={portfolioHref} title={portfolioHref}>
-          {portfolioHref}
-        </a>
-      </PortfolioNote>
+      <Group>
+        <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
+        <PortfolioNote $inGroup>
+          {resumeCv.projectPortfolioNote}{" "}
+          <a href={portfolioHref} title={portfolioHref}>
+            {portfolioHref}
+          </a>
+        </PortfolioNote>
+      </Group>
     );
   };
+
+  /* Демо проекта записи — внешний продукт, не из портфолио. Секция
+     оформляется как «Стек» и «Процессы». */
+  const renderViewLink = (url: string) => (
+    <Group>
+      <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
+      <PortfolioNote $inGroup>
+        <a href={url} target="_blank" rel="noreferrer noopener" title={url}>
+          {url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+        </a>
+      </PortfolioNote>
+    </Group>
+  );
 
   const handleView = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -355,8 +372,10 @@ const Resume = () => {
                     </Group>
                   ))}
 
-                {/* Похожий проект в портфолио — в конце карточки записи. */}
+                {/* Похожий проект в портфолио и ссылка на просмотр проекта —
+                    в конце карточки записи. */}
                 {item.portfolioId && renderPortfolioNote(item.portfolioId)}
+                {item.link && renderViewLink(item.link)}
               </Reveal>
             </TimelineItem>
           ))}
