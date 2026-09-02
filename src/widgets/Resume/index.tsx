@@ -410,6 +410,25 @@ const Resume = () => {
                 )}
 
                 {/* Стек и процессы — подпись + чипы (как «Ключевые навыки»). */}
+                {/* Стек по проектам — карточками внутри общей секции «Стек». */}
+                {item.stackGroups && item.stackGroups.length > 0 && (
+                  <Group>
+                    <GroupTitle>{resumeCv.stackTitle}</GroupTitle>
+                    <ResultBlocks>
+                      {item.stackGroups.map((stackGroup) => (
+                        <ResultBlock key={stackGroup.title}>
+                          <ResultBlockTitle>{stackGroup.title}</ResultBlockTitle>
+                          <ChipList>
+                            {stackGroup.items.map((text, j) => (
+                              <Chip key={j}>{text}</Chip>
+                            ))}
+                          </ChipList>
+                        </ResultBlock>
+                      ))}
+                    </ResultBlocks>
+                  </Group>
+                )}
+
                 {[item.stack, item.processes]
                   .filter((g): g is NonNullable<typeof g> => !!g)
                   .map((group, i) => (

@@ -409,6 +409,9 @@ export interface ResumeExperienceProps {
   // Ключевые результаты по проектам — карточками внутри общей секции
   // с заголовком resultTitle.
   resultGroups?: ResumeResultGroupProps[];
+  // Стек по проектам — карточками внутри общей секции со заголовком
+  // stackTitle (название проекта + чипы технологий).
+  stackGroups?: ResumeResultGroupProps[];
   // Демо записи: похожие проекты из портфолио. В конце карточки выводим
   // секцию «Демо» со списком ссылок на их страницы /portfolio/<hrefNameList>.
   portfolioIds?: string[];
@@ -436,6 +439,8 @@ export interface ResumeCvProps {
   demoTitle: string;
   // Общий заголовок секции ключевых результатов (карточки по проектам).
   resultTitle: string;
+  // Общий заголовок секции стека (карточки по проектам).
+  stackTitle: string;
   downloadName: string;
   downloadLabel: string;
   viewLabel: string;
