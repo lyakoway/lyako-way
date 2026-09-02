@@ -9,12 +9,6 @@ import {
 } from "src/common/lib/panelStyles";
 import { runningBorder } from "src/common/lib/runningBorder";
 import { pressedFill } from "src/common/lib/usePressAnimation";
-import {
-  Desc,
-  MetaList,
-  FeaturesTitle,
-  FeatureList,
-} from "src/widgets/PortfolioProject/style";
 
 /* Поверхность вложенной карточки поверх сланцевой панели раздела. */
 const cardSurface = `
@@ -507,62 +501,22 @@ export const PdfFrame = styled.iframe`
   border: 0;
 `;
 
-/* ——— Блок проекта внутри записи опыта ——— */
-
-// Стили самого блока берём со страницы проекта (единый вид), но там он живёт
-// на всю страницу и имеет свои внешние отступы. Внутри карточки опыта
-// подгоняем интервалы под ритм резюме: лид → ссылки → возможности.
-export const ProjectBlock = styled.div`
-  /* Разделитель — снизу, после «Возможностей»: он отделяет блок проекта от
-     следующих за ним групп обязанностей. На странице проекта линию рисует
-     Desc сверху — здесь её убираем, иначе она висит сразу под должностью. */
-  padding-bottom: 20px;
-  border-bottom: 1px solid ${PANEL_BORDER};
-
-  /* Если после проекта групп нет — линия оказалась бы у нижнего края карточки. */
-  &:last-child {
-    padding-bottom: 0;
-    border-bottom: 0;
-  }
-
-  ${Desc} {
-    margin-top: 16px;
-    padding-top: 0;
-    border-top: 0;
-    gap: 14px;
-  }
-
-  /* margin-top у MetaList рассчитан на страницу проекта — здесь интервал
-     задаёт gap самого Desc, иначе между лидом и технологиями появляется дыра. */
-  ${MetaList} {
-    margin-top: 0;
-    gap: 8px;
-  }
-
-  ${FeaturesTitle} {
-    margin: 18px 0 8px;
-  }
-
-  ${FeatureList} {
-    gap: 7px;
-  }
-`;
-
-// Второй абзац описания проекта — контекст задачи, тоном тише лида.
-export const ProjectNote = styled.p`
-  margin: 0;
+/* Финальная строка записи опыта: похожий проект реализован в портфолио.
+   Ссылка — акцентным цветом сайта. */
+export const PortfolioNote = styled.p`
+  margin: 14px 0 0;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 14px;
   font-weight: 300;
   line-height: 1.55;
-`;
 
-/* Абзацы в блоке «Результат»: он вне сетки Desc, поэтому интервалы задаём
-   отступами, а не gap. */
-export const ProjectResultNote = styled.p`
-  margin: 0 0 12px;
-  color: ${PANEL_TEXT_SECONDARY};
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.55;
+  a {
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+    text-decoration: none;
+    overflow-wrap: anywhere;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;

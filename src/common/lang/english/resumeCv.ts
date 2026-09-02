@@ -4,7 +4,7 @@ export const resumeCv: ResumeCvProps = {
   experienceTitle: "Experience",
   skillsTitle: "Key skills",
   educationTitle: "Education",
-  resultsTitle: "Outcome",
+  projectPortfolioNote: "A similar project is implemented in the portfolio — details on",
   downloadName: "Alexey-Mazurenko-en.pdf",
   downloadLabel: "Download PDF",
   viewLabel: "View",
@@ -12,9 +12,64 @@ export const resumeCv: ResumeCvProps = {
   experience: [
     {
       id: "1",
+      role: "AI Engineer",
+      company: "MTC Web Services (MWS AI)",
+      period: "Apr 2024 — present",
+      meta: "Moscow · Software development, AI solutions",
+      /* Описание продукта записи — абзацами, как summary у Senior Frontend. */
+      summary:
+        "An AI assistant with Retrieval-Augmented Generation.\nUpload PDF, Word or Excel and ask questions about the content, answers come with links to the source pages.\nRAG pipeline: document ingestion → chunking → embeddings → relevant-context retrieval → LLM answer generation → source citation.",
+      groups: [
+        {
+          title: "Core tasks",
+          items: [
+            "Designed and configured agent systems for business scenarios: workflows, function / tool calling, error handling and failure recovery.",
+            "Built AI agents for content generation and development-process automation",
+            "Researched and adopted multi-agent orchestration approaches, keeping up with current industry practices",
+            "Developed and iteratively improved prompt scenarios, testing them for accuracy, stability and edge cases.",
+            "Built evaluation sets for regression checks of answer quality.",
+            "Optimized LLM context handling: compression, prioritization, token-budget management.",
+            "Helped build the platform end-to-end: backend (Python, FastAPI), frontend (React / Next), infrastructure (Docker, Kubernetes, CI/CD).",
+            "Wrote helper scripts and utilities in Python / Bash, maintained API documentation, worked with open-source projects.",
+            "Explored new approaches, tested hypotheses and shipped best practices to production.",
+          ],
+        },
+        {
+          title: "Key results",
+          items: [
+            "The product is finished and used across the company.",
+            "Company knowledge base: answers to questions about HR policies, regulations and instructions in seconds instead of digging through folders.",
+            "Customer support on documentation: a customer asks in their own words and gets an answer with a link to the manual section — fewer routine tickets.",
+            "Legal and financial documents: a clause or a figure in contracts and reports is found in seconds, not a separate investigation.",
+          ],
+        },
+      ],
+      stack: {
+        title: "Stack",
+        items: [
+          "Python",
+          "FastAPI",
+          "LangChain",
+          "LLM API",
+          "RAG",
+          "React / Next",
+          "Docker",
+          "Kubernetes",
+          "CI/CD",
+        ],
+      },
+      processes: {
+        title: "Processes",
+        items: ["Scrum", "Jira", "Confluence"],
+      },
+      // Похожий проект — в портфолио: финальная строка карточки со ссылкой.
+      portfolioId: "rag-chat",
+    },
+    {
+      id: "2",
       role: "Senior Frontend Developer",
       company: "MTC Web Services",
-      period: "Apr 2020 — present",
+      period: "Feb 2019 — Apr 2024",
       meta: "Moscow · “MTS Profile” and “Ecosystem widgets”",
       summary:
         "“MTS Profile” — a module for storing and visualizing customer data with access management across ecosystem products.\n“Ecosystem widgets” — an embeddable navigation and personalization module for b2c/b2b products.",
@@ -65,31 +120,6 @@ export const resumeCv: ResumeCvProps = {
         title: "Processes",
         items: ["Scrum", "Jira", "Confluence"],
       },
-    },
-    {
-      id: "2",
-      role: "AI Engineer",
-      projects: [
-        {
-          id: "1",
-          portfolioId: "rag-chat",
-          // Свой лид: в резюме разбиваем на два абзаца (в портфолио «\n»
-          // отделяет уже не абзац, а карточку описания).
-          lead: "An AI assistant with Retrieval-Augmented Generation.\nUpload PDF, Word or Excel and ask questions about the content, answers come with links to the source pages.",
-          note: "RAG pipeline: document ingestion → chunking → embeddings → relevant-context retrieval → LLM answer generation → source citation.",
-          // Результат = практическое применение: тот же подход в стройке.
-          resultsLead:
-            "Practical application — an AI assistant for construction documentation.\nYou ask a question about the documents (cost estimates, SNiP/GOST standards, project documentation in PDF/Excel/Word), and the assistant answers with references to the sources, respecting access rights.",
-          resultsNote:
-            "A real construction project has hundreds of documents in different formats, scattered across mailboxes and drives. Making things up is not an option, a mistake in a concrete grade or in a standard costs money and safety.",
-          results: [
-            "Finds the answer in specific documents and shows the source. The wording can be checked against the original",
-            "Looking up a clause in estimates and standards instead of digging through dozens of files in mailboxes and drives",
-            "A single entry point to a site’s documentation: SNiP/GOST, cost estimates and working drawings in one query",
-            "Access control: contractors and subcontractors only see their own documents",
-          ],
-        },
-      ],
     },
   ],
 

@@ -1,6 +1,5 @@
 import React from "react";
 
-import { ResumeProjectProps } from "src/common/types/lang";
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
 import { ArticleTitle, Article } from "src/ui/Card";
@@ -38,24 +37,8 @@ import {
   SkillCategory,
   ChipList,
   Chip,
-  ProjectBlock,
-  ProjectNote,
-  ProjectResultNote,
+  PortfolioNote,
 } from "./style";
-
-/* Блок проекта внутри записи опыта оформляем так же, как страницу проекта
-   в портфолио, — переиспользуем её стили, чтобы вид не разъезжался. */
-import {
-  MetaList,
-  MetaRow,
-  MetaLabel,
-  MetaValue,
-  Desc,
-  DescLead,
-  FeaturesTitle,
-  FeatureList,
-  Feature,
-} from "src/widgets/PortfolioProject/style";
 
 const IconExperience = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -197,23 +180,12 @@ const SKILL_ICONS = [
   </svg>,
 ];
 
-// Показ ссылки без «https://» и служебных параметров — как в портфолио.
-const prettyUrl = (url: string) => {
-  try {
-    const { hostname, pathname } = new URL(url);
-    return `${hostname}${pathname.replace(/\/$/, "")}`;
-  } catch {
-    return url;
-  }
-};
-
 const Resume = () => {
   const {
     lang: {
       propsHeaderTopMenu,
       resumeCv,
       propsPortfolioList,
-      portfolioHeader,
       name: langName,
     },
   } = useSelectorTyped(({ lang }) => lang);
@@ -236,126 +208,21 @@ const Resume = () => {
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
 
-  /* Проект внутри записи опыта. Если задан portfolioId — описание, ссылки и
-     возможности берём из портфолио (дату создания в резюме не выводим), иначе
-     показываем то, что описано прямо в резюме. Технологии не дублируем —
-     они есть в разделе «Ключевые навыки». */
-  const renderProject = (entry: ResumeProjectProps) => {
-    const project = entry.portfolioId
-      ? propsPortfolioList.find((item) => item.id === entry.portfolioId)
-      : undefined;
+  /* Финальная строка записи опыта: похожий проект реализован в портфолио,
+     подробности — возможности, замеры и демо — на его странице. */
+  const renderPortfolioNote = (portfolioId: string) => {
+    const project = propsPortfolioList.find((item) => item.id === portfolioId);
+    if (!project) return null;
 
-    // В демо пробрасываем текущие язык и тему сайта — как в портфолио.
-    const demoHref = (() => {
-      if (!project?.hrefPortfolio) return "";
-      const url = new URL(project.hrefPortfolio);
-      url.searchParams.set("lang", langName === "russia" ? "ru" : "en");
-      url.searchParams.set("theme", theme.name);
-      return url.toString();
-    })();
-
-    // Из описания проекта в портфолио берём только лид (первый абзац) —
-    // карточки про демо-режим, модели и стек остаются на его странице.
-    const lead =
-      entry.lead ??
-      project?.portfolioText
-        .split("\n")
-        .map((line) => line.trim())
-        .filter(Boolean)[0];
-
-    const features = entry.features ?? project?.features;
+    const portfolioHref = `/portfolio/${project.hrefNameList}`;
 
     return (
-      <ProjectBlock key={entry.id}>
-        {/* Порядок: лид, под ним ссылки, затем возможности. */}
-        <Desc>
-          {/* Выделен только первый абзац — что это за проект; остальные идут
-              обычным текстом. */}
-          {lead
-            ?.split("\n")
-            .map((line) => line.trim())
-            .filter(Boolean)
-            .map((line, i) =>
-              i === 0 ? (
-                <DescLead key={i}>{line}</DescLead>
-              ) : (
-                <ProjectNote key={i}>{line}</ProjectNote>
-              )
-            )}
-          {entry.note && <ProjectNote>{entry.note}</ProjectNote>}
-
-          {(project?.github || demoHref) && (
-            <MetaList>
-              {project?.github && (
-                <MetaRow>
-                  <MetaLabel>{portfolioHeader.linkGithub}</MetaLabel>
-                  <MetaValue>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      title={project.github}
-                    >
-                      {prettyUrl(project.github)}
-                    </a>
-                  </MetaValue>
-                </MetaRow>
-              )}
-
-              {demoHref && (
-                <MetaRow>
-                  <MetaLabel>{portfolioHeader.link}</MetaLabel>
-                  <MetaValue>
-                    <a
-                      href={demoHref}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      title={demoHref}
-                    >
-                      {prettyUrl(demoHref)}
-                    </a>
-                  </MetaValue>
-                </MetaRow>
-              )}
-            </MetaList>
-          )}
-        </Desc>
-
-        {features && features.length > 0 && (
-          <>
-            <FeaturesTitle>{portfolioHeader.features}</FeaturesTitle>
-            <FeatureList>
-              {features.map((f, i) => (
-                <Feature key={i}>{f}</Feature>
-              ))}
-            </FeatureList>
-          </>
-        )}
-
-        {(entry.resultsLead || entry.results?.length) && (
-          <>
-            <FeaturesTitle>{resumeCv.resultsTitle}</FeaturesTitle>
-            {/* «\n» в resultsLead разделяет абзацы — как в summary. */}
-            {entry.resultsLead
-              ?.split("\n")
-              .map((line) => line.trim())
-              .filter(Boolean)
-              .map((line, i) => (
-                <ProjectResultNote key={i}>{line}</ProjectResultNote>
-              ))}
-            {entry.resultsNote && (
-              <ProjectResultNote>{entry.resultsNote}</ProjectResultNote>
-            )}
-            {entry.results && entry.results.length > 0 && (
-              <FeatureList>
-                {entry.results.map((r, i) => (
-                  <Feature key={i}>{r}</Feature>
-                ))}
-              </FeatureList>
-            )}
-          </>
-        )}
-      </ProjectBlock>
+      <PortfolioNote>
+        {resumeCv.projectPortfolioNote}{" "}
+        <a href={portfolioHref} title={portfolioHref}>
+          {portfolioHref}
+        </a>
+      </PortfolioNote>
     );
   };
 
@@ -462,7 +329,6 @@ const Resume = () => {
                   .map((line) => line.trim())
                   .filter(Boolean)
                   .map((line, i) => <ItemSummary key={i}>{line}</ItemSummary>)}
-                {item.projects?.map((project) => renderProject(project))}
 
                 {item.groups?.map((group, i) => (
                   <Group key={i}>
@@ -488,6 +354,9 @@ const Resume = () => {
                       </ChipList>
                     </Group>
                   ))}
+
+                {/* Похожий проект в портфолио — в конце карточки записи. */}
+                {item.portfolioId && renderPortfolioNote(item.portfolioId)}
               </Reveal>
             </TimelineItem>
           ))}
