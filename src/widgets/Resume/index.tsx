@@ -40,7 +40,6 @@ import {
   Chip,
   ProjectSummary,
   ProjectSummaryTitle,
-  PortfolioNote,
 } from "./style";
 
 const IconExperience = () => (
@@ -241,15 +240,18 @@ const Resume = () => {
   };
 
   /* Демо проекта записи — внешний продукт, не из портфолио. Секция
-     оформляется как «Стек» и «Процессы». */
-  const renderViewLink = (url: string) => (
+     оформляется так же, как «Стек» и «Процессы». */
+  const renderViewLink = (name: string, url: string) => (
     <Group>
       <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
-      <PortfolioNote>
-        <a href={url} target="_blank" rel="noreferrer noopener" title={url}>
-          {url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
-        </a>
-      </PortfolioNote>
+      <Bullets>
+        <li>
+          {name} —{" "}
+          <a href={url} target="_blank" rel="noreferrer noopener" title={url}>
+            {url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+          </a>
+        </li>
+      </Bullets>
     </Group>
   );
 
@@ -399,7 +401,7 @@ const Resume = () => {
                 {/* Демо записи и ссылка на просмотр проекта — в конце
                     карточки. */}
                 {item.portfolioIds && renderPortfolioNote(item.portfolioIds)}
-                {item.link && renderViewLink(item.link)}
+                {item.link && renderViewLink(item.link.name, item.link.url)}
               </Reveal>
             </TimelineItem>
           ))}

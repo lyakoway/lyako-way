@@ -382,6 +382,12 @@ export interface ResumeProjectDescriptionProps {
   text: string;
 }
 
+/* Внешняя ссылка демо записи опыта: название продукта и адрес сайта. */
+export interface ResumeLinkProps {
+  name: string;
+  url: string;
+}
+
 export interface ResumeExperienceProps {
   id: string;
   role: string;
@@ -396,8 +402,9 @@ export interface ResumeExperienceProps {
   // Демо записи: похожие проекты из портфолио. В конце карточки выводим
   // секцию «Демо» со списком ссылок на их страницы /portfolio/<hrefNameList>.
   portfolioIds?: string[];
-  // Внешняя ссылка на просмотр проекта записи (в конце карточки).
-  link?: string;
+  // Внешняя ссылка на просмотр проекта записи (в конце карточки, секция
+  // «Демо»: название продукта — адрес сайта).
+  link?: ResumeLinkProps;
   groups?: ResumeExperienceGroupProps[];
   // Стек и процессы записи опыта — подпись + список (рендерятся чипами).
   stack?: ResumeExperienceGroupProps;

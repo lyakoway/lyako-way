@@ -532,22 +532,4 @@ export const PdfFrame = styled.iframe`
   border: 0;
 `;
 
-/* Подпись-ссылка в конце карточки записи (демо внешнего продукта).
-   Ссылка — акцентным цветом сайта. */
-export const PortfolioNote = styled.p`
-  margin: 0;
-  color: ${PANEL_TEXT_SECONDARY};
-  font-size: 14px;
-  font-weight: 300;
-  line-height: 1.55;
 
-  a {
-    color: ${({ theme }) => theme.color.basic.primaryLight};
-    text-decoration: none;
-    overflow-wrap: anywhere;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-`;

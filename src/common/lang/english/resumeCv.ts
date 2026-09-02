@@ -47,10 +47,13 @@ export const resumeCv: ResumeCvProps = {
         {
           title: "Key results",
           items: [
-            "The product is finished and used across the company.",
+            "The products are finished and used across the company.",
             "Company knowledge base: answers to questions about HR policies, regulations and instructions in seconds instead of digging through folders.",
             "Customer support on documentation: a customer asks in their own words and gets an answer with a link to the manual section — fewer routine tickets.",
             "Legal and financial documents: a clause or a figure in contracts and reports is found in seconds, not a separate investigation.",
+            "AI Data Pilot: agent loop (ReAct) with self-correction — the agent detects a failed SQL query and rewrites it on its own.",
+            "AI Data Pilot: SSE execution trace — agents work step by step in real time.",
+            "AI Data Pilot: deterministic analytics — trends, top-N and anomalies are computed by a Python layer, not the LLM.",
           ],
         },
       ],
@@ -140,8 +143,8 @@ export const resumeCv: ResumeCvProps = {
         title: "Processes",
         items: ["Scrum", "Jira", "Confluence"],
       },
-      // Просмотр продукта — боевой сайт «МТС Профиля».
-      link: "https://id.mts.ru",
+      // Демо записи — боевой сайт «МТС Профиля».
+      link: { name: "MTS Profile", url: "https://id.mts.ru" },
     },
   ],
 
