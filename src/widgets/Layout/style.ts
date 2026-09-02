@@ -40,8 +40,12 @@ export const MainContent = styled.div`
   position: relative;
 
   @media (min-width: 1250px) {
-    min-width: 75%;
-    width: 75%;
+    /* flex:1 + min-width:0 — колонка занимает всё место справа от сайдбара
+       фиксированной ширины. Прежние 75% меняли ширину контента при смене
+       языка: колонка следовала за min-content текста сайдбара (русское имя
+       длиннее английского), и все блоки «прыгали». */
+    flex: 1;
+    min-width: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
