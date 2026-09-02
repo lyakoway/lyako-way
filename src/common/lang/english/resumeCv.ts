@@ -4,7 +4,6 @@ export const resumeCv: ResumeCvProps = {
   experienceTitle: "Experience",
   skillsTitle: "Key skills",
   educationTitle: "Education",
-  projectPortfolioNote: "A similar project is implemented in the portfolio — details on",
   demoTitle: "Demo",
   downloadName: "Alexey-Mazurenko-en.pdf",
   downloadLabel: "Download PDF",
@@ -18,8 +17,18 @@ export const resumeCv: ResumeCvProps = {
       period: "Apr 2024 — present",
       meta: "Moscow · Software development, AI solutions",
       /* Описание продукта записи — абзацами, как summary у Senior Frontend. */
-      summary:
-        "An AI assistant with Retrieval-Augmented Generation.\nUpload PDF, Word or Excel and ask questions about the content, answers come with links to the source pages.\nRAG pipeline: document ingestion → chunking → embeddings → relevant-context retrieval → LLM answer generation → source citation.",
+      // Описания проектов — заголовок с линией слева + абзацы описания:
+      // описания соседних проектов не смешиваются.
+      projectDescriptions: [
+        {
+          title: "AI assistant with Retrieval-Augmented Generation",
+          text: "Upload PDF, Word or Excel and ask questions about the content, answers come with links to the source pages.\nRAG pipeline: document ingestion → chunking → embeddings → relevant-context retrieval → LLM answer generation → source citation.",
+        },
+        {
+          title: "AI Data Pilot",
+          text: "A multi-agent analytics platform: an auto-router sends each question to the right agent — Oleg (Text-to-SQL, agent loop with tool calling) or Ksyusha (RAG with vector search).",
+        },
+      ],
       groups: [
         {
           title: "Core tasks",
@@ -63,17 +72,27 @@ export const resumeCv: ResumeCvProps = {
         title: "Processes",
         items: ["Scrum", "Jira", "Confluence"],
       },
-      // Похожий проект — в портфолио: финальная строка карточки со ссылкой.
-      portfolioId: "rag-chat",
+      // Демо записи — похожие проекты в портфолио: секция «Демо» в конце
+      // карточки со ссылками на их страницы.
+      portfolioIds: ["rag-chat", "ai-data-pilot"],
     },
     {
       id: "2",
       role: "Senior Frontend Developer",
       company: "MTC Web Services",
       period: "Feb 2019 — Apr 2024",
-      meta: "Moscow · “MTS Profile” and “Ecosystem widgets”",
-      summary:
-        "“MTS Profile” — a module for storing and visualizing customer data with access management across ecosystem products.\n“Ecosystem widgets” — an embeddable navigation and personalization module for b2c/b2b products.",
+      meta: "Moscow · MTS Profile and Ecosystem widgets",
+      // Описания продуктов — заголовок с линией слева + абзацы описания.
+      projectDescriptions: [
+        {
+          title: "MTS Profile",
+          text: "A module for storing and visualizing customer data with access management across ecosystem products.",
+        },
+        {
+          title: "Ecosystem widgets",
+          text: "An embeddable navigation and personalization module for b2c/b2b products.",
+        },
+      ],
       groups: [
         {
           title: "Core tasks",

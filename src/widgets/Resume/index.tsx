@@ -1,5 +1,6 @@
 import React from "react";
 
+import { PortfolioListProps } from "src/common/types/lang";
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
 import { ArticleTitle, Article } from "src/ui/Card";
@@ -37,6 +38,8 @@ import {
   SkillCategory,
   ChipList,
   Chip,
+  ProjectSummary,
+  ProjectSummaryTitle,
   PortfolioNote,
 } from "./style";
 
@@ -208,24 +211,31 @@ const Resume = () => {
   const title =
     propsHeaderTopMenu.find((item) => item.value === "resume")?.label ?? "";
 
-  /* Демо записи: похожий проект реализован в портфолио — подробности
-     (возможности, замеры и демо-стенд) на его странице. Секция оформляется
+  /* Демо записи: похожие проекты реализованы в портфолио — подробности
+     (описание, возможности, замеры) на их страницах. Секция оформляется
      так же, как «Стек» и «Процессы». */
-  const renderPortfolioNote = (portfolioId: string) => {
-    const project = propsPortfolioList.find((item) => item.id === portfolioId);
-    if (!project) return null;
-
-    const portfolioHref = `/portfolio/${project.hrefNameList}`;
+  const renderPortfolioNote = (portfolioIds: string[]) => {
+    const projects = portfolioIds
+      .map((id) => propsPortfolioList.find((item) => item.id === id))
+      .filter((p): p is PortfolioListProps => p != null);
+    if (projects.length === 0) return null;
 
     return (
       <Group>
         <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
-        <PortfolioNote $inGroup>
-          {resumeCv.projectPortfolioNote}{" "}
-          <a href={portfolioHref} title={portfolioHref}>
-            {portfolioHref}
-          </a>
-        </PortfolioNote>
+        <Bullets>
+          {projects.map((project) => {
+            const portfolioHref = `/portfolio/${project.hrefNameList}`;
+            return (
+              <li key={project.id}>
+                {project.portfolioNameList} —{" "}
+                <a href={portfolioHref} title={portfolioHref}>
+                  {portfolioHref}
+                </a>
+              </li>
+            );
+          })}
+        </Bullets>
       </Group>
     );
   };
@@ -235,7 +245,7 @@ const Resume = () => {
   const renderViewLink = (url: string) => (
     <Group>
       <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
-      <PortfolioNote $inGroup>
+      <PortfolioNote>
         <a href={url} target="_blank" rel="noreferrer noopener" title={url}>
           {url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
         </a>
@@ -340,6 +350,20 @@ const Resume = () => {
                 </EntryHeader>
 
                 {item.meta && <ItemMeta>{item.meta}</ItemMeta>}
+                {/* Описания проектов — заголовок с оранжевой линией слева
+                    и абзацы описания под ним. */}
+                {item.projectDescriptions?.map((description, i) => (
+                  <ProjectSummary key={i}>
+                    <ProjectSummaryTitle>{description.title}</ProjectSummaryTitle>
+                    {description.text
+                      .split("\n")
+                      .map((line) => line.trim())
+                      .filter(Boolean)
+                      .map((line, j) => (
+                        <ItemSummary key={j}>{line}</ItemSummary>
+                      ))}
+                  </ProjectSummary>
+                ))}
                 {/* В summary «\n» разделяет абзацы — про каждый продукт свой. */}
                 {item.summary
                   ?.split("\n")
@@ -372,9 +396,9 @@ const Resume = () => {
                     </Group>
                   ))}
 
-                {/* Похожий проект в портфолио и ссылка на просмотр проекта —
-                    в конце карточки записи. */}
-                {item.portfolioId && renderPortfolioNote(item.portfolioId)}
+                {/* Демо записи и ссылка на просмотр проекта — в конце
+                    карточки. */}
+                {item.portfolioIds && renderPortfolioNote(item.portfolioIds)}
                 {item.link && renderViewLink(item.link)}
               </Reveal>
             </TimelineItem>

@@ -375,6 +375,13 @@ export interface ResumeExperienceGroupProps {
   items: string[];
 }
 
+/* Описание проекта внутри записи опыта: заголовок (название проекта, к нему
+   рисуется оранжевая линия) и абзацы описания. */
+export interface ResumeProjectDescriptionProps {
+  title: string;
+  text: string;
+}
+
 export interface ResumeExperienceProps {
   id: string;
   role: string;
@@ -382,9 +389,13 @@ export interface ResumeExperienceProps {
   period?: string;
   meta?: string;
   summary?: string;
-  // Похожий проект из портфолио: в конце карточки выводим подпись со ссылкой
-  // на его страницу /portfolio/<hrefNameList>.
-  portfolioId?: string;
+  // Описания проектов записи — отдельные блоки: заголовок с оранжевой
+  // линией слева + абзацы описания через «\n». Описания соседних проектов
+  // не смешиваются.
+  projectDescriptions?: ResumeProjectDescriptionProps[];
+  // Демо записи: похожие проекты из портфолио. В конце карточки выводим
+  // секцию «Демо» со списком ссылок на их страницы /portfolio/<hrefNameList>.
+  portfolioIds?: string[];
   // Внешняя ссылка на просмотр проекта записи (в конце карточки).
   link?: string;
   groups?: ResumeExperienceGroupProps[];
@@ -404,9 +415,7 @@ export interface ResumeCvProps {
   experienceTitle: string;
   skillsTitle: string;
   educationTitle: string;
-  // Подпись ссылки на похожий проект в портфолио (в конце карточки опыта).
-  projectPortfolioNote: string;
-  // Заголовок секции «Демо» — ссылка на просмотр проекта записи.
+  // Заголовок секции «Демо» — ссылки на проекты записи.
   demoTitle: string;
   downloadName: string;
   downloadLabel: string;

@@ -290,6 +290,27 @@ export const ItemSummary = styled.p`
   line-height: 1.55;
 `;
 
+/* Блок описания одного проекта внутри записи: заголовок с оранжевой
+   линейкой слева и абзацы описания под ним. */
+export const ProjectSummary = styled.div`
+  margin-top: 12px;
+
+  & + & {
+    margin-top: 14px;
+  }
+`;
+
+// Заголовок блока — название проекта, к нему примыкает оранжевая линия.
+export const ProjectSummaryTitle = styled.p`
+  margin: 0;
+  padding-left: 12px;
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+`;
+
 export const Group = styled.div`
   margin-top: 18px;
 `;
@@ -307,6 +328,16 @@ export const Bullets = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+
+  /* Ссылки в пунктах (например, демо проектов) — акцентным цветом сайта. */
+  a {
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   li {
     position: relative;
@@ -501,10 +532,10 @@ export const PdfFrame = styled.iframe`
   border: 0;
 `;
 
-/* Финальная строка записи опыта: подпись про портфолио или ссылка демо.
-   Вариант внутри группы (после заголовка секции) — без верхнего отступа. */
-export const PortfolioNote = styled.p<{ $inGroup?: boolean }>`
-  margin: ${({ $inGroup }) => ($inGroup ? "0" : "14px 0 0")};
+/* Подпись-ссылка в конце карточки записи (демо внешнего продукта).
+   Ссылка — акцентным цветом сайта. */
+export const PortfolioNote = styled.p`
+  margin: 0;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 14px;
   font-weight: 300;
