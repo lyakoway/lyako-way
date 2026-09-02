@@ -376,10 +376,20 @@ export interface ResumeExperienceGroupProps {
 }
 
 /* Описание проекта внутри записи опыта: заголовок (название проекта, к нему
-   рисуется оранжевая линия) и абзацы описания. */
+   рисуется оранжевая линия), определение (text) и подписанные строки деталей
+   (details) — RAG pipeline, Архитектура, агенты и т.п. */
+export interface ResumeProjectDetailProps {
+  // Короткая метка строки — рендерится капсом, тоном тише текста.
+  label: string;
+  text: string;
+}
+
 export interface ResumeProjectDescriptionProps {
   title: string;
+  // Определение проекта — первый абзац под заголовком.
   text: string;
+  // Детали проекта — подписанные строки под определением.
+  details?: ResumeProjectDetailProps[];
 }
 
 /* Внешняя ссылка демо записи опыта: название продукта и адрес сайта. */

@@ -24,11 +24,39 @@ export const resumeCv: ResumeCvProps = {
       projectDescriptions: [
         {
           title: "AI-ассистент с Retrieval-Augmented Generation",
-          text: "AI-ассистент для работы с документами — загружает PDF, Word и Excel, отвечает на вопросы по содержимому и предоставляет ссылки на исходные страницы и фрагменты.\nRAG pipeline: индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + вектора (RRF) → генерация ответа LLM → цитирование источников.\nАрхитектура: Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — история диалогов.\nКачество измерено: Recall@1 92% на golden set (evaluation-скрипт), LLM-as-judge 5.0/5.",
+          text: "AI-ассистент для работы с документами — загружает PDF, Word и Excel, отвечает на вопросы по содержимому и предоставляет ссылки на исходные страницы и фрагменты.",
+          details: [
+            {
+              label: "RAG pipeline",
+              text: "индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + вектора (RRF) → генерация ответа LLM → цитирование источников.",
+            },
+            {
+              label: "Архитектура",
+              text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — история диалогов.",
+            },
+            {
+              label: "Качество",
+              text: "Recall@1 92% на golden set (evaluation-скрипт), LLM-as-judge 5.0/5.",
+            },
+          ],
         },
         {
           title: "AI Data Pilot",
-          text: "Мультиагентная аналитическая платформа, автоматизирующая путь от вопроса пользователя до готового аналитического результата.\nОлег — AI-аналитик: переводит вопросы на естественном языке в SQL, выполняет многошаговый анализ данных, выявляет динамику и отклонения, формирует таблицы, графики и аналитические выводы.\nКсюша — RAG-агент: отвечает на вопросы по внутренней технической документации и загруженным документам (PDF, Word, Excel) с опорой на найденные источники.\nАрхитектура: Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; RAG-ядро Ксюши: гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников.",
+          text: "Мультиагентная аналитическая платформа, автоматизирующая путь от вопроса пользователя до готового аналитического результата.",
+          details: [
+            {
+              label: "Олег — AI-аналитик",
+              text: "переводит вопросы на естественном языке в SQL, выполняет многошаговый анализ данных, выявляет динамику и отклонения, формирует таблицы, графики и аналитические выводы.",
+            },
+            {
+              label: "Ксюша — RAG-агент",
+              text: "отвечает на вопросы по внутренней технической документации и загруженным документам (PDF, Word, Excel) с опорой на найденные источники.",
+            },
+            {
+              label: "Архитектура",
+              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников.",
+            },
+          ],
         },
       ],
       groups: [

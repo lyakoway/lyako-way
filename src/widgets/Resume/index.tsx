@@ -40,6 +40,8 @@ import {
   Chip,
   ProjectSummary,
   ProjectSummaryTitle,
+  ProjectDetail,
+  ProjectDetailLabel,
   ResultBlocks,
   ResultBlock,
   ResultBlockTitle,
@@ -355,18 +357,18 @@ const Resume = () => {
                 </EntryHeader>
 
                 {item.meta && <ItemMeta>{item.meta}</ItemMeta>}
-                {/* Описания проектов — заголовок с оранжевой линией слева
-                    и абзацы описания под ним. */}
+                {/* Описания проектов — заголовок с оранжевой линией слева,
+                    определение и подписанные строки деталей. */}
                 {item.projectDescriptions?.map((description, i) => (
                   <ProjectSummary key={i}>
                     <ProjectSummaryTitle>{description.title}</ProjectSummaryTitle>
-                    {description.text
-                      .split("\n")
-                      .map((line) => line.trim())
-                      .filter(Boolean)
-                      .map((line, j) => (
-                        <ItemSummary key={j}>{line}</ItemSummary>
-                      ))}
+                    <ItemSummary>{description.text}</ItemSummary>
+                    {description.details?.map((detail) => (
+                      <ProjectDetail key={detail.label}>
+                        <ProjectDetailLabel>{detail.label}</ProjectDetailLabel>
+                        <ItemSummary>{detail.text}</ItemSummary>
+                      </ProjectDetail>
+                    ))}
                   </ProjectSummary>
                 ))}
                 {/* В summary «\n» разделяет абзацы — про каждый продукт свой. */}
@@ -410,20 +412,21 @@ const Resume = () => {
                 )}
 
                 {/* Стек и процессы — подпись + чипы (как «Ключевые навыки»). */}
-                {/* Стек по проектам — карточками внутри общей секции «Стек». */}
+                {/* Стек по проектам — название + чипы, без подложки карточек:
+                    стек не должен выделяться так же, как ключевые результаты. */}
                 {item.stackGroups && item.stackGroups.length > 0 && (
                   <Group>
                     <GroupTitle>{resumeCv.stackTitle}</GroupTitle>
                     <ResultBlocks>
                       {item.stackGroups.map((stackGroup) => (
-                        <ResultBlock key={stackGroup.title}>
+                        <div key={stackGroup.title}>
                           <ResultBlockTitle>{stackGroup.title}</ResultBlockTitle>
                           <ChipList>
                             {stackGroup.items.map((text, j) => (
                               <Chip key={j}>{text}</Chip>
                             ))}
                           </ChipList>
-                        </ResultBlock>
+                        </div>
                       ))}
                     </ResultBlocks>
                   </Group>

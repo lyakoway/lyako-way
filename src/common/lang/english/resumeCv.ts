@@ -24,11 +24,39 @@ export const resumeCv: ResumeCvProps = {
       projectDescriptions: [
         {
           title: "AI assistant with Retrieval-Augmented Generation",
-          text: "An AI assistant for working with documents — uploads PDF, Word and Excel files, answers questions about their content and provides links to the source pages and document fragments.\nRAG pipeline: document indexing → chunking (tiktoken) → embeddings (fastembed) → hybrid BM25 + vector retrieval (RRF) → LLM answer generation → source citation.\nArchitecture: Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — conversation history.\nQuality is measured: Recall@1 92% on a golden set (evaluation script), LLM-as-judge 5.0/5.",
+          text: "An AI assistant for working with documents — uploads PDF, Word and Excel files, answers questions about their content and provides links to the source pages and document fragments.",
+          details: [
+            {
+              label: "RAG pipeline",
+              text: "document indexing → chunking (tiktoken) → embeddings (fastembed) → hybrid BM25 + vector retrieval (RRF) → LLM answer generation → source citation.",
+            },
+            {
+              label: "Architecture",
+              text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — conversation history.",
+            },
+            {
+              label: "Quality",
+              text: "Recall@1 92% on a golden set (evaluation script), LLM-as-judge 5.0/5.",
+            },
+          ],
         },
         {
           title: "AI Data Pilot",
-          text: "A multi-agent analytics platform automating the path from a user's question to a ready analytical result.\nOleg — AI analyst: turns natural-language questions into SQL, runs multi-step data analysis, detects trends and deviations, and produces tables, charts and analytical conclusions.\nKsyusha — RAG agent: answers questions over internal technical documentation and uploaded files (PDF, Word, Excel), grounded in the retrieved sources.\nArchitecture: Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; Ksyusha's RAG core: hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation.",
+          text: "A multi-agent analytics platform automating the path from a user's question to a ready analytical result.",
+          details: [
+            {
+              label: "Oleg — AI analyst",
+              text: "turns natural-language questions into SQL, runs multi-step data analysis, detects trends and deviations, and produces tables, charts and analytical conclusions.",
+            },
+            {
+              label: "Ksyusha — RAG agent",
+              text: "answers questions over internal technical documentation and uploaded files (PDF, Word, Excel), grounded in the retrieved sources.",
+            },
+            {
+              label: "Architecture",
+              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; Ksyusha's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation.",
+            },
+          ],
         },
       ],
       groups: [

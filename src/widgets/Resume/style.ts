@@ -311,6 +311,21 @@ export const ProjectSummaryTitle = styled.p`
   line-height: 1.4;
 `;
 
+// Подписанная строка деталей описания (RAG pipeline / Архитектура / агент).
+export const ProjectDetail = styled.div`
+  margin-top: 12px;
+`;
+
+// Метка строки — капсом, тоном тише текста детали.
+export const ProjectDetailLabel = styled.p`
+  margin: 0 0 4px;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+`;
+
 /* ——— Ключевые результаты по проектам — карточками, как блоки
    «Схемы проекта» в портфолио ——— */
 
