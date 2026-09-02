@@ -5,6 +5,7 @@ export const resumeCv: ResumeCvProps = {
   skillsTitle: "Key skills",
   educationTitle: "Education",
   demoTitle: "Demo",
+  resultTitle: "Key results",
   downloadName: "Alexey-Mazurenko-en.pdf",
   downloadLabel: "Download PDF",
   viewLabel: "View",
@@ -44,17 +45,26 @@ export const resumeCv: ResumeCvProps = {
             "Explored new approaches, tested hypotheses and shipped best practices to production.",
           ],
         },
+      ],
+      // Ключевые результаты — карточками по проектам внутри общей секции.
+      resultGroups: [
         {
-          title: "Key results",
+          title: "RAG Chat",
           items: [
-            "The products are finished and used across the company.",
+            "The product is finished and used across the company.",
             "Company knowledge base: answers to questions about HR policies, regulations and instructions in seconds instead of digging through folders.",
             "Customer support on documentation: a customer asks in their own words and gets an answer with a link to the manual section — fewer routine tickets.",
             "Legal and financial documents: a clause or a figure in contracts and reports is found in seconds, not a separate investigation.",
-            "AI Data Pilot: cuts an analyst's time from 2 hours to 2 minutes — a saved query, e.g. “sales by region per month”, runs as a one-click scenario.",
-            "AI Data Pilot: agent loop (ReAct) with self-correction — the agent detects a failed SQL query and rewrites it on its own.",
-            "AI Data Pilot: SSE execution trace — agents work step by step in real time.",
-            "AI Data Pilot: deterministic analytics — trends, top-N and anomalies are computed by a Python layer, not the LLM.",
+          ],
+        },
+        {
+          title: "AI Data Pilot",
+          items: [
+            "The product is finished and used across the company.",
+            "Cuts an analyst's time from 2 hours to 2 minutes — a saved query, e.g. “sales by region per month”, runs as a one-click scenario.",
+            "Agent loop (ReAct) with self-correction — the agent detects a failed SQL query and rewrites it on its own.",
+            "SSE execution trace — agents work step by step in real time.",
+            "Deterministic analytics — trends, top-N and anomalies are computed by a Python layer, not the LLM.",
           ],
         },
       ],

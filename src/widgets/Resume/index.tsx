@@ -40,6 +40,9 @@ import {
   Chip,
   ProjectSummary,
   ProjectSummaryTitle,
+  ResultBlocks,
+  ResultBlock,
+  ResultBlockTitle,
 } from "./style";
 
 const IconExperience = () => (
@@ -383,6 +386,28 @@ const Resume = () => {
                     </Bullets>
                   </Group>
                 ))}
+
+                {/* Ключевые результаты по проектам — карточками внутри общей
+                    секции, как блоки «Схемы проекта» в портфолио. */}
+                {item.resultGroups && item.resultGroups.length > 0 && (
+                  <Group>
+                    <GroupTitle>{resumeCv.resultTitle}</GroupTitle>
+                    <ResultBlocks>
+                      {item.resultGroups.map((resultGroup) => (
+                        <ResultBlock key={resultGroup.title}>
+                          <ResultBlockTitle>
+                            {resultGroup.title}
+                          </ResultBlockTitle>
+                          <Bullets>
+                            {resultGroup.items.map((text, j) => (
+                              <li key={j}>{text}</li>
+                            ))}
+                          </Bullets>
+                        </ResultBlock>
+                      ))}
+                    </ResultBlocks>
+                  </Group>
+                )}
 
                 {/* Стек и процессы — подпись + чипы (как «Ключевые навыки»). */}
                 {[item.stack, item.processes]

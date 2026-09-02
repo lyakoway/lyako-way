@@ -388,6 +388,13 @@ export interface ResumeLinkProps {
   url: string;
 }
 
+/* Ключевые результаты записи по проекту: карточка внутри общей секции
+   «Ключевые результаты» — заголовок с оранжевой линией и список пунктов. */
+export interface ResumeResultGroupProps {
+  title: string;
+  items: string[];
+}
+
 export interface ResumeExperienceProps {
   id: string;
   role: string;
@@ -399,6 +406,9 @@ export interface ResumeExperienceProps {
   // линией слева + абзацы описания через «\n». Описания соседних проектов
   // не смешиваются.
   projectDescriptions?: ResumeProjectDescriptionProps[];
+  // Ключевые результаты по проектам — карточками внутри общей секции
+  // с заголовком resultTitle.
+  resultGroups?: ResumeResultGroupProps[];
   // Демо записи: похожие проекты из портфолио. В конце карточки выводим
   // секцию «Демо» со списком ссылок на их страницы /portfolio/<hrefNameList>.
   portfolioIds?: string[];
@@ -424,6 +434,8 @@ export interface ResumeCvProps {
   educationTitle: string;
   // Заголовок секции «Демо» — ссылки на проекты записи.
   demoTitle: string;
+  // Общий заголовок секции ключевых результатов (карточки по проектам).
+  resultTitle: string;
   downloadName: string;
   downloadLabel: string;
   viewLabel: string;

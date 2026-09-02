@@ -311,6 +311,36 @@ export const ProjectSummaryTitle = styled.p`
   line-height: 1.4;
 `;
 
+/* ——— Ключевые результаты по проектам — карточками, как блоки
+   «Схемы проекта» в портфолио ——— */
+
+export const ResultBlocks = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+// Карточка проекта: чуть более светлая поверхность, чем у карточки опыта,
+// чтобы блок читался отдельно.
+export const ResultBlock = styled.div`
+  padding: 14px 16px;
+  background: ${PANEL_ELEVATED_HOVER};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+`;
+
+// Название проекта в карточке — с оранжевой линейкой слева.
+export const ResultBlockTitle = styled.p`
+  margin: 0 0 10px;
+  padding-left: 10px;
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+`;
+
 export const Group = styled.div`
   margin-top: 18px;
 `;
