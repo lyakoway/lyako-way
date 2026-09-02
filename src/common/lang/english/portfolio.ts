@@ -386,6 +386,219 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Feedback analytics panel: 👍/👎 breakdown per agent with filters",
       "Transparent statuses: ok / demo / partial / error on every answer",
     ],
+    aiEngineering: {
+      sectionTitle: "An AI engineer's view: agency and reliability",
+      intro:
+        "A breakdown in the same 'AI engineer's view' format: not a feature list, but an engineering loop — from question routing and trust in numbers to SQL failures and testing. The project's key question: how to make an LLM work with databases in a way the answer can be trusted.",
+      useCasesTitle: "What the project is for",
+      useCasesListTitle: "Scenarios where this already works",
+      useCasesIntro:
+        "The platform solves a typical pain: data lives in databases and Excel files, and getting a number requires an analyst. A natural-language question becomes SQL, a chart and an export — with a verifiable methodology.",
+      useCases: [
+        {
+          title: "Self-service analytics for business",
+          detail:
+            "A manager asks 'revenue by region for 90 days' and gets a table with a chart in seconds — no analyst ticket, no queue.",
+        },
+        {
+          title: "Root-cause analysis of metric drops",
+          detail:
+            "'Why did revenue drop in July?' — the agent compares periods, computes the change, finds contributing factors via an agent loop and shows the analysis step by step.",
+        },
+        {
+          title: "Analyzing uploaded Excel exports",
+          detail:
+            "Drag a data file into the window and ask questions about it: Oleg builds SQL over the auto-generated schema, Ksyusha searches the content, cross-file JOINs work out of the box.",
+        },
+        {
+          title: "A single entry point to heterogeneous databases",
+          detail:
+            "PostgreSQL for transactions and ClickHouse for billion-row analytics under one interface, with the SQL dialect adapted automatically per source.",
+        },
+      ],
+      diagramTitle: "Project architecture",
+      diagram: [
+        {
+          title: "Frontend",
+          nodes: [
+            { label: "React 19 + Vite", note: "SSE streaming, RU/EN, dark/light" },
+            { label: "Execution trace", note: "live agent step-by-step view" },
+            { label: "Document viewer", note: "PDF · DOCX · XLSX" },
+          ],
+        },
+        {
+          title: "Routing (two levels)",
+          nodes: [
+            { label: "Agent router", note: "data → Oleg, docs → Ksyusha", accent: true },
+            { label: "Source router", note: "question → the right DB (LLM + heuristic)", accent: true },
+            { label: "Manual override", note: "checkboxes and the source selector" },
+          ],
+        },
+        {
+          title: "Oleg — SQL agent",
+          nodes: [
+            { label: "Agent Loop (ReAct)", note: "prompt-based tool calling, up to 6 steps" },
+            { label: "Tools", note: "database_query · calculate · analyze · chart · finish" },
+            { label: "Self-correction", note: "SQL error → rewrite (2 attempts)" },
+            { label: "Insights (Python)", note: "trends · top-N · z-score anomalies" },
+          ],
+        },
+        {
+          title: "Ksyusha — RAG",
+          nodes: [
+            { label: "Hybrid BM25 + vector", note: "fastembed, 50+ languages" },
+            { label: "Russian stemming", note: "IDF weighting, fallback chunks" },
+            { label: "Citations [1] + viewer", note: "PDF page N · DOCX · XLSX table" },
+          ],
+        },
+        {
+          title: "Data sources",
+          nodes: [
+            { label: "RideGo (SQLite)", note: "built-in demo domain, ~21k rides" },
+            { label: "PostgreSQL · ClickHouse", note: "schema introspection, dialect prompts" },
+            { label: "CSV / Excel", note: "SQL table + text chunks from one upload" },
+            { label: "'All uploads'", note: "virtual source, cross-file JOINs" },
+          ],
+        },
+        {
+          title: "Operations",
+          nodes: [
+            { label: "SQL guard", note: "SELECT-only, row limit, 8/30 s timeouts" },
+            { label: "Feedback", note: "👍/👎 persisted + analytics panel" },
+            { label: "pytest", note: "161 tests, isolated temp DBs" },
+          ],
+        },
+      ],
+      diagramNote:
+        "Top to bottom: a question → dual routing (agent + source) → step-by-step execution with trace → an answer with citations and a chart. LLM providers are interchangeable; the demo mode runs without keys on deterministic scripts.",
+      principlesTitle: "AI engineer's checklist",
+      principles: [
+        {
+          title: "1. Success metrics before code",
+          check:
+            "Is 'works' defined: SQL accuracy, search quality, failure behavior.",
+          result:
+            "Criteria: SQL either executes or the agent honestly reports the failure (no silent data substitution); figures in the answer match the table; search finds a document by synonyms. Each criterion is covered by tests or a feature.",
+          status: "done",
+        },
+        {
+          title: "2. The LLM doesn't compute — code does",
+          check:
+            "Do the numbers come from model hallucinations or from deterministic computation.",
+          result:
+            "All metrics (sums, percentages, trends, z-score anomalies) are computed by a Python analytics layer. The LLM receives ready-made highlights and only writes prose — it physically cannot invent a number; the prompt forbids it outright.",
+          status: "done",
+        },
+        {
+          title: "3. SQL failures are part of the contract",
+          check:
+            "What happens when generated SQL fails to execute.",
+          result:
+            "Three-level handling: guard errors (forbidden statements) go straight to the user; runtime errors trigger self-correction — the error is fed to the LLM which rewrites the query (up to 2 attempts); if that fails, an honest error status. Progress shows as separate trace steps.",
+          status: "done",
+        },
+        {
+          title: "4. Routing instead of one 'universal' prompt",
+          check:
+            "How the system decides which agent and which data answer.",
+          result:
+            "Two routers: agent (data/docs) and source (which DB). Each is an LLM classifier with a deterministic heuristic fallback. The decision shows in the trace: '→ Oleg (data)', '→ RideGo (demo)'. Manual override via selectors and checkboxes.",
+          status: "done",
+        },
+        {
+          title: "5. Hybrid search instead of a single method",
+          check:
+            "Does search find documents by synonyms, typos and other languages.",
+          result:
+            "Hybrid BM25-IDF (exact terms) + fastembed vector embeddings (semantics, 50+ languages), weighted 0.4/0.6. Verified: an English question finds a Russian document; 'expenses' finds 'затраты'. Russian stemming for BM25, fallback chunks for vague questions.",
+          status: "done",
+        },
+        {
+          title: "6. Mode transparency for the user",
+          check:
+            "Is it clear whether an answer is real or a stub, and what happened inside.",
+          result:
+            "Every answer carries a status: ok / demo / partial (self-corrected) / error. The SSE trace shows steps in real time. Source passwords stay server-side and are never returned to the UI. Demo answers are honestly labeled.",
+          status: "done",
+        },
+        {
+          title: "7. Multi-source without moving data",
+          check:
+            "Can the agent work with several databases and files at once.",
+          result:
+            "The virtual 'All uploads' source: Oleg sees the schema of every uploaded table and builds JOINs across files without copying data. The source router picks the table from the question. CSV/Excel feed both pipelines: an SQL table plus text chunks.",
+          status: "done",
+        },
+        {
+          title: "8. Engineering discipline",
+          check:
+            "Tests, isolation, reproducibility — the system is verified automatically.",
+          result:
+            "161 pytest tests: agent loop (with a fake provider), self-correction, SQL guard (timeouts, forbidden statements), analytics, every source type, 'messy' Excel parsers. Tests run on isolated temp DBs — production data is never touched.",
+          status: "done",
+        },
+      ],
+      metricsTitle: "Measurements",
+      tables: [
+        {
+          title: "Test coverage — 161 pytest tests",
+          columns: ["Component", "Tests", "What is verified"],
+          rows: [
+            { cells: ["Agent Loop (ReAct)", "22", "tool calling, self-correction, step limit, fallback"] },
+            { cells: ["SQL guard", "18", "DML bans, multi-statement, timeouts, row limit"] },
+            { cells: ["Analytics layer", "16", "trends, z-score threshold, top-N, RU/EN highlights"] },
+            { cells: ["Sources (CSV/Excel/PG/CH)", "27", "parsers, introspection, name dedup, password masking"] },
+            { cells: ["Routers (agent + source)", "26", "heuristic, LLM fallback, honest errors"] },
+            { cells: ["Ksyusha RAG + app.db", "20", "steps, sources, citations, feedback stats"] },
+            { cells: ["Parameterized scenarios", "10", "substitution, defaults, migration"] },
+            { cells: ["Other (app_db, export)", "22", "CRUD, feedback, DB isolation"] },
+          ],
+          footnote:
+            "Tests run on isolated temp SQLite databases with fake providers — no API keys required, production data untouched. Full run ~50 s.",
+        },
+        {
+          title: "System limits — degradation protection",
+          columns: ["Mechanism", "Value"],
+          rows: [
+            { cells: ["SQL timeout: local sources", "8 s"] },
+            { cells: ["SQL timeout: PostgreSQL / ClickHouse (remote)", "30 s"] },
+            { cells: ["Row limit per query", "500 rows"] },
+            { cells: ["Self-correction rounds", "2 (up to 3 attempts total)"] },
+            { cells: ["Agent Loop: max steps", "6"] },
+            { cells: ["Upload limit", "25 MB · 50,000 rows"] },
+          ],
+          footnote:
+            "Timeouts use a ThreadPoolExecutor with future.result(timeout) — a heavy query never blocks the event loop. Remote databases get a larger budget: cross-network connect plus handshake takes seconds.",
+        },
+      ],
+      findingsTitle: "What the measurements and operation showed",
+      findings: [
+        "LLMs are unreliable at arithmetic — an architectural problem, not a prompt problem. Early versions computed percentages 'in their head': plausible invented figures appeared in demos. The fix is a deterministic Python layer: the LLM receives ready-made highlights and physically cannot insert a number absent from the data.",
+        "Silent fallbacks destroy trust. An early version quietly substituted a stub on SQL failure — the user saw plausible but wrong figures. After refactoring: the error is visible, self-correction shows its attempts, and demo mode is honestly labeled with a badge.",
+        "'Dirty' Excel files are the norm, not the exception. A real user file failed on three things at once: a merged title row instead of a header, blank header cells, duplicate column names. The parser had to learn to locate the header row (by fill ratio) and resolve duplicates (to_8 → to_8_2).",
+        "Keyword search without stemming is useless for Russian. 'Регламенту' didn't match 'регламент', 'масла' didn't match 'масло'. A crude stemmer (45+ endings) restored search; fastembed vector search added semantics — an English question finds a Russian document.",
+        "Routing saves trust, not steps. A single 'universal' prompt blurred the agent's role; two specialized agents plus an auto-router give better answer quality, and the decision is visible in the trace — the user understands why the answer looks the way it does.",
+      ],
+      gapsTitle: "Honest gaps",
+      gaps: [
+        "No golden-set evaluation of SQL quality: correctness is covered by fixed-case tests, not a labeled set of questions with reference queries.",
+        "The vector index is rebuilt on every search — larger corpora will need a persistent embedding store (ChromaDB / Qdrant).",
+        "Uploaded documents are processed synchronously — large PDFs will hit the timeout; background ingestion with statuses is needed.",
+        "No authentication or multi-tenancy — real production would require users, private sources and data isolation.",
+      ],
+      conclusionLabel: "Main takeaway",
+      conclusionSteps: [
+        "Routing",
+        "Tool calling",
+        "Self-correction",
+        "Deterministic figures",
+        "Transparency",
+      ],
+      conclusion:
+        "This is not a 'chat bot over SQL' — the agency here is verified by tests, and trust in the numbers is built architecturally: the LLM writes prose but performs no computation.\nThe system is honest about failures: it shows its repair attempts instead of substituting the result.",
+      footnote:
+        "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
+    },
   },
   {
     id: "ai-agents",
