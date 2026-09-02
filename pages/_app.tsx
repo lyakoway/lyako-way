@@ -89,17 +89,17 @@ const AppContent: FC<{
     );
   }, [theme.name]);
 
-  // Время суток — выше ручного выбора: тема всегда следует за днём/ночью
-  // показанного города (для демонстрации учёта времени суток). Ручной
-  // тумблер — временный override до очередного вердикта. Первый прогон
-  // пропускаем — начальный dayTime из useDayTime ещё не посчитан
-  // (true по умолчанию), реальное значение применит инициализация.
+  // Время суток — выше ручного выбора, КРОМЕ случая тёмной системной темы:
+  // там работает только ручной тумблер. Первый прогон пропускаем —
+  // начальный dayTime из useDayTime ещё не посчитан (true по умолчанию),
+  // реальное значение применит инициализация.
   const autoFollowFirstRef = useRef(true);
   useEffect(() => {
     if (autoFollowFirstRef.current) {
       autoFollowFirstRef.current = false;
       return;
     }
+    if (prefersDarkScheme()) return;
     dispatch(setThemeList(dayTime));
     setStoredTheme(dayTime);
   }, [dayTime, dispatch]);
@@ -128,6 +128,10 @@ const AppContent: FC<{
     ) {
       armedRef.current = false;
       dispatch(setCityVerdictPending(false));
+      // Вердикт города применяется и при тёмной системной теме: пользователь
+      // сам явным действием выбрал локацию — её день/ночь задаёт тему.
+      // Авто-переключение по времени суток при тёмной системе отключено
+      // (guards в авто-следовании и на границе восход/закат).
       const isDay = isDayAt(
         weather.location.lat,
         weather.location.lon,
@@ -145,6 +149,7 @@ const AppContent: FC<{
   // ручного выбора.
   useEffect(() => {
     if (boundaryTick === 0) return;
+    if (prefersDarkScheme()) return;
     dispatch(setThemeList(dayTime));
     setStoredTheme(dayTime);
   }, [boundaryTick, dayTime, dispatch]);
