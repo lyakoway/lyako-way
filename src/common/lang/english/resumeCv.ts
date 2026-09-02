@@ -26,7 +26,7 @@ export const resumeCv: ResumeCvProps = {
         },
         {
           title: "AI Data Pilot",
-          text: "A multi-agent analytics platform: an auto-router sends each question to the right agent — Oleg (Text-to-SQL, agent loop with tool calling) or Ksyusha (RAG with vector search).",
+          text: "A multi-agent analytics platform with two AI agents: Oleg is a data analyst who turns natural-language questions into SQL, runs multi-step analysis and builds charted reports; Ksyusha is a RAG agent that answers questions over internal technical documentation.",
         },
       ],
       groups: [
@@ -51,6 +51,7 @@ export const resumeCv: ResumeCvProps = {
             "Company knowledge base: answers to questions about HR policies, regulations and instructions in seconds instead of digging through folders.",
             "Customer support on documentation: a customer asks in their own words and gets an answer with a link to the manual section — fewer routine tickets.",
             "Legal and financial documents: a clause or a figure in contracts and reports is found in seconds, not a separate investigation.",
+            "AI Data Pilot: cuts an analyst's time from 2 hours to 2 minutes — a saved query, e.g. “sales by region per month”, runs as a one-click scenario.",
             "AI Data Pilot: agent loop (ReAct) with self-correction — the agent detects a failed SQL query and rewrites it on its own.",
             "AI Data Pilot: SSE execution trace — agents work step by step in real time.",
             "AI Data Pilot: deterministic analytics — trends, top-N and anomalies are computed by a Python layer, not the LLM.",
