@@ -230,7 +230,7 @@ export const EntryCard = styled.div`
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
+    border-color: rgba(255, 255, 255, 0.22);
   }
 
   @media (min-width: 580px) {
@@ -501,7 +501,7 @@ export const SkillCard = styled.div`
   /* подсветка border при наведении — как у карточек опыта выше */
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
-    border-color: ${({ theme }) => theme.color.basic.primaryLight};
+    border-color: rgba(255, 255, 255, 0.22);
   }
 `;
 
