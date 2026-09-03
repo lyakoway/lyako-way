@@ -263,6 +263,7 @@ export const resumeCv: ResumeCvProps = {
         "Recall@K / MRR",
         "LLM-as-a-Judge",
         "Grounding / Anti-Hallucination",
+        "Observability & Monitoring (GA4 / Metrika / feedback)",
         "Prompt Evaluation",
         "Regression Testing",
         "Edge Cases",
