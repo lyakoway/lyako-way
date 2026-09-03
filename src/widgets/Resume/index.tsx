@@ -46,7 +46,6 @@ import {
   ProjectSummary,
   ProjectSummaryTitle,
   ResultBlocks,
-  ResultBlock,
   ResultBlockTitle,
 } from "./style";
 
@@ -327,7 +326,10 @@ const Resume = () => {
 
     return (
       <Group>
-        <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
+        <GroupHeadBox>
+          <GroupIconBox>{groupIcons.demo}</GroupIconBox>
+          <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
+        </GroupHeadBox>
         <Bullets>
           {projects.map((project) => {
             const portfolioHref = `/portfolio/${project.hrefNameList}`;
@@ -508,8 +510,8 @@ const Resume = () => {
                   </Group>
                 ))}
 
-                {/* Ключевые результаты по проектам — карточками внутри общей
-                    секции, как блоки «Схемы проекта» в портфолио. */}
+                {/* Ключевые результаты по проектам — название с линией
+                    и пункты, без подложки карточек. */}
                 {item.resultGroups && item.resultGroups.length > 0 && (
                   <Group>
                     <GroupHead
@@ -518,7 +520,7 @@ const Resume = () => {
                     />
                     <ResultBlocks>
                       {item.resultGroups.map((resultGroup) => (
-                        <ResultBlock key={resultGroup.title}>
+                        <div key={resultGroup.title}>
                           <ResultBlockTitle>
                             {resultGroup.title}
                           </ResultBlockTitle>
@@ -527,7 +529,7 @@ const Resume = () => {
                               <li key={j}>{text}</li>
                             ))}
                           </Bullets>
-                        </ResultBlock>
+                        </div>
                       ))}
                     </ResultBlocks>
                   </Group>

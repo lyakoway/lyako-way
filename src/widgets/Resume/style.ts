@@ -310,15 +310,6 @@ export const ResultBlocks = styled.div`
   gap: 10px;
 `;
 
-// Карточка проекта: чуть более светлая поверхность, чем у карточки опыта,
-// чтобы блок читался отдельно.
-export const ResultBlock = styled.div`
-  padding: 14px 16px;
-  background: ${PANEL_ELEVATED_HOVER};
-  border: 1px solid ${PANEL_BORDER};
-  border-radius: 12px;
-`;
-
 // Название проекта в карточке — с оранжевой линейкой слева.
 export const ResultBlockTitle = styled.p`
   margin: 0 0 10px;
@@ -333,6 +324,14 @@ export const ResultBlockTitle = styled.p`
 
 export const Group = styled.div`
   margin-top: 18px;
+
+  /* Разделитель между секциями карточки: линия от края до края
+     (Проекты | Основные задачи | Ключевые результаты | Стек | Процессы |
+     Демо). */
+  & + & {
+    border-top: 1px solid ${PANEL_BORDER};
+    padding-top: 18px;
+  }
 `;
 
 export const GroupTitle = styled.p`
