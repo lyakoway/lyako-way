@@ -229,7 +229,7 @@ export const resumeCv: ResumeCvProps = {
       id: "2",
       category: "LLM и AI-агенты",
       items: [
-        "LLM API",
+        "Multi-Provider LLM API (GLM / OpenAI / Anthropic / Ollama)",
         "AI Agents",
         "Agent Loop (ReAct)",
         "Tool Calling",
@@ -237,6 +237,7 @@ export const resumeCv: ResumeCvProps = {
         "Multi-Agent Orchestration",
         "Prompt Engineering",
         "Context / Token Optimization",
+        "Latency & Cost Tuning (TTFT, $/запрос)",
       ],
     },
     {
@@ -245,10 +246,13 @@ export const resumeCv: ResumeCvProps = {
       items: [
         "RAG",
         "Hybrid Search (BM25 + Vector)",
+        "RRF",
+        "Cross-Encoder Reranking",
+        "Chunking (tiktoken)",
+        "Кросс-языковой retrieval (RU / EN)",
         "Embeddings",
         "fastembed",
         "ChromaDB",
-        "RRF",
       ],
     },
     {
@@ -258,6 +262,7 @@ export const resumeCv: ResumeCvProps = {
         "Golden Sets",
         "Recall@K / MRR",
         "LLM-as-a-Judge",
+        "Grounding / Anti-Hallucination",
         "Prompt Evaluation",
         "Regression Testing",
         "Edge Cases",
