@@ -290,16 +290,6 @@ export const ItemSummary = styled.p`
   line-height: 1.55;
 `;
 
-/* Блок описания одного проекта внутри записи: заголовок с оранжевой
-   линейкой слева и абзацы описания под ним. */
-export const ProjectSummary = styled.div`
-  margin-top: 12px;
-
-  & + & {
-    margin-top: 14px;
-  }
-`;
-
 // Заголовок блока — название проекта, к нему примыкает оранжевая линия.
 export const ProjectSummaryTitle = styled.p`
   margin: 0;
@@ -309,21 +299,6 @@ export const ProjectSummaryTitle = styled.p`
   font-size: 14px;
   font-weight: 600;
   line-height: 1.4;
-`;
-
-// Подписанная строка деталей описания (RAG pipeline / Архитектура / агент).
-export const ProjectDetail = styled.div`
-  margin-top: 12px;
-`;
-
-// Метка строки — капсом, тоном тише текста детали.
-export const ProjectDetailLabel = styled.p`
-  margin: 0 0 4px;
-  color: ${PANEL_TEXT_MUTED};
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
 `;
 
 /* ——— Ключевые результаты по проектам — карточками, как блоки
@@ -369,6 +344,37 @@ export const GroupTitle = styled.p`
   letter-spacing: 0.06em;
 `;
 
+/* Шапка секции внутри карточки: иконка в плашке + заголовок (как разделы
+   «Схемы проекта» в портфолио). Контент секции задаёт отступ под шапкой. */
+export const GroupHeadBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+
+  ${GroupTitle} {
+    margin: 0;
+  }
+`;
+
+export const GroupIconBox = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+`;
+
 export const Bullets = styled.ul`
   margin: 0;
   padding: 0;
@@ -407,6 +413,26 @@ export const Bullets = styled.ul`
       border-radius: 50%;
       background: ${({ theme }) => theme.color.basic.primary};
     }
+  }
+`;
+
+/* Блок описания одного проекта внутри секции «Проекты»: заголовок
+   с оранжевой линейкой слева, определение и подписанные строки деталей. */
+export const ProjectSummary = styled.div`
+  margin-top: 12px;
+
+  /* Первый блок — сразу под заголовком секции. */
+  &:first-child {
+    margin-top: 0;
+  }
+
+  & + & {
+    margin-top: 14px;
+  }
+
+  /* Воздух между определением проекта и начинающимся списком деталей. */
+  ${ItemSummary} + ${Bullets} {
+    margin-top: 14px;
   }
 `;
 

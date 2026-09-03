@@ -7,6 +7,7 @@ export const resumeCv: ResumeCvProps = {
   demoTitle: "Demo",
   resultTitle: "Key results",
   stackTitle: "Stack",
+  projectsTitle: "Projects",
   downloadName: "Alexey-Mazurenko-en.pdf",
   downloadLabel: "Download PDF",
   viewLabel: "View",

@@ -1,6 +1,9 @@
 import React from "react";
 
-import { PortfolioListProps } from "src/common/types/lang";
+import {
+  PortfolioListProps,
+  ResumeExperienceGroupProps,
+} from "src/common/types/lang";
 import { useSelectorTyped, useDispatchTyped } from "src/store";
 import { showModal } from "src/reducers";
 import { ArticleTitle, Article } from "src/ui/Card";
@@ -38,10 +41,10 @@ import {
   SkillCategory,
   ChipList,
   Chip,
+  GroupHeadBox,
+  GroupIconBox,
   ProjectSummary,
   ProjectSummaryTitle,
-  ProjectDetail,
-  ProjectDetailLabel,
   ResultBlocks,
   ResultBlock,
   ResultBlockTitle,
@@ -187,6 +190,104 @@ const SKILL_ICONS = [
   </svg>,
 ];
 
+/* Иконки секций внутри карточки опыта — как блоки «Схемы проекта»
+   в портфолио: плашка с иконкой + капс-заголовок. */
+const groupIcons = {
+  projects: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  tasks: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M10 6h10M10 12h10M10 18h10"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="m4 5 1.5 1.5L8 4M4 11l1.5 1.5L8 10M4 17l1.5 1.5L8 16"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  results: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="8" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  ),
+  stack: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="m12 3 8.5 4.75L12 12.5 3.5 7.75 12 3z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m4.5 12.75 7.5 4.2 7.5-4.2M4.5 17 12 21.2l7.5-4.2"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  processes: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M20.5 2.8V6.3h-3.5"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  demo: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="m10.2 8.8 4.8 3.2-4.8 3.2V8.8z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+};
+
+// Шапка секции внутри карточки: иконка в плашке + заголовок (как разделы
+// «Схемы проекта» в портфолио).
+const GroupHead = ({
+  icon,
+  title,
+}: {
+  icon: React.ReactNode;
+  title: string;
+}) => (
+  <GroupHeadBox>
+    <GroupIconBox>{icon}</GroupIconBox>
+    <GroupTitle>{title}</GroupTitle>
+  </GroupHeadBox>
+);
+
 const Resume = () => {
   const {
     lang: {
@@ -248,7 +349,10 @@ const Resume = () => {
      оформляется так же, как «Стек» и «Процессы». */
   const renderViewLink = (name: string, url: string) => (
     <Group>
-      <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
+      <GroupHeadBox>
+        <GroupIconBox>{groupIcons.demo}</GroupIconBox>
+        <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
+      </GroupHeadBox>
       <Bullets>
         <li>
           {name} —{" "}
@@ -357,20 +461,33 @@ const Resume = () => {
                 </EntryHeader>
 
                 {item.meta && <ItemMeta>{item.meta}</ItemMeta>}
-                {/* Описания проектов — заголовок с оранжевой линией слева,
-                    определение и подписанные строки деталей. */}
-                {item.projectDescriptions?.map((description, i) => (
-                  <ProjectSummary key={i}>
-                    <ProjectSummaryTitle>{description.title}</ProjectSummaryTitle>
-                    <ItemSummary>{description.text}</ItemSummary>
-                    {description.details?.map((detail) => (
-                      <ProjectDetail key={detail.label}>
-                        <ProjectDetailLabel>{detail.label}</ProjectDetailLabel>
-                        <ItemSummary>{detail.text}</ItemSummary>
-                      </ProjectDetail>
+                {/* Описания проектов — общая секция «Проекты»: внутри блоки
+                    с заголовком и подписанными строками деталей. */}
+                {item.projectDescriptions && item.projectDescriptions.length > 0 && (
+                  <Group>
+                    <GroupHead
+                      icon={groupIcons.projects}
+                      title={resumeCv.projectsTitle}
+                    />
+                    {item.projectDescriptions.map((description, i) => (
+                      <ProjectSummary key={i}>
+                        <ProjectSummaryTitle>
+                          {description.title}
+                        </ProjectSummaryTitle>
+                        <ItemSummary>{description.text}</ItemSummary>
+                        {description.details && description.details.length > 0 && (
+                          <Bullets>
+                            {description.details.map((detail) => (
+                              <li key={detail.label}>
+                                {detail.label}: {detail.text}
+                              </li>
+                            ))}
+                          </Bullets>
+                        )}
+                      </ProjectSummary>
                     ))}
-                  </ProjectSummary>
-                ))}
+                  </Group>
+                )}
                 {/* В summary «\n» разделяет абзацы — про каждый продукт свой. */}
                 {item.summary
                   ?.split("\n")
@@ -380,7 +497,9 @@ const Resume = () => {
 
                 {item.groups?.map((group, i) => (
                   <Group key={i}>
-                    {group.title && <GroupTitle>{group.title}</GroupTitle>}
+                    {group.title && (
+                      <GroupHead icon={groupIcons.tasks} title={group.title} />
+                    )}
                     <Bullets>
                       {group.items.map((text, j) => (
                         <li key={j}>{text}</li>
@@ -393,7 +512,10 @@ const Resume = () => {
                     секции, как блоки «Схемы проекта» в портфолио. */}
                 {item.resultGroups && item.resultGroups.length > 0 && (
                   <Group>
-                    <GroupTitle>{resumeCv.resultTitle}</GroupTitle>
+                    <GroupHead
+                      icon={groupIcons.results}
+                      title={resumeCv.resultTitle}
+                    />
                     <ResultBlocks>
                       {item.resultGroups.map((resultGroup) => (
                         <ResultBlock key={resultGroup.title}>
@@ -416,7 +538,10 @@ const Resume = () => {
                     стек не должен выделяться так же, как ключевые результаты. */}
                 {item.stackGroups && item.stackGroups.length > 0 && (
                   <Group>
-                    <GroupTitle>{resumeCv.stackTitle}</GroupTitle>
+                    <GroupHead
+                      icon={groupIcons.stack}
+                      title={resumeCv.stackTitle}
+                    />
                     <ResultBlocks>
                       {item.stackGroups.map((stackGroup) => (
                         <div key={stackGroup.title}>
@@ -432,11 +557,24 @@ const Resume = () => {
                   </Group>
                 )}
 
-                {[item.stack, item.processes]
-                  .filter((g): g is NonNullable<typeof g> => !!g)
-                  .map((group, i) => (
+                {[
+                  item.stack && { icon: groupIcons.stack, group: item.stack },
+                  item.processes && {
+                    icon: groupIcons.processes,
+                    group: item.processes,
+                  },
+                ]
+                  .filter(
+                    (
+                      entry
+                    ): entry is {
+                      icon: React.JSX.Element;
+                      group: ResumeExperienceGroupProps;
+                    } => !!entry
+                  )
+                  .map(({ icon, group }, i) => (
                     <Group key={`sp-${i}`}>
-                      {group.title && <GroupTitle>{group.title}</GroupTitle>}
+                      <GroupHead icon={icon} title={group.title} />
                       <ChipList>
                         {group.items.map((text, j) => (
                           <Chip key={j}>{text}</Chip>

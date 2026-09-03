@@ -451,6 +451,8 @@ export interface ResumeCvProps {
   resultTitle: string;
   // Общий заголовок секции стека (карточки по проектам).
   stackTitle: string;
+  // Заголовок секции описаний проектов записи.
+  projectsTitle: string;
   downloadName: string;
   downloadLabel: string;
   viewLabel: string;
