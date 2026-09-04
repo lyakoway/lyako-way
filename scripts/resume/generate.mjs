@@ -794,7 +794,7 @@ const html = (lang, themeName) => {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: ${t.accent};
+    background: ${t.sidebarText};
   }
   .edu-item { margin-bottom: 10px; }
   .edu-item:last-child { margin-bottom: 0; }
@@ -827,7 +827,7 @@ const html = (lang, themeName) => {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: ${t.accent};
+    background: ${t.sidebarText};
   }
 
   /* ——— Контент ——— */
@@ -881,7 +881,7 @@ const html = (lang, themeName) => {
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: ${t.text};
+    background: ${t.accent};
   }
   .details a { color: ${t.accent}; text-decoration: none; }
 
