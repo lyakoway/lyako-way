@@ -752,7 +752,21 @@ const html = (lang, themeName) => {
     padding-top: 0;
     margin-top: 0;
   }
-  .skill-group { margin-bottom: 8px; }
+  .skill-group {
+    position: relative;
+    padding-left: 10px;
+    margin-bottom: 8px;
+  }
+  .skill-group::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4.5px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: ${t.accent};
+  }
   .edu-item { margin-bottom: 10px; }
   .edu-item:last-child { margin-bottom: 0; }
   .edu-title { font-size: 9px; font-weight: 600; color: ${t.sidebarText}; }
