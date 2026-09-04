@@ -544,7 +544,7 @@ const jobHtml = (job, data, t) => `
         .map(
           (group) => `
         <div class="stack-group">
-          <div class="stack-group-title">${esc(group.title)}</div>
+          ${group.title ? `<div class="stack-group-title">${esc(group.title)}</div>` : ""}
           <div class="chips chips-light">
             ${group.items.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
           </div>
@@ -630,6 +630,7 @@ const contentSenior = (data, t) => `
     ${data.experience[0].processes.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
   </div></section>
 
+  <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.demo)}</div>
   <ul class="details">
     ${data.experience[0].demo
       .map(
@@ -744,8 +745,9 @@ const html = (lang, themeName) => {
   }
   .contacts dd { margin: 1px 0 7px; font-size: 9px; }
   .contacts a { color: inherit; text-decoration: none; }
-  /* Навыки на втором листе — без линии-разделителя сверху. */
-  .sidebar-skills .side-title {
+  /* Навыки на втором листе — без линии-разделителя сверху
+     (только первый заголовок; у «Образования» линия остаётся). */
+  .sidebar-skills .side-title:first-child {
     border-top: 0;
     padding-top: 0;
     margin-top: 0;
