@@ -757,7 +757,7 @@ const html = (lang, themeName) => {
   .edu-item:last-child { margin-bottom: 0; }
   .edu-title { font-size: 9px; font-weight: 600; color: ${t.sidebarText}; }
   .edu-place { color: ${t.sidebarMuted}; }
-  .skill-group-title { font-size: 8.2px; margin-bottom: 4px; color: ${t.sidebarText}; }
+  .skill-group-title { font-size: 9px; font-weight: 600; margin-bottom: 4px; color: ${t.sidebarText}; }
   .chips { display: flex; flex-wrap: wrap; gap: 4px; }
   .chip {
     padding: 2px 7px;
@@ -775,6 +775,7 @@ const html = (lang, themeName) => {
     color: ${t.sidebarMuted};
   }
   .about a { color: ${t.accent}; text-decoration: none; }
+  .about strong { color: ${t.sidebarText}; }
   .about li::before {
     content: "";
     position: absolute;
