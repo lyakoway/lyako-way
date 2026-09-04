@@ -37,13 +37,18 @@ const content = {
       education: "Образование",
     },
     contacts: {
-      phone: { label: "Телефон", value: "+7 (977) 270-09-30" },
-      email: { label: "Email", value: "lyakoway@gmail.com" },
-      format: { label: "Формат", value: "офис / гибрид / удалённо" },
+      phone: { label: "Телефон", value: "+7 (977) 270-09-30", icon: "phone" },
+      email: { label: "Email", value: "lyakoway@gmail.com", icon: "mail" },
+      format: {
+        label: "Формат",
+        value: "офис / гибрид / удалённо",
+        icon: "briefcase",
+      },
       website: {
         label: "Сайт",
         value: "lyakoway.vercel.app/contacts",
         href: "https://lyakoway.vercel.app/contacts",
+        icon: "globe",
       },
     },
     about: [
@@ -55,11 +60,6 @@ const content = {
       "**Люблю превращать AI-прототипы в работающие продукты,** где важны не только возможности модели, но и скорость, воспроизводимость, устойчивость к ошибкам и удобство для конечного пользователя.",
       "**Постоянно исследую новые AI-подходы и инструменты,** проверяю гипотезы на практике и внедряю то, что действительно улучшает продукт.",
     ],
-    aboutLink: {
-      label: "Подробнее обо мне — на странице профиля:",
-      value: "lyakoway.vercel.app/profile",
-      href: "https://lyakoway.vercel.app/profile",
-    },
     profile: [
       "**AI / LLM Engineer** с 7+ годами коммерческого опыта в разработке ПО. Специализируюсь на создании production-ready AI-решений: RAG-систем, AI-агентов и LLM-приложений на Python.",
       "Разрабатываю **AI-системы полного цикла** — от обработки и поиска данных до генерации, валидации и оценки качества ответов. Реализую **RAG и hybrid search (BM25 + Vector Search, RRF), embeddings, Agent Loop (ReAct), Tool Calling, Text-to-SQL и мультиагентную оркестрацию.**",
@@ -214,13 +214,18 @@ const content = {
       education: "Education",
     },
     contacts: {
-      phone: { label: "Phone", value: "+7 (977) 270-09-30" },
-      email: { label: "Email", value: "lyakoway@gmail.com" },
-      format: { label: "Format", value: "office / hybrid / remote" },
+      phone: { label: "Phone", value: "+7 (977) 270-09-30", icon: "phone" },
+      email: { label: "Email", value: "lyakoway@gmail.com", icon: "mail" },
+      format: {
+        label: "Format",
+        value: "office / hybrid / remote",
+        icon: "briefcase",
+      },
       website: {
         label: "Website",
         value: "lyakoway.vercel.app/contacts",
         href: "https://lyakoway.vercel.app/contacts",
+        icon: "globe",
       },
     },
     about: [
@@ -232,11 +237,6 @@ const content = {
       "**Love turning AI prototypes into working products,** where not only model capabilities matter, but also speed, reproducibility, error resilience and end-user convenience.",
       "**Constantly exploring new AI approaches and tools,** testing hypotheses in practice and adopting what truly improves the product.",
     ],
-    aboutLink: {
-      label: "More about me — on my profile page:",
-      value: "lyakoway.vercel.app/profile",
-      href: "https://lyakoway.vercel.app/profile",
-    },
     profile: [
       "**AI / LLM Engineer** with 7+ years of commercial software development experience. Specialized in building production-ready AI solutions: RAG systems, AI agents and LLM applications with Python.",
       "Building **full-cycle AI systems** — from data processing and retrieval to generation, validation and answer quality evaluation. Implementing **RAG and hybrid search (BM25 + Vector Search, RRF), embeddings, Agent Loop (ReAct), Tool Calling, Text-to-SQL and multi-agent orchestration.**",
@@ -425,30 +425,45 @@ const esc = (s) =>
 // Инлайн-выделение **жирным** (после esc — теги вставляются безопасно).
 const bold = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
+// Иконки контактов (stroke, currentColor — цвет задаёт CSS).
+const contactIcons = {
+  phone:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+  mail:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
+  briefcase:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
+  globe:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+};
+
 const sidebarMain = (data, t) => `
   <img class="avatar" src="${avatar}" alt="" />
   <h1 class="name">${esc(data.name)}</h1>
   <div class="role">${esc(data.role)}</div>
 
   <div class="side-title">${esc(data.sectionTitles.contacts)}</div>
-  <dl class="contacts">
+  <div class="contacts">
     ${Object.values(data.contacts)
       .map((c) => {
         const value = c.href
           ? `<a href="${c.href}">${esc(c.value)}</a>`
           : esc(c.value);
-        return `<dt>${esc(c.label)}</dt><dd>${value}</dd>`;
+        return `<div class="contact-row">
+          <span class="contact-icon">${contactIcons[c.icon] || ""}</span>
+          <div class="contact-info">
+            <div class="contact-label">${esc(c.label)}</div>
+            <div class="contact-value">${value}</div>
+          </div>
+        </div>`;
       })
       .join("")}
-  </dl>
+  </div>
 
   <div class="side-title">${esc(data.sectionTitles.about)}</div>
   <ul class="about">
     ${data.about.map((item) => `<li>${bold(item)}</li>`).join("")}
-    <li>
-      ${esc(data.aboutLink.label)}
-      <a href="${data.aboutLink.href}">${esc(data.aboutLink.value)}</a>
-    </li>
+
   </ul>
 
   </ul>
@@ -737,14 +752,29 @@ const html = (lang, themeName) => {
     color: ${t.sidebarText};
   }
   .contacts { margin: 0; }
-  .contacts dt {
-    font-size: 7.8px;
+  .contact-row {
+    display: flex;
+    gap: 7px;
+    align-items: flex-start;
+    margin-bottom: 9px;
+  }
+  .contact-icon {
+    flex-shrink: 0;
+    width: 13px;
+    height: 13px;
+    margin-top: 1px;
+    color: ${t.sidebarText};
+  }
+  .contact-icon svg { width: 100%; height: 100%; }
+  .contact-label {
+    font-size: 7.6px;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.6px;
     color: ${t.sidebarText};
   }
-  .contacts dd { margin: 1px 0 7px; font-size: 9px; }
-  .contacts a { color: inherit; text-decoration: none; }
+  .contact-value { font-size: 9px; color: ${t.sidebarText}; }
+  .contact-value a { color: inherit; text-decoration: none; }
   /* Навыки на втором листе — без линии-разделителя сверху
      (только первый заголовок; у «Образования» линия остаётся). */
   .sidebar-skills .side-title:first-child {
