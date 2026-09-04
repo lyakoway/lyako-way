@@ -164,31 +164,25 @@ const content = {
         ],
         tasks: [
           "Разработка нового функционала и развитие существующих продуктов.",
-          "Анализ требований и подготовка технических решений.",
-          "Проектирование внутренней архитектуры и интеграционных сценариев.",
-          "Разработка и интеграция frontend-компонентов.",
-          "Рефакторинг существующего кода и проведение code review.",
-          "Разработка переиспользуемых компонентов с использованием Storybook.",
-          "Написание unit- и интеграционных тестов.",
-          "Анализ и устранение production-инцидентов в рамках 3-й линии поддержки.",
-          "Подготовка технической документации.",
-          "Менторство и помощь в адаптации новых сотрудников.",
+          "Анализ требований, подготовка технических решений и проектирование архитектуры интеграционных сценариев.",
+          "Разработка frontend-компонентов и переиспользуемых UI-решений с использованием Storybook.",
+          "Рефакторинг и code review, повышение качества и поддерживаемости кодовой базы.",
+          "Разработка unit- и интеграционных тестов, анализ и устранение production-инцидентов в рамках 3-й линии поддержки.",
+          "Подготовка технической документации, менторство и помощь в адаптации новых сотрудников.",
         ],
         results: [
           {
-            title: "Ключевые результаты",
+            title: "",
             items: [
-              "Реализована модель смены владельца профиля.",
-              "Реализовано подтверждение данных пользователя через Госуслуги по биометрии.",
-              "Реализованы сценарии восстановления доступа, входа и история изменений способов авторизации.",
-              "Реализована работа со способами оплаты и банковскими картами.",
-              "Внедрена модель управления связанными аккаунтами.",
-              "Интегрированы экосистемные виджеты в цифровые продукты компании.",
+              "Реализовал смену владельца профиля и модель управления связанными аккаунтами.",
+              "Автоматизировал подтверждение данных пользователей через Госуслуги по биометрии.",
+              "Реализовал полный цикл управления доступом и авторизацией — восстановление доступа, вход и историю изменений способов авторизации.",
+              "Интегрировал оплату банковскими картами и экосистемные виджеты в цифровые продукты компании.",
             ],
           },
         ],
         stack: [
-          { title: "Стек", items: ["React", "Next.js", "TypeScript", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Node.js", "Express"] },
+          { title: "", items: ["React", "Next.js", "TypeScript", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Node.js", "Express"] },
         ],
         processes: ["Scrum", "Jira", "Confluence"],
         demo: [{ name: "МТС Профиль", url: "https://id.mts.ru" }],
@@ -197,8 +191,7 @@ const content = {
     education: [
       {
         title: "Магистратура — прикладная математика",
-        period: "2014",
-        place: "МГСУ — Институт фундаментального образования",
+        text: "МГСУ — Институт фундаментального образования в 2014 год.",
       },
     ],
   },
@@ -348,31 +341,25 @@ const content = {
         ],
         tasks: [
           "Building new features and evolving existing products.",
-          "Requirements analysis and preparation of technical solutions.",
-          "Designing internal architecture and integration scenarios.",
-          "Development and integration of frontend components.",
-          "Refactoring existing code and running code reviews.",
-          "Building reusable components with Storybook.",
-          "Writing unit and integration tests.",
-          "Analysis and resolution of production incidents on 3rd-line support.",
-          "Preparing technical documentation.",
-          "Mentoring and helping onboard new team members.",
+          "Requirements analysis, technical solution design and integration architecture scenarios.",
+          "Frontend component development and reusable UI solutions with Storybook.",
+          "Refactoring and code reviews, improving code quality and maintainability.",
+          "Unit and integration testing, analysis and resolution of production incidents on 3rd-line support.",
+          "Technical documentation, mentoring and helping onboard new team members.",
         ],
         results: [
           {
-            title: "Key results",
+            title: "",
             items: [
-              "Delivered a profile ownership transfer model.",
-              "Delivered user data verification via Gosuslugi with biometrics.",
-              "Delivered access recovery, sign-in and a history of authentication-method changes.",
-              "Delivered work with payment methods and bank cards.",
-              "Rolled out a linked-accounts management model.",
-              "Integrated ecosystem widgets into the company's digital products.",
+              "Delivered a profile ownership transfer model and a linked-accounts management model.",
+              "Automated user data verification via Gosuslugi with biometrics.",
+              "Delivered the full access management and authorization cycle — access recovery, sign-in and an authentication-method change history.",
+              "Integrated bank card payments and ecosystem widgets into the company's digital products.",
             ],
           },
         ],
         stack: [
-          { title: "Stack", items: ["React", "Next.js", "TypeScript", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Node.js", "Express"] },
+          { title: "", items: ["React", "Next.js", "TypeScript", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Node.js", "Express"] },
         ],
         processes: ["Scrum", "Jira", "Confluence"],
         demo: [{ name: "MTS Profile", url: "https://id.mts.ru" }],
@@ -381,8 +368,7 @@ const content = {
     education: [
       {
         title: "Master's degree — Applied Mathematics",
-        period: "2014",
-        place: "MGSU — Institute of Fundamental Education",
+        text: "MGSU — Institute of Fundamental Education, 2014",
       },
     ],
   },
@@ -407,6 +393,7 @@ const themes = {
     label: "#7a828a",
     heading: "#232a31",
     cardBorder: "#e3e6e9",
+    jobDivider: "#c3cad1",
     accent: "#ff8560",
   },
   dark: {
@@ -425,6 +412,7 @@ const themes = {
     label: "#7f8a93",
     heading: "#eef1f4",
     cardBorder: "rgba(255, 255, 255, 0.12)",
+    jobDivider: "rgba(255, 255, 255, 0.4)",
     accent: "#ff8560",
   },
 };
@@ -437,7 +425,7 @@ const esc = (s) =>
 // Инлайн-выделение **жирным** (после esc — теги вставляются безопасно).
 const bold = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
-const sidebar = (data, t) => `
+const sidebarMain = (data, t) => `
   <img class="avatar" src="${avatar}" alt="" />
   <h1 class="name">${esc(data.name)}</h1>
   <div class="role">${esc(data.role)}</div>
@@ -463,6 +451,11 @@ const sidebar = (data, t) => `
     </li>
   </ul>
 
+  </ul>
+`;
+
+// Сайдбар второй страницы: навыки + образование.
+const sidebarSkills = (data, t) => `
   <div class="side-title">${esc(data.sectionTitles.skills)}</div>
   ${data.skills
     .map(
@@ -475,17 +468,22 @@ const sidebar = (data, t) => `
     </div>`
     )
     .join("")}
+
+  <div class="side-title">${esc(data.sectionTitles.education)}</div>
+  ${data.education
+    .map(
+      (edu) => `
+    <div class="edu-item">
+      <div class="edu-title">${esc(edu.title)}</div>
+      <div class="edu-place">${esc(edu.text)}</div>
+    </div>`
+    )
+    .join("")}
 `;
 
-const contentHtml = (data, t) => `
-  <h2 class="content-title">${esc(data.sectionTitles.profile)}</h2>
-  ${data.profile.map((p) => `<p class="para">${bold(p)}</p>`).join("")}
-  <p class="para">${esc(data.siteLink.text)} <a href="${data.siteLink.href}">${data.siteLink.value}</a></p>
-
-  <h2 class="content-title">${esc(data.sectionTitles.experience)}</h2>
-  ${data.experience
-    .map(
-      (job) => `
+// Рендер одной записи опыта: секции с разделителями.
+// Рендер одной записи опыта: секции с разделителями между ними.
+const jobHtml = (job, data, t) => `
     <div class="job">
       <div class="job-head">
         <span class="job-role">${esc(job.role)}</span>
@@ -530,7 +528,7 @@ const contentHtml = (data, t) => `
         .map(
           (group) => `
         <div class="result-group">
-          <div class="result-group-title">${esc(group.title)}</div>
+          ${group.title ? `<div class="result-group-title">${esc(group.title)}</div>` : ""}
           <ul class="details">
             ${group.items.map((item) => `<li>${esc(item)}</li>`).join("")}
           </ul>
@@ -539,7 +537,9 @@ const contentHtml = (data, t) => `
         .join("")}
       </section>
 
-      <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.stack)}</div>
+      ${
+        job.stack && job.stack.length > 0
+          ? `<section class="jsec"><div class="sub-title">${esc(data.sectionTitles.stack)}</div>
       ${job.stack
         .map(
           (group) => `
@@ -551,15 +551,21 @@ const contentHtml = (data, t) => `
         </div>`
         )
         .join("")}
-      </section>
-
-      <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.processes)}</div>
-      <div class="chips chips-light">
-        ${job.processes.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
-      </div></section>
+      </section>`
+          : ""
+      }
 
       ${
-        job.demo
+        job.processes && job.processes.length > 0
+          ? `<section class="jsec"><div class="sub-title">${esc(data.sectionTitles.processes)}</div>
+      <div class="chips chips-light">
+        ${job.processes.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
+      </div></section>`
+          : ""
+      }
+
+      ${
+        job.demo && job.demo.length > 0
           ? `<section class="jsec"><div class="sub-title">${esc(data.sectionTitles.demo)}</div>
              <ul class="details">
                ${job.demo
@@ -571,24 +577,74 @@ const contentHtml = (data, t) => `
              </ul></section>`
           : ""
       }
-    </div>`
-    )
-    .join("")}
+    </div>`;
 
-  <h2 class="content-title">${esc(data.sectionTitles.education)}</h2>
-  ${data.education
+// Первая страница контента: профиль + первая запись (AI Engineer).
+const contentMain = (data, t) => `
+  <h2 class="content-title">${esc(data.sectionTitles.profile)}</h2>
+  ${data.profile.map((p) => `<p class="para">${bold(p)}</p>`).join("")}
+  <p class="para">${esc(data.siteLink.text)} <a href="${data.siteLink.href}">${data.siteLink.value}</a></p>
+
+  <h2 class="content-title">${esc(data.sectionTitles.experience)}</h2>
+  ${jobHtml(
+    {
+      ...data.experience[0],
+      results: [data.experience[0].results[0]],
+      stack: [],
+      processes: [],
+      demo: [],
+    },
+    data,
+    t
+  )}
+`;
+
+// Вторая страница контента: результаты AI Data Pilot, линия, Senior, образование.
+const contentSenior = (data, t) => `
+  <div class="job-divider"></div>
+
+  <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.results)}</div>
+  <div class="result-group">
+    <div class="result-group-title">AI Data Pilot</div>
+    <ul class="details">
+      ${data.experience[0].results[1].items.map((item) => `<li>${esc(item)}</li>`).join("")}
+    </ul>
+  </div>
+
+  <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.stack)}</div>
+  ${data.experience[0].stack
     .map(
-      (edu) => `
-    <div class="job">
-      <div class="job-head">
-        <span class="job-role">${esc(edu.title)}</span>
-        <span class="job-period">${esc(edu.period)}</span>
+      (group) => `
+    <div class="stack-group">
+      <div class="stack-group-title">${esc(group.title)}</div>
+      <div class="chips chips-light">
+        ${group.items.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
       </div>
-      <div class="job-company">${esc(edu.place)}</div>
     </div>`
     )
     .join("")}
+  </section>
+
+  <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.processes)}</div>
+  <div class="chips chips-light">
+    ${data.experience[0].processes.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
+  </div></section>
+
+  <ul class="details">
+    ${data.experience[0].demo
+      .map(
+        (d) => `<li>${esc(d.name)} — <a href="${d.url}">${d.url}</a></li>`
+      )
+      .join("")}
+  </ul>
+
+  <div class="job-divider"></div>
+
+  <h2 class="content-title">${esc(data.sectionTitles.experience)}</h2>
+  ${jobHtml(data.experience[1], data, t)}
 `;
+
+
 
 const html = (lang, themeName) => {
   const data = content[lang];
@@ -609,12 +665,38 @@ const html = (lang, themeName) => {
     font-size: 9.2px;
     line-height: 1.42;
   }
-  .page { display: flex; align-items: stretch; }
+  /* Два листа: естественная высота + принудительный разрыв перед вторым
+     (Навыки и продолжение опыта начинаются с нового листа).
+     Табличная раскладка — flex при печати фрагментируется с развалом колонок. */
+  /* Обёртка листа: фикс-высота чуть меньше A4 + обрезка по низу
+     (контент подогнан), второй лист — с нового листа. */
+  .page-wrap {
+    height: 296.5mm;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+  .page-wrap:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  .page-wrap { position: relative; }
+  .page-num {
+    position: absolute;
+    bottom: 5mm;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 8px;
+    color: ${t.muted};
+  }
+  .page { display: table; width: 100%; height: 296.5mm; }
 
   /* ——— Сайдбар ——— */
   .sidebar {
+    display: table-cell;
+    vertical-align: top;
     width: 62mm;
-    flex-shrink: 0;
     background: ${t.sidebarBg};
     color: ${t.sidebarText};
     padding: 10mm 6mm 8mm;
@@ -662,7 +744,17 @@ const html = (lang, themeName) => {
   }
   .contacts dd { margin: 1px 0 7px; font-size: 9px; }
   .contacts a { color: inherit; text-decoration: none; }
+  /* Навыки на втором листе — без линии-разделителя сверху. */
+  .sidebar-skills .side-title {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
+  }
   .skill-group { margin-bottom: 8px; }
+  .edu-item { margin-bottom: 10px; }
+  .edu-item:last-child { margin-bottom: 0; }
+  .edu-title { font-size: 9px; font-weight: 600; color: ${t.sidebarText}; }
+  .edu-place { color: ${t.sidebarMuted}; }
   .skill-group-title { font-size: 8.2px; margin-bottom: 4px; color: ${t.sidebarText}; }
   .chips { display: flex; flex-wrap: wrap; gap: 4px; }
   .chip {
@@ -693,7 +785,12 @@ const html = (lang, themeName) => {
   }
 
   /* ——— Контент ——— */
-  .content { flex: 1; padding: 10mm 7mm 8mm; background: ${t.contentBg}; }
+  .content {
+    display: table-cell;
+    vertical-align: top;
+    padding: 10mm 7mm 8mm;
+    background: ${t.contentBg};
+  }
   .content-title {
     margin: 16px 0 8px;
     padding-bottom: 3px;
@@ -727,7 +824,7 @@ const html = (lang, themeName) => {
   .details li { margin-bottom: 4px; padding-left: 4px; color: ${t.text}; }
   .details a { color: ${t.accent}; text-decoration: none; }
 
-  .project { margin-bottom: 10px; }
+  .project { margin-bottom: 10px; break-inside: avoid; }
   .project-title {
     margin: 0 0 4px;
     padding-left: 6px;
@@ -738,7 +835,7 @@ const html = (lang, themeName) => {
   }
   .detail-label { font-weight: 600; color: ${t.heading}; }
 
-  .result-group { margin-bottom: 6px; }
+  .result-group { margin-bottom: 6px; break-inside: avoid; }
   .result-group-title {
     margin: 0 0 3px;
     padding-left: 6px;
@@ -771,9 +868,19 @@ const html = (lang, themeName) => {
 </style>
 </head>
 <body>
-  <div class="page">
-    <aside class="sidebar">${sidebar(data, t)}</aside>
-    <main class="content">${contentHtml(data, t)}</main>
+  <div class="page-wrap">
+    <div class="page">
+      <aside class="sidebar">${sidebarMain(data, t)}</aside>
+      <main class="content">${contentMain(data, t)}</main>
+    </div>
+    <div class="page-num">1</div>
+  </div>
+  <div class="page-wrap">
+    <div class="page">
+      <aside class="sidebar sidebar-skills">${sidebarSkills(data, t)}</aside>
+      <main class="content">${contentSenior(data, t)}</main>
+    </div>
+    <div class="page-num">2</div>
   </div>
 </body>
 </html>`;
@@ -808,6 +915,7 @@ for (const variant of variants) {
     { stdio: "pipe" }
   );
   // Временный HTML больше не нужен — в репозиторий и на сайт не попадает.
-  unlinkSync(htmlPath);
+  // KEEP_HTML=1 — оставить для отладки вёрстки (сервится dev-сервером).
+  if (!process.env.KEEP_HTML) unlinkSync(htmlPath);
   console.log("✓", variant.file);
 }

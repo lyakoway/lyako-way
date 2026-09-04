@@ -520,10 +520,12 @@ const Resume = () => {
                     />
                     <ResultBlocks>
                       {item.resultGroups.map((resultGroup) => (
-                        <div key={resultGroup.title}>
-                          <ResultBlockTitle>
-                            {resultGroup.title}
-                          </ResultBlockTitle>
+                        <div key={resultGroup.title || resultGroup.items[0]}>
+                          {resultGroup.title && (
+                            <ResultBlockTitle>
+                              {resultGroup.title}
+                            </ResultBlockTitle>
+                          )}
                           <Bullets>
                             {resultGroup.items.map((text, j) => (
                               <li key={j}>{text}</li>
