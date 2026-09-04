@@ -699,11 +699,10 @@ const html = (lang, themeName) => {
   .page-wrap { position: relative; }
   .page-num {
     position: absolute;
-    bottom: 5mm;
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 8px;
+    bottom: 6mm;
+    right: 7mm;
+    font-size: 12px;
+    font-weight: 700;
     color: ${t.muted};
   }
   .page { display: table; width: 100%; height: 296.5mm; }
