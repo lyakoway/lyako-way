@@ -724,7 +724,7 @@ const html = (lang, themeName) => {
     font-weight: 600;
     letter-spacing: 1.2px;
     text-transform: uppercase;
-    color: ${t.sidebarMuted};
+    color: ${t.sidebarText};
   }
   .side-title {
     margin: 18px 0 8px;
@@ -734,14 +734,14 @@ const html = (lang, themeName) => {
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: ${t.sidebarLabel};
+    color: ${t.sidebarText};
   }
   .contacts { margin: 0; }
   .contacts dt {
     font-size: 7.8px;
     text-transform: uppercase;
     letter-spacing: 0.6px;
-    color: ${t.sidebarLabel};
+    color: ${t.sidebarText};
   }
   .contacts dd { margin: 1px 0 7px; font-size: 9px; }
   .contacts a { color: inherit; text-decoration: none; }
@@ -756,7 +756,7 @@ const html = (lang, themeName) => {
   .edu-item { margin-bottom: 10px; }
   .edu-item:last-child { margin-bottom: 0; }
   .edu-title { font-size: 9px; font-weight: 600; color: ${t.sidebarText}; }
-  .edu-place { color: ${t.sidebarMuted}; }
+  .edu-place { color: ${t.sidebarText}; }
   .skill-group-title { font-size: 9px; font-weight: 600; margin-bottom: 4px; color: ${t.sidebarText}; }
   .chips { display: flex; flex-wrap: wrap; gap: 4px; }
   .chip {
@@ -772,7 +772,7 @@ const html = (lang, themeName) => {
     position: relative;
     padding-left: 10px;
     margin-bottom: 6px;
-    color: ${t.sidebarMuted};
+    color: ${t.sidebarText};
   }
   .about a { color: ${t.accent}; text-decoration: none; }
   .about strong { color: ${t.sidebarText}; }
