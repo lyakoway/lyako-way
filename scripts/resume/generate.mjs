@@ -867,8 +867,23 @@ const html = (lang, themeName) => {
     text-transform: uppercase;
     color: ${t.heading};
   }
-  .details { margin: 0; padding: 0 0 0 12px; }
-  .details li { margin-bottom: 4px; padding-left: 4px; color: ${t.text}; }
+  .details { margin: 0; padding: 0; list-style: none; }
+  .details li {
+    position: relative;
+    margin-bottom: 4px;
+    padding-left: 10px;
+    color: ${t.text};
+  }
+  .details li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4.5px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: ${t.text};
+  }
   .details a { color: ${t.accent}; text-decoration: none; }
 
   .project { margin-bottom: 10px; break-inside: avoid; }
