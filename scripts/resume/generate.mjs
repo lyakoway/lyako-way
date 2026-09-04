@@ -856,8 +856,8 @@ const html = (lang, themeName) => {
   .job { margin-bottom: 12px; }
   .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
   .job-role { font-size: 10.5px; font-weight: 700; color: ${t.heading}; }
-  .job-period { font-size: 8.5px; color: ${t.muted}; white-space: nowrap; }
-  .job-company { margin: 1px 0 8px; font-size: 9px; color: ${t.muted}; }
+  .job-period { font-size: 8.5px; color: ${t.heading}; white-space: nowrap; }
+  .job-company { margin: 1px 0 8px; font-size: 9px; color: ${t.heading}; }
 
   .sub-title {
     margin: 10px 0 5px;
@@ -865,7 +865,7 @@ const html = (lang, themeName) => {
     font-weight: 700;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    color: ${t.label};
+    color: ${t.heading};
   }
   .details { margin: 0; padding: 0 0 0 12px; }
   .details li { margin-bottom: 4px; padding-left: 4px; color: ${t.text}; }
