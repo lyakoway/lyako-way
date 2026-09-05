@@ -342,13 +342,28 @@ export const SectionBlock = styled.section`
   }
 
   .stack-section-label {
+    position: relative;
     display: block;
     margin: 0 0 8px;
+    padding-left: 14px;
     color: ${PANEL_TEXT_MUTED};
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+
+    /* акцентная точка слева — как маркеры списков выше */
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.color.basic.primary};
+    }
   }
 `;
 
@@ -515,4 +530,11 @@ export const ApproachTitle = styled.span`
 
 export const CycleBlock = styled.div`
   margin-top: 26px;
+`;
+
+// Акцентный текст-цитата: оранжевая линия слева (End-to-End, «Развитие»).
+export const AccentText = styled(AboutText)`
+  margin-top: 14px;
+  padding-left: 12px;
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
 `;

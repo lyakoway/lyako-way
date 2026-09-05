@@ -30,6 +30,7 @@ import {
   ApproachNum,
   ApproachTitle,
   CycleBlock,
+  AccentText,
 } from "./style";
 
 // Пустая строка в тексте — разрыв абзаца: каждый кусок выводим своим <p>.
@@ -326,7 +327,7 @@ const About = () => {
             </React.Fragment>
           ))}
         </PipelineFlow>
-        <AboutText>{page.engineering.text}</AboutText>
+        <AccentText>{page.engineering.text}</AccentText>
       </Reveal>
 
       {/* Технологический стек */}
@@ -352,7 +353,7 @@ const About = () => {
             <StackChip key={chip}>{chip}</StackChip>
           ))}
         </StackList>
-        <AboutText>{page.growth.text}</AboutText>
+        <AccentText>{page.growth.text}</AccentText>
       </Reveal>
     </Article>
   );
