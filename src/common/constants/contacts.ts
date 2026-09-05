@@ -17,8 +17,8 @@ export const CONTACT_PHONES: ContactPhone[] = [
 ];
 
 export const CONTACT_EMAIL: ContactLink = {
-  label: "mazurenko-alexey@mail.ru",
-  href: "mailto:mazurenko-alexey@mail.ru",
+  label: "lyakoway@gmail.com",
+  href: "mailto:lyakoway@gmail.com",
 };
 
 export const CONTACT_MESSENGERS: ContactLink[] = [

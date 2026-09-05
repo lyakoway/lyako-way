@@ -27,7 +27,7 @@ export const PERSON_JSON_LD = {
       jobTitle: "AI-инженер",
       url: SITE_URL,
       image: `${SITE_URL}/static/favicons/apple-icon.png`,
-      email: "mailto:mazurenko-alexey@mail.ru",
+      email: "mailto:lyakoway@gmail.com",
       telephone: "+7-977-270-09-30",
       address: {
         "@type": "PostalAddress",
