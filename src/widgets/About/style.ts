@@ -185,3 +185,218 @@ export const HighlightCardText = styled.p`
   font-weight: 300;
   line-height: 1.6;
 `;
+
+/* ——— Страница /profile: Hero, статистика, секции, пайплайны, продукты ——— */
+
+export const HeroSection = styled.header`
+  margin: 0 0 30px;
+`;
+
+export const HeroRole = styled.div`
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.color.basic.primary};
+`;
+
+export const HeroTagline = styled.p`
+  margin: 0 0 20px;
+  color: ${PANEL_TEXT};
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+
+  @media (min-width: 580px) {
+    font-size: 22px;
+  }
+`;
+
+export const StatsGrid = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 580px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+export const StatCard = styled.li`
+  ${gradientBorder};
+  padding: 16px 18px;
+`;
+
+export const StatValue = styled.div`
+  margin: 0 0 4px;
+  color: ${({ theme }) => theme.color.basic.primary};
+  font-size: 22px;
+  font-weight: 700;
+`;
+
+export const StatLabel = styled.div`
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 300;
+`;
+
+// Секция страницы — заголовок + контент.
+export const SectionBlock = styled.section`
+  margin-top: 34px;
+`;
+
+export const StackGroupTitle = styled.h4`
+  margin: 14px 0 8px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 600;
+`;
+
+// Пайплайн: чипы-шаги со стрелками.
+export const PipelineFlow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
+`;
+
+export const PipelineStep = styled.span`
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+
+  .arrow {
+    margin-left: 10px;
+    color: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  &:last-child .arrow {
+    display: none;
+  }
+`;
+
+// Карточка продукта / принципа.
+export const ProductCard = styled.div`
+  ${gradientBorder};
+  padding: 18px;
+  margin-bottom: 14px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 580px) {
+    padding: 22px;
+  }
+`;
+
+export const ProductTitle = styled.h4`
+  position: relative;
+  margin: 0 0 10px;
+  padding-left: 14px;
+  color: ${PANEL_TEXT};
+  font-size: 16px;
+  font-weight: 600;
+
+  /* акцентная метка (штрих) слева */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    bottom: 3px;
+    width: 4px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+// Карточка навыка на странице /profile.
+export const SkillCard = styled.div`
+  ${gradientBorder};
+  padding: 18px;
+  margin-bottom: 14px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (min-width: 580px) {
+    padding: 22px;
+  }
+`;
+
+export const SkillCardTitle = styled.h4`
+  position: relative;
+  margin: 0 0 10px;
+  padding-left: 14px;
+  color: ${PANEL_TEXT};
+  font-size: 16px;
+  font-weight: 600;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    bottom: 3px;
+    width: 4px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+export const SkillCardText = styled.p`
+  margin: 0 0 12px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+`;
+
+export const SectionNote = styled.p`
+  margin: 14px 0 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+`;
+
+/* ——— Мой подход к AI Engineering: принципы и цикл ——— */
+
+export const ApproachItem = styled.div`
+  margin-bottom: 18px;
+`;
+
+export const ApproachHead = styled.div`
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+`;
+
+export const ApproachNum = styled.span`
+  color: ${({ theme }) => theme.color.basic.primary};
+  font-size: 13px;
+  font-weight: 700;
+`;
+
+export const ApproachTitle = styled.span`
+  color: ${PANEL_TEXT};
+  font-size: 15px;
+  font-weight: 600;
+`;
+
+export const CycleBlock = styled.div`
+  margin-top: 26px;
+`;

@@ -136,6 +136,81 @@ export interface OrderProps {
   orderItems: string[];
 }
 
+// Карточка статистики на странице /profile.
+export interface PersonalStatProps {
+  value: string;
+  label: string;
+}
+
+// Группа пунктов/чипов с заголовком (разделы страницы /profile).
+export interface PersonalGroupProps {
+  title: string;
+  items: string[];
+}
+
+// Карточка «Что я создаю»: заголовок, описание, чипы или пайплайн, сноска.
+export interface PersonalCreateCardProps {
+  title: string;
+  text: string;
+  items?: string[];
+  pipeline?: string[];
+  footnote?: string;
+}
+
+// Продукт на странице /profile.
+export interface PersonalProductProps {
+  name: string;
+  tagline: string;
+  modes?: string[];
+  paragraphs?: string[];
+  flows?: { name: string; steps: string }[];
+  notes?: string[];
+  result?: string;
+  stack: { label: string; items: string[] };
+}
+
+// Принцип работы с номером.
+export interface PersonalPrincipleProps {
+  num: string;
+  title: string;
+  text: string;
+}
+
+// Область End-to-End Engineering.
+export interface PersonalAreaProps {
+  title: string;
+  text: string;
+}
+
+// Страница /profile: секции и контент.
+export interface PersonalProfilePageProps {
+  hero: { role: string; tagline: string };
+  stats: PersonalStatProps[];
+  about: { title: string; items: string[] };
+  profile: { title: string; paragraphs: string[] };
+  create: { title: string; cards: PersonalCreateCardProps[] };
+  products: { title: string; items: PersonalProductProps[] };
+  approach: {
+    title: string;
+    intro: string;
+    principles: {
+      num: string;
+      title: string;
+      text: string;
+      items?: string[];
+    }[];
+    cycle: { title: string; steps: string[]; closing: string };
+  };
+  engineering: {
+    title: string;
+    intro: string;
+    areas: PersonalAreaProps[];
+  };
+  stack: { title: string; groups: PersonalGroupProps[] };
+  principles: { title: string; items: string[] };
+  growth: { title: string; chips: string[]; text: string };
+}
+
 export interface PersonalProps {
   title: string;
   titleText: string;
@@ -144,6 +219,7 @@ export interface PersonalProps {
   text3: string;
   stackTitle: string;
   stack: string[];
+  page: PersonalProfilePageProps;
 }
 
 export interface PortfolioProps {
