@@ -95,7 +95,6 @@ const content = {
               { label: "Три режима", text: "RAG Chat → AI Agent → Vector Search — переключение в одном приложении." },
               { label: "Архитектура", text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — история диалогов." },
               { label: "Качество", text: "Recall@1 92% на golden set из 24 вопросов (evaluation-скрипт), LLM-as-judge 5.0/5." },
-              { label: "GitHub / Демо", text: "github.com/lyakoway/ai-RAG-chat · lyakoway-rag-chat.hf.space" },
             ],
           },
           {
@@ -106,7 +105,6 @@ const content = {
               { label: "Ксюша — RAG-агент", text: "отвечает на вопросы по внутренней технической документации и загруженным документам (PDF, Word, Excel) с опорой на найденные источники." },
               { label: "Архитектура", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников." },
               { label: "Качество", text: "161 автоматический тест: agent loop, self-correction, SQL Guard, analytics, routers, источники данных." },
-              { label: "GitHub / Демо", text: "github.com/lyakoway/ai-data-pilot · lyakoway-ai-data-pilot.hf.space" },
             ],
           },
         ],
@@ -274,7 +272,6 @@ const content = {
               { label: "Three modes", text: "RAG Chat → AI Agent → Vector Search — switching within one application." },
               { label: "Architecture", text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — conversation history." },
               { label: "Quality", text: "Recall@1 92% on a golden set of 24 questions (evaluation script), LLM-as-judge 5.0/5." },
-              { label: "GitHub / Demo", text: "github.com/lyakoway/ai-RAG-chat · lyakoway-rag-chat.hf.space" },
             ],
           },
           {
@@ -285,7 +282,6 @@ const content = {
               { label: "Ksyusha — RAG agent", text: "answers questions over internal technical documentation and uploaded files (PDF, Word, Excel), grounded in the retrieved sources." },
               { label: "Architecture", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; Ksyusha's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation." },
               { label: "Quality", text: "161 automated tests: agent loop, self-correction, SQL Guard, analytics, routers, data sources." },
-              { label: "GitHub / Demo", text: "github.com/lyakoway/ai-data-pilot · lyakoway-ai-data-pilot.hf.space" },
             ],
           },
         ],
