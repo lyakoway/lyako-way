@@ -32,12 +32,16 @@ export const resumeCv: ResumeCvProps = {
               text: "document indexing → chunking (tiktoken) → embeddings (fastembed) → hybrid BM25 + vector retrieval (RRF) → LLM answer generation → source citation.",
             },
             {
+              label: "Three modes",
+              text: "RAG Chat → AI Agent → Vector Search — switching within one application.",
+            },
+            {
               label: "Architecture",
               text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — conversation history.",
             },
             {
               label: "Quality",
-              text: "Recall@1 92% on a golden set (evaluation script), LLM-as-judge 5.0/5.",
+              text: "Recall@1 92% on a golden set of 24 questions (evaluation script), LLM-as-judge 5.0/5.",
             },
           ],
         },
@@ -56,6 +60,10 @@ export const resumeCv: ResumeCvProps = {
             {
               label: "Architecture",
               text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; Ksyusha's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation.",
+            },
+            {
+              label: "Quality",
+              text: "161 automated tests: agent loop, self-correction, SQL Guard, analytics, routers, data sources.",
             },
           ],
         },

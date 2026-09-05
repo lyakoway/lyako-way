@@ -32,12 +32,16 @@ export const resumeCv: ResumeCvProps = {
               text: "индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + вектора (RRF) → генерация ответа LLM → цитирование источников.",
             },
             {
+              label: "Три режима",
+              text: "RAG Chat → AI Agent → Vector Search — переключение в одном приложении.",
+            },
+            {
               label: "Архитектура",
               text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — история диалогов.",
             },
             {
               label: "Качество",
-              text: "Recall@1 92% на golden set (evaluation-скрипт), LLM-as-judge 5.0/5.",
+              text: "Recall@1 92% на golden set из 24 вопросов (evaluation-скрипт), LLM-as-judge 5.0/5.",
             },
           ],
         },
@@ -56,6 +60,10 @@ export const resumeCv: ResumeCvProps = {
             {
               label: "Архитектура",
               text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников.",
+            },
+            {
+              label: "Качество",
+              text: "161 автоматический тест: agent loop, self-correction, SQL Guard, analytics, routers, источники данных.",
             },
           ],
         },
