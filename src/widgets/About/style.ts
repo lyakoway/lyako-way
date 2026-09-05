@@ -5,6 +5,7 @@ import {
   PANEL_TEXT_SECONDARY,
   PANEL_TEXT_MUTED,
   PANEL_BORDER,
+  PANEL_ELEVATED,
   PANEL_ELEVATED_HOVER,
 } from "src/common/lib/panelStyles";
 
@@ -502,30 +503,159 @@ export const SectionNote = styled.p`
   line-height: 1.6;
 `;
 
-/* ——— Мой подход к AI Engineering: принципы и цикл ——— */
+/* ——— Мой подход: принципы дорожками — как «Схема проекта» в портфолио ——— */
 
-export const ApproachItem = styled.div`
-  margin-bottom: 18px;
+// Схема принципов: слева ствол с оранжевыми узлами, справа по карточке
+// на принцип, между карточками — коннекторы потока.
+export const ApproachDiagram = styled.div`
+  position: relative;
+
+  /* ствол дерева */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: ${PANEL_BORDER};
+  }
 `;
 
-export const ApproachHead = styled.div`
-  display: flex;
-  align-items: baseline;
+// Дорожка = узел на стволе + карточка принципа.
+export const ApproachLane = styled.div`
+  position: relative;
+  padding-left: 34px;
+
+  /* горизонтальная ветка от узла к карточке */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 13px;
+    width: 21px;
+    height: 2px;
+    background: ${PANEL_BORDER};
+  }
+
+  /* оранжевый узел на стволе; кольцо цвета фона отбивает его от линий */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+    box-shadow: 0 0 0 4px var(--panel-bg);
+    z-index: 1;
+  }
+`;
+
+// Карточка принципа: заголовок-штрих + текст + чипы.
+export const ApproachCard = styled.div`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: grid;
   gap: 10px;
-  margin-bottom: 6px;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
-export const ApproachNum = styled.span`
+export const ApproachCardTitle = styled.p`
+  position: relative;
+  margin: 0;
+  padding-left: 11px;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  line-height: 1.4;
+
+  /* акцентная метка-штрих слева */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    bottom: 1px;
+    width: 3px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+export const ApproachCardText = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+`;
+
+export const ApproachNodes = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+`;
+
+// Нода-чип принципа — как ноды схемы проекта.
+export const ApproachNode = styled.div`
+  background: ${PANEL_ELEVATED_HOVER};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 10px;
+  padding: 8px 12px;
+  min-width: 0;
+`;
+
+export const ApproachNodeLabel = styled.span`
   color: ${PANEL_TEXT};
   font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
+  font-weight: 500;
+  line-height: 1.35;
 `;
 
-export const ApproachTitle = styled.span`
-  color: ${PANEL_TEXT};
-  font-size: 15px;
-  font-weight: 600;
+// Коннектор между дорожками: белая линия с шевроном, по центру колонки
+// карточек (34px слева занимает дерево).
+export const ApproachFlow = styled.div`
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 26px;
+  margin-left: 34px;
+  font-size: 0;
+  user-select: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    bottom: 8px;
+    width: 2px;
+    border-radius: 1px;
+    background: linear-gradient(180deg, ${PANEL_BORDER}, ${PANEL_TEXT});
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid ${PANEL_TEXT};
+    border-bottom: 2px solid ${PANEL_TEXT};
+    transform: rotate(45deg);
+  }
 `;
 
 export const CycleBlock = styled.div`

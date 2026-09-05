@@ -1259,11 +1259,10 @@ export const AiNodeNote = styled.span`
   line-height: 1.35;
 `;
 
-// Стрелка между дорожками: вертикальный коннектор — линия с градиентом
-// от серого к акценту и наконечник-шеврон, по центру колонки карточек
-// (34px слева занимает дерево). Текстовый «↓» из разметки скрыт
-// (font-size: 0): строка помечена aria-hidden, глиф не нужен ни людям,
-// ни скринридерам.
+// Стрелка между дорожками: вертикальный коннектор — белая линия с
+// наконечником-шевроном, по центру колонки карточек (34px слева занимает
+// дерево). Текстовый «↓» из разметки скрыт (font-size: 0): строка помечена
+// aria-hidden, глиф не нужен ни людям, ни скринридерам.
 export const AiFlow = styled.div`
   position: relative;
   display: flex;
@@ -1280,11 +1279,7 @@ export const AiFlow = styled.div`
     bottom: 8px;
     width: 2px;
     border-radius: 1px;
-    background: linear-gradient(
-      180deg,
-      ${PANEL_BORDER},
-      ${({ theme }) => theme.color.basic.primary}
-    );
+    background: linear-gradient(180deg, ${PANEL_BORDER}, ${PANEL_TEXT});
   }
 
   &::after {
@@ -1293,8 +1288,8 @@ export const AiFlow = styled.div`
     bottom: 2px;
     width: 7px;
     height: 7px;
-    border-right: 2px solid ${({ theme }) => theme.color.basic.primary};
-    border-bottom: 2px solid ${({ theme }) => theme.color.basic.primary};
+    border-right: 2px solid ${PANEL_TEXT};
+    border-bottom: 2px solid ${PANEL_TEXT};
     transform: rotate(45deg);
   }
 `;

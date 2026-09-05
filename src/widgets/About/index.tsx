@@ -25,10 +25,15 @@ import {
   ProductCard,
   ProductTitle,
   SectionNote,
-  ApproachItem,
-  ApproachHead,
-  ApproachNum,
-  ApproachTitle,
+  ApproachDiagram,
+  ApproachLane,
+  ApproachCard,
+  ApproachCardTitle,
+  ApproachCardText,
+  ApproachNodes,
+  ApproachNode,
+  ApproachNodeLabel,
+  ApproachFlow,
   CycleBlock,
   AccentText,
 } from "./style";
@@ -271,26 +276,43 @@ const About = () => {
         ))}
       </Reveal>
 
-      {/* Мой подход к AI Engineering — 7 принципов + инженерный цикл */}
+      {/* Мой подход к AI Engineering — принципы дорожками, как
+          «Схема проекта» в портфолио: ствол с узлами слева, карточки
+          с заголовками-штрихами, коннекторы между ними */}
       <Reveal as={SectionBlock} delay={180}>
         <SectionHead icon={SECTION_ICONS.approach} title={page.approach.title} />
         <AboutText>{page.approach.intro}</AboutText>
-        {page.approach.principles.map((principle) => (
-          <ApproachItem key={principle.num}>
-            <ApproachHead>
-              <ApproachNum>{principle.num}</ApproachNum>
-              <ApproachTitle>{principle.title}</ApproachTitle>
-            </ApproachHead>
-            <AboutText>{principle.text}</AboutText>
-            {principle.items && principle.items.length > 0 && (
-              <AboutBullets>
-                {principle.items.map((item, i) => (
-                  <li key={i}>{item}</li>
-                ))}
-              </AboutBullets>
-            )}
-          </ApproachItem>
-        ))}
+        <ApproachDiagram>
+          {page.approach.principles.map((principle, i) => (
+            <React.Fragment key={principle.num}>
+              {i > 0 && <ApproachFlow aria-hidden>↓</ApproachFlow>}
+              <ApproachLane>
+                <ApproachCard>
+                  <ApproachCardTitle>
+                    {principle.num} · {principle.title}
+                  </ApproachCardTitle>
+                  {principle.text && (
+                    <ApproachCardText>{principle.text}</ApproachCardText>
+                  )}
+                  {principle.items && principle.items.length > 0 && (
+                    <ApproachNodes>
+                      {/* Строка «a · b · c» разворачивается в отдельные чипы. */}
+                      {principle.items
+                        .flatMap((item) => item.split("·"))
+                        .map((part) => part.trim())
+                        .filter(Boolean)
+                        .map((chip, j) => (
+                          <ApproachNode key={j}>
+                            <ApproachNodeLabel>{chip}</ApproachNodeLabel>
+                          </ApproachNode>
+                        ))}
+                    </ApproachNodes>
+                  )}
+                </ApproachCard>
+              </ApproachLane>
+            </React.Fragment>
+          ))}
+        </ApproachDiagram>
 
         {/* Инженерный цикл — цепочка шагов без пояснений */}
         <CycleBlock>
