@@ -91,6 +91,37 @@ export const StackLabel = styled.h3`
   text-transform: uppercase;
 `;
 
+// Шапка секции /profile: иконка в плашке + капс-заголовок — как секции
+// внутри карточек опыта на /cv.
+export const HeadRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+
+  ${StackLabel} {
+    margin: 0;
+  }
+`;
+
+export const HeadIcon = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+`;
+
 export const StackList = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -198,7 +229,7 @@ export const HeroRole = styled.div`
   font-weight: 700;
   letter-spacing: 1.6px;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT_MUTED};
 `;
 
 export const HeroTagline = styled.p`
@@ -233,7 +264,7 @@ export const StatCard = styled.li`
 
 export const StatValue = styled.div`
   margin: 0 0 4px;
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
   font-size: 22px;
   font-weight: 700;
 `;
@@ -328,13 +359,17 @@ export const StackGroupTitle = styled.h4`
   font-weight: 600;
 `;
 
-// Пайплайн: чипы-шаги со стрелками.
+// Пайплайн: чипы-шаги, стрелки между ними — снаружи и белые.
 export const PipelineFlow = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin: 14px 0;
+
+  .arrow {
+    color: ${PANEL_TEXT};
+  }
 `;
 
 export const PipelineStep = styled.span`
@@ -346,15 +381,6 @@ export const PipelineStep = styled.span`
   font-size: 13px;
   font-weight: 500;
   white-space: nowrap;
-
-  .arrow {
-    margin-left: 10px;
-    color: ${({ theme }) => theme.color.basic.primary};
-  }
-
-  &:last-child .arrow {
-    display: none;
-  }
 `;
 
 // Карточка продукта / принципа.
@@ -392,7 +418,7 @@ export const ProductTitle = styled.h4`
     background: ${({ theme }) => theme.color.basic.primary};
   }
 
-  /* Ссылка на страницу портфолио: цвет заголовка, стрелка-индикатор
+  /* Ссылка на страницу портфолио: цвет заголовка, белая стрелка-индикатор
      и подсветка при наведении. */
   a {
     color: inherit;
@@ -400,7 +426,7 @@ export const ProductTitle = styled.h4`
 
     &::after {
       content: " ↗";
-      color: ${({ theme }) => theme.color.basic.primary};
+      color: inherit;
       font-size: 14px;
     }
 
@@ -475,9 +501,10 @@ export const ApproachHead = styled.div`
 `;
 
 export const ApproachNum = styled.span`
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
   font-size: 13px;
   font-weight: 700;
+  letter-spacing: 1px;
 `;
 
 export const ApproachTitle = styled.span`

@@ -8,6 +8,8 @@ import {
   AboutText,
   AboutBullets,
   StackLabel,
+  HeadRow,
+  HeadIcon,
   StackList,
   StackChip,
   HeroSection,
@@ -45,6 +47,136 @@ const withBold = (text: string) =>
     .replace(/>/g, "&gt;")
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
+/* Иконки секций /profile — по одной на заголовок, как плашки секций на /cv. */
+const SECTION_ICONS = {
+  about: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.8" />
+      <path
+        d="M4 21c0-4 3.6-6 8-6s8 2 8 6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  ),
+  create: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M12 3a6 6 0 0 1 3.7 10.7c-.6.5-.7 1.2-.7 2.3h-6c0-1.1-.1-1.8-.7-2.3A6 6 0 0 1 12 3z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.5 19h5M10.5 21.5h3"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+    </svg>
+  ),
+  products: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m4 7.5 8 4.5 8-4.5M12 12v9"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  approach: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.8" />
+    </svg>
+  ),
+  cycle: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+      />
+      <path
+        d="M20.5 2.8V6.3H17"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  engineering: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="M3 12h18m-4-4 4 4-4 4"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  stack: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="m12 3 8.5 4.75L12 12.5 3.5 7.75 12 3z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m4.5 12.75 7.5 4.2 7.5-4.2M4.5 17 12 21.2l7.5-4.2"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+  growth: (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+      <path
+        d="m3 17 6-6 4 4 8-8"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M15 7h6v6"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  ),
+};
+
+// Шапка секции: иконка в плашке + капс-заголовок.
+const SectionHead = ({
+  icon,
+  title,
+}: {
+  icon: React.ReactNode;
+  title: string;
+}) => (
+  <HeadRow>
+    <HeadIcon>{icon}</HeadIcon>
+    <StackLabel>{title}</StackLabel>
+  </HeadRow>
+);
+
 const About = () => {
   const {
     lang: { personal, propsHeaderTopMenu },
@@ -79,7 +211,7 @@ const About = () => {
 
       {/* Обо мне — пунктами с жирными врезками */}
       <Reveal as={SectionBlock} delay={90}>
-        <StackLabel>{page.about.title}</StackLabel>
+        <SectionHead icon={SECTION_ICONS.about} title={page.about.title} />
         <AboutBullets>
           {page.about.items.map((item, i) => (
             <li key={i} dangerouslySetInnerHTML={{ __html: withBold(item) }} />
@@ -89,7 +221,7 @@ const About = () => {
 
       {/* Что я создаю — карточки */}
       <Reveal as={SectionBlock} delay={120}>
-        <StackLabel>{page.create.title}</StackLabel>
+        <SectionHead icon={SECTION_ICONS.create} title={page.create.title} />
         {page.create.cards.map((card) => (
           <div key={card.title} className="create-card">
             <div className="create-card-title">{card.title}</div>
@@ -97,12 +229,12 @@ const About = () => {
             {card.pipeline && card.pipeline.length > 0 && (
               <PipelineFlow>
                 {card.pipeline.map((step, i) => (
-                  <PipelineStep key={step}>
-                    {step}
+                  <React.Fragment key={step}>
+                    <PipelineStep>{step}</PipelineStep>
                     {i < card.pipeline.length - 1 && (
                       <span className="arrow">→</span>
                     )}
-                  </PipelineStep>
+                  </React.Fragment>
                 ))}
               </PipelineFlow>
             )}
@@ -112,7 +244,7 @@ const About = () => {
 
       {/* AI-продукты, которые я разработал */}
       <Reveal as={SectionBlock} delay={150}>
-        <StackLabel>{page.products.title}</StackLabel>
+        <SectionHead icon={SECTION_ICONS.products} title={page.products.title} />
         {page.products.items.map((product) => (
           <ProductCard key={product.name}>
             <ProductTitle>
@@ -140,7 +272,7 @@ const About = () => {
 
       {/* Мой подход к AI Engineering — 7 принципов + инженерный цикл */}
       <Reveal as={SectionBlock} delay={180}>
-        <StackLabel>{page.approach.title}</StackLabel>
+        <SectionHead icon={SECTION_ICONS.approach} title={page.approach.title} />
         <AboutText>{page.approach.intro}</AboutText>
         {page.approach.principles.map((principle) => (
           <ApproachItem key={principle.num}>
@@ -161,15 +293,18 @@ const About = () => {
 
         {/* Инженерный цикл — цепочка шагов без пояснений */}
         <CycleBlock>
-          <StackLabel>{page.approach.cycle.title}</StackLabel>
+          <SectionHead
+            icon={SECTION_ICONS.cycle}
+            title={page.approach.cycle.title}
+          />
           <PipelineFlow>
             {page.approach.cycle.steps.map((step, i) => (
-              <PipelineStep key={step}>
-                {step}
+              <React.Fragment key={step}>
+                <PipelineStep>{step}</PipelineStep>
                 {i < page.approach.cycle.steps.length - 1 && (
                   <span className="arrow">→</span>
                 )}
-              </PipelineStep>
+              </React.Fragment>
             ))}
           </PipelineFlow>
         </CycleBlock>
@@ -177,15 +312,18 @@ const About = () => {
 
       {/* End-to-End Engineering — одна строка-пайплайн */}
       <Reveal as={SectionBlock} delay={210}>
-        <StackLabel>{page.engineering.title}</StackLabel>
+        <SectionHead
+          icon={SECTION_ICONS.engineering}
+          title={page.engineering.title}
+        />
         <PipelineFlow>
           {page.engineering.steps.map((step, i) => (
-            <PipelineStep key={step}>
-              {step}
+            <React.Fragment key={step}>
+              <PipelineStep>{step}</PipelineStep>
               {i < page.engineering.steps.length - 1 && (
                 <span className="arrow">→</span>
               )}
-            </PipelineStep>
+            </React.Fragment>
           ))}
         </PipelineFlow>
         <AboutText>{page.engineering.text}</AboutText>
@@ -193,7 +331,7 @@ const About = () => {
 
       {/* Технологический стек */}
       <Reveal as={SectionBlock} delay={240}>
-        <StackLabel>{page.stack.title}</StackLabel>
+        <SectionHead icon={SECTION_ICONS.stack} title={page.stack.title} />
         {page.stack.groups.map((group) => (
           <div key={group.title} className="stack-section-row">
             <span className="stack-section-label">{group.title}</span>
@@ -208,7 +346,7 @@ const About = () => {
 
       {/* Сейчас я развиваюсь в сторону */}
       <Reveal as={SectionBlock} delay={270}>
-        <StackLabel>{page.growth.title}</StackLabel>
+        <SectionHead icon={SECTION_ICONS.growth} title={page.growth.title} />
         <StackList>
           {page.growth.chips.map((chip) => (
             <StackChip key={chip}>{chip}</StackChip>
