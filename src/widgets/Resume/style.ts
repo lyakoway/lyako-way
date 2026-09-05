@@ -244,6 +244,20 @@ export const EntryHeader = styled.div`
   align-items: baseline;
   justify-content: space-between;
   gap: 6px 14px;
+
+  /* До 580px левый блок (должность, компания, пояснение) занимает всю
+     строку — бейдж с датой уходит под заголовок. От 580px блок растёт
+     от нулевого базиса: перенос не запускается, бейдж всегда справа
+     от первой строки, а длинное пояснение переносится внутри колонки. */
+  & > div:first-child,
+  & > h4:first-child {
+    flex: 1 1 100%;
+
+    @media (min-width: 580px) {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+  }
 `;
 
 export const ItemRole = styled.h4`
@@ -262,6 +276,15 @@ export const ItemCompany = styled.p`
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 500;
+`;
+
+// Пояснение после мета-строки — приглушённый текст, отступ от неё.
+export const ItemCompanyNote = styled.p`
+  margin: 5px 0 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.45;
 `;
 
 export const PeriodBadge = styled.span`

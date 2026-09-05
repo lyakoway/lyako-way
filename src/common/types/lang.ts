@@ -473,6 +473,8 @@ export interface ResumeExperienceProps {
   id: string;
   role: string;
   company?: string;
+  // Пояснение под компанией в шапке записи (кто такой работодатель).
+  companyNote?: string;
   period?: string;
   meta?: string;
   summary?: string;

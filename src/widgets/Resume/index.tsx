@@ -27,6 +27,7 @@ import {
   EntryHeader,
   ItemRole,
   ItemCompany,
+  ItemCompanyNote,
   PeriodBadge,
   ItemMeta,
   ItemSummary,
@@ -463,6 +464,11 @@ const Resume = () => {
                 </EntryHeader>
 
                 {item.meta && <ItemMeta>{item.meta}</ItemMeta>}
+                {/* Пояснение под мета-строкой: после неё, а не сразу под
+                    компанией. */}
+                {item.companyNote && (
+                  <ItemCompanyNote>{item.companyNote}</ItemCompanyNote>
+                )}
                 {/* Описания проектов — общая секция «Проекты»: внутри блоки
                     с заголовком и подписанными строками деталей. */}
                 {item.projectDescriptions && item.projectDescriptions.length > 0 && (

@@ -17,6 +17,8 @@ export const resumeCv: ResumeCvProps = {
       id: "1",
       role: "AI Engineer",
       company: "MTC Web Services (MWS AI)",
+      companyNote:
+        "AI-подразделение экосистемы МТС — одного из крупнейших телеком-операторов России (b2c-продукты).",
       period: "апр. 2024 — н.в.",
       meta: "Москва · Разработка ПО, AI-решения",
       /* Описание продукта записи — абзацами, как summary у Senior Frontend. */
