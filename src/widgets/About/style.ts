@@ -261,6 +261,12 @@ export const StatsGrid = styled.ul`
 export const StatCard = styled.li`
   ${gradientBorder};
   padding: 16px 18px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 export const StatValue = styled.div`
@@ -287,9 +293,11 @@ export const SectionBlock = styled.section`
   .create-card {
     ${gradientBorder};
     padding: 18px;
+    transition: border-color 0.25s ease, background 0.25s ease;
 
-    & + .create-card {
-      margin-top: 14px;
+    &:hover {
+      background: ${PANEL_ELEVATED_HOVER};
+      border-color: rgba(255, 255, 255, 0.22);
     }
 
     @media (min-width: 580px) {
@@ -468,10 +476,11 @@ export const PipelineStep = styled.span`
 export const ProductCard = styled.div`
   ${gradientBorder};
   padding: 18px;
-  margin-bottom: 14px;
+  transition: border-color 0.25s ease, background 0.25s ease;
 
-  &:last-child {
-    margin-bottom: 0;
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
   }
 
   @media (min-width: 580px) {

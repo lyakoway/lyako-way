@@ -229,24 +229,27 @@ const About = () => {
       <Reveal as={SectionBlock} delay={120}>
         <SectionHead icon={SECTION_ICONS.create} title={page.create.title} />
         <div className="tree">
-          {page.create.cards.map((card) => (
+          {page.create.cards.map((card, i) => (
             <div className="tree-lane" key={card.title}>
-              <div className="create-card">
-                <div className="create-card-title">{card.title}</div>
-                <AboutText>{card.text}</AboutText>
-                {card.pipeline && card.pipeline.length > 0 && (
-                  <PipelineFlow>
-                    {card.pipeline.map((step, i) => (
-                      <React.Fragment key={step}>
-                        <PipelineStep>{step}</PipelineStep>
-                        {i < card.pipeline.length - 1 && (
-                          <span className="arrow">→</span>
-                        )}
-                      </React.Fragment>
-                    ))}
-                  </PipelineFlow>
-                )}
-              </div>
+              {/* Дерево стоит на месте, карточка выезжает справа */}
+              <Reveal x={64} y={0} delay={i * 90}>
+                <div className="create-card">
+                  <div className="create-card-title">{card.title}</div>
+                  <AboutText>{card.text}</AboutText>
+                  {card.pipeline && card.pipeline.length > 0 && (
+                    <PipelineFlow>
+                      {card.pipeline.map((step, i) => (
+                        <React.Fragment key={step}>
+                          <PipelineStep>{step}</PipelineStep>
+                          {i < card.pipeline.length - 1 && (
+                            <span className="arrow">→</span>
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </PipelineFlow>
+                  )}
+                </div>
+              </Reveal>
             </div>
           ))}
         </div>
@@ -256,9 +259,10 @@ const About = () => {
       <Reveal as={SectionBlock} delay={150}>
         <SectionHead icon={SECTION_ICONS.products} title={page.products.title} />
         <div className="tree">
-          {page.products.items.map((product) => (
+          {page.products.items.map((product, i) => (
             <div className="tree-lane" key={product.name}>
-              <ProductCard>
+              {/* Дерево стоит на месте, карточка выезжает справа */}
+              <Reveal as={ProductCard} x={64} y={0} delay={i * 90}>
                 <ProductTitle>
                   {/* Slug портфолио → заголовок ведёт на страницу проекта. */}
                   {product.href ? (
@@ -280,7 +284,7 @@ const About = () => {
                     {product.stack.items.join(" · ")}
                   </span>
                 </div>
-              </ProductCard>
+              </Reveal>
             </div>
           ))}
         </div>
@@ -297,7 +301,8 @@ const About = () => {
             <React.Fragment key={principle.num}>
               {i > 0 && <ApproachFlow aria-hidden>↓</ApproachFlow>}
               <ApproachLane>
-                <ApproachCard>
+                {/* Дерево стоит на месте, карточка выезжает справа */}
+                <Reveal as={ApproachCard} x={64} y={0} delay={i * 90}>
                   <ApproachCardTitle>{principle.title}</ApproachCardTitle>
                   {principle.text && (
                     <ApproachCardText>{principle.text}</ApproachCardText>
@@ -316,7 +321,7 @@ const About = () => {
                         ))}
                     </ApproachNodes>
                   )}
-                </ApproachCard>
+                </Reveal>
               </ApproachLane>
             </React.Fragment>
           ))}
@@ -365,16 +370,19 @@ const About = () => {
         <SectionHead icon={SECTION_ICONS.stack} title={page.stack.title} />
         {/* Группы — дорожками с деревом слева, как карточки выше */}
         <div className="tree">
-          {page.stack.groups.map((group) => (
+          {page.stack.groups.map((group, i) => (
             <div className="tree-lane" key={group.title}>
-              <div className="stack-section-row">
-                <span className="stack-section-label">{group.title}</span>
-                <StackList>
-                  {group.items.map((item) => (
-                    <StackChip key={item}>{item}</StackChip>
-                  ))}
-                </StackList>
-              </div>
+              {/* Дерево стоит на месте, карточка выезжает справа */}
+              <Reveal x={64} y={0} delay={i * 90}>
+                <div className="stack-section-row">
+                  <span className="stack-section-label">{group.title}</span>
+                  <StackList>
+                    {group.items.map((item) => (
+                      <StackChip key={item}>{item}</StackChip>
+                    ))}
+                  </StackList>
+                </div>
+              </Reveal>
             </div>
           ))}
         </div>
