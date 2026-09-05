@@ -25,7 +25,7 @@ export const personal: PersonalProps = {
     },
     stats: [
       { value: "2 hours → 2 minutes", label: "Analytical result preparation" },
-      { value: "92%", label: "Recall@1 · RAG · golden set" },
+      { value: "92%", label: "Recall@1 · RAG · golden set · 24 questions" },
       { value: "5.0 / 5", label: "LLM-as-a-Judge · 24 answers" },
     ],
     about: {
@@ -37,60 +37,25 @@ export const personal: PersonalProps = {
         "**Combining AI and classic engineering:** implementing backend and frontend on my own, integrating LLMs and external services, working with databases, APIs and infrastructure.",
       ],
     },
-    profile: {
-      title: "AI / LLM Engineer",
-      paragraphs: [
-        "**AI / LLM Engineer** with 7+ years of commercial software development experience. Specialized in building production-ready AI solutions: RAG systems, AI agents and LLM applications with Python.",
-        "Building **full-cycle AI systems** — from data processing and retrieval to generation, validation and answer quality evaluation. Implementing **RAG and hybrid search (BM25 + Vector Search, RRF), embeddings, Agent Loop (ReAct), Tool Calling, Text-to-SQL and multi-agent orchestration.**",
-        "Focused on the **quality and reliability of LLM systems:** golden sets, Recall@K, LLM-as-a-Judge, regression testing, error handling and self-correction, context and token-budget optimization. Working with cloud and local LLMs via API, including **GLM, OpenAI, Anthropic and Ollama.**",
-        "Strong **software engineering foundation** and end-to-end AI product development experience: Python / FastAPI, PostgreSQL / ClickHouse, React / Next.js, Docker / Kubernetes / CI/CD. Able to independently take **an AI prototype all the way to a production solution.**",
-      ],
-    },
     create: {
       title: "What I build",
       cards: [
         {
           title: "RAG systems",
-          text: "AI systems for working with corporate knowledge and documents.",
-          items: [
-            "search across PDF, Word, Excel and other sources;",
-            "hybrid search: BM25 + Vector Search;",
-            "embeddings and reranking;",
-            "answers with citations of the source documents;",
-            "retrieval quality evaluation via golden sets.",
-          ],
+          text: "Working with corporate knowledge and documents: hybrid search, BM25 + Vector Search, embeddings, RRF, citations and evaluation.",
         },
         {
           title: "AI agents",
-          text: "Agents that do not just generate text, but call tools and execute sequences of actions.",
-          items: [
-            "Agent Loop / ReAct;",
-            "Tool Calling;",
-            "multi-step task execution;",
-            "self-correction;",
-            "routing between specialized agents;",
-            "execution observability via execution trace.",
-          ],
+          text: "Agents that call tools, execute multi-step tasks and handle errors: ReAct, Tool Calling, routing, self-correction.",
         },
         {
-          title: "AI for working with data",
-          text: "Interfaces that let you ask questions to data in natural language.",
+          title: "AI for data",
+          text: "Interfaces for analyzing data in natural language.",
           pipeline: ["Natural Language", "SQL", "Database", "Analytics", "Answer"],
-          footnote:
-            "The LLM handles understanding the task and managing the process, while critical computations are performed by deterministic code.",
         },
         {
           title: "Evaluation & Quality",
-          text: "I build AI systems not only around the model, but around measurable quality.",
-          items: [
-            "golden sets;",
-            "Recall@K / MRR;",
-            "LLM-as-a-Judge;",
-            "regression testing;",
-            "edge case testing;",
-            "comparison of models and retrieval approaches;",
-            "latency and quality analysis.",
-          ],
+          text: "Measuring the quality of AI systems through Golden Sets, Recall@K, MRR, LLM-as-a-Judge and regression testing.",
         },
       ],
     },
@@ -98,38 +63,32 @@ export const personal: PersonalProps = {
       title: "AI products",
       items: [
         {
-          name: "RAG Chat",
-          tagline: "AI system for searching and working with information in PDF, Word and Excel.",
-          modes: ["RAG Chat", "AI Agent", "Vector Search"],
-          paragraphs: [
-            "RAG uses hybrid BM25 + RRF and multilingual embeddings. The AI Agent runs through its own tool loop on FastAPI. Vector Search lets you find relevant fragments without using the LLM.",
-          ],
-          result:
-            "Key result — Recall@1 92% on a golden set of 24 questions and 5.0/5 for Faithfulness, Relevance and Citations in LLM-as-a-Judge.",
-          stack: {
-            label: "Stack",
-            items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "SQLAlchemy", "SSE", "React", "TypeScript", "Vite", "LLM API", "Ollama"],
-          },
-        },
-        {
           name: "AI Data Pilot",
           tagline: "Multi-agent platform for analyzing data and corporate documents.",
           paragraphs: [
-            "The user asks a question in natural language, after which the system determines the right agent and data source.",
+            "**Oleg — data agent:** Natural Language → Text-to-SQL → Tool Calling → Analytics → Answer.",
+            "**Ksyusha — RAG agent:** Hybrid Search → Documents → Answer + Citations.",
+            "The system executes SQL on its own, analyzes data, builds results and handles errors through self-correction. Critical computations are performed by a deterministic Python layer, not the LLM.",
           ],
           result:
-            "Quality is covered by 161 automated tests: agent loop, self-correction, SQL Guard, analytics, routers and data sources.",
-          flows: [
-            { name: "Oleg — data agent", steps: "Natural Language → Text-to-SQL → Tool Calling → Analytics → Answer" },
-            { name: "Ksyusha — RAG agent", steps: "Question → Hybrid Search → Relevant Documents → Answer + Citations" },
-          ],
-          notes: [
-            "Oleg uses a ReAct Agent Loop, independently calling tools to work with the DB, calculations, analysis and chart building. SQL errors are passed back to the agent for self-correction.",
-            "The numbers are not generated by the LLM — trends, percentages, top-N and z-score anomalies are computed by a deterministic Python layer.",
-          ],
+            "Result: analytical result preparation reduced from 2 hours to 2 minutes; 161 automated tests implemented.",
           stack: {
             label: "Stack",
-            items: ["Python", "FastAPI", "SQLAlchemy", "Text-to-SQL", "ReAct", "Tool Calling", "RAG", "BM25", "fastembed", "PostgreSQL", "ClickHouse", "SSE", "React", "TypeScript", "pytest"],
+            items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
+          },
+        },
+        {
+          name: "RAG Chat",
+          tagline: "AI system for searching and working with information in PDF, Word and Excel.",
+          paragraphs: [
+            "The user asks a question in natural language and gets an answer with citations of the source documents.",
+            "**Key architecture:** hybrid BM25 + Vector Search → RRF → LLM, and for the AI Agent — its own Tool Loop on FastAPI.",
+          ],
+          result:
+            "Result: Recall@1 92% on a golden set of 24 questions and 5.0/5 for Faithfulness, Relevance and Citations in LLM-as-a-Judge.",
+          stack: {
+            label: "Stack",
+            items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
           },
         },
       ],
@@ -141,45 +100,42 @@ export const personal: PersonalProps = {
       principles: [
         {
           num: "01",
-          title: "Success metrics before code",
+          title: "Metrics before code",
           text: "First I define what «the system works» means and how to measure it:",
-          items: [
-            "quality · latency · cost · reliability",
-            "For RAG this can be Recall@K and MRR, for AI agents — tool execution correctness and error handling, for Text-to-SQL — query execution success rate and result accuracy.",
-          ],
+          items: ["quality · latency · cost · reliability"],
         },
         {
           num: "02",
           title: "Decisions driven by measurements",
-          text: "Architecture decisions are made through experiments, not by what approach is currently popular. For example, in RAG Chat the hybrid BM25 + RRF raised Recall@1 from 50% to 92%, while the tested cross-encoder reranker, on the contrary, dropped the result to 42% and added about 3 seconds of latency. So the reranker was rejected based on data.",
+          text: "Architecture decisions are made through experiments. In RAG Chat, hybrid BM25 + RRF raised Recall@1 from 50% to 92%, while the tested cross-encoder reranker dropped the result to 42% and added about 3 seconds of latency. So the decision was made based on data, not on the popularity of the approach.",
         },
         {
           num: "03",
           title: "LLM doesn't compute — code does",
-          text: "I do not pass to the LLM the tasks that deterministic code solves more reliably. In AI Data Pilot the sums, percentages, trends, top-N and z-score anomalies are calculated by the Python layer. The LLM receives ready results and is responsible for understanding the task and forming the explanation.",
+          text: "The LLM should not do the tasks that deterministic code solves more reliably. In AI Data Pilot the sums, percentages, trends, top-N and z-scores are computed by the Python layer.",
         },
         {
           num: "04",
           title: "Agents need observable execution",
-          text: "An AI agent must be not a «black box», but a manageable system: Tool Calling, Agent Loop / ReAct, execution trace, step limits, retry and self-correction. The user and the developer must understand what actions the agent performed and where the error occurred.",
+          text: "An agent must be a manageable system:",
+          items: ["Tool Calling · ReAct · execution trace · step limits · retry · self-correction"],
         },
         {
           num: "05",
           title: "Failures are part of the design",
-          text: "Errors must not be hidden: if SQL fails, the agent tries to fix the query; if the fix does not help — the system shows the error instead of a plausible result. For data protection I use restrictions like SELECT-only, row limits and query timeouts.",
+          text: "Errors are not hidden: SQL error → fix → re-execution → a clear error if the recovery failed.",
         },
         {
           num: "06",
           title: "Quality is reproducible",
-          text: "The evaluation runs repeatedly and gives a comparable result: Golden Sets → Automated Tests → Recall@K / MRR → LLM-as-a-Judge → Regression Testing. In RAG Chat the evaluation is built on 24 golden questions, in AI Data Pilot — a suite of 161 automated tests: agent loop, self-correction, SQL Guard, analytics, routers, data sources.",
+          text: "The result must be reproducible and comparable between versions:",
+          items: ["Golden Set → Tests → Measurement → Regression"],
         },
         {
           num: "07",
           title: "Production matters",
-          text: "An AI system must account for not only the answer quality, but also:",
-          items: [
-            "latency · cost · observability · limits · failure handling · maintainability",
-          ],
+          text: "An AI system must account for:",
+          items: ["latency · cost · observability · limits · failure handling · maintainability"],
         },
       ],
       cycle: {
@@ -188,53 +144,33 @@ export const personal: PersonalProps = {
           "Problem",
           "Hypothesis",
           "Implementation",
-          "Golden Set / Tests",
+          "Tests",
           "Measurement",
           "Decision",
           "Production",
           "Feedback",
         ],
-        closing:
-          "This cycle is the foundation of AI Engineering for me: my task is not just to make the LLM «answer something», but to build a system whose result can be trusted and whose quality can be verified.",
       },
     },
     engineering: {
       title: "End-to-End Engineering",
-      intro: "My strong side — the ability to independently cover the whole path from an idea to a working AI product.",
-      areas: [
-        { title: "Architecture", text: "Designing the AI architecture and component interactions." },
-        { title: "Backend", text: "Python, FastAPI, API, SSE, business logic." },
-        { title: "AI Layer", text: "LLM, RAG, agents, tool calling, Text-to-SQL, prompt engineering." },
-        { title: "Data", text: "PostgreSQL, ClickHouse, SQLAlchemy, vector search." },
-        { title: "Evaluation", text: "Golden sets, automated tests, retrieval evaluation, LLM-as-a-Judge." },
-        { title: "Frontend", text: "React, Next.js, TypeScript, Vite." },
-        { title: "Infrastructure", text: "Docker, Kubernetes, CI/CD, Git." },
-      ],
+      steps: ["Architecture", "Backend", "AI", "Data", "Evaluation", "Frontend", "Infrastructure"],
+      text: "I can independently cover the path from AI architecture and backend to frontend, evaluation and production.",
     },
     stack: {
       title: "Technology stack",
       groups: [
         { title: "Languages", items: ["Python", "TypeScript", "JavaScript"] },
-        { title: "LLM & AI Agents", items: ["LLM API", "AI Agents", "Tool Calling", "Agent Loop (ReAct)", "Text-to-SQL", "Prompt Engineering", "Multi-Agent Orchestration", "Context / Token Optimization"] },
-        { title: "RAG & Search", items: ["RAG", "Hybrid Search", "BM25", "Vector Search", "RRF", "Embeddings", "fastembed", "ChromaDB"] },
-        { title: "Evaluation & Quality", items: ["Golden Sets", "Recall@K", "MRR", "LLM-as-a-Judge", "Regression Testing", "Prompt Evaluation", "Edge Cases"] },
+        { title: "LLM & AI Agents", items: ["LLM API", "AI Agents", "ReAct", "Tool Calling", "Text-to-SQL", "Multi-Agent Orchestration", "Prompt Engineering", "Context / Token Optimization"] },
+        { title: "RAG & Search", items: ["RAG", "Hybrid Search", "BM25", "Vector Search", "RRF", "Embeddings", "fastembed", "ChromaDB", "Cross-Encoder Reranking"] },
+        { title: "Evaluation", items: ["Golden Sets", "Recall@K", "MRR", "LLM-as-a-Judge", "Regression Testing", "Prompt Evaluation", "Edge Cases", "Grounding"] },
         { title: "AI Data & Backend", items: ["FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "Redis", "SQL Guard", "SSE"] },
         { title: "Frontend", items: ["React", "Next.js", "Vite"] },
         { title: "Infrastructure", items: ["Docker", "Kubernetes", "CI/CD", "Git"] },
       ],
     },
-    principles: {
-      title: "Key principles",
-      items: [
-        "AI must solve the task, not just demonstrate the model's capabilities.",
-        "Quality must be measurable, not determined by a subjective feeling about the answer.",
-        "Deterministic logic must stay deterministic.",
-        "System errors must be transparent to the user.",
-        "Production-ready AI is not only the LLM, but architecture, data, evaluation, observability and engineering discipline.",
-      ],
-    },
     growth: {
-      title: "Where I am heading",
+      title: "Where I'm heading",
       chips: ["Agentic AI", "Production LLM Systems", "AI Engineering"],
       text: "The focus is on building reliable AI systems capable of independently working with data, documents, tools and external systems, while maintaining control, measurability and predictability of the result.",
     },

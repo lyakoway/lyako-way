@@ -157,15 +157,13 @@ export interface PersonalCreateCardProps {
   footnote?: string;
 }
 
-// Продукт на странице /profile.
+// Продукт на странице /profile: краткая карточка — что делает, как устроен,
+// главный результат и стек.
 export interface PersonalProductProps {
   name: string;
   tagline: string;
-  modes?: string[];
-  paragraphs?: string[];
-  flows?: { name: string; steps: string }[];
-  notes?: string[];
-  result?: string;
+  paragraphs: string[];
+  result: string;
   stack: { label: string; items: string[] };
 }
 
@@ -176,18 +174,11 @@ export interface PersonalPrincipleProps {
   text: string;
 }
 
-// Область End-to-End Engineering.
-export interface PersonalAreaProps {
-  title: string;
-  text: string;
-}
-
 // Страница /profile: секции и контент.
 export interface PersonalProfilePageProps {
   hero: { role: string; tagline: string };
   stats: PersonalStatProps[];
   about: { title: string; items: string[] };
-  profile: { title: string; paragraphs: string[] };
   create: { title: string; cards: PersonalCreateCardProps[] };
   products: { title: string; items: PersonalProductProps[] };
   approach: {
@@ -199,15 +190,12 @@ export interface PersonalProfilePageProps {
       text: string;
       items?: string[];
     }[];
-    cycle: { title: string; steps: string[]; closing: string };
+    // Инженерный цикл в конце раздела — цепочка шагов без пояснительного текста.
+    cycle: { title: string; steps: string[] };
   };
-  engineering: {
-    title: string;
-    intro: string;
-    areas: PersonalAreaProps[];
-  };
+  // End-to-End Engineering — одна строка-пайплайн и одно предложение.
+  engineering: { title: string; steps: string[]; text: string };
   stack: { title: string; groups: PersonalGroupProps[] };
-  principles: { title: string; items: string[] };
   growth: { title: string; chips: string[]; text: string };
 }
 
