@@ -220,6 +220,23 @@ export const TimelineItem = styled.li`
     box-shadow: 0 0 0 4px var(--panel-bg);
     z-index: 1;
   }
+
+  /* До 580px: круг мельче (10px), ветка от круга до блока вдвое короче. */
+  @media (max-width: 579px) {
+    padding-left: 22px;
+
+    &::before {
+      left: 12px;
+      width: 10px;
+    }
+
+    &::after {
+      top: 24px;
+      left: 2px;
+      width: 10px;
+      height: 10px;
+    }
+  }
 `;
 
 /* Универсальная карточка (опыт + образование). */
@@ -513,6 +530,23 @@ export const Branch = styled.div`
     box-shadow: 0 0 0 4px
       var(--panel-bg);
     z-index: 1;
+  }
+
+  /* До 580px: круг мельче (10px), ветка от круга до блока вдвое короче. */
+  @media (max-width: 579px) {
+    padding-left: 22px;
+
+    &::before {
+      left: 12px;
+      width: 10px;
+    }
+
+    &::after {
+      top: 24px;
+      left: 2px;
+      width: 10px;
+      height: 10px;
+    }
   }
 `;
 
