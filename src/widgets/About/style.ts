@@ -387,6 +387,23 @@ export const SectionBlock = styled.section`
       box-shadow: 0 0 0 4px var(--panel-bg);
       z-index: 1;
     }
+
+    /* До 580px: круг мельче (10px), ветка от круга до блока вдвое короче. */
+    @media (max-width: 579px) {
+      padding-left: 22px;
+
+      &::before {
+        left: 12px;
+        width: 10px;
+      }
+
+      &::after {
+        top: 17px;
+        left: 2px;
+        width: 10px;
+        height: 10px;
+      }
+    }
   }
 
   .tree-lane + .tree-lane {
@@ -626,6 +643,23 @@ export const ApproachLane = styled.div`
     box-shadow: 0 0 0 4px var(--panel-bg);
     z-index: 1;
   }
+
+  /* До 580px: круг мельче (10px), ветка от круга до блока вдвое короче. */
+  @media (max-width: 579px) {
+    padding-left: 22px;
+
+    &::before {
+      left: 12px;
+      width: 10px;
+    }
+
+    &::after {
+      top: 17px;
+      left: 2px;
+      width: 10px;
+      height: 10px;
+    }
+  }
 `;
 
 // Карточка принципа: заголовок-штрих + текст + чипы.
@@ -730,6 +764,11 @@ export const ApproachFlow = styled.div`
     border-right: 2px solid ${PANEL_TEXT};
     border-bottom: 2px solid ${PANEL_TEXT};
     transform: rotate(45deg);
+  }
+
+  /* На узких экранах колонка карточек начинается ближе к стволу. */
+  @media (max-width: 579px) {
+    margin-left: 22px;
   }
 `;
 
