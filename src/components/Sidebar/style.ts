@@ -18,6 +18,12 @@ export const SidebarWrapper = styled.aside`
   border: 1px solid ${PANEL_BORDER};
   ${({ theme }) => theme.shadow.NonClickable};
 
+  /* Ниже 580px панель во всю ширину экрана — без боковых границ. */
+  @media (max-width: 579px) {
+    border-left: none;
+    border-right: none;
+  }
+
   @media (min-width: 580px) {
     padding: 30px;
   }

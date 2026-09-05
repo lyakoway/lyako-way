@@ -7,8 +7,9 @@ import styled from "styled-components";
 export const LayoutMain = styled.div`
   min-width: 259px;
   /* ≤767px — зазор от верхней навигации 18px (панель ~60px + 18);
-     ≥768px — 26px (панель с подписями ~75px + 26). */
-  margin: 78px 12px 40px;
+     ≥768px — 26px (панель с подписями ~75px + 26).
+     Ниже 580px контент тянется от края до края — без боковых отступов. */
+  margin: 78px 0 40px;
 
   @media (min-width: 580px) {
     max-width: 520px;
