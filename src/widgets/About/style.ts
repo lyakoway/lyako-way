@@ -509,6 +509,7 @@ export const SectionNote = styled.p`
 // на принцип, между карточками — коннекторы потока.
 export const ApproachDiagram = styled.div`
   position: relative;
+  margin-top: 14px;
 
   /* ствол дерева */
   &::before {
