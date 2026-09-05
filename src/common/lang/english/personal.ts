@@ -31,7 +31,7 @@ export const personal: PersonalProps = {
     about: {
       title: "About me",
       items: [
-        "**AI engineer** with 7+ years of commercial software development experience and a strong software engineering foundation. Main focus — LLM applications, RAG systems, AI agents and workflow automation with AI.",
+        "**AI engineer** with 7+ years of commercial software development experience and a strong software engineering foundation. Building AI products at **MTC Web Services (MWS AI)** — the AI division of the MTS ecosystem, one of Russia's largest telecom operators (B2C products). Main focus — LLM applications, RAG systems, AI agents and workflow automation with AI.",
         "**Building full-cycle AI products** — from problem research and AI architecture design to development, quality evaluation, integration and production delivery.",
         "**Working with real LLM use cases:** corporate knowledge search, natural-language data analysis, Text-to-SQL, multi-step AI agents and automation of repetitive processes.",
         "**Combining AI and classic engineering:** implementing backend and frontend on my own, integrating LLMs and external services, working with databases, APIs and infrastructure.",
@@ -64,6 +64,7 @@ export const personal: PersonalProps = {
       items: [
         {
           name: "AI Data Pilot",
+          href: "ai-data-pilot",
           tagline: "Multi-agent platform for analyzing data and corporate documents.",
           paragraphs: [
             "**Oleg — data agent:** Natural Language → Text-to-SQL → Tool Calling → Analytics → Answer.",
@@ -79,6 +80,7 @@ export const personal: PersonalProps = {
         },
         {
           name: "RAG Chat",
+          href: "rag-chat",
           tagline: "AI system for searching and working with information in PDF, Word and Excel.",
           paragraphs: [
             "The user asks a question in natural language and gets an answer with citations of the source documents.",
@@ -171,7 +173,7 @@ export const personal: PersonalProps = {
     },
     growth: {
       title: "Where I'm heading",
-      chips: ["Agentic AI", "Production LLM Systems", "AI Engineering"],
+      chips: ["Agentic AI", "Production LLM Systems", "LLM Observability"],
       text: "The focus is on building reliable AI systems capable of independently working with data, documents, tools and external systems, while maintaining control, measurability and predictability of the result.",
     },
   },

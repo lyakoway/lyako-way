@@ -115,7 +115,14 @@ const About = () => {
         <StackLabel>{page.products.title}</StackLabel>
         {page.products.items.map((product) => (
           <ProductCard key={product.name}>
-            <ProductTitle>{product.name}</ProductTitle>
+            <ProductTitle>
+              {/* Slug портфолио → заголовок ведёт на страницу проекта. */}
+              {product.href ? (
+                <a href={`/portfolio/${product.href}`}>{product.name}</a>
+              ) : (
+                product.name
+              )}
+            </ProductTitle>
             <AboutText>{product.tagline}</AboutText>
             {product.paragraphs.map((p, i) => (
               <AboutText key={i}>

@@ -161,6 +161,9 @@ export interface PersonalCreateCardProps {
 // главный результат и стек.
 export interface PersonalProductProps {
   name: string;
+  // Slug страницы портфолио: заголовок карточки становится ссылкой
+  // на /portfolio/<href>.
+  href?: string;
   tagline: string;
   paragraphs: string[];
   result: string;

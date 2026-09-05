@@ -245,8 +245,80 @@ export const StatLabel = styled.div`
 `;
 
 // Секция страницы — заголовок + контент.
+// Часть вложенных блоков рендерится классами (карточки «Что я создаю»,
+// строка «Стек» продукта, группы технологического стека) — стили для них
+// живут здесь же.
 export const SectionBlock = styled.section`
   margin-top: 34px;
+
+  /* Карточка «Что я создаю» — в языке карточек продуктов. */
+  .create-card {
+    ${gradientBorder};
+    padding: 18px;
+
+    & + .create-card {
+      margin-top: 14px;
+    }
+
+    @media (min-width: 580px) {
+      padding: 22px;
+    }
+  }
+
+  .create-card-title {
+    position: relative;
+    margin: 0 0 10px;
+    padding-left: 14px;
+    color: ${PANEL_TEXT};
+    font-size: 16px;
+    font-weight: 600;
+
+    /* акцентная метка (штрих) слева — как в карточках продуктов */
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 3px;
+      bottom: 3px;
+      width: 4px;
+      border-radius: 2px;
+      background: ${({ theme }) => theme.color.basic.primary};
+    }
+  }
+
+  /* Строка «Стек: …» в карточке продукта. */
+  .product-stack {
+    margin: 12px 0 0;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .stack-label {
+    color: ${PANEL_TEXT_MUTED};
+  }
+
+  .stack-items {
+    color: ${PANEL_TEXT_SECONDARY};
+  }
+
+  /* Группы технологического стека: подпись + чипы. */
+  .stack-section-row {
+    margin-top: 16px;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+  }
+
+  .stack-section-label {
+    display: block;
+    margin: 0 0 8px;
+    color: ${PANEL_TEXT_MUTED};
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
 `;
 
 export const StackGroupTitle = styled.h4`
@@ -318,6 +390,23 @@ export const ProductTitle = styled.h4`
     width: 4px;
     border-radius: 2px;
     background: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  /* Ссылка на страницу портфолио: цвет заголовка, стрелка-индикатор
+     и подсветка при наведении. */
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+      content: " ↗";
+      color: ${({ theme }) => theme.color.basic.primary};
+      font-size: 14px;
+    }
+
+    &:hover {
+      color: ${({ theme }) => theme.color.basic.primary};
+    }
   }
 `;
 
