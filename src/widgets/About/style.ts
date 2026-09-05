@@ -333,12 +333,78 @@ export const SectionBlock = styled.section`
     color: ${PANEL_TEXT_SECONDARY};
   }
 
-  /* Группы технологического стека: подпись + чипы. */
-  .stack-section-row {
-    margin-top: 16px;
+  /* Дерево слева для карточек секций (Что я создаю, AI-продукты, Стек):
+     ствол с оранжевыми узлами + карточки-дорожки, как у принципов. */
+  .tree {
+    position: relative;
+    margin-top: 14px;
 
-    &:first-of-type {
-      margin-top: 0;
+    /* ствол дерева */
+    &::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 12px;
+      bottom: 12px;
+      width: 2px;
+      background: ${PANEL_BORDER};
+    }
+  }
+
+  .tree-lane {
+    position: relative;
+    padding-left: 34px;
+
+    /* горизонтальная ветка от ствола к карточке */
+    &::before {
+      content: "";
+      position: absolute;
+      top: 22px;
+      left: 13px;
+      width: 21px;
+      height: 2px;
+      background: ${PANEL_BORDER};
+    }
+
+    /* оранжевый узел на стволе; кольцо цвета фона отбивает его от линий */
+    &::after {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 1px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.color.basic.primary};
+      box-shadow: 0 0 0 4px var(--panel-bg);
+      z-index: 1;
+    }
+  }
+
+  .tree-lane + .tree-lane {
+    margin-top: 12px;
+  }
+
+  /* Карточка внутри дорожки — без собственных вертикальных отступов:
+     интервалы задаёт дерево. */
+  .tree-lane > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* Группа стека: карточка с подписью + чипы. */
+  .stack-section-row {
+    background: ${PANEL_ELEVATED};
+    border: 1px solid ${PANEL_BORDER};
+    border-radius: 12px;
+    padding: 14px 16px;
+    transition:
+      border-color 0.25s ease,
+      background 0.25s ease;
+
+    &:hover {
+      background: ${PANEL_ELEVATED_HOVER};
+      border-color: rgba(255, 255, 255, 0.22);
     }
   }
 
@@ -346,23 +412,22 @@ export const SectionBlock = styled.section`
     position: relative;
     display: block;
     margin: 0 0 8px;
-    padding-left: 14px;
+    padding-left: 11px;
     color: ${PANEL_TEXT_MUTED};
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
 
-    /* акцентная точка слева — как маркеры списков выше */
+    /* акцентный штрих слева — как заголовки карточек принципов */
     &::before {
       content: "";
       position: absolute;
       left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
+      top: 1px;
+      bottom: 1px;
+      width: 3px;
+      border-radius: 2px;
       background: ${({ theme }) => theme.color.basic.primary};
     }
   }

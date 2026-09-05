@@ -225,55 +225,65 @@ const About = () => {
         </AboutBullets>
       </Reveal>
 
-      {/* Что я создаю — карточки */}
+      {/* Что я создаю — карточки на дереве */}
       <Reveal as={SectionBlock} delay={120}>
         <SectionHead icon={SECTION_ICONS.create} title={page.create.title} />
-        {page.create.cards.map((card) => (
-          <div key={card.title} className="create-card">
-            <div className="create-card-title">{card.title}</div>
-            <AboutText>{card.text}</AboutText>
-            {card.pipeline && card.pipeline.length > 0 && (
-              <PipelineFlow>
-                {card.pipeline.map((step, i) => (
-                  <React.Fragment key={step}>
-                    <PipelineStep>{step}</PipelineStep>
-                    {i < card.pipeline.length - 1 && (
-                      <span className="arrow">→</span>
-                    )}
-                  </React.Fragment>
-                ))}
-              </PipelineFlow>
-            )}
-          </div>
-        ))}
+        <div className="tree">
+          {page.create.cards.map((card) => (
+            <div className="tree-lane" key={card.title}>
+              <div className="create-card">
+                <div className="create-card-title">{card.title}</div>
+                <AboutText>{card.text}</AboutText>
+                {card.pipeline && card.pipeline.length > 0 && (
+                  <PipelineFlow>
+                    {card.pipeline.map((step, i) => (
+                      <React.Fragment key={step}>
+                        <PipelineStep>{step}</PipelineStep>
+                        {i < card.pipeline.length - 1 && (
+                          <span className="arrow">→</span>
+                        )}
+                      </React.Fragment>
+                    ))}
+                  </PipelineFlow>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
       </Reveal>
 
-      {/* AI-продукты, которые я разработал */}
+      {/* AI-продукты, которые я разработал — карточки на дереве */}
       <Reveal as={SectionBlock} delay={150}>
         <SectionHead icon={SECTION_ICONS.products} title={page.products.title} />
-        {page.products.items.map((product) => (
-          <ProductCard key={product.name}>
-            <ProductTitle>
-              {/* Slug портфолио → заголовок ведёт на страницу проекта. */}
-              {product.href ? (
-                <a href={`/portfolio/${product.href}`}>{product.name}</a>
-              ) : (
-                product.name
-              )}
-            </ProductTitle>
-            <AboutText>{product.tagline}</AboutText>
-            {product.paragraphs.map((p, i) => (
-              <AboutText key={i}>
-                <span dangerouslySetInnerHTML={{ __html: withBold(p) }} />
-              </AboutText>
-            ))}
-            <SectionNote>{product.result}</SectionNote>
-            <div className="product-stack">
-              <span className="stack-label">{product.stack.label}:</span>{" "}
-              <span className="stack-items">{product.stack.items.join(" · ")}</span>
+        <div className="tree">
+          {page.products.items.map((product) => (
+            <div className="tree-lane" key={product.name}>
+              <ProductCard>
+                <ProductTitle>
+                  {/* Slug портфолио → заголовок ведёт на страницу проекта. */}
+                  {product.href ? (
+                    <a href={`/portfolio/${product.href}`}>{product.name}</a>
+                  ) : (
+                    product.name
+                  )}
+                </ProductTitle>
+                <AboutText>{product.tagline}</AboutText>
+                {product.paragraphs.map((p, i) => (
+                  <AboutText key={i}>
+                    <span dangerouslySetInnerHTML={{ __html: withBold(p) }} />
+                  </AboutText>
+                ))}
+                <SectionNote>{product.result}</SectionNote>
+                <div className="product-stack">
+                  <span className="stack-label">{product.stack.label}:</span>{" "}
+                  <span className="stack-items">
+                    {product.stack.items.join(" · ")}
+                  </span>
+                </div>
+              </ProductCard>
             </div>
-          </ProductCard>
-        ))}
+          ))}
+        </div>
       </Reveal>
 
       {/* Мой подход к AI Engineering — принципы дорожками, как
@@ -288,9 +298,7 @@ const About = () => {
               {i > 0 && <ApproachFlow aria-hidden>↓</ApproachFlow>}
               <ApproachLane>
                 <ApproachCard>
-                  <ApproachCardTitle>
-                    {principle.num} · {principle.title}
-                  </ApproachCardTitle>
+                  <ApproachCardTitle>{principle.title}</ApproachCardTitle>
                   {principle.text && (
                     <ApproachCardText>{principle.text}</ApproachCardText>
                   )}
@@ -355,16 +363,21 @@ const About = () => {
       {/* Технологический стек */}
       <Reveal as={SectionBlock} delay={240}>
         <SectionHead icon={SECTION_ICONS.stack} title={page.stack.title} />
-        {page.stack.groups.map((group) => (
-          <div key={group.title} className="stack-section-row">
-            <span className="stack-section-label">{group.title}</span>
-            <StackList>
-              {group.items.map((item) => (
-                <StackChip key={item}>{item}</StackChip>
-              ))}
-            </StackList>
-          </div>
-        ))}
+        {/* Группы — дорожками с деревом слева, как карточки выше */}
+        <div className="tree">
+          {page.stack.groups.map((group) => (
+            <div className="tree-lane" key={group.title}>
+              <div className="stack-section-row">
+                <span className="stack-section-label">{group.title}</span>
+                <StackList>
+                  {group.items.map((item) => (
+                    <StackChip key={item}>{item}</StackChip>
+                  ))}
+                </StackList>
+              </div>
+            </div>
+          ))}
+        </div>
       </Reveal>
 
       {/* Сейчас я развиваюсь в сторону */}
