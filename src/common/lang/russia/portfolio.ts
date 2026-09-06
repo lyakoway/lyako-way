@@ -419,18 +419,18 @@ export const propsPortfolioList: PortfolioListProps[] = [
     likeable: true,
     direction: "AI-агенты",
     cardDescription:
-      "Multi-agent аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
-    cardMetrics: ["2h → 2min", "161 automated tests"],
+      "Мультиагентная аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
+    cardMetrics: ["2ч → 2мин", "161 автотест"],
     tagline:
-      "Production-oriented мультиагентная аналитическая система для анализа данных на естественном языке.",
+      "Мультиагентная аналитическая система для анализа данных на естественном языке — production-качество, проверено автотестами.",
     metricsLine:
-      "161 tests · 2h → 2min · 2 agents · self-correction",
+      "161 автотест · 2ч → 2мин · 2 агента · самокоррекция SQL",
     keyResultsTitle: "Текущая валидация",
     keyResults: [
       { value: "161", label: "автотестов" },
       { value: "2", label: "специализированных агента" },
       { value: "2", label: "уровня роутинга" },
-      { value: "2", label: "СУБД под управлением" },
+      { value: "4", label: "типа источников данных" },
     ],
     keyResultsNote: "Agent Loop · SQL Guard · Analytics · Routing · RAG · Data Sources",
     keyResultsLimitation:

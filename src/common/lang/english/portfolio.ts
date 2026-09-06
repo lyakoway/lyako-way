@@ -423,7 +423,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "161", label: "automated tests" },
       { value: "2", label: "specialized agents" },
       { value: "2", label: "levels of routing" },
-      { value: "2", label: "databases managed" },
+      { value: "4", label: "data source types" },
     ],
     keyResultsNote: "Agent Loop · SQL Guard · Analytics · Routing · RAG · Data Sources",
     keyResultsLimitation: "No golden-set evaluation for SQL generation yet.",
