@@ -102,10 +102,6 @@ export const ServiceCard = styled.section`
     border-color: rgba(255, 255, 255, 0.22);
   }
 
-  & + & {
-    margin-top: 14px;
-  }
-
   @media (min-width: 580px) {
     padding: 22px;
   }
@@ -259,6 +255,81 @@ export const CardTechNote = styled.p`
   letter-spacing: 0.3px;
 `;
 
+/* ——— Дерево слева: ствол с оранжевыми узлами + карточки-дорожки ——— */
+
+export const Tree = styled.div`
+  position: relative;
+  margin-top: 14px;
+
+  /* ствол дерева */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 12px;
+    bottom: 12px;
+    width: 2px;
+    background: ${PANEL_BORDER};
+  }
+`;
+
+export const TreeLane = styled.div`
+  position: relative;
+  padding-left: 34px;
+
+  /* горизонтальная ветка от ствола к карточке */
+  &::before {
+    content: "";
+    position: absolute;
+    top: 22px;
+    left: 13px;
+    width: 21px;
+    height: 2px;
+    background: ${PANEL_BORDER};
+  }
+
+  /* оранжевый узел на стволе; кольцо цвета фона отбивает его от линий */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 1px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+    box-shadow: 0 0 0 4px var(--panel-bg);
+    z-index: 1;
+  }
+
+  & + & {
+    margin-top: 12px;
+  }
+
+  /* Карточка внутри дорожки — без собственных вертикальных отступов. */
+  > * {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* До 580px: круг мельче (10px), ветка от круга до блока вдвое короче. */
+  @media (max-width: 579px) {
+    padding-left: 22px;
+
+    &::before {
+      left: 12px;
+      width: 10px;
+    }
+
+    &::after {
+      top: 17px;
+      left: 2px;
+      width: 10px;
+      height: 10px;
+    }
+  }
+`;
+
 /* ——— Как я работаю: шаги + цепочка цикла ——— */
 
 export const ProcessSection = styled.section`
@@ -279,10 +350,6 @@ export const StepCard = styled.div`
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
     border-color: rgba(255, 255, 255, 0.22);
-  }
-
-  & + & {
-    margin-top: 12px;
   }
 `;
 
@@ -449,22 +516,30 @@ export const CtaText = styled.p`
   line-height: 1.6;
 `;
 
-// Строка «Демо: RAG Chat · AI Data Pilot» — ссылки на кейсы.
+// Строка «Демо: RAG Chat · AI Data Pilot» — ссылки-кейсы: белые, жирные,
+// со стрелкой ↗ (как заголовки продуктов на /profile), оранжевые при наведении.
 export const CtaCases = styled.p`
   margin: 0;
+  color: ${PANEL_TEXT_MUTED};
   font-size: 14px;
-  font-weight: 300;
 
   .label {
     color: ${PANEL_TEXT_MUTED};
   }
 
   a {
-    color: ${({ theme }) => theme.color.basic.primary};
+    color: ${PANEL_TEXT};
+    font-weight: 600;
     text-decoration: none;
+    transition: color 0.25s ease;
+
+    &::after {
+      content: " ↗";
+      color: inherit;
+    }
 
     &:hover {
-      text-decoration: underline;
+      color: ${({ theme }) => theme.color.basic.primary};
     }
   }
 `;
@@ -474,18 +549,18 @@ export const CtaLink = styled.a`
   align-items: center;
   gap: 8px;
   margin-top: 4px;
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
   font-size: 15px;
   font-weight: 600;
   text-decoration: none;
-  transition: opacity 0.25s ease;
+  transition: color 0.25s ease;
 
   .arrow {
     transition: transform 0.25s ease;
   }
 
   &:hover {
-    opacity: 0.85;
+    color: ${({ theme }) => theme.color.basic.primary};
 
     .arrow {
       transform: translateX(4px);

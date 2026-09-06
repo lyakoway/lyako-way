@@ -10,7 +10,7 @@ export const service: ServiceProps = {
   },
   services: [
     {
-      num: "01",
+      num: "1",
       title: "AI Agents & Automation",
       text: "I build AI agents that don't just generate text but independently execute sequences of actions through tools.",
       listTitle: "What I deliver",
@@ -27,7 +27,7 @@ export const service: ServiceProps = {
         "Proven in production: in AI Data Pilot the agent loop is covered by 161 automated tests — agent loop, self-correction, SQL Guard, analytics, routers, data sources. Fits analytics automation, document processing, internal workflows and repetitive operations.",
     },
     {
-      num: "02",
+      num: "2",
       title: "RAG & Enterprise Knowledge",
       text: "I build AI systems for corporate knowledge and documents, where answers are grounded in retrieved sources rather than model assumptions.",
       listTitle: "What I deliver",
@@ -45,7 +45,7 @@ export const service: ServiceProps = {
         "I don't stop at plugging in a vector database — I measure retrieval quality and choose the architecture based on experiments.",
     },
     {
-      num: "03",
+      num: "3",
       title: "AI Data & Text-to-SQL",
       text: "I build AI interfaces for working with corporate data in natural language.",
       pipeline: ["Natural Language", "SQL", "Database", "Analytics", "Answer"],
@@ -65,7 +65,7 @@ export const service: ServiceProps = {
       techNote: "PostgreSQL · ClickHouse · SQLAlchemy · Excel / CSV",
     },
     {
-      num: "04",
+      num: "4",
       title: "Evaluation & AI Quality",
       text: "I help turn an AI prototype into a system with measurable, reproducible quality.",
       listTitle: "What I deliver",
@@ -84,7 +84,7 @@ export const service: ServiceProps = {
         "In RAG Chat, for example, retrieval quality is measured on 24 golden questions: Recall@1 reached 92%, and answer quality scored 5.0/5 in LLM-as-a-Judge.",
     },
     {
-      num: "05",
+      num: "5",
       title: "AI Integration & Production",
       text: "I integrate AI capabilities into existing products and internal systems.",
       rows: [
@@ -113,7 +113,7 @@ export const service: ServiceProps = {
         "I can cover the full cycle — from AI architecture and backend to frontend, evaluation and production delivery.",
     },
     {
-      num: "06",
+      num: "6",
       title: "Optimization & Reliability",
       text: "I improve existing AI systems when a prototype works but its quality, speed or cost need optimization.",
       listTitle: "Focus",
@@ -136,32 +136,32 @@ export const service: ServiceProps = {
     title: "How I work",
     steps: [
       {
-        num: "01",
+        num: "1",
         title: "Problem",
         text: "I define the business problem, constraints, data and success criteria.",
       },
       {
-        num: "02",
+        num: "2",
         title: "Architecture",
         text: "I choose the approach: RAG, Agent, Text-to-SQL, Tool Calling or a combination of components.",
       },
       {
-        num: "03",
+        num: "3",
         title: "Build",
         text: "I develop the AI logic, backend, integrations and the interface.",
       },
       {
-        num: "04",
+        num: "4",
         title: "Measure",
         text: "I create an evaluation set and verify quality through metrics and automated tests.",
       },
       {
-        num: "05",
+        num: "5",
         title: "Optimize",
         text: "I work on quality, latency, cost and reliability.",
       },
       {
-        num: "06",
+        num: "6",
         title: "Production",
         text: "I add validation, error handling, observability and CI/CD.",
       },

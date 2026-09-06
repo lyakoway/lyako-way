@@ -24,6 +24,8 @@ import {
   TechRowValue,
   CardFootnote,
   CardTechNote,
+  Tree,
+  TreeLane,
   ProcessSection,
   StepCard,
   StepTitle,
@@ -138,74 +140,84 @@ const Services = () => {
         <HeroSubtitle>{service.hero.subtitle}</HeroSubtitle>
       </Reveal>
 
-      {/* Услуги 01–06: у каждой свой состав (список / пайплайн / стек) */}
-      {service.services.map((item, i) => (
-        <Reveal key={item.num} delay={90 + i * 60}>
-          <ServiceCard>
-            <ServiceCardTitle>
-              <span className="num">{item.num}</span> — {item.title}
-            </ServiceCardTitle>
-            <ServiceCardText>{item.text}</ServiceCardText>
+      {/* Услуги 01–06 на дереве: дерево стоит на месте, карточки
+          выезжают справа; у каждой услуги свой состав (список / пайплайн /
+          стек) */}
+      <Tree>
+        {service.services.map((item, i) => (
+          <TreeLane key={item.num}>
+            <Reveal x={64} y={0} delay={i * 90}>
+              <ServiceCard>
+                <ServiceCardTitle>
+                  <span className="num">{item.num}</span> — {item.title}
+                </ServiceCardTitle>
+                <ServiceCardText>{item.text}</ServiceCardText>
 
-            {item.pipeline && item.pipeline.length > 0 && (
-              <Flow steps={item.pipeline} as={PipelineFlow} />
-            )}
+                {item.pipeline && item.pipeline.length > 0 && (
+                  <Flow steps={item.pipeline} as={PipelineFlow} />
+                )}
 
-            {item.listTitle && item.list && item.list.length > 0 && (
-              <>
-                <CardListLabel>{item.listTitle}</CardListLabel>
-                <CardList>
-                  {item.list.map((entry) => (
-                    <li key={entry}>{entry}</li>
-                  ))}
-                </CardList>
-              </>
-            )}
+                {item.listTitle && item.list && item.list.length > 0 && (
+                  <>
+                    <CardListLabel>{item.listTitle}</CardListLabel>
+                    <CardList>
+                      {item.list.map((entry) => (
+                        <li key={entry}>{entry}</li>
+                      ))}
+                    </CardList>
+                  </>
+                )}
 
-            {item.extraListTitle && item.extraList && item.extraList.length > 0 && (
-              <>
-                <CardListLabel>{item.extraListTitle}</CardListLabel>
-                <CardList>
-                  {item.extraList.map((entry) => (
-                    <li key={entry}>{entry}</li>
-                  ))}
-                </CardList>
-              </>
-            )}
+                {item.extraListTitle && item.extraList && item.extraList.length > 0 && (
+                  <>
+                    <CardListLabel>{item.extraListTitle}</CardListLabel>
+                    <CardList>
+                      {item.extraList.map((entry) => (
+                        <li key={entry}>{entry}</li>
+                      ))}
+                    </CardList>
+                  </>
+                )}
 
-            {item.rows && item.rows.length > 0 && (
-              <div>
-                {item.rows.map((row) => (
-                  <TechRow key={row.label}>
-                    <TechRowLabel>{row.label}</TechRowLabel>
-                    <TechRowValue>{row.value}</TechRowValue>
-                  </TechRow>
-                ))}
-              </div>
-            )}
+                {item.rows && item.rows.length > 0 && (
+                  <div>
+                    {item.rows.map((row) => (
+                      <TechRow key={row.label}>
+                        <TechRowLabel>{row.label}</TechRowLabel>
+                        <TechRowValue>{row.value}</TechRowValue>
+                      </TechRow>
+                    ))}
+                  </div>
+                )}
 
-            {item.footnote && <CardFootnote>{item.footnote}</CardFootnote>}
-            {item.footnote2 && <CardFootnote>{item.footnote2}</CardFootnote>}
-            {item.techNote && <CardTechNote>{item.techNote}</CardTechNote>}
-          </ServiceCard>
-        </Reveal>
-      ))}
+                {item.footnote && <CardFootnote>{item.footnote}</CardFootnote>}
+                {item.footnote2 && <CardFootnote>{item.footnote2}</CardFootnote>}
+                {item.techNote && <CardTechNote>{item.techNote}</CardTechNote>}
+              </ServiceCard>
+            </Reveal>
+          </TreeLane>
+        ))}
+      </Tree>
 
-      {/* Как я работаю: шаги + итоговая цепочка цикла */}
+      {/* Как я работаю: шаги на дереве + итоговая цепочка цикла */}
       <ProcessSection>
         <Reveal>
           <Head icon={ICON_PROCESS} title={service.process.title} />
         </Reveal>
-        {service.process.steps.map((step, i) => (
-          <Reveal key={step.num} delay={i * 60}>
-            <StepCard>
-              <StepTitle>
-                <span className="num">{step.num}</span> — {step.title}
-              </StepTitle>
-              <StepText>{step.text}</StepText>
-            </StepCard>
-          </Reveal>
-        ))}
+        <Tree>
+          {service.process.steps.map((step, i) => (
+            <TreeLane key={step.num}>
+              <Reveal x={64} y={0} delay={i * 90}>
+                <StepCard>
+                  <StepTitle>
+                    <span className="num">{step.num}</span> — {step.title}
+                  </StepTitle>
+                  <StepText>{step.text}</StepText>
+                </StepCard>
+              </Reveal>
+            </TreeLane>
+          ))}
+        </Tree>
         <Reveal delay={120}>
           <Flow steps={service.process.cycle} as={CycleFlow} />
         </Reveal>
