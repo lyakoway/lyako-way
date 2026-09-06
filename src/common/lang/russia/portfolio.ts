@@ -114,14 +114,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
       "Чат по документам с тремя режимами рядом: классический RAG Chat, AI Агент и Векторный поиск — разница видна на одном и том же вопросе.\nРежим RAG: один поиск → ответ с цитатами.;Режим агента: свой цикл tools на FastAPI (список документов → поиск → уточнение) с лентой шагов в UI — без LangGraph.;Режим векторного поиска: семантический поиск fastembed по фрагментам без LLM — оценка релевантности и переход в документ с нужной страницы.\nЗагружаете PDF, Word или Excel и задаёте вопросы.;Ответы со ссылками на страницы-источники, кнопками 👍/👎 и follow-up подсказками в один клик.;Встроенный предпросмотр PDF, DOCX и Excel, скачивание из панели документов.;Мультиязычность: демо-пак RU/EN, файлы на любом языке — вопрос на своём, ответ на понятном.;Вопрос можно надиктовать голосом (Web Speech API) — в чате и в векторном поиске.;Демо-режим работает без ключей. Подключены GLM-5.x (Z.ai), OpenAI, Anthropic и локальный Ollama.;Заголовки чатов формулирует LLM (фоновой задачей, без задержки ответа).\nBackend — FastAPI, ChromaDB, fastembed, гибридный поиск, evaluation (Recall@1 92%) и LLM-as-judge (качество ответов 5.0/5).;Frontend — React 19 / TypeScript (Vite). Тесты и CI. Живое демо на Hugging Face Spaces.",
-    features: [
-      "Гибридный поиск: BM25 + вектора, RRF",
-      "Ответы с цитатами на страницы-источники",
-      "Собственный Agent Loop на FastAPI",
-      "Мультиязычный retrieval (RU / EN)",
-      "Retrieval evaluation: 24 golden-вопроса, Recall@K",
-      "LLM-as-a-Judge: качество ответов 5.0/5",
-    ],
     aiEngineering: {
       sectionTitle: "Инженерный подход",
       intro:

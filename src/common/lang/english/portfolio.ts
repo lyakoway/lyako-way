@@ -113,14 +113,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
       "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and vector search.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 92%) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
-    features: [
-      "Hybrid Retrieval: BM25 + vectors, RRF",
-      "Answers with citations to source pages",
-      "Custom Agent Loop on FastAPI",
-      "Multilingual retrieval (RU / EN)",
-      "Retrieval Evaluation: 24 golden questions, Recall@K",
-      "LLM-as-a-Judge: answer quality 5.0/5",
-    ],
     aiEngineering: {
       sectionTitle: "Engineering approach",
       intro:
