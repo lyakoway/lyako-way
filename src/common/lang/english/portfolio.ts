@@ -414,6 +414,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
     cardDescription:
       "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
     cardMetrics: ["2h → 2min", "161 automated tests"],
+    tagline:
+      "Production-oriented multi-agent platform: natural-language questions → SQL, data analysis and a verifiable result.",
+    metricsLine:
+      "161 automated tests · 2h → 2min · SQL Guard · Self-correction · Multi-source",
+    keyResultsTitle: "Key results",
+    keyResults: [
+      { value: "161", label: "automated tests" },
+      { value: "2h → 2min", label: "analytical result" },
+      { value: "2", label: "specialized agents" },
+      { value: "4+", label: "data sources" },
+    ],
     technologies: [
       "Python",
       "FastAPI",
@@ -447,7 +458,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Transparent statuses: ok / demo / partial / error on every answer",
     ],
     aiEngineering: {
-      sectionTitle: "An AI engineer's view: agency and reliability",
+      sectionTitle: "Engineering approach",
       intro:
         "A breakdown in the same 'AI engineer's view' format: not a feature list, but an engineering loop — from question routing and trust in numbers to SQL failures and testing. The project's key question: how to make an LLM work with databases in a way the answer can be trusted.",
       useCasesTitle: "What the project is for",
@@ -531,6 +542,33 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       diagramNote:
         "Top to bottom: a question → dual routing (agent + source) → step-by-step execution with trace → an answer with citations and a chart. LLM providers are interchangeable; the demo mode runs without keys on deterministic scripts.",
+      pipelinesTitle: "Pipelines",
+      pipelines: [
+        {
+          title: "SQL pipeline",
+          steps: [
+            "User",
+            "Router",
+            "Agent Loop (ReAct)",
+            "Text-to-SQL",
+            "SQL Guard",
+            "Self-correction",
+            "Python Analytics",
+            "Answer + Chart",
+          ],
+        },
+        {
+          title: "RAG pipeline",
+          steps: [
+            "User",
+            "Router",
+            "Hybrid BM25 + Vector",
+            "Ksyusha (RAG)",
+            "Citations",
+            "Answer",
+          ],
+        },
+      ],
       principlesTitle: "AI engineer's checklist",
       principles: [
         {
@@ -646,6 +684,31 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Uploaded documents are processed synchronously — large PDFs will hit the timeout; background ingestion with statuses is needed.",
         "No authentication or multi-tenancy — real production would require users, private sources and data isolation.",
       ],
+      production: {
+        title: "Production & reliability",
+        items: [
+          {
+            title: "SQL Guard",
+            text: "SELECT-only, row limits, 8/30 s timeouts.",
+          },
+          {
+            title: "Self-correction",
+            text: "The agent sees the SQL error and rewrites the query (2 attempts), then reports an honest error status.",
+          },
+          {
+            title: "Execution trace",
+            text: "Multi-step agent work in real time via SSE.",
+          },
+          {
+            title: "Testing",
+            text: "161 pytest tests on isolated temporary databases.",
+          },
+          {
+            title: "Status transparency",
+            text: "ok / demo / partial / error status on every response.",
+          },
+        ],
+      },
       conclusionLabel: "Main takeaway",
       conclusionSteps: [
         "Routing",

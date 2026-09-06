@@ -421,6 +421,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
     cardDescription:
       "Multi-agent аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
     cardMetrics: ["2h → 2min", "161 automated tests"],
+    tagline:
+      "Production-oriented мультиагентная платформа: вопросы на естественном языке → SQL, анализ данных и проверяемый результат.",
+    metricsLine:
+      "161 automated tests · 2h → 2min · SQL Guard · Self-correction · Multi-source",
+    keyResultsTitle: "Ключевые результаты",
+    keyResults: [
+      { value: "161", label: "автотестов" },
+      { value: "2h → 2min", label: "аналитический результат" },
+      { value: "2", label: "специализированных агента" },
+      { value: "4+", label: "источников данных" },
+    ],
     technologies: [
       "Python",
       "FastAPI",
@@ -454,7 +465,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Прозрачные статусы: ok / demo / partial / error в каждом ответе",
     ],
     aiEngineering: {
-      sectionTitle: "Взгляд AI-инженера: агентность и надёжность",
+      sectionTitle: "Инженерный подход",
       intro:
         "Разбор по той же методике «взгляда AI-инженера»: не список фич, а инженерный цикл — от маршрутизации вопросов и доверия к цифрам до ошибок SQL и тестов. Ключевой вопрос проекта: как заставить LLM работать с базами данных так, чтобы ответу можно было доверять.",
       useCasesTitle: "Для чего нужен проект",
@@ -538,6 +549,33 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       diagramNote:
         "Сверху вниз: вопрос → двойная маршрутизация (агент + источник) → пошаговое выполнение с trace → ответ с цитатами и графиком. Провайдеры LLM взаимозаменяемы, demo-режим работает без ключей на детерминированных скриптах.",
+      pipelinesTitle: "Пайплайны",
+      pipelines: [
+        {
+          title: "SQL pipeline",
+          steps: [
+            "User",
+            "Router",
+            "Agent Loop (ReAct)",
+            "Text-to-SQL",
+            "SQL Guard",
+            "Self-correction",
+            "Python Analytics",
+            "Answer + Chart",
+          ],
+        },
+        {
+          title: "RAG pipeline",
+          steps: [
+            "User",
+            "Router",
+            "Hybrid BM25 + Vector",
+            "Ksyusha (RAG)",
+            "Citations",
+            "Answer",
+          ],
+        },
+      ],
       principlesTitle: "Чек-лист AI-инженера",
       principles: [
         {
@@ -653,6 +691,31 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Upload-документы обрабатываются синхронно — большие PDF упрутся в таймаут; нужен background ingestion со статусами.",
         "Нет аутентификации и мультитенантности — для реального продакшена потребуются пользователи, приватные источники и изоляция данных.",
       ],
+      production: {
+        title: "Production и надёжность",
+        items: [
+          {
+            title: "SQL Guard",
+            text: "SELECT-only, лимит строк, таймауты 8/30 с.",
+          },
+          {
+            title: "Self-correction",
+            text: "Агент видит ошибку SQL и переписывает запрос (2 попытки), затем — честный статус error.",
+          },
+          {
+            title: "Execution trace",
+            text: "Пошаговая работа агентов в реальном времени через SSE.",
+          },
+          {
+            title: "Testing",
+            text: "161 pytest-тест на изолированных temp-БД.",
+          },
+          {
+            title: "Status transparency",
+            text: "Статусы ok / demo / partial / error в каждом ответе.",
+          },
+        ],
+      },
       conclusionLabel: "Главный вывод",
       conclusionSteps: [
         "Маршрутизация",
