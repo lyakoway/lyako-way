@@ -272,6 +272,8 @@ export const LikeRow = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  /* отступ от метрик с красными точками выше */
+  margin-top: 8px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 12px;
   pointer-events: none;
@@ -456,6 +458,7 @@ export const FeaturedSection = styled.section`
 `;
 
 export const FeaturedGrid = styled.div`
+  /* Ниже 768px — карточки в столбик. */
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
@@ -465,7 +468,7 @@ export const FeaturedGrid = styled.div`
     height: 100%;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
 `;
@@ -511,9 +514,9 @@ export const CaseLink = styled.span`
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  /* прижимаем ссылку к низу равных по высоте карточек */
-  margin-top: auto;
-  padding-top: 6px;
+  /* Ниже 768px карточка по высоте равна контенту — фиксируем отступ.
+     От 768px карточки равной высоты — прижимаем ссылку к низу. */
+  margin-top: 16px;
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 600;
@@ -521,6 +524,11 @@ export const CaseLink = styled.span`
 
   .arrow {
     transition: transform 0.25s ease;
+  }
+
+  @media (min-width: 768px) {
+    margin-top: auto;
+    padding-top: 6px;
   }
 
   ${Card}:hover & {
@@ -593,11 +601,12 @@ export const ResearchSection = styled.section`
 `;
 
 export const ResearchGrid = styled.div`
+  /* Ниже 768px — карточки в столбик. */
   display: grid;
   grid-template-columns: 1fr;
   gap: 18px;
 
-  @media (min-width: 640px) {
+  @media (min-width: 768px) {
     grid-template-columns: 1fr 1fr;
   }
 
