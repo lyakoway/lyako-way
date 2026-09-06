@@ -11,6 +11,61 @@ export const portfolio: PortfolioProps = {
   filter: "Фильтр проектов",
   wip: "В разработке",
   likeLabel: "Оценить",
+  hero: {
+    role: "AI Engineering Portfolio",
+    title:
+      "AI-системы для работы с корпоративными знаниями, данными и автоматизации процессов.",
+    chips: "RAG · AI Agents · AI Data · Text-to-SQL · Evaluation",
+  },
+  intro:
+    "Здесь собраны AI-системы, которые я проектировал и разрабатывал end-to-end — от архитектуры и LLM-интеграции до evaluation, backend, frontend и production.",
+  numbersTitle: "AI-инжиниринг в цифрах",
+  stats: [
+    {
+      value: "92%",
+      label: "Recall@1",
+      note: "RAG Chat · golden set · 24 вопроса",
+    },
+    {
+      value: "5.0 / 5",
+      label: "LLM-as-a-Judge",
+      note: "Faithfulness · Relevance · Citations",
+    },
+    {
+      value: "161",
+      label: "автотестов",
+      note: "AI Data Pilot · Agents · SQL Guard · Analytics",
+    },
+    {
+      value: "2h → 2min",
+      label: "подготовка аналитики",
+      note: "AI Data Pilot",
+    },
+  ],
+  featuredTitle: "Избранные проекты",
+  caseLink: "Смотреть кейс",
+  focusTitle: "Инженерный фокус",
+  focus: [
+    {
+      title: "RAG & Retrieval",
+      items:
+        "Hybrid Search · BM25 · Vector Search · RRF · Embeddings · Citations",
+    },
+    {
+      title: "Agentic Systems",
+      items:
+        "ReAct · Tool Calling · Multi-Agent · Self-Correction · Execution Trace",
+    },
+    {
+      title: "AI Data",
+      items: "Text-to-SQL · PostgreSQL · ClickHouse · Deterministic Analytics",
+    },
+    {
+      title: "Evaluation",
+      items: "Golden Sets · Recall@K · LLM-as-a-Judge · Regression Testing",
+    },
+  ],
+  researchTitle: "Исследования и эксперименты",
 };
 
 const ICON_META = { icon: "", widthIcon: "285px", heightIcon: "500px" };
@@ -27,6 +82,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
     thumbLight: "/static/portfolio/rag-chat-light.png",
     thumbDark: "/static/portfolio/rag-chat-dark.png",
     direction: "RAG и знания",
+    cardDescription:
+      "AI-система для поиска и работы с PDF, Word и Excel с ответами, привязанными к исходным источникам.",
+    cardMetrics: ["92% Recall@1", "5.0/5 LLM-as-a-Judge"],
     technologies: [
       "Python",
       "FastAPI",
@@ -356,6 +414,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "ai-data-pilot",
     likeable: true,
     direction: "AI-агенты",
+    cardDescription:
+      "Multi-agent аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
+    cardMetrics: ["2h → 2min", "161 automated tests"],
     technologies: [
       "Python",
       "FastAPI",
@@ -611,6 +672,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "ai-agents",
     direction: "AI-агенты",
     wip: true,
+    likeable: true,
     technologies: ["Python", "LangGraph", "function calling", "оркестрация"],
     portfolioText:
       "Проект в разработке. Команда AI-агентов с оркестрацией под бизнес-сценарии: workflow, function / tool calling, обработка ошибок и восстановление после сбоев. Скоро опубликую.",
@@ -624,6 +686,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "prompt-engineering",
     direction: "Промпт-инжиниринг",
     wip: true,
+    likeable: true,
     technologies: ["prompt engineering", "evaluation", "Python"],
     portfolioText:
       "Проект в разработке. Фреймворк для промпт-сценариев и evaluation-наборов: тесты на точность, стабильность и edge cases, регрессионная проверка качества ответов. Скоро опубликую.",
@@ -637,6 +700,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "mlops",
     direction: "MLOps",
     wip: true,
+    likeable: true,
     technologies: ["Docker", "Kubernetes", "CI/CD", "мониторинг"],
     portfolioText:
       "Проект в разработке. Инфраструктура и деплой LLM-приложений: контейнеризация, оркестрация, CI/CD и мониторинг. Скоро опубликую.",
@@ -650,6 +714,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "llm-integration",
     direction: "LLM-интеграция",
     wip: true,
+    likeable: true,
     technologies: ["FastAPI", "LLM API", "Python", "Redis"],
     portfolioText:
       "Проект в разработке. Внедрение больших языковых моделей в продукт через API: надёжный backend на Python / FastAPI, кэширование, безопасная и предсказуемая работа. Скоро опубликую.",

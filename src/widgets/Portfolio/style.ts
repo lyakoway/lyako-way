@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled, { css } from "styled-components";
+import { gradientBorder } from "src/ui/Card";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
@@ -303,4 +304,304 @@ export const Chip = styled.li`
   border: 1px solid ${PANEL_BORDER};
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 11px;
+`;
+
+
+/* ——— Новые разделы /portfolio: hero, цифры, фокус, research ——— */
+
+export const HeroSection = styled.header`
+  margin: 0 0 30px;
+  display: grid;
+  gap: 10px;
+`;
+
+export const HeroRole = styled.div`
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: ${PANEL_TEXT_MUTED};
+`;
+
+export const HeroTitle = styled.p`
+  margin: 0;
+  max-width: 720px;
+  color: ${PANEL_TEXT};
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.4;
+
+  @media (min-width: 580px) {
+    font-size: 24px;
+  }
+`;
+
+export const HeroChips = styled.p`
+  position: relative;
+  margin: 2px 0 0;
+  padding-left: 11px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+
+  /* акцентная полоска слева */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    bottom: 1px;
+    width: 3px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+// Шапка секции: иконка в плашке + капс-заголовок (как на /profile).
+export const SectionHead = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+`;
+
+export const SectionIcon = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+`;
+
+export const SectionTitle = styled.h3`
+  margin: 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+`;
+
+/* AI engineering in numbers */
+export const NumbersSection = styled.section`
+  margin-top: 34px;
+`;
+
+export const StatsGrid = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 580px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
+
+export const StatCard = styled.li`
+  ${gradientBorder};
+  padding: 16px;
+  display: grid;
+  gap: 3px;
+  align-content: start;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+`;
+
+export const StatValue = styled.div`
+  color: ${PANEL_TEXT};
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+`;
+
+export const StatLabel = styled.div`
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+`;
+
+export const StatNote = styled.div`
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 11.5px;
+  font-weight: 300;
+  line-height: 1.45;
+`;
+
+/* Featured projects */
+export const FeaturedSection = styled.section`
+  margin-top: 34px;
+`;
+
+export const FeaturedGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+
+  /* Reveal-обёртка растягивается на всю ячейку — карточки равной высоты */
+  > * {
+    height: 100%;
+  }
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const CardDescription = styled.p`
+  margin: 6px 0 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.55;
+`;
+
+export const CardMetrics = styled.ul`
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+
+  li {
+    position: relative;
+    padding-left: 14px;
+    color: ${PANEL_TEXT};
+    font-size: 13px;
+    font-weight: 500;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 6px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.color.basic.primary};
+    }
+  }
+`;
+
+// Подпись ссылки на кейс — сама карточка целиком кликабельна,
+// поэтому это span (внутри <a> вложенная ссылка недопустима).
+export const CaseLink = styled.span`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  /* прижимаем ссылку к низу равных по высоте карточек */
+  margin-top: auto;
+  padding-top: 6px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.25s ease;
+
+  .arrow {
+    transition: transform 0.25s ease;
+  }
+
+  ${Card}:hover & {
+    color: ${({ theme }) => theme.color.basic.primary};
+
+    .arrow {
+      transform: translateX(4px);
+    }
+  }
+`;
+
+/* Engineering focus */
+export const FocusSection = styled.section`
+  margin-top: 34px;
+`;
+
+export const FocusList = styled.div`
+  display: grid;
+`;
+
+export const FocusRow = styled.div`
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 10px 0 10px 16px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${PANEL_BORDER};
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 16px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+export const FocusName = styled.span`
+  color: ${PANEL_TEXT};
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  /* тире-разделитель перед технологиями */
+  &::after {
+    content: " —";
+    color: ${PANEL_TEXT_MUTED};
+    font-weight: 400;
+  }
+`;
+
+export const FocusItems = styled.span`
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.5;
+`;
+
+/* Research & experiments */
+export const ResearchSection = styled.section`
+  margin-top: 34px;
+`;
+
+export const ResearchGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;

@@ -11,6 +11,60 @@ export const portfolio: PortfolioProps = {
   filter: "Project filter",
   wip: "In progress",
   likeLabel: "Like",
+  hero: {
+    role: "AI Engineering Portfolio",
+    title: "Production-oriented AI systems for knowledge, data and automation.",
+    chips: "RAG · AI Agents · AI Data · Text-to-SQL · Evaluation",
+  },
+  intro:
+    "These are the AI systems I designed and built end-to-end — from architecture and LLM integration to evaluation, backend, frontend and production.",
+  numbersTitle: "AI engineering in numbers",
+  stats: [
+    {
+      value: "92%",
+      label: "Recall@1",
+      note: "RAG Chat · golden set · 24 questions",
+    },
+    {
+      value: "5.0 / 5",
+      label: "LLM-as-a-Judge",
+      note: "Faithfulness · Relevance · Citations",
+    },
+    {
+      value: "161",
+      label: "automated tests",
+      note: "AI Data Pilot · Agents · SQL Guard · Analytics",
+    },
+    {
+      value: "2h → 2min",
+      label: "analytical result preparation",
+      note: "AI Data Pilot",
+    },
+  ],
+  featuredTitle: "Featured projects",
+  caseLink: "View case study",
+  focusTitle: "Engineering focus",
+  focus: [
+    {
+      title: "RAG & Retrieval",
+      items:
+        "Hybrid Search · BM25 · Vector Search · RRF · Embeddings · Citations",
+    },
+    {
+      title: "Agentic Systems",
+      items:
+        "ReAct · Tool Calling · Multi-Agent · Self-Correction · Execution Trace",
+    },
+    {
+      title: "AI Data",
+      items: "Text-to-SQL · PostgreSQL · ClickHouse · Deterministic Analytics",
+    },
+    {
+      title: "Evaluation",
+      items: "Golden Sets · Recall@K · LLM-as-a-Judge · Regression Testing",
+    },
+  ],
+  researchTitle: "Research & experiments",
 };
 
 const ICON_META = { icon: "", widthIcon: "285px", heightIcon: "500px" };
@@ -27,6 +81,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
     thumbLight: "/static/portfolio/rag-chat-light.png",
     thumbDark: "/static/portfolio/rag-chat-dark.png",
     direction: "RAG & knowledge",
+    cardDescription:
+      "An AI system for searching and working with PDF, Word and Excel — answers grounded in source citations.",
+    cardMetrics: ["92% Recall@1", "5.0/5 LLM-as-a-Judge"],
     technologies: [
       "Python",
       "FastAPI",
@@ -354,6 +411,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "ai-data-pilot",
     likeable: true,
     direction: "AI agents",
+    cardDescription:
+      "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
+    cardMetrics: ["2h → 2min", "161 automated tests"],
     technologies: [
       "Python",
       "FastAPI",
@@ -609,6 +669,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "ai-agents",
     direction: "AI agents",
     wip: true,
+    likeable: true,
     technologies: ["Python", "LangGraph", "function calling", "orchestration"],
     portfolioText:
       "Work in progress. A team of AI agents with orchestration for business scenarios: workflow, function / tool calling, error handling and recovery. Coming soon.",
@@ -622,6 +683,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "prompt-engineering",
     direction: "Prompt engineering",
     wip: true,
+    likeable: true,
     technologies: ["prompt engineering", "evaluation", "Python"],
     portfolioText:
       "Work in progress. A framework for prompt scenarios and evaluation sets: accuracy, stability and edge-case tests, regression checks of answer quality. Coming soon.",
@@ -635,6 +697,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "mlops",
     direction: "MLOps",
     wip: true,
+    likeable: true,
     technologies: ["Docker", "Kubernetes", "CI/CD", "monitoring"],
     portfolioText:
       "Work in progress. Infrastructure and deployment for LLM applications: containerization, orchestration, CI/CD and monitoring. Coming soon.",
@@ -648,6 +711,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     hrefNameList: "llm-integration",
     direction: "LLM integration",
     wip: true,
+    likeable: true,
     technologies: ["FastAPI", "LLM API", "Python", "Redis"],
     portfolioText:
       "Work in progress. Embedding large language models into a product via API: a reliable Python / FastAPI backend, caching, safe and predictable behavior. Coming soon.",

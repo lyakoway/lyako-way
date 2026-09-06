@@ -223,6 +223,23 @@ export interface PortfolioProps {
   filter: string;
   wip: string;
   likeLabel: string;
+  // ——— Новые разделы /portfolio ———
+  // Hero: роль, позиционирование, строка направлений.
+  hero: { role: string; title: string; chips: string };
+  // Короткое интро перед карточками.
+  intro: string;
+  // AI-инжиниринг в цифрах — trust-блок (те же цифры, что на /profile).
+  numbersTitle: string;
+  stats: { value: string; label: string; note: string }[];
+  // Избранные проекты.
+  featuredTitle: string;
+  // Подпись ссылки на кейс в карточке.
+  caseLink: string;
+  // Engineering Focus — карта специализации.
+  focusTitle: string;
+  focus: { title: string; items: string }[];
+  // Research & Experiments — проекты в разработке.
+  researchTitle: string;
 }
 
 // ——— Инженерный разбор AI-проекта (секция «взгляд AI-инженера») ———
@@ -338,6 +355,9 @@ export interface PortfolioListProps {
   likeable?: boolean;
   direction: string;
   wip?: boolean;
+  // Короткое описание и ключевые метрики для карточки в списке /portfolio.
+  cardDescription?: string;
+  cardMetrics?: string[];
 }
 
 export interface PortfolioHeaderProps {
