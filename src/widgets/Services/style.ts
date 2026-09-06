@@ -206,36 +206,52 @@ export const PipelineStep = styled.span`
   white-space: nowrap;
 `;
 
-// Строка «направление → стек» (карточка 05).
+// Строка «направление → стек» (карточка 05): точка слева, без подложки.
 export const TechRow = styled.div`
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2px;
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: ${PANEL_ELEVATED_HOVER};
-  border: 1px solid ${PANEL_BORDER};
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding-left: 16px;
 
-  @media (min-width: 580px) {
-    grid-template-columns: 130px 1fr;
-    align-items: baseline;
-    gap: 10px;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  /* зазор между строками стека */
+  & + & {
+    margin-top: 8px;
   }
 `;
 
 export const TechRowLabel = styled.span`
-  color: ${PANEL_TEXT_MUTED};
-  font-size: 11px;
+  color: ${PANEL_TEXT};
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+
+  /* тире-разделитель перед технологиями */
+  &::after {
+    content: " —";
+    color: ${PANEL_TEXT_MUTED};
+    font-weight: 400;
+  }
 `;
 
 export const TechRowValue = styled.span`
-  color: ${PANEL_TEXT};
+  color: ${PANEL_TEXT_SECONDARY};
   font-size: 13px;
-  font-weight: 400;
-  line-height: 1.4;
+  font-weight: 300;
+  line-height: 1.5;
 `;
 
 // Сноска под карточкой — приглушённый текст.
