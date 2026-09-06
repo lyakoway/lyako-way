@@ -13,7 +13,6 @@ import {
 import {
   MESSENGER_ICON,
   PhoneIcon,
-  PinIcon,
 } from "src/common/icon/socialIcons";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { usePressAnimation } from "src/common/lib/usePressAnimation";
@@ -46,10 +45,8 @@ import {
   DiscussText,
   Intro,
   ContactBlock,
-  SectionLabel,
   Links,
   LinkItem,
-  InfoText,
   FormCard,
 } from "./style";
 
@@ -94,6 +91,18 @@ const DiscussIcon = () => (
   </svg>
 );
 
+const SendIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7z"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 // Шапка секции: иконка в плашке + капс-заголовок.
 const Head = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
   <SectionHead>
@@ -115,19 +124,6 @@ const MailIcon = () => (
     />
     <path
       d="m4 7 8 6 8-6"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const ClockIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="2" />
-    <path
-      d="M12 7v5l3 2"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
@@ -163,7 +159,7 @@ const PressableLinkItem: React.FC<{
 
 const Contacts = () => {
   const {
-    lang: { propsHeaderTopMenu, sidebar, contactsPage },
+    lang: { propsHeaderTopMenu, contactsPage },
   } = useSelectorTyped(({ lang }) => lang);
 
   const title =
@@ -239,13 +235,18 @@ const Contacts = () => {
         ))}
       </DiscussSection>
 
+      {/* Блок контактов и формы */}
+      <Reveal>
+        <Head icon={<SendIcon />} title={contactsPage.contactTitle} />
+      </Reveal>
+
       <Reveal as={Intro} delay={90}>
         {contactsPage.intro}
       </Reveal>
 
 
+      {/* Контакты — один ряд кнопок во всю ширину (на мобильных друг под другом) */}
       <Reveal as={ContactBlock} delay={180}>
-        <SectionLabel>{sidebar.phoneTitle}</SectionLabel>
         <Links>
           {CONTACT_PHONES.map((phone) => (
             <PressableLinkItem
@@ -263,12 +264,7 @@ const Contacts = () => {
               <RunBorder radius={12} />
             </PressableLinkItem>
           ))}
-        </Links>
-      </Reveal>
 
-      <Reveal as={ContactBlock} delay={210}>
-        <SectionLabel>{sidebar.emailTitle}</SectionLabel>
-        <Links>
           <PressableLinkItem
             href={CONTACT_EMAIL.href}
             onClick={() =>
@@ -282,12 +278,7 @@ const Contacts = () => {
             {CONTACT_EMAIL.label}
             <RunBorder radius={12} />
           </PressableLinkItem>
-        </Links>
-      </Reveal>
 
-      <Reveal as={ContactBlock} delay={240}>
-        <SectionLabel>{sidebar.messengersTitle}</SectionLabel>
-        <Links>
           {CONTACT_MESSENGERS.map((item) => (
             <PressableLinkItem
               key={item.href}
@@ -307,22 +298,6 @@ const Contacts = () => {
             </PressableLinkItem>
           ))}
         </Links>
-      </Reveal>
-
-      <Reveal as={ContactBlock} delay={270}>
-        <SectionLabel>{sidebar.locationTitle}</SectionLabel>
-        <InfoText>
-          <PinIcon />
-          {sidebar.location}
-        </InfoText>
-      </Reveal>
-
-      <Reveal as={ContactBlock}>
-        <SectionLabel>{contactsPage.responseTitle}</SectionLabel>
-        <InfoText>
-          <ClockIcon />
-          {contactsPage.responseTime}
-        </InfoText>
       </Reveal>
 
       <Reveal as={FormCard} delay={80}>

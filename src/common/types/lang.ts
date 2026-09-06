@@ -649,11 +649,9 @@ export interface ContactsPageProps {
     title: string;
     texts: string[];
   };
+  // Заголовок блока контактов и формы.
+  contactTitle: string;
   // Существующий низ страницы — не меняем.
   intro: string;
   profilesTitle: string;
-  locationTitle: string;
-  location: string;
-  responseTitle: string;
-  responseTime: string;
 }

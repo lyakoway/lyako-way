@@ -67,11 +67,8 @@ export const contactsPage: ContactsPageProps = {
       "I will help determine the approach — RAG, AI Agent, Text-to-SQL, LLM integration or a combination of these technologies — and propose a possible solution architecture.",
     ],
   },
+  contactTitle: "Get in touch",
   intro:
     "Get in touch in any convenient way — I'll reply and we'll discuss your task. Message me on a messenger, by email, or fill in the form below.",
   profilesTitle: "Profiles",
-  locationTitle: "Location",
-  location: "Moscow, Russia · remote / hybrid / office",
-  responseTitle: "Response time",
-  responseTime: "I usually reply within a few hours on business days.",
 };
