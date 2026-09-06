@@ -420,11 +420,11 @@ export const propsPortfolioList: PortfolioListProps[] = [
     direction: "AI-агенты",
     cardDescription:
       "Мультиагентная аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
-    cardMetrics: ["2ч → 2мин", "161 автотест"],
+    cardMetrics: ["2ч → 2мин · репрезентативный сценарий отчётности", "161 автотест"],
     tagline:
       "Мультиагентная аналитическая система для анализа данных на естественном языке — production-качество, проверено автотестами.",
     metricsLine:
-      "161 автотест · 2ч → 2мин · 2 агента · самокоррекция SQL",
+      "161 автотест · 2ч → 2мин (репрезентативный сценарий) · 2 агента · самокоррекция SQL",
     keyResultsTitle: "Текущая валидация",
     keyResults: [
       { value: "161", label: "автотестов" },
@@ -457,10 +457,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.;Пользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.;Источники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».;Каждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).;161 автотест; деплой на Hugging Face Spaces.",
     features: [
       "Мультиагентная маршрутизация",
-      "Agent Loop (ReAct)",
-      "Tool Calling",
-      "Text-to-SQL",
-      "Self-Correction",
+      "Text-to-SQL + Tool Calling",
+      "Самокорректирующийся Agent Loop",
       "Детерминированная аналитика",
       "Гибридный RAG",
     ],
@@ -611,7 +609,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check: "161 тест, изолированные БД и fake-провайдеры.",
         },
       ],
-      metricsTitle: "Замеры",
+      metricsTitle: "Автоматическая верификация",
       tables: [
         {
           title: "Покрытие тестами — 161 pytest-тест",
@@ -656,7 +654,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "LLM",
           "Natural-language explanation",
         ],
-        note: "Это исключает выдуманные арифметические результаты и делает аналитические цифры воспроизводимыми.",
+        note: "Это выносит численные вычисления за пределы LLM и делает аналитические цифры воспроизводимыми.",
       },
       selfCorrection: {
         title: "SQL self-correction",
@@ -671,6 +669,19 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "Result / Honest Error",
         ],
         note: "Система никогда не подменяет результат выдуманным после ошибки SQL.",
+      },
+      evaluation: {
+        title: "AI evaluation",
+        currentStateTitle: "Текущее состояние",
+        current: [
+          "Автотесты на фиксированных кейсах: 161",
+          "Тесты выполнения SQL: включены",
+          "Тесты агентов и роутинга: включены",
+          "Тесты аналитики: включены",
+        ],
+        nextTitle: "Следующий шаг",
+        next:
+          "Golden set для оценки natural-language → SQL по результату выполнения.",
       },
       findingsTitle: "Инженерные находки",
       findings: [

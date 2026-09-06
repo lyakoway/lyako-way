@@ -413,11 +413,14 @@ export const propsPortfolioList: PortfolioListProps[] = [
     direction: "AI agents",
     cardDescription:
       "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
-    cardMetrics: ["2h → 2min", "161 automated tests"],
+    cardMetrics: [
+      "2h → 2min · representative reporting workflow",
+      "161 automated tests",
+    ],
     tagline:
       "Production-oriented multi-agent analytics system for natural-language data analysis.",
     metricsLine:
-      "161 tests · 2h → 2min · 2 agents · self-correction",
+      "161 tests · 2h → 2min (representative workflow) · 2 agents · self-correction",
     keyResultsTitle: "Current validation",
     keyResults: [
       { value: "161", label: "automated tests" },
@@ -449,10 +452,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.;Users watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.;Data sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.;Every figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).;161 automated tests; deployed on Hugging Face Spaces.",
     features: [
       "Multi-agent routing",
-      "Agent Loop (ReAct)",
-      "Tool Calling",
-      "Text-to-SQL",
-      "Self-Correction",
+      "Text-to-SQL + Tool Calling",
+      "Self-correcting Agent Loop",
       "Deterministic Analytics",
       "Hybrid RAG",
     ],
@@ -601,7 +602,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           check: "161 tests, isolated databases and fake providers.",
         },
       ],
-      metricsTitle: "Measurements",
+      metricsTitle: "Automated verification",
       tables: [
         {
           title: "Test coverage — 161 pytest tests",
@@ -646,7 +647,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "LLM",
           "Natural-language explanation",
         ],
-        note: "This prevents the model from inventing arithmetic results and makes analytical figures reproducible.",
+        note: "This keeps numerical computation outside the LLM and makes analytical figures reproducible.",
       },
       selfCorrection: {
         title: "SQL self-correction",
@@ -661,6 +662,19 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "Result / Honest Error",
         ],
         note: "The system never silently substitutes a fabricated result after a SQL failure.",
+      },
+      evaluation: {
+        title: "AI evaluation",
+        currentStateTitle: "Current state",
+        current: [
+          "Fixed-case automated tests: 161",
+          "SQL execution tests: included",
+          "Agent / routing tests: included",
+          "Analytics tests: included",
+        ],
+        nextTitle: "Next step",
+        next:
+          "Golden set for natural-language → SQL evaluation with execution-based correctness.",
       },
       findingsTitle: "Engineering findings",
       findings: [

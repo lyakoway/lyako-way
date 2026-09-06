@@ -858,6 +858,37 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 ))}
               </AiDiagram>
 
+              {project.aiEngineering.evaluation && (
+                <>
+                  <FeaturesHead>
+                    <FeaturesIcon>
+                      <IconMetrics />
+                    </FeaturesIcon>
+                    <FeaturesTitle>
+                      {project.aiEngineering.evaluation.title}
+                    </FeaturesTitle>
+                  </FeaturesHead>
+                  {project.aiEngineering.evaluation.current.length > 0 && (
+                    <FeatureList>
+                      {project.aiEngineering.evaluation.current.map((c, i) => (
+                        <Reveal as={Feature} key={i} delay={i * 50}>
+                          {c}
+                        </Reveal>
+                      ))}
+                    </FeatureList>
+                  )}
+                  {project.aiEngineering.evaluation.next && (
+                    <Reveal as={MetricsStrip} delay={80}>
+                      <span>
+                        {project.aiEngineering.evaluation.nextTitle}
+                        {": "}
+                      </span>
+                      {project.aiEngineering.evaluation.next}
+                    </Reveal>
+                  )}
+                </>
+              )}
+
               {project.aiEngineering.findings &&
                 project.aiEngineering.findings.length > 0 && (
                   <>

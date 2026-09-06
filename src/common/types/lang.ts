@@ -338,6 +338,14 @@ export interface AiEngineeringProps {
   // Строка над цепочками («Авто-роутер → Олег / Ксюша»)
   routerLine?: string;
   pipelines?: { title: string; steps: string[] }[];
+  // Честное разграничение: автотесты (software testing) vs AI evaluation
+  evaluation?: {
+    title: string;
+    currentStateTitle?: string;
+    current: string[];
+    nextTitle?: string;
+    next: string;
+  };
   // Callout «Deterministic analytics»: цепочка + примечание
   deterministic?: {
     title: string;
