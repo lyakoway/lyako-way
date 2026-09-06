@@ -370,13 +370,57 @@ export interface ResumeProps {
   quality: string;
 }
 
-export interface ServiceProps {
+// Страница /services: строка «направление → технологии» в карточке услуги.
+export interface ServiceTechRowProps {
+  label: string;
+  value: string;
+}
+
+// Услуга — карточка с номером; все блоки кроме номера и заголовка опциональны,
+// т.к. у каждой услуги свой состав (список, пайплайн, строки стека, сноски).
+export interface ServiceItemProps {
+  num: string;
   title: string;
-  text1: string;
-  text2: string;
-  text3: string;
-  text4: string;
-  text5: string;
+  text: string;
+  listTitle?: string;
+  list?: string[];
+  // Цепочка шагов (Natural Language → SQL → …) — рендерится чипами.
+  pipeline?: string[];
+  extraListTitle?: string;
+  extraList?: string[];
+  rows?: ServiceTechRowProps[];
+  footnote?: string;
+  footnote2?: string;
+  techNote?: string;
+}
+
+// Шаг процесса «Как я работаю».
+export interface ServiceStepProps {
+  num: string;
+  title: string;
+  text: string;
+}
+
+// Пункт «Что получает заказчик».
+export interface ServiceResultProps {
+  title: string;
+  text: string;
+}
+
+export interface ServiceProps {
+  hero: { role: string; tagline: string; subtitle: string };
+  services: ServiceItemProps[];
+  process: { title: string; steps: ServiceStepProps[]; cycle: string[] };
+  results: { title: string; items: ServiceResultProps[] };
+  cta: {
+    title: string;
+    texts: string[];
+    linkLabel: string;
+    href: string;
+    // Ссылки на кейсы-доказательства в CTA-карточке.
+    casesLabel?: string;
+    cases?: { name: string; href: string }[];
+  };
 }
 
 export interface ToastProps {
