@@ -399,7 +399,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Operation",
       ],
       conclusion:
-        "This is not just “a chatbot with an LLM” — every stage of the loop on this page is backed by a number.\nThe eight-principle checklist is a working methodology. RAG Chat was reviewed with it.",
+        "The key result is not the chatbot itself, but a reproducible RAG engineering pipeline where retrieval, model selection, latency and answer quality are measured and used to drive architectural decisions.",
       footnote:
         "All numbers are reproducible: see backend/scripts/evaluate.py in the project repo.",
     },
