@@ -346,6 +346,9 @@ export interface AiEngineeringProps {
     nextTitle?: string;
     next: string;
   };
+  // Общий заголовок и пояснение для группы callout-блоков
+  calloutsTitle?: string;
+  calloutsIntro?: string;
   // Callout «Deterministic analytics»: цепочка + примечание
   deterministic?: {
     title: string;

@@ -771,6 +771,27 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   </>
                 )}
 
+              {(project.aiEngineering.deterministic ||
+                project.aiEngineering.selfCorrection) && (
+                <>
+                  {project.aiEngineering.calloutsTitle && (
+                    <FeaturesHead>
+                      <FeaturesIcon>
+                        <IconTakeaway />
+                      </FeaturesIcon>
+                      <FeaturesTitle>
+                        {project.aiEngineering.calloutsTitle}
+                      </FeaturesTitle>
+                    </FeaturesHead>
+                  )}
+                  {project.aiEngineering.calloutsIntro && (
+                    <Reveal as={DescCard} delay={40}>
+                      {project.aiEngineering.calloutsIntro}
+                    </Reveal>
+                  )}
+                </>
+              )}
+
               {project.aiEngineering.deterministic && (
                 <Reveal as={CalloutCard} delay={90}>
                   <CalloutCaption>

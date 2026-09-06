@@ -1328,7 +1328,7 @@ export const NotFound = styled.p`
 /* ——— Первый экран: строка метрик + Key results ——— */
 
 export const MetricsStrip = styled.p`
-  margin: 0 0 8px;
+  margin: 16px 0 8px;
   padding-left: 12px;
   border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
   color: ${PANEL_TEXT};
@@ -1338,12 +1338,17 @@ export const MetricsStrip = styled.p`
 `;
 
 export const KeyResultsGrid = styled.ul`
+  /* Ниже 580px — карточка в строку, 580–767px — по две, от 768px — четыре. */
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 12px;
   margin: 0 0 8px;
   padding: 0;
   list-style: none;
+
+  @media (min-width: 580px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(4, 1fr);
@@ -1358,6 +1363,12 @@ export const KeyStatCard = styled.li`
   display: grid;
   gap: 2px;
   align-content: start;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 export const KeyStatValue = styled.div`
