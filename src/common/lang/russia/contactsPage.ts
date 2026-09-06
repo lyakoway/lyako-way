@@ -2,14 +2,14 @@ import { ContactsPageProps } from "src/common/types/lang";
 
 export const contactsPage: ContactsPageProps = {
   hero: {
-    title: "Let's build something useful with AI",
+    title: "Создадим что-то полезное с помощью AI",
     role: "AI / LLM Engineer",
     text: "Проектирую и разрабатываю production-ready AI-системы, которые работают с данными, документами и инструментами.",
     chips: "RAG · AI Agents · Text-to-SQL · AI Data · Evaluation",
     subtitle:
       "От AI-архитектуры и прототипа до измерения качества, интеграции и production.",
   },
-  helpTitle: "What can I help with?",
+  helpTitle: "Чем могу помочь?",
   help: [
     {
       title: "AI Agents & Automation",
@@ -37,7 +37,7 @@ export const contactsPage: ContactsPageProps = {
       text: "Оптимизация latency, token budget, стоимости, retrieval quality, error handling и observability.",
     },
   ],
-  practiceTitle: "AI Engineering in practice",
+  practiceTitle: "AI-инжиниринг на практике",
   stats: [
     {
       value: "92%",
@@ -61,7 +61,7 @@ export const contactsPage: ContactsPageProps = {
     },
   ],
   discuss: {
-    title: "Let's discuss your task",
+    title: "Обсудим вашу задачу",
     texts: [
       "Расскажите, какой процесс вы хотите автоматизировать, с какими данными или системами должна работать AI-система и какой результат должен получить пользователь.",
       "Я помогу определить подход — RAG, AI Agent, Text-to-SQL, LLM integration или комбинация этих технологий — и предложу возможную архитектуру решения.",

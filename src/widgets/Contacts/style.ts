@@ -14,6 +14,8 @@ import { pressedFill } from "src/common/lib/usePressAnimation";
 export const Intro = styled.p`
   margin: 0 0 28px;
   max-width: 640px;
+  padding-left: 12px;
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 15px;
   font-weight: 300;
@@ -303,6 +305,12 @@ export const StatCard = styled.li`
   display: grid;
   gap: 3px;
   align-content: start;
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 export const StatValue = styled.div`
@@ -332,10 +340,24 @@ export const DiscussSection = styled.section`
 `;
 
 export const DiscussText = styled.p`
+  position: relative;
   margin: 0 0 10px;
+  padding-left: 18px;
   max-width: 720px;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 14px;
   font-weight: 300;
   line-height: 1.6;
+
+  /* акцентная круглая метка слева — как маркеры списков */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
