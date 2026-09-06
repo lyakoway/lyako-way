@@ -630,6 +630,26 @@ export interface LanguageProps {
 }
 
 export interface ContactsPageProps {
+  // Новые разделы сверху страницы.
+  hero: {
+    title: string;
+    role: string;
+    text: string;
+    chips: string;
+    subtitle: string;
+  };
+  helpTitle: string;
+  // Направления в одном-двух предложениях — без повторения /services.
+  help: { title: string; text: string; pipeline?: string[] }[];
+  practiceTitle: string;
+  // Доказательства — те же цифры, что на /profile, коротким trust-блоком.
+  stats: { value: string; label: string; note: string }[];
+  // Подводка к существующему блоку контактов и форме.
+  discuss: {
+    title: string;
+    texts: string[];
+  };
+  // Существующий низ страницы — не меняем.
   intro: string;
   profilesTitle: string;
   locationTitle: string;

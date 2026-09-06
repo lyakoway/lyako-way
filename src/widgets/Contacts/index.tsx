@@ -20,6 +20,30 @@ import { usePressAnimation } from "src/common/lib/usePressAnimation";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
+  HeroSection,
+  HeroTitle,
+  HeroRole,
+  HeroText,
+  HeroChips,
+  HeroSubtitle,
+  SectionHead,
+  SectionIcon,
+  SectionTitle,
+  HelpSection,
+  HelpGrid,
+  HelpCard,
+  HelpTitle,
+  HelpText,
+  HelpPipeline,
+  HelpChip,
+  PracticeSection,
+  StatsGrid,
+  StatCard,
+  StatValue,
+  StatLabel,
+  StatNote,
+  DiscussSection,
+  DiscussText,
   Intro,
   ContactBlock,
   SectionLabel,
@@ -28,6 +52,55 @@ import {
   InfoText,
   FormCard,
 } from "./style";
+
+const HelpIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
+    <path
+      d="M9.6 9a2.5 2.5 0 0 1 4.9.7c0 1.6-2.5 2.1-2.5 3.5"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+    <path
+      d="M12 16.8h.01"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const PracticeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M5 20v-6M12 20V6M19 20v-9M3 20h18"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+const DiscussIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M4 6h16v12H4z"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    />
+    <path d="m4 7 8 6 8-6" stroke="currentColor" strokeWidth="1.8" />
+  </svg>
+);
+
+// Шапка секции: иконка в плашке + капс-заголовок.
+const Head = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
+  <SectionHead>
+    <SectionIcon>{icon}</SectionIcon>
+    <SectionTitle>{title}</SectionTitle>
+  </SectionHead>
+);
 
 const MailIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -101,6 +174,70 @@ const Contacts = () => {
       <Reveal as="header">
         <ArticleTitle>{title}</ArticleTitle>
       </Reveal>
+
+      {/* Hero: заголовок, роль, тезис, направления, подзаголовок */}
+      <Reveal as={HeroSection} delay={60}>
+        <HeroTitle>{contactsPage.hero.title}</HeroTitle>
+        <HeroRole>{contactsPage.hero.role}</HeroRole>
+        <HeroText>{contactsPage.hero.text}</HeroText>
+        <HeroChips>{contactsPage.hero.chips}</HeroChips>
+        <HeroSubtitle>{contactsPage.hero.subtitle}</HeroSubtitle>
+      </Reveal>
+
+      {/* What can I help with — сетка 2×3 */}
+      <HelpSection>
+        <Reveal>
+          <Head icon={<HelpIcon />} title={contactsPage.helpTitle} />
+        </Reveal>
+        <HelpGrid>
+          {contactsPage.help.map((item, i) => (
+            <Reveal as={HelpCard} key={item.title} delay={i * 60}>
+              <HelpTitle>{item.title}</HelpTitle>
+              <HelpText>{item.text}</HelpText>
+              {item.pipeline && item.pipeline.length > 0 && (
+                <HelpPipeline>
+                  {item.pipeline.map((step, j) => (
+                    <React.Fragment key={step}>
+                      <HelpChip>{step}</HelpChip>
+                      {j < item.pipeline.length - 1 && (
+                        <span className="arrow">→</span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </HelpPipeline>
+              )}
+            </Reveal>
+          ))}
+        </HelpGrid>
+      </HelpSection>
+
+      {/* AI Engineering in practice — доказательства в одну строку */}
+      <PracticeSection>
+        <Reveal>
+          <Head icon={<PracticeIcon />} title={contactsPage.practiceTitle} />
+        </Reveal>
+        <StatsGrid>
+          {contactsPage.stats.map((stat, i) => (
+            <Reveal as={StatCard} key={stat.label} delay={i * 60}>
+              <StatValue>{stat.value}</StatValue>
+              <StatLabel>{stat.label}</StatLabel>
+              <StatNote>{stat.note}</StatNote>
+            </Reveal>
+          ))}
+        </StatsGrid>
+      </PracticeSection>
+
+      {/* Let's discuss your task — подводка к контактам и форме */}
+      <DiscussSection>
+        <Reveal>
+          <Head icon={<DiscussIcon />} title={contactsPage.discuss.title} />
+        </Reveal>
+        {contactsPage.discuss.texts.map((text, i) => (
+          <Reveal key={i}>
+            <DiscussText>{text}</DiscussText>
+          </Reveal>
+        ))}
+      </DiscussSection>
 
       <Reveal as={Intro} delay={90}>
         {contactsPage.intro}
