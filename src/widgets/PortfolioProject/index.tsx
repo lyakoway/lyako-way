@@ -90,6 +90,12 @@ import {
   ProductionText,
   PipelineChain,
   PipelineChainStep,
+  KeyResultsNote,
+  KeyResultsLimitation,
+  CalloutCard,
+  CalloutLead,
+  CalloutCaption,
+  CalloutNote,
 } from "./style";
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
@@ -523,6 +529,16 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   </Reveal>
                 ))}
               </KeyResultsGrid>
+              {project.keyResultsNote && (
+                <Reveal as={KeyResultsNote} delay={200}>
+                  {project.keyResultsNote}
+                </Reveal>
+              )}
+              {project.keyResultsLimitation && (
+                <Reveal as={KeyResultsLimitation} delay={240}>
+                  {project.keyResultsLimitation}
+                </Reveal>
+              )}
             </>
           )}
 
@@ -573,6 +589,26 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   </Reveal>
                 ))}
               </FeatureList>
+              {project.productFeatures &&
+                project.productFeatures.length > 0 && (
+                  <>
+                    <FeaturesHead>
+                      <FeaturesIcon>
+                        <IconFeatures />
+                      </FeaturesIcon>
+                      <FeaturesTitle>
+                        {project.productFeaturesTitle}
+                      </FeaturesTitle>
+                    </FeaturesHead>
+                    <FeatureList>
+                      {project.productFeatures.map((f, i) => (
+                        <Reveal as={Feature} key={i} delay={i * 50}>
+                          {f}
+                        </Reveal>
+                      ))}
+                    </FeatureList>
+                  </>
+                )}
             </>
           )}
 
@@ -708,6 +744,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                         {project.aiEngineering.pipelinesTitle}
                       </FeaturesTitle>
                     </FeaturesHead>
+                    {project.aiEngineering.routerLine && (
+                      <Reveal as={DescCard} delay={40}>
+                        {project.aiEngineering.routerLine}
+                      </Reveal>
+                    )}
                     <AiDiagram>
                       {project.aiEngineering.pipelines.map((pipeline) => (
                         <AiLane key={pipeline.title}>
@@ -729,6 +770,55 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     </AiDiagram>
                   </>
                 )}
+
+              {project.aiEngineering.deterministic && (
+                <Reveal as={CalloutCard} delay={90}>
+                  <CalloutCaption>
+                    {project.aiEngineering.deterministic.title}
+                  </CalloutCaption>
+                  <CalloutLead>
+                    {project.aiEngineering.deterministic.lead}
+                  </CalloutLead>
+                  <PipelineChain>
+                    {project.aiEngineering.deterministic.steps.map(
+                      (step, i) => (
+                        <React.Fragment key={step}>
+                          <PipelineChainStep>{step}</PipelineChainStep>
+                          {i <
+                            project.aiEngineering.deterministic!.steps.length -
+                              1 && <span className="down">↓</span>}
+                        </React.Fragment>
+                      )
+                    )}
+                  </PipelineChain>
+                  <CalloutNote>
+                    {project.aiEngineering.deterministic.note}
+                  </CalloutNote>
+                </Reveal>
+              )}
+
+              {project.aiEngineering.selfCorrection && (
+                <Reveal as={CalloutCard} delay={90}>
+                  <CalloutCaption>
+                    {project.aiEngineering.selfCorrection.title}
+                  </CalloutCaption>
+                  <PipelineChain>
+                    {project.aiEngineering.selfCorrection.steps.map(
+                      (step, i) => (
+                        <React.Fragment key={step}>
+                          <PipelineChainStep>{step}</PipelineChainStep>
+                          {i <
+                            project.aiEngineering.selfCorrection!.steps.length -
+                              1 && <span className="down">↓</span>}
+                        </React.Fragment>
+                      )
+                    )}
+                  </PipelineChain>
+                  <CalloutNote>
+                    {project.aiEngineering.selfCorrection.note}
+                  </CalloutNote>
+                </Reveal>
+              )}
 
               <FeaturesHead>
                 <FeaturesIcon><IconMetrics /></FeaturesIcon>

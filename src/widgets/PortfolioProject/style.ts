@@ -1447,3 +1447,58 @@ export const PipelineChainStep = styled.span`
   font-weight: 500;
   white-space: nowrap;
 `;
+
+
+/* ——— Key results: расшифровка и честное ограничение ——— */
+
+export const KeyResultsNote = styled.p`
+  margin: 0 0 8px;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 12px;
+  letter-spacing: 0.2px;
+`;
+
+export const KeyResultsLimitation = styled.p`
+  margin: 0 0 8px;
+  padding-left: 12px;
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.55;
+`;
+
+/* ——— Callout: детерминированный аналитический слой / self-correction ——— */
+
+export const CalloutCard = styled.div`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${({ theme }) => theme.color.basic.primary};
+  border-radius: 14px;
+  padding: 18px 20px;
+  display: grid;
+  gap: 10px;
+`;
+
+export const CalloutCaption = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+`;
+
+export const CalloutLead = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT};
+  font-size: 15px;
+  font-weight: 600;
+`;
+
+export const CalloutNote = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.55;
+`;

@@ -333,9 +333,24 @@ export interface AiEngineeringProps {
     title: string;
     items: { title: string; text: string }[];
   };
-  // Пайплайны вертикальными цепочками шагов (RAG / Agent)
+  // Пайплайны вертикальными цепочками шагов (агенты / RAG)
   pipelinesTitle?: string;
+  // Строка над цепочками («Авто-роутер → Олег / Ксюша»)
+  routerLine?: string;
   pipelines?: { title: string; steps: string[] }[];
+  // Callout «Deterministic analytics»: цепочка + примечание
+  deterministic?: {
+    title: string;
+    lead: string;
+    steps: string[];
+    note: string;
+  };
+  // Цепочка self-correction с примечанием
+  selfCorrection?: {
+    title: string;
+    steps: string[];
+    note: string;
+  };
 }
 
 export interface PortfolioListProps {
@@ -373,6 +388,12 @@ export interface PortfolioListProps {
   // Key results — стена цифр сразу после первого экрана.
   keyResultsTitle?: string;
   keyResults?: { value: string; label: string }[];
+  // Расшифровка покрытия и честное ограничение под карточками.
+  keyResultsNote?: string;
+  keyResultsLimitation?: string;
+  // Продуктовые возможности — вторым списком после AI-возможностей.
+  productFeaturesTitle?: string;
+  productFeatures?: string[];
 }
 
 export interface PortfolioHeaderProps {

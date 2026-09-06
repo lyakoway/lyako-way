@@ -415,16 +415,18 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
     cardMetrics: ["2h → 2min", "161 automated tests"],
     tagline:
-      "Production-oriented multi-agent platform: natural-language questions → SQL, data analysis and a verifiable result.",
+      "Production-oriented multi-agent analytics system for natural-language data analysis.",
     metricsLine:
-      "161 automated tests · 2h → 2min · SQL Guard · Self-correction · Multi-source",
-    keyResultsTitle: "Key results",
+      "161 tests · 2h → 2min · 2 agents · self-correction",
+    keyResultsTitle: "Current validation",
     keyResults: [
       { value: "161", label: "automated tests" },
-      { value: "2h → 2min", label: "analytical result" },
       { value: "2", label: "specialized agents" },
-      { value: "4+", label: "data sources" },
+      { value: "2", label: "levels of routing" },
+      { value: "2", label: "databases managed" },
     ],
+    keyResultsNote: "Agent Loop · SQL Guard · Analytics · Routing · RAG · Data Sources",
+    keyResultsLimitation: "No golden-set evaluation for SQL generation yet.",
     technologies: [
       "Python",
       "FastAPI",
@@ -444,21 +446,26 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "A multi-agent analytics platform: an auto-router sends each question to the right agent — Oleg (Text-to-SQL, agent loop with tool calling) or Ksyusha (RAG with vector search).;Users watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.;Data sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.;Every figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).;161 automated tests; deployed on Hugging Face Spaces.",
+      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.;Users watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.;Data sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.;Every figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).;161 automated tests; deployed on Hugging Face Spaces.",
     features: [
-      "Agent Loop (ReAct): Oleg picks his own tools — database_query, calculate, analyze, chart, finish",
-      "Auto-routers: agent (data/docs) and data source chosen from the question's meaning",
-      "Multi-source: PostgreSQL, ClickHouse, CSV/Excel (SQL + RAG pipeline), 'All uploads' with JOINs",
-      "SSE execution trace: agents' step-by-step work in real time",
-      "Self-correction: the agent sees a failed SQL and rewrites it (2 retries)",
-      "Deterministic analytics: trends, top-N, z-score anomalies computed in Python, not by the LLM",
-      "RAG v2: upload PDF/Word/Excel/TXT, hybrid BM25 + vector search (fastembed), clickable [1] citations, document viewer",
-      "Parameterized scenarios: period, grouping, metric — one template, endless reuse",
-      "Feedback analytics panel: 👍/👎 breakdown per agent with filters",
-      "Transparent statuses: ok / demo / partial / error on every answer",
+      "Multi-agent routing",
+      "Agent Loop (ReAct)",
+      "Tool Calling",
+      "Text-to-SQL",
+      "Self-Correction",
+      "Deterministic Analytics",
+      "Hybrid RAG",
+    ],
+    productFeaturesTitle: "Product capabilities",
+    productFeatures: [
+      "SSE execution trace",
+      "Document viewer (PDF · DOCX · XLSX)",
+      "Feedback 👍/👎 and analytics",
+      "Parameterized scenarios",
+      "Status indicators: ok / demo / partial / error",
     ],
     aiEngineering: {
-      sectionTitle: "Engineering approach",
+      sectionTitle: "An AI engineer's view: agency and reliability",
       intro:
         "A breakdown in the same 'AI engineer's view' format: not a feature list, but an engineering loop — from question routing and trust in numbers to SQL failures and testing. The project's key question: how to make an LLM work with databases in a way the answer can be trusted.",
       useCasesTitle: "What the project is for",
@@ -542,98 +549,56 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       diagramNote:
         "Top to bottom: a question → dual routing (agent + source) → step-by-step execution with trace → an answer with citations and a chart. LLM providers are interchangeable; the demo mode runs without keys on deterministic scripts.",
-      pipelinesTitle: "Pipelines",
+      pipelinesTitle: "Two specialized agents",
+      routerLine: "Auto-router → Oleg / Ksyusha",
       pipelines: [
         {
-          title: "SQL pipeline",
+          title: "Oleg — Data Agent",
           steps: [
-            "User",
-            "Router",
-            "Agent Loop (ReAct)",
+            "Natural Language",
             "Text-to-SQL",
-            "SQL Guard",
-            "Self-correction",
-            "Python Analytics",
-            "Answer + Chart",
+            "Tool Calling",
+            "Database",
+            "Analytics",
+            "Chart / Answer",
           ],
         },
         {
-          title: "RAG pipeline",
+          title: "Ksyusha — Knowledge Agent",
           steps: [
-            "User",
-            "Router",
-            "Hybrid BM25 + Vector",
-            "Ksyusha (RAG)",
+            "Question",
+            "BM25 + Vector Search",
+            "Relevant chunks",
+            "LLM",
             "Citations",
-            "Answer",
           ],
         },
       ],
       principlesTitle: "AI engineer's checklist",
       principles: [
         {
-          title: "1. Success metrics before code",
-          check:
-            "Is 'works' defined: SQL accuracy, search quality, failure behavior.",
-          result:
-            "Criteria: SQL either executes or the agent honestly reports the failure (no silent data substitution); figures in the answer match the table; search finds a document by synonyms. Each criterion is covered by tests or a feature.",
-          status: "done",
+          title: "01 — Deterministic numbers",
+          check: "The LLM writes prose; Python computes the numbers.",
         },
         {
-          title: "2. The LLM doesn't compute — code does",
-          check:
-            "Do the numbers come from model hallucinations or from deterministic computation.",
-          result:
-            "All metrics (sums, percentages, trends, z-score anomalies) are computed by a Python analytics layer. The LLM receives ready-made highlights and only writes prose — it physically cannot invent a number; the prompt forbids it outright.",
-          status: "done",
+          title: "02 — SQL failure is part of the contract",
+          check: "Failed SQL → self-correction → retry → honest error.",
         },
         {
-          title: "3. SQL failures are part of the contract",
-          check:
-            "What happens when generated SQL fails to execute.",
-          result:
-            "Three-level handling: guard errors (forbidden statements) go straight to the user; runtime errors trigger self-correction — the error is fed to the LLM which rewrites the query (up to 2 attempts); if that fails, an honest error status. Progress shows as separate trace steps.",
-          status: "done",
+          title: "03 — Specialized agents over universal prompts",
+          check: "Routing selects the right agent and data source.",
         },
         {
-          title: "4. Routing instead of one 'universal' prompt",
-          check:
-            "How the system decides which agent and which data answer.",
-          result:
-            "Two routers: agent (data/docs) and source (which DB). Each is an LLM classifier with a deterministic heuristic fallback. The decision shows in the trace: '→ Oleg (data)', '→ RideGo (demo)'. Manual override via selectors and checkboxes.",
-          status: "done",
+          title: "04 — Hybrid retrieval",
+          check: "BM25 + vector search handles exact terms, semantics and multilingual queries.",
         },
         {
-          title: "5. Hybrid search instead of a single method",
-          check:
-            "Does search find documents by synonyms, typos and other languages.",
-          result:
-            "Hybrid BM25-IDF (exact terms) + fastembed vector embeddings (semantics, 50+ languages), weighted 0.4/0.6. Verified: an English question finds a Russian document; 'expenses' finds 'затраты'. Russian stemming for BM25, fallback chunks for vague questions.",
-          status: "done",
+          title: "05 — Transparent execution",
+          check: "SSE exposes routing, tool calls, retries and the final status.",
         },
         {
-          title: "6. Mode transparency for the user",
-          check:
-            "Is it clear whether an answer is real or a stub, and what happened inside.",
-          result:
-            "Every answer carries a status: ok / demo / partial (self-corrected) / error. The SSE trace shows steps in real time. Source passwords stay server-side and are never returned to the UI. Demo answers are honestly labeled.",
-          status: "done",
-        },
-        {
-          title: "7. Multi-source without moving data",
-          check:
-            "Can the agent work with several databases and files at once.",
-          result:
-            "The virtual 'All uploads' source: Oleg sees the schema of every uploaded table and builds JOINs across files without copying data. The source router picks the table from the question. CSV/Excel feed both pipelines: an SQL table plus text chunks.",
-          status: "done",
-        },
-        {
-          title: "8. Engineering discipline",
-          check:
-            "Tests, isolation, reproducibility — the system is verified automatically.",
-          result:
-            "161 pytest tests: agent loop (with a fake provider), self-correction, SQL guard (timeouts, forbidden statements), analytics, every source type, 'messy' Excel parsers. Tests run on isolated temp DBs — production data is never touched.",
-          status: "done",
+          title: "06 — Reproducible verification",
+          check: "161 tests, isolated databases and fake providers.",
         },
       ],
       metricsTitle: "Measurements",
@@ -669,20 +634,48 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "Timeouts use a ThreadPoolExecutor with future.result(timeout) — a heavy query never blocks the event loop. Remote databases get a larger budget: cross-network connect plus handshake takes seconds.",
         },
       ],
-      findingsTitle: "What the measurements and operation showed",
+      deterministic: {
+        title: "Deterministic analytics",
+        lead: "The LLM never calculates business numbers.",
+        steps: [
+          "Database",
+          "Raw data",
+          "Python analytics layer",
+          "Trends / percentages / top-N / z-score",
+          "Structured highlights",
+          "LLM",
+          "Natural-language explanation",
+        ],
+        note: "This prevents the model from inventing arithmetic results and makes analytical figures reproducible.",
+      },
+      selfCorrection: {
+        title: "SQL self-correction",
+        steps: [
+          "Generate SQL",
+          "SQL Guard",
+          "Execute",
+          "ERROR",
+          "LLM receives error",
+          "Rewrite SQL",
+          "Retry ×2",
+          "Result / Honest Error",
+        ],
+        note: "The system never silently substitutes a fabricated result after a SQL failure.",
+      },
+      findingsTitle: "Engineering findings",
       findings: [
-        "LLMs are unreliable at arithmetic — an architectural problem, not a prompt problem. Early versions computed percentages 'in their head': plausible invented figures appeared in demos. The fix is a deterministic Python layer: the LLM receives ready-made highlights and physically cannot insert a number absent from the data.",
-        "Silent fallbacks destroy trust. An early version quietly substituted a stub on SQL failure — the user saw plausible but wrong figures. After refactoring: the error is visible, self-correction shows its attempts, and demo mode is honestly labeled with a badge.",
-        "'Dirty' Excel files are the norm, not the exception. A real user file failed on three things at once: a merged title row instead of a header, blank header cells, duplicate column names. The parser had to learn to locate the header row (by fill ratio) and resolve duplicates (to_8 → to_8_2).",
-        "Keyword search without stemming is useless for Russian. 'Регламенту' didn't match 'регламент', 'масла' didn't match 'масло'. A crude stemmer (45+ endings) restored search; fastembed vector search added semantics — an English question finds a Russian document.",
-        "Routing saves trust, not steps. A single 'universal' prompt blurred the agent's role; two specialized agents plus an auto-router give better answer quality, and the decision is visible in the trace — the user understands why the answer looks the way it does.",
+        "LLMs are unreliable at arithmetic. Early versions produced plausible but incorrect percentages. Decision: all numerical computation moved into a deterministic Python layer.",
+        "Silent fallbacks destroy trust. An answer without a mode badge looked like a real one. Decision: explicit ok / demo / partial / error statuses on every response.",
+        "Dirty Excel files are the norm. A real upload broke on a merged header row and duplicate columns. Decision: resilient parsers that detect the header row, plus tests on dirty files.",
+        "Keyword search without stemming is useless for Russian. «Затраты» did not match «расходы». Decision: Russian stemming for BM25 + a vector channel for semantics and multilinguality.",
+        "Routing saves trust, not steps. A single universal prompt blurred the agent's role. Decision: two specialized agents + two-level routing with a visible decision in the trace.",
       ],
-      gapsTitle: "Honest gaps",
+      gapsTitle: "Known limitations & next engineering steps",
       gaps: [
-        "No golden-set evaluation of SQL quality: correctness is covered by fixed-case tests, not a labeled set of questions with reference queries.",
-        "The vector index is rebuilt on every search — larger corpora will need a persistent embedding store (ChromaDB / Qdrant).",
-        "Uploaded documents are processed synchronously — large PDFs will hit the timeout; background ingestion with statuses is needed.",
-        "No authentication or multi-tenancy — real production would require users, private sources and data isolation.",
+        "SQL evaluation — add a golden-set evaluation with reference SQL and execution-based correctness.",
+        "Persistent retrieval — move from per-search index rebuild to persistent ChromaDB / Qdrant.",
+        "Async ingestion — move large-document processing to background jobs with ingestion status.",
+        "Security & multi-tenancy — add authentication, authorization and tenant-level data isolation.",
       ],
       production: {
         title: "Production & reliability",
@@ -718,7 +711,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Transparency",
       ],
       conclusion:
-        "This is not a 'chat bot over SQL' — the agency here is verified by tests, and trust in the numbers is built architecturally: the LLM writes prose but performs no computation.\nThe system is honest about failures: it shows its repair attempts instead of substituting the result.",
+        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 161 automated tests.\nKnown limitation: SQL quality is currently validated through fixed-case tests; the next step is a dedicated golden set with execution-based evaluation.",
       footnote:
         "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
     },
