@@ -249,6 +249,9 @@ export const WipBadge = styled.span`
 export const CardBody = styled.div`
   display: flex;
   flex-direction: column;
+  /* занимает остаток высоты карточки: «Смотреть кейс» прижат к низу,
+     без пустого пространства под телом карточки */
+  flex: 1;
   gap: 8px;
   padding: 16px 18px;
 `;
