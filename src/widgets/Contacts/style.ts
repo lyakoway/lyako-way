@@ -27,14 +27,17 @@ export const ContactBlock = styled.section`
 `;
 
 export const Links = styled.div`
-  /* Кнопки контактов: ниже 768px — друг под другом во всю ширину
-     (ряду из четырёх кнопок нужно ~620px), от 768px — один ряд
-     из равных кнопок. */
+  /* Кнопки контактов: ниже 580px — друг под другом, 580–1023px —
+     по две кнопки в ряд, от 1024px — все четыре в одну линию. */
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
 
-  @media (min-width: 768px) {
+  @media (min-width: 580px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
     grid-template-columns: repeat(4, 1fr);
   }
 `;
@@ -277,14 +280,19 @@ export const PracticeSection = styled.section`
 `;
 
 export const StatsGrid = styled.ul`
+  /* Ниже 580px — карточка в строку, 580–1023px — 2×2, от 1024px — 4 в ряд. */
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 12px;
   margin: 0;
   padding: 0;
   list-style: none;
 
-  @media (min-width: 768px) {
+  @media (min-width: 580px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
     grid-template-columns: repeat(4, 1fr);
   }
 `;
