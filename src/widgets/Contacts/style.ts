@@ -136,11 +136,25 @@ export const HeroText = styled.p`
 `;
 
 export const HeroChips = styled.p`
+  position: relative;
   margin: 2px 0 0;
+  padding-left: 11px;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.3px;
+
+  /* акцентная полоска слева */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    bottom: 1px;
+    width: 3px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 export const HeroSubtitle = styled.p`
