@@ -84,6 +84,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
     cardDescription:
       "An AI system for searching and working with PDF, Word and Excel — answers grounded in source citations.",
     cardMetrics: ["92% Recall@1", "5.0/5 LLM-as-a-Judge"],
+    tagline:
+      "Production-oriented RAG system for document Q&A, retrieval evaluation and agentic search.",
+    metricsLine:
+      "92% Recall@1 · 5.0/5 LLM-as-a-Judge · 24 golden questions · 25 automated tests",
+    keyResultsTitle: "Key results",
+    keyResults: [
+      { value: "92%", label: "Recall@1" },
+      { value: "5.0 / 5", label: "LLM-as-a-Judge" },
+      { value: "24", label: "golden questions" },
+      { value: "25", label: "automated tests" },
+    ],
     technologies: [
       "Python",
       "FastAPI",
@@ -103,30 +114,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioText:
       "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and vector search.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 92%) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
     features: [
-      "Mode switch: RAG Chat, AI Agent and Vector Search in one app",
-      "Vector search (fastembed + ChromaDB): ranked chunks with relevance scores — no LLM, no keys",
-      "Documents panel: preview, download, language filter, paired RU/EN deletion",
-      "Cross-language Q&A: a file in one language, the answer in the UI language",
-      "Retrieval evaluation: 24 golden questions, Recall@1 92% (see README)",
-      "Agent steps timeline (tools: list / search documents)",
-      "Custom agent loop on FastAPI (JSON tool-calling)",
-      "Search across PDF, Word (.docx) and Excel (.xlsx)",
-      "Clickable citations [1], [2] with in-app document preview",
-      "PDF / DOCX / Excel preview in a modal",
-      "👍/👎 answer feedback (stored in DB + analytics)",
-      "Voice input: ask by voice in chat and vector search (Web Speech API)",
-      "Follow-up suggestions under each answer: one click continues the dialog (built from retrieval)",
-      "Auto chat titles: the LLM names the conversation (background task, no answer delay)",
-      "LLM-as-judge: answer quality scored by a second model — 5.0 on every axis",
-      "Category filter, conversation history, SSE streaming",
-      "Multi-model: GLM-5.x / Z.ai / OpenAI / Anthropic / Ollama / offline demo",
-      "Light/dark theme and language switching (RU/EN)",
-      "Yandex Metrika + GA4 event markup, pytest + CI",
+      "Hybrid Retrieval: BM25 + vectors, RRF",
+      "Answers with citations to source pages",
+      "Custom Agent Loop on FastAPI",
+      "Multilingual retrieval (RU / EN)",
+      "Retrieval Evaluation: 24 golden questions, Recall@K",
+      "LLM-as-a-Judge: answer quality 5.0/5",
     ],
     aiEngineering: {
-      sectionTitle: "AI engineering view: methodology & measurements",
+      sectionTitle: "Engineering approach",
       intro:
-        "This review uses an AI engineer's lens: the app is judged not by a feature list but by the engineering loop — from problem framing and success metrics to quality measurements and operations. The eight-principle checklist below is my methodology for evaluating AI applications; it was applied to this project and will be applied to the next ones.",
+        "I don't evaluate an AI system by whether it works on a few examples. I define metrics, build a reproducible evaluation set, compare alternatives and make architectural decisions based on measurements.",
       useCasesTitle: "What the project is for",
       useCasesListTitle: "Several scenarios where it already works",
       useCasesIntro:
@@ -232,74 +230,30 @@ export const propsPortfolioList: PortfolioListProps[] = [
       principlesTitle: "AI engineer's checklist",
       principles: [
         {
-          title: "1. Success metrics before code",
-          check:
-            "Is “works” defined up front: quality, latency, cost — and how to measure each.",
-          result:
-            "Criteria were set before implementation: the right document at the top of retrieval (Recall@k), an answer with a page-level citation, first token within seconds. Every criterion has a measurement in the tables below.",
-          status: "done",
+          title: "01 — Metrics before code",
+          check: "I define quality, latency, cost and reliability before implementation.",
         },
         {
-          title: "2. Retrieval evaluated on a golden set",
-          check:
-            "Is there a test set of questions with known sources and retrieval metrics, rather than eyeballing.",
-          result:
-            "24 golden questions (RU/EN) over the demo corpus. Recall@1/3/5 and MRR are computed by scripts/evaluate.py — the index is rebuilt from scratch on every run, so the numbers are reproducible with one command.",
-          status: "done",
+          title: "02 — Evaluation before optimization",
+          check: "Golden Set → Recall@K → experiments → decision.",
         },
         {
-          title: "3. Decisions driven by measurements",
-          check:
-            "Is every architectural decision backed by a comparison of alternatives.",
-          result:
-            "Hybrid BM25+RRF was chosen because it lifts Recall@1 from 50% to 92% on the bilingual corpus. The cross-encoder reranker was tested and rejected: it hurts on this corpus (Recall@1 42%) and costs ~3 seconds.",
-          status: "done",
+          title: "03 — Data-driven architecture",
+          check: "I compare retrieval, models and pipeline configuration on my own evaluation set.",
         },
         {
-          title: "4. Model choice driven by data",
-          check:
-            "Models compared on your own pipeline: quality, latency, price.",
-          result:
-            "Five providers switch in the UI (Z.ai GLM, OpenAI, Anthropic, Ollama, offline demo). TTFT measured: GLM-5.3-flash — 2.5–3 s, GLM-5.3 — 2.6 s, a local Llama 3.2 3B on CPU — 1.2–3.6 s, GLM-4.5-flash — 25–50 s. Even the free cloud model loses to a local 3B on latency.",
-          status: "done",
+          title: "04 — Observable AI systems",
+          check: "Tool calls, execution steps, errors, feedback and latency must be visible.",
         },
         {
-          title: "5. Agent with an observable loop",
-          check:
-            "Are tool steps visible, are errors handled, are decisions logged.",
-          result:
-            "A custom tools loop on FastAPI, no frameworks: list documents → search → refine. Each step arrives in the UI as a separate event, and a step failure does not kill the stream (SSE error event).",
-          status: "done",
-        },
-        {
-          title: "6. Prompts as components",
-          check:
-            "Prompts separated from logic, changes verified against a test set.",
-          result:
-            "The system prompt is assembled separately from context, output contracts are fixed (JSON for conversation titles, JSON judge scores). The judge script supports model A/B (--answer-model / --judge-model). A prompt regression harness is on the roadmap.",
-          status: "done",
-        },
-        {
-          title: "7. Observability and feedback",
-          check:
-            "For every request you can see what happened: sources, model, errors, user rating.",
-          result:
-            "An SSE protocol with explicit done/error events and a 180 s provider timeout. 👍/👎 is stored in the DB. 32 analytics events are instrumented for Yandex Metrika and GA4.",
-          status: "done",
-        },
-        {
-          title: "8. Engineering discipline",
-          check:
-            "Tests, CI, reproducibility — the system is verified automatically.",
-          result:
-            "25 pytest tests (parsers, chunking, language, API), CI on GitHub Actions, an isolated eval store — measurements never touch the live base.",
-          status: "done",
+          title: "05 — Reproducible quality",
+          check: "Tests, CI, isolated evaluation environment and regression control.",
         },
       ],
       metricsTitle: "Measurements",
       tables: [
         {
-          title: "Retrieval quality — 24 golden questions (RU + EN)",
+          title: "Why hybrid search? — retrieval experiment",
           columns: ["Configuration", "Recall@1", "Recall@3", "MRR@5", "Search"],
           rows: [
             { cells: ["Vector search", "50.0%", "95.8%", "0.733", "11 ms"] },
@@ -318,7 +272,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             },
           ],
           footnote:
-            "Local run Aug 28, 2026, CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible.",
+            "Decision: hybrid BM25 + RRF became the default retrieval strategy — the best measured trade-off between retrieval quality and latency on the bilingual evaluation set. Local run Aug 28, 2026, CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible.",
         },
         {
           title: "System measurements — live API run",
@@ -370,7 +324,61 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Citations — citations are correct", "5.0 / 5"] },
           ],
           footnote:
-            "Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24.",
+            "This is an LLM-based evaluation and should be treated as a supporting signal: 5.0/5 on 24 answers across Faithfulness, Relevance and Citations. Stricter validation should use an independent judge model or human evaluation. Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24.",
+        },
+      ],
+      production: {
+        title: "Production & reliability",
+        items: [
+          {
+            title: "Streaming",
+            text: "SSE with explicit done / error events.",
+          },
+          {
+            title: "Failure handling",
+            text: "Provider timeout, tool-step errors and graceful recovery.",
+          },
+          {
+            title: "Observability",
+            text: "Model, sources, latency, errors and user feedback.",
+          },
+          {
+            title: "Testing",
+            text: "25 pytest tests + GitHub Actions CI.",
+          },
+          {
+            title: "Reproducibility",
+            text: "Evaluation index rebuilt from scratch on every run.",
+          },
+        ],
+      },
+      pipelinesTitle: "Pipelines",
+      pipelines: [
+        {
+          title: "RAG pipeline",
+          steps: [
+            "Documents",
+            "Parsing",
+            "Chunking",
+            "Embeddings",
+            "BM25 + Vector Search",
+            "RRF",
+            "Context",
+            "LLM",
+            "Grounded Answer",
+            "Citations",
+          ],
+        },
+        {
+          title: "Agent pipeline",
+          steps: [
+            "User",
+            "Agent Loop",
+            "List Documents",
+            "Search",
+            "Refine",
+            "Answer",
+          ],
         },
       ],
       findingsTitle: "What the measurements showed",

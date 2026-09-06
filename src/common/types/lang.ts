@@ -254,9 +254,10 @@ export interface AiEngineeringPrinciple {
   title: string;
   // Что именно проверяем (формулировка принципа)
   check: string;
-  // Как принцип закрыт (или не закрыт) в этом проекте — с числами
-  result: string;
-  status: AiEngineeringStatus;
+  // Как принцип закрыт (или не закрыт) в этом проекте — с числами.
+  // Для кратких принципов (5 штук) может не заполняться.
+  result?: string;
+  status?: AiEngineeringStatus;
 }
 
 export interface AiEngineeringTable {
@@ -327,6 +328,14 @@ export interface AiEngineeringProps {
   conclusionSteps?: string[];
   // Примечание о воспроизводимости/условиях замеров
   footnote?: string;
+  // Production & Reliability — надёжность и эксплуатация в проде
+  production?: {
+    title: string;
+    items: { title: string; text: string }[];
+  };
+  // Пайплайны вертикальными цепочками шагов (RAG / Agent)
+  pipelinesTitle?: string;
+  pipelines?: { title: string; steps: string[] }[];
 }
 
 export interface PortfolioListProps {
@@ -358,6 +367,12 @@ export interface PortfolioListProps {
   // Короткое описание и ключевые метрики для карточки в списке /portfolio.
   cardDescription?: string;
   cardMetrics?: string[];
+  // Первый экран страницы проекта: тизер и строка ключевых метрик.
+  tagline?: string;
+  metricsLine?: string;
+  // Key results — стена цифр сразу после первого экрана.
+  keyResultsTitle?: string;
+  keyResults?: { value: string; label: string }[];
 }
 
 export interface PortfolioHeaderProps {

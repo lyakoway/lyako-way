@@ -80,6 +80,16 @@ import {
   AiUseCasesHeading,
   AiUseCaseTitle,
   AiUseCaseText,
+  MetricsStrip,
+  KeyResultsGrid,
+  KeyStatCard,
+  KeyStatValue,
+  KeyStatLabel,
+  ProductionItem,
+  ProductionName,
+  ProductionText,
+  PipelineChain,
+  PipelineChainStep,
 } from "./style";
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
@@ -416,6 +426,13 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
         <>
           {project.wip && <WipTag>{portfolio.wip}</WipTag>}
 
+          {/* Первый экран: тизер и строка ключевых метрик */}
+          {project.tagline && (
+            <Reveal as={DescLead} delay={40}>
+              {project.tagline}
+            </Reveal>
+          )}
+
           <Reveal as={MetaList} delay={80}>
             {project.portfolioDataTime && (
               <MetaRow>
@@ -479,6 +496,35 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
               </MetaRow>
             )}
           </Reveal>
+
+          {/* Строка метрик под тизером */}
+          {project.metricsLine && (
+            <Reveal as={MetricsStrip} delay={100}>
+              {project.metricsLine}
+            </Reveal>
+          )}
+
+          {/* Key results — стена цифр сразу после первого экрана */}
+          {project.keyResults && project.keyResults.length > 0 && (
+            <>
+              <FeaturesHead>
+                <FeaturesIcon>
+                  <IconMetrics />
+                </FeaturesIcon>
+                <FeaturesTitle>
+                  {project.keyResultsTitle ?? portfolioHeader.features}
+                </FeaturesTitle>
+              </FeaturesHead>
+              <KeyResultsGrid>
+                {project.keyResults.map((k, i) => (
+                  <Reveal as={KeyStatCard} key={k.label} delay={i * 60}>
+                    <KeyStatValue>{k.value}</KeyStatValue>
+                    <KeyStatLabel>{k.label}</KeyStatLabel>
+                  </Reveal>
+                ))}
+              </KeyResultsGrid>
+            </>
+          )}
 
           <Desc>
             {project.portfolioText
@@ -637,7 +683,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                             <AiPrincipleBody>
                               <AiPrincipleTitle>{p.title}</AiPrincipleTitle>
                               <AiPrincipleCheck>{p.check}</AiPrincipleCheck>
-                              <AiPrincipleResult>{p.result}</AiPrincipleResult>
+                              {p.result && (
+                                <AiPrincipleResult>
+                                  {p.result}
+                                </AiPrincipleResult>
+                              )}
                             </AiPrincipleBody>
                           </Reveal>
                         ))}
@@ -646,6 +696,39 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   </div>
                 </AiUseCasesContent>
               </AiUseCases>
+
+              {project.aiEngineering.pipelines &&
+                project.aiEngineering.pipelines.length > 0 && (
+                  <>
+                    <FeaturesHead>
+                      <FeaturesIcon>
+                        <IconDiagram />
+                      </FeaturesIcon>
+                      <FeaturesTitle>
+                        {project.aiEngineering.pipelinesTitle}
+                      </FeaturesTitle>
+                    </FeaturesHead>
+                    <AiDiagram>
+                      {project.aiEngineering.pipelines.map((pipeline) => (
+                        <AiLane key={pipeline.title}>
+                          <Reveal as={AiLaneCard} x={64} y={0} delay={90}>
+                            <AiLaneTitle>{pipeline.title}</AiLaneTitle>
+                            <PipelineChain>
+                              {pipeline.steps.map((step, i) => (
+                                <React.Fragment key={step}>
+                                  <PipelineChainStep>{step}</PipelineChainStep>
+                                  {i < pipeline.steps.length - 1 && (
+                                    <span className="down">↓</span>
+                                  )}
+                                </React.Fragment>
+                              ))}
+                            </PipelineChain>
+                          </Reveal>
+                        </AiLane>
+                      ))}
+                    </AiDiagram>
+                  </>
+                )}
 
               <FeaturesHead>
                 <FeaturesIcon><IconMetrics /></FeaturesIcon>
@@ -699,6 +782,28 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                         </Reveal>
                       ))}
                     </FeatureList>
+                  </>
+                )}
+
+              {project.aiEngineering.production &&
+                project.aiEngineering.production.items.length > 0 && (
+                  <>
+                    <FeaturesHead>
+                      <FeaturesIcon>
+                        <IconGaps />
+                      </FeaturesIcon>
+                      <FeaturesTitle>
+                        {project.aiEngineering.production.title}
+                      </FeaturesTitle>
+                    </FeaturesHead>
+                    <div>
+                      {project.aiEngineering.production.items.map((item) => (
+                        <ProductionItem key={item.title}>
+                          <ProductionName>{item.title}</ProductionName>
+                          <ProductionText>{item.text}</ProductionText>
+                        </ProductionItem>
+                      ))}
+                    </div>
                   </>
                 )}
 

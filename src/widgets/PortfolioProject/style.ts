@@ -1323,3 +1323,127 @@ export const NotFound = styled.p`
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 15px;
 `;
+
+
+/* ——— Первый экран: строка метрик + Key results ——— */
+
+export const MetricsStrip = styled.p`
+  margin: 0 0 8px;
+  padding-left: 12px;
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+`;
+
+export const KeyResultsGrid = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+`;
+
+export const KeyStatCard = styled.li`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: grid;
+  gap: 2px;
+  align-content: start;
+`;
+
+export const KeyStatValue = styled.div`
+  color: ${PANEL_TEXT};
+  font-size: 20px;
+  font-weight: 700;
+`;
+
+export const KeyStatLabel = styled.div`
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 500;
+`;
+
+/* ——— Production & Reliability ——— */
+
+export const ProductionItem = styled.div`
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  padding: 10px 0 10px 16px;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid ${PANEL_BORDER};
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 17px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
+export const ProductionName = styled.span`
+  color: ${PANEL_TEXT};
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+
+  /* тире-разделитель перед описанием */
+  &::after {
+    content: " —";
+    color: ${PANEL_TEXT_MUTED};
+    font-weight: 400;
+  }
+`;
+
+export const ProductionText = styled.span`
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.5;
+`;
+
+/* ——— Пайплайны: вертикальные цепочки шагов ——— */
+
+export const PipelineChain = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 12px;
+
+  .down {
+    margin-left: 14px;
+    color: ${({ theme }) => theme.color.basic.primary};
+    font-size: 12px;
+    line-height: 1;
+  }
+`;
+
+export const PipelineChainStep = styled.span`
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: ${PANEL_ELEVATED_HOVER};
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+`;
