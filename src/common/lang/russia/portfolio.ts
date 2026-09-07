@@ -420,21 +420,23 @@ export const propsPortfolioList: PortfolioListProps[] = [
     direction: "AI-агенты",
     cardDescription:
       "Мультиагентная аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
-    cardMetrics: ["2ч → 2мин · репрезентативный сценарий отчётности", "174 теста + evaluation"],
+    cardMetrics: ["2ч → 2мин · репрезентативный сценарий", "SQL Execution Accuracy 100% · Routing 100%"],
     tagline:
       "Мультиагентная аналитическая система для анализа данных на естественном языке — production-качество, проверено автотестами.",
     metricsLine:
-      "174 теста · LLM evaluation · 2ч → 2мин (сценарий) · самокоррекция SQL",
+      "174 теста · Execution 100% · Routing 100% · Result Accuracy 42% · p95 32s (GLM-4.6)",
     keyResultsTitle: "Текущая валидация",
     keyResults: [
+      { value: "100%", label: "SQL Execution Accuracy · Golden Set 50" },
+      { value: "100%", label: "Agent Routing Accuracy · Golden Set 20" },
+      { value: "42%", label: "Result Accuracy (exact-match)" },
       { value: "174", label: "автотестов + LLM evaluation" },
       { value: "2", label: "специализированных агента" },
-      { value: "2", label: "уровня роутинга" },
       { value: "4", label: "типа источников данных" },
     ],
-    keyResultsNote: "30-case SQL Golden Set · Execution Accuracy · Result Accuracy · Self-Correction Rate · p95 Latency",
+    keyResultsNote: "Прогон GLM-4.6 (50 SQL + 20 routing): p95 32s · Self-Correction Rate измеряется отдельно · 0 необработанных ошибок",
     keyResultsLimitation:
-      "Golden Set покрывает 30 сценариев — расширяем покрытие: сложные JOIN, неоднозначные вопросы, кросс-источниковые сценарии.",
+      "Result Accuracy 42% — exact-set match строго к эталону; расширяю сопоставление (синонимы, формы, агрегаты) и покрытие Golden Set.",
     technologies: [
       "Python",
       "FastAPI",

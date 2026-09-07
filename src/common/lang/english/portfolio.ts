@@ -423,12 +423,14 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "174 tests · LLM evaluation · 2h → 2min (scenario) · SQL self-correction",
     keyResultsTitle: "Current validation",
     keyResults: [
+      { value: "100%", label: "SQL Execution Accuracy · Golden Set 50" },
+      { value: "100%", label: "Agent Routing Accuracy · Golden Set 20" },
+      { value: "42%", label: "Result Accuracy (exact-match)" },
       { value: "174", label: "tests + LLM evaluation" },
       { value: "2", label: "specialized agents" },
-      { value: "2", label: "levels of routing" },
       { value: "4", label: "data source types" },
     ],
-    keyResultsNote: "30-case SQL Golden Set · Execution Accuracy · Result Accuracy · Self-Correction Rate · p95 Latency",
+    keyResultsNote: "Live run GLM-4.6 (50 SQL + 20 routing): p95 32s · Self-Correction Rate measured separately · 0 unhandled errors",
     keyResultsLimitation: "Golden Set covers 30 cases — expanding coverage with complex JOINs, ambiguous questions and cross-source scenarios.",
     technologies: [
       "Python",
