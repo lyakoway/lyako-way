@@ -415,15 +415,15 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
     cardMetrics: [
       "2h → 2min · representative reporting workflow",
-      "161 automated tests",
+      "174 tests + LLM evaluation",
     ],
     tagline:
       "Production-oriented multi-agent analytics system for natural-language data analysis.",
     metricsLine:
-      "161 tests · 2h → 2min (representative workflow) · 2 agents · self-correction",
+      "174 tests · LLM evaluation · 2h → 2min (scenario) · SQL self-correction",
     keyResultsTitle: "Current validation",
     keyResults: [
-      { value: "161", label: "automated tests" },
+      { value: "174", label: "tests + LLM evaluation" },
       { value: "2", label: "specialized agents" },
       { value: "2", label: "levels of routing" },
       { value: "4", label: "data source types" },
@@ -449,7 +449,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).\n161 automated tests; deployed on Hugging Face Spaces.",
+      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).\n174 tests + LLM evaluation: a 30-case SQL golden set, Execution / Result Accuracy, Self-Correction Rate, p95 latency; deployed on Hugging Face Spaces.",
     features: [
       "Multi-agent routing",
       "Text-to-SQL + Tool Calling",
@@ -459,6 +459,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     productFeaturesTitle: "Product capabilities",
     productFeatures: [
+      "Single file upload: SQL table + search (both agents)",
       "SSE execution trace",
       "Document viewer (PDF · DOCX · XLSX)",
       "Feedback 👍/👎 and analytics",
@@ -544,7 +545,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           nodes: [
             { label: "SQL guard", note: "SELECT-only, row limit, 8/30 s timeouts" },
             { label: "Feedback", note: "👍/👎 persisted + analytics panel" },
-            { label: "pytest", note: "161 tests, isolated temp DBs" },
+            { label: "pytest + evaluation", note: "174 tests + golden set, temp DBs" },
           ],
         },
       ],
@@ -599,13 +600,13 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
         {
           title: "06 — Reproducible verification",
-          check: "161 tests, isolated databases and fake providers.",
+          check: "174 tests, isolated databases and fake providers; golden-set LLM evaluation runs as a separate pass.",
         },
       ],
       metricsTitle: "Automated verification",
       tables: [
         {
-          title: "Test coverage — 161 pytest tests",
+          title: "Test coverage — 174 pytest tests",
           columns: ["Component", "Tests", "What is verified"],
           rows: [
             { cells: ["Agent Loop (ReAct)", "22", "tool calling, self-correction, step limit, fallback"] },
@@ -616,6 +617,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Ksyusha RAG + app.db", "20", "steps, sources, citations, feedback stats"] },
             { cells: ["Parameterized scenarios", "10", "substitution, defaults, migration"] },
             { cells: ["Other (app_db, export)", "22", "CRUD, feedback, DB isolation"] },
+            { cells: ["Retrieval quality + analytics contracts", "13", "Recall@1/5, MRR (BM25/Vector/Hybrid), numeric golden contracts"] },
           ],
           footnote:
             "Tests run on isolated temp SQLite databases with fake providers — no API keys required, production data untouched. Full run ~50 s.",

@@ -420,14 +420,14 @@ export const propsPortfolioList: PortfolioListProps[] = [
     direction: "AI-агенты",
     cardDescription:
       "Мультиагентная аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
-    cardMetrics: ["2ч → 2мин · репрезентативный сценарий отчётности", "161 автотест"],
+    cardMetrics: ["2ч → 2мин · репрезентативный сценарий отчётности", "174 теста + evaluation"],
     tagline:
       "Мультиагентная аналитическая система для анализа данных на естественном языке — production-качество, проверено автотестами.",
     metricsLine:
-      "161 автотест · 2ч → 2мин (репрезентативный сценарий) · 2 агента · самокоррекция SQL",
+      "174 теста · LLM evaluation · 2ч → 2мин (сценарий) · самокоррекция SQL",
     keyResultsTitle: "Текущая валидация",
     keyResults: [
-      { value: "161", label: "автотестов" },
+      { value: "174", label: "автотестов + LLM evaluation" },
       { value: "2", label: "специализированных агента" },
       { value: "2", label: "уровня роутинга" },
       { value: "4", label: "типа источников данных" },
@@ -454,16 +454,18 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.\nПользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.\nИсточники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».\nКаждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).\n161 автотест; деплой на Hugging Face Spaces.",
+      "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.\nПользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.\nИсточники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».\nКаждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).\n174 теста + LLM evaluation: golden set (30 SQL-сценариев, 20 routing), метрики Execution / Result Accuracy, Self-Correction Rate, p95 latency; деплой на Hugging Face Spaces.",
     features: [
       "Мультиагентная маршрутизация",
       "Text-to-SQL + Tool Calling",
       "Самокорректирующийся Agent Loop",
       "Детерминированная аналитика",
       "Гибридный RAG",
+      "LLM Evaluation (Golden Set)",
     ],
     productFeaturesTitle: "Продуктовые возможности",
     productFeatures: [
+      "Единая загрузка файла: SQL-таблица + поиск (обоим агентам)",
       "Execution trace через SSE",
       "Просмотрщик документов (PDF · DOCX · XLSX)",
       "Фидбек 👍/👎 и аналитика",
@@ -549,7 +551,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           nodes: [
             { label: "SQL guard", note: "SELECT-only, row limit, таймауты 8/30 с" },
             { label: "Feedback", note: "👍/👎 в БД + витрина аналитики" },
-            { label: "pytest", note: "161 тест, изолированные temp-БД" },
+            { label: "pytest + evaluation", note: "174 теста + golden set, temp-БД" },
           ],
         },
       ],
@@ -606,13 +608,13 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
         {
           title: "06 — Reproducible verification",
-          check: "161 тест, изолированные БД и fake-провайдеры.",
+          check: "174 теста, изолированные БД и fake-провайдеры; LLM evaluation на golden set — отдельным прогоном.",
         },
       ],
       metricsTitle: "Автоматическая верификация",
       tables: [
         {
-          title: "Покрытие тестами — 161 pytest-тест",
+          title: "Покрытие тестами — 174 pytest-теста",
           columns: ["Компонент", "Тестов", "Что проверяется"],
           rows: [
             { cells: ["Agent Loop (ReAct)", "22", "tool-calling, self-correction, лимит шагов, fallback"] },
@@ -623,6 +625,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["RAG Ксюши + app.db", "20", "steps, sources, цитаты, feedback stats"] },
             { cells: ["Параметризованные сценарии", "10", "подстановка, defaults, миграция"] },
             { cells: ["Прочее (app_db, export)", "22", "CRUD, feedback, изоляция БД"] },
+            { cells: ["Retrieval quality + analytics contracts", "13", "Recall@1/5, MRR (BM25/Vector/Hybrid), числовые golden-контракты"] },
           ],
           footnote:
             "Тесты выполняются на изолированных temp-SQLite базах и fake-провайдерах — не требуют API-ключей и не задевают боевые данные. Время прогона ~50 с.",
