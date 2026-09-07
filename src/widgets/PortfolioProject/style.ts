@@ -1338,7 +1338,7 @@ export const MetricsStrip = styled.p`
 `;
 
 export const KeyResultsGrid = styled.ul`
-  /* Ниже 580px — карточка в строку, 580–767px — по две, от 768px — четыре. */
+  /* Симметричная сетка 3×2: ниже 580px — карточка в строку. */
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
@@ -1347,11 +1347,7 @@ export const KeyResultsGrid = styled.ul`
   list-style: none;
 
   @media (min-width: 580px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
