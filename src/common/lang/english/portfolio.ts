@@ -661,16 +661,16 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "GLM-4.6 run over the Golden Set (50 SQL scenarios + 20 routing). Result Accuracy 42% is strict exact-match: the LLM returns correct data but in a different shape (aliases, rounding, extra ORDER BY) — matching is being widened.",
         },
         {
-          title: "Latency measurements — live run across models",
+          title: "Latency measurements — medians of 3 runs per model",
           columns: ["Model", "Plan (LLM)", "Execution (DB)", "Answer (LLM)", "Total", "SQL ok"],
           rows: [
-            { cells: ["GLM-5.2 (Z.ai)", "4.9 s", "14 ms", "13.6 s", "~18.5 s", "✓"], highlight: true },
-            { cells: ["GLM-4.6 (Z.ai)", "12.1 s", "7 ms", "10.3 s", "~22.4 s", "✓"] },
-            { cells: ["GLM-5.3-flash (Z.ai)", "9.0 s", "—", "5.4 s", "~14.4 s", "✗"] },
-            { cells: ["GLM-5.3 (Z.ai)", "7.9 s", "—", "4.2 s", "~12.2 s", "✗"] },
+            { cells: ["GLM-5.2 (Z.ai)", "7.0 s", "6 ms", "9.4 s", "~16.4 s", "3/3"], highlight: true },
+            { cells: ["GLM-4.6 (Z.ai)", "13.5 s", "12 ms", "16.3 s", "~29.8 s", "2/3"] },
+            { cells: ["GLM-5.3-flash (Z.ai)", "7.0 s", "8 ms", "4.8 s", "~11.9 s", "2/3"] },
+            { cells: ["GLM-5.3 (Z.ai)", "13.8 s", "11 ms", "5.1 s", "~19.0 s", "1/3"] },
           ],
           footnote:
-            "Single run of one question through the full cycle (plan → DB → answer) — external API latency varies between runs. Benchmark script: python scripts/latency_benchmark.py.",
+            "Medians of 3 runs of one question through the full cycle (plan → DB → answer) — external API latency varies between runs. The GLM-5.3 generation answers faster but generates weaker SQL. Benchmark script: python scripts/latency_benchmark.py.",
         },
         {
           title: "System limits — degradation protection",
