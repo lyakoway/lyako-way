@@ -43,7 +43,7 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Качество",
-              text: "Recall@1 92% на golden set из 24 вопросов (evaluation-скрипт), LLM-as-judge 5.0/5.",
+              text: "Recall@1 87% на 47 сценариях golden set (evaluation-скрипт), LLM-as-judge 5.0/5.",
             },
           ],
         },

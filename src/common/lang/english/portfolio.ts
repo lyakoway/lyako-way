@@ -21,9 +21,9 @@ export const portfolio: PortfolioProps = {
   numbersTitle: "AI engineering in numbers",
   stats: [
     {
-      value: "92%",
+      value: "87%",
       label: "Recall@1",
-      note: "RAG Chat · golden set · 24 questions",
+      note: "RAG Chat · golden set · 47 scenarios",
     },
     {
       value: "5.0 / 5",
@@ -83,16 +83,16 @@ export const propsPortfolioList: PortfolioListProps[] = [
     direction: "RAG & knowledge",
     cardDescription:
       "An AI system for searching and working with PDF, Word and Excel — answers grounded in source citations.",
-    cardMetrics: ["92% Recall@1", "5.0/5 LLM-as-a-Judge"],
+    cardMetrics: ["87% Recall@1", "5.0/5 LLM-as-a-Judge"],
     tagline:
       "Production-oriented RAG system for document Q&A, retrieval evaluation and agentic search.",
     metricsLine:
-      "92% Recall@1 · 5.0/5 LLM-as-a-Judge · 24 golden questions · 25 automated tests",
+      "87% Recall@1 · 5.0/5 LLM-as-a-Judge · 47 golden scenarios · 25 automated tests",
     keyResultsTitle: "Key results",
     keyResults: [
-      { value: "92%", label: "Recall@1" },
+      { value: "87%", label: "Recall@1" },
       { value: "5.0 / 5", label: "LLM-as-a-Judge" },
-      { value: "24", label: "golden questions" },
+      { value: "47", label: "golden scenarios" },
       { value: "25", label: "automated tests" },
     ],
     technologies: [
@@ -112,7 +112,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and vector search.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 92%) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
+      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and vector search.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 87%, 47 scenarios) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
     aiEngineering: {
       sectionTitle: "Engineering approach",
       intro:
@@ -248,14 +248,14 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "Why hybrid search? — retrieval experiment",
           columns: ["Configuration", "Recall@1", "Recall@3", "MRR@5", "Search"],
           rows: [
-            { cells: ["Vector search", "50.0%", "95.8%", "0.733", "11 ms"] },
+            { cells: ["Vector search", "53.2%", "91.5%", "0.727", "11 ms"] },
             {
               cells: [
                 "Hybrid BM25 + RRF — default",
-                "91.7%",
-                "100%",
-                "0.958",
-                "18 ms",
+                "87.2%",
+                "97.9%",
+                "0.926",
+                "17 ms",
               ],
               highlight: true,
             },
@@ -375,7 +375,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       findingsTitle: "What the measurements showed",
       findings: [
-        "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question surfaces the English document (Recall@1 50%). Lexical BM25 signal in the fusion is not optional but a necessity (+41.7 pp to Recall@1).",
+        "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question surfaces the English document (Recall@1 53.2%). Lexical BM25 signal in the fusion is not optional but a necessity (+34 pp to Recall@1).",
+        "The expanded golden set (24 → 47 scenarios, 4 categories) exposed the weak spot: mixed-language queries (cross-lingual) score 62.5% Recall@1 versus 100% for plain facts. BM25 does not help when the keywords are in the other language — next step: a RU/EN synonym dictionary and a multilingual reranker.",
         "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant — Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
         "The model generation defines latency more than any tuning. GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free — faster than the free cloud model. The price of “free” — spikes up to 8–15 s under load and less polished answers. The small model drops citations more often.",
         "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context contents instead of inventing a fact.",
