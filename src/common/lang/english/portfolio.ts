@@ -732,7 +732,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Transparency",
       ],
       conclusion:
-        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 174 automated tests and a golden-set evaluation (30 SQL cases, routing set).\nKnown limitation: SQL quality is currently validated through fixed-case tests; the next step is a dedicated golden set with execution-based evaluation.",
+        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 174 automated tests and a golden-set evaluation (30 SQL cases, routing set).\nSQL quality is evaluated with a 30-case Golden Set covering natural-language → SQL generation, execution and result correctness, with self-correction measured separately.",
       footnote:
         "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
     },
