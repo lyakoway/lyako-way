@@ -404,6 +404,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context contents instead of inventing a fact.",
         "The “trim the context, get a faster first token” hypotheses were tested and rejected — top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s. Demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor. The pipeline adds ~20 ms (<1%).",
         "Automated answer-quality checks: the LLM-as-judge scored 24/24 answers — 5.0 on every axis (no hallucinations, citations correct). A strict evaluation needs a judge from another family.",
+        "Critical paths are now under tests: corrupted PDF/DOCX/XLSX, empty documents, wrong filters, a question without context, agent runaway loops — 63 pytest tests on isolated stores and fake providers. Error handling no longer depends on manual checking.",
       ],
       conclusionLabel: "The takeaway",
       conclusionSteps: [
