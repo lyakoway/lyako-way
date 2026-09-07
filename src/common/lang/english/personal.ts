@@ -14,7 +14,8 @@ export const personal: PersonalProps = {
     "LLMs",
     "RAG",
     "AI agents",
-    "LangGraph",
+    "Agent Loop (ReAct)",
+    "Text-to-SQL",
     "AI APIs",
   ],
   page: {
