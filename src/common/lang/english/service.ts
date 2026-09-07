@@ -24,7 +24,7 @@ export const service: ServiceProps = {
         "integration with APIs, databases and internal systems",
       ],
       footnote:
-        "Proven in production: in AI Data Pilot the agent loop is covered by 161 automated tests — agent loop, self-correction, SQL Guard, analytics, routers, data sources. Fits analytics automation, document processing, internal workflows and repetitive operations.",
+        "Proven in production: in AI Data Pilot the agent loop is covered by 174 automated tests and a golden-set LLM evaluation (Execution / Result Accuracy, Self-Correction Rate) — agent loop, self-correction, SQL Guard, analytics, routers, data sources. Fits analytics automation, document processing, internal workflows and repetitive operations.",
     },
     {
       num: "2",

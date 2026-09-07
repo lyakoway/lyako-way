@@ -24,7 +24,7 @@ export const service: ServiceProps = {
         "интеграцию с API, базами данных и внутренними системами",
       ],
       footnote:
-        "Подход проверен в production: в AI Data Pilot агентный контур покрыт 161 автоматическим тестом — agent loop, self-correction, SQL Guard, analytics, routers, источники данных. Подходит для автоматизации аналитики, работы с документами, внутренних процессов и повторяющихся операций.",
+        "Подход проверен в production: в AI Data Pilot агентный контур покрыт 174 автоматическими тестами и LLM evaluation на golden set (Execution / Result Accuracy, Self-Correction Rate) — agent loop, self-correction, SQL Guard, analytics, routers, источники данных. Подходит для автоматизации аналитики, работы с документами, внутренних процессов и повторяющихся операций.",
     },
     {
       num: "2",

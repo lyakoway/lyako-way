@@ -72,7 +72,7 @@ export const personal: PersonalProps = {
             "The system executes SQL on its own, analyzes data, builds results and handles errors through self-correction. Critical computations are performed by a deterministic Python layer, not the LLM.",
           ],
           result:
-            "Result: analytical result preparation reduced from 2 hours to 2 minutes; 161 automated tests implemented.",
+            "Result: analytical result preparation reduced from 2 hours to 2 minutes; 174 tests and LLM evaluation implemented (golden set, Execution / Result Accuracy, Self-Correction Rate).",
           stack: {
             label: "Stack",
             items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],

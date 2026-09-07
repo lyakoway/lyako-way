@@ -65,7 +65,7 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Quality",
-              text: "161 automated tests: agent loop, self-correction, SQL Guard, analytics, routers, data sources.",
+              text: "174 automated tests + golden-set LLM evaluation (Execution / Result Accuracy, Self-Correction Rate): agent loop, self-correction, SQL Guard, analytics, routers, data sources.",
             },
           ],
         },

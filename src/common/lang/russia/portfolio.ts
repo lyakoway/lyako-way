@@ -32,9 +32,9 @@ export const portfolio: PortfolioProps = {
       note: "Faithfulness · Relevance · Citations",
     },
     {
-      value: "161",
-      label: "автотестов",
-      note: "AI Data Pilot · Agents · SQL Guard · Analytics",
+      value: "174",
+      label: "автотестов + LLM evaluation",
+      note: "AI Data Pilot · Agents · SQL Guard · Analytics · Golden Set",
     },
     {
       value: "2h → 2min",
@@ -680,14 +680,15 @@ export const propsPortfolioList: PortfolioListProps[] = [
         title: "Оценка качества AI",
         currentStateTitle: "Текущее состояние",
         current: [
-          "Автотесты на фиксированных кейсах: 161",
+          "Автотесты на фиксированных кейсах: 174",
           "Тесты выполнения SQL: включены",
           "Тесты агентов и роутинга: включены",
           "Тесты аналитики: включены",
+          "Golden set NL→SQL: 30 сценариев + routing set 20 — scripts/evaluate.py",
         ],
         nextTitle: "Следующий шаг",
         next:
-          "Golden set для оценки natural-language → SQL по результату выполнения.",
+          "Прогон golden set с реальными моделями (Execution / Result Accuracy в числа) и оценка citation correctness.",
       },
       findingsTitle: "Инженерные находки",
       findings: [
@@ -721,7 +722,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           },
           {
             title: "Testing",
-            text: "161 pytest-тест на изолированных temp-БД.",
+            text: "174 pytest-теста на изолированных temp-БД + golden-set LLM evaluation (scripts/evaluate.py).",
           },
           {
             title: "Status transparency",
@@ -738,7 +739,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Прозрачность",
       ],
       conclusion:
-        "AI Data Pilot — мультиагентный аналитический пайплайн: LLM отвечают за понимание языка, маршрутизацию и оркестрацию инструментов, а детерминированный код — за безопасность SQL и численные расчёты.\nСистема прозрачна и воспроизводима: каждый шаг агента наблюдаем, ошибки SQL восстановимы, аналитические цифры детерминированы, работа проверена 161 автотестом.\nИзвестное ограничение: качество SQL пока валидируется фиксированными кейсами — следующий шаг, golden set с оценкой по результату выполнения.",
+        "AI Data Pilot — мультиагентный аналитический пайплайн: LLM отвечают за понимание языка, маршрутизацию и оркестрацию инструментов, а детерминированный код — за безопасность SQL и численные расчёты.\nСистема прозрачна и воспроизводима: каждый шаг агента наблюдаем, ошибки SQL восстановимы, аналитические цифры детерминированы, работа проверена 174 автотестами и golden-set evaluation (30 SQL-сценариев, routing set).\nСледующий шаг — прогон golden set на реальных моделях и оценка корректности цитирования.",
       footnote:
         "Тесты воспроизводимы: cd backend && pytest — изолированные temp-БД, fake-провайдеры, без API-ключей.",
     },

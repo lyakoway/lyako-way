@@ -31,9 +31,9 @@ export const portfolio: PortfolioProps = {
       note: "Faithfulness · Relevance · Citations",
     },
     {
-      value: "161",
-      label: "automated tests",
-      note: "AI Data Pilot · Agents · SQL Guard · Analytics",
+      value: "174",
+      label: "tests + LLM evaluation",
+      note: "AI Data Pilot · Agents · SQL Guard · Analytics · Golden Set",
     },
     {
       value: "2h → 2min",
@@ -672,14 +672,15 @@ export const propsPortfolioList: PortfolioListProps[] = [
         title: "AI evaluation",
         currentStateTitle: "Current state",
         current: [
-          "Fixed-case automated tests: 161",
+          "Fixed-case automated tests: 174",
           "SQL execution tests: included",
           "Agent / routing tests: included",
           "Analytics tests: included",
+          "NL→SQL golden set: 30 cases + 20-case routing set — scripts/evaluate.py",
         ],
         nextTitle: "Next step",
         next:
-          "Golden set for natural-language → SQL evaluation with execution-based correctness.",
+          "Run the golden set against live models (Execution / Result Accuracy in numbers) and add citation-correctness scoring.",
       },
       findingsTitle: "Engineering findings",
       findings: [
@@ -713,7 +714,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           },
           {
             title: "Testing",
-            text: "161 pytest tests on isolated temporary databases.",
+            text: "174 pytest tests on isolated temporary databases + golden-set LLM evaluation (scripts/evaluate.py).",
           },
           {
             title: "Status transparency",
@@ -730,7 +731,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Transparency",
       ],
       conclusion:
-        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 161 automated tests.\nKnown limitation: SQL quality is currently validated through fixed-case tests; the next step is a dedicated golden set with execution-based evaluation.",
+        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 174 automated tests and a golden-set evaluation (30 SQL cases, routing set).\nKnown limitation: SQL quality is currently validated through fixed-case tests; the next step is a dedicated golden set with execution-based evaluation.",
       footnote:
         "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
     },

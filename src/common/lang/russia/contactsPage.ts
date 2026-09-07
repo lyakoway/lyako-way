@@ -50,9 +50,9 @@ export const contactsPage: ContactsPageProps = {
       note: "Faithfulness · Relevance · Citations",
     },
     {
-      value: "161",
-      label: "automated tests",
-      note: "AI Data Pilot · Agents · SQL Guard · Analytics",
+      value: "174",
+      label: "теста + LLM evaluation",
+      note: "AI Data Pilot · Agents · SQL Guard · Analytics · Golden Set",
     },
     {
       value: "2h → 2min",
