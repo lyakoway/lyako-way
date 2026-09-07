@@ -87,7 +87,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     tagline:
       "Production-oriented RAG system for document Q&A, retrieval evaluation and agentic search.",
     metricsLine:
-      "87% Recall@1 · 5.0/5 LLM-as-a-Judge · 47 golden scenarios · 25 automated tests",
+      "87% Recall@1 · 5.0/5 LLM-as-a-Judge · 47 golden scenarios · 63 pytest tests",
     keyResultsTitle: "Key results",
     keyResults: [
       { value: "87%", label: "Recall@1" },
@@ -213,7 +213,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           nodes: [
             { label: "Evaluation", note: "Recall@k, MRR + LLM-as-judge" },
             { label: "Analytics", note: "Yandex Metrika + GA4, 32 events" },
-            { label: "pytest + CI", note: "25 tests, GitHub Actions" },
+            { label: "pytest + CI", note: "63 tests, GitHub Actions" },
           ],
         },
       ],
@@ -358,7 +358,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           },
           {
             title: "Testing",
-            text: "25 pytest tests + GitHub Actions CI.",
+            text: "63 pytest tests: RAG pipeline · Hybrid Retrieval · Document Parsing · Citations · API/SSE · Error Handling. CI on GitHub Actions.",
           },
           {
             title: "Reproducibility",
@@ -474,7 +474,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word/TXT/MD with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).\n174 tests + LLM evaluation: a 30-case SQL golden set, Execution / Result Accuracy, Self-Correction Rate, p95 latency; deployed on Hugging Face Spaces.",
+      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word/TXT/MD with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).",
+    descCaptions: ["Transparency", "Data sources", "Trust in the numbers"],
+    deployLine:
+      "174 tests + LLM evaluation: a 30-case SQL golden set, Execution / Result Accuracy, Self-Correction Rate, p95 latency · deployed on Hugging Face Spaces.",
     features: [
       "Multi-agent routing",
       "Text-to-SQL + Tool Calling",

@@ -88,7 +88,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     tagline:
       "Production-oriented RAG-система: вопросы по документам, оценка качества поиска и агентный режим.",
     metricsLine:
-      "87% Recall@1 · 5.0/5 LLM-as-a-Judge · 47 golden scenarios · 25 automated tests",
+      "87% Recall@1 · 5.0/5 LLM-as-a-Judge · 47 golden scenarios · 63 pytest tests",
     keyResultsTitle: "Ключевые результаты",
     keyResults: [
       { value: "87%", label: "Recall@1" },
@@ -214,7 +214,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           nodes: [
             { label: "Evaluation", note: "Recall@k, MRR + LLM-as-judge" },
             { label: "Аналитика", note: "Яндекс.Метрика + GA4, 32 события" },
-            { label: "pytest + CI", note: "25 тестов, GitHub Actions" },
+            { label: "pytest + CI", note: "63 теста, GitHub Actions" },
           ],
         },
       ],
@@ -363,7 +363,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           },
           {
             title: "Testing",
-            text: "25 pytest-тестов + CI на GitHub Actions.",
+            text: "63 pytest-теста: RAG pipeline · Hybrid Retrieval · Document Parsing · Citations · API/SSE · Error Handling. CI на GitHub Actions.",
           },
           {
             title: "Reproducibility",
@@ -477,7 +477,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.\nПользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.\nИсточники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word/TXT/MD с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».\nКаждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).\n174 теста + LLM evaluation: golden set (30 SQL-сценариев, 20 routing), метрики Execution / Result Accuracy, Self-Correction Rate, p95 latency; деплой на Hugging Face Spaces.",
+      "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.\nПользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.\nИсточники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word/TXT/MD с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».\nКаждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).",
+    descCaptions: ["Прозрачность", "Источники данных", "Доверие к цифрам"],
+    deployLine:
+      "174 теста + LLM evaluation: golden set (30 SQL-сценариев, 20 routing), метрики Execution / Result Accuracy, Self-Correction Rate, p95 latency · деплой на Hugging Face Spaces.",
     features: [
       "Мультиагентная маршрутизация",
       "Text-to-SQL + Tool Calling",
