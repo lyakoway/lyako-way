@@ -432,9 +432,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "2", label: "уровня роутинга" },
       { value: "4", label: "типа источников данных" },
     ],
-    keyResultsNote: "Agent Loop · SQL Guard · Analytics · Routing · RAG · Data Sources",
+    keyResultsNote: "30-case SQL Golden Set · Execution Accuracy · Result Accuracy · Self-Correction Rate · p95 Latency",
     keyResultsLimitation:
-      "Пока нет golden-set оценки для генерации SQL.",
+      "Golden Set покрывает 30 сценариев — расширяем покрытие: сложные JOIN, неоднозначные вопросы, кросс-источниковые сценарии.",
     technologies: [
       "Python",
       "FastAPI",
@@ -454,7 +454,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.\nПользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.\nИсточники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».\nКаждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).\n174 теста + LLM evaluation: golden set (30 SQL-сценариев, 20 routing), метрики Execution / Result Accuracy, Self-Correction Rate, p95 latency; деплой на Hugging Face Spaces.",
+      "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.\nПользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.\nИсточники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word/TXT/MD с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».\nКаждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).\n174 теста + LLM evaluation: golden set (30 SQL-сценариев, 20 routing), метрики Execution / Result Accuracy, Self-Correction Rate, p95 latency; деплой на Hugging Face Spaces.",
     features: [
       "Мультиагентная маршрутизация",
       "Text-to-SQL + Tool Calling",
@@ -678,17 +678,17 @@ export const propsPortfolioList: PortfolioListProps[] = [
       },
       evaluation: {
         title: "Оценка качества AI",
-        currentStateTitle: "Текущее состояние",
+        currentStateTitle: "SQL / Agent evaluation — качество AI измеряется отдельно от software-тестов",
         current: [
-          "Автотесты на фиксированных кейсах: 174",
-          "Тесты выполнения SQL: включены",
-          "Тесты агентов и роутинга: включены",
-          "Тесты аналитики: включены",
-          "Golden set NL→SQL: 30 сценариев + routing set 20 — scripts/evaluate.py",
+          "Golden Set из 30 SQL-сценариев (естественный язык → SQL)",
+          "Execution Accuracy — выполняется ли сгенерированный SQL",
+          "Result Accuracy — совпадает ли результат с эталонным",
+          "Self-Correction Rate — как часто упавший SQL успешно исправлен",
+          "p95 latency — скорость ответа end-to-end",
         ],
-        nextTitle: "Следующий шаг",
+        nextTitle: "Retrieval / Analytics evaluation",
         next:
-          "Прогон golden set с реальными моделями (Execution / Result Accuracy в числа) и оценка citation correctness.",
+          "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · числовые golden-контракты детерминированной аналитики. Software reliability проверяется отдельно: 174 pytest-теста (Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG, app logic).",
       },
       findingsTitle: "Инженерные находки",
       findings: [
@@ -700,7 +700,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       gapsTitle: "Ограничения и следующие инженерные шаги",
       gaps: [
-        "SQL evaluation — добавить golden-set оценку с эталонными SQL и проверкой по результату выполнения.",
+        "SQL evaluation depth — расширить Golden Set сложными JOIN, неоднозначными вопросами и кросс-источниковыми сценариями.",
         "Persistent retrieval — перейти от пересборки индекса на каждый поиск к персистентному ChromaDB / Qdrant.",
         "Async ingestion — вынести обработку больших документов в фоновые задачи со статусами загрузки.",
         "Security & multi-tenancy — добавить аутентификацию, авторизацию и изоляцию данных по тенантам.",
@@ -736,10 +736,11 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Tool calling",
         "Self-correction",
         "Детерминированные цифры",
+        "Evaluation",
         "Прозрачность",
       ],
       conclusion:
-        "AI Data Pilot — мультиагентный аналитический пайплайн: LLM отвечают за понимание языка, маршрутизацию и оркестрацию инструментов, а детерминированный код — за безопасность SQL и численные расчёты.\nСистема прозрачна и воспроизводима: каждый шаг агента наблюдаем, ошибки SQL восстановимы, аналитические цифры детерминированы, работа проверена 174 автотестами и golden-set evaluation (30 SQL-сценариев, routing set).\nСледующий шаг — прогон golden set на реальных моделях и оценка корректности цитирования.",
+        "AI Data Pilot — мультиагентный аналитический пайплайн: LLM отвечают за понимание языка, маршрутизацию и оркестрацию инструментов, а детерминированный код — за безопасность SQL и численные расчёты.\nСистема сочетает агентное выполнение, Text-to-SQL, гибридный retrieval и автоматизированную оценку: SQL и поведение агента валидируются на фиксированных сценариях и Golden Set, качество поиска измеряется Recall@K и MRR, надёжность покрывают 174 автотеста.\nРезультат — прозрачная и воспроизводимая AI-система: шаги агента наблюдаемы, ошибки SQL восстановимы, аналитические цифры детерминированы, а качество AI измеряется, а не оценивается по отдельным примерам.",
       footnote:
         "Тесты воспроизводимы: cd backend && pytest — изолированные temp-БД, fake-провайдеры, без API-ключей.",
     },

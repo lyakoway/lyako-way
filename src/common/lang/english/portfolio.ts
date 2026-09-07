@@ -429,7 +429,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "4", label: "data source types" },
     ],
     keyResultsNote: "Agent Loop · SQL Guard · Analytics · Routing · RAG · Data Sources",
-    keyResultsLimitation: "No golden-set evaluation for SQL generation yet.",
+    keyResultsLimitation: "Golden Set covers 30 cases — expanding coverage with complex JOINs, ambiguous questions and cross-source scenarios.",
     technologies: [
       "Python",
       "FastAPI",
@@ -449,7 +449,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).\n174 tests + LLM evaluation: a 30-case SQL golden set, Execution / Result Accuracy, Self-Correction Rate, p95 latency; deployed on Hugging Face Spaces.",
+      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word/TXT/MD with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).\n174 tests + LLM evaluation: a 30-case SQL golden set, Execution / Result Accuracy, Self-Correction Rate, p95 latency; deployed on Hugging Face Spaces.",
     features: [
       "Multi-agent routing",
       "Text-to-SQL + Tool Calling",
@@ -670,17 +670,18 @@ export const propsPortfolioList: PortfolioListProps[] = [
       },
       evaluation: {
         title: "AI evaluation",
-        currentStateTitle: "Current state",
+        currentStateTitle:
+          "SQL / Agent evaluation — AI quality is measured separately from software-level tests",
         current: [
-          "Fixed-case automated tests: 174",
-          "SQL execution tests: included",
-          "Agent / routing tests: included",
-          "Analytics tests: included",
-          "NL→SQL golden set: 30 cases + 20-case routing set — scripts/evaluate.py",
+          "30-case SQL Golden Set (natural language → SQL)",
+          "Execution Accuracy — whether generated SQL executes successfully",
+          "Result Accuracy — whether the returned result matches the reference",
+          "Self-Correction Rate — how often failed SQL is repaired successfully",
+          "p95 latency — end-to-end response performance",
         ],
-        nextTitle: "Next step",
+        nextTitle: "Retrieval / Analytics evaluation",
         next:
-          "Run the golden set against live models (Execution / Result Accuracy in numbers) and add citation-correctness scoring.",
+          "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · numeric golden contracts for deterministic analytics. Software reliability is verified separately with 174 pytest tests across Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG and application logic.",
       },
       findingsTitle: "Engineering findings",
       findings: [
@@ -692,7 +693,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       gapsTitle: "Known limitations & next engineering steps",
       gaps: [
-        "SQL evaluation — add a golden-set evaluation with reference SQL and execution-based correctness.",
         "Persistent retrieval — move from per-search index rebuild to persistent ChromaDB / Qdrant.",
         "Async ingestion — move large-document processing to background jobs with ingestion status.",
         "Security & multi-tenancy — add authentication, authorization and tenant-level data isolation.",
@@ -728,6 +728,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Tool calling",
         "Self-correction",
         "Deterministic figures",
+        "Evaluation",
         "Transparency",
       ],
       conclusion:
