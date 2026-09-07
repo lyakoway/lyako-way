@@ -245,7 +245,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       metricsTitle: "Measurements",
       tables: [
         {
-          title: "Why hybrid search? — retrieval experiment",
+          title: "Why hybrid search? — 47 scenarios, retrieval experiment",
           columns: ["Configuration", "Recall@1", "Recall@3", "MRR@5", "Search"],
           rows: [
             { cells: ["Vector search", "53.2%", "91.5%", "0.727", "11 ms"] },
@@ -264,7 +264,29 @@ export const propsPortfolioList: PortfolioListProps[] = [
             },
           ],
           footnote:
-            "Decision: hybrid BM25 + RRF became the default retrieval strategy — the best measured trade-off between retrieval quality and latency on the bilingual evaluation set. Local run Aug 28, 2026, CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible.",
+            "Decision: hybrid BM25 + RRF became the default retrieval strategy — the best measured trade-off between retrieval quality and latency on the bilingual evaluation set. Run on Sep 7, 2026 over the expanded set (47 scenarios), CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible. The reranker row is a run against the first version of the set (24 questions).",
+        },
+        {
+          title: "Per-category breakdown — 47 scenarios, hybrid (default)",
+          columns: ["Category", "Questions", "Recall@1", "Recall@3"],
+          rows: [
+            { cells: ["fact — direct fact", "15", "100%", "100%"] },
+            { cells: ["numeric — numbers and deadlines", "15", "86.7%", "100%"] },
+            {
+              cells: [
+                "paraphrase — no verbatim keywords",
+                "9",
+                "88.9%",
+                "100%",
+              ],
+            },
+            {
+              cells: ["cross-lingual — mixed language", "8", "62.5%", "87.5%"],
+              highlight: true,
+            },
+          ],
+          footnote:
+            "Expanding the set from 24 to 47 scenarios exposed the weak spot: mixed-language queries (cross-lingual) — 62.5% Recall@1 versus 100% for plain facts. BM25 does not help when the keywords are in the other language. Next step: a RU/EN synonym dictionary and a multilingual reranker.",
         },
         {
           title: "System measurements — live API run",
@@ -627,6 +649,30 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "Tests run on isolated temp SQLite databases with fake providers — no API keys required, production data untouched. Full run ~50 s.",
         },
         {
+          title: "SQL quality — Golden Set 50, live GLM-4.6 run",
+          columns: ["Metric", "Result"],
+          rows: [
+            { cells: ["SQL Execution Accuracy — generated SQL executed", "100% (50/50)"], highlight: true },
+            { cells: ["Agent Routing Accuracy — question sent to the right agent", "100% (20/20)"] },
+            { cells: ["Result Accuracy — exact match of result sets vs reference", "42%"] },
+            { cells: ["Task Completion Rate — question carried to a result", "100%"] },
+          ],
+          footnote:
+            "GLM-4.6 run over the Golden Set (50 SQL scenarios + 20 routing). Result Accuracy 42% is strict exact-match: the LLM returns correct data but in a different shape (aliases, rounding, extra ORDER BY) — matching is being widened.",
+        },
+        {
+          title: "Latency measurements — live run across models",
+          columns: ["Model", "Plan (LLM)", "Execution (DB)", "Answer (LLM)", "Total", "SQL ok"],
+          rows: [
+            { cells: ["GLM-5.2 (Z.ai)", "4.9 s", "14 ms", "13.6 s", "~18.5 s", "✓"], highlight: true },
+            { cells: ["GLM-4.6 (Z.ai)", "12.1 s", "7 ms", "10.3 s", "~22.4 s", "✓"] },
+            { cells: ["GLM-5.3-flash (Z.ai)", "9.0 s", "—", "5.4 s", "~14.4 s", "✗"] },
+            { cells: ["GLM-5.3 (Z.ai)", "7.9 s", "—", "4.2 s", "~12.2 s", "✗"] },
+          ],
+          footnote:
+            "Single run of one question through the full cycle (plan → DB → answer) — external API latency varies between runs. Benchmark script: python scripts/latency_benchmark.py.",
+        },
+        {
           title: "System limits — degradation protection",
           columns: ["Mechanism", "Value"],
           rows: [
@@ -694,6 +740,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Dirty Excel files are the norm. A real upload broke on a merged header row and duplicate columns. Decision: resilient parsers that detect the header row, plus tests on dirty files.",
         "Keyword search without stemming is useless for Russian. «Затраты» did not match «расходы». Decision: Russian stemming for BM25 + a vector channel for semantics and multilinguality.",
         "Routing saves trust, not steps. A single universal prompt blurred the agent's role. Decision: two specialized agents + two-level routing with a visible decision in the trace.",
+        "Model benchmarks delivered an unexpected turn: GLM-5.2 is faster than flagship GLM-4.6 (18.5 s vs 22.4 s on the full cycle), while the GLM-5.3 generation answers fast but produces weaker SQL. The fix is a benchmark script: latency of any model measured with one command, the table goes to the README.",
       ],
       gapsTitle: "Known limitations & next engineering steps",
       gaps: [
