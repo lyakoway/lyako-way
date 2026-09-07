@@ -93,7 +93,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "87%", label: "Recall@1" },
       { value: "5.0 / 5", label: "LLM-as-a-Judge" },
       { value: "47", label: "golden scenarios" },
-      { value: "25", label: "automated tests" },
+      { value: "63", label: "pytest tests" },
     ],
     technologies: [
       "Python",
