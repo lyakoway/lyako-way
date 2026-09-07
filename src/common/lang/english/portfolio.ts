@@ -418,7 +418,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "174 tests + LLM evaluation",
     ],
     tagline:
-      "Production-oriented multi-agent analytics system for natural-language data analysis.",
+      "Production-oriented multi-agent analytics system for natural-language data analysis — validated by 174 automated tests.",
     metricsLine:
       "174 tests · LLM evaluation · 2h → 2min (scenario) · SQL self-correction",
     keyResultsTitle: "Current validation",
@@ -428,7 +428,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "2", label: "levels of routing" },
       { value: "4", label: "data source types" },
     ],
-    keyResultsNote: "Agent Loop · SQL Guard · Analytics · Routing · RAG · Data Sources",
+    keyResultsNote: "30-case SQL Golden Set · Execution Accuracy · Result Accuracy · Self-Correction Rate · p95 Latency",
     keyResultsLimitation: "Golden Set covers 30 cases — expanding coverage with complex JOINs, ambiguous questions and cross-source scenarios.",
     technologies: [
       "Python",
@@ -456,6 +456,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "Self-correcting Agent Loop",
       "Deterministic Analytics",
       "Hybrid RAG",
+      "LLM Evaluation (Golden Set)",
     ],
     productFeaturesTitle: "Product capabilities",
     productFeatures: [
@@ -693,6 +694,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       gapsTitle: "Known limitations & next engineering steps",
       gaps: [
+        "SQL evaluation depth — expand the Golden Set with more complex JOINs, ambiguous questions and cross-source scenarios.",
         "Persistent retrieval — move from per-search index rebuild to persistent ChromaDB / Qdrant.",
         "Async ingestion — move large-document processing to background jobs with ingestion status.",
         "Security & multi-tenancy — add authentication, authorization and tenant-level data isolation.",
