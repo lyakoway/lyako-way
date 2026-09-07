@@ -405,6 +405,10 @@ export interface PortfolioListProps {
   // Продуктовые возможности — вторым списком после AI-возможностей.
   productFeaturesTitle?: string;
   productFeatures?: string[];
+  // Подписи карточек описания (по порядку после лида).
+  descCaptions?: string[];
+  // Финальная строка-акцент после карточек (валидация и деплой).
+  deployLine?: string;
 }
 
 export interface PortfolioHeaderProps {

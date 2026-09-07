@@ -166,6 +166,18 @@ export const DescLead = styled.p`
 `;
 
 // Остальные абзацы (демо/модели, стек) — отдельными карточками.
+// Капс-подпись карточки описания («Прозрачность», «Источники данных»…).
+export const DescCaption = styled.p`
+  margin: 0 0 8px;
+  padding-left: 11px;
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT_MUTED};
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+`;
+
 export const DescCard = styled.div`
   margin: 0;
   background: ${PANEL_ELEVATED};

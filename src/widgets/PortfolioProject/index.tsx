@@ -96,6 +96,7 @@ import {
   CalloutLead,
   CalloutCaption,
   CalloutNote,
+  DescCaption,
 } from "./style";
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
@@ -560,8 +561,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   .split(";")
                   .map((p) => p.trim())
                   .filter(Boolean);
+                // Подпись карточки — из descCaptions по порядку.
+                const caption = project.descCaptions?.[i - 1];
                 return (
                   <Reveal as={DescCard} key={i} delay={i * 80}>
+                    {caption && <DescCaption>{caption}</DescCaption>}
                     {parts.length > 1 ? (
                       <CardList>
                         {parts.map((p, j) => (
@@ -574,6 +578,11 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   </Reveal>
                 );
               })}
+            {project.deployLine && (
+              <Reveal as={MetricsStrip} delay={100}>
+                {project.deployLine}
+              </Reveal>
+            )}
           </Desc>
 
           {project.features && project.features.length > 0 && (
