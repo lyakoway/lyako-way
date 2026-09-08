@@ -918,6 +918,58 @@ export const propsPortfolioList: PortfolioListProps[] = [
           footnote:
             "Таймауты реализованы через ThreadPoolExecutor с future.result(timeout) — тяжёлый запрос не блокирует event loop. Внешние БД получают увеличенный бюджет: кросс-сетевое соединение с handshake занимает секунды.",
         },
+        {
+          title: "Финальная карта метрик — итог цикла",
+          columns: ["Метрика", "Результат", "Вывод"],
+          rows: [
+            {
+              cells: [
+                "Поиск",
+                "Recall@5 100% · Recall@1 50%",
+                "Закрыто на golden 8 пар (файл-уровень). Слабое место — Recall@1 на малом наборе: план — расширить golden set и прокачать сопоставление",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Text-to-SQL",
+                "SQL Execution Accuracy 100% (50/50, GLM-4.6)",
+                "Закрыто: SQL Guard + self-correction (2 раунда) — 0 необработанных ошибок в прогоне",
+              ],
+            },
+            {
+              cells: [
+                "Result Accuracy",
+                "42% exact-match",
+                "Открыто: LLM возвращает верные данные в другой форме (алиасы, ORDER BY) — план: сопоставление с учётом синонимов и форм",
+              ],
+            },
+            {
+              cells: [
+                "Роутинг",
+                "100% агент · 100% источник",
+                "Закрыто: эвристика + LLM-fallback, решение видно в trace",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Латентность",
+                "p50 ~22 с · p95 32 с (GLM-4.6, внешний прогон); полный цикл GLM-5.2 ~16 с",
+                "Провайдер: mitigation — стриминг шагов и «Все загрузки» (без внешнего handshake); план — flash-модели",
+              ],
+            },
+            {
+              cells: [
+                "Надёжность",
+                "174 pytest-теста + 0 необработанных ошибок",
+                "Закрыто: изолированные temp-БД, fake-провайдеры",
+              ],
+            },
+          ],
+          footnote:
+            "Каждая строка — замер с воспроизводимой командой (scripts/evaluate.py, scripts/latency_benchmark.py, pytest), а не декларация.",
+        },
       ],
       calloutsTitle: "Ключевые инженерные решения",
       calloutsIntro:

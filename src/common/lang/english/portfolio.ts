@@ -735,6 +735,58 @@ export const propsPortfolioList: PortfolioListProps[] = [
           footnote:
             "Timeouts use a ThreadPoolExecutor with future.result(timeout) — a heavy query never blocks the event loop. Remote databases get a larger budget: cross-network connect plus handshake takes seconds.",
         },
+        {
+          title: "Final metrics map — outcome of the cycle",
+          columns: ["Metric", "Result", "Verdict"],
+          rows: [
+            {
+              cells: [
+                "Search",
+                "Recall@5 100% · Recall@1 50%",
+                "Closed on an 8-pair golden set (file-level). Weak spot — Recall@1 on a small set: plan — expand the golden set and improve matching",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Text-to-SQL",
+                "SQL Execution Accuracy 100% (50/50, GLM-4.6)",
+                "Closed: SQL Guard + self-correction (2 rounds) — 0 unhandled errors in the run",
+              ],
+            },
+            {
+              cells: [
+                "Result Accuracy",
+                "42% exact-match",
+                "Open: the LLM returns correct data in a different shape (aliases, ORDER BY) — plan: synonym-aware matching",
+              ],
+            },
+            {
+              cells: [
+                "Routing",
+                "100% agent · 100% source",
+                "Closed: heuristic + LLM fallback, decision visible in the trace",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Latency",
+                "p50 ~22 s · p95 32 s (GLM-4.6, external run); full cycle GLM-5.2 ~16 s",
+                "Provider: mitigation — streamed steps and 'All uploads' (no external handshake); plan — flash models",
+              ],
+            },
+            {
+              cells: [
+                "Reliability",
+                "174 pytest tests + 0 unhandled errors",
+                "Closed: isolated temp DBs, fake providers",
+              ],
+            },
+          ],
+          footnote:
+            "Every row is a measurement with a reproducible command (scripts/evaluate.py, scripts/latency_benchmark.py, pytest) — not a declaration.",
+        },
       ],
       calloutsTitle: "Key engineering decisions",
       calloutsIntro:
