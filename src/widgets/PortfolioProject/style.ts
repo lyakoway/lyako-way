@@ -177,12 +177,13 @@ export const DescCaption = styled.p`
   letter-spacing: 0.5px;
   text-transform: uppercase;
 
-  /* полоска по высоте строки текста */
+  /* полоска по высоте текста, по центру строки */
   &::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 3px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 3px;
     height: 10px;
     border-radius: 2px;
@@ -1541,12 +1542,13 @@ export const CalloutCaption = styled.p`
   letter-spacing: 0.5px;
   text-transform: uppercase;
 
-  /* полоска по высоте строки текста — не тянется, если заголовок переносится */
+  /* полоска по высоте текста, по центру строки */
   &::before {
     content: "";
     position: absolute;
     left: 0;
-    top: 4px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 3px;
     height: 10px;
     border-radius: 2px;
