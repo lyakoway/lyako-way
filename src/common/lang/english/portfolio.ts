@@ -330,7 +330,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "TTFT = time to first token. GLM-4.5-flash (the free generation) yields a 25–50 s TTFT on the same pipeline — hence it is not recommended.",
         },
         {
-          title: "Answer quality — LLM-as-judge, 24 questions",
+          title: "Answer quality — LLM-as-judge, run on the v1 set (24 questions)",
           columns: ["Evaluation axis", "Average score"],
           rows: [
             { cells: ["Faithfulness — no hallucinations", "5.0 / 5"] },

@@ -335,7 +335,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "TTFT — время до первого токена. GLM-4.5-flash (бесплатное поколение) на том же пайплайне даёт TTFT 25–50 с — поэтому в рекомендациях её нет.",
         },
         {
-          title: "Качество ответов — LLM-as-judge, 24 вопроса",
+          title: "Качество ответов — LLM-as-judge, прогон на наборе v1 (24 вопроса)",
           columns: ["Ось оценки", "Средний балл"],
           rows: [
             { cells: ["Faithfulness — нет галлюцинаций", "5.0 / 5"] },
