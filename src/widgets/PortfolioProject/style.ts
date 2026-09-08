@@ -1372,6 +1372,14 @@ export const CalloutIntro = styled(MetricsStrip)`
   margin-top: 0;
 `;
 
+// Блок «Текущая валидация» — отступ от строки метрик выше,
+// равные зазоры внутри и отступ до следующей секции.
+export const KeyResultsBlock = styled.div`
+  margin: 24px 0 16px;
+  display: grid;
+  gap: 12px;
+`;
+
 export const KeyResultsGrid = styled.ul`
   /* Симметричная сетка 3×2: ниже 580px — карточка в строку. */
   display: grid;

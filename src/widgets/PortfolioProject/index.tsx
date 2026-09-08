@@ -99,6 +99,7 @@ import {
   DescCaption,
   CalloutIntro,
   FeaturesBlock,
+  KeyResultsBlock,
 } from "./style";
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
@@ -515,7 +516,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
 
           {/* Key results — стена цифр сразу после первого экрана */}
           {project.keyResults && project.keyResults.length > 0 && (
-            <>
+            <KeyResultsBlock>
               <FeaturesHead>
                 <FeaturesIcon>
                   <IconMetrics />
@@ -542,7 +543,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   {project.keyResultsLimitation}
                 </Reveal>
               )}
-            </>
+            </KeyResultsBlock>
           )}
 
           <Desc>
