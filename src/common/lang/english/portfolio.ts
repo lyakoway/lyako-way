@@ -783,9 +783,16 @@ export const propsPortfolioList: PortfolioListProps[] = [
                 "Closed: isolated temp DBs, fake providers",
               ],
             },
+            {
+              cells: [
+                "Cost",
+                "≈ $0,002–0,003 per question (GLM-4.6)",
+                "Roughly 300–500 questions per $1; zero on free (GLM-4.5-flash) and local (Ollama) models",
+              ],
+            },
           ],
           footnote:
-            "Every row is a measurement with a reproducible command (scripts/evaluate.py, scripts/latency_benchmark.py, pytest) — not a declaration.",
+            "Every row is a measurement with a reproducible command (scripts/evaluate.py, scripts/latency_benchmark.py, pytest) — not a declaration. Cost is an estimate: 3 LLM calls per question (~2k context tokens).",
         },
       ],
       calloutsTitle: "Key engineering decisions",

@@ -797,60 +797,66 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     </FeaturesHead>
                   )}
                   {project.aiEngineering.calloutsIntro && (
-                    <Reveal as={DescCard} delay={40}>
+                    <Reveal as={MetricsStrip} delay={40}>
                       {project.aiEngineering.calloutsIntro}
                     </Reveal>
                   )}
+                  <AiDiagram>
+                    {project.aiEngineering.deterministic && (
+                      <AiLane>
+                        <Reveal as={CalloutCard} x={64} y={0} delay={90}>
+                          <CalloutCaption>
+                            {project.aiEngineering.deterministic.title}
+                          </CalloutCaption>
+                          <CalloutLead>
+                            {project.aiEngineering.deterministic.lead}
+                          </CalloutLead>
+                          <PipelineChain>
+                            {project.aiEngineering.deterministic.steps.map(
+                              (step, i) => (
+                                <React.Fragment key={step}>
+                                  <PipelineChainStep>{step}</PipelineChainStep>
+                                  {i <
+                                    project.aiEngineering.deterministic!.steps
+                                      .length -
+                                      1 && <span className="down">↓</span>}
+                                </React.Fragment>
+                              )
+                            )}
+                          </PipelineChain>
+                          <CalloutNote>
+                            {project.aiEngineering.deterministic.note}
+                          </CalloutNote>
+                        </Reveal>
+                      </AiLane>
+                    )}
+                    {project.aiEngineering.selfCorrection && (
+                      <AiLane>
+                        <Reveal as={CalloutCard} x={64} y={0} delay={90}>
+                          <CalloutCaption>
+                            {project.aiEngineering.selfCorrection.title}
+                          </CalloutCaption>
+                          <PipelineChain>
+                            {project.aiEngineering.selfCorrection.steps.map(
+                              (step, i) => (
+                                <React.Fragment key={step}>
+                                  <PipelineChainStep>{step}</PipelineChainStep>
+                                  {i <
+                                    project.aiEngineering.selfCorrection!.steps
+                                      .length -
+                                      1 && <span className="down">↓</span>}
+                                </React.Fragment>
+                              )
+                            )}
+                          </PipelineChain>
+                          <CalloutNote>
+                            {project.aiEngineering.selfCorrection.note}
+                          </CalloutNote>
+                        </Reveal>
+                      </AiLane>
+                    )}
+                  </AiDiagram>
                 </>
-              )}
-
-              {project.aiEngineering.deterministic && (
-                <Reveal as={CalloutCard} delay={90}>
-                  <CalloutCaption>
-                    {project.aiEngineering.deterministic.title}
-                  </CalloutCaption>
-                  <CalloutLead>
-                    {project.aiEngineering.deterministic.lead}
-                  </CalloutLead>
-                  <PipelineChain>
-                    {project.aiEngineering.deterministic.steps.map(
-                      (step, i) => (
-                        <React.Fragment key={step}>
-                          <PipelineChainStep>{step}</PipelineChainStep>
-                          {i <
-                            project.aiEngineering.deterministic!.steps.length -
-                              1 && <span className="down">↓</span>}
-                        </React.Fragment>
-                      )
-                    )}
-                  </PipelineChain>
-                  <CalloutNote>
-                    {project.aiEngineering.deterministic.note}
-                  </CalloutNote>
-                </Reveal>
-              )}
-
-              {project.aiEngineering.selfCorrection && (
-                <Reveal as={CalloutCard} delay={90}>
-                  <CalloutCaption>
-                    {project.aiEngineering.selfCorrection.title}
-                  </CalloutCaption>
-                  <PipelineChain>
-                    {project.aiEngineering.selfCorrection.steps.map(
-                      (step, i) => (
-                        <React.Fragment key={step}>
-                          <PipelineChainStep>{step}</PipelineChainStep>
-                          {i <
-                            project.aiEngineering.selfCorrection!.steps.length -
-                              1 && <span className="down">↓</span>}
-                        </React.Fragment>
-                      )
-                    )}
-                  </PipelineChain>
-                  <CalloutNote>
-                    {project.aiEngineering.selfCorrection.note}
-                  </CalloutNote>
-                </Reveal>
               )}
 
               <FeaturesHead>

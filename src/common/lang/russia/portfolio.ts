@@ -966,9 +966,16 @@ export const propsPortfolioList: PortfolioListProps[] = [
                 "Закрыто: изолированные temp-БД, fake-провайдеры",
               ],
             },
+            {
+              cells: [
+                "Стоимость",
+                "≈ $0,002–0,003 за вопрос (GLM-4.6)",
+                "Порядка 300–500 вопросов на $1; ноль — на бесплатной (GLM-4.5-flash) и локальных (Ollama) моделях",
+              ],
+            },
           ],
           footnote:
-            "Каждая строка — замер с воспроизводимой командой (scripts/evaluate.py, scripts/latency_benchmark.py, pytest), а не декларация.",
+            "Каждая строка — замер с воспроизводимой командой (scripts/evaluate.py, scripts/latency_benchmark.py, pytest), а не декларация. Стоимость — оценка: 3 LLM-вызова на вопрос (~2k токенов контекста).",
         },
       ],
       calloutsTitle: "Ключевые инженерные решения",
