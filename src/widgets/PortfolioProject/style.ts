@@ -741,6 +741,13 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
       td:last-child {
         text-align: right;
       }
+
+      /* значения в одну строку — не переносятся (&& — специфичность
+         выше общего правила переноса) */
+      && th:last-child,
+      && td:last-child {
+        white-space: nowrap;
+      }
     `}
 
   th {
