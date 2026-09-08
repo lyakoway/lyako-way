@@ -759,7 +759,6 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
     letter-spacing: 0.5px;
     text-transform: uppercase;
     border-bottom: 1px solid ${PANEL_BORDER};
-    white-space: nowrap;
   }
 
   td {
@@ -795,7 +794,7 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
      «лейбл — значение» (лейбл берётся из data-label ячейки).
      Container-запрос считается по ширине самой карточки (AiLaneCard),
      поэтому не зависит от переполнения страницы за пределами карточки */
-  @container (max-width: 479px) {
+  @container (max-width: 640px) {
     thead {
       display: none;
     }
@@ -818,14 +817,10 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
     }
 
     td {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 12px;
-      padding: 5px 0;
+      padding: 6px 0;
       border-bottom: 1px solid ${PANEL_BORDER};
       white-space: normal;
-      text-align: right;
+      text-align: left;
     }
 
     /* базовый min-width: 180px первой колонки в мини-карточке не нужен:
@@ -852,12 +847,17 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
     }
 
     td::before {
-      content: attr(data-label);
+      content: attr(data-label) ": ";
       color: ${PANEL_TEXT_MUTED};
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
+      text-align: left;
+    }
+
+    /* значения — по левому краю, поверх right-align двухколоночных таблиц */
+    td:last-child {
       text-align: left;
     }
 
