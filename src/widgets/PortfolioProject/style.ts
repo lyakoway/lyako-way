@@ -1378,7 +1378,7 @@ export const CalloutIntro = styled(MetricsStrip)`
 export const KeyResultsBlock = styled.div`
   margin: 24px 0 16px;
   display: grid;
-  gap: 12px;
+  gap: 9px;
 `;
 
 export const KeyResultsGrid = styled.ul`
@@ -1505,20 +1505,45 @@ export const PipelineChainStep = styled.span`
 /* ——— Key results: расшифровка и честное ограничение ——— */
 
 export const KeyResultsNote = styled.p`
-  margin: 0 0 14px;
+  position: relative;
+  margin: 0;
+  padding-left: 18px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 12px;
   letter-spacing: 0.2px;
+  line-height: 1.5;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 6px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 export const KeyResultsLimitation = styled.p`
-  margin: 0 0 8px;
-  padding-left: 12px;
-  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  position: relative;
+  margin: 0;
+  padding-left: 18px;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 13.5px;
   font-weight: 300;
   line-height: 1.55;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 8px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 /* ——— Callout: детерминированный аналитический слой / self-correction ——— */
