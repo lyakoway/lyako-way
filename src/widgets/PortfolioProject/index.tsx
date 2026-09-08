@@ -97,6 +97,8 @@ import {
   CalloutCaption,
   CalloutNote,
   DescCaption,
+  CalloutIntro,
+  FeaturesBlock,
 } from "./style";
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
@@ -586,29 +588,33 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
           </Desc>
 
           {project.features && project.features.length > 0 && (
-            <>
+            <FeaturesBlock>
               <FeaturesHead>
                 <FeaturesIcon><IconFeatures /></FeaturesIcon>
                 <FeaturesTitle>{portfolioHeader.features}</FeaturesTitle>
               </FeaturesHead>
-              <FeatureList>
-                {project.features.map((f, i) => (
-                  <Reveal as={Feature} key={i} delay={i * 60}>
-                    {f}
-                  </Reveal>
-                ))}
-              </FeatureList>
+
+              {/* Ключевые AI-возможности — карточка с подписью */}
+              <DescCard>
+                <DescCaption>
+                  {project.featuresCaption ?? "Ключевые AI-возможности"}
+                </DescCaption>
+                <FeatureList>
+                  {project.features.map((f, i) => (
+                    <Reveal as={Feature} key={i} delay={i * 60}>
+                      {f}
+                    </Reveal>
+                  ))}
+                </FeatureList>
+              </DescCard>
+
+              {/* Продуктовые возможности — карточка с подписью */}
               {project.productFeatures &&
                 project.productFeatures.length > 0 && (
-                  <>
-                    <FeaturesHead>
-                      <FeaturesIcon>
-                        <IconFeatures />
-                      </FeaturesIcon>
-                      <FeaturesTitle>
-                        {project.productFeaturesTitle}
-                      </FeaturesTitle>
-                    </FeaturesHead>
+                  <DescCard>
+                    <DescCaption>
+                      {project.productFeaturesTitle}
+                    </DescCaption>
                     <FeatureList>
                       {project.productFeatures.map((f, i) => (
                         <Reveal as={Feature} key={i} delay={i * 50}>
@@ -616,9 +622,9 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                         </Reveal>
                       ))}
                     </FeatureList>
-                  </>
+                  </DescCard>
                 )}
-            </>
+            </FeaturesBlock>
           )}
 
           {project.aiEngineering && (
@@ -797,7 +803,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     </FeaturesHead>
                   )}
                   {project.aiEngineering.calloutsIntro && (
-                    <Reveal as={MetricsStrip} delay={40}>
+                    <Reveal as={CalloutIntro} delay={40}>
                       {project.aiEngineering.calloutsIntro}
                     </Reveal>
                   )}
@@ -917,12 +923,17 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     </FeatureList>
                   )}
                   {project.aiEngineering.evaluation.next && (
-                    <Reveal as={MetricsStrip} delay={80}>
+                    <Reveal as={CalloutIntro} delay={80}>
                       <span>
                         {project.aiEngineering.evaluation.nextTitle}
                         {": "}
                       </span>
                       {project.aiEngineering.evaluation.next}
+                    </Reveal>
+                  )}
+                  {project.aiEngineering.evaluation.next2 && (
+                    <Reveal as={CalloutIntro} delay={120}>
+                      {project.aiEngineering.evaluation.next2}
                     </Reveal>
                   )}
                 </>

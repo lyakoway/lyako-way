@@ -533,6 +533,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "LLM Evaluation (Golden Set)",
     ],
     productFeaturesTitle: "Product capabilities",
+    featuresCaption: "Core AI capabilities",
     productFeatures: [
       "Single file upload: SQL table + search (both agents)",
       "SSE execution trace",
@@ -838,8 +839,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "p95 latency — end-to-end response performance",
         ],
         nextTitle: "Retrieval / Analytics evaluation",
-        next:
-          "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · numeric golden contracts for deterministic analytics. Software reliability is verified separately with 174 pytest tests across Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG and application logic.",
+        next: "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · numeric golden contracts for deterministic analytics.",
+        next2:
+          "Software reliability is verified separately with 174 pytest tests across Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG and application logic.",
       },
       findingsTitle: "Engineering findings",
       findings: [
@@ -850,13 +852,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Routing saves trust, not steps. A single universal prompt blurred the agent's role. Decision: two specialized agents + two-level routing with a visible decision in the trace.",
         "Model benchmarks delivered an unexpected turn: GLM-5.2 is faster than flagship GLM-4.6 (18.5 s vs 22.4 s on the full cycle), while the GLM-5.3 generation answers fast but produces weaker SQL. The fix is a benchmark script: latency of any model measured with one command, the table goes to the README.",
       ],
-      gapsTitle: "Known limitations & next engineering steps",
-      gaps: [
-        "SQL evaluation depth — expand the Golden Set with more complex JOINs, ambiguous questions and cross-source scenarios.",
-        "Persistent retrieval — move from per-search index rebuild to persistent ChromaDB / Qdrant.",
-        "Async ingestion — move large-document processing to background jobs with ingestion status.",
-        "Security & multi-tenancy — add authentication, authorization and tenant-level data isolation.",
-      ],
+
       production: {
         title: "Production & reliability",
         items: [

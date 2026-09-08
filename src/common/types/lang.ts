@@ -345,6 +345,7 @@ export interface AiEngineeringProps {
     current: string[];
     nextTitle?: string;
     next: string;
+    next2?: string;
   };
   // Общий заголовок и пояснение для группы callout-блоков
   calloutsTitle?: string;
@@ -405,6 +406,8 @@ export interface PortfolioListProps {
   // Продуктовые возможности — вторым списком после AI-возможностей.
   productFeaturesTitle?: string;
   productFeatures?: string[];
+  // Подпись первой группы (ключевые AI-возможности) на карточке.
+  featuresCaption?: string;
   // Подписи карточек описания (по порядку после лида).
   descCaptions?: string[];
   // Финальная строка-акцент после карточек (валидация и деплой).

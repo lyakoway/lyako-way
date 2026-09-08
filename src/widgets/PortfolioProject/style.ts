@@ -168,14 +168,26 @@ export const DescLead = styled.p`
 // Остальные абзацы (демо/модели, стек) — отдельными карточками.
 // Капс-подпись карточки описания («Прозрачность», «Источники данных»…).
 export const DescCaption = styled.p`
+  position: relative;
   margin: 0 0 8px;
   padding-left: 11px;
-  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
   color: ${PANEL_TEXT_MUTED};
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+
+  /* полоска по высоте строки текста */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 3px;
+    width: 3px;
+    height: 10px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 export const DescCard = styled.div`
@@ -236,7 +248,7 @@ export const FeaturesHead = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 28px 0 14px;
+  margin: 0;
 `;
 
 export const FeaturesIcon = styled.span`
@@ -272,6 +284,14 @@ export const FeatureList = styled.ul`
   list-style: none;
   display: grid;
   gap: 9px;
+`;
+
+// Блок AI/продуктовых возможностей — вне AiSection: свой отступ сверху
+// и равные зазоры между заголовками и списками.
+export const FeaturesBlock = styled.div`
+  margin-top: 16px;
+  display: grid;
+  gap: 12px;
 `;
 
 // Пункт с оранжевым маркером слева (как Bullets в Резюме).
@@ -739,7 +759,6 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
     border-bottom: 1px solid ${PANEL_BORDER};
     font-weight: 300;
     line-height: 1.45;
-    white-space: nowrap;
   }
 
   /* Первый столбец — название сценария: переносим, остальное — числа. */
@@ -1339,13 +1358,18 @@ export const NotFound = styled.p`
 /* ——— Первый экран: строка метрик + Key results ——— */
 
 export const MetricsStrip = styled.p`
-  margin: 16px 0 8px;
+  margin: 16px 0 16px;
   padding-left: 12px;
   border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.2px;
+`;
+
+// Подводка сразу под заголовком секции — без верхнего отступа.
+export const CalloutIntro = styled(MetricsStrip)`
+  margin-top: 0;
 `;
 
 export const KeyResultsGrid = styled.ul`
@@ -1384,6 +1408,7 @@ export const KeyStatValue = styled.div`
   color: ${PANEL_TEXT};
   font-size: 20px;
   font-weight: 700;
+  white-space: nowrap;
 `;
 
 export const KeyStatLabel = styled.div`
@@ -1499,19 +1524,34 @@ export const CalloutCard = styled.div`
 `;
 
 export const CalloutCaption = styled.p`
+  position: relative;
   margin: 0;
+  padding-left: 11px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.5px;
   text-transform: uppercase;
+
+  /* полоска по высоте строки текста — не тянется, если заголовок переносится */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 3px;
+    height: 10px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 export const CalloutLead = styled.p`
   margin: 0;
-  color: ${PANEL_TEXT};
-  font-size: 15px;
-  font-weight: 600;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.55;
 `;
 
 export const CalloutNote = styled.p`

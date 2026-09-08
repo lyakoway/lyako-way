@@ -542,6 +542,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "LLM Evaluation (Golden Set)",
     ],
     productFeaturesTitle: "Продуктовые возможности",
+    featuresCaption: "Ключевые AI-возможности",
     productFeatures: [
       "Единая загрузка файла: SQL-таблица + поиск (обоим агентам)",
       "Execution trace через SSE",
@@ -1021,7 +1022,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "p95 latency — скорость ответа end-to-end",
         ],
         nextTitle: "Retrieval / Analytics evaluation",
-        next: "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · числовые golden-контракты детерминированной аналитики. Software reliability проверяется отдельно: 174 pytest-теста (Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG, app logic).",
+        next: "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · числовые golden-контракты детерминированной аналитики.",
+        next2: "Software reliability проверяется отдельно: 174 pytest-теста (Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG, app logic).",
       },
       findingsTitle: "Инженерные находки",
       findings: [
@@ -1032,13 +1034,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Роутинг экономит доверие, а не шаги. Один «универсальный» промпт размывал роль агента. Решение: два специализированных агента + двухуровневый роутер с видимым решением в trace.",
         "Замеры по моделям дали неожиданный разворот: GLM-5.2 быстрее флагмана GLM-4.6 (18.5 с против 22.4 с на полном цикле), а GLM-5.3-поколение генерирует быстрый ответ, но SQL выходит слабее. Решение — бенчмарк-скрипт: латентность любой модели замеряется одной командой, таблица идёт в README.",
       ],
-      gapsTitle: "Ограничения и следующие инженерные шаги",
-      gaps: [
-        "SQL evaluation depth — расширить Golden Set сложными JOIN, неоднозначными вопросами и кросс-источниковыми сценариями.",
-        "Persistent retrieval — перейти от пересборки индекса на каждый поиск к персистентному ChromaDB / Qdrant.",
-        "Async ingestion — вынести обработку больших документов в фоновые задачи со статусами загрузки.",
-        "Security & multi-tenancy — добавить аутентификацию, авторизацию и изоляцию данных по тенантам.",
-      ],
+
       production: {
         title: "Продакшн и надёжность",
         items: [
