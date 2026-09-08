@@ -410,7 +410,8 @@ export interface PortfolioListProps {
   featuresCaption?: string;
   // Подписи карточек описания (по порядку после лида).
   descCaptions?: string[];
-  // Финальная строка-акцент после карточек (валидация и деплой).
+  // Финальная карточка после описания: подпись и текст (валидация и деплой).
+  deployCaption?: string;
   deployLine?: string;
 }
 

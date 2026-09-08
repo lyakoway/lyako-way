@@ -531,6 +531,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioText:
       "Пользователь задаёт вопрос на естественном языке → система выбирает агента и источник данных → генерирует и выполняет SQL → при необходимости исправляет запрос → выполняет детерминированный анализ → возвращает таблицу, график и объяснение результата.\nПользователь видит работу агентов пошагово в реальном времени (execution trace через SSE) с self-correction: если SQL упал, агент сам переписывает запрос.\nИсточники данных: PostgreSQL, ClickHouse, загружаемые CSV/Excel/PDF/Word/TXT/MD с автосхемой и JOIN между файлами, виртуальный источник «Все загрузки».\nКаждая цифра в ответах считается детерминированным Python-слоем — LLM только оформляет текст. Поиск Ксюши — гибрид BM25 + векторные эмбеддинги (fastembed, 50+ языков).",
     descCaptions: ["Прозрачность", "Источники данных", "Доверие к цифрам"],
+    deployCaption: "Валидация и деплой",
     deployLine:
       "174 теста + LLM evaluation: golden set (30 SQL-сценариев, 20 routing), метрики Execution / Result Accuracy, Self-Correction Rate, p95 latency · деплой на Hugging Face Spaces.",
     features: [

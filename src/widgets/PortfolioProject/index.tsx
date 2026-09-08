@@ -582,7 +582,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 );
               })}
             {project.deployLine && (
-              <Reveal as={MetricsStrip} delay={100}>
+              <Reveal as={DescCard} delay={100}>
+                {project.deployCaption && (
+                  <DescCaption>{project.deployCaption}</DescCaption>
+                )}
                 {project.deployLine}
               </Reveal>
             )}

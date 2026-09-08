@@ -522,6 +522,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioText:
       "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word/TXT/MD with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).",
     descCaptions: ["Transparency", "Data sources", "Trust in the numbers"],
+    deployCaption: "Validation & deployment",
     deployLine:
       "174 tests + LLM evaluation: a 30-case SQL golden set, Execution / Result Accuracy, Self-Correction Rate, p95 latency · deployed on Hugging Face Spaces.",
     features: [
