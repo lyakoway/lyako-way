@@ -338,7 +338,52 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Citations — citations are correct", "5.0 / 5"] },
           ],
           footnote:
-            "This is an LLM-based evaluation and should be treated as a supporting signal: 5.0/5 on 24 answers across Faithfulness, Relevance and Citations. Stricter validation should use an independent judge model or human evaluation. Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 24.",
+            "This is an LLM-based evaluation and should be treated as a supporting signal: 5.0/5 on 47 answers across Faithfulness, Relevance and Citations. Stricter validation should use an independent judge model or human evaluation. Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 47.",
+        },
+        {
+          title: "Final metrics map — the outcome of the whole loop",
+          columns: ["Metric", "Result", "Takeaway"],
+          rows: [
+            {
+              cells: [
+                "Retrieval",
+                "Recall@1 87.2% · Recall@3 97.9%",
+                "Closed. Weak spot — cross-lingual 62.5%: next step is a RU/EN synonym dictionary and a multilingual reranker",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Answers",
+                "Judge 5.0/5 on three axes, 47/47",
+                "Closed with a caveat: self-judging by the same family — next step: an independent judge",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Latency",
+                "TTFT ~2.5–3.0 s",
+                "Provider floor: the pipeline adds <1% — nothing left to optimize on our side",
+              ],
+            },
+            {
+              cells: [
+                "Cost",
+                "≈ $0.0005 per question",
+                "About 20,000 questions per $1; zero on the free and local models",
+              ],
+            },
+            {
+              cells: [
+                "Reliability",
+                "63 pytest tests + CI",
+                "Critical paths (errors, edge cases, the agent) are under automated tests",
+              ],
+            },
+          ],
+          footnote:
+            "Every row is a measurement with a reproducible command in the project README — not a claim.",
         },
       ],
       production: {
