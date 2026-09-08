@@ -752,7 +752,7 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
 
   th {
     text-align: left;
-    padding: 7px 10px;
+    padding: 7px 8px;
     color: ${PANEL_TEXT_MUTED};
     font-size: 11px;
     font-weight: 600;
@@ -763,7 +763,7 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
   }
 
   td {
-    padding: 7px 10px;
+    padding: 7px 8px;
     border-bottom: 1px solid ${PANEL_BORDER};
     font-weight: 300;
     line-height: 1.45;
@@ -773,7 +773,7 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
   th:first-child,
   td:first-child {
     white-space: normal;
-    min-width: 180px;
+    min-width: 120px;
   }
 
   tr:last-child td {
