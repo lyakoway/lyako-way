@@ -1336,7 +1336,6 @@ export const NotFound = styled.p`
   font-size: 15px;
 `;
 
-
 /* ——— Первый экран: строка метрик + Key results ——— */
 
 export const MetricsStrip = styled.p`
@@ -1371,7 +1370,9 @@ export const KeyStatCard = styled.li`
   display: grid;
   gap: 2px;
   align-content: start;
-  transition: border-color 0.25s ease, background 0.25s ease;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease;
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
@@ -1450,7 +1451,7 @@ export const PipelineChain = styled.div`
 
   .down {
     margin-left: 14px;
-    color: ${({ theme }) => theme.color.basic.primary};
+    color: ${PANEL_TEXT};
     font-size: 12px;
     line-height: 1;
   }
@@ -1467,11 +1468,10 @@ export const PipelineChainStep = styled.span`
   white-space: nowrap;
 `;
 
-
 /* ——— Key results: расшифровка и честное ограничение ——— */
 
 export const KeyResultsNote = styled.p`
-  margin: 0 0 8px;
+  margin: 0 0 14px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 12px;
   letter-spacing: 0.2px;

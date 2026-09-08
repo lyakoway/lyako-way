@@ -277,14 +277,16 @@ export const propsPortfolioList: PortfolioListProps[] = [
           rows: [
             { cells: ["fact — прямой факт", "15", "100%", "100%"] },
             { cells: ["numeric — цифры и сроки", "15", "86,7%", "100%"] },
-            { cells: ["paraphrase — перефраз без дословных ключей", "9", "88,9%", "100%"] },
             {
               cells: [
-                "cross-lingual — смешанный язык",
-                "8",
-                "62,5%",
-                "87,5%",
+                "paraphrase — перефраз без дословных ключей",
+                "9",
+                "88,9%",
+                "100%",
               ],
+            },
+            {
+              cells: ["cross-lingual — смешанный язык", "8", "62,5%", "87,5%"],
               highlight: true,
             },
           ],
@@ -335,7 +337,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "TTFT — время до первого токена. GLM-4.5-flash (бесплатное поколение) на том же пайплайне даёт TTFT 25–50 с — поэтому в рекомендациях её нет.",
         },
         {
-          title: "Качество ответов — LLM-as-judge, прогон на наборе v1 (24 вопроса)",
+          title: "Качество ответов — LLM-as-judge, 47 сценариев",
           columns: ["Ось оценки", "Средний балл"],
           rows: [
             { cells: ["Faithfulness — нет галлюцинаций", "5.0 / 5"] },
@@ -343,7 +345,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Citations — цитаты корректны", "5.0 / 5"] },
           ],
           footnote:
-            "Это LLM-оценка — вспомогательный сигнал: 5.0/5 на 24 ответах по осям Faithfulness, Relevance и Citations. Для строгой валидации нужен независимый судья другой модели или ручная оценка. Ответы и судья — glm-4.5-flash, поиск гибридный. Ответов с оценкой ≤3: 0 из 24.",
+            "Это LLM-оценка — вспомогательный сигнал: 5.0/5 на 47 ответах по осям Faithfulness, Relevance и Citations. Для строгой валидации нужен независимый судья другой модели или ручная оценка. Ответы и судья — glm-4.5-flash, поиск гибридный. Ответов с оценкой ≤3: 0 из 47.",
         },
       ],
       production: {
@@ -408,7 +410,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Поколение модели определяет латентность сильнее настроек. GLM-4.5-flash с отключённым thinking отвечает 25–50 с, GLM-5.3-flash на том же пайплайне — ~3 с. А локальная Llama 3.2 3B на CPU отвечает за 2–5 с бесплатно — быстрее бесплатной облачной. Плата за «бесплатность» — всплески до 8–15 с под нагрузкой и менее аккуратные ответы. Маленькая модель чаще теряет цитаты.",
         "Анти-галлюцинация проверена вопросом вне базы — модель отвечает отказом со ссылкой на содержимое контекста, а не выдумывает факт.",
         "Гипотезы «срезать контекст — быстрее первый токен» проверены и отклонены — top_k 5→4 и чанк 800→400 Recall не меняют, но TTFT остаётся ~2,5 с. На демо-корпусе страницы короче 400 токенов, резать нечего. Латентность — «пол» провайдера. Пайплайн добавляет ~20 мс (<1%).",
-        "Автооценка качества ответов: LLM-as-judge оценил 24/24 ответов — 5.0 по всем осям (нет галлюцинаций, цитаты корректны). Для строгой оценки нужен судья другой семьи.",
+        "Автооценка качества ответов: LLM-as-judge оценил 47/47 ответов — 5.0 по всем осям (нет галлюцинаций, цитаты корректны). Для строгой оценки нужен судья другой семьи.",
         "Критические пути переведены под тесты: битые PDF/DOCX/XLSX, пустые документы, неверные фильтры, вопрос без контекста, зацикливание агента — 63 pytest-теста на изолированных хранилищах и fake-провайдерах. Обработка ошибок больше не зависит от ручной проверки.",
       ],
       conclusionLabel: "Главный вывод",
@@ -442,7 +444,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
     direction: "AI-агенты",
     cardDescription:
       "Мультиагентная аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
-    cardMetrics: ["2ч → 2мин · репрезентативный сценарий", "SQL Execution Accuracy 100% · Routing 100%"],
+    cardMetrics: [
+      "2ч → 2мин · репрезентативный сценарий",
+      "SQL Execution Accuracy 100% · Routing 100%",
+    ],
     tagline:
       "Мультиагентная аналитическая система для анализа данных на естественном языке — production-качество, проверено автотестами.",
     metricsLine:
@@ -456,9 +461,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "2", label: "специализированных агента" },
       { value: "4", label: "типа источников данных" },
     ],
-    keyResultsNote: "Прогон GLM-4.6 (50 SQL + 20 routing): p95 32s · Self-Correction Rate измеряется отдельно · 0 необработанных ошибок",
+    keyResultsNote:
+      "Прогон GLM-4.6 (50 SQL + 20 routing): p95 32s · Self-Correction Rate измеряется отдельно · 0 необработанных ошибок",
     keyResultsLimitation:
-      "Result Accuracy 42% — exact-set match строго к эталону; расширяю сопоставление (синонимы, формы, агрегаты) и покрытие Golden Set.",
+      "Result Accuracy 42% — exact-set match строго к эталону, расширяю сопоставление (синонимы, формы, агрегаты) и покрытие Golden Set.",
     technologies: [
       "Python",
       "FastAPI",
@@ -534,7 +540,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Фронтенд",
           nodes: [
-            { label: "React 19 + Vite", note: "SSE-стриминг, RU/EN, dark/light" },
+            {
+              label: "React 19 + Vite",
+              note: "SSE-стриминг, RU/EN, dark/light",
+            },
             { label: "Execution trace", note: "пошаговая работа агентов live" },
             { label: "Просмотрщик документов", note: "PDF · DOCX · XLSX" },
           ],
@@ -542,43 +551,90 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Роутинг (два уровня)",
           nodes: [
-            { label: "Агент-роутер", note: "данные → Олег, документация → Ксюша", accent: true },
-            { label: "Source-роутер", note: "вопрос → нужная БД (LLM + эвристика)", accent: true },
-            { label: "Ручной override", note: "чекбоксы и селектор источников" },
+            {
+              label: "Агент-роутер",
+              note: "данные → Олег, документация → Ксюша",
+              accent: true,
+            },
+            {
+              label: "Source-роутер",
+              note: "вопрос → нужная БД (LLM + эвристика)",
+              accent: true,
+            },
+            {
+              label: "Ручной override",
+              note: "чекбоксы и селектор источников",
+            },
           ],
         },
         {
           title: "Олег — SQL-агент",
           nodes: [
-            { label: "Agent Loop (ReAct)", note: "prompt-based tool calling, до 6 шагов" },
-            { label: "Tools", note: "database_query · calculate · analyze · chart · finish" },
-            { label: "Self-correction", note: "ошибка SQL → переписать (2 попытки)" },
-            { label: "Insights (Python)", note: "тренды · топ-N · z-score аномалии" },
+            {
+              label: "Agent Loop (ReAct)",
+              note: "prompt-based tool calling, до 6 шагов",
+            },
+            {
+              label: "Tools",
+              note: "database_query · calculate · analyze · chart · finish",
+            },
+            {
+              label: "Self-correction",
+              note: "ошибка SQL → переписать (2 попытки)",
+            },
+            {
+              label: "Insights (Python)",
+              note: "тренды · топ-N · z-score аномалии",
+            },
           ],
         },
         {
           title: "Ксюша — RAG",
           nodes: [
             { label: "Гибрид BM25 + vector", note: "fastembed, 50+ языков" },
-            { label: "Русский стемминг", note: "IDF-взвешивание, fallback-чанки" },
-            { label: "Цитаты [1] + viewer", note: "PDF стр. N · DOCX · XLSX таблица" },
+            {
+              label: "Русский стемминг",
+              note: "IDF-взвешивание, fallback-чанки",
+            },
+            {
+              label: "Цитаты [1] + viewer",
+              note: "PDF стр. N · DOCX · XLSX таблица",
+            },
           ],
         },
         {
           title: "Источники данных",
           nodes: [
-            { label: "RideGo (SQLite)", note: "встроенный демо-домен, ~21k поездок" },
-            { label: "PostgreSQL · ClickHouse", note: "интроспекция схемы, диалект-промпты" },
-            { label: "CSV / Excel", note: "SQL-таблица + текстовые чанки из одной загрузки" },
-            { label: "«Все загрузки»", note: "виртуальный источник, JOIN между файлами" },
+            {
+              label: "RideGo (SQLite)",
+              note: "встроенный демо-домен, ~21k поездок",
+            },
+            {
+              label: "PostgreSQL · ClickHouse",
+              note: "интроспекция схемы, диалект-промпты",
+            },
+            {
+              label: "CSV / Excel",
+              note: "SQL-таблица + текстовые чанки из одной загрузки",
+            },
+            {
+              label: "«Все загрузки»",
+              note: "виртуальный источник, JOIN между файлами",
+            },
           ],
         },
         {
           title: "Эксплуатация",
           nodes: [
-            { label: "SQL guard", note: "SELECT-only, row limit, таймауты 8/30 с" },
+            {
+              label: "SQL guard",
+              note: "SELECT-only, row limit, таймауты 8/30 с",
+            },
             { label: "Feedback", note: "👍/👎 в БД + витрина аналитики" },
-            { label: "pytest + evaluation", note: "174 теста + golden set, temp-БД" },
+            {
+              label: "pytest + evaluation",
+              note: "174 теста + golden set, temp-БД",
+            },
           ],
         },
       ],
@@ -635,7 +691,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
         {
           title: "06 — Reproducible verification",
-          check: "174 теста, изолированные БД и fake-провайдеры; LLM evaluation на golden set — отдельным прогоном.",
+          check:
+            "174 теста, изолированные БД и fake-провайдеры; LLM evaluation на golden set — отдельным прогоном.",
         },
       ],
       metricsTitle: "Автоматическая верификация",
@@ -644,15 +701,69 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "Покрытие тестами — 174 pytest-теста",
           columns: ["Компонент", "Тестов", "Что проверяется"],
           rows: [
-            { cells: ["Agent Loop (ReAct)", "22", "tool-calling, self-correction, лимит шагов, fallback"] },
-            { cells: ["SQL guard", "18", "запреты DML, multi-statement, таймауты, row limit"] },
-            { cells: ["Аналитический слой", "16", "тренды, z-score порог, топ-N, RU/EN highlights"] },
-            { cells: ["Источники (CSV/Excel/PG/CH)", "27", "парсеры, интроспекция, дедуп имён, маскировка паролей"] },
-            { cells: ["Роутеры (агент + источник)", "26", "эвристика, LLM-fallback, честные ошибки"] },
-            { cells: ["RAG Ксюши + app.db", "20", "steps, sources, цитаты, feedback stats"] },
-            { cells: ["Параметризованные сценарии", "10", "подстановка, defaults, миграция"] },
-            { cells: ["Прочее (app_db, export)", "22", "CRUD, feedback, изоляция БД"] },
-            { cells: ["Retrieval quality + analytics contracts", "13", "Recall@1/5, MRR (BM25/Vector/Hybrid), числовые golden-контракты"] },
+            {
+              cells: [
+                "Agent Loop (ReAct)",
+                "22",
+                "tool-calling, self-correction, лимит шагов, fallback",
+              ],
+            },
+            {
+              cells: [
+                "SQL guard",
+                "18",
+                "запреты DML, multi-statement, таймауты, row limit",
+              ],
+            },
+            {
+              cells: [
+                "Аналитический слой",
+                "16",
+                "тренды, z-score порог, топ-N, RU/EN highlights",
+              ],
+            },
+            {
+              cells: [
+                "Источники (CSV/Excel/PG/CH)",
+                "27",
+                "парсеры, интроспекция, дедуп имён, маскировка паролей",
+              ],
+            },
+            {
+              cells: [
+                "Роутеры (агент + источник)",
+                "26",
+                "эвристика, LLM-fallback, честные ошибки",
+              ],
+            },
+            {
+              cells: [
+                "RAG Ксюши + app.db",
+                "20",
+                "steps, sources, цитаты, feedback stats",
+              ],
+            },
+            {
+              cells: [
+                "Параметризованные сценарии",
+                "10",
+                "подстановка, defaults, миграция",
+              ],
+            },
+            {
+              cells: [
+                "Прочее (app_db, export)",
+                "22",
+                "CRUD, feedback, изоляция БД",
+              ],
+            },
+            {
+              cells: [
+                "Retrieval quality + analytics contracts",
+                "13",
+                "Recall@1/5, MRR (BM25/Vector/Hybrid), числовые golden-контракты",
+              ],
+            },
           ],
           footnote:
             "Тесты выполняются на изолированных temp-SQLite базах и fake-провайдерах — не требуют API-ключей и не задевают боевые данные. Время прогона ~50 с.",
@@ -661,22 +772,87 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "Качество SQL — Golden Set 50, живой прогон GLM-4.6",
           columns: ["Метрика", "Результат"],
           rows: [
-            { cells: ["SQL Execution Accuracy — сгенерированный SQL выполнился", "100% (50/50)"], highlight: true },
-            { cells: ["Agent Routing Accuracy — вопрос направлен правильному агенту", "100% (20/20)"] },
-            { cells: ["Result Accuracy — точное совпадение множеств строк с эталоном", "42%"] },
-            { cells: ["Task Completion Rate — вопрос доведён до результата", "100%"] },
+            {
+              cells: [
+                "SQL Execution Accuracy — сгенерированный SQL выполнился",
+                "100% (50/50)",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Agent Routing Accuracy — вопрос направлен правильному агенту",
+                "100% (20/20)",
+              ],
+            },
+            {
+              cells: [
+                "Result Accuracy — точное совпадение множеств строк с эталоном",
+                "42%",
+              ],
+            },
+            {
+              cells: [
+                "Task Completion Rate — вопрос доведён до результата",
+                "100%",
+              ],
+            },
           ],
           footnote:
             "Прогон GLM-4.6 по Golden Set (50 SQL-сценариев + 20 routing). Result Accuracy 42% — strict exact-match: LLM возвращает верные данные, но в другой форме (алиасы, округления, лишние ORDER BY) — сопоставление расширяется.",
         },
         {
           title: "Замеры латентности — медианы 3 прогонов по моделям",
-          columns: ["Модель", "План (LLM)", "Выполнение (БД)", "Ответ (LLM)", "Итого", "SQL ok"],
+          columns: [
+            "Модель",
+            "План (LLM)",
+            "Выполнение (БД)",
+            "Ответ (LLM)",
+            "Итого",
+            "SQL ok",
+          ],
           rows: [
-            { cells: ["GLM-5.2 (Z.ai)", "7.0 с", "6 мс", "9.4 с", "~16.4 с", "3/3"], highlight: true },
-            { cells: ["GLM-4.6 (Z.ai)", "13.5 с", "12 мс", "16.3 с", "~29.8 с", "2/3"] },
-            { cells: ["GLM-5.3-flash (Z.ai)", "7.0 с", "8 мс", "4.8 с", "~11.9 с", "2/3"] },
-            { cells: ["GLM-5.3 (Z.ai)", "13.8 с", "11 мс", "5.1 с", "~19.0 с", "1/3"] },
+            {
+              cells: [
+                "GLM-5.2 (Z.ai)",
+                "7.0 с",
+                "6 мс",
+                "9.4 с",
+                "~16.4 с",
+                "3/3",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "GLM-4.6 (Z.ai)",
+                "13.5 с",
+                "12 мс",
+                "16.3 с",
+                "~29.8 с",
+                "2/3",
+              ],
+            },
+            {
+              cells: [
+                "GLM-5.3-flash (Z.ai)",
+                "7.0 с",
+                "8 мс",
+                "4.8 с",
+                "~11.9 с",
+                "2/3",
+              ],
+            },
+            {
+              cells: [
+                "GLM-5.3 (Z.ai)",
+                "13.8 с",
+                "11 мс",
+                "5.1 с",
+                "~19.0 с",
+                "1/3",
+              ],
+            },
           ],
           footnote:
             "Медианы 3 прогонов одного вопроса через полный цикл (план → БД → ответ) — латентность внешнего API варьируется между запусками. GLM-5.3-поколение отвечает быстрее, но SQL генерирует слабее. Скрипт замера: python scripts/latency_benchmark.py.",
@@ -686,7 +862,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
           columns: ["Механизм", "Значение"],
           rows: [
             { cells: ["Таймаут SQL: локальные источники", "8 с"] },
-            { cells: ["Таймаут SQL: PostgreSQL / ClickHouse (внешние)", "30 с"] },
+            {
+              cells: ["Таймаут SQL: PostgreSQL / ClickHouse (внешние)", "30 с"],
+            },
             { cells: ["Row limit на запрос", "500 строк"] },
             { cells: ["Self-correction rounds", "2 (итого до 3 попыток)"] },
             { cells: ["Agent Loop: максимум шагов", "6"] },
@@ -729,7 +907,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
       },
       evaluation: {
         title: "Оценка качества AI",
-        currentStateTitle: "SQL / Agent evaluation — качество AI измеряется отдельно от software-тестов",
+        currentStateTitle:
+          "SQL / Agent evaluation — качество AI измеряется отдельно от software-тестов",
         current: [
           "Golden Set из 30 SQL-сценариев (естественный язык → SQL)",
           "Execution Accuracy — выполняется ли сгенерированный SQL",
@@ -738,8 +917,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "p95 latency — скорость ответа end-to-end",
         ],
         nextTitle: "Retrieval / Analytics evaluation",
-        next:
-          "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · числовые golden-контракты детерминированной аналитики. Software reliability проверяется отдельно: 174 pytest-теста (Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG, app logic).",
+        next: "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · числовые golden-контракты детерминированной аналитики. Software reliability проверяется отдельно: 174 pytest-теста (Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG, app logic).",
       },
       findingsTitle: "Инженерные находки",
       findings: [

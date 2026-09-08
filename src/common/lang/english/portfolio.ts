@@ -330,7 +330,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "TTFT = time to first token. GLM-4.5-flash (the free generation) yields a 25–50 s TTFT on the same pipeline — hence it is not recommended.",
         },
         {
-          title: "Answer quality — LLM-as-judge, run on the v1 set (24 questions)",
+          title: "Answer quality — LLM-as-judge, 47 scenarios",
           columns: ["Evaluation axis", "Average score"],
           rows: [
             { cells: ["Faithfulness — no hallucinations", "5.0 / 5"] },
@@ -403,7 +403,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "The model generation defines latency more than any tuning. GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free — faster than the free cloud model. The price of “free” — spikes up to 8–15 s under load and less polished answers. The small model drops citations more often.",
         "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context contents instead of inventing a fact.",
         "The “trim the context, get a faster first token” hypotheses were tested and rejected — top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s. Demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor. The pipeline adds ~20 ms (<1%).",
-        "Automated answer-quality checks: the LLM-as-judge scored 24/24 answers — 5.0 on every axis (no hallucinations, citations correct). A strict evaluation needs a judge from another family.",
+        "Automated answer-quality checks: the LLM-as-judge scored 47/47 answers — 5.0 on every axis (no hallucinations, citations correct). A strict evaluation needs a judge from another family.",
         "Critical paths are now under tests: corrupted PDF/DOCX/XLSX, empty documents, wrong filters, a question without context, agent runaway loops — 63 pytest tests on isolated stores and fake providers. Error handling no longer depends on manual checking.",
       ],
       conclusionLabel: "The takeaway",

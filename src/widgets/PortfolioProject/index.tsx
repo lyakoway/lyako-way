@@ -753,12 +753,15 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                         {project.aiEngineering.pipelinesTitle}
                       </FeaturesTitle>
                     </FeaturesHead>
-                    {project.aiEngineering.routerLine && (
-                      <Reveal as={DescCard} delay={40}>
-                        {project.aiEngineering.routerLine}
-                      </Reveal>
-                    )}
                     <AiDiagram>
+                      {/* Роутер — первая дорожка дерева */}
+                      {project.aiEngineering.routerLine && (
+                        <AiLane>
+                          <Reveal as={DescCard} x={64} y={0} delay={60}>
+                            {project.aiEngineering.routerLine}
+                          </Reveal>
+                        </AiLane>
+                      )}
                       {project.aiEngineering.pipelines.map((pipeline) => (
                         <AiLane key={pipeline.title}>
                           <Reveal as={AiLaneCard} x={64} y={0} delay={90}>
