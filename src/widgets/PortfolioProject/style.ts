@@ -596,7 +596,7 @@ export const LikeButton = styled.button<{ $pressed?: boolean }>`
 export const AiSection = styled.section`
   margin-top: 30px;
   display: grid;
-  gap: 14px;
+  gap: 10px;
 
   /* grid-элементы по умолчанию не сжимаются ниже min-content: широкие
      таблицы замеров растягивали всю страницу за экран.
@@ -1471,15 +1471,8 @@ export const KeyStatLabel = styled.div`
 
 export const ProductionItem = styled.div`
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 4px 10px;
+  display: block;
   padding: 10px 0 10px 16px;
-
-  &:not(:last-child) {
-    border-bottom: 1px solid ${PANEL_BORDER};
-  }
 
   &::before {
     content: "";
@@ -1490,6 +1483,11 @@ export const ProductionItem = styled.div`
     height: 6px;
     border-radius: 50%;
     background: ${({ theme }) => theme.color.basic.primary};
+  }
+
+  /* На мобильных название и текст — в одну строку */
+  @media (max-width: 767px) {
+    display: block;
   }
 `;
 
