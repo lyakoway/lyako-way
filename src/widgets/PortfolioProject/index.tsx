@@ -100,6 +100,7 @@ import {
   CalloutIntro,
   FeaturesBlock,
   KeyResultsBlock,
+  ListCard,
 } from "./style";
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
@@ -920,27 +921,29 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                       {project.aiEngineering.evaluation.title}
                     </FeaturesTitle>
                   </FeaturesHead>
-                  {project.aiEngineering.evaluation.current.length > 0 && (
-                    <FeatureList>
-                      {project.aiEngineering.evaluation.current.map((c, i) => (
-                        <Reveal as={Feature} key={i} delay={i * 50}>
-                          {c}
-                        </Reveal>
-                      ))}
-                    </FeatureList>
-                  )}
-                  {project.aiEngineering.evaluation.next && (
-                    <Reveal as={Feature} delay={80}>
-                      {project.aiEngineering.evaluation.nextTitle}
-                      {": "}
-                      {project.aiEngineering.evaluation.next}
-                    </Reveal>
-                  )}
-                  {project.aiEngineering.evaluation.next2 && (
-                    <Reveal as={Feature} delay={120}>
-                      {project.aiEngineering.evaluation.next2}
-                    </Reveal>
-                  )}
+                  <ListCard>
+                    {project.aiEngineering.evaluation.current.length > 0 && (
+                      <FeatureList>
+                        {project.aiEngineering.evaluation.current.map((c, i) => (
+                          <Reveal as={Feature} key={i} delay={i * 50}>
+                            {c}
+                          </Reveal>
+                        ))}
+                      </FeatureList>
+                    )}
+                    {project.aiEngineering.evaluation.next && (
+                      <Reveal as={Feature} delay={80}>
+                        {project.aiEngineering.evaluation.nextTitle}
+                        {": "}
+                        {project.aiEngineering.evaluation.next}
+                      </Reveal>
+                    )}
+                    {project.aiEngineering.evaluation.next2 && (
+                      <Reveal as={Feature} delay={120}>
+                        {project.aiEngineering.evaluation.next2}
+                      </Reveal>
+                    )}
+                  </ListCard>
                 </>
               )}
 
@@ -951,13 +954,13 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                       <FeaturesIcon><IconFindings /></FeaturesIcon>
                       <FeaturesTitle>{project.aiEngineering.findingsTitle}</FeaturesTitle>
                     </FeaturesHead>
-                    <FeatureList>
+                    <ListCard>
                       {project.aiEngineering.findings.map((f, i) => (
                         <Reveal as={Feature} key={i} delay={i * 50}>
                           {f}
                         </Reveal>
                       ))}
-                    </FeatureList>
+                    </ListCard>
                   </>
                 )}
 
@@ -972,14 +975,14 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                         {project.aiEngineering.production.title}
                       </FeaturesTitle>
                     </FeaturesHead>
-                    <div>
+                    <ListCard>
                       {project.aiEngineering.production.items.map((item) => (
                         <ProductionItem key={item.title}>
                           <ProductionName>{item.title}</ProductionName>
                           <ProductionText>{item.text}</ProductionText>
                         </ProductionItem>
                       ))}
-                    </div>
+                    </ListCard>
                   </>
                 )}
 

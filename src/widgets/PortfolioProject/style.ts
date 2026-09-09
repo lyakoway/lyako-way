@@ -279,6 +279,14 @@ export const FeaturesTitle = styled.p`
   text-transform: uppercase;
 `;
 
+// Общая подложка-карточка для списка пунктов блока.
+export const ListCard = styled.div`
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  padding: 14px 16px;
+`;
+
 export const FeatureList = styled.ul`
   margin: 0;
   padding: 0;
