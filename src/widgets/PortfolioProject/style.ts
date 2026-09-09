@@ -988,14 +988,31 @@ export const AiConclusionArrow = styled.span`
   user-select: none;
 `;
 
-// Текст вывода: каждая строка (до \n) — отдельный блок, коротко и по делу.
+// Текст вывода: каждая строка (до \n) — отдельный блок с оранжевой меткой.
 export const AiConclusionText = styled.div`
   display: grid;
-  gap: 5px;
+  gap: 8px;
   color: ${PANEL_TEXT};
   font-size: 14px;
   font-weight: 400;
   line-height: 1.6;
+
+  span {
+    position: relative;
+    display: block;
+    padding-left: 18px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 9px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: ${({ theme }) => theme.color.basic.primary};
+    }
+  }
 `;
 
 // Пробелы — тем же маркером, что возможности, но текст тише: это «не закрыто».
