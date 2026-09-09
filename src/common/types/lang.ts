@@ -346,7 +346,7 @@ export interface AiEngineeringProps {
     currentStateTitle?: string;
     current: string[];
     nextTitle?: string;
-    next: string;
+    next?: string;
     next2?: string;
   };
   // Общий заголовок и пояснение для группы callout-блоков

@@ -1024,9 +1024,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
           "Self-Correction Rate — как часто упавший SQL успешно исправлен",
           "p95 latency — скорость ответа end-to-end",
         ],
-        nextTitle: "Retrieval / Analytics evaluation",
-        next: "Recall@1 / Recall@5 · MRR · BM25 vs Vector vs Hybrid retrieval · числовые golden-контракты детерминированной аналитики.",
-        next2: "Software reliability проверяется отдельно: 174 pytest-теста (Agent Loop, SQL Guard, Analytics, Sources, Routers, RAG, app logic).",
       },
       findingsTitle: "Инженерные находки",
       findings: [
