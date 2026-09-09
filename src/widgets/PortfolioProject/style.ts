@@ -287,6 +287,15 @@ export const ListCard = styled.div`
   padding: 14px 16px;
 `;
 
+// Список находок — увеличенный зазор между пунктами.
+export const FindingsList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+`;
+
 export const FeatureList = styled.ul`
   margin: 0;
   padding: 0;

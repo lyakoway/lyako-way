@@ -101,6 +101,7 @@ import {
   FeaturesBlock,
   KeyResultsBlock,
   ListCard,
+  FindingsList,
 } from "./style";
 
 /* Иконки заголовков разделов — инлайн-SVG в стиле иконок дерева навыков
@@ -955,11 +956,13 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                       <FeaturesTitle>{project.aiEngineering.findingsTitle}</FeaturesTitle>
                     </FeaturesHead>
                     <ListCard>
-                      {project.aiEngineering.findings.map((f, i) => (
-                        <Reveal as={Feature} key={i} delay={i * 50}>
-                          {f}
-                        </Reveal>
-                      ))}
+                      <FindingsList>
+                        {project.aiEngineering.findings.map((f, i) => (
+                          <Reveal as={Feature} key={i} delay={i * 50}>
+                            {f}
+                          </Reveal>
+                        ))}
+                      </FindingsList>
                     </ListCard>
                   </>
                 )}
