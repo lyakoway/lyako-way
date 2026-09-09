@@ -549,48 +549,59 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
           )}
 
           <Desc>
-            {project.portfolioText
-              .split("\n")
-              .map((line) => line.trim())
-              .filter(Boolean)
-              .map((line, i) => {
-                if (i === 0) {
-                  return (
-                    <Reveal as={DescLead} key={i} delay={0}>
-                      {line}
+            {(() => {
+              const lines = project.portfolioText
+                .split("\n")
+                .map((line) => line.trim())
+                .filter(Boolean);
+              const lead = lines[0];
+              const cards = lines.slice(1).map((line, i) => ({
+                caption: project.descCaptions?.[i],
+                line,
+              }));
+              if (project.deployLine) {
+                cards.push({
+                  caption: project.deployCaption,
+                  line: project.deployLine,
+                });
+              }
+              return (
+                <>
+                  {lead && (
+                    <Reveal as={DescLead} key="lead" delay={0}>
+                      {lead}
                     </Reveal>
-                  );
-                }
-                // Карточка: если есть «;» — разбиваем на пункты-строки.
-                const parts = line
-                  .split(";")
-                  .map((p) => p.trim())
-                  .filter(Boolean);
-                // Подпись карточки — из descCaptions по порядку.
-                const caption = project.descCaptions?.[i - 1];
-                return (
-                  <Reveal as={DescCard} key={i} delay={i * 80}>
-                    {caption && <DescCaption>{caption}</DescCaption>}
-                    {parts.length > 1 ? (
-                      <CardList>
-                        {parts.map((p, j) => (
-                          <li key={j}>{p}</li>
-                        ))}
-                      </CardList>
-                    ) : (
-                      line
-                    )}
-                  </Reveal>
-                );
-              })}
-            {project.deployLine && (
-              <Reveal as={DescCard} delay={100}>
-                {project.deployCaption && (
-                  <DescCaption>{project.deployCaption}</DescCaption>
-                )}
-                {project.deployLine}
-              </Reveal>
-            )}
+                  )}
+                  {/* Карточки описания — дерево слева */}
+                  <AiDiagram>
+                    {cards.map((card, i) => {
+                      const parts = card.line
+                        .split(";")
+                        .map((p) => p.trim())
+                        .filter(Boolean);
+                      return (
+                        <AiLane key={i}>
+                          <Reveal as={DescCard} x={64} y={0} delay={i * 80}>
+                            {card.caption && (
+                              <DescCaption>{card.caption}</DescCaption>
+                            )}
+                            {parts.length > 1 ? (
+                              <CardList>
+                                {parts.map((p, j) => (
+                                  <li key={j}>{p}</li>
+                                ))}
+                              </CardList>
+                            ) : (
+                              card.line
+                            )}
+                          </Reveal>
+                        </AiLane>
+                      );
+                    })}
+                  </AiDiagram>
+                </>
+              );
+            })()}
           </Desc>
 
           {project.features && project.features.length > 0 && (
