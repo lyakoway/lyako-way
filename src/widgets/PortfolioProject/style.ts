@@ -1472,22 +1472,17 @@ export const KeyStatLabel = styled.div`
 export const ProductionItem = styled.div`
   position: relative;
   display: block;
-  padding: 10px 0 10px 16px;
+  padding: 0px 0 8px 18px;
 
   &::before {
     content: "";
     position: absolute;
     left: 2px;
-    top: 17px;
+    top: 8px;
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: ${({ theme }) => theme.color.basic.primary};
-  }
-
-  /* На мобильных название и текст — в одну строку */
-  @media (max-width: 767px) {
-    display: block;
   }
 `;
 
