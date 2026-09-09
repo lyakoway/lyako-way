@@ -977,22 +977,19 @@ export const AiConclusion = styled.div`
 
 // Этапы цикла — цепочка шагов со стрелками (мини-версия схемы проекта).
 export const AiConclusionFlow = styled.div`
+  border-left: 3px solid ${({ theme }) => theme.color.basic.primary};
+  padding-left: 14px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
+  align-items: baseline;
+  gap: 6px 6px;
+  color: ${PANEL_TEXT};
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 export const AiConclusionStep = styled.span`
-  padding: 5px 11px;
-  border-radius: 8px;
-  background: rgba(255, 133, 96, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  color: ${PANEL_TEXT};
-  font-size: 12.5px;
-  font-weight: 500;
-  line-height: 1.35;
-  white-space: nowrap;
+  color: inherit;
 `;
 
 export const AiConclusionArrow = styled.span`
