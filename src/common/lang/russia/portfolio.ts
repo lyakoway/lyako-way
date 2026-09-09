@@ -746,6 +746,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       tables: [
         {
           title: "Покрытие тестами — 174 pytest-теста",
+          stacked: true,
           columns: ["Компонент", "Тестов", "Что проверяется"],
           rows: [
             {
@@ -922,6 +923,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
         {
           title: "Финальная карта метрик — итог цикла",
+          stacked: true,
           columns: ["Метрика", "Результат", "Вывод"],
           rows: [
             {

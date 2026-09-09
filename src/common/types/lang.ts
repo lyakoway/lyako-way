@@ -264,6 +264,8 @@ export interface AiEngineeringTable {
   // Заголовок таблицы («Качество поиска — 24 golden-вопроса»)
   title: string;
   columns: string[];
+  // Стек на мобильных: подпись над значением на новой строке
+  stacked?: boolean;
   // cells[0] — имя строки; highlight — подсветить как конфигурацию по умолчанию
   rows: { cells: string[]; highlight?: boolean }[];
   footnote?: string;

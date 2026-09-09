@@ -817,10 +817,42 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
     }
 
     td {
-      padding: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 12px;
+      padding: 7px 0;
       border-bottom: 1px solid ${PANEL_BORDER};
       white-space: normal;
       text-align: left;
+    }
+
+    /* Таблицы с длинными описаниями (stacked) — стек:
+       подпись над значением на новой строке */
+    table[data-stacked] td {
+      display: grid;
+      gap: 3px;
+      padding: 7px 0;
+      border-bottom: 1px solid ${PANEL_BORDER};
+      white-space: normal;
+      text-align: left;
+    }
+
+    table[data-stacked] td::before {
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 2px;
+      color: ${PANEL_TEXT_MUTED};
+      font-size: 10.5px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* значение строки — белым, читается как результат */
+    td:not(:first-child) {
+      color: ${PANEL_TEXT};
+      font-weight: 500;
     }
 
     /* базовый min-width: 180px первой колонки в мини-карточке не нужен:
@@ -847,13 +879,14 @@ export const AiTable = styled.table<{ $firstFill?: boolean }>`
     }
 
     td::before {
-      content: attr(data-label) ": ";
+      content: attr(data-label);
+      display: block;
+      margin-bottom: 2px;
       color: ${PANEL_TEXT_MUTED};
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 600;
       letter-spacing: 0.5px;
       text-transform: uppercase;
-      text-align: left;
     }
 
     /* значения — по левому краю, поверх right-align двухколоночных таблиц */

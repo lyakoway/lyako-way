@@ -881,7 +881,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                       <AiTableTitle>{t.title}</AiTableTitle>
                       {/* На узких карточках любая таблица перестраивается
                           в мини-карточки (container-запрос в AiTable) */}
-                      <AiTable $firstFill={t.columns.length === 2}>
+                      <AiTable
+                        $firstFill={t.columns.length === 2}
+                        data-stacked={t.stacked ? "true" : undefined}
+                      >
                         <thead>
                           <tr>
                             {t.columns.map((c, j) => (

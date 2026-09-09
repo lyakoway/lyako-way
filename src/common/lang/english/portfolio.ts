@@ -684,6 +684,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       tables: [
         {
           title: "Test coverage — 174 pytest tests",
+          stacked: true,
           columns: ["Component", "Tests", "What is verified"],
           rows: [
             { cells: ["Agent Loop (ReAct)", "22", "tool calling, self-correction, step limit, fallback"] },
@@ -739,6 +740,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
         {
           title: "Final metrics map — outcome of the cycle",
+          stacked: true,
           columns: ["Metric", "Result", "Verdict"],
           rows: [
             {
