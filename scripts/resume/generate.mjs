@@ -94,7 +94,7 @@ const content = {
               { label: "RAG pipeline", text: "индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + вектора (RRF) → генерация ответа LLM → цитирование источников." },
               { label: "Три режима", text: "RAG Chat → AI Agent → Vector Search — переключение в одном приложении." },
               { label: "Архитектура", text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — история диалогов." },
-              { label: "Качество", text: "Recall@1 92% на golden set из 24 вопросов (evaluation-скрипт), LLM-as-judge 5.0/5." },
+              { label: "Качество", text: "Recall@1 87% на 47 сценариях golden set (evaluation-скрипт), LLM-as-judge 5.0/5." },
             ],
           },
           {
@@ -271,7 +271,7 @@ const content = {
               { label: "RAG pipeline", text: "document indexing → chunking (tiktoken) → embeddings (fastembed) → hybrid BM25 + vector retrieval (RRF) → LLM answer generation → source citation." },
               { label: "Three modes", text: "RAG Chat → AI Agent → Vector Search — switching within one application." },
               { label: "Architecture", text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — conversation history." },
-              { label: "Quality", text: "Recall@1 92% on a golden set of 24 questions (evaluation script), LLM-as-judge 5.0/5." },
+              { label: "Quality", text: "Recall@1 87% on a 47-scenario golden set (evaluation script), LLM-as-judge 5.0/5." },
             ],
           },
           {
