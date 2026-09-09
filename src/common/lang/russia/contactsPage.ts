@@ -40,9 +40,9 @@ export const contactsPage: ContactsPageProps = {
   practiceTitle: "AI-инжиниринг на практике",
   stats: [
     {
-      value: "92%",
+      value: "87%",
       label: "Recall@1",
-      note: "RAG Chat · golden set · 24 questions",
+      note: "RAG Chat · golden set · 47 сценариев",
     },
     {
       value: "5.0 / 5",
@@ -56,7 +56,7 @@ export const contactsPage: ContactsPageProps = {
     },
     {
       value: "2h → 2min",
-      label: "analytical result preparation",
+      label: "подготовка аналитики",
       note: "AI Data Pilot",
     },
   ],

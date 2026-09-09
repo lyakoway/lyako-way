@@ -40,9 +40,9 @@ export const contactsPage: ContactsPageProps = {
   practiceTitle: "AI Engineering in practice",
   stats: [
     {
-      value: "92%",
+      value: "87%",
       label: "Recall@1",
-      note: "RAG Chat · golden set · 24 questions",
+      note: "RAG Chat · golden set · 47 scenarios",
     },
     {
       value: "5.0 / 5",

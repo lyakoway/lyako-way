@@ -26,8 +26,8 @@ export const personal: PersonalProps = {
     },
     stats: [
       { value: "2 часа → 2 минуты", label: "Подготовка аналитического результата" },
-      { value: "92%", label: "Recall@1 · RAG · golden set · 24 вопроса" },
-      { value: "5.0 / 5", label: "LLM-as-a-Judge · 24 ответа" },
+      { value: "87%", label: "Recall@1 · RAG · golden set · 47 сценариев" },
+      { value: "5.0 / 5", label: "LLM-as-a-Judge · 47 ответов" },
     ],
     about: {
       title: "Обо мне",
@@ -88,7 +88,7 @@ export const personal: PersonalProps = {
             "**Ключевая архитектура:** hybrid BM25 + Vector Search → RRF → LLM, а для AI Agent — собственный Tool Loop на FastAPI.",
           ],
           result:
-            "Результат: Recall@1 92% на golden set из 24 вопросов и 5.0/5 по Faithfulness, Relevance и Citations в LLM-as-a-Judge.",
+            "Результат: Recall@1 87% на golden set из 47 сценариев и 5.0/5 по Faithfulness, Relevance и Citations в LLM-as-a-Judge.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
@@ -110,7 +110,7 @@ export const personal: PersonalProps = {
         {
           num: "02",
           title: "Evaluation before optimization",
-          text: "Сначала измеряю, потом оптимизирую: Golden Set → Recall@K → эксперименты → решение. В RAG Chat гибрид BM25 + RRF поднял Recall@1 с 50% до 92%, а cross-encoder reranker снизил до 42% и добавил ~3 секунды латентности — решение принято по данным, а не по популярности подхода.",
+          text: "Сначала измеряю, потом оптимизирую: Golden Set → Recall@K → эксперименты → решение. В RAG Chat гибрид BM25 + RRF поднял Recall@1 с 53% до 87%, а cross-encoder reranker снизил до 42% и добавил ~3 секунды латентности — решение принято по данным, а не по популярности подхода.",
         },
         {
           num: "03",

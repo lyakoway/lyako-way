@@ -81,7 +81,7 @@ export const service: ServiceProps = {
         "feedback and production monitoring",
       ],
       footnote:
-        "In RAG Chat, for example, retrieval quality is measured on 24 golden questions: Recall@1 reached 92%, and answer quality scored 5.0/5 in LLM-as-a-Judge.",
+        "In RAG Chat, for example, retrieval quality is measured on 47 golden questions: Recall@1 reached 87%, and answer quality scored 5.0/5 in LLM-as-a-Judge.",
     },
     {
       num: "5",
@@ -129,7 +129,7 @@ export const service: ServiceProps = {
       ],
       footnote: "Optimization is driven by measurements and experiments, not assumptions.",
       footnote2:
-        "For example, in RAG Chat different retrieval approaches were compared on the same evaluation set: hybrid BM25 + RRF raised Recall@1 from 50% to 92%, while the tested reranker dropped the result to 42%.",
+        "For example, in RAG Chat different retrieval approaches were compared on the same evaluation set: hybrid BM25 + RRF raised Recall@1 from 53% to 87%, while the tested reranker dropped the result to 42%.",
     },
   ],
   process: {

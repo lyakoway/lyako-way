@@ -26,8 +26,8 @@ export const personal: PersonalProps = {
     },
     stats: [
       { value: "2 hours → 2 minutes", label: "Analytical result preparation" },
-      { value: "92%", label: "Recall@1 · RAG · golden set · 24 questions" },
-      { value: "5.0 / 5", label: "LLM-as-a-Judge · 24 answers" },
+      { value: "87%", label: "Recall@1 · RAG · golden set · 47 scenarios" },
+      { value: "5.0 / 5", label: "LLM-as-a-Judge · 47 answers" },
     ],
     about: {
       title: "About me",
@@ -88,7 +88,7 @@ export const personal: PersonalProps = {
             "**Key architecture:** hybrid BM25 + Vector Search → RRF → LLM, and for the AI Agent — its own Tool Loop on FastAPI.",
           ],
           result:
-            "Result: Recall@1 92% on a golden set of 24 questions and 5.0/5 for Faithfulness, Relevance and Citations in LLM-as-a-Judge.",
+            "Result: Recall@1 87% on a golden set of 47 scenarios and 5.0/5 for Faithfulness, Relevance and Citations in LLM-as-a-Judge.",
           stack: {
             label: "Stack",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
@@ -110,7 +110,7 @@ export const personal: PersonalProps = {
         {
           num: "02",
           title: "Evaluation before optimization",
-          text: "Measure first, optimize later: Golden Set → Recall@K → experiments → decision. In RAG Chat, hybrid BM25 + RRF raised Recall@1 from 50% to 92%, while the tested cross-encoder reranker dropped it to 42% and added ~3 seconds of latency — the decision was made by data, not by the popularity of the approach.",
+          text: "Measure first, optimize later: Golden Set → Recall@K → experiments → decision. In RAG Chat, hybrid BM25 + RRF raised Recall@1 from 53% to 87%, while the tested cross-encoder reranker dropped it to 42% and added ~3 seconds of latency — the decision was made by data, not by the popularity of the approach.",
         },
         {
           num: "03",
