@@ -298,6 +298,7 @@ export const FeaturesBlock = styled.div`
 // Пункт с оранжевым маркером слева (как Bullets в Резюме).
 export const Feature = styled.li`
   position: relative;
+  list-style: none;
   padding-left: 18px;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 14px;

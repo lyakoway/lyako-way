@@ -930,16 +930,14 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                     </FeatureList>
                   )}
                   {project.aiEngineering.evaluation.next && (
-                    <Reveal as={CalloutIntro} delay={80}>
-                      <span>
-                        {project.aiEngineering.evaluation.nextTitle}
-                        {": "}
-                      </span>
+                    <Reveal as={Feature} delay={80}>
+                      {project.aiEngineering.evaluation.nextTitle}
+                      {": "}
                       {project.aiEngineering.evaluation.next}
                     </Reveal>
                   )}
                   {project.aiEngineering.evaluation.next2 && (
-                    <Reveal as={CalloutIntro} delay={120}>
+                    <Reveal as={Feature} delay={120}>
                       {project.aiEngineering.evaluation.next2}
                     </Reveal>
                   )}
