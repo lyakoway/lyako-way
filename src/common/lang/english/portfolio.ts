@@ -685,7 +685,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Test coverage — 174 pytest tests",
           stacked: true,
-          columns: ["Component", "Tests", "What is verified"],
+          columns: ["Component", "Tests", "Covers"],
           rows: [
             { cells: ["Agent Loop (ReAct)", "22", "tool calling, self-correction, step limit, fallback"] },
             { cells: ["SQL guard", "18", "DML bans, multi-statement, timeouts, row limit"] },

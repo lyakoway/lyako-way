@@ -747,7 +747,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Покрытие тестами — 174 pytest-теста",
           stacked: true,
-          columns: ["Компонент", "Тестов", "Что проверяется"],
+          columns: ["Компонент", "Тестов", "Проверяет"],
           rows: [
             {
               cells: [
