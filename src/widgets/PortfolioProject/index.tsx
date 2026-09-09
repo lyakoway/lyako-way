@@ -611,36 +611,41 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                 <FeaturesTitle>{portfolioHeader.features}</FeaturesTitle>
               </FeaturesHead>
 
-              {/* Ключевые AI-возможности — карточка с подписью */}
-              <DescCard>
-                <DescCaption>
-                  {project.featuresCaption ?? "Ключевые AI-возможности"}
-                </DescCaption>
-                <FeatureList>
-                  {project.features.map((f, i) => (
-                    <Reveal as={Feature} key={i} delay={i * 60}>
-                      {f}
-                    </Reveal>
-                  ))}
-                </FeatureList>
-              </DescCard>
-
-              {/* Продуктовые возможности — карточка с подписью */}
-              {project.productFeatures &&
-                project.productFeatures.length > 0 && (
-                  <DescCard>
+              {/* Карточки групп — дерево слева */}
+              <AiDiagram>
+                <AiLane>
+                  <Reveal as={DescCard} x={64} y={0} delay={60}>
                     <DescCaption>
-                      {project.productFeaturesTitle}
+                      {project.featuresCaption ?? "Ключевые AI-возможности"}
                     </DescCaption>
                     <FeatureList>
-                      {project.productFeatures.map((f, i) => (
-                        <Reveal as={Feature} key={i} delay={i * 50}>
+                      {project.features.map((f, i) => (
+                        <Reveal as={Feature} key={i} delay={i * 60}>
                           {f}
                         </Reveal>
                       ))}
                     </FeatureList>
-                  </DescCard>
-                )}
+                  </Reveal>
+                </AiLane>
+
+                {project.productFeatures &&
+                  project.productFeatures.length > 0 && (
+                    <AiLane>
+                      <Reveal as={DescCard} x={64} y={0} delay={120}>
+                        <DescCaption>
+                          {project.productFeaturesTitle}
+                        </DescCaption>
+                        <FeatureList>
+                          {project.productFeatures.map((f, i) => (
+                            <Reveal as={Feature} key={i} delay={i * 50}>
+                              {f}
+                            </Reveal>
+                          ))}
+                        </FeatureList>
+                      </Reveal>
+                    </AiLane>
+                  )}
+              </AiDiagram>
             </FeaturesBlock>
           )}
 
