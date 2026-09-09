@@ -1453,8 +1453,9 @@ export const KeyResultsBlock = styled.div`
   gap: 9px;
 `;
 
-export const KeyResultsGrid = styled.ul`
-  /* Симметричная сетка 3×2: ниже 580px — карточка в строку. */
+export const KeyResultsGrid = styled.ul<{ $columns?: number }>`
+  /* Колонки задаёт проект ($columns, по умолчанию 3); ниже 580px — карточка в
+     строку. Чётному числу карточек (4) соответствует 2×2 на всю ширину. */
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
@@ -1463,7 +1464,7 @@ export const KeyResultsGrid = styled.ul`
   list-style: none;
 
   @media (min-width: 580px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(${({ $columns = 3 }) => $columns}, 1fr);
   }
 `;
 

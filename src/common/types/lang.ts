@@ -402,6 +402,8 @@ export interface PortfolioListProps {
   // Key results — стена цифр сразу после первого экрана.
   keyResultsTitle?: string;
   keyResults?: { value: string; label: string }[];
+  // Число колонок сетки key results на ≥580px (по умолчанию 3).
+  keyResultsColumns?: number;
   // Расшифровка покрытия и честное ограничение под карточками.
   keyResultsNote?: string;
   keyResultsLimitation?: string;

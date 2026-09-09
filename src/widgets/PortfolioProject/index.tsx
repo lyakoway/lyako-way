@@ -527,7 +527,7 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   {project.keyResultsTitle ?? portfolioHeader.features}
                 </FeaturesTitle>
               </FeaturesHead>
-              <KeyResultsGrid>
+              <KeyResultsGrid $columns={project.keyResultsColumns}>
                 {project.keyResults.map((k, i) => (
                   <Reveal as={KeyStatCard} key={k.label} delay={i * 60}>
                     <KeyStatValue>{k.value}</KeyStatValue>

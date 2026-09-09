@@ -90,6 +90,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     metricsLine:
       "87% Recall@1 · 5.0/5 LLM-as-a-Judge · 47 golden scenarios · 63 pytest tests",
     keyResultsTitle: "Ключевые результаты",
+    keyResultsColumns: 2,
     keyResults: [
       { value: "87%", label: "Recall@1" },
       { value: "5.0 / 5", label: "LLM-as-a-Judge" },
