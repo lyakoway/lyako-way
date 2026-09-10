@@ -24,7 +24,7 @@ export const PERSON_JSON_LD = {
       "@id": `${SITE_URL}/#person`,
       name: "Мазуренко Алексей",
       alternateName: ["lyakoway", "LYAKOWAY", "Alexey Mazurenko"],
-      jobTitle: "AI-инженер",
+      jobTitle: "AI / LLM Engineer",
       url: SITE_URL,
       image: `${SITE_URL}/static/favicons/apple-icon.png`,
       email: "mailto:lyakoway@gmail.com",
@@ -43,7 +43,11 @@ export const PERSON_JSON_LD = {
         "React",
         "Next.js",
       ],
-      sameAs: ["https://github.com/lyakoway", "https://t.me/amazurenk"],
+      sameAs: [
+        "https://github.com/lyakoway",
+        "https://www.linkedin.com/in/alexey-mazurenko-63068941b/",
+        "https://t.me/amazurenk",
+      ],
     },
     {
       "@type": "WebSite",

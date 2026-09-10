@@ -99,9 +99,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "63", label: "pytest tests" },
     ],
     keyResultsNote:
-      "Internal production at MTS (~2,000 documents, ~20k chunks). Public demo and latency on this page = test corpus (6 files → 12 chunks), not production documents.",
+      "Internal MTS production usage (~2,000 documents, ~20k chunks). This page is an independently built personal demo on a public test corpus (6 files → 12 chunks) — not MTS source code or production documents.",
     keyResultsLimitation:
-      "Production corpus is internal and is not published.",
+      "Production corpus stays at MTS (NDA) and is not published.",
     technologies: [
       "Python",
       "FastAPI",
@@ -510,9 +510,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "2", label: "specialized agents" },
     ],
     keyResultsNote:
-      "Internal production at MTS. Public demo and SQL eval on this page = test dataset (RideGo ~21k rides), not production databases.",
+      "Internal MTS production usage. This page is an independently built personal demo on a test dataset (RideGo ~21k rides) — not MTS source code or production databases.",
     keyResultsLimitation:
-      "Production databases are internal. Headline SQL quality is held-out normalized result correctness (~85%), not strict exact-match.",
+      "Production databases stay at MTS (NDA). Headline SQL quality is held-out normalized result correctness (~85%), not strict exact-match.",
     technologies: [
       "Python",
       "FastAPI",
@@ -722,7 +722,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Task Completion Rate — question carried to a result", "high"] },
           ],
           footnote:
-            "GLM-4.6 held-out SQL eval. Headline quality is normalized result correctness (~85%): aliases, rounding and ORDER BY are canonicalized. Strict string exact-match is not used as a headline.",
+            "GLM-4.6 held-out SQL eval. Headline quality is normalized result correctness (~85%): same numbers after ignoring column aliases, row order and number format. Strict string exact-match is not used as a headline.",
         },
         {
           title: "Latency measurements — medians of 3 runs per model",

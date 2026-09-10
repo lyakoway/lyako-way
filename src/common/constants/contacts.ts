@@ -29,9 +29,17 @@ export const CONTACT_MESSENGERS: ContactLink[] = [
   },
 ];
 
-// Профили / соцсети. LinkedIn и hh.ru — замените на точные ссылки на профили.
+export const CONTACT_GITHUB: ContactLink = {
+  label: "GitHub",
+  href: "https://github.com/lyakoway",
+};
+
+export const CONTACT_LINKEDIN: ContactLink = {
+  label: "LinkedIn",
+  href: "https://www.linkedin.com/in/alexey-mazurenko-63068941b/",
+};
+
 export const CONTACT_PROFILES: ContactLink[] = [
-  { label: "GitHub", href: "https://github.com/lyakoway" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/" },
-  { label: "hh.ru", href: "https://hh.ru/" },
+  CONTACT_GITHUB,
+  CONTACT_LINKEDIN,
 ];

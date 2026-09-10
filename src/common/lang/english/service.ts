@@ -81,7 +81,7 @@ export const service: ServiceProps = {
         "feedback and production monitoring",
       ],
       footnote:
-        "In RAG Chat, for example, retrieval quality is measured on a held-out set (~180 queries): Recall@1 reached 87%.",
+        "In RAG Chat, hybrid BM25 + RRF raised Recall@1 from 53% (dense-only) to 87% on a held-out set.",
     },
     {
       num: "5",

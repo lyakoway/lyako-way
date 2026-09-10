@@ -9,9 +9,11 @@ import {
   CONTACT_EMAIL,
   CONTACT_PHONES,
   CONTACT_MESSENGERS,
+  CONTACT_PROFILES,
 } from "src/common/constants/contacts";
 import {
   MESSENGER_ICON,
+  PROFILE_ICON,
   PhoneIcon,
 } from "src/common/icon/socialIcons";
 import { trackEvent } from "src/common/utils/trackAnalytics";
@@ -293,6 +295,25 @@ const Contacts = () => {
               }
             >
               {MESSENGER_ICON[item.label]}
+              {item.label}
+              <RunBorder radius={12} />
+            </PressableLinkItem>
+          ))}
+
+          {CONTACT_PROFILES.map((item) => (
+            <PressableLinkItem
+              key={item.href}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer noopener"
+              onClick={() =>
+                trackEvent(AnalyticsEvent.CONTACT_CLICK, {
+                  channel: item.label.toLowerCase(),
+                  placement: "contacts_page",
+                })
+              }
+            >
+              {PROFILE_ICON[item.label]}
               {item.label}
               <RunBorder radius={12} />
             </PressableLinkItem>

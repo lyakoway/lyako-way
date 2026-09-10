@@ -15,8 +15,8 @@ export const resumeCv: ResumeCvProps = {
   viewLabel: "Просмотреть",
   profileTitle: "Профиль",
   profile: [
-    "AI-инженер с 7+ годами в разработке ПО, из них 2+ года — production LLM-системы в МТС Web Services (MWS AI) — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Вывел в production два внутренних продукта: RAG-ассистент для документов (~2 000 документов; held-out Recall@1 53% → 87%) и мультиагентную аналитическую платформу (~85% нормализованной точности SQL), сократившую подготовку отчётности с 2 часов до 2 минут.",
-    "Прод внутренний, в МТС (~12 команд, ~200 RAG-вопросов/день). Публичный сайт и GitHub-демо — тестовый корпус. Для RAG в production — GLM-5.3-flash (TTFT ~2,5–3 с); OpenAI, Anthropic и Ollama взаимозаменяемы.",
+    "AI / LLM-инженер с 7+ годами в разработке ПО, из них 2+ года — production LLM-системы в МТС Web Services (MWS AI) — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Вывел в production два внутренних продукта: RAG-ассистент для документов (~2 000 документов; held-out Recall@1 53% dense-only → 87% hybrid) и мультиагентную аналитическую платформу (~85% нормализованной точности SQL), сократившую подготовку отчётности с 2 часов до 2 минут.",
+    "Продакшн развёрнут внутри МТС (~12 команд, ~200 RAG-вопросов/день). Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС; продовые данные под NDA. Для RAG в production — GLM-5.3-flash (TTFT ~2,5–3 с, стоимость vs GPT/Claude); OpenAI, Anthropic и Ollama взаимозаменяемы.",
     "Веду путь от прототипа до production: Python / FastAPI, гибридный поиск, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
   ],
   highlightsTitle: "В цифрах",
@@ -30,7 +30,7 @@ export const resumeCv: ResumeCvProps = {
   experience: [
     {
       id: "1",
-      role: "AI Engineer",
+      role: "AI / LLM Engineer",
       company: "МТС Web Services (MWS AI)",
       companyNote:
         "AI-подразделение экосистемы МТС — одного из крупнейших телеком-операторов России (~80 млн+ абонентов).",
@@ -58,7 +58,7 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Оценка",
-              text: "held-out набор (~180 запросов): гибрид BM25 + RRF поднял Recall@1 с 53% до 87%; cross-encoder-реранкер проверен и отклонён (−45 п.п., +~3 с).",
+              text: "held-out ~180 запросов, не использовавшихся для настройки промптов и retrieval. Гибрид BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder на fused top-k отклонён: RU/EN-двойники получали равный скор, золотой чанк выпадал (−45 п.п. Recall@1, +~3 с).",
             },
             {
               label: "Качество",
@@ -80,11 +80,11 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Архитектура",
-              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников.",
+              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; GLM-4.6 по умолчанию (OpenAI / Anthropic взаимозаменяемы); RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников.",
             },
             {
               label: "Качество",
-              text: "174 pytest-теста + CI; held-out SQL-оценка — ~98% execution, ~85% нормализованной точности результата; самокоррекция при ошибке SQL (GLM-4.6).",
+              text: "174 pytest-теста + CI; held-out SQL-оценка — ~98% execution (запрос выполнился), ~85% нормализованной точности результата (мультимножество значений без алиасов, ORDER BY и формата чисел — не string exact-match); самокоррекция при ошибке SQL (GLM-4.6).",
             },
           ],
         },
@@ -94,8 +94,8 @@ export const resumeCv: ResumeCvProps = {
           title: "Основные задачи",
           items: [
             "Проектировал и выводил в production AI-агентов — tool calling, оркестрация, обработка ошибок и восстановление после сбоев.",
-            "Строил и измерял RAG-пайплайны — гибрид BM25 + вектора, цитирование источников; отклонил более медленный реранкер по данным.",
-            "Формировал held-out evaluation-наборы для регрессии retrieval, промптов и моделей.",
+            "Строил и измерял RAG-пайплайны — гибрид BM25 + вектора, цитирование источников; отклонил более медленный реранкер после проверки на held-out наборе.",
+            "Формировал held-out evaluation-наборы — запросы не использовались для настройки промптов и retrieval — для регрессии поиска, промптов и моделей.",
             "Реализовал Text-to-SQL с SQL-guard и самокоррекцией запросов.",
             "Вёл сервисы AI-платформы end-to-end — backend (Python / FastAPI), frontend (React / Next.js), инфраструктура (Docker / Kubernetes / CI/CD).",
           ],
@@ -106,16 +106,16 @@ export const resumeCv: ResumeCvProps = {
         {
           title: "RAG Chat",
           items: [
-            "Прод внутренний, в МТС: ~2 000 документов (~20 тыс. чанков), ~12 команд, ~200 вопросов/день. Публичное демо — тестовый корпус.",
-            "Held-out Recall@1 53% → 87% после гибрида BM25 + RRF; ответ со ссылкой на фрагмент источника.",
+            "Внутреннее использование в МТС (~2 000 документов, ~20 тыс. чанков, ~12 команд, ~200 вопросов/день). Публичное демо: личный проект, не код МТС; прод-данные под NDA.",
+            "Held-out Recall@1 53% (dense-only) → 87% после гибрида BM25 + RRF; cross-encoder на fused top-k отклонён (−45 п.п., +~3 с).",
             "Сокращает поиск с минут до секунд по регламентам, договорам и HR-политикам.",
           ],
         },
         {
           title: "AI Data Pilot",
           items: [
-            "Прод внутренний, в МТС: ~15 аналитиков, ~80 сценариев отчётности/неделю по PostgreSQL, ClickHouse и Excel. Публичное демо — тестовые данные.",
-            "Held-out SQL: ~85% нормализованной точности результата; подготовка отчётности 2 часа → 2 минуты — агент сам пишет, выполняет и чинит SQL.",
+            "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев отчётности/неделю по PostgreSQL, ClickHouse и Excel). Публичное демо: личный проект, не код МТС; продовые базы под NDA.",
+            "Held-out SQL: ~98% execution, ~85% нормализованной точности (мультимножество значений, не exact-match); подготовка отчётности 2 часа → 2 минуты.",
             "Один интерфейс к PostgreSQL, ClickHouse и Excel, с автоподстройкой SQL-диалекта.",
           ],
         },
@@ -243,7 +243,7 @@ export const resumeCv: ResumeCvProps = {
       id: "3",
       category: "Evaluation и качество",
       items: [
-        "Held-out Golden Sets",
+        "Held-out eval (без утечки в настройку)",
         "Recall@K / MRR",
         "LLM-as-a-Judge",
         "Grounding / Anti-Hallucination",

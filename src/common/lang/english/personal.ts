@@ -1,7 +1,7 @@
 import { PersonalProps } from "src/common/types/lang";
 
 export const personal: PersonalProps = {
-  title: "AI Engineer",
+  title: "AI / LLM Engineer",
   titleText: "More about me",
   text1: "",
   text2: "",
