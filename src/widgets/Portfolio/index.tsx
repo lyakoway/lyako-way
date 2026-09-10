@@ -30,8 +30,6 @@ import {
   CardBody,
   CardName,
   LikeRow,
-  ChipList,
-  Chip,
 } from "./style";
 
 // Палитра градиентов для обложек — каждой карточке свой оттенок.
@@ -239,11 +237,6 @@ const Portfolio = () => {
                     </CardMetrics>
                   )}
                   {project.likeable && <CardLikes slug={project.hrefNameList} />}
-                  <ChipList>
-                    {project.technologies.slice(0, 4).map((tech, j) => (
-                      <Chip key={j}>{tech}</Chip>
-                    ))}
-                  </ChipList>
                   <CaseLink>
                     {portfolio.caseLink}
                     <span className="arrow">→</span>
