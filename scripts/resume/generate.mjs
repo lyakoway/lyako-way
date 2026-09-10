@@ -525,7 +525,7 @@ const sidebarSkills = (data, t) => `
 
 // Рендер одной записи опыта: секции с разделителями.
 // Рендер одной записи опыта: секции с разделителями между ними.
-const jobHtml = (job, data, t, { plain = false } = {}) => `
+const jobHtml = (job, data, t, { plain = false, breakBeforeResults = false } = {}) => `
     <div class="job">
       <div class="job-head">
         <span class="job-role">${esc(job.role)}</span>
@@ -569,7 +569,7 @@ const jobHtml = (job, data, t, { plain = false } = {}) => `
           : ""
       }
 
-      <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.results)}</div>
+      <section class="jsec jsec-results${breakBeforeResults ? " jsec-page" : ""}"><div class="sub-title">${esc(data.sectionTitles.results)}</div>
       ${job.results
         .map(
           (group) => `
@@ -1084,6 +1084,10 @@ const htmlAts = (lang) => {
   .result-group { margin-bottom: 5px; }
   .result-group-title { font-weight: 700; margin: 0 0 2px; }
   .jsec + .jsec { margin-top: 5px; }
+  .jsec-page {
+    break-before: page;
+    page-break-before: always;
+  }
 </style>
 </head>
 <body>
@@ -1103,7 +1107,10 @@ const htmlAts = (lang) => {
   <p>${esc(data.siteLink.text)} <a href="${data.siteLink.href}">${esc(data.siteLink.value)}</a></p>
 
   <h2>${esc(data.sectionTitles.experience)}</h2>
-  ${jobHtml(data.experience[0], data, t, { plain: true })}
+  ${jobHtml(data.experience[0], data, t, {
+    plain: true,
+    breakBeforeResults: lang === "en",
+  })}
   ${jobHtml(data.experience[1], data, t, { plain: true })}
 
   <h2>${esc(data.sectionTitles.skills)}</h2>
