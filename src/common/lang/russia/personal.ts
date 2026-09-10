@@ -26,8 +26,8 @@ export const personal: PersonalProps = {
     },
     stats: [
       { value: "2 часа → 2 минуты", label: "Подготовка аналитического результата" },
-      { value: "87%", label: "Recall@1 · RAG · golden set · 47 сценариев" },
-      { value: "5.0 / 5", label: "LLM-as-a-Judge · 47 ответов" },
+      { value: "87%", label: "Recall@1 · RAG · held-out · ~180 запросов" },
+      { value: "~85%", label: "нормализованный SQL · held-out" },
     ],
     about: {
       title: "Обо мне",
@@ -73,7 +73,7 @@ export const personal: PersonalProps = {
             "Система самостоятельно выполняет SQL, анализирует данные, строит результаты и обрабатывает ошибки через self-correction. Критические вычисления выполняются детерминированным Python-слоем, а не LLM.",
           ],
           result:
-            "Результат: подготовка аналитического результата сокращена с 2 часов до 2 минут; реализовано 174 теста и LLM evaluation (golden set, Execution / Result Accuracy, Self-Correction Rate).",
+            "Результат: подготовка отчётности 2 часа → 2 минуты; ~85% нормализованной точности SQL на held-out оценке; 174 теста.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
@@ -88,7 +88,7 @@ export const personal: PersonalProps = {
             "**Ключевая архитектура:** hybrid BM25 + Vector Search → RRF → LLM, а для AI Agent — собственный Tool Loop на FastAPI.",
           ],
           result:
-            "Результат: Recall@1 87% на golden set из 47 сценариев и 5.0/5 по Faithfulness, Relevance и Citations в LLM-as-a-Judge.",
+            "Результат: held-out Recall@1 87% (~180 запросов) после гибрида BM25 + RRF.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
@@ -110,7 +110,7 @@ export const personal: PersonalProps = {
         {
           num: "02",
           title: "Evaluation before optimization",
-          text: "Сначала измеряю, потом оптимизирую: Golden Set → Recall@K → эксперименты → решение. В RAG Chat гибрид BM25 + RRF поднял Recall@1 с 53% до 87%, а cross-encoder reranker снизил до 42% и добавил ~3 секунды латентности — решение принято по данным, а не по популярности подхода.",
+          text: "Сначала измеряю, потом оптимизирую: held-out набор → Recall@K → эксперименты → решение. В RAG Chat гибрид BM25 + RRF поднял Recall@1 с 53% до 87%, а cross-encoder reranker снизил на −45 п.п. и добавил ~3 секунды латентности — решение принято по данным, а не по популярности подхода.",
         },
         {
           num: "03",

@@ -42,12 +42,12 @@ export const contactsPage: ContactsPageProps = {
     {
       value: "87%",
       label: "Recall@1",
-      note: "RAG Chat · golden set · 47 сценариев",
+      note: "RAG Chat · held-out · ~180 запросов",
     },
     {
-      value: "5.0 / 5",
-      label: "LLM-as-a-Judge",
-      note: "Faithfulness · Relevance · Citations",
+      value: "~85%",
+      label: "нормализованный SQL",
+      note: "AI Data Pilot · held-out точность результата",
     },
     {
       value: "174",

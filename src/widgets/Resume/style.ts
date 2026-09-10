@@ -620,6 +620,43 @@ export const Chip = styled.li`
   }
 `;
 
+export const ProfileLead = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+`;
+
+export const ProfilePara = styled.p`
+  margin: 0;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.55;
+`;
+
+export const HighlightGrid = styled.ul`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @media (min-width: 580px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const HighlightCard = styled.li`
+  ${cardSurface};
+  padding: 12px 14px;
+  color: ${PANEL_TEXT};
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.45;
+`;
+
 /* ——— Просмотр PDF в модалке ——— */
 /* Контент рендерится внутри ModalComponent (фон theme.background.modal),
    поэтому здесь используем обычные цвета темы, а не сланцевые PANEL_*. */

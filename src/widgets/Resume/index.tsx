@@ -48,6 +48,10 @@ import {
   ProjectSummaryTitle,
   ResultBlocks,
   ResultBlockTitle,
+  ProfileLead,
+  ProfilePara,
+  HighlightGrid,
+  HighlightCard,
 } from "./style";
 
 const IconExperience = () => (
@@ -98,19 +102,21 @@ const IconEducation = () => (
   </svg>
 );
 
-/* Иконки категорий навыков — по порядку из resumeCv.skills.
-   Языки · LLM и агенты · RAG и качество · Backend · Frontend · Инфраструктура. */
-const SKILL_ICONS = [
-  // код
-  <svg key="code" viewBox="0 0 24 24" fill="none" aria-hidden>
+const IconProfile = () => (
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
+    <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="2" />
     <path
-      d="m9 8-4 4 4 4M15 8l4 4-4 4"
+      d="M5 19c1.2-3 3.5-4.5 7-4.5s5.8 1.5 7 4.5"
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
-      strokeLinejoin="round"
     />
-  </svg>,
+  </svg>
+);
+
+/* Иконки категорий навыков — по порядку из resumeCv.skills.
+   LLM · RAG · Evaluation · Backend · Frontend & Infra. */
+const SKILL_ICONS = [
   // чип / агент
   <svg key="chip" viewBox="0 0 24 24" fill="none" aria-hidden>
     <rect
@@ -129,7 +135,7 @@ const SKILL_ICONS = [
       strokeLinecap="round"
     />
   </svg>,
-  // поиск / качество
+  // поиск
   <svg key="search" viewBox="0 0 24 24" fill="none" aria-hidden>
     <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
     <path
@@ -137,6 +143,16 @@ const SKILL_ICONS = [
       stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
+    />
+  </svg>,
+  // код / evaluation
+  <svg key="code" viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="m9 8-4 4 4 4M15 8l4 4-4 4"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>,
   // база данных / backend
@@ -147,19 +163,6 @@ const SKILL_ICONS = [
       stroke="currentColor"
       strokeWidth="2"
     />
-  </svg>,
-  // окно / frontend
-  <svg key="ui" viewBox="0 0 24 24" fill="none" aria-hidden>
-    <rect
-      x="3"
-      y="4"
-      width="18"
-      height="16"
-      rx="2"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
-    <path d="M3 9h18" stroke="currentColor" strokeWidth="2" />
   </svg>,
   // серверы / инфраструктура
   <svg key="infra" viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -332,16 +335,34 @@ const Resume = () => {
           <GroupTitle>{resumeCv.demoTitle}</GroupTitle>
         </GroupHeadBox>
         <Bullets>
-          {projects.map((project) => {
+          {projects.flatMap((project) => {
             const portfolioHref = `/portfolio/${project.hrefNameList}`;
-            return (
-              <li key={project.id}>
-                {project.portfolioNameList} —{" "}
+            const rows = [
+              <li key={`${project.id}-case`}>
+                {project.portfolioNameList} — {resumeCv.demoCaseLabel} —{" "}
                 <a href={portfolioHref} title={portfolioHref}>
                   {portfolioHref}
                 </a>
-              </li>
-            );
+              </li>,
+            ];
+            if (project.github) {
+              const githubHref = project.github.replace(/\/$/, "");
+              const githubLabel = githubHref.replace(/^https?:\/\//, "");
+              rows.push(
+                <li key={`${project.id}-code`}>
+                  {project.portfolioNameList} — {resumeCv.demoCodeLabel} —{" "}
+                  <a
+                    href={githubHref}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    title={githubHref}
+                  >
+                    {githubLabel}
+                  </a>
+                </li>
+              );
+            }
+            return rows;
           })}
         </Bullets>
       </Group>
@@ -442,6 +463,25 @@ const Resume = () => {
           <RunBorder radius={12} />
         </ButtonSecondary>
       </Reveal>
+
+      <Section>
+        <SectionHead>
+          <SectionIcon>
+            <IconProfile />
+          </SectionIcon>
+          <SectionTitle>{resumeCv.profileTitle}</SectionTitle>
+        </SectionHead>
+        <ProfileLead>
+          {resumeCv.profile.map((paragraph) => (
+            <ProfilePara key={paragraph}>{paragraph}</ProfilePara>
+          ))}
+        </ProfileLead>
+        <HighlightGrid aria-label={resumeCv.highlightsTitle}>
+          {resumeCv.highlights.map((item) => (
+            <HighlightCard key={item}>{item}</HighlightCard>
+          ))}
+        </HighlightGrid>
+      </Section>
 
       <Section>
         <SectionHead>

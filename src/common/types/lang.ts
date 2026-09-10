@@ -639,6 +639,9 @@ export interface ResumeCvProps {
   educationTitle: string;
   // Заголовок секции «Демо» — ссылки на проекты записи.
   demoTitle: string;
+  // Подписи к двум ссылкам в «Демо»: страница кейса и репозиторий.
+  demoCaseLabel: string;
+  demoCodeLabel: string;
   // Общий заголовок секции ключевых результатов (карточки по проектам).
   resultTitle: string;
   // Общий заголовок секции стека (карточки по проектам).
@@ -648,6 +651,11 @@ export interface ResumeCvProps {
   downloadName: string;
   downloadLabel: string;
   viewLabel: string;
+  // Короткий профиль в начале /cv — тот же тезис, что в PDF.
+  profileTitle: string;
+  profile: string[];
+  highlightsTitle: string;
+  highlights: string[];
   experience: ResumeExperienceProps[];
   skills: ResumeSkillGroupProps[];
   education: ResumeEducationProps[];

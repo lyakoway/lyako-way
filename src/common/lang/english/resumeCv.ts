@@ -5,20 +5,35 @@ export const resumeCv: ResumeCvProps = {
   skillsTitle: "Key skills",
   educationTitle: "Education",
   demoTitle: "Demo",
+  demoCaseLabel: "case study",
+  demoCodeLabel: "code",
   resultTitle: "Key results",
   stackTitle: "Stack",
   projectsTitle: "Projects",
   downloadName: "Alexey-Mazurenko-en.pdf",
   downloadLabel: "Download PDF",
   viewLabel: "View",
+  profileTitle: "Profile",
+  profile: [
+    "AI engineer with 7+ years in software engineering, including 2+ years building production LLM systems at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (~2,000 docs; held-out Recall@1 53% → 87%) and a multi-agent analytics platform (~85% normalized SQL result correctness) that cut report preparation from 2 hours to 2 minutes.",
+    "Internal production at MTS (~12 teams, ~200 RAG questions/day). The public site and GitHub demos use a test corpus. RAG production default is GLM-5.3-flash (TTFT ~2.5–3 s); OpenAI, Anthropic and Ollama are interchangeable.",
+    "Own the path from prototype to production: Python / FastAPI, hybrid retrieval, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
+  ],
+  highlightsTitle: "Highlights",
+  highlights: [
+    "~2,000 docs · ~200 questions/day · Recall@1 87% held-out",
+    "Report preparation: 2 hours → 2 minutes",
+    "~85% normalized SQL result correctness (held-out)",
+    "Open-source demos — RAG Chat and AI Data Pilot on GitHub",
+  ],
 
   experience: [
     {
       id: "1",
       role: "AI Engineer",
-      company: "MTC Web Services (MWS AI)",
+      company: "MTS Web Services (MWS AI)",
       companyNote:
-        "The AI division of the MTS ecosystem — one of Russia's largest telecom operators (B2C products).",
+        "The AI division of the MTS ecosystem — one of Russia's largest telecom operators (~80M+ subscribers).",
       period: "Apr 2024 — present",
       meta: "Moscow · Software development, AI solutions",
       /* Описание продукта записи — абзацами, как summary у Senior Frontend. */
@@ -39,11 +54,15 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Architecture",
-              text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — conversation history.",
+              text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash default (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — conversation history.",
+            },
+            {
+              label: "Evaluation",
+              text: "held-out set (~180 queries): hybrid BM25 + RRF raised Recall@1 from 53% to 87%; cross-encoder reranker tested and rejected (−45 p.p., +~3 s).",
             },
             {
               label: "Quality",
-              text: "Recall@1 87% on a 47-scenario golden set (evaluation script), LLM-as-judge 5.0/5.",
+              text: "63 pytest tests + CI; TTFT ~2.5–3 s on GLM-5.3-flash.",
             },
           ],
         },
@@ -52,20 +71,20 @@ export const resumeCv: ResumeCvProps = {
           text: "A multi-agent analytics platform automating the path from a user's question to a ready analytical result.",
           details: [
             {
-              label: "Oleg — AI analyst",
+              label: "Data Agent",
               text: "turns natural-language questions into SQL, runs multi-step data analysis, detects trends and deviations, and produces tables, charts and analytical conclusions.",
             },
             {
-              label: "Ksyusha — RAG agent",
+              label: "Knowledge Agent (RAG)",
               text: "answers questions over internal technical documentation and uploaded files (PDF, Word, Excel), grounded in the retrieved sources.",
             },
             {
               label: "Architecture",
-              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; Ksyusha's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation.",
+              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; the Knowledge Agent's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation.",
             },
             {
               label: "Quality",
-              text: "174 automated tests + golden-set LLM evaluation (Execution / Result Accuracy, Self-Correction Rate): agent loop, self-correction, SQL Guard, analytics, routers, data sources.",
+              text: "174 pytest tests + CI; held-out SQL eval — ~98% execution, ~85% normalized result correctness; self-correction on failed queries (GLM-4.6).",
             },
           ],
         },
@@ -74,15 +93,11 @@ export const resumeCv: ResumeCvProps = {
         {
           title: "Core tasks",
           items: [
-            "Designed and built AI agents for business scenarios — workflows, function / tool calling, orchestration, error handling and failure recovery.",
-            "Created AI agents for content generation and development-process automation.",
-            "Developed and iteratively improved prompt scenarios, testing them for accuracy, stability and edge cases.",
-            "Built evaluation sets for regression checks of answer quality and for tracking changes in models and prompts.",
-            "Optimized LLM context handling — compression, prioritization and token-budget management.",
-            "Researched and adopted multi-agent orchestration approaches, keeping up with current industry practices.",
-            "Helped build the AI platform end-to-end — backend (Python, FastAPI), frontend (React / Next.js), infrastructure (Docker, Kubernetes, CI/CD).",
-            "Wrote scripts and helper utilities in Python / Bash, maintained API documentation and worked with open-source projects.",
-            "Explored new approaches, tested hypotheses and shipped best practices to production.",
+            "Designed and shipped production AI agents — tool calling, orchestration, error handling and recovery.",
+            "Built and measured RAG pipelines — hybrid BM25 + vector search, source citations; rejected a slower reranker on data.",
+            "Built held-out evaluation suites for regression checks of retrieval, prompts and models.",
+            "Implemented Text-to-SQL with SQL guardrails and self-correction.",
+            "Owned AI platform services end-to-end — backend (Python / FastAPI), frontend (React / Next.js), infrastructure (Docker / Kubernetes / CI/CD).",
           ],
         },
       ],
@@ -91,23 +106,17 @@ export const resumeCv: ResumeCvProps = {
         {
           title: "RAG Chat",
           items: [
-            "The product is finished and used across the company.",
-            "Cuts information lookup from minutes to seconds — the user asks a question in their own words and gets an answer with a link to the specific fragment of the source document.",
-            "Reduces repetitive support requests — customers get answers from the technical documentation on their own, without involving a specialist.",
-            "Speeds up work with internal documents — employees quickly find the right clauses in regulations, instructions and HR policies without manually digging through folders.",
-            "Speeds up legal and financial document review — the system finds the right terms, amounts and figures in contracts and reports in seconds.",
+            "Internal MTS production: ~2,000 documents (~20k chunks), ~12 teams, ~200 questions/day. Public demo = test corpus.",
+            "Held-out Recall@1 53% → 87% after hybrid BM25 + RRF; answers cite the source fragment.",
+            "Cuts lookup from minutes to seconds on regulations, contracts and HR policies.",
           ],
         },
         {
           title: "AI Data Pilot",
           items: [
-            "The product is finished and used across the company.",
-            "Cuts reporting preparation from 2 hours to 2 minutes — the user asks a question in natural language or launches a saved scenario with one click and gets ready data, a chart and a conclusion.",
-            "Eliminates manual SQL work — the agent translates the user's request into SQL, executes it and produces the analysis result on its own.",
-            "Reduces data-related errors — the agent validates execution results, detects SQL failures, rewrites the query itself and re-runs it.",
-            "Automates the path from question to analytical conclusion — the system computes metrics, detects trends and deviations, highlights key changes and explains them to the user.",
-            "Turns recurring requests into ready-made scenarios — an analyst saves a frequently used query and re-runs it without manual SQL or analysis setup.",
-            "Brings heterogeneous data under one interface — corporate databases (PostgreSQL, ClickHouse) and uploaded Excel files are available to the agent simultaneously, with the SQL dialect adapted automatically.",
+            "Internal MTS production: ~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel. Public demo = test data.",
+            "Held-out SQL: ~85% normalized result correctness; report prep 2 hours → 2 minutes — the agent writes, executes and repairs SQL.",
+            "One interface over PostgreSQL, ClickHouse and Excel, with the SQL dialect adapted automatically.",
           ],
         },
       ],
@@ -152,10 +161,6 @@ export const resumeCv: ResumeCvProps = {
           ],
         },
       ],
-      processes: {
-        title: "Processes",
-        items: ["Scrum", "Jira", "Confluence"],
-      },
       // Демо записи — похожие проекты в портфолио: секция «Демо» в конце
       // карточки со ссылками на их страницы.
       portfolioIds: ["rag-chat", "ai-data-pilot"],
@@ -163,7 +168,7 @@ export const resumeCv: ResumeCvProps = {
     {
       id: "2",
       role: "Senior Frontend Developer",
-      company: "MTC Web Services",
+      company: "MTS Web Services",
       period: "Feb 2019 — Apr 2024",
       meta: "Moscow · MTS Profile and Ecosystem widgets",
       // Описания продуктов — заголовок с линией слева + абзацы описания.
@@ -178,17 +183,6 @@ export const resumeCv: ResumeCvProps = {
         },
       ],
       groups: [
-        {
-          title: "Core tasks",
-          items: [
-            "Building new features and evolving existing products.",
-            "Requirements analysis, technical solution design and integration architecture scenarios.",
-            "Frontend component development and reusable UI solutions with Storybook.",
-            "Refactoring and code reviews, improving code quality and maintainability.",
-            "Unit and integration testing, analysis and resolution of production incidents on 3rd-line support.",
-            "Technical documentation, mentoring and helping onboard new team members.",
-          ],
-        },
         {
           title: "",
           items: [
@@ -214,106 +208,82 @@ export const resumeCv: ResumeCvProps = {
           "Express",
         ],
       },
-      processes: {
-        title: "Processes",
-        items: ["Scrum", "Jira", "Confluence"],
-      },
-      // Демо записи — боевой сайт «МТС Профиля».
-      link: { name: "MTS Profile", url: "https://id.mts.ru" },
     },
   ],
 
   skills: [
     {
       id: "1",
-      category: "Languages",
-      items: ["Python", "TypeScript / JavaScript"],
-    },
-    {
-      id: "2",
       category: "LLM & AI Agents",
       items: [
-        "Multi-Provider LLM API (GLM / OpenAI / Anthropic / Ollama)",
+        "LLM APIs (OpenAI / Anthropic / GLM-5.3-flash / Ollama)",
         "AI Agents",
         "Agent Loop (ReAct)",
         "Tool Calling",
         "Text-to-SQL",
-        "Multi-Agent Orchestration",
+        "Multi-agent router (2 specialists)",
         "Prompt Engineering",
-        "Context / Token Optimization",
         "Latency & Cost Tuning (TTFT, $ per query)",
       ],
     },
     {
-      id: "3",
-      category: "RAG & Search",
+      id: "2",
+      category: "RAG & Retrieval",
       items: [
         "RAG",
         "Hybrid Search (BM25 + Vector)",
         "RRF",
-        "Cross-Encoder Reranking",
         "Chunking (tiktoken)",
-        "Cross-lingual Retrieval (RU / EN)",
-        "Embeddings",
         "fastembed",
         "ChromaDB",
+        "Source Citations",
+      ],
+    },
+    {
+      id: "3",
+      category: "Evaluation & Quality",
+      items: [
+        "Held-out Golden Sets",
+        "Recall@K / MRR",
+        "LLM-as-a-Judge",
+        "Grounding / Anti-Hallucination",
+        "Prompt Evaluation",
+        "Regression Testing",
       ],
     },
     {
       id: "4",
-      category: "Evaluation & Quality",
-      items: [
-        "Golden Sets",
-        "Recall@K / MRR",
-        "LLM-as-a-Judge",
-        "Grounding / Anti-Hallucination",
-        "Observability & Monitoring (GA4 / Metrika / feedback)",
-        "Prompt Evaluation",
-        "Regression Testing",
-        "Edge Cases",
-      ],
-    },
-    {
-      id: "5",
       category: "AI Data & Backend",
       items: [
+        "Python",
         "FastAPI",
         "SQLAlchemy",
         "PostgreSQL",
         "ClickHouse",
-        "SQLite",
-        "Redis",
         "SQL Guard (read-only, timeouts)",
         "SSE",
-        "Node + Express",
       ],
     },
     {
-      id: "6",
-      category: "Frontend",
+      id: "5",
+      category: "Frontend & Infrastructure",
       items: [
-        "React + Next",
-        "Redux Toolkit",
-        "Svelte",
-        "Styled-Components",
-        "Webpack",
-        "Jest",
-        "Vite",
+        "React / Next.js",
+        "TypeScript",
+        "Docker",
+        "Kubernetes",
+        "CI/CD",
+        "Git",
       ],
-    },
-    {
-      id: "7",
-      category: "Infrastructure",
-      items: ["Docker", "Kubernetes", "CI/CD", "Git"],
     },
   ],
 
   education: [
     {
       id: "1",
-      title: "Master's degree",
-      period: "MGSU",
-      text: "Applied mathematics.",
+      title: "Master's degree — Applied Mathematics",
+      period: "MGSU, 2014",
+      text: "Moscow State University of Civil Engineering.",
     },
   ],
 };

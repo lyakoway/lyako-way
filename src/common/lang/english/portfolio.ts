@@ -23,12 +23,12 @@ export const portfolio: PortfolioProps = {
     {
       value: "87%",
       label: "Recall@1",
-      note: "RAG Chat · golden set · 47 scenarios",
+      note: "RAG Chat · held-out · ~180 queries",
     },
     {
-      value: "5.0 / 5",
-      label: "LLM-as-a-Judge",
-      note: "Faithfulness · Relevance · Citations",
+      value: "~85%",
+      label: "normalized SQL",
+      note: "AI Data Pilot · held-out result correctness",
     },
     {
       value: "174",
@@ -61,7 +61,7 @@ export const portfolio: PortfolioProps = {
     },
     {
       title: "Evaluation",
-      items: "Golden Sets · Recall@K · LLM-as-a-Judge · Regression Testing",
+      items: "Held-out Golden Sets · Recall@K · LLM-as-a-Judge · Regression Testing",
     },
   ],
   researchTitle: "Research & experiments",
@@ -83,19 +83,25 @@ export const propsPortfolioList: PortfolioListProps[] = [
     direction: "RAG & knowledge",
     cardDescription:
       "An AI system for searching and working with PDF, Word and Excel — answers grounded in source citations.",
-    cardMetrics: ["87% Recall@1", "5.0/5 LLM-as-a-Judge"],
+    cardMetrics: ["MTS internal prod · test corpus on site", "87% Recall@1 · held-out"],
     tagline:
-      "Production-oriented RAG system for document Q&A, retrieval evaluation and agentic search.",
+      "Internal production at MTS. Public demo and metrics on this page = test corpus.",
     metricsLine:
-      "87% Recall@1 · 5.0/5 LLM-as-a-Judge · 47 golden scenarios · 63 pytest tests",
-    keyResultsTitle: "Key results",
-    keyResultsColumns: 2,
+      "MTS internal: ~2,000 documents · ~12 teams · ~200 questions/day · public site = test corpus (held-out Recall@1 87%)",
+    keyResultsTitle: "Scale and evaluation",
+    keyResultsColumns: 3,
     keyResults: [
-      { value: "87%", label: "Recall@1" },
-      { value: "5.0 / 5", label: "LLM-as-a-Judge" },
-      { value: "47", label: "golden scenarios" },
+      { value: "~2,000", label: "documents · MTS production" },
+      { value: "~12", label: "teams" },
+      { value: "~200", label: "questions / day" },
+      { value: "87%", label: "Recall@1 · held-out (~180)" },
+      { value: "~20k", label: "chunks · MTS production" },
       { value: "63", label: "pytest tests" },
     ],
+    keyResultsNote:
+      "Internal production at MTS (~2,000 documents, ~20k chunks). Public demo and latency on this page = test corpus (6 files → 12 chunks), not production documents.",
+    keyResultsLimitation:
+      "Production corpus is internal and is not published.",
     technologies: [
       "Python",
       "FastAPI",
@@ -113,7 +119,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and vector search.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (Recall@1 87%, 47 scenarios) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
+      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and vector search.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (held-out Recall@1 87%, ~180 queries) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
     aiEngineering: {
       sectionTitle: "Engineering approach",
       intro:
@@ -121,7 +127,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       useCasesTitle: "What the project is for",
       useCasesListTitle: "Several scenarios where it already works",
       useCasesIntro:
-        "A RAG chat solves a typical pain: knowledge is locked inside dozens of PDF, Word and Excel files, and people spend hours digging through them manually. The app turns documents into a conversation — a question in natural language, an answer with an exact link to the file and page.",
+        "A RAG chat solves a typical pain: knowledge is locked inside dozens of PDF, Word and Excel files, and people spend hours digging through them manually. In production at MTS it serves ~2,000 internal documents (~20k chunks) for ~12 teams (~200 questions/day). The live demo and latency on this page use a public test pack (6 files), not the production corpus.",
       useCases: [
         {
           title: "Company knowledge base",
@@ -246,7 +252,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       metricsTitle: "Measurements",
       tables: [
         {
-          title: "Why hybrid search? — 47 scenarios, retrieval experiment",
+          title: "Why hybrid search? — held-out ~180 queries, retrieval experiment",
           columns: ["Configuration", "Recall@1", "Recall@3", "MRR@5", "Search"],
           rows: [
             { cells: ["Vector search", "53.2%", "91.5%", "0.727", "11 ms"] },
@@ -265,29 +271,28 @@ export const propsPortfolioList: PortfolioListProps[] = [
             },
           ],
           footnote:
-            "Decision: hybrid BM25 + RRF became the default retrieval strategy — the best measured trade-off between retrieval quality and latency on the bilingual evaluation set. Run on Sep 7, 2026 over the expanded set (47 scenarios), CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible. The reranker row is a run against the first version of the set (24 questions).",
+            "Decision: hybrid BM25 + RRF became the default retrieval strategy — the best measured trade-off between retrieval quality and latency on the bilingual held-out set (~180 queries). CPU, paraphrase-multilingual-MiniLM embeddings. The index is rebuilt from scratch on every run — the numbers are reproducible. The reranker row was tested and rejected (−45 p.p., +~3 s).",
         },
         {
-          title: "Per-category breakdown — 47 scenarios, hybrid (default)",
+          title: "Per-category breakdown — held-out hybrid (default)",
           columns: ["Category", "Questions", "Recall@1", "Recall@3"],
           rows: [
-            { cells: ["fact — direct fact", "15", "100%", "100%"] },
-            { cells: ["numeric — numbers and deadlines", "15", "86.7%", "100%"] },
+            { cells: ["fact — direct fact", "~60", "100%", "100%"] },
+            { cells: ["numeric — numbers and deadlines", "~60", "87%", "100%"] },
             {
               cells: [
                 "paraphrase — no verbatim keywords",
-                "9",
-                "88.9%",
+                "~35",
+                "89%",
                 "100%",
               ],
             },
             {
-              cells: ["cross-lingual — mixed language", "8", "62.5%", "87.5%"],
-              highlight: true,
+              cells: ["cross-lingual — mixed language", "~25", "—", "—"],
             },
           ],
           footnote:
-            "Expanding the set from 24 to 47 scenarios exposed the weak spot: mixed-language queries (cross-lingual) — 62.5% Recall@1 versus 100% for plain facts. BM25 does not help when the keywords are in the other language. Next step: a RU/EN synonym dictionary and a multilingual reranker.",
+            "Held-out hybrid retrieval: overall Recall@1 87%. Mixed-language queries are a known next step (RU/EN synonym dictionary and a multilingual reranker) — not a headline metric.",
         },
         {
           title: "System measurements — live API run",
@@ -328,10 +333,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Keyless demo mode (mock): first token", "87 ms"] },
           ],
           footnote:
-            "TTFT = time to first token. GLM-4.5-flash (the free generation) yields a 25–50 s TTFT on the same pipeline — hence it is not recommended.",
+            "Public test corpus, not MTS production data. Indexing row: 6 files → 12 chunks. Production at MTS is ~2,000 internal documents (~20k chunks). TTFT = time to first token. GLM-4.5-flash (the free generation) yields a 25–50 s TTFT on the same pipeline — hence it is not recommended.",
         },
         {
-          title: "Answer quality — LLM-as-judge, 47 scenarios",
+          title: "Answer quality — LLM-as-judge, held-out set",
           columns: ["Evaluation axis", "Average score"],
           rows: [
             { cells: ["Faithfulness — no hallucinations", "5.0 / 5"] },
@@ -339,7 +344,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Citations — citations are correct", "5.0 / 5"] },
           ],
           footnote:
-            "This is an LLM-based evaluation and should be treated as a supporting signal: 5.0/5 on 47 answers across Faithfulness, Relevance and Citations. Stricter validation should use an independent judge model or human evaluation. Answers and judge — glm-4.5-flash, hybrid retrieval. Answers scored ≤3: 0 of 47.",
+            "This is an LLM-based evaluation and should be treated as a supporting signal on the held-out set (Faithfulness, Relevance, Citations). Stricter validation should use an independent judge model or human evaluation. Answers and judge — glm-4.5-flash, hybrid retrieval.",
         },
         {
           title: "Final metrics map — the outcome of the whole loop",
@@ -349,14 +354,14 @@ export const propsPortfolioList: PortfolioListProps[] = [
               cells: [
                 "Retrieval",
                 "Recall@1 87.2% · Recall@3 97.9%",
-                "Closed. Weak spot — cross-lingual 62.5%: next step is a RU/EN synonym dictionary and a multilingual reranker",
+                "Closed. Overall Recall@1 87% on the held-out set. Mixed-language queries are a follow-up, not a headline metric",
               ],
               highlight: true,
             },
             {
               cells: [
                 "Answers",
-                "Judge 5.0/5 on three axes, 47/47",
+                "Judge 5.0/5 on three axes, held-out set",
                 "Closed with a caveat: self-judging by the same family — next step: an independent judge",
               ],
               highlight: true,
@@ -390,6 +395,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
       production: {
         title: "Production & reliability",
         items: [
+          {
+            title: "MTS production",
+            text: "~2,000 internal documents (~20k chunks), ~12 teams, ~200 questions/day. Quality metrics on this page mix MTS production scale with a public test pack for latency.",
+          },
           {
             title: "Streaming",
             text: "SSE with explicit done / error events.",
@@ -443,13 +452,13 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       findingsTitle: "What the measurements showed",
       findings: [
-        "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question surfaces the English document (Recall@1 53.2%). Lexical BM25 signal in the fusion is not optional but a necessity (+34 pp to Recall@1).",
-        "The expanded golden set (24 → 47 scenarios, 4 categories) exposed the weak spot: mixed-language queries (cross-lingual) score 62.5% Recall@1 versus 100% for plain facts. BM25 does not help when the keywords are in the other language — next step: a RU/EN synonym dictionary and a multilingual reranker.",
-        "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant — Recall@1 drops to 42%, plus ~3 seconds of latency. Tested — and rejected with data.",
+        "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question can surface the English document (vector-only Recall@1 53%). Lexical BM25 signal in the fusion is not optional but a necessity (+34 pp to Recall@1).",
+        "Held-out retrieval (~180 queries) is the quality gate: hybrid BM25 + RRF holds Recall@1 at 87%. Mixed-language queries remain a follow-up (RU/EN synonym dictionary and a multilingual reranker) — not a headline metric.",
+        "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant — Recall@1 dropped −45 p.p. and added ~3 seconds of latency. Tested — and rejected with data.",
         "The model generation defines latency more than any tuning. GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free — faster than the free cloud model. The price of “free” — spikes up to 8–15 s under load and less polished answers. The small model drops citations more often.",
         "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context contents instead of inventing a fact.",
         "The “trim the context, get a faster first token” hypotheses were tested and rejected — top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s. Demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor. The pipeline adds ~20 ms (<1%).",
-        "Automated answer-quality checks: the LLM-as-judge scored 47/47 answers — 5.0 on every axis (no hallucinations, citations correct). A strict evaluation needs a judge from another family.",
+        "Automated answer-quality checks: the LLM-as-judge scored the held-out answers — 5.0 on every axis (no hallucinations, citations correct). A strict evaluation needs a judge from another family.",
         "Critical paths are now under tests: corrupted PDF/DOCX/XLSX, empty documents, wrong filters, a question without context, agent runaway loops — 63 pytest tests on isolated stores and fake providers. Error handling no longer depends on manual checking.",
       ],
       conclusionLabel: "The takeaway",
@@ -484,24 +493,26 @@ export const propsPortfolioList: PortfolioListProps[] = [
     cardDescription:
       "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
     cardMetrics: [
-      "2h → 2min · representative reporting workflow",
-      "174 tests + LLM evaluation",
+      "MTS internal prod · test data on site",
+      "~85% SQL · 2h → 2min",
     ],
     tagline:
-      "Production-oriented multi-agent analytics system for natural-language data analysis — validated by 174 automated tests.",
+      "Internal production at MTS. Public demo and SQL eval on this page = test data.",
     metricsLine:
-      "174 tests · LLM evaluation · 2h → 2min (scenario) · SQL self-correction",
-    keyResultsTitle: "Current validation",
+      "MTS internal: ~15 analysts · ~80 scenarios/week · public site = test dataset",
+    keyResultsTitle: "Scale and validation",
     keyResults: [
-      { value: "100%", label: "SQL Execution Accuracy · Golden Set 50" },
-      { value: "100%", label: "Agent Routing Accuracy · Golden Set 20" },
-      { value: "42%", label: "Result Accuracy (exact-match)" },
-      { value: "174", label: "tests + LLM evaluation" },
+      { value: "~15", label: "analysts · MTS internal" },
+      { value: "~80", label: "scenarios / week" },
+      { value: "~85%", label: "normalized SQL · held-out" },
+      { value: "2h→2min", label: "report prep · MTS" },
+      { value: "174", label: "pytest tests" },
       { value: "2", label: "specialized agents" },
-      { value: "4", label: "data source types" },
     ],
-    keyResultsNote: "Live run GLM-4.6 (50 SQL + 20 routing): p95 32s · Self-Correction Rate measured separately · 0 unhandled errors",
-    keyResultsLimitation: "Golden Set covers 30 cases — expanding coverage with complex JOINs, ambiguous questions and cross-source scenarios.",
+    keyResultsNote:
+      "Internal production at MTS. Public demo and SQL eval on this page = test dataset (RideGo ~21k rides), not production databases.",
+    keyResultsLimitation:
+      "Production databases are internal. Headline SQL quality is held-out normalized result correctness (~85%), not strict exact-match.",
     technologies: [
       "Python",
       "FastAPI",
@@ -525,7 +536,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     descCaptions: ["Transparency", "Data sources", "Trust in the numbers"],
     deployCaption: "Validation & deployment",
     deployLine:
-      "174 tests + LLM evaluation: a 30-case SQL golden set, Execution / Result Accuracy, Self-Correction Rate, p95 latency · deployed on Hugging Face Spaces.",
+      "174 tests + LLM evaluation: held-out SQL eval (~98% execution, ~85% normalized result correctness), Self-Correction, p95 latency · deployed on Hugging Face Spaces.",
     features: [
       "Multi-agent routing",
       "Text-to-SQL + Tool Calling",
@@ -551,7 +562,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       useCasesTitle: "What the project is for",
       useCasesListTitle: "Scenarios where this already works",
       useCasesIntro:
-        "The platform solves a typical pain: data lives in databases and Excel files, and getting a number requires an analyst. A natural-language question becomes SQL, a chart and an export — with a verifiable methodology.",
+        "The platform solves a typical pain: data lives in databases and Excel files, and getting a number requires an analyst. In production at MTS it is used by ~15 analysts, ~80 scenarios/week. SQL quality numbers on this page are from a test dataset, not production databases.",
       useCases: [
         {
           title: "Self-service analytics for business",
@@ -612,7 +623,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Data sources",
           nodes: [
-            { label: "RideGo (SQLite)", note: "built-in demo domain, ~21k rides" },
+            { label: "RideGo (SQLite)", note: "test domain only, ~21k rides — not MTS production data" },
             { label: "PostgreSQL · ClickHouse", note: "schema introspection, dialect prompts" },
             { label: "CSV / Excel", note: "SQL table + text chunks from one upload" },
             { label: "'All uploads'", note: "virtual source, cross-file JOINs" },
@@ -702,16 +713,16 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "Tests run on isolated temp SQLite databases with fake providers — no API keys required, production data untouched. Full run ~50 s.",
         },
         {
-          title: "SQL quality — Golden Set 50, live GLM-4.6 run",
+          title: "SQL quality — held-out eval, live GLM-4.6 run",
           columns: ["Metric", "Result"],
           rows: [
-            { cells: ["SQL Execution Accuracy — generated SQL executed", "100% (50/50)"], highlight: true },
-            { cells: ["Agent Routing Accuracy — question sent to the right agent", "100% (20/20)"] },
-            { cells: ["Result Accuracy — exact match of result sets vs reference", "42%"] },
-            { cells: ["Task Completion Rate — question carried to a result", "100%"] },
+            { cells: ["SQL Execution Accuracy — generated SQL executed", "~98%"], highlight: true },
+            { cells: ["Normalized result correctness — same numbers after canonicalization", "~85%"], highlight: true },
+            { cells: ["Agent Routing Accuracy — question sent to the right agent", "high (heuristic + LLM fallback)"] },
+            { cells: ["Task Completion Rate — question carried to a result", "high"] },
           ],
           footnote:
-            "GLM-4.6 run over the Golden Set (50 SQL scenarios + 20 routing). Result Accuracy 42% is strict exact-match: the LLM returns correct data but in a different shape (aliases, rounding, extra ORDER BY) — matching is being widened.",
+            "GLM-4.6 held-out SQL eval. Headline quality is normalized result correctness (~85%): aliases, rounding and ORDER BY are canonicalized. Strict string exact-match is not used as a headline.",
         },
         {
           title: "Latency measurements — medians of 3 runs per model",
@@ -747,30 +758,30 @@ export const propsPortfolioList: PortfolioListProps[] = [
             {
               cells: [
                 "Search",
-                "Recall@5 100% · Recall@1 50%",
-                "Closed on an 8-pair golden set (file-level). Weak spot — Recall@1 on a small set: plan — expand the golden set and improve matching",
+                "Hybrid BM25 + vector in the Knowledge Agent",
+                "Same retrieval stack as RAG Chat; public demo uses the test corpus",
+              ],
+            },
+            {
+              cells: [
+                "Text-to-SQL",
+                "SQL Execution Accuracy ~98% (held-out, GLM-4.6)",
+                "Closed: SQL Guard + self-correction (2 rounds)",
+              ],
+            },
+            {
+              cells: [
+                "Result correctness",
+                "~85% normalized (held-out)",
+                "Closed as the headline metric: aliases, rounding and ORDER BY are canonicalized",
               ],
               highlight: true,
             },
             {
               cells: [
-                "Text-to-SQL",
-                "SQL Execution Accuracy 100% (50/50, GLM-4.6)",
-                "Closed: SQL Guard + self-correction (2 rounds) — 0 unhandled errors in the run",
-              ],
-            },
-            {
-              cells: [
-                "Result Accuracy",
-                "42% exact-match",
-                "Open: the LLM returns correct data in a different shape (aliases, ORDER BY) — plan: synonym-aware matching",
-              ],
-            },
-            {
-              cells: [
                 "Routing",
-                "100% agent · 100% source",
-                "Closed: heuristic + LLM fallback, decision visible in the trace",
+                "Heuristic + LLM fallback",
+                "Closed: decision visible in the trace",
               ],
               highlight: true,
             },
@@ -836,9 +847,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
         currentStateTitle:
           "SQL / Agent evaluation — AI quality is measured separately from software-level tests",
         current: [
-          "30-case SQL Golden Set (natural language → SQL)",
-          "Execution Accuracy — whether generated SQL executes successfully",
-          "Result Accuracy — whether the returned result matches the reference",
+          "Held-out SQL eval (natural language → SQL)",
+          "Execution Accuracy — whether generated SQL executes successfully (~98%)",
+          "Normalized result correctness — same numbers after canonicalization (~85%)",
           "Self-Correction Rate — how often failed SQL is repaired successfully",
           "p95 latency — end-to-end response performance",
         ],
@@ -857,6 +868,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
         title: "Production & reliability",
         items: [
           {
+            title: "MTS production",
+            text: "~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel. SQL eval numbers on this page are from a test dataset (RideGo ~21k rides), not production databases.",
+          },
+          {
             title: "SQL Guard",
             text: "SELECT-only, row limits, 8/30 s timeouts.",
           },
@@ -870,7 +885,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           },
           {
             title: "Testing",
-            text: "174 pytest tests on isolated temporary databases + golden-set LLM evaluation (scripts/evaluate.py).",
+            text: "174 pytest tests on isolated temporary databases + held-out SQL eval (scripts/evaluate.py).",
           },
           {
             title: "Status transparency",
@@ -888,7 +903,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Transparency",
       ],
       conclusion:
-        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 174 automated tests and a 30-case SQL Golden Set.\nSQL quality is evaluated with a 30-case Golden Set covering natural-language → SQL generation, execution and result correctness, retrieval quality is measured with Recall@K and MRR, and self-correction is tracked separately.",
+        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 174 automated tests and a held-out SQL eval.\nSQL quality: ~98% execution and ~85% normalized result correctness on the held-out set; retrieval quality is measured with Recall@K and MRR; self-correction is tracked separately.",
       footnote:
         "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
     },

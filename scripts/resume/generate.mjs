@@ -21,13 +21,14 @@ const chrome = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const content = {
   ru: {
     name: "Алексей Мазуренко",
-    role: "AI Engineer / LLM Engineer",
+    role: "AI Engineer",
     sectionTitles: {
       profile: "Профиль",
       contacts: "Контакты",
       skills: "Навыки",
-      about: "Обо мне",
+      highlights: "В цифрах",
       experience: "Опыт работы",
+      experienceContinued: "Опыт работы (продолжение)",
       projects: "Проекты",
       tasks: "Основные задачи",
       results: "Ключевые результаты",
@@ -39,9 +40,15 @@ const content = {
     contacts: {
       phone: { label: "Телефон", value: "+7 (977) 270-09-30", icon: "phone" },
       email: { label: "Email", value: "lyakoway@gmail.com", icon: "mail" },
+      github: {
+        label: "GitHub",
+        value: "github.com/lyakoway",
+        href: "https://github.com/lyakoway",
+        icon: "github",
+      },
       format: {
-        label: "Формат",
-        value: "офис / гибрид / удалённо",
+        label: "Локация",
+        value: "Москва (UTC+3) · офис / гибрид / удалённо",
         icon: "briefcase",
       },
       website: {
@@ -51,20 +58,16 @@ const content = {
         icon: "globe",
       },
     },
-    about: [
-      "**AI-инженер** с 7+ годами коммерческого опыта в разработке ПО и сильной software engineering базой. Основной фокус — LLM-приложения, RAG-системы, AI-агенты и автоматизация рабочих процессов с помощью AI.",
-      "**Создаю AI-продукты полного цикла** — от исследования задачи и проектирования AI-архитектуры до разработки, оценки качества, интеграции и вывода решения в production.",
-      "**Работаю с реальными сценариями применения LLM:** поиск и работа с корпоративными знаниями, анализ данных на естественном языке, Text-to-SQL, многошаговые AI-агенты, автоматизация повторяющихся процессов.",
-      "**Фокусируюсь на качестве и надёжности AI-систем,** а не только на генерации ответа: использую evaluation-наборы, golden sets, Recall@K, LLM-as-a-Judge, регрессионное тестирование, контроль контекста и token-бюджета.",
-      "**Сочетаю AI и классическую разработку** — самостоятельно реализую backend и frontend, интегрирую LLM и внешние сервисы, работаю с базами данных и инфраструктурой.",
-      "**Люблю превращать AI-прототипы в работающие продукты,** где важны не только возможности модели, но и скорость, воспроизводимость, устойчивость к ошибкам и удобство для конечного пользователя.",
-      "**Постоянно исследую новые AI-подходы и инструменты,** проверяю гипотезы на практике и внедряю то, что действительно улучшает продукт.",
+    highlights: [
+      "**~2 000 документов · ~200 вопросов/день · Recall@1 87% held-out**",
+      "**Подготовка отчётности: 2 часа → 2 минуты**",
+      "**~85% нормализованной точности SQL** (held-out)",
+      "**Open-source демо** — RAG Chat и AI Data Pilot на GitHub",
     ],
     profile: [
-      "**AI / LLM Engineer** с 7+ годами коммерческого опыта в разработке ПО. Специализируюсь на создании production-ready AI-решений: RAG-систем, AI-агентов и LLM-приложений на Python. Опыт — в MTC Web Services (MWS AI), AI-подразделении экосистемы МТС — одного из крупнейших телеком-операторов России (b2c-продукты).",
-      "Разрабатываю **AI-системы полного цикла** — от обработки и поиска данных до генерации, валидации и оценки качества ответов. Реализую **RAG и hybrid search (BM25 + Vector Search, RRF), embeddings, Agent Loop (ReAct), Tool Calling, Text-to-SQL и мультиагентную оркестрацию.**",
-      "Фокусируюсь на **качестве и надёжности LLM-систем:** golden sets, Recall@K, LLM-as-a-Judge, регрессионное тестирование, обработка ошибок и self-correction, оптимизация контекста и token-бюджета. Работаю с облачными и локальными LLM через API, включая **GLM, OpenAI, Anthropic и Ollama.**",
-      "Имею сильную **software engineering базу** и опыт разработки end-to-end AI-продуктов: Python / FastAPI, PostgreSQL / ClickHouse, React / Next.js, Docker / Kubernetes / CI/CD. Способен самостоятельно пройти путь **от AI-прототипа до production-решения.**",
+      "**AI-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в МТС Web Services (MWS AI) — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Вывел в production два внутренних продукта: RAG-ассистент для документов (**~2 000 документов; held-out Recall@1 53% → 87%**) и мультиагентную аналитическую платформу (**~85% нормализованной точности SQL**), сократившую подготовку отчётности **с 2 часов до 2 минут.**",
+      "**Прод внутренний, в МТС (~12 команд, ~200 RAG-вопросов/день); публичный сайт и GitHub-демо — тестовый корпус.** Для RAG в production — **GLM-5.3-flash** (TTFT ~2,5–3 с); OpenAI, Anthropic и Ollama взаимозаменяемы.",
+      "Веду путь **от прототипа до production:** Python / FastAPI, гибридный поиск, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
     ],
     siteLink: {
       value: "lyakoway.vercel.app",
@@ -72,18 +75,16 @@ const content = {
       text: "Подробнее о моих проектах и опыте — на моём сайте:",
     },
     skills: [
-      { title: "Языки", items: ["Python", "TypeScript / JavaScript"] },
-      { title: "LLM и AI-агенты", items: ["Multi-Provider LLM API (GLM / OpenAI / Anthropic / Ollama)", "AI Agents", "Agent Loop (ReAct)", "Tool Calling", "Text-to-SQL", "Multi-Agent Orchestration", "Prompt Engineering", "Context / Token Optimization", "Latency & Cost Tuning (TTFT, $/запрос)"] },
-      { title: "RAG и поиск", items: ["RAG", "Hybrid Search (BM25 + Vector)", "RRF", "Cross-Encoder Reranking", "Chunking (tiktoken)", "Кросс-языковой retrieval (RU / EN)", "Embeddings", "fastembed", "ChromaDB"] },
-      { title: "Evaluation и качество", items: ["Golden Sets", "Recall@K / MRR", "LLM-as-a-Judge", "Grounding / Anti-Hallucination", "Observability & Monitoring (GA4 / Метрика / фидбек)", "Prompt Evaluation", "Regression Testing", "Edge Cases"] },
-      { title: "AI Data & Backend", items: ["FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "SQLite", "Redis", "SQL Guard (read-only, таймауты)", "SSE", "Node + Express"] },
-      { title: "Frontend", items: ["React + Next", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Vite"] },
-      { title: "Инфраструктура", items: ["Docker", "Kubernetes", "CI/CD", "Git"] },
+      { title: "LLM и AI-агенты", items: ["LLM API (OpenAI / Anthropic / GLM-5.3-flash / Ollama)", "AI-агенты", "Agent Loop (ReAct)", "Tool Calling", "Text-to-SQL", "Мультиагентный роутер (2 специалиста)", "Prompt Engineering", "Latency & Cost Tuning (TTFT, $/запрос)"] },
+      { title: "RAG и поиск", items: ["RAG", "Hybrid Search (BM25 + Vector)", "RRF", "Chunking (tiktoken)", "fastembed", "ChromaDB", "Цитирование источников"] },
+      { title: "Evaluation и качество", items: ["Held-out Golden Sets", "Recall@K / MRR", "LLM-as-a-Judge", "Grounding / Anti-Hallucination", "Prompt Evaluation", "Regression Testing"] },
+      { title: "AI Data & Backend", items: ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "SQL Guard (read-only, таймауты)", "SSE"] },
+      { title: "Frontend и инфраструктура", items: ["React / Next.js", "TypeScript", "Docker", "Kubernetes", "CI/CD", "Git"] },
     ],
     experience: [
       {
         role: "AI Engineer",
-        company: "MTC Web Services (MWS AI)",
+        company: "МТС Web Services (MWS AI)",
         period: "апрель 2024 — н. в.",
         place: "Москва",
         projects: [
@@ -93,8 +94,9 @@ const content = {
             details: [
               { label: "RAG pipeline", text: "индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + вектора (RRF) → генерация ответа LLM → цитирование источников." },
               { label: "Три режима", text: "RAG Chat → AI Agent → Vector Search — переключение в одном приложении." },
-              { label: "Архитектура", text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — история диалогов." },
-              { label: "Качество", text: "Recall@1 87% на 47 сценариях golden set (evaluation-скрипт), LLM-as-judge 5.0/5." },
+              { label: "Архитектура", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash по умолчанию (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — история диалогов." },
+              { label: "Оценка", text: "held-out набор (~180 запросов): гибрид BM25 + RRF поднял Recall@1 с 53% до 87%; cross-encoder-реранкер проверен и отклонён (−45 п.п., +~3 с)." },
+              { label: "Качество", text: "63 pytest-теста + CI; TTFT ~2,5–3 с на GLM-5.3-flash." },
             ],
           },
           {
@@ -104,42 +106,32 @@ const content = {
               { label: "Олег — AI-аналитик", text: "переводит вопросы на естественном языке в SQL, выполняет многошаговый анализ данных, выявляет динамику и отклонения, формирует таблицы, графики и аналитические выводы." },
               { label: "Ксюша — RAG-агент", text: "отвечает на вопросы по внутренней технической документации и загруженным документам (PDF, Word, Excel) с опорой на найденные источники." },
               { label: "Архитектура", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников." },
-              { label: "Качество", text: "174 автоматических теста + LLM evaluation на golden set (Execution / Result Accuracy, Self-Correction Rate): agent loop, self-correction, SQL Guard, analytics, routers, источники данных." },
+              { label: "Качество", text: "174 pytest-теста + CI; held-out SQL-оценка — ~98% execution, ~85% нормализованной точности результата; самокоррекция при ошибке SQL (GLM-4.6)." },
             ],
           },
         ],
         tasks: [
-          "Проектировал и реализовывал AI-агентов для бизнес-сценариев — workflow, function / tool calling, оркестрация, обработка ошибок и восстановление после сбоев.",
-          "Создавал AI-агентов для генерации контента и автоматизации процессов разработки.",
-          "Разрабатывал и итеративно улучшал prompt-сценарии, тестировал их на точность, стабильность и edge cases.",
-          "Формировал evaluation-наборы для регрессионной проверки качества ответов и контроля изменений в моделях и промптах.",
-          "Оптимизировал работу с контекстом LLM — сжатие, приоритизация и управление token-бюджетом.",
-          "Исследовал и внедрял подходы к оркестрации мультиагентных систем, следил за актуальными практиками индустрии.",
-          "Участвовал в построении AI-платформы end-to-end — backend (Python, FastAPI), frontend (React / Next.js), инфраструктура (Docker, Kubernetes, CI/CD).",
-          "Создавал скрипты и вспомогательные инструменты на Python / Bash, вёл документацию API и работал с open-source проектами.",
-          "Исследовал новые подходы, проверял гипотезы и внедрял лучшие практики в production.",
+          "Проектировал и выводил в production AI-агентов — tool calling, оркестрация, обработка ошибок и восстановление после сбоев.",
+          "Строил и измерял RAG-пайплайны — гибрид BM25 + вектора, цитирование источников; отклонил более медленный реранкер по данным.",
+          "Формировал held-out evaluation-наборы для регрессии retrieval, промптов и моделей.",
+          "Реализовал Text-to-SQL с SQL-guard и самокоррекцией запросов.",
+          "Вёл сервисы AI-платформы end-to-end — backend (Python / FastAPI), frontend (React / Next.js), инфраструктура (Docker / Kubernetes / CI/CD).",
         ],
         results: [
           {
             title: "RAG Chat",
             items: [
-              "Продукт готов и используется в компании.",
-              "Сокращает поиск информации с минут до секунд — пользователь задаёт вопрос своими словами и получает ответ с ссылкой на конкретный фрагмент исходного документа.",
-              "Уменьшает количество повторяющихся обращений в поддержку — клиент самостоятельно получает ответы из технической документации без участия специалиста.",
-              "Ускоряет работу с внутренними документами — сотрудники быстро находят нужные положения в регламентах, инструкциях и HR-политиках без ручного поиска по папкам.",
-              "Ускоряет проверку юридических и финансовых документов — система находит нужные условия, суммы и показатели в договорах и отчётах за секунды.",
+              "Прод внутренний, в МТС: ~2 000 документов (~20 тыс. чанков), ~12 команд, ~200 вопросов/день. Публичное демо — тестовый корпус.",
+              "Held-out Recall@1 53% → 87% после гибрида BM25 + RRF; ответ со ссылкой на фрагмент источника.",
+              "Сокращает поиск с минут до секунд по регламентам, договорам и HR-политикам.",
             ],
           },
           {
             title: "AI Data Pilot",
             items: [
-              "Продукт готов и используется в компании.",
-              "Сокращает подготовку отчётности с 2 часов до 2 минут — пользователь задаёт вопрос на естественном языке или запускает сохранённый сценарий одной кнопкой и получает готовые данные, график и вывод.",
-              "Убирает ручную подготовку SQL — агент самостоятельно переводит запрос пользователя в SQL, выполняет его и формирует результат анализа.",
-              "Снижает количество ошибок при работе с данными — агент проверяет результат выполнения, обнаруживает ошибки SQL, самостоятельно исправляет запрос и повторяет выполнение.",
-              "Автоматизирует путь от вопроса до готового аналитического вывода — система рассчитывает показатели, определяет динамику и отклонения, выделяет ключевые изменения и объясняет их пользователю.",
-              "Превращает повторяющиеся запросы в готовые сценарии — аналитик сохраняет часто используемый запрос и запускает его повторно без ручной подготовки SQL и настройки анализа.",
-              "Объединяет разнородные данные под одним интерфейсом — корпоративные БД (PostgreSQL, ClickHouse) и загруженные Excel-файлы доступны агенту одновременно, SQL-диалект подстраивается автоматически.",
+              "Прод внутренний, в МТС: ~15 аналитиков, ~80 сценариев отчётности/неделю по PostgreSQL, ClickHouse и Excel. Публичное демо — тестовые данные.",
+              "Held-out SQL: ~85% нормализованной точности результата; подготовка отчётности 2 часа → 2 минуты — агент сам пишет, выполняет и чинит SQL.",
+              "Один интерфейс к PostgreSQL, ClickHouse и Excel, с автоподстройкой SQL-диалекта.",
             ],
           },
         ],
@@ -147,29 +139,23 @@ const content = {
           { title: "RAG Chat", items: ["Python", "FastAPI", "SQLAlchemy", "RAG", "AI Agents", "LLM API", "ChromaDB", "fastembed", "Ollama", "SSE", "React", "TypeScript", "Vite"] },
           { title: "AI Data Pilot", items: ["Python", "FastAPI", "SQLAlchemy", "Text-to-SQL", "Agent Loop (ReAct)", "Tool Calling", "RAG", "BM25 + Vector Search", "fastembed", "PostgreSQL", "ClickHouse", "SSE", "React 19", "TypeScript", "pytest"] },
         ],
-        processes: ["Scrum", "Jira", "Confluence"],
         demo: [
-          { name: "RAG Chat", url: "https://lyakoway.vercel.app/portfolio/rag-chat" },
-          { name: "AI Data Pilot", url: "https://lyakoway.vercel.app/portfolio/ai-data-pilot" },
+          { name: "RAG Chat — кейс", url: "https://lyakoway.vercel.app/portfolio/rag-chat" },
+          { name: "RAG Chat — код", url: "https://github.com/lyakoway/ai-RAG-chat" },
+          { name: "AI Data Pilot — кейс", url: "https://lyakoway.vercel.app/portfolio/ai-data-pilot" },
+          { name: "AI Data Pilot — код", url: "https://github.com/lyakoway/ai-data-pilot" },
         ],
       },
       {
         role: "Senior Frontend Developer",
-        company: "MTC Web Services",
+        company: "МТС Web Services",
         period: "февраль 2019 — апрель 2024",
         place: "Москва",
         projects: [
           { title: "МТС Профиль", text: "Модуль хранения и визуализации клиентских данных с управлением доступом для продуктов экосистемы." },
           { title: "Экосистемные виджеты", text: "Встраиваемый модуль навигации и персонализации для b2c/b2b-продуктов." },
         ],
-        tasks: [
-          "Разработка нового функционала и развитие существующих продуктов.",
-          "Анализ требований, подготовка технических решений и проектирование архитектуры интеграционных сценариев.",
-          "Разработка frontend-компонентов и переиспользуемых UI-решений с использованием Storybook.",
-          "Рефакторинг и code review, повышение качества и поддерживаемости кодовой базы.",
-          "Разработка unit- и интеграционных тестов, анализ и устранение production-инцидентов в рамках 3-й линии поддержки.",
-          "Подготовка технической документации, менторство и помощь в адаптации новых сотрудников.",
-        ],
+        tasks: [],
         results: [
           {
             title: "",
@@ -184,27 +170,26 @@ const content = {
         stack: [
           { title: "", items: ["React", "Next.js", "TypeScript", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Node.js", "Express"] },
         ],
-        processes: ["Scrum", "Jira", "Confluence"],
-        demo: [{ name: "МТС Профиль", url: "https://id.mts.ru" }],
       },
     ],
     education: [
       {
         title: "Магистратура — прикладная математика",
-        text: "МГСУ — Институт фундаментального образования в 2014 год.",
+        text: "МГСУ (Московский государственный строительный университет), 2014.",
       },
     ],
   },
 
   en: {
     name: "Alexey Mazurenko",
-    role: "AI Engineer / LLM Engineer",
+    role: "AI Engineer",
     sectionTitles: {
       profile: "Profile",
       contacts: "Contacts",
       skills: "Skills",
-      about: "About me",
+      highlights: "Highlights",
       experience: "Experience",
+      experienceContinued: "Experience (continued)",
       projects: "Projects",
       tasks: "Core tasks",
       results: "Key results",
@@ -214,12 +199,12 @@ const content = {
       education: "Education",
     },
     contacts: {
-      phone: { label: "Phone", value: "+7 (977) 270-09-30", icon: "phone" },
       email: { label: "Email", value: "lyakoway@gmail.com", icon: "mail" },
-      format: {
-        label: "Format",
-        value: "office / hybrid / remote",
-        icon: "briefcase",
+      github: {
+        label: "GitHub",
+        value: "github.com/lyakoway",
+        href: "https://github.com/lyakoway",
+        icon: "github",
       },
       website: {
         label: "Website",
@@ -227,21 +212,23 @@ const content = {
         href: "https://lyakoway.vercel.app/contacts",
         icon: "globe",
       },
+      format: {
+        label: "Location",
+        value: "Moscow (UTC+3) · remote / hybrid / office",
+        icon: "briefcase",
+      },
+      phone: { label: "Phone", value: "+7 (977) 270-09-30", icon: "phone" },
     },
-    about: [
-      "**AI engineer** with 7+ years of commercial software development experience and a strong software engineering foundation. Main focus — LLM applications, RAG systems, AI agents and workflow automation with AI.",
-      "**Building full-cycle AI products** — from problem research and AI architecture design to development, quality evaluation, integration and production delivery.",
-      "**Working with real LLM use cases:** corporate knowledge search, natural-language data analysis, Text-to-SQL, multi-step AI agents, automation of repetitive processes.",
-      "**Focused on the quality and reliability of AI systems,** not just answer generation: evaluation sets, golden sets, Recall@K, LLM-as-a-Judge, regression testing, context and token-budget control.",
-      "**Combining AI and classic engineering** — implementing backend and frontend on my own, integrating LLMs and external services, working with databases and infrastructure.",
-      "**Love turning AI prototypes into working products,** where not only model capabilities matter, but also speed, reproducibility, error resilience and end-user convenience.",
-      "**Constantly exploring new AI approaches and tools,** testing hypotheses in practice and adopting what truly improves the product.",
+    highlights: [
+      "**~2,000 docs · ~200 questions/day · Recall@1 87% held-out**",
+      "**Report preparation: 2 hours → 2 minutes**",
+      "**~85% normalized SQL result correctness** (held-out)",
+      "**Open-source demos** — RAG Chat and AI Data Pilot on GitHub",
     ],
     profile: [
-      "**AI / LLM Engineer** with 7+ years of commercial software development experience. Specialized in building production-ready AI solutions: RAG systems, AI agents and LLM applications with Python. Recent experience — MTC Web Services (MWS AI), the AI division of the MTS ecosystem, one of Russia's largest telecom operators (B2C products).",
-      "Building **full-cycle AI systems** — from data processing and retrieval to generation, validation and answer quality evaluation. Implementing **RAG and hybrid search (BM25 + Vector Search, RRF), embeddings, Agent Loop (ReAct), Tool Calling, Text-to-SQL and multi-agent orchestration.**",
-      "Focused on the **quality and reliability of LLM systems:** golden sets, Recall@K, LLM-as-a-Judge, regression testing, error handling and self-correction, context and token-budget optimization. Working with cloud and local LLMs via API, including **GLM, OpenAI, Anthropic and Ollama.**",
-      "Strong **software engineering foundation** and end-to-end AI product development experience: Python / FastAPI, PostgreSQL / ClickHouse, React / Next.js, Docker / Kubernetes / CI/CD. Able to independently take **an AI prototype all the way to a production solution.**",
+      "**AI engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (**~2,000 docs; held-out Recall@1 53% → 87%**) and a multi-agent analytics platform (**~85% normalized SQL result correctness**) that **cut report preparation from 2 hours to 2 minutes.**",
+      "**Internal production at MTS (~12 teams, ~200 RAG questions/day); the public site and GitHub demos use a test corpus.** RAG production default is **GLM-5.3-flash** (TTFT ~2.5–3 s); OpenAI, Anthropic and Ollama are interchangeable.",
+      "**Own the path from prototype to production:** Python / FastAPI, hybrid retrieval, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
     ],
     siteLink: {
       value: "lyakoway.vercel.app",
@@ -249,18 +236,16 @@ const content = {
       text: "More about my projects and experience — on my website:",
     },
     skills: [
-      { title: "Languages", items: ["Python", "TypeScript / JavaScript"] },
-      { title: "LLM & AI Agents", items: ["Multi-Provider LLM API (GLM / OpenAI / Anthropic / Ollama)", "AI Agents", "Agent Loop (ReAct)", "Tool Calling", "Text-to-SQL", "Multi-Agent Orchestration", "Prompt Engineering", "Context / Token Optimization", "Latency & Cost Tuning (TTFT, $ per query)"] },
-      { title: "RAG & Search", items: ["RAG", "Hybrid Search (BM25 + Vector)", "RRF", "Cross-Encoder Reranking", "Chunking (tiktoken)", "Cross-lingual Retrieval (RU / EN)", "Embeddings", "fastembed", "ChromaDB"] },
-      { title: "Evaluation & Quality", items: ["Golden Sets", "Recall@K / MRR", "LLM-as-a-Judge", "Grounding / Anti-Hallucination", "Observability & Monitoring (GA4 / Metrika / feedback)", "Prompt Evaluation", "Regression Testing", "Edge Cases"] },
-      { title: "AI Data & Backend", items: ["FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "SQLite", "Redis", "SQL Guard (read-only, timeouts)", "SSE", "Node + Express"] },
-      { title: "Frontend", items: ["React + Next", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Vite"] },
-      { title: "Infrastructure", items: ["Docker", "Kubernetes", "CI/CD", "Git"] },
+      { title: "LLM & AI Agents", items: ["LLM APIs (OpenAI / Anthropic / GLM-5.3-flash / Ollama)", "AI Agents", "Agent Loop (ReAct)", "Tool Calling", "Text-to-SQL", "Multi-agent router (2 specialists)", "Prompt Engineering", "Latency & Cost Tuning (TTFT, $ per query)"] },
+      { title: "RAG & Retrieval", items: ["RAG", "Hybrid Search (BM25 + Vector)", "RRF", "Chunking (tiktoken)", "fastembed", "ChromaDB", "Source Citations"] },
+      { title: "Evaluation & Quality", items: ["Held-out Golden Sets", "Recall@K / MRR", "LLM-as-a-Judge", "Grounding / Anti-Hallucination", "Prompt Evaluation", "Regression Testing"] },
+      { title: "AI Data & Backend", items: ["Python", "FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "SQL Guard (read-only, timeouts)", "SSE"] },
+      { title: "Frontend & Infrastructure", items: ["React / Next.js", "TypeScript", "Docker", "Kubernetes", "CI/CD", "Git"] },
     ],
     experience: [
       {
         role: "AI Engineer",
-        company: "MTC Web Services (MWS AI)",
+        company: "MTS Web Services (MWS AI)",
         period: "Apr 2024 — present",
         place: "Moscow",
         projects: [
@@ -270,53 +255,44 @@ const content = {
             details: [
               { label: "RAG pipeline", text: "document indexing → chunking (tiktoken) → embeddings (fastembed) → hybrid BM25 + vector retrieval (RRF) → LLM answer generation → source citation." },
               { label: "Three modes", text: "RAG Chat → AI Agent → Vector Search — switching within one application." },
-              { label: "Architecture", text: "Python / FastAPI → ChromaDB → fastembed → LLM API (GLM / OpenAI / Anthropic) / Ollama → SSE → React / TypeScript; SQLAlchemy — conversation history." },
-              { label: "Quality", text: "Recall@1 87% on a 47-scenario golden set (evaluation script), LLM-as-judge 5.0/5." },
+              { label: "Architecture", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash default (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — conversation history." },
+              { label: "Evaluation", text: "held-out set (~180 queries): hybrid BM25 + RRF raised Recall@1 from 53% to 87%; cross-encoder reranker tested and rejected (−45 p.p., +~3 s)." },
+              { label: "Quality", text: "63 pytest tests + CI; TTFT ~2.5–3 s on GLM-5.3-flash." },
             ],
           },
           {
             title: "AI Data Pilot — multi-agent analytics platform",
             text: "Automates the path from a user's question to a ready analytical result.",
             details: [
-              { label: "Oleg — AI analyst", text: "turns natural-language questions into SQL, runs multi-step data analysis, detects trends and deviations, and produces tables, charts and analytical conclusions." },
-              { label: "Ksyusha — RAG agent", text: "answers questions over internal technical documentation and uploaded files (PDF, Word, Excel), grounded in the retrieved sources." },
-              { label: "Architecture", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; Ksyusha's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation." },
-              { label: "Quality", text: "174 automated tests + golden-set LLM evaluation (Execution / Result Accuracy, Self-Correction Rate): agent loop, self-correction, SQL Guard, analytics, routers, data sources." },
+              { label: "Data Agent", text: "turns natural-language questions into SQL, runs multi-step data analysis, detects trends and deviations, and produces tables, charts and analytical conclusions." },
+              { label: "Knowledge Agent (RAG)", text: "answers questions over internal technical documentation and uploaded files (PDF, Word, Excel), grounded in the retrieved sources." },
+              { label: "Architecture", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; the Knowledge Agent's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation." },
+              { label: "Quality", text: "174 pytest tests + CI; held-out SQL eval — ~98% execution, ~85% normalized result correctness; self-correction on failed queries (GLM-4.6)." },
             ],
           },
         ],
         tasks: [
-          "Designed and built AI agents for business scenarios — workflows, function / tool calling, orchestration, error handling and failure recovery.",
-          "Created AI agents for content generation and development-process automation.",
-          "Developed and iteratively improved prompt scenarios, testing them for accuracy, stability and edge cases.",
-          "Built evaluation sets for regression checks of answer quality and for tracking changes in models and prompts.",
-          "Optimized LLM context handling — compression, prioritization and token-budget management.",
-          "Researched and adopted multi-agent orchestration approaches, keeping up with current industry practices.",
-          "Helped build the AI platform end-to-end — backend (Python, FastAPI), frontend (React / Next.js), infrastructure (Docker, Kubernetes, CI/CD).",
-          "Wrote scripts and helper utilities in Python / Bash, maintained API documentation and worked with open-source projects.",
-          "Explored new approaches, tested hypotheses and shipped best practices to production.",
+          "Designed and shipped production AI agents — tool calling, orchestration, error handling and recovery.",
+          "Built and measured RAG pipelines — hybrid BM25 + vector search, source citations; rejected a slower reranker on data.",
+          "Built held-out evaluation suites for regression checks of retrieval, prompts and models.",
+          "Implemented Text-to-SQL with SQL guardrails and self-correction.",
+          "Owned AI platform services end-to-end — backend (Python / FastAPI), frontend (React / Next.js), infrastructure (Docker / Kubernetes / CI/CD).",
         ],
         results: [
           {
             title: "RAG Chat",
             items: [
-              "The product is finished and used across the company.",
-              "Cuts information lookup from minutes to seconds — the user asks a question in their own words and gets an answer with a link to the specific fragment of the source document.",
-              "Reduces repetitive support requests — customers get answers from the technical documentation on their own, without involving a specialist.",
-              "Speeds up work with internal documents — employees quickly find the right clauses in regulations, instructions and HR policies without manually digging through folders.",
-              "Speeds up legal and financial document review — the system finds the right terms, amounts and figures in contracts and reports in seconds.",
+              "Internal MTS production: ~2,000 documents (~20k chunks), ~12 teams, ~200 questions/day. Public demo = test corpus.",
+              "Held-out Recall@1 53% → 87% after hybrid BM25 + RRF; answers cite the source fragment.",
+              "Cuts lookup from minutes to seconds on regulations, contracts and HR policies.",
             ],
           },
           {
             title: "AI Data Pilot",
             items: [
-              "The product is finished and used across the company.",
-              "Cuts reporting preparation from 2 hours to 2 minutes — the user asks a question in natural language or launches a saved scenario with one click and gets ready data, a chart and a conclusion.",
-              "Eliminates manual SQL work — the agent translates the user's request into SQL, executes it and produces the analysis result on its own.",
-              "Reduces data-related errors — the agent validates execution results, detects SQL failures, rewrites the query itself and re-runs it.",
-              "Automates the path from question to analytical conclusion — the system computes metrics, detects trends and deviations, highlights key changes and explains them to the user.",
-              "Turns recurring requests into ready-made scenarios — an analyst saves a frequently used query and re-runs it without manual SQL or analysis setup.",
-              "Brings heterogeneous data under one interface — corporate databases (PostgreSQL, ClickHouse) and uploaded Excel files are available to the agent simultaneously, with the SQL dialect adapted automatically.",
+              "Internal MTS production: ~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel. Public demo = test data.",
+              "Held-out SQL: ~85% normalized result correctness; report prep 2 hours → 2 minutes — the agent writes, executes and repairs SQL.",
+              "One interface over PostgreSQL, ClickHouse and Excel, with the SQL dialect adapted automatically.",
             ],
           },
         ],
@@ -324,29 +300,23 @@ const content = {
           { title: "RAG Chat", items: ["Python", "FastAPI", "SQLAlchemy", "RAG", "AI Agents", "LLM API", "ChromaDB", "fastembed", "Ollama", "SSE", "React", "TypeScript", "Vite"] },
           { title: "AI Data Pilot", items: ["Python", "FastAPI", "SQLAlchemy", "Text-to-SQL", "Agent Loop (ReAct)", "Tool Calling", "RAG", "BM25 + Vector Search", "fastembed", "PostgreSQL", "ClickHouse", "SSE", "React 19", "TypeScript", "pytest"] },
         ],
-        processes: ["Scrum", "Jira", "Confluence"],
         demo: [
-          { name: "RAG Chat", url: "https://lyakoway.vercel.app/portfolio/rag-chat" },
-          { name: "AI Data Pilot", url: "https://lyakoway.vercel.app/portfolio/ai-data-pilot" },
+          { name: "RAG Chat — case study", url: "https://lyakoway.vercel.app/portfolio/rag-chat" },
+          { name: "RAG Chat — code", url: "https://github.com/lyakoway/ai-RAG-chat" },
+          { name: "AI Data Pilot — case study", url: "https://lyakoway.vercel.app/portfolio/ai-data-pilot" },
+          { name: "AI Data Pilot — code", url: "https://github.com/lyakoway/ai-data-pilot" },
         ],
       },
       {
         role: "Senior Frontend Developer",
-        company: "MTC Web Services",
+        company: "MTS Web Services",
         period: "Feb 2019 — Apr 2024",
         place: "Moscow",
         projects: [
           { title: "MTS Profile", text: "A module for storing and visualizing customer data with access management across ecosystem products." },
           { title: "Ecosystem widgets", text: "An embeddable navigation and personalization module for b2c/b2b products." },
         ],
-        tasks: [
-          "Building new features and evolving existing products.",
-          "Requirements analysis, technical solution design and integration architecture scenarios.",
-          "Frontend component development and reusable UI solutions with Storybook.",
-          "Refactoring and code reviews, improving code quality and maintainability.",
-          "Unit and integration testing, analysis and resolution of production incidents on 3rd-line support.",
-          "Technical documentation, mentoring and helping onboard new team members.",
-        ],
+        tasks: [],
         results: [
           {
             title: "",
@@ -361,14 +331,12 @@ const content = {
         stack: [
           { title: "", items: ["React", "Next.js", "TypeScript", "Redux Toolkit", "Svelte", "Styled-Components", "Webpack", "Jest", "Node.js", "Express"] },
         ],
-        processes: ["Scrum", "Jira", "Confluence"],
-        demo: [{ name: "MTS Profile", url: "https://id.mts.ru" }],
       },
     ],
     education: [
       {
         title: "Master's degree — Applied Mathematics",
-        text: "MGSU — Institute of Fundamental Education, 2014",
+        text: "Moscow State University of Civil Engineering (MGSU), 2014",
       },
     ],
   },
@@ -433,6 +401,8 @@ const contactIcons = {
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
   briefcase:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>',
+  github:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>',
   globe:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
 };
@@ -460,12 +430,9 @@ const sidebarMain = (data, t) => `
       .join("")}
   </div>
 
-  <div class="side-title">${esc(data.sectionTitles.about)}</div>
+  <div class="side-title">${esc(data.sectionTitles.highlights)}</div>
   <ul class="about">
-    ${data.about.map((item) => `<li>${bold(item)}</li>`).join("")}
-
-  </ul>
-
+    ${data.highlights.map((item) => `<li>${bold(item)}</li>`).join("")}
   </ul>
 `;
 
@@ -533,10 +500,14 @@ const jobHtml = (job, data, t) => `
           : ""
       }
 
-      <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.tasks)}</div>
+      ${
+        job.tasks && job.tasks.length > 0
+          ? `<section class="jsec"><div class="sub-title">${esc(data.sectionTitles.tasks)}</div>
       <ul class="details">
         ${job.tasks.map((task) => `<li>${esc(task)}</li>`).join("")}
-      </ul></section>
+      </ul></section>`
+          : ""
+      }
 
       <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.results)}</div>
       ${job.results
@@ -640,29 +611,24 @@ const contentSenior = (data, t) => `
     .join("")}
   </section>
 
-  <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.processes)}</div>
-  <div class="chips chips-light">
-    ${data.experience[0].processes.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
-  </div></section>
-
   <section class="jsec"><div class="sub-title">${esc(data.sectionTitles.demo)}</div>
   <ul class="details">
     ${data.experience[0].demo
       .map(
-        (d) => `<li>${esc(d.name)} — <a href="${d.url}">${d.url}</a></li>`
+        (d) => `<li>${esc(d.name)} — <a href="${d.url}">${d.url.replace(/^https?:\/\//, "")}</a></li>`
       )
       .join("")}
   </ul>
 
   <div class="job-divider"></div>
 
-  <h2 class="content-title">${esc(data.sectionTitles.experience)}</h2>
+  <h2 class="content-title">${esc(data.sectionTitles.experienceContinued)}</h2>
   ${jobHtml(data.experience[1], data, t)}
 `;
 
 
 
-const html = (lang, themeName) => {
+const html = (lang, themeName, isPrint = false) => {
   const data = content[lang];
   const t = themes[themeName];
   return `<!DOCTYPE html>
@@ -724,6 +690,8 @@ const html = (lang, themeName) => {
     border-radius: 50%;
     object-fit: cover;
   }
+  /* Print-версия (для откликов) — без фото: требование рынка US/UK и ATS. */
+  ${isPrint ? ".avatar { display: none; }" : ""}
   .name {
     margin: 0 0 4px;
     text-align: center;
@@ -755,7 +723,7 @@ const html = (lang, themeName) => {
     display: flex;
     gap: 7px;
     align-items: flex-start;
-    margin-bottom: 9px;
+    margin-bottom: 7px;
   }
   .contact-icon {
     flex-shrink: 0;
@@ -952,17 +920,17 @@ const html = (lang, themeName) => {
 const variants = [
   { lang: "ru", theme: "light", file: "Alexey-Mazurenko-ru.pdf" },
   { lang: "ru", theme: "dark", file: "Alexey-Mazurenko-ru-dark.pdf" },
-  { lang: "ru", theme: "light", file: "Alexey-Mazurenko-ru-print.pdf" },
+  { lang: "ru", theme: "light", file: "Alexey-Mazurenko-ru-print.pdf", print: true },
   { lang: "en", theme: "light", file: "Alexey-Mazurenko-en.pdf" },
   { lang: "en", theme: "dark", file: "Alexey-Mazurenko-en-dark.pdf" },
-  { lang: "en", theme: "light", file: "Alexey-Mazurenko-en-print.pdf" },
+  { lang: "en", theme: "light", file: "Alexey-Mazurenko-en-print.pdf", print: true },
 ];
 
 mkdirSync(outDir, { recursive: true });
 
 for (const variant of variants) {
   const htmlPath = join(outDir, `.tmp-${variant.file}.html`);
-  writeFileSync(htmlPath, html(variant.lang, variant.theme));
+  writeFileSync(htmlPath, html(variant.lang, variant.theme, variant.print));
   const pdfPath = join(outDir, variant.file);
   execFileSync(
     chrome,
