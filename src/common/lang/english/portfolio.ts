@@ -122,7 +122,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     aiEngineering: {
       sectionTitle: "Engineering approach",
       intro:
-        "I don't evaluate an AI system by whether it works on a few examples. I define metrics, build a reproducible evaluation set, compare alternatives and make architectural decisions based on measurements.",
+        "I compare retrieval, models and pipeline tweaks on a held-out set, then keep or reject. This page is three such decisions: hybrid vs dense, a reranker that lost, and a model default set by latency — not by a tutorial.",
       useCasesTitle: "What the project is for",
       useCasesListTitle: "Several scenarios where it already works",
       useCasesIntro:
@@ -351,49 +351,57 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "This is an LLM-based evaluation and should be treated as a supporting signal on the held-out set (Faithfulness, Relevance, Citations). Stricter validation should use an independent judge model or human evaluation. Answers and judge — glm-4.5-flash, hybrid retrieval.",
         },
         {
-          title: "Final metrics map — the outcome of the whole loop",
-          columns: ["Metric", "Result", "Takeaway"],
+          title: "What shipped — decisions from the loop",
+          columns: ["Decision", "Measurement", "Why it shipped"],
           rows: [
             {
               cells: [
                 "Retrieval",
+                "Hybrid BM25 + RRF · +34 p.p. Recall@1 vs dense",
+                "Kept: dense-only hit 53% on RU/EN twins; lexical fusion is required, not optional",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Reranker",
+                "−45 p.p. Recall@1 · +~3 s",
+                "Rejected: the cross-encoder promotes language twins and adds latency",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Default model",
+                "GLM-5.3-flash · TTFT ~2.5–3.0 s",
+                "Shipped: GLM-4.5-flash sits at 25–50 s on the same pipeline; the pipeline itself adds <1%",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Held-out retrieval",
                 "Recall@1 87.2% · Recall@3 97.9%",
-                "Closed. Overall Recall@1 87% on the held-out set. Mixed-language queries are a follow-up, not a headline metric",
-              ],
-              highlight: true,
-            },
-            {
-              cells: [
-                "Answers",
-                "Judge 5.0/5 on three axes, held-out set",
-                "Closed with a caveat: self-judging by the same family — next step: an independent judge",
-              ],
-              highlight: true,
-            },
-            {
-              cells: [
-                "Latency",
-                "TTFT ~2.5–3.0 s",
-                "Provider floor: the pipeline adds <1% — nothing left to optimize on our side",
+                "Supporting number on the public pack — not MTS production quality. Mixed-language still open",
               ],
             },
             {
               cells: [
-                "Cost",
-                "≈ $0.0005 per question",
-                "About 20,000 questions per $1; zero on the free and local models",
+                "Answer judge",
+                "5.0/5 on three axes, same model family",
+                "Supporting only. A strict eval needs an independent judge or a human",
               ],
             },
             {
               cells: [
                 "Reliability",
                 "63 pytest tests + CI",
-                "Critical paths (errors, edge cases, the agent) are under automated tests",
+                "Critical paths (errors, empty docs, agent loops) are under automated tests",
               ],
             },
           ],
           footnote:
-            "Every row is a measurement with a reproducible command in the project README — not a claim.",
+            "Highlighted rows are keep / reject decisions. Absolute scores below them are supporting measurements, not the claim.",
         },
       ],
       production: {
@@ -466,14 +474,12 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       conclusionLabel: "The takeaway",
       conclusionSteps: [
-        "Hypothesis",
-        "Golden set",
-        "Measurement",
-        "Data-driven decision",
-        "Operation",
+        "Keep hybrid",
+        "Drop reranker",
+        "Default GLM-5.3-flash",
       ],
       conclusion:
-        "The key result is not the chatbot itself, but a reproducible RAG engineering pipeline where retrieval, model selection, latency and answer quality are measured and used to drive architectural decisions.",
+        "The result is three measured decisions — not the chatbot.\nKeep hybrid (+34 p.p. vs dense on RU/EN twins). Reject the reranker (−45 p.p., +~3 s). Default GLM-5.3-flash (previous generation sits at 25–50 s TTFT).\n87% Recall@1 and 5.0/5 are supporting scores on a public pack, not MTS production quality.",
       footnote:
         "All numbers are reproducible: see backend/scripts/evaluate.py in the project repo.",
     },
