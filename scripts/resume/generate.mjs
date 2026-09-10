@@ -1015,7 +1015,17 @@ const htmlAts = (lang) => {
 <head>
 <meta charset="utf-8" />
 <style>
-  @page { size: A4; margin: 10mm 14mm 11mm; }
+  @page {
+    size: A4;
+    margin: 10mm 14mm 14mm;
+    @bottom-right {
+      content: counter(page);
+      font-family: "Times New Roman", Times, serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #666;
+    }
+  }
   * { box-sizing: border-box; }
   html, body {
     margin: 0;
