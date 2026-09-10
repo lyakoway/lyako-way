@@ -66,22 +66,6 @@ const SECTION_ICONS = {
       />
     </svg>
   ),
-  create: (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M12 3a6 6 0 0 1 3.7 10.7c-.6.5-.7 1.2-.7 2.3h-6c0-1.1-.1-1.8-.7-2.3A6 6 0 0 1 12 3z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9.5 19h5M10.5 21.5h3"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-      />
-    </svg>
-  ),
   products: (
     <svg viewBox="0 0 24 24" fill="none" aria-hidden>
       <path
@@ -225,39 +209,10 @@ const About = () => {
         </AboutBullets>
       </Reveal>
 
-      {/* Что я создаю — карточки на дереве */}
+      {/* AI-продукты — карточки на дереве */}
       <Reveal as={SectionBlock} delay={120}>
-        <SectionHead icon={SECTION_ICONS.create} title={page.create.title} />
-        <div className="tree">
-          {page.create.cards.map((card, i) => (
-            <div className="tree-lane" key={card.title}>
-              {/* Дерево стоит на месте, карточка выезжает справа */}
-              <Reveal x={64} y={0} delay={i * 90}>
-                <div className="create-card">
-                  <div className="create-card-title">{card.title}</div>
-                  <AboutText>{card.text}</AboutText>
-                  {card.pipeline && card.pipeline.length > 0 && (
-                    <PipelineFlow>
-                      {card.pipeline.map((step, i) => (
-                        <React.Fragment key={step}>
-                          <PipelineStep>{step}</PipelineStep>
-                          {i < card.pipeline.length - 1 && (
-                            <span className="arrow">→</span>
-                          )}
-                        </React.Fragment>
-                      ))}
-                    </PipelineFlow>
-                  )}
-                </div>
-              </Reveal>
-            </div>
-          ))}
-        </div>
-      </Reveal>
-
-      {/* AI-продукты, которые я разработал — карточки на дереве */}
-      <Reveal as={SectionBlock} delay={150}>
         <SectionHead icon={SECTION_ICONS.products} title={page.products.title} />
+        {page.products.note && <SectionNote>{page.products.note}</SectionNote>}
         <div className="tree">
           {page.products.items.map((product, i) => (
             <div className="tree-lane" key={product.name}>

@@ -148,15 +148,6 @@ export interface PersonalGroupProps {
   items: string[];
 }
 
-// Карточка «Что я создаю»: заголовок, описание, чипы или пайплайн, сноска.
-export interface PersonalCreateCardProps {
-  title: string;
-  text: string;
-  items?: string[];
-  pipeline?: string[];
-  footnote?: string;
-}
-
 // Продукт на странице /profile: краткая карточка — что делает, как устроен,
 // главный результат и стек.
 export interface PersonalProductProps {
@@ -182,8 +173,12 @@ export interface PersonalProfilePageProps {
   hero: { role: string; tagline: string };
   stats: PersonalStatProps[];
   about: { title: string; items: string[] };
-  create: { title: string; cards: PersonalCreateCardProps[] };
-  products: { title: string; items: PersonalProductProps[] };
+  products: {
+    title: string;
+    // Одна оговорка про GitHub-демо на всю секцию, не в каждой карточке.
+    note?: string;
+    items: PersonalProductProps[];
+  };
   approach: {
     title: string;
     intro: string;

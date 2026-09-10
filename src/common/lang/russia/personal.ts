@@ -22,45 +22,23 @@ export const personal: PersonalProps = {
     hero: {
       role: "AI / LLM Engineer",
       tagline:
-        "Создаю production-ready AI-системы, которые работают с данными, документами и инструментами.",
+        "В МТС вывожу в production RAG и Text-to-SQL агентов — пайплайн выбираю по held-out оценке, а не по популярной статье.",
     },
     stats: [
-      { value: "2 часа → 2 минуты", label: "Подготовка аналитического результата" },
-      { value: "87%", label: "Recall@1 · RAG · held-out · ~180 запросов" },
+      { value: "2 часа → 2 минуты", label: "Подготовка отчётности" },
+      { value: "87%", label: "Recall@1 · held-out RAG" },
       { value: "~85%", label: "нормализованный SQL · held-out" },
     ],
     about: {
       title: "Обо мне",
       items: [
         "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в **МТС Web Services (MWS AI)** — AI-подразделении МТС (~80 млн+ абонентов). Фокус — RAG, AI-агенты и Text-to-SQL.",
-        "**Публичные GitHub-демо** (RAG Chat и AI Data Pilot) — самостоятельные личные проекты того же класса задач, не исходный код МТС; продовые данные под NDA.",
         "**Веду путь от прототипа до production:** Python / FastAPI, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
-      ],
-    },
-    create: {
-      title: "Что я создаю",
-      cards: [
-        {
-          title: "RAG-системы",
-          text: "Ответы по документам: гибрид BM25 + вектора, цитаты и held-out evaluation.",
-        },
-        {
-          title: "AI-агенты",
-          text: "Tool calling, многошаговые циклы, роутинг и self-correction.",
-        },
-        {
-          title: "AI для данных",
-          text: "Естественный язык → SQL → аналитика → готовый результат.",
-          pipeline: ["Natural Language", "SQL", "Database", "Analytics", "Answer"],
-        },
-        {
-          title: "Evaluation",
-          text: "Held-out наборы, Recall@K, LLM-as-a-judge, тесты и CI.",
-        },
       ],
     },
     products: {
       title: "AI-продукты",
+      note: "Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС; продовые данные под NDA.",
       items: [
         {
           name: "RAG Chat",
@@ -70,7 +48,7 @@ export const personal: PersonalProps = {
             "**Архитектура:** гибрид BM25 + векторный поиск → RRF → LLM, плюс AI Agent с собственным Tool Loop на FastAPI.",
           ],
           result:
-            "Внутреннее использование в МТС (~2 000 документов, ~12 команд, ~200 вопросов/день). Held-out Recall@1 53% dense-only → 87% hybrid. Публичное демо: личный проект, не код МТС.",
+            "Внутреннее использование в МТС (~2 000 документов, ~12 команд, ~200 вопросов/день). Held-out Recall@1 53% dense-only → 87% hybrid.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
@@ -85,7 +63,7 @@ export const personal: PersonalProps = {
             "**Ксюша — RAG-агент:** Hybrid Search → Documents → Answer + Citations. Критические вычисления — детерминированный Python, не LLM.",
           ],
           result:
-            "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев/неделю). Подготовка отчётности 2 часа → 2 минуты; ~85% нормализованного SQL; 174 теста. Публичное демо: личный проект, не код МТС.",
+            "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев/неделю). Подготовка отчётности 2 часа → 2 минуты; ~85% нормализованного SQL; 174 теста.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
@@ -150,12 +128,9 @@ export const personal: PersonalProps = {
       title: "Технологический стек",
       groups: [
         { title: "Languages", items: ["Python", "TypeScript", "JavaScript"] },
-        { title: "LLM & AI Agents", items: ["LLM API", "AI Agents", "ReAct", "Tool Calling", "Text-to-SQL", "Multi-Agent Orchestration", "Prompt Engineering", "Context / Token Optimization"] },
-        { title: "RAG & Search", items: ["RAG", "Hybrid Search", "BM25", "Vector Search", "RRF", "Embeddings", "fastembed", "ChromaDB", "Held-out retrieval eval"] },
-        { title: "Evaluation", items: ["Golden Sets", "Recall@K", "MRR", "LLM-as-a-Judge", "Regression Testing", "Prompt Evaluation", "Edge Cases", "Grounding"] },
-        { title: "AI Data & Backend", items: ["FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "Redis", "SQL Guard", "SSE"] },
-        { title: "Frontend", items: ["React", "Next.js", "Vite"] },
-        { title: "Infrastructure", items: ["Docker", "Kubernetes", "CI/CD", "Git"] },
+        { title: "LLM & agents", items: ["ReAct", "Tool Calling", "Text-to-SQL", "Multi-Agent", "Prompt / context"] },
+        { title: "RAG & eval", items: ["Hybrid BM25 + vectors", "RRF", "fastembed", "ChromaDB", "Held-out Recall@K", "LLM-as-a-Judge"] },
+        { title: "Backend & product", items: ["FastAPI", "PostgreSQL", "ClickHouse", "React", "Next.js", "Docker", "Kubernetes", "CI/CD"] },
       ],
     },
     growth: {
