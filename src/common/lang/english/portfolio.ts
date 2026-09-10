@@ -86,9 +86,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "An AI system for searching and working with PDF, Word and Excel — answers grounded in source citations.",
     cardMetrics: ["MTS internal prod · test corpus on site", "87% Recall@1 · held-out"],
     tagline:
-      "Internal production at MTS. Public demo and metrics on this page = test corpus.",
-    metricsLine:
-      "MTS internal: ~2,000 documents · ~12 teams · ~200 questions/day · public site = test corpus (held-out Recall@1 87%)",
+      "Document Q&A with source citations. Internal MTS production; this page is a personal demo on a public test corpus — not MTS code.",
     keyResultsTitle: "Scale and evaluation",
     keyResultsColumns: 3,
     keyResults: [
@@ -100,7 +98,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "63", label: "pytest tests" },
     ],
     keyResultsNote:
-      "Internal MTS production usage (~2,000 documents, ~20k chunks). This page is an independently built personal demo on a public test corpus (6 files → 12 chunks) — not MTS source code or production documents.",
+      "Scale is MTS production. Demo, latency and judge scores on this page use a public pack (6 files → 12 chunks) — not MTS source or production documents.",
     keyResultsLimitation:
       "Production corpus stays at MTS (NDA) and is not published.",
     technologies: [
@@ -120,7 +118,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and vector search.;Demo mode works without keys. GLM-5.x (Z.ai), OpenAI, Anthropic and local Ollama are supported.;chat titles are named by the LLM (background task, no answer delay).\nBackend — FastAPI, ChromaDB, fastembed, hybrid retrieval, evaluation (held-out Recall@1 87%, ~180 queries) and LLM-as-judge (answer quality 5.0/5).;Frontend — React 19 / TypeScript (Vite). Tests and CI. Live demo on Hugging Face Spaces.",
+      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and in vector search.;Demo mode works without keys. GLM-5.3-flash is the production default; OpenAI, Anthropic and local Ollama are interchangeable.;Chat titles are named by the LLM in the background, with no extra delay on the answer.\nBackend — FastAPI, ChromaDB, fastembed, hybrid BM25 + RRF. Frontend — React 19 / TypeScript (Vite). 63 tests and CI. Live demo on Hugging Face Spaces.",
     aiEngineering: {
       sectionTitle: "Engineering approach",
       intro:
@@ -128,7 +126,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       useCasesTitle: "What the project is for",
       useCasesListTitle: "Several scenarios where it already works",
       useCasesIntro:
-        "A RAG chat solves a typical pain: knowledge is locked inside dozens of PDF, Word and Excel files, and people spend hours digging through them manually. In production at MTS it serves ~2,000 internal documents (~20k chunks) for ~12 teams (~200 questions/day). The live demo and latency on this page use a public test pack (6 files), not the production corpus.",
+        "Knowledge is locked inside PDF, Word and Excel files, and people spend hours digging through them. The live demo and latency on this page use a public test pack (6 files), not the MTS production corpus.",
       useCases: [
         {
           title: "Company knowledge base",
@@ -139,11 +137,6 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "Customer support over product docs",
           detail:
             "Product manuals, pricing and FAQ — a customer asks in their own words and gets an answer linked to the manual section. Support sees fewer repetitive tickets.",
-        },
-        {
-          title: "Construction documentation and codes",
-          detail:
-            "Questions about estimates, SNiP / GOST codes and design documentation (PDF / Excel / Word) with an answer linked to the primary source — a single point of entry instead of manually digging through dozens of files.",
         },
         {
           title: "Legal and financial documents",
@@ -191,7 +184,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { label: "Embeddings", note: "fastembed, multilingual MiniLM" },
             {
               label: "Hybrid BM25 + RRF",
-              note: "optional cross-encoder reranker",
+              note: "reranker tested and rejected",
               accent: true,
             },
           ],
@@ -209,7 +202,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           nodes: [
             {
               label: "Z.ai (GLM)",
-              note: "5.3 / 5.2 / 4.5-flash",
+              note: "5.3-flash default · 5.2 / 4.5-flash",
               accent: true,
             },
             { label: "OpenAI · Anthropic", note: "via API keys" },
@@ -220,7 +213,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "Operations",
           nodes: [
             { label: "Evaluation", note: "Recall@k, MRR + LLM-as-judge" },
-            { label: "Analytics", note: "Yandex Metrika + GA4, 32 events" },
+            { label: "Analytics", note: "feedback + session in the demo UI" },
             { label: "pytest + CI", note: "63 tests, GitHub Actions" },
           ],
         },
@@ -231,23 +224,33 @@ export const propsPortfolioList: PortfolioListProps[] = [
       principles: [
         {
           title: "01 — Metrics before code",
-          check: "I define quality, latency, cost and reliability before implementation.",
+          check: "Define quality, latency, cost and reliability before swapping models.",
+          result:
+            "Recall@1, TTFT, $/question and pytest coverage — measured on this page, not claimed.",
         },
         {
           title: "02 — Evaluation before optimization",
-          check: "Golden Set → Recall@K → experiments → decision.",
+          check: "Golden set → Recall@K → experiment → keep or reject.",
+          result:
+            "Held-out ~180 queries. Hybrid became default. Reranker rejected (−45 p.p., +~3 s).",
         },
         {
           title: "03 — Data-driven architecture",
-          check: "I compare retrieval, models and pipeline configuration on my own evaluation set.",
+          check: "Compare retrieval, models and pipeline config on the same eval set.",
+          result:
+            "GLM-5.3-flash is the production default: GLM-4.5-flash sits at 25–50 s TTFT on the same pipeline.",
         },
         {
           title: "04 — Observable AI systems",
-          check: "Tool calls, execution steps, errors, feedback and latency must be visible.",
+          check: "Tool calls, steps, errors, feedback and latency must be visible.",
+          result:
+            "SSE done/error events, agent step timeline, 👍/👎 in the DB, latency logged.",
         },
         {
           title: "05 — Reproducible quality",
-          check: "Tests, CI, isolated evaluation environment and regression control.",
+          check: "Tests, CI, isolated eval environment and regression control.",
+          result:
+            "Eval index rebuilt from scratch every run. 63 pytest tests + GitHub Actions.",
         },
       ],
       metricsTitle: "Measurements",
@@ -334,7 +337,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Keyless demo mode (mock): first token", "87 ms"] },
           ],
           footnote:
-            "Public test corpus, not MTS production data. Indexing row: 6 files → 12 chunks. Production at MTS is ~2,000 internal documents (~20k chunks). TTFT = time to first token. GLM-4.5-flash (the free generation) yields a 25–50 s TTFT on the same pipeline — hence it is not recommended.",
+            "Public test corpus. Indexing: 6 files → 12 chunks. TTFT = time to first token. GLM-4.5-flash (free generation) yields 25–50 s TTFT on the same pipeline — not recommended.",
         },
         {
           title: "Answer quality — LLM-as-judge, held-out set",
@@ -398,7 +401,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         items: [
           {
             title: "MTS production",
-            text: "~2,000 internal documents (~20k chunks), ~12 teams, ~200 questions/day. Quality metrics on this page mix MTS production scale with a public test pack for latency.",
+            text: "Scale is in the numbers above. Latency and judge scores on this page are from the public test pack, not the NDA corpus.",
           },
           {
             title: "Streaming",
@@ -453,14 +456,13 @@ export const propsPortfolioList: PortfolioListProps[] = [
       ],
       findingsTitle: "What the measurements showed",
       findings: [
-        "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question can surface the English document (vector-only Recall@1 53%). Lexical BM25 signal in the fusion is not optional but a necessity (+34 pp to Recall@1).",
-        "Held-out retrieval (~180 queries) is the quality gate: hybrid BM25 + RRF holds Recall@1 at 87%. Mixed-language queries remain a follow-up (RU/EN synonym dictionary and a multilingual reranker) — not a headline metric.",
-        "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant — Recall@1 dropped −45 p.p. and added ~3 seconds of latency. Tested — and rejected with data.",
-        "The model generation defines latency more than any tuning. GLM-4.5-flash with thinking disabled answers in 25–50 s, GLM-5.3-flash on the same pipeline — ~3 s. And a local Llama 3.2 3B on CPU answers in 2–5 s for free — faster than the free cloud model. The price of “free” — spikes up to 8–15 s under load and less polished answers. The small model drops citations more often.",
-        "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context contents instead of inventing a fact.",
-        "The “trim the context, get a faster first token” hypotheses were tested and rejected — top_k 5→4 and chunk 800→400 leave Recall unchanged, yet TTFT stays ~2.5 s. Demo-corpus pages are shorter than 400 tokens, so there is nothing to trim. The latency is the provider's floor. The pipeline adds ~20 ms (<1%).",
-        "Automated answer-quality checks: the LLM-as-judge scored the held-out answers — 5.0 on every axis (no hallucinations, citations correct). A strict evaluation needs a judge from another family.",
-        "Critical paths are now under tests: corrupted PDF/DOCX/XLSX, empty documents, wrong filters, a question without context, agent runaway loops — 63 pytest tests on isolated stores and fake providers. Error handling no longer depends on manual checking.",
+        "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question can surface the English document (vector-only Recall@1 53%). Lexical BM25 in the fusion is not optional — it is required (+34 p.p. Recall@1).",
+        "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant — Recall@1 dropped −45 p.p. and added ~3 seconds. Tested and rejected with data.",
+        "The model generation defines latency more than any pipeline tweak. GLM-4.5-flash with thinking disabled answers in 25–50 s; GLM-5.3-flash on the same pipeline — ~3 s. A local Llama 3.2 3B on CPU can answer in 2–5 s for free, with spikes under load and weaker citations.",
+        "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context instead of inventing a fact.",
+        "“Trim the context, get a faster first token” was tested and rejected: top_k 5→4 and chunk 800→400 leave Recall unchanged, TTFT stays ~2.5 s. The latency is the provider floor; the pipeline adds ~20 ms (<1%).",
+        "LLM-as-judge scored held-out answers 5.0 on every axis. Treat it as a supporting signal — a strict eval needs a judge from another family.",
+        "Critical paths are under tests: corrupted files, empty documents, a question without context, agent runaway loops — 63 pytest tests on isolated stores and fake providers.",
       ],
       conclusionLabel: "The takeaway",
       conclusionSteps: [

@@ -264,7 +264,7 @@ export interface AiEngineeringTable {
 export interface AiDiagramNode {
   // Название компонента («Гибрид BM25 + RRF»)
   label: string;
-  // Пояснение мелким текстом («опциональный реранкер»)
+  // Пояснение мелким текстом («реранкер проверен и отклонён»)
   note?: string;
   // Ключевой компонент — оранжевая рамка
   accent?: boolean;
