@@ -12,12 +12,13 @@ export const portfolio: PortfolioProps = {
   wip: "In progress",
   likeLabel: "Like",
   hero: {
-    role: "AI Engineering Portfolio",
-    title: "Production-oriented AI systems for knowledge, data and automation.",
-    chips: "RAG · AI Agents · AI Data · Text-to-SQL · Evaluation",
+    role: "AI / LLM engineering",
+    title:
+      "Two production systems: document RAG and multi-agent analytics. The pipeline is chosen on a held-out eval, not on the popular paper.",
+    chips: "RAG · AI Agents · Text-to-SQL · Evaluation",
   },
   intro:
-    "These are the AI systems I designed and built end-to-end — from architecture and LLM integration to evaluation, backend, frontend and production.",
+    "Public GitHub demos are independently built personal projects of the same problem class — not MTS source code. Production data stays under NDA.",
   numbersTitle: "AI engineering in numbers",
   stats: [
     {
@@ -41,7 +42,7 @@ export const portfolio: PortfolioProps = {
       note: "AI Data Pilot",
     },
   ],
-  featuredTitle: "Featured projects",
+  featuredTitle: "Projects",
   caseLink: "View case study",
   focusTitle: "Engineering focus",
   focus: [
@@ -532,7 +533,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-data-pilot",
     portfolioText:
-      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word/TXT/MD with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. Ksyusha's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).",
+      "The user asks a question in natural language → the system picks the agent and data source → generates and executes SQL → repairs it if needed → runs deterministic analytics → returns a table, a chart and an explanation of the result.\nUsers watch agents work step-by-step in real time (SSE execution trace) with self-correction: if SQL fails, the agent rewrites the query itself.\nData sources: PostgreSQL, ClickHouse, uploaded CSV/Excel/PDF/Word/TXT/MD with auto-schema and cross-file JOINs, plus a virtual 'All uploads' source.\nEvery figure is computed by a deterministic Python layer — the LLM only writes prose. The Knowledge Agent's search is a hybrid of BM25 + vector embeddings (fastembed, 50+ languages).",
     descCaptions: ["Transparency", "Data sources", "Trust in the numbers"],
     deployCaption: "Validation & deployment",
     deployLine:
@@ -577,7 +578,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Analyzing uploaded Excel exports",
           detail:
-            "Drag a data file into the window and ask questions about it: Oleg builds SQL over the auto-generated schema, Ksyusha searches the content, cross-file JOINs work out of the box.",
+            "Drag a data file into the window and ask questions about it: the Data Agent builds SQL over the auto-generated schema, the Knowledge Agent searches the content, cross-file JOINs work out of the box.",
         },
         {
           title: "A single entry point to heterogeneous databases",
@@ -598,13 +599,13 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "Routing (two levels)",
           nodes: [
-            { label: "Agent router", note: "data → Oleg, docs → Ksyusha", accent: true },
+            { label: "Agent router", note: "data → Data Agent, docs → Knowledge Agent", accent: true },
             { label: "Source router", note: "question → the right DB (LLM + heuristic)", accent: true },
             { label: "Manual override", note: "checkboxes and the source selector" },
           ],
         },
         {
-          title: "Oleg — SQL agent",
+          title: "Data Agent — SQL",
           nodes: [
             { label: "Agent Loop (ReAct)", note: "prompt-based tool calling, up to 6 steps" },
             { label: "Tools", note: "database_query · calculate · analyze · chart · finish" },
@@ -613,7 +614,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           ],
         },
         {
-          title: "Ksyusha — RAG",
+          title: "Knowledge Agent — RAG",
           nodes: [
             { label: "Hybrid BM25 + vector", note: "fastembed, 50+ languages" },
             { label: "Russian stemming", note: "IDF weighting, fallback chunks" },
@@ -641,10 +642,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
       diagramNote:
         "Top to bottom: a question → dual routing (agent + source) → step-by-step execution with trace → an answer with citations and a chart. LLM providers are interchangeable; the demo mode runs without keys on deterministic scripts.",
       pipelinesTitle: "Two specialized agents",
-      routerLine: "Auto-router → Oleg / Ksyusha",
+      routerLine: "Auto-router → Data Agent / Knowledge Agent",
       pipelines: [
         {
-          title: "Oleg — Data Agent",
+          title: "Data Agent",
           steps: [
             "Natural Language",
             "Text-to-SQL",
@@ -655,7 +656,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
           ],
         },
         {
-          title: "Ksyusha — Knowledge Agent",
+          title: "Knowledge Agent",
           steps: [
             "Question",
             "BM25 + Vector Search",
@@ -704,7 +705,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["Analytics layer", "16", "trends, z-score threshold, top-N, RU/EN highlights"] },
             { cells: ["Sources (CSV/Excel/PG/CH)", "27", "parsers, introspection, name dedup, password masking"] },
             { cells: ["Routers (agent + source)", "26", "heuristic, LLM fallback, honest errors"] },
-            { cells: ["Ksyusha RAG + app.db", "20", "steps, sources, citations, feedback stats"] },
+            { cells: ["Knowledge Agent RAG + app.db", "20", "steps, sources, citations, feedback stats"] },
             { cells: ["Parameterized scenarios", "10", "substitution, defaults, migration"] },
             { cells: ["Other (app_db, export)", "22", "CRUD, feedback, DB isolation"] },
             { cells: ["Retrieval quality + analytics contracts", "13", "Recall@1/5, MRR (BM25/Vector/Hybrid), numeric golden contracts"] },

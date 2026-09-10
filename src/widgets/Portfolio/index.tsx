@@ -14,35 +14,21 @@ import {
   HeroRole,
   HeroTitle,
   HeroChips,
+  HeroIntro,
   SectionHead,
   SectionIcon,
   SectionTitle,
-  NumbersSection,
-  StatsGrid,
-  StatCard,
-  StatValue,
-  StatLabel,
-  StatNote,
   FeaturedSection,
   FeaturedGrid,
   CardDescription,
   CardMetrics,
   CaseLink,
-  FocusSection,
-  FocusList,
-  FocusRow,
-  FocusName,
-  FocusItems,
-  ResearchSection,
-  ResearchGrid,
   Card,
   CardThumb,
   ThumbOverlay,
-  WipBadge,
   ThemeThumb,
   CardBody,
   CardName,
-  CardDate,
   LikeRow,
   ChipList,
   Chip,
@@ -60,9 +46,6 @@ const GRADIENTS = [
 
 // Избранные проекты — порядок зафиксирован.
 const FEATURED_IDS = ["rag-chat", "ai-data-pilot"];
-// WIP-проекты, не показываемые в Research & Experiments:
-// RAG Chat уже сильнее доказывает эту компетенцию.
-const HIDDEN_WIP_IDS = ["assistant"];
 
 const BrowserGlyph = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -92,17 +75,6 @@ const EyeGlyph = () => (
   </svg>
 );
 
-const NumbersIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="M5 20v-6M12 20V6M19 20v-9M3 20h18"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-    />
-  </svg>
-);
-
 const FeaturedIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" aria-hidden>
     <path
@@ -115,25 +87,6 @@ const FeaturedIcon = () => (
       d="m4 7.5 8 4.5 8-4.5M12 12v9"
       stroke="currentColor"
       strokeWidth="1.8"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const FocusIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <circle cx="12" cy="12" r="8.5" stroke="currentColor" strokeWidth="1.8" />
-    <circle cx="12" cy="12" r="3.5" stroke="currentColor" strokeWidth="1.8" />
-  </svg>
-);
-
-const ResearchIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <path
-      d="M9 3h6M10 3v5.5L4.8 18a2 2 0 0 0 1.8 3h10.8a2 2 0 0 0 1.8-3L14 8.5V3"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
       strokeLinejoin="round"
     />
   </svg>
@@ -227,21 +180,13 @@ const Portfolio = () => {
     [propsPortfolioList]
   );
 
-  // Избранные — в зафиксированном порядке; research — WIP без исключённых.
+  // Два кейса в фиксированном порядке.
   const featured = useMemo(
     () =>
       FEATURED_IDS.map((id) =>
         items.find(({ project }) => project.id === id)
       ).filter((item): item is { project: PortfolioListProps; grad: string } =>
         Boolean(item)
-      ),
-    [items]
-  );
-
-  const research = useMemo(
-    () =>
-      items.filter(
-        ({ project }) => project.wip && !HIDDEN_WIP_IDS.includes(project.id)
       ),
     [items]
   );
@@ -264,26 +209,11 @@ const Portfolio = () => {
       <Reveal as={HeroSection} delay={60}>
         <HeroRole>{portfolio.hero.role}</HeroRole>
         <HeroTitle>{portfolio.hero.title}</HeroTitle>
+        <HeroIntro>{portfolio.intro}</HeroIntro>
         <HeroChips>{portfolio.hero.chips}</HeroChips>
       </Reveal>
 
-      {/* AI engineering in numbers — trust-блок */}
-      <NumbersSection>
-        <Reveal>
-          <Head icon={<NumbersIcon />} title={portfolio.numbersTitle} />
-        </Reveal>
-        <StatsGrid>
-          {portfolio.stats.map((stat, i) => (
-            <Reveal as={StatCard} key={stat.label} delay={i * 60}>
-              <StatValue>{stat.value}</StatValue>
-              <StatLabel>{stat.label}</StatLabel>
-              <StatNote>{stat.note}</StatNote>
-            </Reveal>
-          ))}
-        </StatsGrid>
-      </NumbersSection>
-
-      {/* Featured projects — витрина двух ключевых кейсов */}
+      {/* Два ключевых кейса */}
       <FeaturedSection>
         <Reveal>
           <Head icon={<FeaturedIcon />} title={portfolio.featuredTitle} />
@@ -295,9 +225,7 @@ const Portfolio = () => {
                 href={`/portfolio/${project.hrefNameList}`}
                 onClick={() => openProject(project)}
               >
-                <ProjectThumb project={project} grad={grad}>
-                  {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
-                </ProjectThumb>
+                <ProjectThumb project={project} grad={grad} />
                 <CardBody>
                   <CardName>{project.portfolioNameList}</CardName>
                   {project.cardDescription && (
@@ -326,55 +254,6 @@ const Portfolio = () => {
           ))}
         </FeaturedGrid>
       </FeaturedSection>
-
-      {/* Engineering focus — карта специализации */}
-      <FocusSection>
-        <Reveal>
-          <Head icon={<FocusIcon />} title={portfolio.focusTitle} />
-        </Reveal>
-        <FocusList>
-          {portfolio.focus.map((item, i) => (
-            <Reveal key={item.title} delay={i * 60}>
-              <FocusRow>
-                <FocusName>{item.title}</FocusName>
-                <FocusItems>{item.items}</FocusItems>
-              </FocusRow>
-            </Reveal>
-          ))}
-        </FocusList>
-      </FocusSection>
-
-      {/* Research & experiments — проекты в разработке */}
-      <ResearchSection>
-        <Reveal>
-          <Head icon={<ResearchIcon />} title={portfolio.researchTitle} />
-        </Reveal>
-        <ResearchGrid>
-          {research.map(({ project, grad }, i) => (
-            <Reveal key={project.id} delay={i * 60}>
-              <Card
-                href={`/portfolio/${project.hrefNameList}`}
-                onClick={() => openProject(project)}
-              >
-                <ProjectThumb project={project} grad={grad}>
-                  {project.wip && <WipBadge>{portfolio.wip}</WipBadge>}
-                </ProjectThumb>
-                <CardBody>
-                  <CardName>{project.portfolioNameList}</CardName>
-                  {project.direction && (
-                    <CardDate>{project.direction}</CardDate>
-                  )}
-                  <ChipList>
-                    {project.technologies.slice(0, 4).map((tech, j) => (
-                      <Chip key={j}>{tech}</Chip>
-                    ))}
-                  </ChipList>
-                </CardBody>
-              </Card>
-            </Reveal>
-          ))}
-        </ResearchGrid>
-      </ResearchSection>
     </Article>
   );
 };

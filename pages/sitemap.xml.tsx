@@ -20,7 +20,9 @@ const buildSitemap = () => {
   const paths = [
     ...STATIC_PATHS,
     ...propsPortfolioListBlog.map((item) => `/blog/${item.hrefNameList}`),
-    ...propsPortfolioList.map((item) => `/portfolio/${item.hrefNameList}`),
+    ...propsPortfolioList
+      .filter((item) => !item.wip)
+      .map((item) => `/portfolio/${item.hrefNameList}`),
   ];
 
   const urls = paths

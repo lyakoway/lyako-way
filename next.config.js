@@ -37,6 +37,17 @@ const nextConfig = {
         destination: "/contacts",
         permanent: true,
       },
+      ...[
+        "ai-agents",
+        "prompt-engineering",
+        "mlops",
+        "llm-integration",
+        "assistant",
+      ].map((slug) => ({
+        source: `/portfolio/${slug}`,
+        destination: "/portfolio",
+        permanent: true,
+      })),
     ];
   },
 

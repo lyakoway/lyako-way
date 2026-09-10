@@ -12,13 +12,13 @@ export const portfolio: PortfolioProps = {
   wip: "В разработке",
   likeLabel: "Оценить",
   hero: {
-    role: "AI Engineering Portfolio",
+    role: "AI / LLM engineering",
     title:
-      "AI-системы для работы с корпоративными знаниями, данными и автоматизации процессов.",
-    chips: "RAG · AI Agents · AI Data · Text-to-SQL · Evaluation",
+      "Два продукта в production: RAG по документам и мультиагентная аналитика. Пайплайн выбираю по held-out оценке, а не по популярной статье.",
+    chips: "RAG · AI Agents · Text-to-SQL · Evaluation",
   },
   intro:
-    "Здесь собраны AI-системы, которые я проектировал и разрабатывал end-to-end — от архитектуры и LLM-интеграции до evaluation, backend, frontend и production.",
+    "Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС. Продовые данные под NDA.",
   numbersTitle: "AI-инжиниринг в цифрах",
   stats: [
     {
@@ -42,7 +42,7 @@ export const portfolio: PortfolioProps = {
       note: "AI Data Pilot",
     },
   ],
-  featuredTitle: "Избранные проекты",
+  featuredTitle: "Проекты",
   caseLink: "Смотреть кейс",
   focusTitle: "Инженерный фокус",
   focus: [

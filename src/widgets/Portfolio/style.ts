@@ -341,6 +341,15 @@ export const HeroTitle = styled.p`
   }
 `;
 
+export const HeroIntro = styled.p`
+  margin: 0;
+  max-width: 720px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+`;
+
 export const HeroChips = styled.p`
   position: relative;
   margin: 2px 0 0;
