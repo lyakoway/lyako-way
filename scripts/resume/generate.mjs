@@ -984,14 +984,19 @@ const html = (lang, themeName, isPrint = false) => {
 const htmlAts = (lang) => {
   const data = content[lang];
   const t = themes.light;
-  const contacts = Object.values(data.contacts)
-    .map((c) => {
-      const value = c.href
-        ? `<a class="nowrap" href="${c.href}">${esc(c.value)}</a>`
-        : esc(c.value);
-      return `<div class="ats-row"><span class="detail-label">${esc(c.label)}:</span> ${value}</div>`;
-    })
-    .join("");
+  const contactRow = (c) => {
+    const value = c.href
+      ? `<a class="nowrap" href="${c.href}">${esc(c.value)}</a>`
+      : esc(c.value);
+    return `<div class="ats-row"><span class="detail-label">${esc(c.label)}:</span> ${value}</div>`;
+  };
+  const contactEntries = Object.entries(data.contacts);
+  const contactsRight = contactEntries.filter(([key]) => key === "format" || key === "languages");
+  const contactsLeft = contactEntries.filter(([key]) => key !== "format" && key !== "languages");
+  const contacts = `<div class="ats-contacts">
+    <div class="ats-contacts-col">${contactsLeft.map(([, c]) => contactRow(c)).join("")}</div>
+    <div class="ats-contacts-col">${contactsRight.map(([, c]) => contactRow(c)).join("")}</div>
+  </div>`;
   const skills = data.skills
     .map(
       (group) =>
@@ -1010,7 +1015,7 @@ const htmlAts = (lang) => {
 <head>
 <meta charset="utf-8" />
 <style>
-  @page { size: A4; margin: 14mm; }
+  @page { size: A4; margin: 10mm 14mm 11mm; }
   * { box-sizing: border-box; }
   html, body {
     margin: 0;
@@ -1018,40 +1023,57 @@ const htmlAts = (lang) => {
     background: #fff;
     color: #222;
     font-family: "Times New Roman", Times, Georgia, serif;
-    font-size: 11px;
-    line-height: 1.38;
+    font-size: 10.4px;
+    line-height: 1.34;
   }
   ${hyphenCss}
-  h1 { margin: 0 0 2px; font-size: 22px; font-weight: 700; }
-  .role { margin: 0 0 10px; font-size: 13px; font-weight: 600; }
+  h1 { margin: 0 0 2px; font-size: 21px; font-weight: 700; }
+  .role { margin: 0 0 8px; font-size: 12.5px; font-weight: 600; }
   h2 {
-    margin: 14px 0 6px;
+    margin: 11px 0 5px;
     padding-bottom: 2px;
-    font-size: 13px;
+    font-size: 12.5px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.4px;
     border-bottom: 1px solid #222;
   }
-  p, .plain-line, .ats-row, .para { margin: 0 0 5px; }
+  h2:first-of-type { margin-top: 8px; }
+  p, .plain-line, .ats-row, .para { margin: 0 0 4px; }
+  .ats-contacts {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    column-gap: 18px;
+    align-items: start;
+  }
+  .ats-contacts-col .ats-row:last-child { margin-bottom: 0; }
   a { color: #111; text-decoration: none; }
   ul { margin: 0; padding: 0 0 0 16px; }
   li { margin-bottom: 3px; }
   .detail-label { font-weight: 700; }
-  .job { margin-bottom: 10px; }
+  .job { margin-bottom: 9px; }
   .job-head { display: flex; justify-content: space-between; gap: 10px; }
   .job-role { font-weight: 700; font-size: 12px; }
   .job-period { white-space: nowrap; }
-  .job-company { margin: 0 0 6px; }
-  .sub-title { margin: 8px 0 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .job-company { margin: 0 0 5px; }
+  .sub-title { margin: 7px 0 3px; font-size: 10.6px; font-weight: 700; text-transform: uppercase; }
   .details { margin: 0; padding: 0 0 0 16px; list-style: disc; }
-  .details li { position: static; padding-left: 0; margin-bottom: 3px; }
+  .details li {
+    position: static;
+    padding-left: 0;
+    margin-bottom: 3px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    orphans: 4;
+    widows: 4;
+  }
   .details li::before { content: none; }
-  .project { margin-bottom: 8px; }
+  .project { margin-bottom: 7px; }
   .project-title { font-weight: 700; margin: 0 0 3px; }
-  .result-group { margin-bottom: 6px; }
+  .result-group { margin-bottom: 5px; }
   .result-group-title { font-weight: 700; margin: 0 0 2px; }
-  .jsec + .jsec { margin-top: 6px; }
+  .jsec + .jsec { margin-top: 5px; }
 </style>
 </head>
 <body>
