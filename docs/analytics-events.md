@@ -45,7 +45,6 @@ UserID (хеш) в GA4 смотрите после того, как `user_id` у
 | `contact_form_view` | Просмотр формы | Форма на экране |
 | `contact_form_start` | Начало заполнения формы | Первое взаимодействие |
 | `contact_form_field_focus` | Фокус поля формы | Кликнули в поле |
-| `contact_form_service_select` | Выбор услуг | Выбрали услуги в селекте |
 | `contact_form_validation_error` | Ошибка валидации формы | Отправка без валидных данных |
 | `contact_form_submit` | Отправка формы | Нажали «Отправить» (валидно) |
 | `contact_form_success` | Заявка отправлена | Успешная отправка |
@@ -95,13 +94,12 @@ UserID (хеш) в GA4 смотрите после того, как `user_id` у
 | Событие | Когда | Параметры |
 |---------|--------|-----------|
 | `contact_click` | Телефон / email / Telegram / WhatsApp | `channel`, `placement` (`sidebar` \| `contacts_page`) |
-| `contact_form_view` | Форма появилась на экране | `source` (`contacts` \| `services`) |
+| `contact_form_view` | Форма появилась на экране | `source` (`contacts`) |
 | `contact_form_start` | Первое взаимодействие с формой | `source` |
-| `contact_form_field_focus` | Фокус поля (один раз на поле) | `source`, `field` (`name` \| `phone` \| `email` \| `services` \| `message`) |
-| `contact_form_service_select` | Выбор услуг («Работа…») | `source`, `services`, `count` |
+| `contact_form_field_focus` | Фокус поля (один раз на поле) | `source`, `field` (`name` \| `phone` \| `email` \| `message`) |
 | `contact_form_validation_error` | Отправка при ошибках валидации | `source`, `fields` |
-| `contact_form_submit` | Валидная отправка | `source`, `services?` |
-| `contact_form_success` | Успешная отправка | `source`, `services?` |
+| `contact_form_submit` | Валидная отправка | `source` |
+| `contact_form_success` | Успешная отправка | `source` |
 | `contact_form_error` | Ошибка отправки | `source` |
 
 ---
@@ -182,11 +180,11 @@ UserID (хеш) в GA4 смотрите после того, как `user_id` у
 
 | Категория | Кол-во |
 |-----------|--------|
-| Контакты и заявка | 9 |
+| Контакты и заявка | 8 |
 | Резюме | 2 |
 | Портфолио | 5 |
 | Блог | 6 |
 | Настройки и погода | 8 |
 | Ошибки | 3 |
 | Pageview | 1 |
-| **Всего** | **33 именованных + pageview** |
+| **Всего** | **32 именованных + pageview** |

@@ -130,7 +130,6 @@ const ContactForm: FC<{ embedded?: boolean }> = ({
 
       trackEvent(AnalyticsEvent.CONTACT_FORM_SUBMIT, {
         source: formSource,
-        services: dataForm.typesWork || undefined,
       });
 
       // Дублируем заявку в два канала: email (EmailJS) и Telegram (серверный
@@ -179,7 +178,6 @@ const ContactForm: FC<{ embedded?: boolean }> = ({
       if (anyOk) {
         trackEvent(AnalyticsEvent.CONTACT_FORM_SUCCESS, {
           source: formSource,
-          services: dataForm.typesWork || undefined,
           ym_client_id: clientId || undefined,
           ga_client_id: gaId || undefined,
         });
