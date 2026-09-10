@@ -29,6 +29,17 @@ const nextConfig = {
     ];
   },
 
+  // Старый раздел /services слит с /contacts — старые ссылки не должны давать 404.
+  async redirects() {
+    return [
+      {
+        source: "/services",
+        destination: "/contacts",
+        permanent: true,
+      },
+    ];
+  },
+
   webpack(config) {
     // Обработка SVG через SVGR: отдаём как React-компонент (ReactComponent),
     // без инлайна в base64 — это уменьшает размер JS-бандла и TBT.

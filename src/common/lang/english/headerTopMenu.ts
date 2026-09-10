@@ -22,12 +22,6 @@ export const propsHeaderTopMenu: HeaderTopMenuProps[] = [
     icon: "resume",
   },
   {
-    id: "3",
-    label: "Services",
-    value: "services",
-    icon: "services",
-  },
-  {
     id: "4",
     label: "Cooperation",
     value: "cooperation",

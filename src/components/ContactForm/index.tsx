@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useDispatchTyped, useSelectorTyped } from "src/store";
 import emailjs from "@emailjs/browser";
 
@@ -16,17 +16,13 @@ import { buildAnalyticsUserId } from "src/common/utils/buildAnalyticsUserId";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 import { InputPhone, InputEmail, InputName } from "src/ui/Input";
 import { Textarea } from "src/ui/Textarea";
-import { Select } from "src/ui/Select";
-import { ISelectOption } from "src/common/types/select";
 import { useToastNotify } from "src/features/customHooks/use-toast-notify";
 
 // embedded — форма встроена прямо в страницу (не в модалку): убираем
 // модальные размеры (max-height, огромный нижний отступ на мобиле, место
 // под крестик), см. соответствующие $embedded-ветки в style.ts.
-// withService — показать выбор услуги (на странице «Услуги»); в «Контактах» нет.
-const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
+const ContactForm: FC<{ embedded?: boolean }> = ({
   embedded = false,
-  withService = false,
 }) => {
   const {
     lang: { contactForm, toast },
@@ -40,15 +36,14 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [typesWork, setTypesWork] = useState<ISelectOption[]>([]);
   const toastNotify = useToastNotify();
 
-  const formSource = withService ? "services" : "contacts";
+  const formSource = "contacts";
 
   const startedRef = useRef(false);
   const focusedFieldsRef = useRef<Set<string>>(new Set());
 
-  // Показ формы на «Услугах» / «Контактах».
+  // Показ формы на «Контактах».
   useEffect(() => {
     trackEvent(AnalyticsEvent.CONTACT_FORM_VIEW, { source: formSource });
   }, [formSource]);
@@ -69,17 +64,6 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
     [formSource]
   );
 
-  const serviceOptions: ISelectOption[] = useMemo(
-    () => [
-      { label: contactForm.services1, value: "services1" },
-      { label: contactForm.services2, value: "services2" },
-      { label: contactForm.services3, value: "services3" },
-      { label: contactForm.services4, value: "services4" },
-      { label: contactForm.services5, value: "services5" },
-    ],
-    [contactForm]
-  );
-
   const [formDescriptionName, setFormDescriptionName] = useState("");
   const [formDescriptionEmail, setFormDescriptionEmail] = useState("");
   const [formDescriptionPhone, setFormDescriptionPhone] = useState("");
@@ -87,19 +71,6 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
   const [validName, setValidName] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
   const [validPhone, setValidPhone] = useState(false);
-
-  const handleServicesChange = useCallback(
-    (options: ISelectOption[]) => {
-      trackFieldFocus("services");
-      setTypesWork(options);
-      trackEvent(AnalyticsEvent.CONTACT_FORM_SERVICE_SELECT, {
-        source: formSource,
-        services: options.map((o) => o.label).join(", ") || undefined,
-        count: options.length,
-      });
-    },
-    [formSource, trackFieldFocus]
-  );
 
   const handleCloseButton = useCallback(
     async (e) => {
@@ -148,7 +119,7 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
         user_name: name,
         user_email: email,
         user_phone: phone,
-        typesWork: typesWork.map((item) => item.label).join(", "),
+        typesWork: "",
         message: message,
         client_id: clientId,
         ga_client_id: gaId,
@@ -237,7 +208,6 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
           setEmail("");
           setPhone("");
           setMessage("");
-          setTypesWork([]);
           setFormDescriptionName("");
           setFormDescriptionEmail("");
           setFormDescriptionPhone("");
@@ -261,7 +231,6 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
       email,
       phone,
       message,
-      typesWork,
       validName,
       validEmail,
       validPhone,
@@ -313,16 +282,6 @@ const ContactForm: FC<{ embedded?: boolean; withService?: boolean }> = ({
           setFormDescriptionEmail={setFormDescriptionEmail}
           onFieldFocus={() => trackFieldFocus("email")}
         />
-
-        {withService && (
-          <Select
-            multiple
-            options={serviceOptions}
-            value={typesWork}
-            onChange={handleServicesChange}
-            defaultText={contactForm.services}
-          />
-        )}
 
         <Textarea
           label={contactForm.message}

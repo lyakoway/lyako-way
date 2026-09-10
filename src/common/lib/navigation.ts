@@ -7,7 +7,6 @@ export const ROUTE_BY_VALUE: Record<string, string> = {
   "": "/",
   person: "/profile",
   resume: "/cv",
-  services: "/services",
   portfolio: "/portfolio",
   blog: "/blog",
   contacts: "/contacts",

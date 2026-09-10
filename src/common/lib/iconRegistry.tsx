@@ -3,7 +3,6 @@ import styled from "styled-components";
 
 import { ReactComponent as ResumeIcon } from "src/common/icon/resume/ResumeIcon.svg";
 import { ReactComponent as PortfolioIcon } from "src/common/icon/portfolio/PortfolioIcon.svg";
-import { ReactComponent as ServicesIcon } from "src/common/icon/services/ServicesIcon.svg";
 import { ReactComponent as СooperationIcon } from "src/common/icon/contacts/СooperationIcon.svg";
 import { ReactComponent as PersonIcon } from "src/common/icon/profile/PersonIcon.svg";
 import { ReactComponent as BlogIcon } from "src/common/icon/blog/BlogLightIcon.svg";
@@ -35,7 +34,6 @@ export type MenuIconName =
   | "logoSign"
   | "person"
   | "resume"
-  | "services"
   | "cooperation"
   | "portfolio"
   | "blog"
@@ -47,7 +45,6 @@ export const MENU_ICONS: Record<MenuIconName, ReactElement> = {
   ),
   person: <PersonIcon width={28} height={28} fill="#ffff" />,
   resume: <ResumeIcon />,
-  services: <ServicesIcon />,
   cooperation: <СooperationIcon />,
   portfolio: <PortfolioIcon />,
   blog: <BlogIcon />,

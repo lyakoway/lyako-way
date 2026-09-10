@@ -82,12 +82,6 @@ export interface ContactFormProps {
   placeholderMail: string;
   message: string;
   placeholderMessage: string;
-  services: string;
-  services1: string;
-  services2: string;
-  services3: string;
-  services4: string;
-  services5: string;
   formDescriptionName: string;
   formDescriptionEmail: string;
   formDescriptionPhone: string;
@@ -444,59 +438,6 @@ export interface ResumeProps {
   quality: string;
 }
 
-// Страница /services: строка «направление → технологии» в карточке услуги.
-export interface ServiceTechRowProps {
-  label: string;
-  value: string;
-}
-
-// Услуга — карточка с номером; все блоки кроме номера и заголовка опциональны,
-// т.к. у каждой услуги свой состав (список, пайплайн, строки стека, сноски).
-export interface ServiceItemProps {
-  num: string;
-  title: string;
-  text: string;
-  listTitle?: string;
-  list?: string[];
-  // Цепочка шагов (Natural Language → SQL → …) — рендерится чипами.
-  pipeline?: string[];
-  extraListTitle?: string;
-  extraList?: string[];
-  rows?: ServiceTechRowProps[];
-  footnote?: string;
-  footnote2?: string;
-  techNote?: string;
-}
-
-// Шаг процесса «Как я работаю».
-export interface ServiceStepProps {
-  num: string;
-  title: string;
-  text: string;
-}
-
-// Пункт «Что получает заказчик».
-export interface ServiceResultProps {
-  title: string;
-  text: string;
-}
-
-export interface ServiceProps {
-  hero: { role: string; tagline: string; subtitle: string };
-  services: ServiceItemProps[];
-  process: { title: string; steps: ServiceStepProps[]; cycle: string[] };
-  results: { title: string; items: ServiceResultProps[] };
-  cta: {
-    title: string;
-    texts: string[];
-    linkLabel: string;
-    href: string;
-    // Ссылки на кейсы-доказательства в CTA-карточке.
-    casesLabel?: string;
-    cases?: { name: string; href: string }[];
-  };
-}
-
 export interface ToastProps {
   textHeart: string;
   messageText: string;
@@ -697,7 +638,6 @@ export interface LanguageProps {
   cooperation: CooperationProps;
   portfolio: PortfolioProps;
   personal: PersonalProps;
-  service: ServiceProps;
   climateLang: ClimateProps;
   alertHeart: AlertHeartProps;
   resume: ResumeProps;
@@ -721,7 +661,7 @@ export interface ContactsPageProps {
     subtitle: string;
   };
   helpTitle: string;
-  // Направления в одном-двух предложениях — без повторения /services.
+  // Направления в одном-двух предложениях.
   help: { title: string; text: string; pipeline?: string[] }[];
   practiceTitle: string;
   // Доказательства — те же цифры, что на /profile, коротким trust-блоком.

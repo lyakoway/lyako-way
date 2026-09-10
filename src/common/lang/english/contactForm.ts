@@ -12,12 +12,6 @@ export const contactForm: ContactFormProps = {
   message: "Message",
   placeholderMessage:
     "Project description, requirements, special requests, budget",
-  services: "Work...",
-  services1: "AI agents development",
-  services2: "RAG / knowledge base",
-  services3: "LLM integration",
-  services4: "Prompt engineering & evaluation",
-  services5: "Consulting / support",
   formDescriptionName: "Enter name*",
   formDescriptionEmail: "Enter email*",
   formDescriptionPhone: "Enter phone*",

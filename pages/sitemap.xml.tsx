@@ -11,7 +11,6 @@ const STATIC_PATHS = [
   "/",
   "/profile",
   "/cv",
-  "/services",
   "/portfolio",
   "/blog",
   "/contacts",

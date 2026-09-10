@@ -4,7 +4,6 @@ import { toast } from "./toast";
 import { personal } from "./personal";
 import { resume } from "./resume";
 import { cooperation } from "./cooperation";
-import { service } from "./service";
 import { portfolioHeader } from "./portfolioHeader";
 import { propsPortfolioList, portfolio } from "./portfolio";
 import { propsPortfolioListBlog, blog } from "./blog";
@@ -45,7 +44,6 @@ export const ENGLISH_LANGUAGE: LanguageProps = {
   cooperation,
   portfolio,
   personal,
-  service,
   climateLang,
   alertHeart,
   resume,
