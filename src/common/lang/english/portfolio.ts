@@ -503,12 +503,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
     cardMetrics: [
       "MTS internal prod · test data on site",
-      "~85% SQL · 2h → 2min",
+      "~85% normalized SQL · 2h → 2min",
     ],
     tagline:
-      "Internal production at MTS. Public demo and SQL eval on this page = test data.",
-    metricsLine:
-      "MTS internal: ~15 analysts · ~80 scenarios/week · public site = test dataset",
+      "Natural-language analytics: SQL, a chart and an explanation. Internal MTS production; this page is a personal demo on test data — not MTS code.",
     keyResultsTitle: "Scale and validation",
     keyResults: [
       { value: "~15", label: "analysts · MTS internal" },
@@ -516,10 +514,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
       { value: "~85%", label: "normalized SQL · held-out" },
       { value: "2h→2min", label: "report prep · MTS" },
       { value: "174", label: "pytest tests" },
-      { value: "2", label: "specialized agents" },
+      { value: "Python", label: "counts · LLM writes prose" },
     ],
     keyResultsNote:
-      "Internal MTS production usage. This page is an independently built personal demo on a test dataset (RideGo ~21k rides) — not MTS source code or production databases.",
+      "Scale is MTS production. Demo and SQL eval on this page use a test dataset (RideGo ~21k rides) — not MTS source or production databases.",
     keyResultsLimitation:
       "Production databases stay at MTS (NDA). Headline SQL quality is held-out normalized result correctness (~85%), not strict exact-match.",
     technologies: [
@@ -545,7 +543,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     descCaptions: ["Transparency", "Data sources", "Trust in the numbers"],
     deployCaption: "Validation & deployment",
     deployLine:
-      "174 tests + LLM evaluation: held-out SQL eval (~98% execution, ~85% normalized result correctness), Self-Correction, p95 latency · deployed on Hugging Face Spaces.",
+      "174 tests + held-out SQL eval (~85% normalized result correctness; ~98% means the query ran). Self-correction and latency measured · Hugging Face Spaces.",
     features: [
       "Multi-agent routing",
       "Text-to-SQL + Tool Calling",
@@ -567,16 +565,16 @@ export const propsPortfolioList: PortfolioListProps[] = [
     aiEngineering: {
       sectionTitle: "An AI engineer's view: agency and reliability",
       intro:
-        "A breakdown in the same 'AI engineer's view' format: not a feature list, but an engineering loop — from question routing and trust in numbers to SQL failures and testing. The project's key question: how to make an LLM work with databases in a way the answer can be trusted.",
+        "I compare routing, SQL repair and who computes the numbers — then keep or reject. This page is three such decisions: Python counts, a failed SQL is never hidden, and two specialized agents beat one universal prompt.",
       useCasesTitle: "What the project is for",
       useCasesListTitle: "Scenarios where this already works",
       useCasesIntro:
-        "The platform solves a typical pain: data lives in databases and Excel files, and getting a number requires an analyst. In production at MTS it is used by ~15 analysts, ~80 scenarios/week. SQL quality numbers on this page are from a test dataset, not production databases.",
+        "Data lives in databases and Excel, and getting a number usually means an analyst ticket. SQL quality and latency on this page are from a test dataset, not MTS production databases.",
       useCases: [
         {
           title: "Self-service analytics for business",
           detail:
-            "A manager asks 'revenue by region for 90 days' and gets a table with a chart in seconds — no analyst ticket, no queue.",
+            "A manager asks 'revenue by region for 90 days' and gets a table with a chart — no analyst ticket, no queue. End-to-end latency is tens of seconds (LLM plan + answer), not a page-load.",
         },
         {
           title: "Root-cause analysis of metric drops",
@@ -617,8 +615,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
           nodes: [
             { label: "Agent Loop (ReAct)", note: "prompt-based tool calling, up to 6 steps" },
             { label: "Tools", note: "database_query · calculate · analyze · chart · finish" },
-            { label: "Self-correction", note: "SQL error → rewrite (2 attempts)" },
-            { label: "Insights (Python)", note: "trends · top-N · z-score anomalies" },
+            { label: "Self-correction", note: "SQL error → rewrite (2 attempts)", accent: true },
+            { label: "Insights (Python)", note: "trends · top-N · z-score · LLM never counts", accent: true },
           ],
         },
         {
@@ -679,26 +677,37 @@ export const propsPortfolioList: PortfolioListProps[] = [
         {
           title: "01 — Deterministic numbers",
           check: "The LLM writes prose; Python computes the numbers.",
+          result:
+            "Trends, percentages, top-N and z-score run in a Python layer. The LLM never calculates business figures.",
         },
         {
           title: "02 — SQL failure is part of the contract",
           check: "Failed SQL → self-correction → retry → honest error.",
+          result:
+            "SQL Guard (SELECT-only) + two rewrites. No silent substitute after a failed query.",
         },
         {
           title: "03 — Specialized agents over universal prompts",
           check: "Routing selects the right agent and data source.",
+          result:
+            "Data Agent for SQL, Knowledge Agent for docs. Dual router; the decision is visible in the trace.",
         },
         {
           title: "04 — Hybrid retrieval",
           check: "BM25 + vector search handles exact terms, semantics and multilingual queries.",
+          result:
+            "Knowledge Agent only. Russian stemming on BM25; the retrieval ablation lives on the RAG Chat case.",
         },
         {
           title: "05 — Transparent execution",
           check: "SSE exposes routing, tool calls, retries and the final status.",
+          result: "ok / demo / partial / error on every response. No silent fallback.",
         },
         {
           title: "06 — Reproducible verification",
           check: "174 tests, isolated databases and fake providers; golden-set LLM evaluation runs as a separate pass.",
+          result:
+            "Headline SQL quality is ~85% normalized result correctness on GLM-4.6 — not ~98% execution.",
         },
       ],
       metricsTitle: "Automated verification",
@@ -725,25 +734,34 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "SQL quality — held-out eval, live GLM-4.6 run",
           columns: ["Metric", "Result"],
           rows: [
-            { cells: ["SQL Execution Accuracy — generated SQL executed", "~98%"], highlight: true },
-            { cells: ["Normalized result correctness — same numbers after canonicalization", "~85%"], highlight: true },
-            { cells: ["Agent Routing Accuracy — question sent to the right agent", "high (heuristic + LLM fallback)"] },
-            { cells: ["Task Completion Rate — question carried to a result", "high"] },
+            {
+              cells: [
+                "Normalized result correctness — same numbers after canonicalization",
+                "~85%",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "SQL Execution Accuracy — generated SQL ran (not the same as correct)",
+                "~98%",
+              ],
+            },
           ],
           footnote:
-            "GLM-4.6 held-out SQL eval. Headline quality is normalized result correctness (~85%): same numbers after ignoring column aliases, row order and number format. Strict string exact-match is not used as a headline.",
+            "GLM-4.6 held-out SQL eval on the public test pack, not MTS production databases. Headline quality is normalized result correctness (~85%): same numbers after ignoring column aliases, row order and number format. Strict string exact-match is not a headline. ~98% only means the query executed.",
         },
         {
           title: "Latency measurements — medians of 3 runs per model",
           columns: ["Model", "Plan (LLM)", "Execution (DB)", "Answer (LLM)", "Total", "SQL ok"],
           rows: [
-            { cells: ["GLM-5.2 (Z.ai)", "7.0 s", "6 ms", "9.4 s", "~16.4 s", "3/3"], highlight: true },
-            { cells: ["GLM-4.6 (Z.ai)", "13.5 s", "12 ms", "16.3 s", "~29.8 s", "2/3"] },
+            { cells: ["GLM-4.6 (Z.ai) — default", "13.5 s", "12 ms", "16.3 s", "~29.8 s", "2/3"], highlight: true },
+            { cells: ["GLM-5.2 (Z.ai)", "7.0 s", "6 ms", "9.4 s", "~16.4 s", "3/3"] },
             { cells: ["GLM-5.3-flash (Z.ai)", "7.0 s", "8 ms", "4.8 s", "~11.9 s", "2/3"] },
             { cells: ["GLM-5.3 (Z.ai)", "13.8 s", "11 ms", "5.1 s", "~19.0 s", "1/3"] },
           ],
           footnote:
-            "Medians of 3 runs of one question through the full cycle (plan → DB → answer) — external API latency varies between runs. The GLM-5.3 generation answers faster but generates weaker SQL. Benchmark script: python scripts/latency_benchmark.py.",
+            "Medians of 3 runs of one question through the full cycle (plan → DB → answer). External API latency varies. GLM-4.6 stays the default: the ~85% SQL eval was run on it. GLM-5.2 is faster on this sample; GLM-5.3-flash is faster still but weaker SQL (2/3 and 1/3). Script: python scripts/latency_benchmark.py.",
         },
         {
           title: "System limits — degradation protection",
@@ -760,69 +778,70 @@ export const propsPortfolioList: PortfolioListProps[] = [
             "Timeouts use a ThreadPoolExecutor with future.result(timeout) — a heavy query never blocks the event loop. Remote databases get a larger budget: cross-network connect plus handshake takes seconds.",
         },
         {
-          title: "Final metrics map — outcome of the cycle",
+          title: "What shipped — decisions from the loop",
           stacked: true,
-          columns: ["Metric", "Result", "Verdict"],
+          columns: ["Decision", "Measurement", "Why it shipped"],
           rows: [
             {
               cells: [
-                "Search",
-                "Hybrid BM25 + vector in the Knowledge Agent",
-                "Same retrieval stack as RAG Chat; public demo uses the test corpus",
-              ],
-            },
-            {
-              cells: [
-                "Text-to-SQL",
-                "SQL Execution Accuracy ~98% (held-out, GLM-4.6)",
-                "Closed: SQL Guard + self-correction (2 rounds)",
-              ],
-            },
-            {
-              cells: [
-                "Result correctness",
-                "~85% normalized (held-out)",
-                "Closed as the headline metric: aliases, rounding and ORDER BY are canonicalized",
+                "Who counts",
+                "Python analytics layer",
+                "Kept: the LLM writes prose; trends, percentages and z-score never come from the model",
               ],
               highlight: true,
             },
             {
               cells: [
-                "Routing",
-                "Heuristic + LLM fallback",
-                "Closed: decision visible in the trace",
+                "Failed SQL",
+                "Guard + 2 rewrites + honest error",
+                "Kept: a failed query is never silently replaced with a fabricated result",
               ],
               highlight: true,
+            },
+            {
+              cells: [
+                "Agents",
+                "Data Agent + Knowledge Agent + dual router",
+                "Kept: one universal prompt blurred the role; the routing decision is in the trace",
+              ],
+              highlight: true,
+            },
+            {
+              cells: [
+                "Default model",
+                "GLM-4.6",
+                "Quality eval (~85%) ran on GLM-4.6. GLM-5.2 is faster here; GLM-5.3-flash is weaker at SQL",
+              ],
+            },
+            {
+              cells: [
+                "SQL quality",
+                "~85% normalized · ~98% executed",
+                "Supporting, public test pack — not MTS production. Execution ≠ correctness",
+              ],
             },
             {
               cells: [
                 "Latency",
-                "p50 ~22 s · p95 32 s (GLM-4.6, external run); full cycle GLM-5.2 ~16 s",
-                "Provider: mitigation — streamed steps and 'All uploads' (no external handshake); plan — flash models",
+                "Full cycle ~16–30 s depending on model",
+                "Provider floor on plan + answer. Streamed steps; not a sub-second dashboard",
               ],
             },
             {
               cells: [
                 "Reliability",
-                "174 pytest tests + 0 unhandled errors",
-                "Closed: isolated temp DBs, fake providers",
-              ],
-            },
-            {
-              cells: [
-                "Cost",
-                "≈ $0,002–0,003 per question (GLM-4.6)",
-                "Roughly 300–500 questions per $1; zero on free (GLM-4.5-flash) and local (Ollama) models",
+                "174 pytest tests + CI",
+                "Isolated temp DBs, fake providers, dirty-Excel parsers under tests",
               ],
             },
           ],
           footnote:
-            "Every row is a measurement with a reproducible command (scripts/evaluate.py, scripts/latency_benchmark.py, pytest) — not a declaration. Cost is an estimate: 3 LLM calls per question (~2k context tokens).",
+            "Highlighted rows are keep / reject decisions. Absolute scores below them are supporting measurements on the test pack, not the claim.",
         },
       ],
       calloutsTitle: "Key engineering decisions",
       calloutsIntro:
-        "Two architectural decisions underpin trust in the results: business numbers are computed by deterministic code, and SQL failures are never hidden.",
+        "Three decisions underpin trust: Python computes business numbers, a failed SQL is never hidden, and two specialized agents beat one universal prompt.",
       deterministic: {
         title: "Deterministic analytics",
         lead: "The LLM never calculates business numbers.",
@@ -856,11 +875,11 @@ export const propsPortfolioList: PortfolioListProps[] = [
         currentStateTitle:
           "SQL / Agent evaluation — AI quality is measured separately from software-level tests",
         current: [
-          "Held-out SQL eval (natural language → SQL)",
-          "Execution Accuracy — whether generated SQL executes successfully (~98%)",
-          "Normalized result correctness — same numbers after canonicalization (~85%)",
-          "Self-Correction Rate — how often failed SQL is repaired successfully",
-          "p95 latency — end-to-end response performance",
+          "Held-out SQL eval (natural language → SQL) on the public test pack",
+          "Normalized result correctness — same numbers after canonicalization (~85%, headline)",
+          "Execution Accuracy — whether generated SQL ran (~98%; not correctness)",
+          "Self-Correction Rate — how often failed SQL is repaired",
+          "Full-cycle latency — tens of seconds, streamed steps",
         ],
       },
       findingsTitle: "Engineering findings",
@@ -870,7 +889,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Dirty Excel files are the norm. A real upload broke on a merged header row and duplicate columns. Decision: resilient parsers that detect the header row, plus tests on dirty files.",
         "Keyword search without stemming is useless for Russian. «Затраты» did not match «расходы». Decision: Russian stemming for BM25 + a vector channel for semantics and multilinguality.",
         "Routing saves trust, not steps. A single universal prompt blurred the agent's role. Decision: two specialized agents + two-level routing with a visible decision in the trace.",
-        "Model benchmarks delivered an unexpected turn: GLM-5.2 is faster than flagship GLM-4.6 (18.5 s vs 22.4 s on the full cycle), while the GLM-5.3 generation answers fast but produces weaker SQL. The fix is a benchmark script: latency of any model measured with one command, the table goes to the README.",
+        "Model pick is a quality/latency trade-off, not a default from a blog. On the latency table (3 runs, one question) GLM-5.2 is ~16 s vs GLM-4.6 ~30 s; GLM-5.3-flash is faster still but weaker SQL. GLM-4.6 stays the default because the ~85% held-out eval ran on it.",
       ],
 
       production: {
@@ -878,7 +897,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         items: [
           {
             title: "MTS production",
-            text: "~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel. SQL eval numbers on this page are from a test dataset (RideGo ~21k rides), not production databases.",
+            text: "Scale is in the numbers above. SQL eval and latency on this page are from the RideGo test pack, not production databases.",
           },
           {
             title: "SQL Guard",
@@ -902,17 +921,14 @@ export const propsPortfolioList: PortfolioListProps[] = [
           },
         ],
       },
-      conclusionLabel: "Main takeaway",
+      conclusionLabel: "The takeaway",
       conclusionSteps: [
-        "Routing",
-        "Tool calling",
-        "Self-correction",
-        "Deterministic figures",
-        "Evaluation",
-        "Transparency",
+        "Python counts",
+        "SQL failure is a contract",
+        "Two agents, not one prompt",
       ],
       conclusion:
-        "AI Data Pilot is a multi-agent analytics pipeline where LLMs handle language understanding, routing and tool orchestration, while deterministic code is responsible for SQL safety and numerical computation.\nThe result is a transparent, reproducible system: every agent step is observable, SQL failures are recoverable, analytical figures are deterministic, and the work is verified by 174 automated tests and a held-out SQL eval.\nSQL quality: ~98% execution and ~85% normalized result correctness on the held-out set; retrieval quality is measured with Recall@K and MRR; self-correction is tracked separately.",
+        "The result is three measured decisions — not the chatbot.\nPython computes business numbers; the LLM writes prose. A failed SQL is guarded, rewritten twice, then an honest error — never a silent fake. Two specialized agents plus a dual router beat one universal prompt.\n~85% normalized SQL and 174 tests are supporting scores on a public pack. ~98% only means the query ran. 2h → 2min is MTS production, not the demo.",
       footnote:
         "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
     },
