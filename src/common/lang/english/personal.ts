@@ -32,11 +32,9 @@ export const personal: PersonalProps = {
     about: {
       title: "About me",
       items: [
-        "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at **MTS Web Services (MWS AI)** — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Focus — LLM applications, RAG, AI agents and workflow automation.",
-        "**Building full-cycle AI products** — from problem research and AI architecture design to development, held-out evaluation, integration and production delivery.",
-        "**Working with real LLM use cases:** corporate knowledge search, natural-language data analysis, Text-to-SQL, multi-step AI agents and automation of repetitive processes.",
+        "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at **MTS Web Services (MWS AI)** — the AI division of MTS (~80M+ subscribers). Focus — RAG, AI agents and Text-to-SQL.",
         "**Public GitHub demos** (RAG Chat and AI Data Pilot) are independently built personal projects of the same problem class — not MTS source code; production data stays under NDA.",
-        "**Combining AI and classic engineering:** implementing backend and frontend on my own, integrating LLMs and external services, working with databases, APIs and infrastructure.",
+        "**Own the path from prototype to production:** Python / FastAPI, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
       ],
     },
     create: {
@@ -44,20 +42,20 @@ export const personal: PersonalProps = {
       cards: [
         {
           title: "RAG systems",
-          text: "Working with corporate knowledge and documents: hybrid search, BM25 + Vector Search, embeddings, RRF, citations and evaluation.",
+          text: "Document Q&A with hybrid BM25 + vector search, citations and held-out evaluation.",
         },
         {
           title: "AI agents",
-          text: "Agents that call tools, execute multi-step tasks and handle errors: ReAct, Tool Calling, routing, self-correction.",
+          text: "Tool calling, multi-step loops, routing and self-correction.",
         },
         {
           title: "AI for data",
-          text: "Interfaces for analyzing data in natural language.",
+          text: "Natural language → SQL → analytics → a ready result.",
           pipeline: ["Natural Language", "SQL", "Database", "Analytics", "Answer"],
         },
         {
-          title: "Evaluation & Quality",
-          text: "Measuring the quality of AI systems through Golden Sets, Recall@K, MRR, LLM-as-a-Judge and regression testing.",
+          title: "Evaluation",
+          text: "Held-out sets, Recall@K, LLM-as-a-judge, tests and CI.",
         },
       ],
     },
@@ -65,34 +63,32 @@ export const personal: PersonalProps = {
       title: "AI products",
       items: [
         {
-          name: "AI Data Pilot",
-          href: "ai-data-pilot",
-          tagline: "Multi-agent platform for analyzing data and corporate documents.",
-          paragraphs: [
-            "**Oleg — data agent:** Natural Language → Text-to-SQL → Tool Calling → Analytics → Answer.",
-            "**Ksyusha — RAG agent:** Hybrid Search → Documents → Answer + Citations.",
-            "The system executes SQL on its own, analyzes data, builds results and handles errors through self-correction. Critical computations are performed by a deterministic Python layer, not the LLM.",
-          ],
-          result:
-            "Result: internal MTS usage (~15 analysts, ~80 scenarios/week); report preparation 2 hours → 2 minutes; ~85% normalized SQL on a held-out eval; 174 tests. Public demo: personal project, not MTS code.",
-          stack: {
-            label: "Stack",
-            items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
-          },
-        },
-        {
           name: "RAG Chat",
           href: "rag-chat",
-          tagline: "AI system for searching and working with information in PDF, Word and Excel.",
+          tagline: "Document Q&A over PDF, Word and Excel — answers grounded in source citations.",
           paragraphs: [
-            "The user asks a question in natural language and gets an answer with citations of the source documents.",
-            "**Key architecture:** hybrid BM25 + Vector Search → RRF → LLM, and for the AI Agent — its own Tool Loop on FastAPI.",
+            "**Architecture:** hybrid BM25 + vector search → RRF → LLM, plus an AI Agent with its own FastAPI tool loop.",
           ],
           result:
-            "Result: internal MTS usage (~2,000 docs, ~12 teams, ~200 questions/day); held-out Recall@1 53% dense-only → 87% hybrid. Public demo: personal project, not MTS code.",
+            "Internal MTS usage (~2,000 docs, ~12 teams, ~200 questions/day). Held-out Recall@1 53% dense-only → 87% hybrid. Public demo: personal project, not MTS code.",
           stack: {
             label: "Stack",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
+          },
+        },
+        {
+          name: "AI Data Pilot",
+          href: "ai-data-pilot",
+          tagline: "A multi-agent platform from a natural-language question to a ready analytical result.",
+          paragraphs: [
+            "**Data Agent:** Natural Language → Text-to-SQL → Tool Calling → Analytics → Answer.",
+            "**Knowledge Agent (RAG):** Hybrid Search → Documents → Answer + Citations. Critical computations run in deterministic Python, not the LLM.",
+          ],
+          result:
+            "Internal MTS usage (~15 analysts, ~80 scenarios/week). Report prep 2 hours → 2 minutes; ~85% normalized SQL; 174 tests. Public demo: personal project, not MTS code.",
+          stack: {
+            label: "Stack",
+            items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
           },
         },
       ],
@@ -100,7 +96,7 @@ export const personal: PersonalProps = {
     approach: {
       title: "My approach to AI Engineering",
       intro:
-        "I treat an AI product not as an «LLM + prompt», but as an engineering system where quality, reliability and behavior can be measured.",
+        "An AI product is not «LLM + prompt». Quality, reliability and behavior have to be measurable.",
       principles: [
         {
           num: "01",
@@ -111,23 +107,23 @@ export const personal: PersonalProps = {
         {
           num: "02",
           title: "Evaluation before optimization",
-          text: "Measure first, optimize later: held-out set → Recall@K → experiments → decision. In RAG Chat, hybrid BM25 + RRF raised Recall@1 from 53% to 87%, while the tested cross-encoder reranker dropped it by −45 p.p. and added ~3 seconds of latency — the decision was made by data, not by the popularity of the approach.",
+          text: "Held-out set → experiment → decision. In RAG Chat the hybrid won (53% → 87% Recall@1); the reranker lost (−45 p.p., +~3 s). Numbers are on the case study.",
         },
         {
           num: "03",
-          title: "Data-driven architecture",
-          text: "Every fork — retrieval, model, pipeline configuration — is settled by comparison on my own evaluation set. And whatever deterministic code solves more reliably, the LLM doesn't touch: sums, percentages and trends are computed by a Python layer.",
+          title: "Deterministic where it matters",
+          text: "Sums, percentages and trends are computed in Python. The LLM does not touch what code already solves reliably.",
         },
         {
           num: "04",
-          title: "Observable AI systems",
-          text: "Tool calls, execution steps, errors, feedback and latency must be visible, not hidden inside the system:",
-          items: ["Tool Calling · ReAct · execution trace · self-correction · honest errors"],
+          title: "Observable systems",
+          text: "Tool calls, steps, errors and latency stay visible:",
+          items: ["Tool Calling · ReAct · execution trace · self-correction"],
         },
         {
           num: "05",
           title: "Reproducible quality",
-          text: "The result must be reproducible and comparable between versions:",
+          text: "Results have to be comparable between versions:",
           items: ["Golden Set → Tests → CI → Regression"],
         },
       ],
@@ -148,7 +144,7 @@ export const personal: PersonalProps = {
     engineering: {
       title: "End-to-End Engineering",
       steps: ["Architecture", "Backend", "AI", "Data", "Evaluation", "Frontend", "Infrastructure"],
-      text: "I can independently cover the path from AI architecture and backend to frontend, evaluation and production.",
+      text: "I cover the path from AI architecture and backend to frontend, evaluation and production.",
     },
     stack: {
       title: "Technology stack",
@@ -165,7 +161,7 @@ export const personal: PersonalProps = {
     growth: {
       title: "Where I'm heading",
       chips: ["Agentic AI", "Production LLM Systems", "LLM Observability"],
-      text: "The focus is on building reliable AI systems capable of independently working with data, documents, tools and external systems, while maintaining control, measurability and predictability of the result.",
+      text: "Reliable AI systems that work with data, documents and tools — with control, measurement and a predictable result.",
     },
   },
 };

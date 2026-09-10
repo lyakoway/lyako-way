@@ -32,11 +32,9 @@ export const personal: PersonalProps = {
     about: {
       title: "Обо мне",
       items: [
-        "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в **МТС Web Services (MWS AI)** — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Фокус — LLM-приложения, RAG, AI-агенты и автоматизация рабочих процессов.",
-        "**Создаю AI-продукты полного цикла** — от исследования задачи и проектирования AI-архитектуры до разработки, held-out evaluation, интеграции и вывода решения в production.",
-        "**Работаю с реальными сценариями применения LLM:** поиск и работа с корпоративными знаниями, анализ данных на естественном языке, Text-to-SQL, многошаговые AI-агенты и автоматизация повторяющихся процессов.",
+        "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в **МТС Web Services (MWS AI)** — AI-подразделении МТС (~80 млн+ абонентов). Фокус — RAG, AI-агенты и Text-to-SQL.",
         "**Публичные GitHub-демо** (RAG Chat и AI Data Pilot) — самостоятельные личные проекты того же класса задач, не исходный код МТС; продовые данные под NDA.",
-        "**Сочетаю AI и классическую разработку:** самостоятельно реализую backend и frontend, интегрирую LLM и внешние сервисы, работаю с базами данных, API и инфраструктурой.",
+        "**Веду путь от прототипа до production:** Python / FastAPI, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
       ],
     },
     create: {
@@ -44,20 +42,20 @@ export const personal: PersonalProps = {
       cards: [
         {
           title: "RAG-системы",
-          text: "Работа с корпоративными знаниями и документами: hybrid search, BM25 + Vector Search, embeddings, RRF, citations и evaluation.",
+          text: "Ответы по документам: гибрид BM25 + вектора, цитаты и held-out evaluation.",
         },
         {
           title: "AI-агенты",
-          text: "Агенты, которые вызывают инструменты, выполняют многошаговые задачи и умеют обрабатывать ошибки: ReAct, Tool Calling, routing, self-correction.",
+          text: "Tool calling, многошаговые циклы, роутинг и self-correction.",
         },
         {
-          title: "AI для работы с данными",
-          text: "Интерфейсы для анализа данных на естественном языке.",
+          title: "AI для данных",
+          text: "Естественный язык → SQL → аналитика → готовый результат.",
           pipeline: ["Natural Language", "SQL", "Database", "Analytics", "Answer"],
         },
         {
-          title: "Evaluation & Quality",
-          text: "Измерение качества AI-систем через Golden Sets, Recall@K, MRR, LLM-as-a-Judge и regression testing.",
+          title: "Evaluation",
+          text: "Held-out наборы, Recall@K, LLM-as-a-judge, тесты и CI.",
         },
       ],
     },
@@ -65,34 +63,32 @@ export const personal: PersonalProps = {
       title: "AI-продукты",
       items: [
         {
-          name: "AI Data Pilot",
-          href: "ai-data-pilot",
-          tagline: "Multi-agent платформа для анализа данных и корпоративных документов.",
-          paragraphs: [
-            "**Олег — data agent:** Natural Language → Text-to-SQL → Tool Calling → Analytics → Answer.",
-            "**Ксюша — RAG agent:** Hybrid Search → Documents → Answer + Citations.",
-            "Система самостоятельно выполняет SQL, анализирует данные, строит результаты и обрабатывает ошибки через self-correction. Критические вычисления выполняются детерминированным Python-слоем, а не LLM.",
-          ],
-          result:
-            "Результат: внутреннее использование в МТС (~15 аналитиков, ~80 сценариев/неделю); подготовка отчётности 2 часа → 2 минуты; ~85% нормализованной точности SQL на held-out оценке; 174 теста. Публичное демо: личный проект, не код МТС.",
-          stack: {
-            label: "Стек",
-            items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
-          },
-        },
-        {
           name: "RAG Chat",
           href: "rag-chat",
-          tagline: "AI-система для поиска и работы с информацией в PDF, Word и Excel.",
+          tagline: "Ответы по PDF, Word и Excel с цитатами на исходные фрагменты.",
           paragraphs: [
-            "Пользователь задаёт вопрос на естественном языке и получает ответ с цитатами на исходные документы.",
-            "**Ключевая архитектура:** hybrid BM25 + Vector Search → RRF → LLM, а для AI Agent — собственный Tool Loop на FastAPI.",
+            "**Архитектура:** гибрид BM25 + векторный поиск → RRF → LLM, плюс AI Agent с собственным Tool Loop на FastAPI.",
           ],
           result:
-            "Результат: внутреннее использование в МТС (~2 000 документов, ~12 команд, ~200 вопросов/день); held-out Recall@1 53% dense-only → 87% hybrid. Публичное демо: личный проект, не код МТС.",
+            "Внутреннее использование в МТС (~2 000 документов, ~12 команд, ~200 вопросов/день). Held-out Recall@1 53% dense-only → 87% hybrid. Публичное демо: личный проект, не код МТС.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
+          },
+        },
+        {
+          name: "AI Data Pilot",
+          href: "ai-data-pilot",
+          tagline: "Мультиагентная платформа: от вопроса на естественном языке до готового аналитического результата.",
+          paragraphs: [
+            "**Олег — data agent:** Natural Language → Text-to-SQL → Tool Calling → Analytics → Answer.",
+            "**Ксюша — RAG-агент:** Hybrid Search → Documents → Answer + Citations. Критические вычисления — детерминированный Python, не LLM.",
+          ],
+          result:
+            "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев/неделю). Подготовка отчётности 2 часа → 2 минуты; ~85% нормализованного SQL; 174 теста. Публичное демо: личный проект, не код МТС.",
+          stack: {
+            label: "Стек",
+            items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
           },
         },
       ],
@@ -100,34 +96,34 @@ export const personal: PersonalProps = {
     approach: {
       title: "Мой подход к AI Engineering",
       intro:
-        "Я рассматриваю AI-продукт не как «LLM + prompt», а как инженерную систему, где качество, надёжность и поведение можно измерять.",
+        "AI-продукт — не «LLM + prompt». Качество, надёжность и поведение должны быть измеримы.",
       principles: [
         {
           num: "01",
           title: "Metrics before code",
-          text: "Сначала определяю, что означает «система работает» и как это измерить:",
+          text: "Сначала определяю, что значит «система работает» и как это измерить:",
           items: ["quality · latency · cost · reliability"],
         },
         {
           num: "02",
           title: "Evaluation before optimization",
-          text: "Сначала измеряю, потом оптимизирую: held-out набор → Recall@K → эксперименты → решение. В RAG Chat гибрид BM25 + RRF поднял Recall@1 с 53% до 87%, а cross-encoder reranker снизил на −45 п.п. и добавил ~3 секунды латентности — решение принято по данным, а не по популярности подхода.",
+          text: "Held-out набор → эксперимент → решение. В RAG Chat гибрид выиграл (53% → 87% Recall@1), реранкер проиграл (−45 п.п., +~3 с). Цифры — в кейсе.",
         },
         {
           num: "03",
-          title: "Data-driven architecture",
-          text: "Любую развилку — retrieval, модель, конфигурацию пайплайна — закрываю сравнением на собственном evaluation-наборе. А то, что надёжнее решает детерминированный код, LLM не доверяю: суммы, проценты и тренды считает Python-слой.",
+          title: "Детерминизм там, где он сильнее",
+          text: "Суммы, проценты и тренды считает Python. LLM не трогает то, что код уже решает надёжно.",
         },
         {
           num: "04",
-          title: "Observable AI systems",
-          text: "Tool-вызовы, шаги выполнения, ошибки, фидбек и латентность должны быть видимыми, а не спрятанными внутри:",
-          items: ["Tool Calling · ReAct · execution trace · self-correction · honest errors"],
+          title: "Наблюдаемые системы",
+          text: "Вызовы инструментов, шаги, ошибки и латентность остаются видимыми:",
+          items: ["Tool Calling · ReAct · execution trace · self-correction"],
         },
         {
           num: "05",
-          title: "Reproducible quality",
-          text: "Результат должен быть воспроизводимым и сравнимым между версиями:",
+          title: "Воспроизводимое качество",
+          text: "Результат должен сравниваться между версиями:",
           items: ["Golden Set → Tests → CI → Regression"],
         },
       ],
@@ -148,7 +144,7 @@ export const personal: PersonalProps = {
     engineering: {
       title: "End-to-End Engineering",
       steps: ["Architecture", "Backend", "AI", "Data", "Evaluation", "Frontend", "Infrastructure"],
-      text: "Могу самостоятельно пройти путь от AI-архитектуры и backend до frontend, evaluation и production.",
+      text: "Веду путь от AI-архитектуры и backend до frontend, evaluation и production.",
     },
     stack: {
       title: "Технологический стек",
@@ -165,7 +161,7 @@ export const personal: PersonalProps = {
     growth: {
       title: "Сейчас я развиваюсь в сторону",
       chips: ["Agentic AI", "Production LLM Systems", "LLM Observability"],
-      text: "Фокус — на создании надёжных AI-систем, способных самостоятельно работать с данными, документами, инструментами и внешними системами, сохраняя при этом контроль, измеримость и предсказуемость результата.",
+      text: "Надёжные AI-системы, которые работают с данными, документами и инструментами — с контролем, измерением и предсказуемым результатом.",
     },
   },
 };
