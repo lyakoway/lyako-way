@@ -24,7 +24,7 @@ export const resumeCv: ResumeCvProps = {
     "~2,000 docs · ~200 questions/day · Recall@1 87% held-out",
     "Report preparation: 2 hours → 2 minutes",
     "~85% normalized SQL result correctness (held-out)",
-    "Open-source demos — RAG Chat and AI Data Pilot on GitHub",
+    "Public GitHub demos — RAG Chat and AI Data Pilot",
   ],
 
   experience: [
@@ -58,7 +58,7 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Evaluation",
-              text: "held-out ~180 queries not used to tune prompts or retrieval. Hybrid BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder on fused top-k rejected: RU/EN twins tied, gold chunk dropped (−45 p.p. Recall@1, +~3 s).",
+              text: "held-out ~180 queries not used to tune prompts or retrieval. Hybrid BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder on fused top-k rejected: RU/EN duplicates of the same document tied in score and pushed the gold chunk out of the fused top-k (−45 p.p. Recall@1, +~3 s).",
             },
             {
               label: "Quality",
@@ -107,7 +107,7 @@ export const resumeCv: ResumeCvProps = {
           title: "RAG Chat",
           items: [
             "Internal MTS production usage (~2,000 documents, ~20k chunks, ~12 teams, ~200 questions/day). Public demo: personal project, not MTS code; prod data under NDA.",
-            "Held-out Recall@1 53% (dense-only) → 87% after hybrid BM25 + RRF; cross-encoder on fused top-k rejected (−45 p.p., +~3 s).",
+            "Held-out Recall@1 87% after hybrid BM25 + RRF.",
             "Cuts lookup from minutes to seconds on regulations, contracts and HR policies.",
           ],
         },

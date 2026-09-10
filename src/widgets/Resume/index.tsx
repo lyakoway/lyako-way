@@ -304,8 +304,8 @@ const Resume = () => {
   const dispatch = useDispatchTyped();
 
   // Файлы резюме зависят от языка (ru/en) и темы (light/dark):
-  //  · Просмотр   — экранная версия под тему: Alexey-Mazurenko-<lang>[-dark].pdf
-  //  · Скачивание — печатная версия: Alexey-Mazurenko-<lang>-print.pdf
+  //  · Просмотр   — дизайнерская версия: Alexey-Mazurenko-<lang>[-dark].pdf
+  //  · Скачивание — одноколоночная ATS/print: Alexey-Mazurenko-<lang>-print.pdf
   const slug = langName === "russia" ? "ru" : "en";
   const viewUrl = `/static/resume/Alexey-Mazurenko-${slug}${
     theme.name === "dark" ? "-dark" : ""

@@ -24,7 +24,7 @@ export const resumeCv: ResumeCvProps = {
     "~2 000 документов · ~200 вопросов/день · Recall@1 87% held-out",
     "Подготовка отчётности: 2 часа → 2 минуты",
     "~85% нормализованной точности SQL (held-out)",
-    "Open-source демо — RAG Chat и AI Data Pilot на GitHub",
+    "Публичные GitHub-демо — RAG Chat и AI Data Pilot",
   ],
 
   experience: [
@@ -58,7 +58,7 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Оценка",
-              text: "held-out ~180 запросов, не использовавшихся для настройки промптов и retrieval. Гибрид BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder на fused top-k отклонён: RU/EN-двойники получали равный скор, золотой чанк выпадал (−45 п.п. Recall@1, +~3 с).",
+              text: "held-out ~180 запросов, не использовавшихся для настройки промптов и retrieval. Гибрид BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder на fused top-k отклонён: RU/EN-дубликаты одного документа получали равный скор и вытесняли золотой чанк из fused top-k (−45 п.п. Recall@1, +~3 с).",
             },
             {
               label: "Качество",
@@ -107,7 +107,7 @@ export const resumeCv: ResumeCvProps = {
           title: "RAG Chat",
           items: [
             "Внутреннее использование в МТС (~2 000 документов, ~20 тыс. чанков, ~12 команд, ~200 вопросов/день). Публичное демо: личный проект, не код МТС; прод-данные под NDA.",
-            "Held-out Recall@1 53% (dense-only) → 87% после гибрида BM25 + RRF; cross-encoder на fused top-k отклонён (−45 п.п., +~3 с).",
+            "Held-out Recall@1 87% после гибрида BM25 + RRF.",
             "Сокращает поиск с минут до секунд по регламентам, договорам и HR-политикам.",
           ],
         },

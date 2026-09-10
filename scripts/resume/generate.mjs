@@ -1,9 +1,10 @@
-// Генератор PDF-резюме: собирает HTML (ru/en × light/dark + print) и печатает
-// PDF через headless Chrome. Контент синхронизирован со страницей /cv
+// Генератор PDF-резюме: собирает HTML (ru/en × light/dark + одноколоночный ATS/print)
+// и печатает PDF через headless Chrome. Контент синхронизирован со страницей /cv
 // (src/common/lang/*/resumeCv.ts) — при изменении /cv правим здесь и запускаем:
 //   node scripts/resume/generate.mjs
 //
 // Результат: public/static/resume/Alexey-Mazurenko-<lang>[-dark|-print].pdf
+// *-print.pdf — одноколоночная ATS-версия для порталов (Greenhouse/Lever).
 
 import { execFileSync } from "node:child_process";
 import { writeFileSync, mkdirSync, unlinkSync } from "node:fs";
@@ -48,7 +49,7 @@ const content = {
       },
       linkedin: {
         label: "LinkedIn",
-        value: "in/alexey-mazurenko-63068941b",
+        value: "linkedin.com/in/alexey-mazurenko-63068941b",
         href: "https://www.linkedin.com/in/alexey-mazurenko-63068941b/",
         icon: "linkedin",
       },
@@ -73,7 +74,7 @@ const content = {
       "**~2 000 документов · ~200 вопросов/день · Recall@1 87% held-out**",
       "**Подготовка отчётности: 2 часа → 2 минуты**",
       "**~85% нормализованной точности SQL** (held-out)",
-      "**Open-source демо** — RAG Chat и AI Data Pilot на GitHub",
+      "**Публичные GitHub-демо** — RAG Chat и AI Data Pilot",
     ],
     profile: [
       "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в МТС Web Services (MWS AI) — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Вывел в production два внутренних продукта: RAG-ассистент для документов (**~2 000 документов; held-out Recall@1 53% dense-only → 87% hybrid**) и мультиагентную аналитическую платформу (**~85% нормализованной точности SQL**), сократившую подготовку отчётности **с 2 часов до 2 минут.**",
@@ -106,7 +107,7 @@ const content = {
               { label: "RAG pipeline", text: "индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + вектора (RRF) → генерация ответа LLM → цитирование источников." },
               { label: "Три режима", text: "RAG Chat → AI Agent → Vector Search — переключение в одном приложении." },
               { label: "Архитектура", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash по умолчанию (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — история диалогов." },
-              { label: "Оценка", text: "held-out ~180 запросов, не использовавшихся для настройки промптов и retrieval. Гибрид BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder на fused top-k отклонён: RU/EN-двойники получали равный скор, золотой чанк выпадал (−45 п.п. Recall@1, +~3 с)." },
+              { label: "Оценка", text: "held-out ~180 запросов, не использовавшихся для настройки промптов и retrieval. Гибрид BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder на fused top-k отклонён: RU/EN-дубликаты одного документа получали равный скор и вытесняли золотой чанк из fused top-k (−45 п.п. Recall@1, +~3 с)." },
               { label: "Качество", text: "63 pytest-теста + CI; TTFT ~2,5–3 с на GLM-5.3-flash." },
             ],
           },
@@ -133,7 +134,7 @@ const content = {
             title: "RAG Chat",
             items: [
               "Внутреннее использование в МТС (~2 000 документов, ~20 тыс. чанков, ~12 команд, ~200 вопросов/день). Публичное демо: личный проект, не код МТС; прод-данные под NDA.",
-              "Held-out Recall@1 53% (dense-only) → 87% после гибрида BM25 + RRF; cross-encoder на fused top-k отклонён (−45 п.п., +~3 с).",
+              "Held-out Recall@1 87% после гибрида BM25 + RRF.",
               "Сокращает поиск с минут до секунд по регламентам, договорам и HR-политикам.",
             ],
           },
@@ -219,7 +220,7 @@ const content = {
       },
       linkedin: {
         label: "LinkedIn",
-        value: "in/alexey-mazurenko-63068941b",
+        value: "linkedin.com/in/alexey-mazurenko-63068941b",
         href: "https://www.linkedin.com/in/alexey-mazurenko-63068941b/",
         icon: "linkedin",
       },
@@ -245,7 +246,7 @@ const content = {
       "**~2,000 docs · ~200 questions/day · Recall@1 87% held-out**",
       "**Report preparation: 2 hours → 2 minutes**",
       "**~85% normalized SQL result correctness** (held-out)",
-      "**Open-source demos** — RAG Chat and AI Data Pilot on GitHub",
+      "**Public GitHub demos** — RAG Chat and AI Data Pilot",
     ],
     profile: [
       "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (**~2,000 docs; held-out Recall@1 53% dense-only → 87% hybrid**) and a multi-agent analytics platform (**~85% normalized SQL result correctness**) that **cut report preparation from 2 hours to 2 minutes.**",
@@ -278,7 +279,7 @@ const content = {
               { label: "RAG pipeline", text: "document indexing → chunking (tiktoken) → embeddings (fastembed) → hybrid BM25 + vector retrieval (RRF) → LLM answer generation → source citation." },
               { label: "Three modes", text: "RAG Chat → AI Agent → Vector Search — switching within one application." },
               { label: "Architecture", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash default (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — conversation history." },
-              { label: "Evaluation", text: "held-out ~180 queries not used to tune prompts or retrieval. Hybrid BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder on fused top-k rejected: RU/EN twins tied, gold chunk dropped (−45 p.p. Recall@1, +~3 s)." },
+              { label: "Evaluation", text: "held-out ~180 queries not used to tune prompts or retrieval. Hybrid BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder on fused top-k rejected: RU/EN duplicates of the same document tied in score and pushed the gold chunk out of the fused top-k (−45 p.p. Recall@1, +~3 s)." },
               { label: "Quality", text: "63 pytest tests + CI; TTFT ~2.5–3 s on GLM-5.3-flash." },
             ],
           },
@@ -305,7 +306,7 @@ const content = {
             title: "RAG Chat",
             items: [
               "Internal MTS production usage (~2,000 documents, ~20k chunks, ~12 teams, ~200 questions/day). Public demo: personal project, not MTS code; prod data under NDA.",
-              "Held-out Recall@1 53% (dense-only) → 87% after hybrid BM25 + RRF; cross-encoder on fused top-k rejected (−45 p.p., +~3 s).",
+              "Held-out Recall@1 87% after hybrid BM25 + RRF.",
               "Cuts lookup from minutes to seconds on regulations, contracts and HR policies.",
             ],
           },
@@ -412,6 +413,39 @@ const themes = {
 const esc = (s) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+// Chrome при переносе строки вставляет soft hyphen (U+00AD) в слова с
+// дефисом: held-out → held[SHY]out. ATS читает битые токены. Неразрывный
+// span + hyphens:none в CSS это закрывают.
+const protectCompounds = (html) => {
+  const splitAt = html.indexOf("</style>");
+  if (splitAt < 0) return html;
+  const head = html.slice(0, splitAt + "</style>".length);
+  const rest = html.slice(splitAt + "</style>".length);
+  return (
+    head +
+    rest.replace(/>([^<]+)</g, (_, text) => {
+      const next = text.replace(
+        /\b[\w]+(?:-[\w]+)+\b/g,
+        (m) => `<span class="nowrap">${m}</span>`
+      );
+      return `>${next}<`;
+    })
+  );
+};
+
+const hyphenCss = `
+  html, body, p, li, div, span, a, h1, h2 {
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -ms-hyphens: none !important;
+    hyphenate-character: "";
+    -webkit-hyphenate-character: "";
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .nowrap { white-space: nowrap; }
+`;
+
 // Инлайн-выделение **жирным** (после esc — теги вставляются безопасно).
 const bold = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
 
@@ -443,7 +477,7 @@ const sidebarMain = (data, t) => `
     ${Object.values(data.contacts)
       .map((c) => {
         const value = c.href
-          ? `<a href="${c.href}">${esc(c.value)}</a>`
+          ? `<a class="nowrap" href="${c.href}">${esc(c.value)}</a>`
           : esc(c.value);
         return `<div class="contact-row">
           <span class="contact-icon">${contactIcons[c.icon] || ""}</span>
@@ -491,7 +525,7 @@ const sidebarSkills = (data, t) => `
 
 // Рендер одной записи опыта: секции с разделителями.
 // Рендер одной записи опыта: секции с разделителями между ними.
-const jobHtml = (job, data, t) => `
+const jobHtml = (job, data, t, { plain = false } = {}) => `
     <div class="job">
       <div class="job-head">
         <span class="job-role">${esc(job.role)}</span>
@@ -553,9 +587,14 @@ const jobHtml = (job, data, t) => `
         job.stack && job.stack.length > 0
           ? `<section class="jsec"><div class="sub-title">${esc(data.sectionTitles.stack)}</div>
       ${job.stack
-        .map(
-          (group) => `
-        <div class="stack-group">
+        .map((group) =>
+          plain
+            ? `<p class="plain-line">${
+                group.title
+                  ? `<span class="detail-label">${esc(group.title)}:</span> `
+                  : ""
+              }${esc(group.items.join(", "))}</p>`
+            : `<div class="stack-group">
           ${group.title ? `<div class="stack-group-title">${esc(group.title)}</div>` : ""}
           <div class="chips chips-light">
             ${group.items.map((item) => `<span class="chip">${esc(item)}</span>`).join("")}
@@ -583,7 +622,7 @@ const jobHtml = (job, data, t) => `
                ${job.demo
                  .map(
                    (d) =>
-                     `<li>${esc(d.name)} — <a href="${d.url}">${d.url.replace(/^https?:\/\//, "")}</a></li>`
+                     `<li>${esc(d.name)} — <a class="nowrap" href="${d.url}">${d.url.replace(/^https?:\/\//, "")}</a></li>`
                  )
                  .join("")}
              </ul></section>`
@@ -641,7 +680,7 @@ const contentSenior = (data, t) => `
   <ul class="details">
     ${data.experience[0].demo
       .map(
-        (d) => `<li>${esc(d.name)} — <a href="${d.url}">${d.url.replace(/^https?:\/\//, "")}</a></li>`
+        (d) => `<li>${esc(d.name)} — <a class="nowrap" href="${d.url}">${d.url.replace(/^https?:\/\//, "")}</a></li>`
       )
       .join("")}
   </ul>
@@ -657,7 +696,7 @@ const contentSenior = (data, t) => `
 const html = (lang, themeName, isPrint = false) => {
   const data = content[lang];
   const t = themes[themeName];
-  return `<!DOCTYPE html>
+  return protectCompounds(`<!DOCTYPE html>
 <html lang="${lang}">
 <head>
 <meta charset="utf-8" />
@@ -672,12 +711,8 @@ const html = (lang, themeName, isPrint = false) => {
     font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     font-size: 9.2px;
     line-height: 1.42;
-    hyphens: none;
-    -webkit-hyphens: none;
-    -ms-hyphens: none;
-    overflow-wrap: break-word;
-    word-break: normal;
   }
+  ${hyphenCss}
   /* Два листа: естественная высота + принудительный разрыв перед вторым
      (Навыки и продолжение опыта начинаются с нового листа).
      Табличная раскладка — flex при печати фрагментируется с развалом колонок. */
@@ -943,7 +978,109 @@ const html = (lang, themeName, isPrint = false) => {
     <div class="page-num">2</div>
   </div>
 </body>
-</html>`;
+</html>`);
+};
+
+const htmlAts = (lang) => {
+  const data = content[lang];
+  const t = themes.light;
+  const contacts = Object.values(data.contacts)
+    .map((c) => {
+      const value = c.href
+        ? `<a class="nowrap" href="${c.href}">${esc(c.value)}</a>`
+        : esc(c.value);
+      return `<div class="ats-row"><span class="detail-label">${esc(c.label)}:</span> ${value}</div>`;
+    })
+    .join("");
+  const skills = data.skills
+    .map(
+      (group) =>
+        `<p class="plain-line"><span class="detail-label">${esc(group.title)}:</span> ${esc(group.items.join(", "))}</p>`
+    )
+    .join("");
+  const education = data.education
+    .map(
+      (edu) =>
+        `<p class="plain-line"><span class="detail-label">${esc(edu.title)}.</span> ${esc(edu.text)}</p>`
+    )
+    .join("");
+
+  return protectCompounds(`<!DOCTYPE html>
+<html lang="${lang}">
+<head>
+<meta charset="utf-8" />
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    color: #222;
+    font-family: "Times New Roman", Times, Georgia, serif;
+    font-size: 11px;
+    line-height: 1.38;
+  }
+  ${hyphenCss}
+  h1 { margin: 0 0 2px; font-size: 22px; font-weight: 700; }
+  .role { margin: 0 0 10px; font-size: 13px; font-weight: 600; }
+  h2 {
+    margin: 14px 0 6px;
+    padding-bottom: 2px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 1px solid #222;
+  }
+  p, .plain-line, .ats-row, .para { margin: 0 0 5px; }
+  a { color: #111; text-decoration: none; }
+  ul { margin: 0; padding: 0 0 0 16px; }
+  li { margin-bottom: 3px; }
+  .detail-label { font-weight: 700; }
+  .job { margin-bottom: 10px; }
+  .job-head { display: flex; justify-content: space-between; gap: 10px; }
+  .job-role { font-weight: 700; font-size: 12px; }
+  .job-period { white-space: nowrap; }
+  .job-company { margin: 0 0 6px; }
+  .sub-title { margin: 8px 0 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .details { margin: 0; padding: 0 0 0 16px; list-style: disc; }
+  .details li { position: static; padding-left: 0; margin-bottom: 3px; }
+  .details li::before { content: none; }
+  .project { margin-bottom: 8px; }
+  .project-title { font-weight: 700; margin: 0 0 3px; }
+  .result-group { margin-bottom: 6px; }
+  .result-group-title { font-weight: 700; margin: 0 0 2px; }
+  .jsec + .jsec { margin-top: 6px; }
+</style>
+</head>
+<body>
+  <h1>${esc(data.name)}</h1>
+  <div class="role">${esc(data.role)}</div>
+
+  <h2>${esc(data.sectionTitles.contacts)}</h2>
+  ${contacts}
+
+  <h2>${esc(data.sectionTitles.highlights)}</h2>
+  <ul>
+    ${data.highlights.map((item) => `<li>${bold(item)}</li>`).join("")}
+  </ul>
+
+  <h2>${esc(data.sectionTitles.profile)}</h2>
+  ${data.profile.map((p) => `<p>${bold(p)}</p>`).join("")}
+  <p>${esc(data.siteLink.text)} <a href="${data.siteLink.href}">${esc(data.siteLink.value)}</a></p>
+
+  <h2>${esc(data.sectionTitles.experience)}</h2>
+  ${jobHtml(data.experience[0], data, t, { plain: true })}
+  ${jobHtml(data.experience[1], data, t, { plain: true })}
+
+  <h2>${esc(data.sectionTitles.skills)}</h2>
+  ${skills}
+
+  <h2>${esc(data.sectionTitles.education)}</h2>
+  ${education}
+</body>
+</html>`);
 };
 
 /* ——— Печать ——— */
@@ -951,17 +1088,22 @@ const html = (lang, themeName, isPrint = false) => {
 const variants = [
   { lang: "ru", theme: "light", file: "Alexey-Mazurenko-ru.pdf" },
   { lang: "ru", theme: "dark", file: "Alexey-Mazurenko-ru-dark.pdf" },
-  { lang: "ru", theme: "light", file: "Alexey-Mazurenko-ru-print.pdf", print: true },
+  { lang: "ru", theme: "light", file: "Alexey-Mazurenko-ru-print.pdf", ats: true },
   { lang: "en", theme: "light", file: "Alexey-Mazurenko-en.pdf" },
   { lang: "en", theme: "dark", file: "Alexey-Mazurenko-en-dark.pdf" },
-  { lang: "en", theme: "light", file: "Alexey-Mazurenko-en-print.pdf", print: true },
+  { lang: "en", theme: "light", file: "Alexey-Mazurenko-en-print.pdf", ats: true },
 ];
 
 mkdirSync(outDir, { recursive: true });
 
 for (const variant of variants) {
   const htmlPath = join(outDir, `.tmp-${variant.file}.html`);
-  writeFileSync(htmlPath, html(variant.lang, variant.theme, variant.print));
+  writeFileSync(
+    htmlPath,
+    variant.ats
+      ? htmlAts(variant.lang)
+      : html(variant.lang, variant.theme, variant.print)
+  );
   const pdfPath = join(outDir, variant.file);
   execFileSync(
     chrome,
