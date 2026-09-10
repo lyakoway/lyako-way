@@ -3,7 +3,7 @@ import { PortfolioHeaderProps } from "src/common/types/lang";
 export const portfolioHeader: PortfolioHeaderProps = {
   home: "Главная",
   textPortfolio: "Портфолио",
-  textNotes: "Заметки веб-разработчика",
+  textNotes: "Заметки AI-инженера",
   textValueBlog: `Блог`,
   date: "Дата создания:",
   technology: "Технологии:",

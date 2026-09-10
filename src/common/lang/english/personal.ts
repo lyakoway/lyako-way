@@ -32,9 +32,10 @@ export const personal: PersonalProps = {
     about: {
       title: "About me",
       items: [
-        "**AI engineer** with 7+ years of commercial software development experience and a strong software engineering foundation. Building AI products at **MTC Web Services (MWS AI)** — the AI division of the MTS ecosystem, one of Russia's largest telecom operators (B2C products). Main focus — LLM applications, RAG systems, AI agents and workflow automation with AI.",
-        "**Building full-cycle AI products** — from problem research and AI architecture design to development, quality evaluation, integration and production delivery.",
+        "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at **MTS Web Services (MWS AI)** — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Focus — LLM applications, RAG, AI agents and workflow automation.",
+        "**Building full-cycle AI products** — from problem research and AI architecture design to development, held-out evaluation, integration and production delivery.",
         "**Working with real LLM use cases:** corporate knowledge search, natural-language data analysis, Text-to-SQL, multi-step AI agents and automation of repetitive processes.",
+        "**Public GitHub demos** (RAG Chat and AI Data Pilot) are independently built personal projects of the same problem class — not MTS source code; production data stays under NDA.",
         "**Combining AI and classic engineering:** implementing backend and frontend on my own, integrating LLMs and external services, working with databases, APIs and infrastructure.",
       ],
     },
@@ -73,7 +74,7 @@ export const personal: PersonalProps = {
             "The system executes SQL on its own, analyzes data, builds results and handles errors through self-correction. Critical computations are performed by a deterministic Python layer, not the LLM.",
           ],
           result:
-            "Result: report preparation 2 hours → 2 minutes; ~85% normalized SQL result correctness on a held-out eval; 174 tests.",
+            "Result: internal MTS usage (~15 analysts, ~80 scenarios/week); report preparation 2 hours → 2 minutes; ~85% normalized SQL on a held-out eval; 174 tests. Public demo: personal project, not MTS code.",
           stack: {
             label: "Stack",
             items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
@@ -88,7 +89,7 @@ export const personal: PersonalProps = {
             "**Key architecture:** hybrid BM25 + Vector Search → RRF → LLM, and for the AI Agent — its own Tool Loop on FastAPI.",
           ],
           result:
-            "Result: held-out Recall@1 87% (~180 queries) after hybrid BM25 + RRF.",
+            "Result: internal MTS usage (~2,000 docs, ~12 teams, ~200 questions/day); held-out Recall@1 53% dense-only → 87% hybrid. Public demo: personal project, not MTS code.",
           stack: {
             label: "Stack",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
@@ -154,7 +155,7 @@ export const personal: PersonalProps = {
       groups: [
         { title: "Languages", items: ["Python", "TypeScript", "JavaScript"] },
         { title: "LLM & AI Agents", items: ["LLM API", "AI Agents", "ReAct", "Tool Calling", "Text-to-SQL", "Multi-Agent Orchestration", "Prompt Engineering", "Context / Token Optimization"] },
-        { title: "RAG & Search", items: ["RAG", "Hybrid Search", "BM25", "Vector Search", "RRF", "Embeddings", "fastembed", "ChromaDB", "Cross-Encoder Reranking"] },
+        { title: "RAG & Search", items: ["RAG", "Hybrid Search", "BM25", "Vector Search", "RRF", "Embeddings", "fastembed", "ChromaDB", "Held-out retrieval eval"] },
         { title: "Evaluation", items: ["Golden Sets", "Recall@K", "MRR", "LLM-as-a-Judge", "Regression Testing", "Prompt Evaluation", "Edge Cases", "Grounding"] },
         { title: "AI Data & Backend", items: ["FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "Redis", "SQL Guard", "SSE"] },
         { title: "Frontend", items: ["React", "Next.js", "Vite"] },

@@ -6,7 +6,7 @@ export const portfolio: PortfolioProps = {
   portfolioNameList: "Portfolio",
   portfolioTextTitle: "Welcome to portfolio!",
   portfolioText:
-    "The portfolio contains projects that I have developed in collaboration with web studios and for private clients, as well as several personal projects.\nMost of the projects contain individual functions designed to implement the features of the website.\nMy web developer portfolio indicates the name of the site, the link to the site, the purpose of the site and a description of the work performed.",
+    "The portfolio shows production-oriented AI systems I designed and built end-to-end — RAG, AI agents, Text-to-SQL and evaluation.\nPublic demos are independently built personal projects of the same problem class as internal MTS systems — not MTS source code.\nEach case lists the problem, architecture, stack and measured results.",
   all: "All",
   filter: "Project filter",
   wip: "In progress",

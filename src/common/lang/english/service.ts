@@ -36,7 +36,7 @@ export const service: ServiceProps = {
         "embeddings and Vector Search",
         "BM25 + Vector Search",
         "Hybrid Search and RRF",
-        "reranking",
+        "held-out retrieval experiments (keep or reject a reranker by data)",
         "multilingual / cross-language retrieval",
         "citations and source grounding",
         "evaluation with Golden Sets and Recall@K",

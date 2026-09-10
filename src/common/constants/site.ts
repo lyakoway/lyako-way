@@ -5,11 +5,11 @@
 export const SITE_URL = "https://lyakoway.vercel.app";
 export const SITE_NAME = "LYAKOWAY";
 
-export const SITE_TITLE = "LYAKOWAY — Мазуренко Алексей, AI-инженер";
+export const SITE_TITLE = "LYAKOWAY — Мазуренко Алексей, AI / LLM Engineer";
 
 export const SITE_DESCRIPTION =
-  "Мазуренко Алексей (lyakoway) — AI-инженер из Москвы: RAG-системы, " +
-  "LLM-приложения, веб-разработка. Портфолио, резюме, услуги, блог.";
+  "Мазуренко Алексей (lyakoway) — AI / LLM Engineer из Москвы: production RAG, " +
+  "AI-агенты, Text-to-SQL. Портфолио, резюме, услуги. Открыт к удалёнке и переезду.";
 
 export const OG_IMAGE = `${SITE_URL}/static/og/lyakoway-og.png`;
 

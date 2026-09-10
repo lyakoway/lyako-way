@@ -1,22 +1,19 @@
 import { ResumeProps } from "src/common/types/lang";
 
 export const resume: ResumeProps = {
-  title: "Summary",
+  title: "Resume",
   headerStatus: "Status:",
-  status: "Web-developer",
+  status: "AI / LLM Engineer",
   headerFIO: "Full name:",
   FIO: "Mazurenko Alexey Anatolievich",
   headerSpecialization: "Specialization:",
-  specialization: "Programming, development.",
+  specialization: "Production LLM systems, RAG, AI agents, Text-to-SQL.",
   headerSkills: "Skills:",
   headerWorkExperience: "Work experience:",
-  workExperience: `I have been creating websites, layout, etc. from 2017 to the present.`,
+  workExperience: `Software engineering since 2017. Production LLM systems at MTS Web Services (MWS AI) since 2024 — RAG, multi-agent analytics, held-out evaluation.`,
   headerEducation: "Education:",
   education1: `2008–2012, Moscow State University of Civil Engineering, Institute of Fundamental Education, Mathematics (bachelor).`,
   education2: `2012–2014, Moscow State University of Civil Engineering, Institute of Fundamental Education, Mathematics (Master)`,
   headerQuality: "Business and personal qualities:",
-  quality: `Assembled and confident in my abilities, I creatively approach the implementation
-  work. Self-discipline and ability to work in a team. Is always
-  I am in touch, interested in performing quickly and efficiently
-  work.`,
+  quality: `I measure before I optimize, ship end-to-end, and keep production data under NDA. Public GitHub demos are independently built personal projects of the same problem class — not MTS source code.`,
 };

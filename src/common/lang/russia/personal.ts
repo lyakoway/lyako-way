@@ -32,9 +32,10 @@ export const personal: PersonalProps = {
     about: {
       title: "Обо мне",
       items: [
-        "**AI-инженер** с 7+ годами коммерческого опыта в разработке ПО и сильной software engineering базой. Проектирую и разрабатываю AI-продукты в **MTC Web Services (MWS AI)** — AI-подразделении экосистемы МТС, одного из крупнейших телеком-операторов России (b2c-продукты). Основной фокус — LLM-приложения, RAG-системы, AI-агенты и автоматизация рабочих процессов с помощью AI.",
-        "**Создаю AI-продукты полного цикла** — от исследования задачи и проектирования AI-архитектуры до разработки, оценки качества, интеграции и вывода решения в production.",
+        "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в **МТС Web Services (MWS AI)** — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Фокус — LLM-приложения, RAG, AI-агенты и автоматизация рабочих процессов.",
+        "**Создаю AI-продукты полного цикла** — от исследования задачи и проектирования AI-архитектуры до разработки, held-out evaluation, интеграции и вывода решения в production.",
         "**Работаю с реальными сценариями применения LLM:** поиск и работа с корпоративными знаниями, анализ данных на естественном языке, Text-to-SQL, многошаговые AI-агенты и автоматизация повторяющихся процессов.",
+        "**Публичные GitHub-демо** (RAG Chat и AI Data Pilot) — самостоятельные личные проекты того же класса задач, не исходный код МТС; продовые данные под NDA.",
         "**Сочетаю AI и классическую разработку:** самостоятельно реализую backend и frontend, интегрирую LLM и внешние сервисы, работаю с базами данных, API и инфраструктурой.",
       ],
     },
@@ -73,7 +74,7 @@ export const personal: PersonalProps = {
             "Система самостоятельно выполняет SQL, анализирует данные, строит результаты и обрабатывает ошибки через self-correction. Критические вычисления выполняются детерминированным Python-слоем, а не LLM.",
           ],
           result:
-            "Результат: подготовка отчётности 2 часа → 2 минуты; ~85% нормализованной точности SQL на held-out оценке; 174 теста.",
+            "Результат: внутреннее использование в МТС (~15 аналитиков, ~80 сценариев/неделю); подготовка отчётности 2 часа → 2 минуты; ~85% нормализованной точности SQL на held-out оценке; 174 теста. Публичное демо: личный проект, не код МТС.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
@@ -88,7 +89,7 @@ export const personal: PersonalProps = {
             "**Ключевая архитектура:** hybrid BM25 + Vector Search → RRF → LLM, а для AI Agent — собственный Tool Loop на FastAPI.",
           ],
           result:
-            "Результат: held-out Recall@1 87% (~180 запросов) после гибрида BM25 + RRF.",
+            "Результат: внутреннее использование в МТС (~2 000 документов, ~12 команд, ~200 вопросов/день); held-out Recall@1 53% dense-only → 87% hybrid. Публичное демо: личный проект, не код МТС.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "RAG", "ChromaDB", "fastembed", "BM25", "RRF", "React", "TypeScript", "Vite"],
@@ -154,7 +155,7 @@ export const personal: PersonalProps = {
       groups: [
         { title: "Languages", items: ["Python", "TypeScript", "JavaScript"] },
         { title: "LLM & AI Agents", items: ["LLM API", "AI Agents", "ReAct", "Tool Calling", "Text-to-SQL", "Multi-Agent Orchestration", "Prompt Engineering", "Context / Token Optimization"] },
-        { title: "RAG & Search", items: ["RAG", "Hybrid Search", "BM25", "Vector Search", "RRF", "Embeddings", "fastembed", "ChromaDB", "Cross-Encoder Reranking"] },
+        { title: "RAG & Search", items: ["RAG", "Hybrid Search", "BM25", "Vector Search", "RRF", "Embeddings", "fastembed", "ChromaDB", "Held-out retrieval eval"] },
         { title: "Evaluation", items: ["Golden Sets", "Recall@K", "MRR", "LLM-as-a-Judge", "Regression Testing", "Prompt Evaluation", "Edge Cases", "Grounding"] },
         { title: "AI Data & Backend", items: ["FastAPI", "SQLAlchemy", "PostgreSQL", "ClickHouse", "Redis", "SQL Guard", "SSE"] },
         { title: "Frontend", items: ["React", "Next.js", "Vite"] },
