@@ -142,7 +142,7 @@ export const Card = styled(Link)`
 
   &:hover {
     background: ${PANEL_ELEVATED_HOVER};
-    border-color: rgba(255, 255, 255, 0.22);
+    /* Рамка при ховере не подсвечивается — только фон и подъём карточки. */
     transform: translateY(-3px);
   }
 
@@ -544,7 +544,8 @@ export const CaseLink = styled.span`
   }
 
   ${Card}:hover & {
-    color: ${({ theme }) => theme.color.basic.primary};
+    /* Подсветка «Смотреть кейс» и стрелки при ховере карточки. */
+    color: #ff8a5c;
 
     .arrow {
       transform: translateX(4px);

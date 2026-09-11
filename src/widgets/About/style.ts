@@ -551,7 +551,7 @@ export const ProductTitle = styled.h4`
   }
 
   /* Ссылка на страницу портфолио: цвет заголовка, белая стрелка-индикатор
-     и подсветка при наведении. */
+     и подсветка при наведении на само название. */
   a {
     color: inherit;
     text-decoration: none;
@@ -563,7 +563,7 @@ export const ProductTitle = styled.h4`
     }
 
     &:hover {
-      color: ${({ theme }) => theme.color.basic.primary};
+      color: #ff8a5c;
     }
   }
 `;
