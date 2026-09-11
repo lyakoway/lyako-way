@@ -9,7 +9,7 @@ import ButtonWeather from "src/ui/ButtonWeather";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
 
 import { CONTACT_EMAIL, CONTACT_MESSENGERS } from "src/common/constants/contacts";
-import { MESSENGER_ICON, MailIcon, ChatIcon } from "src/common/icon/socialIcons";
+import { MESSENGER_ICON, MailIcon } from "src/common/icon/socialIcons";
 
 import AvatarHead from "src/ui/AvatarHead";
 import BrandMark from "src/ui/BrandMark";
@@ -32,7 +32,6 @@ import {
   ContactItem,
   ContactInfo,
   ContactTitle,
-  RowIconBox,
   MessengerLinks,
   SettingsBox,
   DesktopSettings,
@@ -121,9 +120,6 @@ const Sidebar = () => {
 
           <ContactsList>
             <Reveal as={ContactItem}>
-              <RowIconBox>
-                <ChatIcon />
-              </RowIconBox>
               <ContactInfo>
                 <ContactTitle>{sidebar.messengersTitle}</ContactTitle>
                 <MessengerLinks>

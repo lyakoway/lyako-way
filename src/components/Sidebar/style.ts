@@ -187,6 +187,7 @@ export const ContactsList = styled.ul`
 export const ContactItem = styled.li`
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   min-width: 100%;
 `;
@@ -239,7 +240,10 @@ export const IconLink = styled.a`
 `;
 
 export const ContactInfo = styled.div`
-  max-width: calc(100% - 46px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
 
   a,
   address {
@@ -259,7 +263,8 @@ export const ContactInfo = styled.div`
 `;
 
 export const ContactTitle = styled.p`
-  margin: 0 0 2px;
+  /* Отступ до кнопок — как у заголовка «Настройки» (SettingsTitle). */
+  margin: 0 0 10px;
   color: ${PANEL_TEXT_MUTED};
   font-size: 12px;
   text-transform: uppercase;
@@ -269,24 +274,13 @@ export const MessengerLinks = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  gap: 22px;
 
+  /* Иконки-кнопки в одном стиле с контролами «Настроек» (EN / тема / лайк):
+     рамка + приподнятый фон, оранжевый акцент при наведении. */
   a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: ${PANEL_TEXT};
-    transition: color 0.2s ease, transform 0.2s ease;
-  }
-
-  a:hover {
-    color: ${({ theme }) => theme.color.basic.primaryLight};
-    transform: translateY(-1px);
-  }
-
-  a svg {
-    width: 20px;
-    height: 20px;
+    ${controlButtonBase}
   }
 `;
 
