@@ -39,6 +39,7 @@ import {
   StatValue,
   StatLabel,
   StatNote,
+  DiscussPanel,
   DiscussSection,
   DiscussText,
   Intro,
@@ -250,11 +251,11 @@ const Contacts = () => {
         <Reveal>
           <Head icon={<DiscussIcon />} title={contactsPage.discuss.title} />
         </Reveal>
-        {contactsPage.discuss.texts.map((text, i) => (
-          <Reveal key={i}>
-            <DiscussText>{text}</DiscussText>
-          </Reveal>
-        ))}
+        <Reveal as={DiscussPanel} x={64} y={0} delay={90}>
+          {contactsPage.discuss.texts.map((text) => (
+            <DiscussText key={text}>{text}</DiscussText>
+          ))}
+        </Reveal>
       </DiscussSection>
 
       {/* Блок контактов и формы */}

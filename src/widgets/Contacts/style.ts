@@ -119,7 +119,7 @@ export const HeroRole = styled.div`
   font-weight: 700;
   letter-spacing: 1.6px;
   text-transform: uppercase;
-  color: ${({ theme }) => theme.color.basic.primary};
+  color: ${PANEL_TEXT};
 `;
 
 export const HeroText = styled.p`
@@ -353,6 +353,21 @@ export const DiscussSection = styled.section`
   margin-top: 34px;
 `;
 
+// Подложка только под текстами — заголовок секции остаётся снаружи.
+export const DiscussPanel = styled.div`
+  padding: 14px 16px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  /* Подсветка при наведении — как на /profile и /cv. */
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+`;
+
 export const DiscussText = styled.p`
   position: relative;
   margin: 0 0 10px;
@@ -362,6 +377,10 @@ export const DiscussText = styled.p`
   font-size: 14px;
   font-weight: 300;
   line-height: 1.6;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   /* акцентная круглая метка слева — как маркеры списков */
   &::before {
