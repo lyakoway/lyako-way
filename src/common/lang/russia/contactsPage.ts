@@ -2,12 +2,12 @@ import { ContactsPageProps } from "src/common/types/lang";
 
 export const contactsPage: ContactsPageProps = {
   hero: {
-    title: "Создадим что-то полезное с помощью AI",
+    title: "Открыт к удалёнке, релокации и прикладным AI-задачам",
     role: "AI / LLM Engineer",
-    text: "Проектирую и разрабатываю production-ready AI-системы, которые работают с данными, документами и инструментами.",
-    chips: "RAG · AI Agents · Text-to-SQL · AI Data · Evaluation",
+    text: "Создаю production-ready AI-системы для работы с данными, документами и инструментами.",
+    chips: "RAG · AI Agents · Text-to-SQL · Evaluation",
     subtitle:
-      "От AI-архитектуры и прототипа до измерения качества, интеграции и production.",
+      "От AI-архитектуры и прототипа до оценки качества, интеграции и production.",
   },
   helpTitle: "Чем могу помочь?",
   help: [
@@ -22,7 +22,13 @@ export const contactsPage: ContactsPageProps = {
     {
       title: "AI Data & Text-to-SQL",
       text: "Анализ данных на естественном языке:",
-      pipeline: ["Natural Language", "SQL", "Database", "Analytics", "Answer"],
+      pipeline: [
+        "Natural Language",
+        "SQL",
+        "Database",
+        "Analytics",
+        "Answer",
+      ],
     },
     {
       title: "Evaluation & AI Quality",
@@ -40,24 +46,24 @@ export const contactsPage: ContactsPageProps = {
   practiceTitle: "AI-инжиниринг на практике",
   stats: [
     {
+      value: "2ч → 2мин",
+      label: "подготовка отчёта",
+      note: "Прод МТС · ~15 аналитиков · ~80 сценариев/неделю",
+    },
+    {
       value: "87%",
       label: "Recall@1",
-      note: "RAG Chat · held-out · ~180 запросов",
+      note: "МТС RAG · ~2 000 документов · ~12 команд · ~200 вопросов/день",
     },
     {
       value: "~85%",
       label: "нормализованный SQL",
-      note: "AI Data Pilot · held-out точность результата",
+      note: "МТС Data Pilot · held-out · не exact-match",
     },
     {
       value: "174",
-      label: "теста + LLM evaluation",
-      note: "AI Data Pilot · Agents · SQL Guard · Analytics · Golden Set",
-    },
-    {
-      value: "2h → 2min",
-      label: "подготовка аналитики",
-      note: "AI Data Pilot",
+      label: "pytest + CI",
+      note: "Data Pilot · Agents · SQL Guard · Analytics",
     },
   ],
   discuss: {

@@ -81,18 +81,15 @@ const ContactForm: FC<{ embedded?: boolean }> = ({
       if (!email) {
         setFormDescriptionEmail(contactForm.formDescriptionEmail);
       }
-      if (!phone) {
-        setFormDescriptionPhone(contactForm.formDescriptionPhone);
-      }
 
-      const canSubmit =
-        name && email && phone && validName && validEmail && validPhone;
+      const phoneOk = !phone.trim() || validPhone;
+      const canSubmit = name && email && validName && validEmail && phoneOk;
 
       if (!canSubmit) {
         const missing = [
           !name || !validName ? "name" : null,
-          !phone || !validPhone ? "phone" : null,
           !email || !validEmail ? "email" : null,
+          phone.trim() && !validPhone ? "phone" : null,
         ]
           .filter(Boolean)
           .join(",");

@@ -2,12 +2,12 @@ import { ContactsPageProps } from "src/common/types/lang";
 
 export const contactsPage: ContactsPageProps = {
   hero: {
-    title: "Let's build something useful with AI",
+    title: "Open to remote work, relocation and applied AI problems",
     role: "AI / LLM Engineer",
-    text: "I design and build production-ready AI systems that work with data, documents and tools.",
-    chips: "RAG · AI Agents · Text-to-SQL · AI Data · Evaluation",
+    text: "I build production-ready AI systems that work with data, documents and tools.",
+    chips: "RAG · AI Agents · Text-to-SQL · Evaluation",
     subtitle:
-      "From AI architecture and prototype to quality measurement, integration and production.",
+      "From AI architecture and prototype to evaluation, integration and production.",
   },
   helpTitle: "What can I help with?",
   help: [
@@ -22,7 +22,13 @@ export const contactsPage: ContactsPageProps = {
     {
       title: "AI Data & Text-to-SQL",
       text: "Natural-language data analysis:",
-      pipeline: ["Natural Language", "SQL", "Database", "Analytics", "Answer"],
+      pipeline: [
+        "Natural Language",
+        "SQL",
+        "Database",
+        "Analytics",
+        "Answer",
+      ],
     },
     {
       title: "Evaluation & AI Quality",
@@ -40,24 +46,24 @@ export const contactsPage: ContactsPageProps = {
   practiceTitle: "AI Engineering in practice",
   stats: [
     {
+      value: "2h → 2min",
+      label: "report prep",
+      note: "MTS production · ~15 analysts · ~80 scenarios/week",
+    },
+    {
       value: "87%",
       label: "Recall@1",
-      note: "RAG Chat · held-out · ~180 queries",
+      note: "MTS RAG · ~2,000 docs · ~12 teams · ~200 q/day",
     },
     {
       value: "~85%",
       label: "normalized SQL",
-      note: "AI Data Pilot · held-out result correctness",
+      note: "MTS Data Pilot · held-out · not exact-match",
     },
     {
       value: "174",
-      label: "tests + LLM evaluation",
-      note: "AI Data Pilot · Agents · SQL Guard · Analytics · Golden Set",
-    },
-    {
-      value: "2h → 2min",
-      label: "analytical result preparation",
-      note: "AI Data Pilot",
+      label: "pytest + CI",
+      note: "Data Pilot · Agents · SQL Guard · Analytics",
     },
   ],
   discuss: {

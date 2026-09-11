@@ -664,7 +664,7 @@ export interface ContactsPageProps {
   // Направления в одном-двух предложениях.
   help: { title: string; text: string; pipeline?: string[] }[];
   practiceTitle: string;
-  // Доказательства — те же цифры, что на /profile, коротким trust-блоком.
+  // Цифры как прод МТС (~2 000 docs / ~200 q/day / ~15 аналитиков); 2h→2min первым.
   stats: { value: string; label: string; note: string }[];
   // Подводка к существующему блоку контактов и форме.
   discuss: {

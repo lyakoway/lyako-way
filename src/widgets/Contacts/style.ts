@@ -119,7 +119,7 @@ export const HeroRole = styled.div`
   font-weight: 700;
   letter-spacing: 1.6px;
   text-transform: uppercase;
-  color: ${PANEL_TEXT_MUTED};
+  color: ${({ theme }) => theme.color.basic.primary};
 `;
 
 export const HeroText = styled.p`

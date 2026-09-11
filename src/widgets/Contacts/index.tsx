@@ -7,11 +7,13 @@ import ContactForm from "src/components/ContactForm";
 import RunBorder from "src/ui/RunBorder";
 import {
   CONTACT_EMAIL,
-  CONTACT_PHONES,
+  CONTACT_GITHUB,
+  CONTACT_LINKEDIN,
   CONTACT_MESSENGERS,
-  CONTACT_PROFILES,
+  CONTACT_PHONES,
 } from "src/common/constants/contacts";
 import {
+  MailIcon,
   MESSENGER_ICON,
   PROFILE_ICON,
   PhoneIcon,
@@ -113,26 +115,51 @@ const Head = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
   </SectionHead>
 );
 
-const MailIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" aria-hidden>
-    <rect
-      x="3"
-      y="5"
-      width="18"
-      height="14"
-      rx="2"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
-    <path
-      d="m4 7 8 6 8-6"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
+const telegram = CONTACT_MESSENGERS.find((item) => item.label === "Telegram");
+const whatsapp = CONTACT_MESSENGERS.find((item) => item.label === "WhatsApp");
+
+// Hiring-first row matches the mock: Telegram · WhatsApp · Email · LinkedIn.
+// Phone and GitHub stay on the second row so nothing is dropped.
+const PAGE_CONTACTS: {
+  href: string;
+  label: string;
+  channel: string;
+  icon: React.ReactNode;
+  external?: boolean;
+}[] = [
+  telegram && {
+    ...telegram,
+    channel: "telegram",
+    icon: MESSENGER_ICON.Telegram,
+    external: true,
+  },
+  whatsapp && {
+    ...whatsapp,
+    channel: "whatsapp",
+    icon: MESSENGER_ICON.WhatsApp,
+    external: true,
+  },
+  { ...CONTACT_EMAIL, channel: "email", icon: <MailIcon /> },
+  {
+    ...CONTACT_LINKEDIN,
+    channel: "linkedin",
+    icon: PROFILE_ICON.LinkedIn,
+    external: true,
+  },
+  { ...CONTACT_PHONES[0], channel: "phone", icon: <PhoneIcon /> },
+  {
+    ...CONTACT_GITHUB,
+    channel: "github",
+    icon: PROFILE_ICON.GitHub,
+    external: true,
+  },
+].filter(Boolean) as {
+  href: string;
+  label: string;
+  channel: string;
+  icon: React.ReactNode;
+  external?: boolean;
+}[];
 
 // Ссылка-контакт с анимацией нажатия (как кнопки проекта): закраска
 // доигрывает до конца при коротком тапе, при удержании — держится,
@@ -250,70 +277,20 @@ const Contacts = () => {
       {/* Контакты — один ряд кнопок во всю ширину (на мобильных друг под другом) */}
       <Reveal as={ContactBlock} delay={180}>
         <Links>
-          {CONTACT_PHONES.map((phone) => (
-            <PressableLinkItem
-              key={phone.href}
-              href={phone.href}
-              onClick={() =>
-                trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                  channel: "phone",
-                  placement: "contacts_page",
-                })
-              }
-            >
-              <PhoneIcon />
-              {phone.label}
-              <RunBorder radius={12} />
-            </PressableLinkItem>
-          ))}
-
-          <PressableLinkItem
-            href={CONTACT_EMAIL.href}
-            onClick={() =>
-              trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                channel: "email",
-                placement: "contacts_page",
-              })
-            }
-          >
-            <MailIcon />
-            {CONTACT_EMAIL.label}
-            <RunBorder radius={12} />
-          </PressableLinkItem>
-
-          {CONTACT_MESSENGERS.map((item) => (
+          {PAGE_CONTACTS.map((item) => (
             <PressableLinkItem
               key={item.href}
               href={item.href}
-              target="_blank"
-              rel="noreferrer noopener"
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer noopener" : undefined}
               onClick={() =>
                 trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                  channel: item.label.toLowerCase(),
+                  channel: item.channel,
                   placement: "contacts_page",
                 })
               }
             >
-              {MESSENGER_ICON[item.label]}
-              {item.label}
-              <RunBorder radius={12} />
-            </PressableLinkItem>
-          ))}
-
-          {CONTACT_PROFILES.map((item) => (
-            <PressableLinkItem
-              key={item.href}
-              href={item.href}
-              target="_blank"
-              rel="noreferrer noopener"
-              onClick={() =>
-                trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                  channel: item.label.toLowerCase(),
-                  placement: "contacts_page",
-                })
-              }
-            >
-              {PROFILE_ICON[item.label]}
+              {item.icon}
               {item.label}
               <RunBorder radius={12} />
             </PressableLinkItem>
