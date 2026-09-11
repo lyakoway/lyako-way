@@ -1021,6 +1021,10 @@ const htmlAts = (lang) => {
     text-transform: uppercase;
     letter-spacing: 0.4px;
     border-bottom: 1px solid #222;
+    /* Заголовок не остаётся сиротой внизу листа — уезжает на следующий
+       вместе со своей секцией (как в EN-версии). */
+    break-after: avoid;
+    page-break-after: avoid;
   }
   h2:first-of-type { margin-top: 8px; }
   p, .plain-line, .ats-row, .para { margin: 0 0 4px; }
@@ -1040,7 +1044,14 @@ const htmlAts = (lang) => {
   .job-role { font-weight: 700; font-size: 12px; }
   .job-period { white-space: nowrap; }
   .job-company { margin: 0 0 5px; }
-  .sub-title { margin: 7px 0 3px; font-size: 10.6px; font-weight: 700; text-transform: uppercase; }
+  .sub-title {
+    margin: 7px 0 3px;
+    font-size: 10.6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
   .details { margin: 0; padding: 0 0 0 16px; list-style: disc; }
   .details li {
     position: static;
@@ -1054,9 +1065,19 @@ const htmlAts = (lang) => {
   }
   .details li::before { content: none; }
   .project { margin-bottom: 7px; }
-  .project-title { font-weight: 700; margin: 0 0 3px; }
+  .project-title {
+    font-weight: 700;
+    margin: 0 0 3px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
   .result-group { margin-bottom: 5px; }
-  .result-group-title { font-weight: 700; margin: 0 0 2px; }
+  .result-group-title {
+    font-weight: 700;
+    margin: 0 0 2px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
   .jsec + .jsec { margin-top: 5px; }
   .jsec-page {
     break-before: page;
