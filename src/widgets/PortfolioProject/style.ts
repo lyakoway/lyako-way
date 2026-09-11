@@ -285,6 +285,13 @@ export const ListCard = styled.div`
   border: 1px solid ${PANEL_BORDER};
   border-radius: 12px;
   padding: 14px 16px;
+  /* Подсветка при наведении — как у карточек опыта на /cv. */
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 // Список находок — увеличенный зазор между пунктами.
