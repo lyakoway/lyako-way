@@ -86,7 +86,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "An AI system for searching and working with PDF, Word and Excel — answers grounded in source citations.",
     cardMetrics: ["MTS internal prod · test corpus on site", "87% Recall@1 · held-out"],
     tagline:
-      "Document Q&A with source citations. Internal MTS production; this page is a personal demo on a public test corpus — not MTS code.",
+      "Document Q&A with source citations. Internal MTS production. This page is a personal demo on a public test corpus — not MTS code.",
     keyResultsTitle: "Scale and evaluation",
     keyResultsColumns: 3,
     keyResults: [
@@ -118,7 +118,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     ],
     github: "https://github.com/lyakoway/ai-RAG-chat",
     portfolioText:
-      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and in vector search.;Demo mode works without keys. GLM-5.3-flash is the production default; OpenAI, Anthropic and local Ollama are interchangeable.;Chat titles are named by the LLM in the background, with no extra delay on the answer.\nBackend — FastAPI, ChromaDB, fastembed, hybrid BM25 + RRF. Frontend — React 19 / TypeScript (Vite). 63 tests and CI. Live demo on Hugging Face Spaces.",
+      "A document Q&A app with three modes side by side: classic RAG Chat, an AI Agent and Vector Search — so the difference is visible on the same question.\nRAG mode: one retrieve → grounded answer with citations.;Agent mode: a custom FastAPI tool loop (list documents → search → refine) with a live step timeline in the UI — no LangGraph.;Vector search mode: fastembed semantic search over chunks without an LLM — relevance scores and a jump to the exact document page.\nUpload PDF, Word or Excel and ask questions.;Answers link to source pages, with 👍/👎 feedback buttons and one-click follow-up suggestions.;In-browser preview for PDF, DOCX and Excel plus downloads from the documents panel.;Multilingual: RU/EN demo pack, files in any language — ask in yours, get the answer in the UI language.;Questions can be dictated by voice (Web Speech API) — in chat and in vector search.;Demo mode works without keys. GLM-5.3-flash is the production default, and OpenAI, Anthropic and local Ollama are interchangeable.;Chat titles are named by the LLM in the background, with no extra delay on the answer.\nBackend — FastAPI, ChromaDB, fastembed, hybrid BM25 + RRF. Frontend — React 19 / TypeScript (Vite). 63 tests and CI. Live demo on Hugging Face Spaces.",
     aiEngineering: {
       sectionTitle: "Engineering approach",
       intro:
@@ -358,7 +358,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
               cells: [
                 "Retrieval",
                 "Hybrid BM25 + RRF · +34 p.p. Recall@1 vs dense",
-                "Kept: dense-only hit 53% on RU/EN twins; lexical fusion is required, not optional",
+                "Kept: dense-only hit 53% on RU/EN twins, lexical fusion is required, not optional",
               ],
               highlight: true,
             },
@@ -374,7 +374,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
               cells: [
                 "Default model",
                 "GLM-5.3-flash · TTFT ~2.5–3.0 s",
-                "Shipped: GLM-4.5-flash sits at 25–50 s on the same pipeline; the pipeline itself adds <1%",
+                "Shipped: GLM-4.5-flash sits at 25–50 s on the same pipeline, the pipeline itself adds <1%",
               ],
               highlight: true,
             },
@@ -466,9 +466,9 @@ export const propsPortfolioList: PortfolioListProps[] = [
       findings: [
         "Language “twins” are the main trap of multilingual corpora. Embeddings align RU and EN, so a Russian question can surface the English document (vector-only Recall@1 53%). Lexical BM25 in the fusion is not optional — it is required (+34 p.p. Recall@1).",
         "A reranker is not a free upgrade. The cross-encoder scores semantic relevance, and a “twin” is just as semantically relevant — Recall@1 dropped −45 p.p. and added ~3 seconds. Tested and rejected with data.",
-        "The model generation defines latency more than any pipeline tweak. GLM-4.5-flash with thinking disabled answers in 25–50 s; GLM-5.3-flash on the same pipeline — ~3 s. A local Llama 3.2 3B on CPU can answer in 2–5 s for free, with spikes under load and weaker citations.",
+        "The model generation defines latency more than any pipeline tweak. GLM-4.5-flash with thinking disabled answers in 25–50 s. GLM-5.3-flash on the same pipeline — ~3 s. A local Llama 3.2 3B on CPU can answer in 2–5 s for free, with spikes under load and weaker citations.",
         "Anti-hallucination was probed with an out-of-corpus question — the model declines and points to the context instead of inventing a fact.",
-        "“Trim the context, get a faster first token” was tested and rejected: top_k 5→4 and chunk 800→400 leave Recall unchanged, TTFT stays ~2.5 s. The latency is the provider floor; the pipeline adds ~20 ms (<1%).",
+        "“Trim the context, get a faster first token” was tested and rejected: top_k 5→4 and chunk 800→400 leave Recall unchanged, TTFT stays ~2.5 s. The latency is the provider floor, the pipeline adds ~20 ms (<1%).",
         "LLM-as-judge scored held-out answers 5.0 on every axis. Treat it as a supporting signal — a strict eval needs a judge from another family.",
         "Critical paths are under tests: corrupted files, empty documents, a question without context, agent runaway loops — 63 pytest tests on isolated stores and fake providers.",
       ],
@@ -506,7 +506,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       "~85% normalized SQL · 2h → 2min",
     ],
     tagline:
-      "Natural-language analytics: SQL, a chart and an explanation. Internal MTS production; this page is a personal demo on test data — not MTS code.",
+      "Natural-language analytics: SQL, a chart and an explanation. Internal MTS production. This page is a personal demo on test data — not MTS code.",
     keyResultsTitle: "Scale and validation",
     keyResults: [
       { value: "~15", label: "analysts · MTS internal" },
@@ -543,7 +543,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     descCaptions: ["Transparency", "Data sources", "Trust in the numbers"],
     deployCaption: "Validation & deployment",
     deployLine:
-      "174 tests + held-out SQL eval (~85% normalized result correctness; ~98% means the query ran). Self-correction and latency measured · Hugging Face Spaces.",
+      "174 tests + held-out SQL eval (~85% normalized result correctness, ~98% means the query ran). Self-correction and latency measured · Hugging Face Spaces.",
     features: [
       "Multi-agent routing",
       "Text-to-SQL + Tool Calling",
@@ -646,7 +646,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
       ],
       diagramNote:
-        "Top to bottom: a question → dual routing (agent + source) → step-by-step execution with trace → an answer with citations and a chart. LLM providers are interchangeable; the demo mode runs without keys on deterministic scripts.",
+        "Top to bottom: a question → dual routing (agent + source) → step-by-step execution with trace → an answer with citations and a chart. LLM providers are interchangeable, and the demo mode runs without keys on deterministic scripts.",
       pipelinesTitle: "Two specialized agents",
       routerLine: "Auto-router → Data Agent / Knowledge Agent",
       pipelines: [
@@ -676,7 +676,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
       principles: [
         {
           title: "01 — Deterministic numbers",
-          check: "The LLM writes prose; Python computes the numbers.",
+          check: "The LLM writes prose, Python computes the numbers.",
           result:
             "Trends, percentages, top-N and z-score run in a Python layer. The LLM never calculates business figures.",
         },
@@ -690,13 +690,13 @@ export const propsPortfolioList: PortfolioListProps[] = [
           title: "03 — Specialized agents over universal prompts",
           check: "Routing selects the right agent and data source.",
           result:
-            "Data Agent for SQL, Knowledge Agent for docs. Dual router; the decision is visible in the trace.",
+            "Data Agent for SQL, Knowledge Agent for docs. Dual router, the decision is visible in the trace.",
         },
         {
           title: "04 — Hybrid retrieval",
           check: "BM25 + vector search handles exact terms, semantics and multilingual queries.",
           result:
-            "Knowledge Agent only. Russian stemming on BM25; the retrieval ablation lives on the RAG Chat case.",
+            "Knowledge Agent only. Russian stemming on BM25. The retrieval ablation lives on the RAG Chat case.",
         },
         {
           title: "05 — Transparent execution",
@@ -705,7 +705,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         },
         {
           title: "06 — Reproducible verification",
-          check: "174 tests, isolated databases and fake providers; golden-set LLM evaluation runs as a separate pass.",
+          check: "174 tests, isolated databases and fake providers. Golden-set LLM evaluation runs as a separate pass.",
           result:
             "Headline SQL quality is ~85% normalized result correctness on GLM-4.6 — not ~98% execution.",
         },
@@ -761,7 +761,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
             { cells: ["GLM-5.3 (Z.ai)", "13.8 s", "11 ms", "5.1 s", "~19.0 s", "1/3"] },
           ],
           footnote:
-            "Medians of 3 runs of one question through the full cycle (plan → DB → answer). External API latency varies. GLM-4.6 stays the default: the ~85% SQL eval was run on it. GLM-5.2 is faster on this sample; GLM-5.3-flash is faster still but weaker SQL (2/3 and 1/3). Script: python scripts/latency_benchmark.py.",
+            "Medians of 3 runs of one question through the full cycle (plan → DB → answer). External API latency varies. GLM-4.6 stays the default: the ~85% SQL eval was run on it. GLM-5.2 is faster on this sample. GLM-5.3-flash is faster still but weaker SQL (2/3 and 1/3). Script: python scripts/latency_benchmark.py.",
         },
         {
           title: "System limits — degradation protection",
@@ -786,7 +786,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
               cells: [
                 "Who counts",
                 "Python analytics layer",
-                "Kept: the LLM writes prose; trends, percentages and z-score never come from the model",
+                "Kept: the LLM writes prose, trends, percentages and z-score never come from the model",
               ],
               highlight: true,
             },
@@ -802,7 +802,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
               cells: [
                 "Agents",
                 "Data Agent + Knowledge Agent + dual router",
-                "Kept: one universal prompt blurred the role; the routing decision is in the trace",
+                "Kept: one universal prompt blurred the role, the routing decision is in the trace",
               ],
               highlight: true,
             },
@@ -810,7 +810,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
               cells: [
                 "Default model",
                 "GLM-4.6",
-                "Quality eval (~85%) ran on GLM-4.6. GLM-5.2 is faster here; GLM-5.3-flash is weaker at SQL",
+                "Quality eval (~85%) ran on GLM-4.6. GLM-5.2 is faster here, GLM-5.3-flash is weaker at SQL",
               ],
             },
             {
@@ -824,7 +824,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
               cells: [
                 "Latency",
                 "Full cycle ~16–30 s depending on model",
-                "Provider floor on plan + answer. Streamed steps; not a sub-second dashboard",
+                "Provider floor on plan + answer. Streamed steps — not a sub-second dashboard",
               ],
             },
             {
@@ -877,7 +877,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         current: [
           "Held-out SQL eval (natural language → SQL) on the public test pack",
           "Normalized result correctness — same numbers after canonicalization (~85%, headline)",
-          "Execution Accuracy — whether generated SQL ran (~98%; not correctness)",
+          "Execution Accuracy — whether generated SQL ran (~98%, not correctness)",
           "Self-Correction Rate — how often failed SQL is repaired",
           "Full-cycle latency — tens of seconds, streamed steps",
         ],
@@ -889,7 +889,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Dirty Excel files are the norm. A real upload broke on a merged header row and duplicate columns. Decision: resilient parsers that detect the header row, plus tests on dirty files.",
         "Keyword search without stemming is useless for Russian. «Затраты» did not match «расходы». Decision: Russian stemming for BM25 + a vector channel for semantics and multilinguality.",
         "Routing saves trust, not steps. A single universal prompt blurred the agent's role. Decision: two specialized agents + two-level routing with a visible decision in the trace.",
-        "Model pick is a quality/latency trade-off, not a default from a blog. On the latency table (3 runs, one question) GLM-5.2 is ~16 s vs GLM-4.6 ~30 s; GLM-5.3-flash is faster still but weaker SQL. GLM-4.6 stays the default because the ~85% held-out eval ran on it.",
+        "Model pick is a quality/latency trade-off, not a default from a blog. On the latency table (3 runs, one question) GLM-5.2 is ~16 s vs GLM-4.6 ~30 s. GLM-5.3-flash is faster still but weaker SQL. GLM-4.6 stays the default because the ~85% held-out eval ran on it.",
       ],
 
       production: {
@@ -928,7 +928,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
         "Two agents, not one prompt",
       ],
       conclusion:
-        "The result is three measured decisions — not the chatbot.\nPython computes business numbers; the LLM writes prose. A failed SQL is guarded, rewritten twice, then an honest error — never a silent fake. Two specialized agents plus a dual router beat one universal prompt.\n~85% normalized SQL and 174 tests are supporting scores on a public pack. ~98% only means the query ran. 2h → 2min is MTS production, not the demo.",
+        "The result is three measured decisions — not the chatbot.\nPython computes business numbers, the LLM writes prose. A failed SQL is guarded, rewritten twice, then an honest error — never a silent fake. Two specialized agents plus a dual router beat one universal prompt.\n~85% normalized SQL and 174 tests are supporting scores on a public pack. ~98% only means the query ran. 2h → 2min is MTS production, not the demo.",
       footnote:
         "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
     },

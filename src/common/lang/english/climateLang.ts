@@ -9,7 +9,7 @@ export const climateLang: ClimateProps = {
   geoDeniedToast: "Location access is denied — allow it in the site settings (icon on the left of the address bar)",
   titleSelectWeather: "Select weather",
   titleToast: "Applying a city theme",
-  temperatureFeeling: "Temperature feeling",
+  temperatureFeeling: "Feels like",
   humidity: "Humidity",
   wind: "Wind",
   pressure: "Pressure",

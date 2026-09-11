@@ -5,7 +5,7 @@ import { HeaderTopMenuProps } from "src/common/types/lang";
 export const propsHeaderTopMenu: HeaderTopMenuProps[] = [
   {
     id: "0",
-    label: "House",
+    label: "Home",
     value: "",
     icon: "logoSign",
   },

@@ -77,8 +77,8 @@ const content = {
       "**Публичные GitHub-демо** — RAG Chat и AI Data Pilot",
     ],
     profile: [
-      "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в МТС Web Services (MWS AI) — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Вывел в production два внутренних продукта: RAG-ассистент для документов (**~2 000 документов; held-out Recall@1 53% dense-only → 87% hybrid**) и мультиагентную аналитическую платформу (**~85% нормализованной точности SQL**), сократившую подготовку отчётности **с 2 часов до 2 минут.**",
-      "**Продакшн развёрнут внутри МТС (~12 команд, ~200 RAG-вопросов/день). Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС; продовые данные под NDA.** Для RAG в production — **GLM-5.3-flash** (TTFT ~2,5–3 с, стоимость vs GPT/Claude); OpenAI, Anthropic и Ollama взаимозаменяемы.",
+      "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в МТС Web Services (MWS AI) — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Вывел в production два внутренних продукта: RAG-ассистент для документов (**~2 000 документов, held-out Recall@1 53% dense-only → 87% hybrid**) и мультиагентную аналитическую платформу (**~85% нормализованной точности SQL**), сократившую подготовку отчётности **с 2 часов до 2 минут.**",
+      "**Продакшн развёрнут внутри МТС (~12 команд, ~200 RAG-вопросов/день). Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС, продовые данные под NDA.** Для RAG в production — **GLM-5.3-flash** (TTFT ~2,5–3 с, стоимость vs GPT/Claude). OpenAI, Anthropic и Ollama взаимозаменяемы.",
       "Веду путь **от прототипа до production:** Python / FastAPI, гибридный поиск, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
     ],
     siteLink: {
@@ -104,11 +104,11 @@ const content = {
             title: "RAG Chat — AI-ассистент с Retrieval-Augmented Generation",
             text: "AI-ассистент для работы с документами — загружает PDF, Word и Excel, отвечает на вопросы по содержимому и предоставляет ссылки на исходные страницы и фрагменты.",
             details: [
-              { label: "RAG pipeline", text: "индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + вектора (RRF) → генерация ответа LLM → цитирование источников." },
+              { label: "RAG pipeline", text: "индексация документов → разбиение на фрагменты (tiktoken) → embeddings (fastembed) → гибридный поиск BM25 + векторов (RRF) → генерация ответа LLM → цитирование источников." },
               { label: "Три режима", text: "RAG Chat → AI Agent → Vector Search — переключение в одном приложении." },
-              { label: "Архитектура", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash по умолчанию (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — история диалогов." },
+              { label: "Архитектура", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash по умолчанию (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript, SQLAlchemy — история диалогов." },
               { label: "Оценка", text: "held-out ~180 запросов, не использовавшихся для настройки промптов и retrieval. Гибрид BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder на fused top-k отклонён: RU/EN-дубликаты одного документа получали равный скор и вытесняли золотой чанк из fused top-k (−45 п.п. Recall@1, +~3 с)." },
-              { label: "Качество", text: "63 pytest-теста + CI; TTFT ~2,5–3 с на GLM-5.3-flash." },
+              { label: "Качество", text: "63 pytest-теста + CI, TTFT ~2,5–3 с на GLM-5.3-flash." },
             ],
           },
           {
@@ -117,14 +117,14 @@ const content = {
             details: [
               { label: "Олег — AI-аналитик", text: "переводит вопросы на естественном языке в SQL, выполняет многошаговый анализ данных, выявляет динамику и отклонения, формирует таблицы, графики и аналитические выводы." },
               { label: "Ксюша — RAG-агент", text: "отвечает на вопросы по внутренней технической документации и загруженным документам (PDF, Word, Excel) с опорой на найденные источники." },
-              { label: "Архитектура", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript; GLM-4.6 по умолчанию (OpenAI / Anthropic взаимозаменяемы); RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников." },
-              { label: "Качество", text: "174 pytest-теста + CI; held-out SQL-оценка — ~98% execution (запрос выполнился), ~85% нормализованной точности результата (мультимножество значений без алиасов, ORDER BY и формата чисел — не string exact-match); самокоррекция при ошибке SQL (GLM-4.6)." },
+              { label: "Архитектура", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → аналитический слой → SSE → React / TypeScript, GLM-4.6 по умолчанию (OpenAI / Anthropic взаимозаменяемы), RAG-ядро Ксюши — гибридный поиск BM25 + векторные эмбеддинги (fastembed) → LLM → цитирование источников." },
+              { label: "Качество", text: "174 pytest-теста + CI, held-out SQL-оценка — ~98% execution (запрос выполнился), ~85% нормализованной точности результата (мультимножество значений без алиасов, ORDER BY и формата чисел — не string exact-match), самокоррекция при ошибке SQL (GLM-4.6)." },
             ],
           },
         ],
         tasks: [
           "Проектировал и выводил в production AI-агентов — tool calling, оркестрация, обработка ошибок и восстановление после сбоев.",
-          "Строил и измерял RAG-пайплайны — гибрид BM25 + вектора, цитирование источников; отклонил более медленный реранкер после проверки на held-out наборе.",
+          "Строил и измерял RAG-пайплайны — гибрид BM25 + векторов, цитирование источников. Отклонил более медленный реранкер после проверки на held-out наборе.",
           "Формировал held-out evaluation-наборы — запросы не использовались для настройки промптов и retrieval — для регрессии поиска, промптов и моделей.",
           "Реализовал Text-to-SQL с SQL-guard и самокоррекцией запросов.",
           "Вёл сервисы AI-платформы end-to-end — backend (Python / FastAPI), frontend (React / Next.js), инфраструктура (Docker / Kubernetes / CI/CD).",
@@ -133,7 +133,7 @@ const content = {
           {
             title: "RAG Chat",
             items: [
-              "Внутреннее использование в МТС (~2 000 документов, ~20 тыс. чанков, ~12 команд, ~200 вопросов/день). Публичное демо: личный проект, не код МТС; прод-данные под NDA.",
+              "Внутреннее использование в МТС (~2 000 документов, ~20 тыс. чанков, ~12 команд, ~200 вопросов/день). Публичное демо: личный проект, не код МТС, прод-данные под NDA.",
               "Held-out Recall@1 87% после гибрида BM25 + RRF.",
               "Сокращает поиск с минут до секунд по регламентам, договорам и HR-политикам.",
             ],
@@ -141,8 +141,8 @@ const content = {
           {
             title: "AI Data Pilot",
             items: [
-              "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев отчётности/неделю по PostgreSQL, ClickHouse и Excel). Публичное демо: личный проект, не код МТС; продовые базы под NDA.",
-              "Held-out SQL: ~98% execution, ~85% нормализованной точности (мультимножество значений, не exact-match); подготовка отчётности 2 часа → 2 минуты.",
+              "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев отчётности/неделю по PostgreSQL, ClickHouse и Excel). Публичное демо: личный проект, не код МТС, продовые базы под NDA.",
+              "Held-out SQL: ~98% execution, ~85% нормализованной точности (мультимножество значений, не exact-match), подготовка отчётности 2 часа → 2 минуты.",
               "Один интерфейс к PostgreSQL, ClickHouse и Excel, с автоподстройкой SQL-диалекта.",
             ],
           },
@@ -249,8 +249,8 @@ const content = {
       "**Public GitHub demos** — RAG Chat and AI Data Pilot",
     ],
     profile: [
-      "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (**~2,000 docs; held-out Recall@1 53% dense-only → 87% hybrid**) and a multi-agent analytics platform (**~85% normalized SQL result correctness**) that **cut report preparation from 2 hours to 2 minutes.**",
-      "**Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code; production data stays under NDA.** RAG production default is **GLM-5.3-flash** (TTFT ~2.5–3 s, cost vs GPT/Claude); OpenAI, Anthropic and Ollama are interchangeable.",
+      "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (**~2,000 docs, held-out Recall@1 53% dense-only → 87% hybrid**) and a multi-agent analytics platform (**~85% normalized SQL result correctness**) that **cut report preparation from 2 hours to 2 minutes.**",
+      "**Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code, production data stays under NDA.** RAG production default is **GLM-5.3-flash** (TTFT ~2.5–3 s, cost vs GPT/Claude). OpenAI, Anthropic and Ollama are interchangeable.",
       "**Own the path from prototype to production:** Python / FastAPI, hybrid retrieval, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
     ],
     siteLink: {
@@ -278,9 +278,9 @@ const content = {
             details: [
               { label: "RAG pipeline", text: "document indexing → chunking (tiktoken) → embeddings (fastembed) → hybrid BM25 + vector retrieval (RRF) → LLM answer generation → source citation." },
               { label: "Three modes", text: "RAG Chat → AI Agent → Vector Search — switching within one application." },
-              { label: "Architecture", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash default (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — conversation history." },
+              { label: "Architecture", text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash default (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript, SQLAlchemy — conversation history." },
               { label: "Evaluation", text: "held-out ~180 queries not used to tune prompts or retrieval. Hybrid BM25 + RRF: Recall@1 53% (dense-only) → 87%. Cross-encoder on fused top-k rejected: RU/EN duplicates of the same document tied in score and pushed the gold chunk out of the fused top-k (−45 p.p. Recall@1, +~3 s)." },
-              { label: "Quality", text: "63 pytest tests + CI; TTFT ~2.5–3 s on GLM-5.3-flash." },
+              { label: "Quality", text: "63 pytest tests + CI, TTFT ~2.5–3 s on GLM-5.3-flash." },
             ],
           },
           {
@@ -289,14 +289,14 @@ const content = {
             details: [
               { label: "Data Agent", text: "turns natural-language questions into SQL, runs multi-step data analysis, detects trends and deviations, and produces tables, charts and analytical conclusions." },
               { label: "Knowledge Agent (RAG)", text: "answers questions over internal technical documentation and uploaded files (PDF, Word, Excel), grounded in the retrieved sources." },
-              { label: "Architecture", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; GLM-4.6 default (OpenAI / Anthropic interchangeable); the Knowledge Agent's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation." },
-              { label: "Quality", text: "174 pytest tests + CI; held-out SQL eval — ~98% execution (query ran), ~85% normalized result correctness (bag of values after dropping aliases, ORDER BY and number format — not string exact-match); self-correction on failed SQL (GLM-4.6)." },
+              { label: "Architecture", text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript, GLM-4.6 default (OpenAI / Anthropic interchangeable), the Knowledge Agent's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation." },
+              { label: "Quality", text: "174 pytest tests + CI, held-out SQL eval — ~98% execution (query ran), ~85% normalized result correctness (bag of values after dropping aliases, ORDER BY and number format — not string exact-match), self-correction on failed SQL (GLM-4.6)." },
             ],
           },
         ],
         tasks: [
           "Designed and shipped production AI agents — tool calling, orchestration, error handling and recovery.",
-          "Built and measured RAG pipelines — hybrid BM25 + vector search, source citations; rejected a slower reranker after testing on the held-out set.",
+          "Built and measured RAG pipelines — hybrid BM25 + vector search, source citations. Rejected a slower reranker after testing on the held-out set.",
           "Built held-out evaluation suites — queries unused for prompt/retrieval tuning — for regression of retrieval, prompts and models.",
           "Implemented Text-to-SQL with SQL guardrails and self-correction.",
           "Owned AI platform services end-to-end — backend (Python / FastAPI), frontend (React / Next.js), infrastructure (Docker / Kubernetes / CI/CD).",
@@ -305,7 +305,7 @@ const content = {
           {
             title: "RAG Chat",
             items: [
-              "Internal MTS production usage (~2,000 documents, ~20k chunks, ~12 teams, ~200 questions/day). Public demo: personal project, not MTS code; prod data under NDA.",
+              "Internal MTS production usage (~2,000 documents, ~20k chunks, ~12 teams, ~200 questions/day). Public demo: personal project, not MTS code, prod data under NDA.",
               "Held-out Recall@1 87% after hybrid BM25 + RRF.",
               "Cuts lookup from minutes to seconds on regulations, contracts and HR policies.",
             ],
@@ -313,8 +313,8 @@ const content = {
           {
             title: "AI Data Pilot",
             items: [
-              "Internal MTS production usage (~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel). Public demo: personal project, not MTS code; prod databases under NDA.",
-              "Held-out SQL: ~98% execution, ~85% normalized result correctness (bag of values, not exact-match); report prep 2 hours → 2 minutes.",
+              "Internal MTS production usage (~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel). Public demo: personal project, not MTS code, prod databases under NDA.",
+              "Held-out SQL: ~98% execution, ~85% normalized result correctness (bag of values, not exact-match), report prep 2 hours → 2 minutes.",
               "One interface over PostgreSQL, ClickHouse and Excel, with the SQL dialect adapted automatically.",
             ],
           },

@@ -1,7 +1,7 @@
 import { ModalProps } from "src/common/types/lang";
 
 export const modal: ModalProps = {
-  title: "You are ready to place an order ?",
+  title: "Are you ready to place an order?",
   buttonText: "Send",
   fullName: "Name*",
   fullNameLabel: "What is your name?",
@@ -14,15 +14,15 @@ export const modal: ModalProps = {
   services3: "Module development",
   services4: "Individual project",
   services5: "Support",
-  mail: "Email *",
+  mail: "Email*",
   mailLabel: "Enter your e-mail",
   time: "Development time",
-  timeValue1: "I'm not hurrying",
+  timeValue1: "I'm not in a hurry",
   timeValue2: "Urgently",
   timeValue3: "Yesterday",
   exercise: "Do you have a technical task?",
   exerciseValue2: "Yes",
-  exerciseValue1: "Not",
+  exerciseValue1: "No",
   money: "Money",
   cooperation: "Cooperation",
   text: "Project description, requirements, special requests, budget",

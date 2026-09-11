@@ -7,7 +7,7 @@ export const portfolioHeader: PortfolioHeaderProps = {
   textValueBlog: `Blog`,
   date: "Date of creation:",
   technology: "Technology:",
-  linkGithub: "Link to github:",
+  linkGithub: "Link to GitHub:",
   link: "Link:",
   features: "Features",
 };

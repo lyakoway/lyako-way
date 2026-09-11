@@ -15,8 +15,8 @@ export const resumeCv: ResumeCvProps = {
   viewLabel: "View",
   profileTitle: "Profile",
   profile: [
-    "AI / LLM engineer with 7+ years in software engineering, including 2+ years building production LLM systems at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (~2,000 docs; held-out Recall@1 53% dense-only → 87% hybrid) and a multi-agent analytics platform (~85% normalized SQL result correctness) that cut report preparation from 2 hours to 2 minutes.",
-    "Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code; production data stays under NDA. RAG production default is GLM-5.3-flash (TTFT ~2.5–3 s, cost vs GPT/Claude); OpenAI, Anthropic and Ollama are interchangeable.",
+    "AI / LLM engineer with 7+ years in software engineering, including 2+ years building production LLM systems at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (~2,000 docs, held-out Recall@1 53% dense-only → 87% hybrid) and a multi-agent analytics platform (~85% normalized SQL result correctness) that cut report preparation from 2 hours to 2 minutes.",
+    "Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code, production data stays under NDA. RAG production default is GLM-5.3-flash (TTFT ~2.5–3 s, cost vs GPT/Claude). OpenAI, Anthropic and Ollama are interchangeable.",
     "Own the path from prototype to production: Python / FastAPI, hybrid retrieval, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
   ],
   highlightsTitle: "Highlights",
@@ -54,7 +54,7 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Architecture",
-              text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash default (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript; SQLAlchemy — conversation history.",
+              text: "Python / FastAPI → ChromaDB → fastembed → GLM-5.3-flash default (OpenAI / Anthropic / Ollama) → SSE → React / TypeScript, SQLAlchemy — conversation history.",
             },
             {
               label: "Evaluation",
@@ -62,7 +62,7 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Quality",
-              text: "63 pytest tests + CI; TTFT ~2.5–3 s on GLM-5.3-flash.",
+              text: "63 pytest tests + CI, TTFT ~2.5–3 s on GLM-5.3-flash.",
             },
           ],
         },
@@ -80,11 +80,11 @@ export const resumeCv: ResumeCvProps = {
             },
             {
               label: "Architecture",
-              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript; GLM-4.6 default (OpenAI / Anthropic interchangeable); the Knowledge Agent's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation.",
+              text: "Python / FastAPI → SQLAlchemy → Agent Loop (ReAct) → Tool Calling → Text-to-SQL → SQL guard → PostgreSQL / ClickHouse → analytics layer → SSE → React / TypeScript, GLM-4.6 default (OpenAI / Anthropic interchangeable), the Knowledge Agent's RAG core — hybrid retrieval BM25 + vector embeddings (fastembed) → LLM → source citation.",
             },
             {
               label: "Quality",
-              text: "174 pytest tests + CI; held-out SQL eval — ~98% execution (query ran), ~85% normalized result correctness (bag of values after dropping aliases, ORDER BY and number format — not string exact-match); self-correction on failed SQL (GLM-4.6).",
+              text: "174 pytest tests + CI, held-out SQL eval — ~98% execution (query ran), ~85% normalized result correctness (bag of values after dropping aliases, ORDER BY and number format — not string exact-match), self-correction on failed SQL (GLM-4.6).",
             },
           ],
         },
@@ -94,7 +94,7 @@ export const resumeCv: ResumeCvProps = {
           title: "Core tasks",
           items: [
             "Designed and shipped production AI agents — tool calling, orchestration, error handling and recovery.",
-            "Built and measured RAG pipelines — hybrid BM25 + vector search, source citations; rejected a slower reranker after testing on the held-out set.",
+            "Built and measured RAG pipelines — hybrid BM25 + vector search, source citations. Rejected a slower reranker after testing on the held-out set.",
             "Built held-out evaluation suites — queries unused for prompt/retrieval tuning — for regression of retrieval, prompts and models.",
             "Implemented Text-to-SQL with SQL guardrails and self-correction.",
             "Owned AI platform services end-to-end — backend (Python / FastAPI), frontend (React / Next.js), infrastructure (Docker / Kubernetes / CI/CD).",
@@ -106,7 +106,7 @@ export const resumeCv: ResumeCvProps = {
         {
           title: "RAG Chat",
           items: [
-            "Internal MTS production usage (~2,000 documents, ~20k chunks, ~12 teams, ~200 questions/day). Public demo: personal project, not MTS code; prod data under NDA.",
+            "Internal MTS production usage (~2,000 documents, ~20k chunks, ~12 teams, ~200 questions/day). Public demo: personal project, not MTS code, prod data under NDA.",
             "Held-out Recall@1 87% after hybrid BM25 + RRF.",
             "Cuts lookup from minutes to seconds on regulations, contracts and HR policies.",
           ],
@@ -114,8 +114,8 @@ export const resumeCv: ResumeCvProps = {
         {
           title: "AI Data Pilot",
           items: [
-            "Internal MTS production usage (~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel). Public demo: personal project, not MTS code; prod databases under NDA.",
-            "Held-out SQL: ~98% execution, ~85% normalized result correctness (bag of values, not exact-match); report prep 2 hours → 2 minutes.",
+            "Internal MTS production usage (~15 analysts, ~80 reporting scenarios/week over PostgreSQL, ClickHouse and Excel). Public demo: personal project, not MTS code, prod databases under NDA.",
+            "Held-out SQL: ~98% execution, ~85% normalized result correctness (bag of values, not exact-match), report prep 2 hours → 2 minutes.",
             "One interface over PostgreSQL, ClickHouse and Excel, with the SQL dialect adapted automatically.",
           ],
         },

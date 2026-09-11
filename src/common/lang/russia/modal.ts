@@ -1,12 +1,12 @@
 import { ModalProps } from "src/common/types/lang";
 
 export const modal: ModalProps = {
-  title: "Вы готовы сделать заказ ?",
+  title: "Вы готовы сделать заказ?",
   buttonText: "Отправить",
   fullName: "Имя*",
   fullNameLabel: "Ф.И.О.",
   phone: "Телефон*",
-  phoneLabel: "Введите номер телефон",
+  phoneLabel: "Введите номер телефона",
   services: "Услуги",
   servicesNull: "Работа...",
   services1: "Разработка с нуля",
@@ -24,7 +24,7 @@ export const modal: ModalProps = {
   exerciseValue2: "Да",
   exerciseValue1: "Нет",
   money: "Деньги",
-  cooperation: "Cотрудничество",
+  cooperation: "Сотрудничество",
   text: "Описание проекта, требования, особые пожелания, бюджет",
   textLabel: "Сообщение",
 };

@@ -575,8 +575,10 @@ const PortfolioProject = ({ slug }: { slug: string }) => {
                   {/* Карточки описания — дерево слева */}
                   <AiDiagram>
                     {cards.map((card, i) => {
+                      // Пункты списка разделяет только «.;» — обычная точка
+                      // с запятой внутри фразы не должна ломать карточку.
                       const parts = card.line
-                        .split(";")
+                        .split(/(?<=\.);\s*/)
                         .map((p) => p.trim())
                         .filter(Boolean);
                       return (

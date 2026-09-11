@@ -9,7 +9,7 @@ export const SITE_TITLE = "LYAKOWAY — Мазуренко Алексей, AI / 
 
 export const SITE_DESCRIPTION =
   "Мазуренко Алексей (lyakoway) — AI / LLM Engineer из Москвы: production RAG, " +
-  "AI-агенты, Text-to-SQL. Портфолио, резюме, услуги. Открыт к удалёнке и переезду.";
+  "AI-агенты, Text-to-SQL. Портфолио, резюме, контакты. Открыт к удалёнке и переезду.";
 
 export const OG_IMAGE = `${SITE_URL}/static/og/lyakoway-og.png`;
 

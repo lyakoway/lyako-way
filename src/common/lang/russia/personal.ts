@@ -22,7 +22,7 @@ export const personal: PersonalProps = {
     hero: {
       role: "AI / LLM Engineer",
       tagline:
-        "В МТС вывожу в production RAG и Text-to-SQL агентов — пайплайн выбираю по held-out оценке, а не по популярной статье.",
+        "В МТС вывожу в production RAG и Text-to-SQL-агентов — пайплайн выбираю по held-out оценке, а не по популярной статье.",
     },
     stats: [
       { value: "2 часа → 2 минуты", label: "Подготовка отчётности" },
@@ -38,7 +38,7 @@ export const personal: PersonalProps = {
     },
     products: {
       title: "AI-продукты",
-      note: "Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС; продовые данные под NDA.",
+      note: "Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС, продовые данные под NDA.",
       items: [
         {
           name: "RAG Chat",
@@ -63,7 +63,7 @@ export const personal: PersonalProps = {
             "**Ксюша — RAG-агент:** Hybrid Search → Documents → Answer + Citations. Критические вычисления — детерминированный Python, не LLM.",
           ],
           result:
-            "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев/неделю). Подготовка отчётности 2 часа → 2 минуты; ~85% нормализованного SQL; 174 теста.",
+            "Внутреннее использование в МТС (~15 аналитиков, ~80 сценариев/неделю). Подготовка отчётности 2 часа → 2 минуты, ~85% нормализованного SQL, 174 теста.",
           stack: {
             label: "Стек",
             items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],

@@ -32,7 +32,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     portfolioNameList: "A notebook demo is not a service yet",
     portfolioDataTime: "09.03.2026",
     technologies: ["Production"],
-    textBlogHeader: "A demo on your laptop and a service at work are different jobs",
+    textBlogHeader: "A demo on your laptop and a service at work are different jobs.",
     portfolioText:
       "The interface talks to my API, not to the vendor. You can see the steps, the errors and a thumbs-up. The default model is the one that measured well — not the one from a blog post.",
     related: [
@@ -65,7 +65,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
       "Before I swap a model, I write down what I care about: did it find the right place, how long did it take, what did it cost, did it stay up. Then I measure that on a held-out set — questions I did not use to tweak prompts or search. On the RAG Chat case, Recall@1, time-to-first-token and dollars per question are there because I measured them, not because they sound good.",
       "For document Q&A, the honest question is simple: did the right fragment land in the top results? For Text-to-SQL I do not celebrate an exact string match. I ask whether the numbers are the same once you ignore column aliases, row order and 1.0 vs 1.00. On the public Data Pilot pack that is about 85% with GLM-4.6. The 98% figure only means “the query ran”.",
       "Asking another model to grade the answer can help. I treat it as a second opinion. A perfect 5.0/5 from the same family of models is not why I would ship. I keep or drop a pipeline on the metric we agreed on first.",
-      "If I cannot run it again tomorrow, it does not count. RAG Chat rebuilds the eval index from scratch every time — 63 tests and GitHub Actions. Data Pilot has 174 tests on throwaway databases and fake model providers; the LLM grading run is separate. I do that before I change a prompt or a model. The tables live on the cases.",
+      "If I cannot run it again tomorrow, it does not count. RAG Chat rebuilds the eval index from scratch every time — 63 tests and GitHub Actions. Data Pilot has 174 tests on throwaway databases and fake model providers. The LLM grading run is separate. I do that before I change a prompt or a model. The tables live on the cases.",
     ],
   },
   {
@@ -76,7 +76,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     portfolioNameList: "A good prompt is not the product",
     portfolioDataTime: "09.02.2026",
     technologies: ["Evaluation"],
-    textBlogHeader: "I treat prompts like code: save a version, then test it on questions I did not write it for",
+    textBlogHeader: "I treat prompts like code: save a version, then test it on questions I did not write it for.",
     portfolioText:
       "Role, format and an example help. They do not replace search, tools or a test set. “We improved the prompt” without numbers is just a story.",
     related: [
@@ -108,7 +108,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     body: [
       "A normal model answers once and stops. An agent keeps going: pick a tool, look at the result, decide the next step. That is how it reaches search, SQL or code — not by writing a longer paragraph.",
       "When SQL fails, I want that to be part of the design. In Data Pilot the query may only be a SELECT. If it breaks, the agent gets two tries to fix it. After that the user sees an honest error — never a quiet fake table. A refusal is better than a confident lie.",
-      "Two narrow agents work better than one that claims to do everything. One handles SQL and analytics, the other handles documents. A router picks who and which data source; you can watch that choice in the live trace. It is less glamorous than a “god agent”, and much easier to live with.",
+      "Two narrow agents work better than one that claims to do everything. One handles SQL and analytics, the other handles documents. A router picks who and which data source. You can watch that choice in the live trace. It is less glamorous than a “god agent”, and much easier to live with.",
       "Python does the business math — trends, percentages, top-N, unusual spikes. The model writes the explanation. The document agent still searches with keywords and vectors together, with Russian stemming on the keyword side. How we compared search setups is on the RAG Chat case. The agent wiring and the ~85% SQL number are on AI Data Pilot.",
     ],
   },
@@ -120,7 +120,7 @@ export const propsPortfolioListBlog: PortfolioListBlogProps[] = [
     portfolioNameList: "RAG is more than a vector database",
     portfolioDataTime: "12.01.2026",
     technologies: ["RAG"],
-    textBlogHeader: "Find the right snippet first, then let the model talk — and always show where it came from",
+    textBlogHeader: "Find the right snippet first, then let the model talk — and always show where it came from.",
     portfolioText:
       "Vectors alone missed the Russian/English twin of the same file. Mixing in keyword search lifted Recall@1 from 53% to 87%. A fancier reranker made it worse, so we dropped it.",
     related: [{ label: "RAG Chat", href: "/portfolio/rag-chat" }],

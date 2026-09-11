@@ -38,7 +38,7 @@ export const personal: PersonalProps = {
     },
     products: {
       title: "AI products",
-      note: "Public GitHub demos are independently built personal projects of the same problem class — not MTS source code; production data stays under NDA.",
+      note: "Public GitHub demos are independently built personal projects of the same problem class — not MTS source code, production data stays under NDA.",
       items: [
         {
           name: "RAG Chat",
@@ -63,7 +63,7 @@ export const personal: PersonalProps = {
             "**Knowledge Agent (RAG):** Hybrid Search → Documents → Answer + Citations. Critical computations run in deterministic Python, not the LLM.",
           ],
           result:
-            "Internal MTS usage (~15 analysts, ~80 scenarios/week). Report prep 2 hours → 2 minutes; ~85% normalized SQL; 174 tests.",
+            "Internal MTS usage (~15 analysts, ~80 scenarios/week). Report prep 2 hours → 2 minutes, ~85% normalized SQL, 174 tests.",
           stack: {
             label: "Stack",
             items: ["Python", "FastAPI", "ReAct", "Tool Calling", "Text-to-SQL", "RAG", "PostgreSQL", "ClickHouse", "React", "TypeScript"],
@@ -85,7 +85,7 @@ export const personal: PersonalProps = {
         {
           num: "02",
           title: "Evaluation before optimization",
-          text: "Held-out set → experiment → decision. In RAG Chat the hybrid won (53% → 87% Recall@1); the reranker lost (−45 p.p., +~3 s). Numbers are on the case study.",
+          text: "Held-out set → experiment → decision. In RAG Chat the hybrid won (53% → 87% Recall@1). The reranker lost (−45 p.p., +~3 s). Numbers are on the case study.",
         },
         {
           num: "03",
