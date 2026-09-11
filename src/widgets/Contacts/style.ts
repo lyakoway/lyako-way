@@ -353,6 +353,11 @@ export const DiscussSection = styled.section`
   margin-top: 34px;
 `;
 
+// Заголовок «Свяжитесь со мной» — с отступом от панели «Обсудим вашу задачу».
+export const ContactHead = styled.div`
+  margin-top: 34px;
+`;
+
 // Подложка только под текстами — заголовок секции остаётся снаружи.
 export const DiscussPanel = styled.div`
   padding: 14px 16px;

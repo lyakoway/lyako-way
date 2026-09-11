@@ -7,7 +7,6 @@ import ContactForm from "src/components/ContactForm";
 import RunBorder from "src/ui/RunBorder";
 import {
   CONTACT_EMAIL,
-  CONTACT_GITHUB,
   CONTACT_LINKEDIN,
   CONTACT_MESSENGERS,
 } from "src/common/constants/contacts";
@@ -39,6 +38,7 @@ import {
   StatValue,
   StatLabel,
   StatNote,
+  ContactHead,
   DiscussPanel,
   DiscussSection,
   DiscussText,
@@ -113,8 +113,8 @@ const Head = ({ icon, title }: { icon: React.ReactNode; title: string }) => (
 const telegram = CONTACT_MESSENGERS.find((item) => item.label === "Telegram");
 const whatsapp = CONTACT_MESSENGERS.find((item) => item.label === "WhatsApp");
 
-// Hiring-first row matches the mock: Telegram · WhatsApp · Email · LinkedIn.
-// Phone and GitHub stay on the second row so nothing is dropped.
+// Hiring-first row: Telegram · WhatsApp · Email · LinkedIn — без телефона
+// (переписка предпочтительнее звонков) и без GitHub-дублирования.
 const PAGE_CONTACTS: {
   href: string;
   label: string;
@@ -139,12 +139,6 @@ const PAGE_CONTACTS: {
     ...CONTACT_LINKEDIN,
     channel: "linkedin",
     icon: PROFILE_ICON.LinkedIn,
-    external: true,
-  },
-  {
-    ...CONTACT_GITHUB,
-    channel: "github",
-    icon: PROFILE_ICON.GitHub,
     external: true,
   },
 ].filter(Boolean) as {
@@ -259,7 +253,7 @@ const Contacts = () => {
       </DiscussSection>
 
       {/* Блок контактов и формы */}
-      <Reveal>
+      <Reveal as={ContactHead} >
         <Head icon={<SendIcon />} title={contactsPage.contactTitle} />
       </Reveal>
 
