@@ -711,7 +711,9 @@ const html = (lang, themeName, isPrint = false) => {
     font-weight: 700;
     color: ${t.muted};
   }
-  .page { display: table; width: 100%; height: 296.5mm; }
+  /* table-layout: fixed — колонки обеих страниц строго одинаковые
+     (иначе длинные URL в сайдбаре распирают первую страницу). */
+  .page { display: table; width: 100%; height: 296.5mm; table-layout: fixed; }
 
   /* ——— Сайдбар ——— */
   .sidebar {
@@ -721,6 +723,8 @@ const html = (lang, themeName, isPrint = false) => {
     background: ${t.sidebarBg};
     color: ${t.sidebarText};
     padding: 10mm 6mm 8mm;
+    /* Длинные ссылки (LinkedIn и т.п.) переносятся, а не распирают колонку. */
+    overflow-wrap: anywhere;
   }
   .avatar {
     display: block;
