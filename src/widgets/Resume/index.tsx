@@ -471,14 +471,16 @@ const Resume = () => {
           </SectionIcon>
           <SectionTitle>{resumeCv.profileTitle}</SectionTitle>
         </SectionHead>
-        <ProfileLead>
+        <Reveal as={ProfileLead} x={64} y={0} delay={90}>
           {resumeCv.profile.map((paragraph) => (
             <ProfilePara key={paragraph}>{paragraph}</ProfilePara>
           ))}
-        </ProfileLead>
+        </Reveal>
         <HighlightGrid aria-label={resumeCv.highlightsTitle}>
-          {resumeCv.highlights.map((item) => (
-            <HighlightCard key={item}>{item}</HighlightCard>
+          {resumeCv.highlights.map((item, i) => (
+            <Reveal as={HighlightCard} key={item} x={64} y={0} delay={120 + i * 90}>
+              {item}
+            </Reveal>
           ))}
         </HighlightGrid>
       </Section>

@@ -621,18 +621,41 @@ export const Chip = styled.li`
 `;
 
 export const ProfileLead = styled.div`
+  ${cardSurface};
   display: flex;
   flex-direction: column;
   gap: 10px;
   margin-bottom: 16px;
+  padding: 14px 16px;
+  /* Подсветка при наведении — как у карточки опыта (EntryCard). */
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 export const ProfilePara = styled.p`
+  position: relative;
   margin: 0;
+  padding-left: 18px;
   color: ${PANEL_TEXT_SECONDARY};
   font-size: 14px;
   font-weight: 300;
   line-height: 1.55;
+
+  /* Оранжевая метка слева — как пункты «Обо мне» на /profile. */
+  &::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 9px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
 `;
 
 export const HighlightGrid = styled.ul`
@@ -655,6 +678,13 @@ export const HighlightCard = styled.li`
   font-size: 13.5px;
   font-weight: 500;
   line-height: 1.45;
+  /* Подсветка при наведении — как у карточки опыта (EntryCard). */
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 /* ——— Просмотр PDF в модалке ——— */
