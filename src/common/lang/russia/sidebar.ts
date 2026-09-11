@@ -6,8 +6,5 @@ export const sidebar: SidebarProps = {
   brandTagline: "lyakoway — путь к совершенству",
   settings: "Настройки",
   emailTitle: "Почта",
-  phoneTitle: "Телефон",
   messengersTitle: "Мессенджеры",
-  locationTitle: "Локация",
-  location: "Москва · удалёнка / готов к переезду",
 };

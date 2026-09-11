@@ -35,7 +35,7 @@ export const resumeCv: ResumeCvProps = {
       companyNote:
         "The AI division of the MTS ecosystem — one of Russia's largest telecom operators (~80M+ subscribers).",
       period: "Apr 2024 — present",
-      meta: "Moscow · Software development, AI solutions",
+      meta: "Software development, AI solutions",
       /* Описание продукта записи — абзацами, как summary у Senior Frontend. */
       // Описания проектов — заголовок с линией слева + абзацы описания:
       // описания соседних проектов не смешиваются.
@@ -170,7 +170,7 @@ export const resumeCv: ResumeCvProps = {
       role: "Senior Frontend Developer",
       company: "MTS Web Services",
       period: "Feb 2019 — Apr 2024",
-      meta: "Moscow · MTS Profile and Ecosystem widgets",
+      meta: "MTS Profile and Ecosystem widgets",
       // Описания продуктов — заголовок с линией слева + абзацы описания.
       projectDescriptions: [
         {

@@ -10,14 +10,8 @@ import {
   CONTACT_GITHUB,
   CONTACT_LINKEDIN,
   CONTACT_MESSENGERS,
-  CONTACT_PHONES,
 } from "src/common/constants/contacts";
-import {
-  MailIcon,
-  MESSENGER_ICON,
-  PROFILE_ICON,
-  PhoneIcon,
-} from "src/common/icon/socialIcons";
+import { MailIcon, MESSENGER_ICON, PROFILE_ICON } from "src/common/icon/socialIcons";
 import { trackEvent } from "src/common/utils/trackAnalytics";
 import { usePressAnimation } from "src/common/lib/usePressAnimation";
 import { AnalyticsEvent } from "src/common/constants/analytics";
@@ -146,7 +140,6 @@ const PAGE_CONTACTS: {
     icon: PROFILE_ICON.LinkedIn,
     external: true,
   },
-  { ...CONTACT_PHONES[0], channel: "phone", icon: <PhoneIcon /> },
   {
     ...CONTACT_GITHUB,
     channel: "github",

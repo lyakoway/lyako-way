@@ -8,8 +8,8 @@ export const SITE_NAME = "LYAKOWAY";
 export const SITE_TITLE = "LYAKOWAY — Мазуренко Алексей, AI / LLM Engineer";
 
 export const SITE_DESCRIPTION =
-  "Мазуренко Алексей (lyakoway) — AI / LLM Engineer из Москвы: production RAG, " +
-  "AI-агенты, Text-to-SQL. Портфолио, резюме, контакты. Открыт к удалёнке и переезду.";
+  "Мазуренко Алексей (lyakoway) — AI / LLM Engineer: production RAG, " +
+  "AI-агенты, Text-to-SQL. Портфолио, резюме, контакты.";
 
 export const OG_IMAGE = `${SITE_URL}/static/og/lyakoway-og.png`;
 
@@ -28,12 +28,6 @@ export const PERSON_JSON_LD = {
       url: SITE_URL,
       image: `${SITE_URL}/static/favicons/apple-icon.png`,
       email: "mailto:lyakoway@gmail.com",
-      telephone: "+7-977-270-09-30",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Москва",
-        addressCountry: "RU",
-      },
       knowsAbout: [
         "AI",
         "LLM",

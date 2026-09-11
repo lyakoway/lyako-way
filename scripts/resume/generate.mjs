@@ -39,7 +39,6 @@ const content = {
       education: "Образование",
     },
     contacts: {
-      phone: { label: "Телефон", value: "+7 (977) 270-09-30", icon: "phone" },
       email: { label: "Email", value: "lyakoway@gmail.com", icon: "mail" },
       github: {
         label: "GitHub",
@@ -58,16 +57,6 @@ const content = {
         value: "lyakoway.vercel.app/contacts",
         href: "https://lyakoway.vercel.app/contacts",
         icon: "globe",
-      },
-      format: {
-        label: "Локация",
-        value: "Москва (UTC+3) · удалёнка / готов к переезду",
-        icon: "briefcase",
-      },
-      languages: {
-        label: "Языки",
-        value: "English — B2 · русский — родной",
-        icon: "languages",
       },
     },
     highlights: [
@@ -98,7 +87,6 @@ const content = {
         role: "AI / LLM Engineer",
         company: "МТС Web Services (MWS AI)",
         period: "апрель 2024 — н. в.",
-        place: "Москва",
         projects: [
           {
             title: "RAG Chat — AI-ассистент с Retrieval-Augmented Generation",
@@ -162,7 +150,6 @@ const content = {
         role: "Senior Frontend Developer",
         company: "МТС Web Services",
         period: "февраль 2019 — апрель 2024",
-        place: "Москва",
         projects: [
           { title: "МТС Профиль", text: "Модуль хранения и визуализации клиентских данных с управлением доступом для продуктов экосистемы." },
           { title: "Экосистемные виджеты", text: "Встраиваемый модуль навигации и персонализации для b2c/b2b-продуктов." },
@@ -230,17 +217,6 @@ const content = {
         href: "https://lyakoway.vercel.app/contacts",
         icon: "globe",
       },
-      format: {
-        label: "Location",
-        value: "Moscow (UTC+3) · open to remote and relocation",
-        icon: "briefcase",
-      },
-      languages: {
-        label: "Languages",
-        value: "English — B2 · Russian — native",
-        icon: "languages",
-      },
-      phone: { label: "Phone", value: "+7 (977) 270-09-30", icon: "phone" },
     },
     highlights: [
       "**~2,000 docs · ~200 questions/day · Recall@1 87% held-out**",
@@ -270,7 +246,6 @@ const content = {
         role: "AI / LLM Engineer",
         company: "MTS Web Services (MWS AI)",
         period: "Apr 2024 — present",
-        place: "Moscow",
         projects: [
           {
             title: "RAG Chat — AI assistant with Retrieval-Augmented Generation",
@@ -334,7 +309,6 @@ const content = {
         role: "Senior Frontend Developer",
         company: "MTS Web Services",
         period: "Feb 2019 — Apr 2024",
-        place: "Moscow",
         projects: [
           { title: "MTS Profile", text: "A module for storing and visualizing customer data with access management across ecosystem products." },
           { title: "Ecosystem widgets", text: "An embeddable navigation and personalization module for b2c/b2b products." },
@@ -529,7 +503,7 @@ const jobHtml = (job, data, t, { plain = false, breakBeforeResults = false } = {
     <div class="job">
       <div class="job-head">
         <span class="job-role">${esc(job.role)}</span>
-        <span class="job-period">${esc(job.period)} · ${esc(job.place)}</span>
+        <span class="job-period">${esc(job.period)}</span>
       </div>
       <div class="job-company">${esc(job.company)}</div>
 

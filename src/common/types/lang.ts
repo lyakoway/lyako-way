@@ -607,10 +607,7 @@ export interface SidebarProps {
   brandTagline: string;
   settings: string;
   emailTitle: string;
-  phoneTitle: string;
   messengersTitle: string;
-  locationTitle: string;
-  location: string;
 }
 
 export interface ErrorPageProps {

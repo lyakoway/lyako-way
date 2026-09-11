@@ -8,18 +8,8 @@ import ButtonHeart from "src/ui/ButtonHeart";
 import ButtonWeather from "src/ui/ButtonWeather";
 import ThemeDarkLight from "src/ui/ThemeDarkLight";
 
-import {
-  CONTACT_EMAIL,
-  CONTACT_MESSENGERS,
-  CONTACT_PHONES,
-} from "src/common/constants/contacts";
-import {
-  MESSENGER_ICON,
-  MailIcon,
-  PhoneIcon,
-  ChatIcon,
-  PinIcon,
-} from "src/common/icon/socialIcons";
+import { CONTACT_EMAIL, CONTACT_MESSENGERS } from "src/common/constants/contacts";
+import { MESSENGER_ICON, MailIcon, ChatIcon } from "src/common/icon/socialIcons";
 
 import AvatarHead from "src/ui/AvatarHead";
 import BrandMark from "src/ui/BrandMark";
@@ -132,29 +122,6 @@ const Sidebar = () => {
           <ContactsList>
             <Reveal as={ContactItem}>
               <RowIconBox>
-                <PhoneIcon />
-              </RowIconBox>
-              <ContactInfo>
-                <ContactTitle>{sidebar.phoneTitle}</ContactTitle>
-                {CONTACT_PHONES.map((phone) => (
-                  <a
-                    key={phone.href}
-                    href={phone.href}
-                    onClick={() =>
-                      trackEvent(AnalyticsEvent.CONTACT_CLICK, {
-                        channel: "phone",
-                        placement: "sidebar",
-                      })
-                    }
-                  >
-                    {phone.label}
-                  </a>
-                ))}
-              </ContactInfo>
-            </Reveal>
-
-            <Reveal as={ContactItem} delay={90}>
-              <RowIconBox>
                 <ChatIcon />
               </RowIconBox>
               <ContactInfo>
@@ -192,16 +159,6 @@ const Sidebar = () => {
                     </a>
                   ))}
                 </MessengerLinks>
-              </ContactInfo>
-            </Reveal>
-
-            <Reveal as={ContactItem} delay={180}>
-              <RowIconBox>
-                <PinIcon />
-              </RowIconBox>
-              <ContactInfo>
-                <ContactTitle>{sidebar.locationTitle}</ContactTitle>
-                <address>{sidebar.location}</address>
               </ContactInfo>
             </Reveal>
           </ContactsList>
