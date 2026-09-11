@@ -1623,11 +1623,20 @@ export const KeyResultsLimitation = styled.p`
 
 export const CalloutCard = styled.div`
   background: ${PANEL_ELEVATED};
-  border: 1px solid ${({ theme }) => theme.color.basic.primary};
+  /* Рамка нейтральная — как у остальных подложек; акцент остаётся
+     в штрихе заголовка (CalloutCaption). */
+  border: 1px solid ${PANEL_BORDER};
   border-radius: 14px;
   padding: 18px 20px;
   display: grid;
   gap: 10px;
+  /* Подсветка при наведении — как у ListCard. */
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 `;
 
 export const CalloutCaption = styled.p`
