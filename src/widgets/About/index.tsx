@@ -200,7 +200,7 @@ const About = () => {
       </Reveal>
 
       {/* Обо мне — пунктами с жирными врезками */}
-      <Reveal as={SectionBlock} delay={90}>
+      <Reveal as={SectionBlock} delay={90} x={64} y={0}>
         <SectionHead icon={SECTION_ICONS.about} title={page.about.title} />
         <AboutBullets>
           {page.about.items.map((item, i) => (
@@ -283,7 +283,7 @@ const About = () => {
         </ApproachDiagram>
 
         {/* Инженерный цикл — цепочка шагов без пояснений */}
-        <CycleBlock>
+        <Reveal as={CycleBlock} x={64} y={0}>
           <SectionHead
             icon={SECTION_ICONS.cycle}
             title={page.approach.cycle.title}
@@ -298,11 +298,11 @@ const About = () => {
               </React.Fragment>
             ))}
           </PipelineFlow>
-        </CycleBlock>
+        </Reveal>
       </Reveal>
 
       {/* End-to-End Engineering — одна строка-пайплайн */}
-      <Reveal as={SectionBlock} delay={210}>
+      <Reveal as={SectionBlock} delay={210} x={64} y={0}>
         <SectionHead
           icon={SECTION_ICONS.engineering}
           title={page.engineering.title}

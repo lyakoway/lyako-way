@@ -44,7 +44,19 @@ export const AboutText = styled.div`
 // набор одиночных абзацев).
 export const AboutBullets = styled.ul`
   margin: 16px 0 0;
-  padding: 0;
+  padding: 14px 16px;
+  /* Подложка-карточка — та же, что у цепочек шагов и строк стека. */
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  /* Подсветка при наведении — как у строк стека (.stack-section-row). */
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
+
   list-style: none;
   display: grid;
   gap: 10px;
@@ -466,12 +478,25 @@ export const StackGroupTitle = styled.h4`
 `;
 
 // Пайплайн: чипы-шаги, стрелки между ними — снаружи и белые.
+// Подложка-карточка под цепочкой — та же, что у строк стека
+// (.stack-section-row): фон + рамка + скругление.
 export const PipelineFlow = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
   margin: 14px 0;
+  padding: 14px 16px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  border-radius: 12px;
+  /* Подсветка при наведении — как у строк стека (.stack-section-row). */
+  transition: border-color 0.25s ease, background 0.25s ease;
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
+  }
 
   .arrow {
     color: ${PANEL_TEXT};
