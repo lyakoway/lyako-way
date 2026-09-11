@@ -11,6 +11,54 @@ import {
 import { runningBorder } from "src/common/lib/runningBorder";
 import { pressedFill } from "src/common/lib/usePressAnimation";
 
+export const HeroSection = styled.header`
+  margin: 0 0 24px;
+  display: grid;
+  gap: 10px;
+`;
+
+export const HeroTitle = styled.h3`
+  margin: 0;
+  color: ${PANEL_TEXT};
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+
+  @media (min-width: 580px) {
+    font-size: 28px;
+  }
+`;
+
+export const HeroText = styled.p`
+  margin: 0;
+  max-width: 640px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+`;
+
+export const HeroChips = styled.p`
+  position: relative;
+  margin: 0;
+  padding-left: 11px;
+  color: ${PANEL_TEXT_SECONDARY};
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 1px;
+    bottom: 1px;
+    width: 3px;
+    border-radius: 2px;
+    background: ${({ theme }) => theme.color.basic.primary};
+  }
+`;
+
 export const FilterBar = styled.div`
   display: flex;
   flex-wrap: wrap;

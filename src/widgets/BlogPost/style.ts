@@ -1,4 +1,6 @@
 import styled, { css } from "styled-components";
+import Link from "next/link";
+import { ArticleTitle } from "src/ui/Card";
 import {
   PANEL_TEXT,
   PANEL_TEXT_SECONDARY,
@@ -9,6 +11,11 @@ import {
 } from "src/common/lib/panelStyles";
 
 /* ——— Поиск внутри статьи ——— */
+
+// Заголовок поста: без capitalize — иначе по-русски «От Ноутбука К Тому».
+export const PostTitle = styled(ArticleTitle)`
+  text-transform: none;
+`;
 
 export const SearchRow = styled.div`
   display: flex;
@@ -313,5 +320,39 @@ export const NotFound = styled.p`
   a {
     color: ${({ theme }) => theme.color.basic.primaryLight};
     text-decoration: none;
+  }
+`;
+
+export const Related = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid ${PANEL_BORDER};
+`;
+
+export const RelatedLink = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 10px;
+  background: ${PANEL_ELEVATED};
+  border: 1px solid ${PANEL_BORDER};
+  color: ${PANEL_TEXT};
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+
+  span {
+    color: ${({ theme }) => theme.color.basic.primaryLight};
+  }
+
+  &:hover {
+    background: ${PANEL_ELEVATED_HOVER};
+    border-color: rgba(255, 255, 255, 0.22);
   }
 `;

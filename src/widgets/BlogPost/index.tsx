@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { useSelectorTyped } from "src/store";
-import { Article, ArticleTitle } from "src/ui/Card";
+import { Article } from "src/ui/Card";
 import { Reveal } from "src/ui/Reveal";
 import { Pagination } from "src/ui/Pagination";
 import { getReadMinutes } from "src/common/utils/getReadMinutes";
@@ -28,6 +28,9 @@ import {
   MatchCount,
   NavBtn,
   Mark,
+  Related,
+  RelatedLink,
+  PostTitle,
 } from "./style";
 
 // Экранируем спецсимволы для RegExp (поисковый запрос — произвольный текст).
@@ -66,12 +69,10 @@ const Highlighted: React.FC<{
     </>
   );
 };
-// WIP-плашка — тот же вид, что на странице проекта в Портфолио.
-import { WipTag } from "src/widgets/PortfolioProject/style";
 
 const BlogPost = ({ slug }: { slug: string }) => {
   const {
-    lang: { propsPortfolioListBlog, blog, portfolio },
+    lang: { propsPortfolioListBlog, blog },
   } = useSelectorTyped(({ lang }) => lang);
 
   const post = propsPortfolioListBlog.find(
@@ -257,7 +258,7 @@ const BlogPost = ({ slug }: { slug: string }) => {
       </Breadcrumb>
 
       <Reveal as="header">
-        <ArticleTitle>{title}</ArticleTitle>
+        <PostTitle>{title}</PostTitle>
       </Reveal>
 
       {!post ? (
@@ -266,8 +267,6 @@ const BlogPost = ({ slug }: { slug: string }) => {
         </NotFound>
       ) : (
         <>
-          <WipTag>{portfolio.wip}</WipTag>
-
           {post.textBlogHeader && (
             <Reveal as={Lead}>{post.textBlogHeader}</Reveal>
           )}
@@ -407,6 +406,17 @@ const BlogPost = ({ slug }: { slug: string }) => {
             totalPages={totalPages}
             onChange={handlePageChange}
           />
+
+          {post.related && post.related.length > 0 && (
+            <Related>
+              {post.related.map((item) => (
+                <RelatedLink key={item.href} href={item.href}>
+                  {blog.caseLink}
+                  <span>{item.label}</span>
+                </RelatedLink>
+              ))}
+            </Related>
+          )}
         </>
       )}
     </Article>

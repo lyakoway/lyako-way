@@ -10,6 +10,10 @@ import { usePressAnimation } from "src/common/lib/usePressAnimation";
 import { AnalyticsEvent } from "src/common/constants/analytics";
 
 import {
+  HeroSection,
+  HeroTitle,
+  HeroText,
+  HeroChips,
   FilterBar,
   FilterChip,
   List,
@@ -92,6 +96,12 @@ const Blog = () => {
     <Article>
       <Reveal as="header">
         <ArticleTitle>{title}</ArticleTitle>
+      </Reveal>
+
+      <Reveal as={HeroSection} delay={60}>
+        <HeroTitle>{blog.blogTitle}</HeroTitle>
+        <HeroText>{blog.blogText}</HeroText>
+        <HeroChips>{blog.chips}</HeroChips>
       </Reveal>
 
       <Reveal as={FilterBar} delay={90}>

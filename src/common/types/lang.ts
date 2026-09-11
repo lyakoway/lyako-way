@@ -37,6 +37,8 @@ export interface BlogProps {
   readMore: string;
   readTimeUnit: string;
   searchPlaceholder: string;
+  chips: string;
+  caseLink: string;
 }
 
 export interface PortfolioListBlogProps {
@@ -53,6 +55,7 @@ export interface PortfolioListBlogProps {
   portfolioText: string;
   textBlogHeader: string;
   body?: string[];
+  related?: { label: string; href: string }[];
 }
 
 export interface CooperationProps {
