@@ -6,7 +6,7 @@ export const portfolioHeader: PortfolioHeaderProps = {
   textNotes: "AI engineering notes",
   textValueBlog: `Blog`,
   date: "Date of creation:",
-  technology: "Technology:",
+  technology: "Technologies:",
   linkGithub: "Link to GitHub:",
   link: "Link:",
   features: "Features",

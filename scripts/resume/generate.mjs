@@ -78,7 +78,7 @@ const content = {
     ],
     profile: [
       "**AI / LLM-инженер** с 7+ годами в разработке ПО, из них **2+ года — production LLM-системы** в МТС Web Services (MWS AI) — AI-подразделении МТС, одного из крупнейших телеком-операторов России (~80 млн+ абонентов). Вывел в production два внутренних продукта: RAG-ассистент для документов (**~2 000 документов, held-out Recall@1 53% dense-only → 87% hybrid**) и мультиагентную аналитическую платформу (**~85% нормализованной точности SQL**), сократившую подготовку отчётности **с 2 часов до 2 минут.**",
-      "**Продакшн развёрнут внутри МТС (~12 команд, ~200 RAG-вопросов/день). Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС, продовые данные под NDA.** Для RAG в production — **GLM-5.3-flash** (TTFT ~2,5–3 с, стоимость vs GPT/Claude). OpenAI, Anthropic и Ollama взаимозаменяемы.",
+      "**Продакшн развёрнут внутри МТС (~12 команд, ~200 RAG-вопросов/день). Публичные GitHub-демо — самостоятельные личные проекты того же класса задач, не исходный код МТС. Продовые данные под NDA.** Для RAG в production — **GLM-5.3-flash** (TTFT ~2,5–3 с, стоимость vs GPT/Claude). OpenAI, Anthropic и Ollama взаимозаменяемы.",
       "Веду путь **от прототипа до production:** Python / FastAPI, гибридный поиск, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
     ],
     siteLink: {
@@ -250,7 +250,7 @@ const content = {
     ],
     profile: [
       "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (**~2,000 docs, held-out Recall@1 53% dense-only → 87% hybrid**) and a multi-agent analytics platform (**~85% normalized SQL result correctness**) that **cut report preparation from 2 hours to 2 minutes.**",
-      "**Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code, production data stays under NDA.** RAG production default is **GLM-5.3-flash** (TTFT ~2.5–3 s, cost vs GPT/Claude). OpenAI, Anthropic and Ollama are interchangeable.",
+      "**Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code. Production data stays under NDA.** RAG production default is **GLM-5.3-flash** (TTFT ~2.5–3 s, cost vs GPT/Claude). OpenAI, Anthropic and Ollama are interchangeable.",
       "**Own the path from prototype to production:** Python / FastAPI, hybrid retrieval, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
     ],
     siteLink: {

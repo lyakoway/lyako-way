@@ -16,7 +16,7 @@ export const resumeCv: ResumeCvProps = {
   profileTitle: "Profile",
   profile: [
     "AI / LLM engineer with 7+ years in software engineering, including 2+ years building production LLM systems at MTS Web Services (MWS AI) — the AI division of MTS, one of Russia's largest telecom operators (~80M+ subscribers). Shipped two internal products end-to-end: a document RAG assistant (~2,000 docs, held-out Recall@1 53% dense-only → 87% hybrid) and a multi-agent analytics platform (~85% normalized SQL result correctness) that cut report preparation from 2 hours to 2 minutes.",
-    "Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code, production data stays under NDA. RAG production default is GLM-5.3-flash (TTFT ~2.5–3 s, cost vs GPT/Claude). OpenAI, Anthropic and Ollama are interchangeable.",
+    "Internal production at MTS (~12 teams, ~200 RAG questions/day). Public GitHub demos are independently built personal projects of the same problem class — not MTS source code. Production data stays under NDA. RAG production default is GLM-5.3-flash (TTFT ~2.5–3 s, cost vs GPT/Claude). OpenAI, Anthropic and Ollama are interchangeable.",
     "Own the path from prototype to production: Python / FastAPI, hybrid retrieval, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
   ],
   highlightsTitle: "Highlights",

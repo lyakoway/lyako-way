@@ -1,7 +1,7 @@
 import { PortfolioListProps, PortfolioProps } from "src/common/types/lang";
 
 export const portfolio: PortfolioProps = {
-  title: "Недавно разработаны",
+  title: "Недавние проекты",
   buttonText: "Открыть портфолио",
   portfolioNameList: "Портфолио",
   portfolioTextTitle: "Добро пожаловать в портфолио!",
@@ -1098,7 +1098,7 @@ export const propsPortfolioList: PortfolioListProps[] = [
     id: "ai-agents",
     ...ICON_META,
     hrefPortfolio: "",
-    portfolioNameList: "Мульти-агентная система",
+    portfolioNameList: "Мультиагентная система",
     portfolioDataTime: "",
     hrefNameList: "ai-agents",
     direction: "AI-агенты",

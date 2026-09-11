@@ -10,7 +10,7 @@ export const propsAdvantages: AdvantagesProps[] = [
     id: "1",
     title: "AI-агенты и оркестрация",
     label:
-      "Проектирую AI-агентов под реальные бизнес-сценарии: workflow, function / tool calling, оркестрация мульти-агентных систем, обработка ошибок и восстановление после сбоев.",
+      "Проектирую AI-агентов под реальные бизнес-сценарии: workflow, function / tool calling, оркестрация мультиагентных систем, обработка ошибок и восстановление после сбоев.",
     value: "Agents",
     icon: "agent",
   },

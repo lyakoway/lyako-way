@@ -23,7 +23,7 @@ export const portfolioDevelopment: ListBlogProps[] = [
   },
   {
     id: "5",
-    portfolioButtonText: "Эксперементы",
+    portfolioButtonText: "Эксперименты",
     value: "Experiments",
   },
 ];

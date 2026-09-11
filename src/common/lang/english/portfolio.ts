@@ -1,10 +1,10 @@
 import { PortfolioListProps, PortfolioProps } from "src/common/types/lang";
 
 export const portfolio: PortfolioProps = {
-  title: "Newly developed",
+  title: "Recent projects",
   buttonText: "Open portfolio",
   portfolioNameList: "Portfolio",
-  portfolioTextTitle: "Welcome to portfolio!",
+  portfolioTextTitle: "Welcome to the portfolio!",
   portfolioText:
     "The portfolio shows production-oriented AI systems I designed and built end-to-end — RAG, AI agents, Text-to-SQL and evaluation.\nPublic demos are independently built personal projects of the same problem class as internal MTS systems — not MTS source code.\nEach case lists the problem, architecture, stack and measured results.",
   all: "All",
@@ -14,7 +14,7 @@ export const portfolio: PortfolioProps = {
   hero: {
     role: "AI / LLM engineering",
     title:
-      "Two production systems: document RAG and multi-agent analytics. The pipeline is chosen on a held-out eval, not on the popular paper.",
+      "Two production systems: document RAG and multi-agent analytics. The pipeline is chosen on a held-out eval, not from a popular paper.",
     chips: "RAG · AI Agents · Text-to-SQL · Evaluation",
   },
   intro:
@@ -38,7 +38,7 @@ export const portfolio: PortfolioProps = {
     },
     {
       value: "2h → 2min",
-      label: "analytical result preparation",
+      label: "report prep",
       note: "AI Data Pilot",
     },
   ],

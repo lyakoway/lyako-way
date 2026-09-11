@@ -2,7 +2,7 @@ import { ContactsPageProps } from "src/common/types/lang";
 
 export const contactsPage: ContactsPageProps = {
   hero: {
-    title: "Open to remote work, relocation and applied AI problems",
+    title: "Open to remote work, relocation and applied AI tasks",
     role: "AI / LLM Engineer",
     text: "I build production-ready AI systems that work with data, documents and tools.",
     chips: "RAG · AI Agents · Text-to-SQL · Evaluation",
@@ -75,6 +75,6 @@ export const contactsPage: ContactsPageProps = {
   },
   contactTitle: "Get in touch",
   intro:
-    "Get in touch in any convenient way — I'll reply and we'll discuss your task. Message me on a messenger, by email, or fill in the form below.",
+    "Reach me in any convenient way — I'll reply and we'll discuss your task. Message me on a messenger, by email, or fill in the form below.",
   profilesTitle: "Profiles",
 };

@@ -19,7 +19,7 @@ export const contactForm: ContactFormProps = {
   errorDescriptionPhoneLength: "The number is incomplete",
   errorDescriptionPhoneOperator: "",
   errorDescriptionEmailLength: "The email is too long",
-  errorDescriptionEmailValidate: "Check Email",
+  errorDescriptionEmailValidate: "Check the email",
   customValidityName: "The Name field is required!",
   customValidityPhone: "Check the phone number",
   customValidityEmail: "The Email field is required!",

@@ -22,7 +22,7 @@ export const personal: PersonalProps = {
     hero: {
       role: "AI / LLM Engineer",
       tagline:
-        "I ship production RAG and Text-to-SQL agents at MTS — the pipeline is chosen on a held-out eval, not on the popular paper.",
+        "I ship production RAG and Text-to-SQL agents at MTS — the pipeline is chosen on a held-out eval, not from a popular paper.",
     },
     stats: [
       { value: "2 hours → 2 minutes", label: "Report preparation" },
@@ -33,12 +33,12 @@ export const personal: PersonalProps = {
       title: "About me",
       items: [
         "**AI / LLM engineer** with 7+ years in software engineering, including **2+ years building production LLM systems** at **MTS Web Services (MWS AI)** — the AI division of MTS (~80M+ subscribers). Focus — RAG, AI agents and Text-to-SQL.",
-        "**Own the path from prototype to production:** Python / FastAPI, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
+        "**I own the path from prototype to production:** Python / FastAPI, held-out evaluation, React / Next.js, Docker / Kubernetes / CI/CD.",
       ],
     },
     products: {
       title: "AI products",
-      note: "Public GitHub demos are independently built personal projects of the same problem class — not MTS source code, production data stays under NDA.",
+      note: "Public GitHub demos are independently built personal projects of the same problem class — not MTS source code. Production data stays under NDA.",
       items: [
         {
           name: "RAG Chat",
