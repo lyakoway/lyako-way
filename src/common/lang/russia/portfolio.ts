@@ -504,6 +504,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioDataTime: "10.08.2026",
     hrefNameList: "ai-data-pilot",
     likeable: true,
+    thumbLight: "/static/portfolio/ai-data-pilot-light.png",
+    thumbDark: "/static/portfolio/ai-data-pilot-dark.png",
     direction: "AI-агенты",
     cardDescription:
       "Мультиагентная аналитическая платформа, превращающая вопрос на естественном языке в SQL, анализ данных и готовый аналитический результат.",
@@ -1093,6 +1095,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
       footnote:
         "Тесты воспроизводимы: cd backend && pytest — изолированные temp-БД, fake-провайдеры, без API-ключей.",
     },
+    screenshots: [
+      "/static/portfolio/ai-data-pilot-dark.png",
+      "/static/portfolio/ai-data-pilot-light.png",
+    ],
   },
   {
     id: "ai-agents",

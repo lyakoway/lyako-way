@@ -48,6 +48,9 @@ export const Modal: FC = () => {
   }, [isOpened]);
 
   if (isOpened && content) {
+    // Модалка картинки рендерит скриншот на всю площадь окна — крестик
+    // рисуем контрастным чипом, иначе он теряется на светлом скриншоте.
+    const overImage = content.type === "image";
     return (
       <Overlay onClick={onCloseModal} $backgroundOverlay={backgroundOverlay}>
         <ModalComponent
@@ -55,7 +58,7 @@ export const Modal: FC = () => {
           $background={background}
           onClick={(e) => e.stopPropagation()}
         >
-          <IconClose $bright={!!background} onClick={onCloseModal}>
+          <IconClose $bright={!!background} $chip={overImage} onClick={onCloseModal}>
             <CloseOutline width={24} height={24} />
           </IconClose>
           <Content>{content ? renderModalContent(content) : null}</Content>

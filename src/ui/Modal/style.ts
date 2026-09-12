@@ -83,7 +83,7 @@ export const ModalComponent = styled.div<{
   animation-fill-mode: forwards; /* Чтобы элемент оставался в конечном состоянии анимации */
 `;
 
-export const IconClose = styled.div<{ $bright?: boolean }>`
+export const IconClose = styled.div<{ $bright?: boolean; $chip?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,6 +125,33 @@ export const IconClose = styled.div<{ $bright?: boolean }>`
     fill: red;
     stroke: red;
   }
+
+  /* Вариант «поверх скриншота» (модалка картинки): тёмный полупрозрачный
+     чип с белым крестиком — читается на любом фоне, светлый скриншот
+     или тёмный. */
+  ${({ $chip }) =>
+    $chip &&
+    css`
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      backdrop-filter: blur(2px);
+
+      &:hover {
+        background: rgba(0, 0, 0, 0.75);
+      }
+
+      &:hover:before {
+        display: none;
+      }
+
+      &,
+      &:hover svg {
+        fill: #ffffff;
+        stroke: #ffffff;
+      }
+    `}
 `;
 
 export const Content = styled.div`

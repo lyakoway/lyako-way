@@ -498,6 +498,8 @@ export const propsPortfolioList: PortfolioListProps[] = [
     portfolioDataTime: "August 10, 2026",
     hrefNameList: "ai-data-pilot",
     likeable: true,
+    thumbLight: "/static/portfolio/ai-data-pilot-light.png",
+    thumbDark: "/static/portfolio/ai-data-pilot-dark.png",
     direction: "AI agents",
     cardDescription:
       "A multi-agent analytics platform that turns a natural-language question into SQL, data analysis and a ready analytical result.",
@@ -932,6 +934,10 @@ export const propsPortfolioList: PortfolioListProps[] = [
       footnote:
         "Tests are reproducible: cd backend && pytest — isolated temp DBs, fake providers, no API keys.",
     },
+    screenshots: [
+      "/static/portfolio/ai-data-pilot-dark.png",
+      "/static/portfolio/ai-data-pilot-light.png",
+    ],
   },
   {
     id: "ai-agents",
